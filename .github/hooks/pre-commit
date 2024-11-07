@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+echo "Running pre-commit hooks..."
+
+# Run make format
+echo "Running formatter..."
+make format
+FORMAT_EXIT_CODE=$?
+
+if [ $FORMAT_EXIT_CODE -ne 0 ]; then
+    echo "❌ Formatting failed. Please fix the issues and try committing again."
+    exit 1
+fi
+
+# Run make lint
+echo "Running linter..."
+make lint
+LINT_EXIT_CODE=$?
+
+if [ $LINT_EXIT_CODE -ne 0 ]; then
+    echo "❌ Linting failed. Please fix the issues and try committing again."
+    exit 1
+fi
+
+echo "✅ All checks passed!"
+exit 0
