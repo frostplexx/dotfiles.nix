@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
-let
-  # Get the p10k theme from nixpkgs
-  p10k = pkgs.zsh-powerlevel10k;
-in
 {
+
   programs.zsh = {
     enable = true;
 
@@ -17,20 +14,15 @@ in
     # Load extra plugins
     plugins = [
       {
-        name = "powerlevel10k";
-        src = p10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
         name = "zsh-autopair";
         src = pkgs.zsh-autopair;
         file = "share/zsh-autopair/autopair.zsh";
       }
     ];
 
-
     # Load extra zsh configuration from initExtra.zsh
     initExtra = builtins.readFile ./initExtra.zsh;
+    completionInit = builtins.readFile ./completions.zsh;
 
     shellAliases = {
       v = "nvim"; # Neovim quick alias
@@ -66,7 +58,6 @@ in
   # Ensure cache directory exists for instant prompt
   home.file = {
     "${config.xdg.cacheHome}/.keep".text = "";
-    ".p10k.zsh".text = builtins.readFile ./p10k.zsh;
     ".hushlogin".text = builtins.readFile ./hushlogin;
   };
 
@@ -123,6 +114,16 @@ in
         "--color=fg:#cad3f5,header:#cad3f5,info:#c6a0f6,pointer:#f4dbd6"
         "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
       ];
+    };
+
+
+    starship = {
+      enable = true;
+      enableTransience = true;
+      enableZshIntegration = true;
+      settings = {
+        add_newline = false;
+      };
     };
   };
 }

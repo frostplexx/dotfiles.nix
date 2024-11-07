@@ -17,7 +17,7 @@
     # Enable networking
     networkmanager.enable = true;
 
-    # enable wake onm
+    # enable wake on lan
     interfaces.enp4s0.wakeOnLan.enable = true;
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
