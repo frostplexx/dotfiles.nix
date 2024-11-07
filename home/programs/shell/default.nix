@@ -57,18 +57,15 @@
 
   # Ensure cache directory exists for instant prompt
   home.file = {
-    "${config.xdg.cacheHome}/.keep".text = "";
     ".hushlogin".text = builtins.readFile ./hushlogin;
   };
 
 
   # Install required packages
   home.packages = with pkgs; [
-    zsh-powerlevel10k
     zsh-syntax-highlighting
     zsh-autosuggestions
     zsh-autopair
-    fd
   ];
 
   # Shell utilities
@@ -94,6 +91,7 @@
     # Terminal file manager
     yazi = {
       enable = true;
+      enableZshIntegration = true;
       package = pkgs.yazi.override {
         _7zz = pkgs._7zz.override {
           useUasm = pkgs.stdenv.isLinux;
@@ -123,6 +121,7 @@
       enableZshIntegration = true;
       settings = {
         add_newline = false;
+        scan_timeout = 10;
       };
     };
   };
