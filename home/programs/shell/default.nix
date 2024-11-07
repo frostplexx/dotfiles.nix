@@ -29,7 +29,6 @@
       g = "lazygit"; # Add lazygit alias
       c = "clear";
       q = "exit";
-      addpkg = "$HOME/dotfiles/home/programs/shell/package.sh"; # Package manager for my flake; Lets you update, install, search, uninstall and list packages from nix and homebrew
 
       # More aliases for other apps
       ls = "eza --icons=auto --git --header";
@@ -55,7 +54,7 @@
 
 
 
-  # Ensure cache directory exists for instant prompt
+  # Hushlogin to not show login message
   home.file = {
     ".hushlogin".text = builtins.readFile ./hushlogin;
   };
@@ -117,7 +116,6 @@
 
     starship = {
       enable = true;
-      enableTransience = true;
       enableZshIntegration = true;
       settings = {
         add_newline = false;
