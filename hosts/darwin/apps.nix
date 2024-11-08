@@ -106,7 +106,6 @@
       "1password"
       "orbstack"
       "tower"
-      "termius"
       "proxyman"
     ];
   };
