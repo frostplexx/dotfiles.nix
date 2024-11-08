@@ -16,6 +16,10 @@
     extraModulePackages = [ ];
   };
 
+  hardware = {
+    xone.enable = true;
+  };
+
   fileSystems."/" =
     {
       device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";
