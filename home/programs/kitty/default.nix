@@ -72,6 +72,7 @@
       startup_session = "./startup.conf";
       allow_remote_control = "yes";
       listen_on = "unix:/tmp/mykitty";
+      remote_kitty = "if-needed";
 
       # Fonts
       font_family = "JetBrainsMono Nerd Font Mono";
@@ -121,6 +122,10 @@
     # Copy pass_keys.py
     "kitty/pass_keys.py".source = ./pass_keys.py;
 
+    # Copy ssh.conf
+    "kitty/ssh.conf".source = ./ssh.conf;
+
+    # Copy theme
 
     # Copy icon
     "kitty/kitty.app.png".source = ./kitty.app.png;
