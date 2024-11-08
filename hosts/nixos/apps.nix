@@ -32,6 +32,7 @@
     pandoc
     fastfetch
     ripgrep
+    sshpass
 
     # GUI Applications
     obsidian

@@ -37,6 +37,9 @@
       vimdiff = "nvim -d";
       cd = "z";
       copy = "rsync -avz --partial --progress";
+      transfer = "kitten transfer --direction=receive";
+      compress_to_mp4 = "/Users/daniel/dotfiles.nix/home/programs/shell/scripts/compress_mp4.sh";
+      ssh = "/Users/daniel/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
     };
 
     # History Settings
@@ -112,7 +115,6 @@
         "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
       ];
     };
-
 
     starship = {
       enable = true;

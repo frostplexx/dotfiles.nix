@@ -44,6 +44,7 @@
     fastfetch
     nixfmt-rfc-style
     ripgrep
+    sshpass
 
     # GUI Applications
     obsidian

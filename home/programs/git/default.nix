@@ -28,12 +28,21 @@
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
+      diff = {
+        tool = "kitty";
+        guitool = "kittygui";
+      };
+      difftool = {
+        prompt = false;
+        trustExitCode = true;
+        kitty = {
+          cmd = "kitten diff --to $LOCAL --from $REMOTE";
+        };
+        kittygui = {
+          cmd = "kitten diff --to $LOCAL --from $REMOTE";
+        };
+      };
     };
-
-    # signing = {
-    #   key = "xxx";
-    #   signByDefault = true;
-    # };
 
     delta = {
       enable = true;
