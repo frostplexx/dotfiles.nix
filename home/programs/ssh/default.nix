@@ -6,7 +6,7 @@
       AddKeysToAgent yes
       ServerAliveInterval 60
       Include ~/.orbstack/ssh/config
-      IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+      IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     '';
   };
 }
