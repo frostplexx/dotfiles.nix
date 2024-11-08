@@ -106,6 +106,7 @@
       "orbstack"
       "tower"
       "termius"
+      "proxyman"
     ];
   };
 }
