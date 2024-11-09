@@ -43,11 +43,6 @@
   # TODO: make this shared between darwin and nixos
   nix = {
     settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than +5";
-    };
   };
 
   # Auto upgrade in background

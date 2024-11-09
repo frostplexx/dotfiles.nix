@@ -2,7 +2,7 @@ NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
 
 .PHONY: all deploy update lint clean repair install format
 
-all: deploy
+all: deploy clean
 
 # Full system deployment
 deploy:
@@ -14,8 +14,7 @@ deploy:
 
 # Deploy only nix-darwin changes
 deploy-darwin:
-	nix build .#darwinConfigurations.darwin.system ${NIX_FLAGS}
-	./result/sw/bin/darwin-rebuild switch --flake .#darwin
+	darwin-rebuild switch --flake .#darwin
 
 deploy-nixos:
 	sudo nixos-rebuild switch --flake .#nixos
@@ -50,6 +49,12 @@ install:
 	nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
 	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 	nix-channel --update
+	# Install nix-darwin
+	@if ! command -v darwin-rebuild > /dev/null 2>&1; then \
+		echo "Installing nix-darwin..." && \
+		nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
+		./result/bin/darwin-installer; \
+	fi
   # Set up pre commit hooks
 	git config core.hooksPath ./.github/hooks
 	# Install home-manager
