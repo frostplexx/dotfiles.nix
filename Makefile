@@ -1,6 +1,6 @@
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
 
-.PHONY: all deploy update lint clean repair install format
+.PHONY: all deploy update lint clean repair install
 
 all: deploy clean
 
@@ -68,6 +68,7 @@ install:
 
 # Check flake configuration
 lint:
+	nix --extra-experimental-features nix-command --extra-experimental-features flakes fmt
 	nix run --extra-experimental-features 'nix-command flakes' nixpkgs#statix -- check .
 
 # Clean up old generations and store
@@ -77,6 +78,3 @@ clean:
 repair:
 	git config core.hooksPath ./.github/hooks
 	sudo nix-store --verify --check-contents --repair
-
-format:
-	nix --extra-experimental-features nix-command --extra-experimental-features flakes fmt
