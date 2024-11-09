@@ -1,51 +1,53 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    version = false, -- last release is way too old and doesn't work on Windows
-    lazy = true,
-    event = "BufRead",
-    build = ":TSUpdate",
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    keys = {
-        { "<c-space>", desc = "Increment selection" },
-        { "<bs>",      desc = "Decrement selection", mode = "x" },
+  "nvim-treesitter/nvim-treesitter",
+  version = false,   -- last release is way too old and doesn't work on Windows
+  lazy = true,
+  event = "BufRead",
+  build = ":TSUpdate",
+  main = "nvim-treesitter.configs",
+  dev = true,
+  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+  keys = {
+    { "<c-space>", desc = "Increment selection" },
+    { "<bs>",      desc = "Decrement selection", mode = "x" },
+  },
+  opts = {
+    highlight = { enable = true },
+    indent = { enable = true },
+    auto_install = true,
+    ensure_installed = {
     },
-    opts = {
-        highlight = { enable = true },
-        indent = { enable = true },
-        auto_install = true,
-        ensure_installed = {
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<C-space>",
-                scope_incremental = false,
-                node_incremental = "v",
-                node_decremental = "V",
-            },
-        },
-        textobjects = {
-            move = {
-                enable = true,
-                goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
-                goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
-                goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
-                goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
-            },
-        },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<C-space>",
+        scope_incremental = false,
+        node_incremental = "v",
+        node_decremental = "V",
+      },
     },
-    config = function(_, opts)
-        if type(opts.ensure_installed) == "table" then
-            ---@type table<string, boolean>
-            local added = {}
-            opts.ensure_installed = vim.tbl_filter(function(lang)
-                if added[lang] then
-                    return false
-                end
-                added[lang] = true
-                return true
-            end, opts.ensure_installed)
+    textobjects = {
+      move = {
+        enable = true,
+        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+        goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
+        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+      },
+    },
+  },
+  config = function(_, opts)
+    if type(opts.ensure_installed) == "table" then
+      ---@type table<string, boolean>
+      local added = {}
+      opts.ensure_installed = vim.tbl_filter(function(lang)
+        if added[lang] then
+          return false
         end
-        require("nvim-treesitter.configs").setup(opts)
-    end,
+        added[lang] = true
+        return true
+      end, opts.ensure_installed)
+    end
+    require("nvim-treesitter.configs").setup(opts)
+  end,
 }

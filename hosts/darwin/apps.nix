@@ -107,6 +107,7 @@
       "orbstack"
       "tower"
       "proxyman"
+      "chromium"
     ];
   };
 }
