@@ -1,4 +1,3 @@
-{ config, pkgs, lib, inputs, vars, ... }:
 {
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
