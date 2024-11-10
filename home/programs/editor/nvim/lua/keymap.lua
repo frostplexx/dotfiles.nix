@@ -17,11 +17,20 @@ vim.keymap.set("n", "sc", ":lua require('scratch').toggle()<cr>", { desc = "togg
 
 -- lazygit
 vim.keymap.set("n", "<leader>gg", function()
-    vim.cmd("terminal lazygit")
-    vim.cmd("startinsert")
-    -- Autocmd to close the terminal when lazygit exits
-    vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
+  vim.cmd("terminal lazygit")
+  vim.cmd("startinsert")
+  -- Autocmd to close the terminal when lazygit exits
+  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
 end, { desc = "open lazygit in terminal" })
+
+
+-- yazi
+vim.keymap.set("n", "<leader>yy", function()
+  vim.cmd("terminal yazi --cwd-file=" .. vim.fn.expand("%:p:h") .. "/.yazi-cwd")
+  vim.cmd("startinsert")
+  -- Autocmd to close the terminal when lazygit exits
+  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'yazi' | bd! | endif")
+end, { desc = "open yazi in terminal" })
 
 vim.keymap.set("n", "<leader>gb", ":!git blame -c -- % <cr>", { desc = "git blame on current file" })
 
@@ -48,7 +57,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affe
 
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
-    { desc = "search and replace in file" })
+  { desc = "search and replace in file" })
 
 -- diff mode keymap
 vim.keymap.set({ "n", "v" }, "dpr", ":diffput REMOTE <cr>", { desc = "Diff Put Remote" })

@@ -96,6 +96,10 @@ outer.right =      5
 # end tell'
 # '''
 
+
+# Launch yazi wit cmd-e
+cmd-e = '''exec-and-forget kitty --name yazi --title yazi --hold -e yazi'''
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
