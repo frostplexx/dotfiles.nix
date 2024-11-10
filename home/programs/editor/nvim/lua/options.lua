@@ -29,6 +29,13 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.g.vimtex_view_method = "skim"
 
+vim.opt.numberwidth = 4                                  -- Minimal number of columns to use for the line number
+vim.opt.signcolumn = "yes:1"                             -- Always show signcolumn (after line numbers)
+vim.wo.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s' -- Custom format that places signs after numbers
+
+vim.opt.shortmess:remove('S')                            -- Show search count
+vim.opt.hlsearch = true                                  -- Highlight all matches
+
 -- Indentation and tab settings
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -51,27 +58,27 @@ vim.opt.undofile = true
 
 -- [[ Neovide Config ]]
 if vim.g.neovide then
-    vim.o.guifont = "JetbrainsMono Nerd Font:h13"
-    vim.g.neovide_padding_top = 15
-    vim.g.neovide_padding_bottom = 0
-    vim.g.neovide_padding_right = 0
-    vim.g.neovide_padding_left = 0
-    vim.g.neovide_floating_shadow = false
-    vim.g.neovide_cursor_animate_in_insert_mode = true
-    vim.g.neovide_scroll_animation_far_lines = 5
-    vim.g.neovide_hide_mouse_when_typing = true
-    vim.g.neovide_refresh_rate = 144
-    vim.g.neovide_refresh_rate_idle = 1
-    vim.g.neovide_no_idle = false
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_vfx_mode = "pixiedust"
-    vim.g.neovide_transparency = 0.0
-    vim.g.transparency = 0.75
-    vim.g.neovide_window_blurred = true
-    vim.g.neovide_floating_blur_amount_x = 5.0
-    vim.g.neovide_floating_blur_amount_y = 0.0
-    local alpha = function()
-        return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
-    end
-    vim.g.neovide_background_color = "#24273A" .. alpha()
+  vim.o.guifont = "JetbrainsMono Nerd Font:h13"
+  vim.g.neovide_padding_top = 15
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 0
+  vim.g.neovide_padding_left = 0
+  vim.g.neovide_floating_shadow = false
+  vim.g.neovide_cursor_animate_in_insert_mode = true
+  vim.g.neovide_scroll_animation_far_lines = 5
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_refresh_rate = 144
+  vim.g.neovide_refresh_rate_idle = 1
+  vim.g.neovide_no_idle = false
+  vim.g.neovide_cursor_antialiasing = true
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.g.neovide_transparency = 0.0
+  vim.g.transparency = 0.75
+  vim.g.neovide_window_blurred = true
+  vim.g.neovide_floating_blur_amount_x = 5.0
+  vim.g.neovide_floating_blur_amount_y = 0.0
+  local alpha = function()
+    return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
+  end
+  vim.g.neovide_background_color = "#24273A" .. alpha()
 end
