@@ -179,6 +179,12 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 
+ctrl-shift-h = ['join-with left', 'layout accordion' ,'mode main']
+ctrl-shift-j = ['join-with down', 'layout accordion' ,'mode main']
+ctrl-shift-k = ['join-with up',   'layout accordion' ,'mode main']
+ctrl-shift-l = ['join-with right','layout accordion' ,'mode main']
+
+
 # assign apps to workspaces
 # use `aerospace list-apps` to list open apps
 [[on-window-detected]]
