@@ -25,7 +25,7 @@ end, { desc = "open lazygit in terminal" })
 
 
 -- yazi
-vim.keymap.set("n", "<leader>ee", function()
+vim.keymap.set("n", "<leader>yy", function()
   vim.cmd("terminal yazi " .. vim.fn.expand("%:p:h"))
   vim.cmd("startinsert")
   -- Autocmd to close the terminal when yazi exits
