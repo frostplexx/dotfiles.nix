@@ -68,8 +68,12 @@ install:
 
 # Check flake configuration
 lint:
+  # Format
 	nix --extra-experimental-features nix-command --extra-experimental-features flakes fmt
+  # Linting
 	nix run --extra-experimental-features 'nix-command flakes' nixpkgs#statix -- check .
+  # Fidn dead code
+	nix run --extra-experimental-features 'nix-command flakes' nixpkgs#deadnix -- -eq .
 
 # Clean up old generations and store
 clean:
