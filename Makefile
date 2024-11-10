@@ -1,10 +1,32 @@
-# Suppress directory printing
+# Documentation (won't show in output)
+###############################################################################
+# Makefile for NixOS/nix-darwin system management
+#
+# Targets:
+# - all:      deploy changes and clean old generations
+# - deploy:   auto-detects OS and deploys appropriate configuration
+# - update:   updates all dependencies and deploys
+# - install:  first-time setup for macOS systems
+# - lint:     format and lint nix files
+# - clean:    remove old system generations
+# - repair:   fix git hooks and verify nix store
+#
+# Usage:
+# 1. First time setup:    make install
+# 2. Regular deploys:     make deploy
+# 3. Update everything:   make update
+#
+# Features:
+# - Automatic OS detection
+# - Sudo credential caching
+# - Colored status output
+# - Auto-commit of changes
+# - Error logging
+###############################################################################
+
 MAKEFLAGS += --no-print-directory
-
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
-
 include format.mk
-
 .PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
 
 all: deploy clean
@@ -18,7 +40,10 @@ deploy:
 
 deploy-darwin:
 	@echo "${HEADER}Starting Darwin Deployment${RESET}"
-	@echo "${INFO} Running lints and checks..."
+	@echo "${INFO} Caching sudo authentication..."
+	@sudo -v
+	@while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null & \
+	echo "${INFO} Running lints and checks..."
 	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
 	@echo "${INFO} Checking for changes..."
 	@git --no-pager diff --no-prefix --minimal --unified=0 .
@@ -31,7 +56,7 @@ deploy-darwin:
 	export NIXOS_GENERATION_COMMIT=1 && \
 	git commit -am "$$gen" > /dev/null && \
 	echo "${SUCCESS} Changes committed for generation: $$gen"
-	@echo "${DONE}Darwin deployment complete!${RESET}"
+	@echo "${DONE}Darwin deployment complete!${RESET}\n"
 
 deploy-nixos:
 	@echo "${HEADER}Starting NixOS Deployment${RESET}"
