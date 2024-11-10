@@ -78,7 +78,7 @@ This repository contains my personal system configuration using `nix-darwin` and
 
 ## Installation
 
-1. **Install Nix:**
+1. **Install Nix: (MacOS only)** 
 
    ```bash
    make install
