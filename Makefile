@@ -29,7 +29,15 @@ NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
 include format.mk
 .PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
 
+
+# Add this function near the top with other variables
+notify = @if command -v kitty >/dev/null 2>&1 && ! kitty @ focus-window --match recent:1 >/dev/null 2>&1; then \
+    kitty +kitten notify "$(1)" "$(2)"; \
+fi
+
+
 all: deploy clean
+	@$(call notify,"Build Complete","Your system has been updated")
 
 deploy:
 	@if [ "$$(uname)" = "Darwin" ]; then \
