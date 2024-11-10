@@ -76,22 +76,26 @@ deploy-nixos:
 			sleep 60; \
 			kill -0 "$$" || exit; \
 		done 2>/dev/null & \
+		trap 'kill %1' EXIT; \
 		echo "${INFO} Running lints and checks..." && \
 		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
 		echo "${INFO} Checking for changes..." && \
 		git --no-pager diff --no-prefix --minimal --unified=0 . && \
 		echo "${INFO} Rebuilding NixOS system..." && \
-		(sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log && \
-			echo "${SUCCESS} System rebuilt successfully") || \
-			(echo "${ERROR} Build failed with errors:" && \
-			cat nixos-switch.log | grep --color error && false) && \
-		gen=$$(nixos-rebuild list-generations | grep current) && \
-		export NIXOS_GENERATION_COMMIT=1 && \
-		git commit -am "$$gen" > /dev/null && \
-		echo "${SUCCESS} Changes committed for generation: $$gen" && \
-		echo "${DONE}NixOS deployment complete!${RESET}"; \
+		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
+			echo "${SUCCESS} System rebuilt successfully" && \
+			gen="$$(nixos-rebuild list-generations | grep current)" && \
+			export NIXOS_GENERATION_COMMIT=1 && \
+			git commit -am "$$gen" > /dev/null && \
+			echo "${SUCCESS} Changes committed for generation: $$gen" && \
+			echo "${DONE}NixOS deployment complete!${RESET}\n" && \
+			exit 0; \
+		else \
+			echo "${ERROR} Build failed with errors:" && \
+			cat nixos-switch.log | grep --color error && \
+			exit 1; \
+		fi; \
 	}
-
 
 update:
 	@echo "${INFO} Updating channels..."
