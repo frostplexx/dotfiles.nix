@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 
-echo "Running pre-commit hooks..."
-
-# Run make lint
-echo "Running linter..."
-make lint
-LINT_EXIT_CODE=$?
-
-if [ $LINT_EXIT_CODE -ne 0 ]; then
-    echo "❌ Linting failed. Please fix the issues and try committing again."
+# Check if commit is initiated by our Makefile
+if [ -z "$NIXOS_GENERATION_COMMIT" ]; then
+    echo "Error: Direct git commits are disabled"
+    echo "Please use 'make deploy' to commit changes"
     exit 1
 fi
-
-echo "✅ All checks passed!"
-exit 0

@@ -31,8 +31,6 @@
     neovim
     lazygit
     nodePackages.nodejs
-    rustc
-    cargo
     llvm
     gnumake
     # CLI utilities

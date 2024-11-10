@@ -16,7 +16,6 @@
     # Development tools
     lazygit
     nodePackages.nodejs
-    rustc
     gcc
     libgcc
     cargo
