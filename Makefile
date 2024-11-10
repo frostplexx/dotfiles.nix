@@ -2,7 +2,7 @@ NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
 
 .PHONY: all deploy update lint clean repair install
 
-all: deploy clean
+all: lint deploy clean
 
 # Full system deployment
 deploy:

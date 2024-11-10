@@ -4,7 +4,7 @@ let
   # Filter out lazy-lock.json from the source directory
   nvimConfigFiltered = lib.cleanSourceWith {
     src = ./nvim;
-    filter = path: type:
+    filter = path: _type:
       let
         baseName = baseNameOf path;
       in
@@ -12,7 +12,7 @@ let
   };
 
 
-  treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars);
+  treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in
 {
 

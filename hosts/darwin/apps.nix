@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   # Allow non-free apps
   nixpkgs.config.allowUnfree = true;
