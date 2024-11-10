@@ -28,6 +28,11 @@ in
       fd
       git
       nodejs
+
+      # Language servers
+      pyright
+      gopls
+      ruff
     ];
 
 
