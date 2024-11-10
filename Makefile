@@ -19,7 +19,7 @@ deploy-darwin:
 deploy-nixos:
 	sudo nixos-rebuild switch --flake .#nixos
 
-# Update nix-darwin and show changelog
+# Update the system
 update:
 	nix-channel --update
 	nix --extra-experimental-features nix-command --extra-experimental-features flakes flake update
