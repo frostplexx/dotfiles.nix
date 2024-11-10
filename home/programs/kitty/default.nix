@@ -109,7 +109,7 @@
       "ctrl+shift+down" = "resize_window shorter";
       "ctrl+shift+x" = "close_window";
       "ctrl+shift+m" = "launch --type=tab --cwd=current --copy-env --title Yazi -- zsh -il -c \"yazi\"";
-      "ctrl+shift+p" = "launch --title 'Project Selector' --copy-env --type=overlay zsh -il -c '~/.config/kitty/project_selector.sh'";
+      "ctrl+shift+p" = "launch --title 'Project Selector' --copy-env --type=overlay zsh -il -c ~/.config/kitty/project_selector.sh";
     };
 
     # Extra configuration to ensure catpuccin theme is included
@@ -131,6 +131,6 @@
     "kitty/kitty.app.png".source = ./kitty.app.png;
 
     # If you have a project selector script
-    # "kitty/project_selector.sh".source = ./project_selector.sh;
+    "kitty/project_selector.sh".source = ./project_selector.sh;
   };
 }

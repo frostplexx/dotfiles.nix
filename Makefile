@@ -61,7 +61,7 @@ deploy-darwin:
 		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current) && \
 		export NIXOS_GENERATION_COMMIT=1 && \
 		# git commit -am "$$gen" > /dev/null && \
-    oco && \
+    oco --yes && \
 		echo "${SUCCESS} Changes committed for generation: $$gen" && \
 		echo "${DONE}Darwin deployment complete!${RESET}"; \
 	}
@@ -88,7 +88,7 @@ deploy-nixos:
 			gen="$$(nixos-rebuild list-generations | grep current)" && \
 			export NIXOS_GENERATION_COMMIT=1 && \
 			# git commit -am "$$gen" > /dev/null && \
-      oco && \
+      oco --yes && \
 			echo "${SUCCESS} Changes committed for generation: $$gen" && \
 			echo "${DONE}NixOS deployment complete!${RESET}\n" && \
 			exit 0; \
