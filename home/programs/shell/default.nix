@@ -102,6 +102,11 @@
     };
 
 
+
+    # Automatically enable devenv
+    direnv.enable = true;
+
+
     # Fuzzy finder
     fzf = {
       enable = true;
