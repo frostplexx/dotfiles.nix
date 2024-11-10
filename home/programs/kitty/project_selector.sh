@@ -1,6 +1,6 @@
 #!/bin/bash
 
-project_dirs=(~/Developer ~/.config ~/dotfiles/macos/.config ~/dotfiles/linux/.config ~/dotfiles/shared/.config)
+project_dirs=(~/Developer ~/dotfiles.nix )
 
 # Display the subfolders of the project directories
 projects() {
@@ -13,7 +13,7 @@ projects() {
 project_selector() {
     local project
     project=$(projects | fzf)
-    
+
     if [ -n "$project" ]; then
         { kitten @ launch --type=tab  --cwd="$project"; echo "Changed to $project"; } || { echo "Failed to change directory to $project"; exit 1; }
     else
