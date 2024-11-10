@@ -30,14 +30,7 @@ include format.mk
 .PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
 
 
-# Add this function near the top with other variables
-notify = @if command -v kitty >/dev/null 2>&1 && ! kitty @ focus-window --match recent:1 >/dev/null 2>&1; then \
-    kitty +kitten notify "$(1)" "$(2)"; \
-fi
-
-
 all: deploy clean
-	@$(call notify,"Build Complete","Your system has been updated")
 
 deploy:
 	@if [ "$$(uname)" = "Darwin" ]; then \
@@ -50,40 +43,55 @@ deploy-darwin:
 	@echo "${HEADER}Starting Darwin Deployment${RESET}"
 	@echo "${INFO} Caching sudo authentication..."
 	@sudo -v
-	@while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null & \
-	echo "${INFO} Running lints and checks..."
-	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
-	@echo "${INFO} Checking for changes..."
-	@git --no-pager diff --no-prefix --minimal --unified=0 .
-	@echo "${INFO} Rebuilding Darwin system..."
-	@(darwin-rebuild switch --flake .#darwin 2>darwin-switch.log && \
-		echo "${SUCCESS} System rebuilt successfully") || \
-		(echo "${ERROR} Build failed with errors:" && \
-		cat darwin-switch.log | grep --color error && false)
-	@gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current) && \
-	export NIXOS_GENERATION_COMMIT=1 && \
-	git commit -am "$$gen" > /dev/null && \
-	echo "${SUCCESS} Changes committed for generation: $$gen"
-	@echo "${DONE}Darwin deployment complete!${RESET}"
-	@echo ""
+	@{ \
+		while true; do \
+			sudo -n true; \
+			sleep 60; \
+			kill -0 "$$" || exit; \
+		done 2>/dev/null & \
+		echo "${INFO} Running lints and checks..." && \
+		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+		echo "${INFO} Checking for changes..." && \
+		git --no-pager diff --no-prefix --minimal --unified=0 . && \
+		echo "${INFO} Rebuilding Darwin system..." && \
+		(darwin-rebuild switch --flake .#darwin 2>darwin-switch.log && \
+			echo "${SUCCESS} System rebuilt successfully") || \
+			(echo "${ERROR} Build failed with errors:" && \
+			cat darwin-switch.log | grep --color error && false) && \
+		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current) && \
+		export NIXOS_GENERATION_COMMIT=1 && \
+		git commit -am "$$gen" > /dev/null && \
+		echo "${SUCCESS} Changes committed for generation: $$gen" && \
+		echo "${DONE}Darwin deployment complete!${RESET}"; \
+	}
+
 
 deploy-nixos:
 	@echo "${HEADER}Starting NixOS Deployment${RESET}"
-	@echo "${INFO} Running lints and checks..."
-	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
-	@echo "${INFO} Checking for changes..."
-	@git --no-pager diff --no-prefix --minimal --unified=0 .
-	@echo "${INFO} Rebuilding NixOS system..."
-	@(sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log && \
-		echo "${SUCCESS} System rebuilt successfully") || \
-		(echo "${ERROR} Build failed with errors:" && \
-		cat nixos-switch.log | grep --color error && false)
-	@gen=$$(nixos-rebuild list-generations | grep current) && \
-	export NIXOS_GENERATION_COMMIT=1 && \
-	git commit -am "$$gen" > /dev/null && \
-	echo "${SUCCESS} Changes committed for generation: $$gen"
-	@echo "${DONE}NixOS deployment complete!${RESET}"
-	@echo ""
+	@echo "${INFO} Caching sudo authentication..."
+	@sudo -v
+	@{ \
+		while true; do \
+			sudo -n true; \
+			sleep 60; \
+			kill -0 "$$" || exit; \
+		done 2>/dev/null & \
+		echo "${INFO} Running lints and checks..." && \
+		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+		echo "${INFO} Checking for changes..." && \
+		git --no-pager diff --no-prefix --minimal --unified=0 . && \
+		echo "${INFO} Rebuilding NixOS system..." && \
+		(sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log && \
+			echo "${SUCCESS} System rebuilt successfully") || \
+			(echo "${ERROR} Build failed with errors:" && \
+			cat nixos-switch.log | grep --color error && false) && \
+		gen=$$(nixos-rebuild list-generations | grep current) && \
+		export NIXOS_GENERATION_COMMIT=1 && \
+		git commit -am "$$gen" > /dev/null && \
+		echo "${SUCCESS} Changes committed for generation: $$gen" && \
+		echo "${DONE}NixOS deployment complete!${RESET}"; \
+	}
+
 
 update:
 	@echo "${INFO} Updating channels..."
