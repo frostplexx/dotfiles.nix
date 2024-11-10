@@ -56,7 +56,8 @@ deploy-darwin:
 	export NIXOS_GENERATION_COMMIT=1 && \
 	git commit -am "$$gen" > /dev/null && \
 	echo "${SUCCESS} Changes committed for generation: $$gen"
-	@echo "${DONE}Darwin deployment complete!${RESET}\n"
+	@echo "${DONE}Darwin deployment complete!${RESET}"
+	@echo ""
 
 deploy-nixos:
 	@echo "${HEADER}Starting NixOS Deployment${RESET}"
@@ -74,6 +75,7 @@ deploy-nixos:
 	git commit -am "$$gen" > /dev/null && \
 	echo "${SUCCESS} Changes committed for generation: $$gen"
 	@echo "${DONE}NixOS deployment complete!${RESET}"
+	@echo ""
 
 update:
 	@echo "${INFO} Updating channels..."
