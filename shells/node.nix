@@ -62,8 +62,8 @@ pkgs.mkShell {
           # Create src directory and index.ts
           mkdir -p src
           cat > src/index.ts << 'EOL'
-    function greeting(name: string): string {
-      return `Hello, ${name}!`;
+    function greeting(): string {
+      return `Hello, World`;
     }
 
     console.log(greeting('World'));
