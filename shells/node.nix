@@ -12,10 +12,6 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-        if [ -f ~/.zshrc ]; then
-          source ~/.zshrc
-        fi
-
         # Initialize project if it doesn't exist
         if [ ! -f "package.json" ]; then
           echo "Creating new TypeScript project..."

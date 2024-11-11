@@ -9,9 +9,6 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-    if [ -f ~/.zshrc ]; then
-      source ~/.zshrc
-    fi
 
     # Create and activate virtualenv if it doesn't exist
     if [ ! -d ".venv" ]; then
