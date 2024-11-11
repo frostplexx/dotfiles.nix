@@ -96,6 +96,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # CPU power management
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+  };
+
   hardware = {
     # Enable sound with pipewire.
     pulseaudio.enable = false;
