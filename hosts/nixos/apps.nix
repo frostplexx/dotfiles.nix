@@ -32,7 +32,6 @@
     fastfetch
     ripgrep
     sshpass
-    devenv
 
     # GUI Applications
     obsidian
