@@ -33,6 +33,7 @@
     nodePackages.nodejs
     llvm
     gnumake
+    bruno
     vscode
 
     # CLI utilities
@@ -60,7 +61,6 @@
     keka # Archive utility
     zoom-us # Video conferencing
     tailscale
-    bruno
   ];
 
   fonts.packages = [
@@ -104,6 +104,7 @@
       "tower"
       "proxyman"
       "chromium"
+      "vmware-fusion"
     ];
   };
 }

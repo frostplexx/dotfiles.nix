@@ -17,19 +17,46 @@ vim.keymap.set("n", "sc", ":lua require('scratch').toggle()<cr>", { desc = "togg
 
 -- lazygit
 vim.keymap.set("n", "<leader>gg", function()
+  -- Store current line number state
+  local number = vim.wo.number
+  local relativenumber = vim.wo.relativenumber
+
+  -- Hide line numbers
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+
   vim.cmd("terminal lazygit")
   vim.cmd("startinsert")
-  -- Autocmd to close the terminal when lazygit exits
-  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
-end, { desc = "open lazygit in terminal" })
 
+  -- Autocmd to close the terminal and restore line numbers when lazygit exits
+  vim.cmd(string.format([[
+    autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' |
+      setlocal number=%s relativenumber=%s |
+      bd! |
+    endif
+  ]], tostring(number), tostring(relativenumber)))
+end, { desc = "open lazygit in terminal" })
 
 -- yazi
 vim.keymap.set("n", "<leader>yy", function()
+  -- Store current line number state
+  local number = vim.wo.number
+  local relativenumber = vim.wo.relativenumber
+
+  -- Hide line numbers
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+
   vim.cmd("terminal yazi " .. vim.fn.expand("%:p:h"))
   vim.cmd("startinsert")
-  -- Autocmd to close the terminal when yazi exits
-  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'yazi' | bd! | endif")
+
+  -- Autocmd to close the terminal and restore line numbers when yazi exits
+  vim.cmd(string.format([[
+    autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'yazi' |
+      setlocal number=%s relativenumber=%s |
+      bd! |
+    endif
+  ]], tostring(number), tostring(relativenumber)))
 end, { desc = "open yazi in terminal" })
 
 vim.keymap.set("n", "<leader>gb", ":!git blame -c -- % <cr>", { desc = "git blame on current file" })
