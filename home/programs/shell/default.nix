@@ -142,7 +142,7 @@
 
 
 
-    # Automatically enable devenv
+    # Automatically enable dev shells
     direnv.enable = true;
 
 

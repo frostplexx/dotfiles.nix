@@ -24,14 +24,6 @@ vim.keymap.set("n", "<leader>gg", function()
 end, { desc = "open lazygit in terminal" })
 
 
--- yazi
-vim.keymap.set("n", "<leader>yy", function()
-  vim.cmd("terminal yazi " .. vim.fn.expand("%:p:h"))
-  vim.cmd("startinsert")
-  -- Autocmd to close the terminal when yazi exits
-  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'yazi' | bd! | endif")
-end, { desc = "open yazi in terminal" })
-
 vim.keymap.set("n", "<leader>gb", ":!git blame -c -- % <cr>", { desc = "git blame on current file" })
 
 -- ctrl-a to select all

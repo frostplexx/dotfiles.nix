@@ -13,9 +13,6 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-    if [ -f ~/.zshrc ]; then
-      source ~/.zshrc
-    fi
 
     export RUST_SRC_PATH="${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}"
     export RUST_BACKTRACE=1

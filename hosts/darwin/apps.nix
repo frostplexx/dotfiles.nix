@@ -46,7 +46,6 @@
     nixfmt-rfc-style
     ripgrep
     sshpass
-    devenv
 
     # GUI Applications
     obsidian
