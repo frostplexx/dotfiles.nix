@@ -38,53 +38,33 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs @ { self
-    , nixpkgs
-    , nix-darwin
-    , home-manager
-    , darwin-custom-icons
-    , plasma-manager
-    , yuki
-    , flake-utils
-    , ...
-  }:
+  # In your flake.nix, replace just the outputs section:
+
+  outputs = { nixpkgs, home-manager, nix-darwin, flake-utils, ... }@inputs:
     let
       # Set some global variables
       vars = {
         user = "daniel";
-        location = "$HOME/dotfiles.nix;
+        location = "$HOME/.setup";
         terminal = "kitty";
         editor = "nvim";
       };
-
-      # Helper function to create package sets
-      mkPkgs = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-
-      # List of supported systems
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-
-      # Generate per-system outputs
-      systemOutputs = flake-utils.lib.eachSystem supportedSystems (system:
+    in
+    # First, generate the system-specific outputs (shells, formatter)
+    flake-utils.lib.eachDefaultSystem
+      (system:
         let
-          pkgs = mkPkgs system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
         in
         {
-          # Expose development shells
           devShells = import ./shells { inherit pkgs; };
-
-          # Per-system formatter
           formatter = pkgs.nixpkgs-fmt;
         }
-      );
-
-      # Combine system-specific outputs with configurations
-    in systemOutputs // {
+      ) // {
+      # Your existing nixosConfigurations and darwinConfigurations stay the same
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit vars inputs; };
@@ -101,7 +81,7 @@
               extraSpecialArgs = { inherit vars inputs; };
               users.${vars.user} = import ./home;
               sharedModules = [
-                plasma-manager.homeManagerModules.plasma-manager
+                inputs.plasma-manager.homeManagerModules.plasma-manager
               ];
             };
           }
@@ -110,12 +90,12 @@
 
       darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit inputs vars; };
+        specialArgs = { inherit vars inputs; };
         modules = [
-          yuki.nixosModules.default
+          inputs.yuki.nixosModules.default
           inputs.stylix.darwinModules.stylix
           ./hosts/darwin/configuration.nix
-          darwin-custom-icons.darwinModules.default
+          inputs.darwin-custom-icons.darwinModules.default
           home-manager.darwinModules.home-manager
           {
             nixpkgs.overlays = [
@@ -126,10 +106,10 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit vars inputs; };
-              sharedModules = [
-                plasma-manager.homeManagerModules.plasma-manager
-              ];
               users.${vars.user} = import ./home;
+              sharedModules = [
+                inputs.plasma-manager.homeManagerModules.plasma-manager
+              ];
             };
           }
         ];
