@@ -41,6 +41,7 @@
       compress_to_mp4 = "~/dotfiles.nix/home/programs/shell/scripts/compress_mp4.sh";
       ssh = "~/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
       y = "~/dotfiles.nix/home/programs/shell/scripts/yazi.zsh";
+      shinit = "~/dotfiles.nix/home/programs/shell/scripts/shell_select.sh"
     };
 
     # History Settings
