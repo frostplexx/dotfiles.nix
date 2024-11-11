@@ -1,146 +1,186 @@
+# flake.nix
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
+
+  # Configure Nix behavior
   nixConfig = {
-    # Enable nix cache so it doesnt need to build everything from source
+    # Enable the official cache to avoid unnecessary builds
     substituters = [
       "https://cache.nixos.org"
     ];
-    # Add these to ensure proper updating
+
+    # Enable flakes and new nix command
     experimental-features = [ "nix-command" "flakes" ];
-    # Enable content-addressed derivations
+
+    # Additional binary caches for community packages
     extra-substituters = [
       "https://nix-community.cachix.org"
     ];
+
+    # Trust keys for the additional caches
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
+
+  # Define external dependencies
   inputs = {
-    # Main nix packages repository
+    # Core package source
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Manage user configuration with Home Manager
+
+    # Home directory management
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs"; # Use the same nixpkgs as the main system
     };
-    # Manage system configuration on macOS with Nix Darwin
+
+    # macOS system configuration
     nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Custom icons for Nix Darwin
+
+    # Additional features and tools
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
-    # Community packages; used for Firefox extensions
-    nur.url = "github:nix-community/nur";
-    # Plasma Manager
+    nur.url = "github:nix-community/nur"; # Nix User Repository
+
+    # KDE Plasma configuration management
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    # Firefox for Darwin systems
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    # Nix meta package manager (using dev branch)
-    # yuki.url = "path:/Users/daniel/Developer/yuki";  # Use absolute path
-    yuki.url = "github:frostplexx/yuki/dev"; # Use absolute path
-    # Themeing for NixOS
+
+    # Package manager
+    yuki.url = "github:frostplexx/yuki/dev";
+
+    # System theming
     stylix.url = "github:danth/stylix";
+
+    # Utilities for working with flakes
+    flake-utils.url = "github:numtide/flake-utils";
   };
-  outputs =
-    inputs @ { self
+
+  # Define the outputs for this flake
+  outputs = inputs @ { self
     , nixpkgs
     , nix-darwin
     , home-manager
     , darwin-custom-icons
     , plasma-manager
     , yuki
+    , flake-utils
     , ...
-    }:
+  }:
     let
-
-      # Set some global variables
+      # Global variables used throughout the configuration
       vars = {
         user = "daniel";
         location = "$HOME/.setup";
         terminal = "kitty";
         editor = "nvim";
       };
+
+      # Helper function to create a consistent package set for a given system
+      # This ensures all packages are built with the same configuration
+      mkPkgs = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true; # Allow proprietary software
+      };
+
+      # Generate system-specific outputs (shells, formatters, etc.)
+      # This uses flake-utils to automatically handle different systems
+      systemOutputs = flake-utils.lib.eachDefaultSystem (system:
+        let
+          # Get the appropriate package set for this system
+          pkgs = mkPkgs system;
+        in
+        {
+          # Development shells are dynamically loaded from the shells directory
+          # The implementation is in shells/default.nix
+          devShells = import ./shells { inherit pkgs; };
+
+          # Provide a formatter for .nix files on each system
+          formatter = pkgs.nixpkgs-fmt;
+        });
+
     in
-    {
-      # Enable auto-upgrades for the system
-      # IDK if this is the right place
+    # Merge system-specific outputs with NixOS and Darwin configurations
+    systemOutputs // {
+      # System auto-upgrade configuration
       system.autoUpgrade = {
         enable = true;
         flake = inputs.self.outPath;
         flags = [
           "--update-input"
           "nixpkgs"
-          "-L"
+          "-L" # Show more detailed logs
         ];
         dates = "9:00";
         randomizedDelaySec = "45min";
       };
 
-
-      # copnfiguration for nixos
+      # NixOS system configuration
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit vars inputs; };
+        specialArgs = { inherit vars inputs; }; # Pass variables to modules
         modules = [
+          # Load various system modules
           inputs.yuki.nixosModules.default
           ./hosts/nixos/configuration.nix
           inputs.stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
+            # Enable NUR overlay for additional packages
             nixpkgs.overlays = [ inputs.nur.overlay ];
+
+            # Configure home-manager for the user
             home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
+              useGlobalPkgs = true; # Use the system's package set
+              useUserPackages = true; # Install user packages to /etc/profiles
               extraSpecialArgs = { inherit vars inputs; };
               users.${vars.user} = import ./home;
-              sharedModules =
-                [
-                  plasma-manager.homeManagerModules.plasma-manager
-                ];
+              sharedModules = [
+                plasma-manager.homeManagerModules.plasma-manager
+              ];
             };
           }
         ];
       };
 
-      # configuration for macos
+      # macOS (Darwin) system configuration
       darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         specialArgs = { inherit inputs vars; };
         modules = [
+          # Load system modules
           yuki.nixosModules.default
           inputs.stylix.darwinModules.stylix
           ./hosts/darwin/configuration.nix
           darwin-custom-icons.darwinModules.default
           home-manager.darwinModules.home-manager
           {
+            # Enable overlays for Darwin-specific packages
             nixpkgs.overlays = [
               inputs.nixpkgs-firefox-darwin.overlay
               inputs.nur.overlay
             ];
+
+            # Configure home-manager for the user
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit vars inputs; };
-              sharedModules =
-                [
-                  plasma-manager.homeManagerModules.plasma-manager
-                ];
+              sharedModules = [
+                plasma-manager.homeManagerModules.plasma-manager
+              ];
               users.${vars.user} = import ./home;
             };
           }
         ];
       };
-
-
-      # Formatter for nix files
-      formatter = {
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
-      };
-
     };
 }
