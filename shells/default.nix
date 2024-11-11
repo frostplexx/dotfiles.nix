@@ -1,3 +1,4 @@
+# shells/default.nix
 { pkgs }:
 let
   # Common arguments to pass to each shell
@@ -23,10 +24,11 @@ let
     builtins.substring 0 (builtins.stringLength name - 4) name
   ) shellFiles;
 
-  # Create an attribute set of name -> imported shell
+  # Import all shell files and create an attribute set
+  importShell = name: import (dir + "/${name}.nix") commonArgs;
   shells = builtins.listToAttrs (map (name: {
-    name = name;
-    value = import (dir + "/${name}.nix") commonArgs;
+    inherit name;
+    value = importShell name;
   }) shellNames);
 
 in shells

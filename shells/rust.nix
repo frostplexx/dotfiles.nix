@@ -1,4 +1,5 @@
-{ pkgs }:
+{ pkgs, system, ... }:
+
 pkgs.mkShell {
   name = "rust";
   buildInputs = with pkgs; [
@@ -7,15 +8,19 @@ pkgs.mkShell {
     rustfmt
     clippy
     rust-analyzer
+    pkg-config
+    openssl
   ];
 
   shellHook = ''
-    # Inherit existing environment
-    source ~/.zshrc 2>/dev/null || true
+    if [ -f ~/.zshrc ]; then
+      source ~/.zshrc
+    fi
 
-    # Rust-specific configuration
     export RUST_SRC_PATH="${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}"
+    export RUST_BACKTRACE=1
+    export RUST_SHELL=1
 
-    echo "Rust development environment activated!"
+    echo "🦀 Rust development environment activated!"
   '';
 }
