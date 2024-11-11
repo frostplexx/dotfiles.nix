@@ -61,6 +61,7 @@
     keka # Archive utility
     zoom-us # Video conferencing
     tailscale
+    utm
   ];
 
   fonts.packages = [
