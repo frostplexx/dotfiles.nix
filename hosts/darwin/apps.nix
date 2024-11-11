@@ -33,6 +33,8 @@
     nodePackages.nodejs
     llvm
     gnumake
+    vscode
+
     # CLI utilities
     ffmpeg
     imagemagick
@@ -56,8 +58,9 @@
     raycast # Spotlight replacement
     aerospace # macOS window manager
     keka # Archive utility
-    utm # Virtualization
     zoom-us # Video conferencing
+    tailscale
+    bruno
   ];
 
   fonts.packages = [
@@ -88,20 +91,14 @@
     ];
     brews = [
       "mas"
-      "jupyterlab"
     ];
     casks = [
       "altserver"
       "mac-mouse-fix"
       "shottr"
       "hex-fiend"
-      "deskpad"
       "onyx"
-      "tailscale"
-      "basictex"
-      "visual-studio-code"
       "kitty"
-      "insomnia"
       "1password"
       "orbstack"
       "tower"
