@@ -348,11 +348,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1731401176,
-        "narHash": "sha256-khh5dM0oofqK3wmoL3xD09DokRg8E2XpkeEoOK6ShBg=",
+        "lastModified": 1731415746,
+        "narHash": "sha256-pM1FObA1die6Tjo4ogkPnz9qr/1pHtMShk5+PcCXp+s=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "1f5438e9803717a9bbce8b54356e305b87f1fde5",
+        "rev": "19c456986f6ef2d2bba669bd8b9f75d7e30211f9",
         "type": "github"
       },
       "original": {
@@ -552,18 +552,17 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1730901849,
-        "narHash": "sha256-LKQt3303cP6lzHFRIXJUpb4JxqFAnHf5E4qE7eeIdNw=",
-        "owner": "frostplexx",
-        "repo": "yuki",
-        "rev": "214e7e4770f42ec5e4e5c47ebeaf4b48172bdcda",
-        "type": "github"
+        "lastModified": 1731422543,
+        "narHash": "sha256-+x0OKj6o0RhbJCaM/Foum7YRYTEquYxt43tkctroKzU=",
+        "ref": "refs/heads/dev",
+        "rev": "772374ef2363cf9d7e7ea9c73d2e20f9827fc370",
+        "revCount": 19,
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/yuki"
       },
       "original": {
-        "owner": "frostplexx",
-        "ref": "dev",
-        "repo": "yuki",
-        "type": "github"
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/yuki"
       }
     }
   },
