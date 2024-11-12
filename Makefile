@@ -29,6 +29,13 @@ NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
 include format.mk
 .PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
 
+define get_commit_message
+OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
+CHANGES=$$(git diff --cached --name-only); \
+SUMMARY=$$(git diff --cached --compact-summary); \
+echo "[$${OS_TYPE}] Gen: $(1)\n\nChanged files:\n$${CHANGES}\n\nSummary:\n$${SUMMARY}"
+endef
+
 
 all: deploy clean
 
@@ -59,9 +66,9 @@ deploy-darwin:
 			(echo "${ERROR} Build failed with errors:" && \
 			cat darwin-switch.log | grep --color error && false) && \
 		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current) && \
+		git add . && \
 		export NIXOS_GENERATION_COMMIT=1 && \
-		# git commit -am "$$gen" > /dev/null && \
-    oco --yes && \
+		git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
 		echo "${SUCCESS} Changes committed for generation: $$gen" && \
 		echo "${DONE}Darwin deployment complete!${RESET}"; \
 	}
@@ -86,11 +93,10 @@ deploy-nixos:
 		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
 			echo "${SUCCESS} System rebuilt successfully" && \
 			gen="$$(nixos-rebuild list-generations | grep current)" && \
+			git add . && \
 			export NIXOS_GENERATION_COMMIT=1 && \
-			# git commit -am "$$gen" > /dev/null && \
-      oco --yes && \
+			git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
 			echo "${SUCCESS} Changes committed for generation: $$gen" && \
-			echo "${DONE}NixOS deployment complete!${RESET}\n" && \
 			exit 0; \
 		else \
 			echo "${ERROR} Build failed with errors:" && \
