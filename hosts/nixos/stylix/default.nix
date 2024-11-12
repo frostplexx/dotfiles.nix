@@ -6,6 +6,12 @@
     image = ../../../home/programs/plasma/wallpaper.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
     opacity.terminal = 0.5;
+    targets = {
+      plymouth = {
+        enable = true;
+        logoAnimated = false;
+      };
+    };
     cursor = {
       name = "Vimix-Cursors";
       package = pkgs.vimix-cursor-theme;

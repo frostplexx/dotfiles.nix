@@ -4,6 +4,7 @@
 
   # Bootloader.
   boot = {
+    # Themes and such set in stylix
     plymouth = {
       enable = true;
     };
