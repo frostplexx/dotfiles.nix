@@ -10,7 +10,7 @@
   services.nix-daemon.enable = true;
   # TODO: make this shared between darwin and nixos
   nix = {
-    settings.auto-optimise-store = true;
+    optimise.automatic = true;
   };
 
 

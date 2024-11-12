@@ -31,9 +31,9 @@ include format.mk
 
 define get_commit_message
 OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
-CHANGES=$$(git diff --cached --name-only); \
-SUMMARY=$$(git diff --cached --compact-summary); \
-echo "[$${OS_TYPE}] Gen: $(1)\n\nChanged files:\n$${CHANGES}\n\nSummary:\n$${SUMMARY}"
+CHANGES=$$(git diff --cached --name-only | sed ':a;N;$$!ba;s/\n/\\n/g'); \
+SUMMARY=$$(git diff --cached --compact-summary | sed ':a;N;$$!ba;s/\n/\\n/g'); \
+printf "[%s] Gen: %s\n\nChanged files:\n%b\n\nSummary:\n%b" "$${OS_TYPE}" "$(1)" "$${CHANGES}" "$${SUMMARY}"
 endef
 
 
