@@ -15,6 +15,13 @@
     gamescope = {
       enable = true;
       capSysNice = true;
+      args = [
+        "-w 1720"
+        "-h 1080"
+        "-S stretch"
+        "-f"
+        "-e"
+      ];
     };
 
     steam = {
