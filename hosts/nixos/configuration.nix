@@ -27,25 +27,12 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  systemd.user.services.steam = {
-    enable = true;
-    description = "Open Steam in the background at boot";
-    serviceConfig = {
-      ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
-      wantedBy = [ "graphical-session.target" ];
-      Restart = "on-failure";
-      RestartSec = "5s";
-    };
-  };
-
-
   # Set auto optimise store and garbage collection
   # TODO: make this shared between darwin and nixos
   nix = {
-    settings.auto-optimise-store = true;
+    optimise.automatic = true;
   };
 
-  # Auto upgrade in background
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
