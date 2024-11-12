@@ -17,5 +17,6 @@ pkgs.mkShell {
     export LATEX_SHELL=1
 
     echo "📚 LaTeX development environment activated!"
+    echo "Use zathura to view PDF files. biber is available for bibliography management."
   '';
 }
