@@ -8,11 +8,7 @@
   programs.yuki = {
     enable = true;
     settings = {
-      system_packages_path =
-        if pkgs.stdenv.isDarwin then
-          "~/dotfiles.nix/hosts/darwin/apps.nix"
-        else
-          "~/dotfiles.nix/hosts/nixos/apps.nix";
+      system_packages_path = "~/dotfiles.nix/hosts/darwin/apps.nix";
       homebrew_packages_path = "~/dotfiles.nix/hosts/darwin/apps.nix";
       auto_commit = true;
       auto_push = false;
