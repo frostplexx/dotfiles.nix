@@ -1,4 +1,4 @@
-{ config, vars, ... }:
+{ config, ... }:
 
 {
 
@@ -69,8 +69,8 @@
     displayManager = {
       sddm.enable = true;
       autoLogin.enable = true;
-      autoLogin.user = vars.user;
-      defaultSession = "plasma";
+      autoLogin.user = "daniel";
+      defaultSession = "plasmax11";
     };
     desktopManager.plasma6.enable = true;
 
