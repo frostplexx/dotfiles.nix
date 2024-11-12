@@ -61,7 +61,7 @@
 
   # Hushlogin to not show login message
   home.file = {
-    ".hushlogin".text = builtins.readFile ./hushlogin;
+    ".hushlogin".text = "";
   };
 
 
