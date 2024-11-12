@@ -3,12 +3,17 @@
 {
 
   # Bootloader.
-  boot.loader = {
-    systemd-boot = {
+  boot = {
+    plymouth = {
       enable = true;
-      configurationLimit = 5;
     };
-    efi.canTouchEfiVariables = true;
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   networking = {
