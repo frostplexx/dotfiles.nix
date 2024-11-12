@@ -44,6 +44,7 @@
     llvm
     gnumake
     inputs.yuki.packages.${pkgs.system}.default
+    pkg-config
 
     # CLI utilities
     ffmpeg
