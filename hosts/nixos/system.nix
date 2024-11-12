@@ -70,6 +70,7 @@
       sddm.enable = true;
       autoLogin.enable = true;
       autoLogin.user = vars.user;
+      defaultSession = "plasma";
     };
     desktopManager.plasma6.enable = true;
 
