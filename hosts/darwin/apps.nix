@@ -103,7 +103,6 @@
       "proxyman"
       "chromium"
       "vmware-fusion"
-      "paw"
     ];
   };
 }
