@@ -552,11 +552,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1731422543,
-        "narHash": "sha256-+x0OKj6o0RhbJCaM/Foum7YRYTEquYxt43tkctroKzU=",
+        "lastModified": 1731422960,
+        "narHash": "sha256-IkDEn+Y/Zn0zR7uY4/+7w2BaqTunJBVx8DgXbk8YB/g=",
         "ref": "refs/heads/dev",
-        "rev": "772374ef2363cf9d7e7ea9c73d2e20f9827fc370",
-        "revCount": 19,
+        "rev": "abda2d44f4e8abf596c3fff372faee1b0e91debb",
+        "revCount": 20,
         "type": "git",
         "url": "file:///Users/daniel/Developer/yuki"
       },
