@@ -10,10 +10,10 @@
     settings = {
       system_packages_path =
         if pkgs.stdenv.isDarwin then
-          "~/dotfiles/hosts/darwin/apps.nix"
+          "~/dotfiles.nix/hosts/darwin/apps.nix"
         else
-          "~/dotfiles/hosts/nixos/apps.nix";
-      homebrew_packages_path = "~/dotfiles/hosts/darwin/apps.nix";
+          "~/dotfiles.nix/hosts/nixos/apps.nix";
+      homebrew_packages_path = "~/dotfiles.nix/hosts/darwin/apps.nix";
       auto_commit = true;
       auto_push = false;
       install_message = "installed <package>";
