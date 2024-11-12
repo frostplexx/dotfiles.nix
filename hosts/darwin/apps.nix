@@ -33,7 +33,6 @@
     nodePackages.nodejs
     llvm
     gnumake
-    bruno
     vscode
 
     # CLI utilities
@@ -60,7 +59,6 @@
     keka # Archive utility
     zoom-us # Video conferencing
     tailscale
-    utm
   ];
 
   fonts.packages = [
@@ -105,6 +103,7 @@
       "proxyman"
       "chromium"
       "vmware-fusion"
+      "paw"
     ];
   };
 }
