@@ -8,6 +8,8 @@
     plymouth = {
       enable = true;
     };
+    # Enable systemd in initrd for earlier splash screen
+    initrd.systemd.enable = true;
     loader = {
       systemd-boot = {
         enable = true;
