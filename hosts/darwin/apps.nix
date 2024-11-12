@@ -14,9 +14,9 @@
       auto_push = false;
       install_message = "installed <package>";
       uninstall_message = "removed <package>";
-      install_command = "make";
-      uninstall_command = "make";
-      update_command = "make update";
+      install_command = "cd ~/dotfiles.nix ; make";
+      uninstall_command = "cd ~/dotfiles.nix; make";
+      update_command = "cd ~/dotfiles.nix; make update";
     };
   };
 
@@ -55,6 +55,7 @@
     keka # Archive utility
     zoom-us # Video conferencing
     tailscale
+    cowsay
   ];
 
   fonts.packages = [
