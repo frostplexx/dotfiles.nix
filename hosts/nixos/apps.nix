@@ -2,6 +2,14 @@
 
 {
 
+  # Set start up applications
+  # shitty version of this https://github.com/nix-community/home-manager/issues/3447#issuecomment-1328294558
+  environment.etc = {
+    "xdg/autostart/solaar.desktop".source = pkgs.solaar + "/share/applications/solaar.desktop";
+    "xdg/autostart/steam.desktop".source = pkgs.steam + "/share/applications/steam.desktop";
+  };
+
+
   # install steam
   programs.steam = {
     enable = true;

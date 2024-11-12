@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, vars, ... }:
 
 {
 
@@ -60,12 +60,17 @@
       # Load nvidia driver for Xorg and Wayland
       videoDrivers = [ "nvidia" ];
 
+
       displayManager.sddm.enable = true;
       desktopManager.plasma6.enable = true;
     };
 
     # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
+    displayManager = {
+      sddm.enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = vars.user;
+    };
     desktopManager.plasma6.enable = true;
 
 
