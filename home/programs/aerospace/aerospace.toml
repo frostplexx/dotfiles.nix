@@ -97,6 +97,7 @@ outer.right =      5
 # '''
 
 
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
@@ -136,9 +137,9 @@ alt-shift-equal = 'resize smart +50'
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 cmd-1 = 'workspace 🌐'
 cmd-2 = 'workspace 💽'
-cmd-3 = 'workspace 💬'
-cmd-4 = 'workspace 🎵'
-cmd-5 = 'workspace 📕'
+cmd-3 = 'workspace 📕'
+cmd-4 = 'workspace 💬'
+cmd-5 = 'workspace 🎵'
 cmd-6 = 'workspace 6'
 cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 8'
