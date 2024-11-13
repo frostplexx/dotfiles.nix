@@ -37,17 +37,19 @@
   };
 
 
-  # Add a systemd timer to run the update.sh script in this repository
-  services.systemd.timers.update = {
+  # Automatic System Upgrades
+  system.autoUpgrade = {
     enable = true;
-    timerConfig = {
-      OnCalendar = "daily";
-    };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${inputs.dotfiles}/update.sh";
-    };
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--print-build-logs"
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
   };
+
 
 
   # Some programs need SUID wrappers, can be configured further or are
