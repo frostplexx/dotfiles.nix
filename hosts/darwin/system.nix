@@ -22,6 +22,7 @@
 
     defaults = {
       menuExtraClock.Show24Hour = true; # show 24 hour clock
+
       NSGlobalDomain = {
         NSWindowShouldDragOnGesture = true;
         NSAutomaticWindowAnimationsEnabled = true;
@@ -31,15 +32,32 @@
         KeyRepeat = 2;
         InitialKeyRepeat = 15;
         AppleInterfaceStyleSwitchesAutomatically = true;
+        AppleICUForce24HourTime = true;
+        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
+        ApplePressAndHoldEnabled = true; # enable press and hold
+
+        NSAutomaticCapitalizationEnabled = false;
+
+        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default(保存文件时的路径选择/文件名输入页)
+        NSNavPanelExpandedStateForSaveMode2 = true;
       };
+
       finder = {
         AppleShowAllExtensions = true;
-        _FXShowPosixPathInTitle = true;
+        _FXShowPosixPathInTitle = false;
+        FXEnableExtensionChangeWarning = false;
         _FXSortFoldersFirst = true;
         AppleShowAllFiles = true;
         ShowPathbar = true;
       };
       dock = {
+
+        # Disable Hot corners
+        wvous-tl-corner = 1;
+        wvous-tr-corner = 1;
+        wvous-bl-corner = 1;
+        wvous-br-corner = 1;
+
         tilesize = 45;
         expose-group-by-app = true;
         mru-spaces = false;
@@ -62,10 +80,53 @@
       };
       spaces.spans-displays = false;
       menuExtraClock.ShowDate = 2;
+
+
+
+      CustomUserPreferences = {
+        NSGlobalDomain = {
+          # Add a context menu item for showing the Web Inspector in web views
+          WebKitDeveloperExtras = true;
+        };
+
+        # Run: open ~/Library/Preferences/com.apple.finder.plist
+        # to see see what possible settings exist
+        "com.apple.finder" = {
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = false;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          ShowTabView = false;
+          FXPreferredViewStyle = "Nlsv";
+          # When performing a search, search the current folder by default
+          FXDefaultSearchScope = "SCcf";
+        };
+
+        "com.apple.desktopservices" = {
+          # Avoid creating .DS_Store files on network or USB volumes
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+
+        "com.apple.screencapture" = {
+          location = "~/Desktop";
+          type = "png";
+        };
+
+      };
+
+      loginwindow = {
+        GuestEnabled = false; # disable guest user
+        SHOWFULLNAME = true; # show full name in login window
+      };
+
     };
   };
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
 }
