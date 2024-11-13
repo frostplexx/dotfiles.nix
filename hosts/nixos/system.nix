@@ -155,10 +155,18 @@
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+
     };
+
+
   };
 
 
+  # Source: https://blog.aktsbot.in/no-more-blurry-fonts.html
+  environment.variables = {
+    "FREETYPE_PROPERTIES" = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+  };
 
 
 }
