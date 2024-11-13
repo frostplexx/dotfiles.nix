@@ -98,39 +98,39 @@
 
         # Run: open ~/Library/Preferences/com.apple.finder.plist
         # to see see what possible settings exist
-        # "com.apple.finder" = {
-        #   ShowExternalHardDrivesOnDesktop = true;
-        #   ShowHardDrivesOnDesktop = false;
-        #   ShowMountedServersOnDesktop = true;
-        #   ShowRemovableMediaOnDesktop = true;
-        #   _FXSortFoldersFirst = true;
-        #   ShowTabView = false;
-        #   FXPreferredViewStyle = "Nlsv";
-        #   # When performing a search, search the current folder by default
-        #   FXDefaultSearchScope = "SCcf";
-        #   NewWindowTargetPath = "file:///Users/daniel/Downloads";
-        #   StandardViewSettings = {
-        #     ListViewSettings = {
-        #       calculateAllSizes = true;
-        #       textSize = 13;
-        #       useRelativeDates = true;
-        #       showIconPreview = true;
-        #       sortColumn = "name";
-        #       viewOptionsVersion = 1;
-        #       columns = {
-        #         comments.visible = false;
-        #         name.visible = true;
-        #         dateCreated.visible = true;
-        #         size.visible = true;
-        #         label.visible = false;
-        #         kind.visible = true;
-        #         version.visible = false;
-        #         dateLastOpened.visible = false;
-        #         dateModified.visible = false;
-        #       };
-        #     };
-        #   };
-        # };
+        "com.apple.finder" = {
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = false;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          ShowTabView = false;
+          FXPreferredViewStyle = "Nlsv";
+          # When performing a search, search the current folder by default
+          FXDefaultSearchScope = "SCcf";
+          NewWindowTargetPath = "file:///Users/daniel/Downloads";
+          StandardViewSettings = {
+            ListViewSettings = {
+              calculateAllSizes = true;
+              textSize = 13;
+              useRelativeDates = true;
+              showIconPreview = true;
+              sortColumn = "name";
+              viewOptionsVersion = 1;
+              columns = {
+                comments.visible = false;
+                name.visible = true;
+                dateCreated.visible = true;
+                size.visible = true;
+                label.visible = false;
+                kind.visible = true;
+                version.visible = false;
+                dateLastOpened.visible = false;
+                dateModified.visible = false;
+              };
+            };
+          };
+        };
 
         "com.apple.desktopservices" = {
           # Avoid creating .DS_Store files on network or USB volumes
@@ -143,11 +143,6 @@
           type = "png";
         };
 
-      };
-
-      loginwindow = {
-        GuestEnabled = false; # disable guest user
-        SHOWFULLNAME = true; # show full name in login window
       };
 
     };
