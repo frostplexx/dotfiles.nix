@@ -109,9 +109,27 @@
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
           NewWindowTargetPath = "file:///Users/daniel/Downloads";
-          # StandardViewSettings = {
-          #   ListViewSettings.calculateAllSizes = true;
-          # };
+          StandardViewSettings = {
+            ListViewSettings = {
+              calculateAllSizes = true;
+              textSize = 13;
+              useRelativeDates = true;
+              showIconPreview = true;
+              sortColumn = "name";
+              viewOptionsVersion = 1;
+              columns = {
+                comments.visible = false;
+                name.visible = true;
+                dateCreated.visible = true;
+                size.visible = true;
+                label.visible = false;
+                kind.visible = true;
+                version.visible = false;
+                dateLastOpened.visible = false;
+                dateModified.visible = false;
+              };
+            };
+          };
         };
 
         "com.apple.desktopservices" = {
