@@ -45,6 +45,8 @@
     gnumake
     inputs.yuki.packages.${pkgs.system}.default
     pkg-config
+    xclip # for copying to clipboard
+
 
     # CLI utilities
     ffmpeg
