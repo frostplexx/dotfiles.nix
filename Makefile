@@ -92,7 +92,7 @@ deploy-nixos:
 		echo "${INFO} Rebuilding NixOS system..." && \
 		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
 			echo "${SUCCESS} System rebuilt successfully" && \
-			gen="$$(nixos-rebuild list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/Generation \1 - \2 at \3/')" && \
+			gen="$$(nixos-rebuild list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/\1 · \2 at \3/')" && \
 			git add . && \
 			export NIXOS_GENERATION_COMMIT=1 && \
 			git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
