@@ -21,7 +21,12 @@
     startup.chime = false;
 
     defaults = {
-      menuExtraClock.Show24Hour = true; # show 24 hour clock
+      menuExtraClock = {
+        Show24Hour = true;
+        ShowDate = 2;
+        ShowDayOfMonth = false;
+        ShowDayOfWeek = false;
+      };
 
       NSGlobalDomain = {
         NSWindowShouldDragOnGesture = true;
@@ -33,13 +38,16 @@
         InitialKeyRepeat = 15;
         AppleInterfaceStyleSwitchesAutomatically = true;
         AppleICUForce24HourTime = true;
-        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
+        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control (e.g. enable Tab in modal dialogs).
         ApplePressAndHoldEnabled = true; # enable press and hold
 
         NSAutomaticCapitalizationEnabled = false;
 
-        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default(保存文件时的路径选择/文件名输入页)
+        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
         NSNavPanelExpandedStateForSaveMode2 = true;
+
+        AppleFontSmoothing = 1;
+
       };
 
       finder = {
@@ -79,7 +87,6 @@
         EnableStandardClickToShowDesktop = false;
       };
       spaces.spans-displays = false;
-      menuExtraClock.ShowDate = 2;
 
 
 
