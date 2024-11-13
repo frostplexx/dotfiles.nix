@@ -101,6 +101,7 @@
           FXPreferredViewStyle = "Nlsv";
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
+          NewWindowTargetPath = "file:///Users/daniel/Documents";
         };
 
         "com.apple.desktopservices" = {
