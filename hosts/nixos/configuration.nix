@@ -1,7 +1,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -31,6 +31,22 @@
   # TODO: make this shared between darwin and nixos
   nix = {
     optimise.automatic = true;
+    # Optional but recommended: Keep build dependencies around for offline builds
+    settings.keep-outputs = true;
+    settings.keep-derivations = true;
+  };
+
+
+  # Add a systemd timer to run the update.sh script in this repository
+  services.systemd.timers.update = {
+    enable = true;
+    timerConfig = {
+      OnCalendar = "daily";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${inputs.dotfiles}/update.sh";
+    };
   };
 
 

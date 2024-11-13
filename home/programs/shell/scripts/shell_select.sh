@@ -1,4 +1,3 @@
-
 # bin/shell-select
 #!/usr/bin/env bash
 
