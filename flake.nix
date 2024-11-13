@@ -34,14 +34,13 @@
       inputs.home-manager.follows = "home-manager";
     };
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    # yuki.url = "github:frostplexx/yuki/dev";
-    yuki.url = "git+file:///Users/daniel/Developer/yuki";
+    yuki.url = "github:frostplexx/yuki/dev";
+    # yuki.url = "git+file:///Users/daniel/Developer/yuki";
     stylix.url = "github:danth/stylix";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   # In your flake.nix, replace just the outputs section:
-
   outputs = { nixpkgs, home-manager, nix-darwin, flake-utils, ... }@inputs:
     let
       # Set some global variables

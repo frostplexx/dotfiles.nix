@@ -554,15 +554,16 @@
       "locked": {
         "lastModified": 1731422960,
         "narHash": "sha256-IkDEn+Y/Zn0zR7uY4/+7w2BaqTunJBVx8DgXbk8YB/g=",
-        "ref": "refs/heads/dev",
+        "owner": "frostplexx",
+        "repo": "yuki",
         "rev": "abda2d44f4e8abf596c3fff372faee1b0e91debb",
-        "revCount": 20,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/yuki"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/yuki"
+        "owner": "frostplexx",
+        "ref": "dev",
+        "repo": "yuki",
+        "type": "github"
       }
     }
   },
