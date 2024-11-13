@@ -101,7 +101,11 @@
           FXPreferredViewStyle = "Nlsv";
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
-          NewWindowTargetPath = "file:///Users/daniel/Documents";
+          NewWindowTargetPath = "file:///Users/daniel/Downloads";
+          FavoriteTagNames = [ ];
+          StandardViewSettings = {
+            ListViewSettings.calculateAllSizes = true;
+          };
         };
 
         "com.apple.desktopservices" = {
