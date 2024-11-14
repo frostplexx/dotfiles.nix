@@ -35,7 +35,6 @@ in
       ruff
     ];
 
-
     plugins = [
       treeSitterWithAllGrammars
     ];
@@ -77,5 +76,6 @@ in
       recursive = true;
       source = treeSitterWithAllGrammars;
     };
+
   };
 }
