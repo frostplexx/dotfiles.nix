@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.nixcord = {
     enable = true;
@@ -6,11 +6,6 @@
     vesktop = {
       enable = true;
     };
-    quickCss = ''
-      .titleBar_a934d8 {
-        display: none !important;
-      }
-    '';
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
@@ -80,7 +75,7 @@
       discordBranch = "stable";
       minimizeToTray = true;
       arRPC = true;
-      customTitleBar = true;
+      customTitleBar = if pkgs.stdenv.isDarwin then true else false;
     };
     force = true; # Force the file to be written so it overrides the settings nixvim creates
   };

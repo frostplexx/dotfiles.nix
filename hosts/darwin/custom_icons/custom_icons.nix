@@ -8,7 +8,7 @@
         icon = ./spotify.icns;
       }
       {
-        path = "/${pkgs.vesktop}/Applications/Vesktop.app";
+        path = "${pkgs.vesktop}/Applications/Vesktop.app";
         icon = ./discord.icns;
       }
     ];
