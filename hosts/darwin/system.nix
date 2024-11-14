@@ -13,9 +13,18 @@
     stateVersion = 5;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     activationScripts.postUserActivation.text = ''
+      # Some user defaults that cant be set using nix-darwin
+
+      # Disable mouse acceleration
+      defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+      # Title bar icons in finder
+      defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+      # Focus follows mouse
+
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      killall Finder
     '';
 
     startup.chime = false;
@@ -28,7 +37,7 @@
         ShowDayOfWeek = false;
       };
 
-      ".GlobalPreferences"."com.apple.mouse.scaling" = -1.0; # Disable mouse acceleration
+      ".GlobalPreferences"."com.apple.mouse.scaling" = 4.0; # set the mouse tracking speed
 
       NSGlobalDomain = {
         NSWindowShouldDragOnGesture = true;
@@ -89,8 +98,7 @@
         EnableStandardClickToShowDesktop = false;
       };
       spaces.spans-displays = false;
-
-
+      ActivityMonitor.IconType = 6;
 
       CustomUserPreferences = {
         NSGlobalDomain = {
@@ -134,4 +142,5 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
+
 }
