@@ -61,12 +61,12 @@ deploy-darwin:
 		echo "${INFO} Checking for changes..." && \
 		git --no-pager diff --no-prefix --minimal --unified=0 . && \
 		echo "${INFO} Rebuilding Darwin system..." && \
+		git add . && \
 		(darwin-rebuild switch --flake .#darwin 2>darwin-switch.log && \
 			echo "${SUCCESS} System rebuilt successfully") || \
 			(echo "${ERROR} Build failed with errors:" && \
 			cat darwin-switch.log | grep --color error && false) && \
 		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/Generation \1 - \2 at \3/') && \
-		git add . && \
 		export NIXOS_GENERATION_COMMIT=1 && \
 		git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
 		echo "${SUCCESS} Changes committed for generation: $$gen" && \
@@ -90,10 +90,10 @@ deploy-nixos:
 		echo "${INFO} Checking for changes..." && \
 		git --no-pager diff --no-prefix --minimal --unified=0 . && \
 		echo "${INFO} Rebuilding NixOS system..." && \
+		git add . && \
 		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
 			echo "${SUCCESS} System rebuilt successfully" && \
 			gen="$$(nixos-rebuild list-generations | grep current| sed -E 's/([0-9]*) (current)  ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)(.*)/\1 · \3 at \4/')" && \
-			git add . && \
 			export NIXOS_GENERATION_COMMIT=1 && \
 			git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
 			echo "${SUCCESS} Changes committed for generation: $$gen" && \
