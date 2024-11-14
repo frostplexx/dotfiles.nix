@@ -6,12 +6,14 @@
     vesktop.enable = true; # enable Vesktop
     quickCss = ""; # quickCSS file
     config = {
-      useQuickCss = false; # use out quickCSS
+      useQuickCss = true; # use out quickCSS
+      enableReactDevtools = true;
+      disableMinSize = true;
       themeLinks = [
         # or use an online theme
         "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
       ];
-      frameless = true; # set some Vencord options
+      frameless = true;
       plugins = {
         alwaysAnimate.enable = true;
         betterFolders = {
