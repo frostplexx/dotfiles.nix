@@ -13,7 +13,6 @@ let
 
 
   treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
-  base16 = pkgs.vimPlugins.base16-nvim;
 in
 {
 
@@ -78,11 +77,6 @@ in
       source = treeSitterWithAllGrammars;
     };
 
-
-    ".local/share/nvim/nix/base16-nvim/" = {
-      recursive = true;
-      source = base16;
-    };
 
   };
 }

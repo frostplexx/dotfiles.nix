@@ -1,5 +1,5 @@
 -- [[ Vim options ]]
--- vim.cmd.colorscheme("catppuccin-macchiato")
+vim.cmd.colorscheme("catppuccin-macchiato")
 
 -- Make current line number brighter than the rest
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#8087a2", bold = false })
