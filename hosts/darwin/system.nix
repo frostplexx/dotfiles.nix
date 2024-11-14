@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 
 ###################################################################################
 #
@@ -100,6 +100,12 @@
       spaces.spans-displays = false;
       ActivityMonitor.IconType = 6;
 
+      loginwindow = {
+        GuestEnabled = false; # Disable guest account
+        SHOWFULLNAME = false; # Use the simple login window where you only need your password
+        autoLoginUser = vars.user; # Set to your username if you want automatic login
+      };
+
       CustomUserPreferences = {
         NSGlobalDomain = {
           # Add a context menu item for showing the Web Inspector in web views
@@ -118,7 +124,7 @@
           FXPreferredViewStyle = "Nlsv";
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
-          NewWindowTargetPath = "file:///Users/daniel/Downloads";
+          NewWindowTargetPath = "file:///Users/${vars.user}/Downloads";
         };
 
         "com.apple.desktopservices" = {
