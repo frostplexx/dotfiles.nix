@@ -225,6 +225,11 @@ run = 'move-node-to-workspace 📕'
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace 📕'
 
+[[on-window-detected]]
+if.app-id = 'com.culturedcode.ThingsMac'
+run = 'move-node-to-workspace 📕'
+
+
 # floating rules
 
 [[on-window-detected]]
