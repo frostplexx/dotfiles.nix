@@ -12,7 +12,7 @@
       ./system.nix
       ./apps.nix
       ./users.nix
-      ./stylix
+      ./stylix.nix
     ];
 
   nix = {

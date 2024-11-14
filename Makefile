@@ -56,12 +56,12 @@ deploy-darwin:
 			sleep 60; \
 			kill -0 "$$" || exit; \
 		done 2>/dev/null & \
+		git add . && \
 		echo "${INFO} Running lints and checks..." && \
 		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
 		echo "${INFO} Checking for changes..." && \
 		git --no-pager diff --no-prefix --minimal --unified=0 . && \
 		echo "${INFO} Rebuilding Darwin system..." && \
-		git add . && \
 		(darwin-rebuild switch --flake .#darwin 2>darwin-switch.log && \
 			echo "${SUCCESS} System rebuilt successfully") || \
 			(echo "${ERROR} Build failed with errors:" && \
@@ -85,12 +85,12 @@ deploy-nixos:
 			kill -0 "$$" || exit; \
 		done 2>/dev/null & \
 		trap 'kill %1' EXIT; \
+		git add . && \
 		echo "${INFO} Running lints and checks..." && \
 		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
 		echo "${INFO} Checking for changes..." && \
 		git --no-pager diff --no-prefix --minimal --unified=0 . && \
 		echo "${INFO} Rebuilding NixOS system..." && \
-		git add . && \
 		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
 			echo "${SUCCESS} System rebuilt successfully" && \
 			gen="$$(nixos-rebuild list-generations | grep current| sed -E 's/([0-9]*) (current)  ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)(.*)/\1 · \3 at \4/')" && \
