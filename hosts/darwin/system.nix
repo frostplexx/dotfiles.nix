@@ -28,6 +28,8 @@
         ShowDayOfWeek = false;
       };
 
+      ".GlobalPreferences"."com.apple.mouse.scaling" = -1.0; # Disable mouse acceleration
+
       NSGlobalDomain = {
         NSWindowShouldDragOnGesture = true;
         NSAutomaticWindowAnimationsEnabled = true;
