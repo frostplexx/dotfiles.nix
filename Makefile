@@ -25,7 +25,7 @@
 ###############################################################################
 
 MAKEFLAGS += --no-print-directory
-NIX_FLAGS = --extra-experimental-features 'nix-command flakes'
+NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config
 include format.mk
 .PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
 
