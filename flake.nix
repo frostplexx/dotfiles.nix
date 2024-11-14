@@ -116,12 +116,15 @@
                 inputs.plasma-manager.homeManagerModules.plasma-manager
                 inputs.nixcord.homeManagerModules.nixcord
                 {
-                  stylix.targets = {
-                    neovim = {
-                      plugin = "mini.base16";
-                      transparentBackground = {
-                        main = false;
-                        signColumn = false;
+                  stylix = {
+                    autoEnable = true;
+                    targets = {
+                      neovim = {
+                        plugin = "base16-nvim";
+                        transparentBackground = {
+                          main = false;
+                          signColumn = false;
+                        };
                       };
                     };
                   };
