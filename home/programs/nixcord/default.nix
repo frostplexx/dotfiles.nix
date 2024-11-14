@@ -1,16 +1,21 @@
+{ config, ... }:
 {
-  # ...
   programs.nixcord = {
-    enable = true; # enable Nixcord. Also installs discord package
-    discord.enable = false; # enable Discord
-    vesktop.enable = true; # enable Vesktop
-    quickCss = ""; # quickCSS file
+    enable = true;
+    discord.enable = false;
+    vesktop = {
+      enable = true;
+    };
+    quickCss = ''
+      .titleBar_a934d8 {
+        display: none !important;
+      }
+    '';
     config = {
-      useQuickCss = true; # use out quickCSS
+      useQuickCss = true;
       enableReactDevtools = true;
       disableMinSize = true;
       themeLinks = [
-        # or use an online theme
         "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
       ];
       frameless = true;
@@ -65,10 +70,28 @@
         whoReacted.enable = true;
       };
     };
-    extraConfig = {
-      # Some extra JSON config here
-      # ...
-    };
   };
-  # ...
+
+
+  # force the following json into vesktop.configDir/settings.json because you cant do that in the
+  # nixcord config
+  home.file."${config.programs.nixcord.vesktop.configDir}/settings.json" = {
+    text = builtins.toJSON {
+      discordBranch = "stable";
+      minimizeToTray = true;
+      arRPC = true;
+      customTitleBar = true;
+    };
+    force = true; # Force the file to be written so it overrides the settings nixvim creates
+  };
+
+
+  home.file."${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
+    text = ''
+      .titleBar_a934d8 {
+        display: none !important;
+      }
+    '';
+    force = true;
+  };
 }
