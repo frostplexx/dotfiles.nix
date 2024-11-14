@@ -38,6 +38,7 @@
     # yuki.url = "git+file:///Users/daniel/Developer/yuki";
     stylix.url = "github:danth/stylix";
     flake-utils.url = "github:numtide/flake-utils";
+    nixcord.url = "github:kaylorben/nixcord";
   };
 
   # In your flake.nix, replace just the outputs section:
@@ -85,6 +86,7 @@
               users.${vars.user} = import ./home;
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
+                inputs.nixcord.homeManagerModules.nixcord
               ];
             };
           }
@@ -112,6 +114,7 @@
               users.${vars.user} = import ./home;
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
+                inputs.nixcord.homeManagerModules.nixcord
               ];
             };
           }
