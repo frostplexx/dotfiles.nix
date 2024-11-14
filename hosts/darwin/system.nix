@@ -37,7 +37,7 @@
         ShowDayOfWeek = false;
       };
 
-      ".GlobalPreferences"."com.apple.mouse.scaling" = 4.0; # set the mouse tracking speed
+      ".GlobalPreferences"."com.apple.mouse.scaling" = 0.875; # set the mouse tracking speed
 
       NSGlobalDomain = {
         NSWindowShouldDragOnGesture = true;
