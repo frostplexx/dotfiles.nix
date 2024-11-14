@@ -49,7 +49,6 @@
     transmission_4
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
-    vesktop
     _1password-cli
     raycast # Spotlight replacement
     aerospace # macOS window manager

@@ -71,7 +71,6 @@
     obsidian
     spotify
     transmission_4
-    vesktop
     _1password-cli
     _1password-gui
     papirus-icon-theme
