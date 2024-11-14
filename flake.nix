@@ -115,6 +115,17 @@
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
                 inputs.nixcord.homeManagerModules.nixcord
+                {
+                  stylix.targets = {
+                    neovim = {
+                      plugin = "mini.base16";
+                      transparentBackground = {
+                        main = false;
+                        signColumn = false;
+                      };
+                    };
+                  };
+                }
               ];
             };
           }
