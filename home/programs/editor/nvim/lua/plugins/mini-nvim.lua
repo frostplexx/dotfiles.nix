@@ -11,6 +11,7 @@ return {
     -- [[ Gitsigns ]]]
     require("gitsigns").setup()
 
+    require("mini.base16").setup({})
     -- [[ Mini Files ]]
     require("mini.files").setup({
       -- Customization of shown content
