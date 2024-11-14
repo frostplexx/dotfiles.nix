@@ -1,6 +1,6 @@
 return {
   "catppuccin/nvim",
-  enabled = false,
+  enabled = true,
   event = "WinEnter",
   name = "catppuccin",
   priority = 1000,
@@ -32,9 +32,9 @@ return {
   ]])
 
     require("catppuccin").setup({
-      flavour = "macchiato",               -- latte, frappe, macchiato, mocha
-      transparent_background = true,       -- disables setting the background color.
-      term_colors = true,                  -- sets terminal colors (e.g. `g:terminal_color_0`)
+      flavour = "macchiato",         -- latte, frappe, macchiato, mocha
+      transparent_background = true, -- disables setting the background color.
+      term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
       integrations = {
         cmp = true,
         gitsigns = true,

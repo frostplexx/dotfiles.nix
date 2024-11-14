@@ -1,0 +1,7 @@
+{
+
+  stylix = {
+    autoEnable = true;
+    targets = { };
+  };
+}
