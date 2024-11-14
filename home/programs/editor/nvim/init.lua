@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",     -- latest stable release
+    "--branch=stable", -- latest stable release
     lazypath,
   })
 end
@@ -28,11 +28,9 @@ require("lazy").setup({
   },
   defaults = {
     lazy = true,
-    version = false,     -- always use the latest git commit
-    -- colorscheme = "catppuccin",
+    version = false,             -- always use the latest git commit
   },
-  -- install = { colorscheme = { "catppuccin" } },
-  checker = { enabled = false },   -- automatically check for plugin updates
+  checker = { enabled = false }, -- automatically check for plugin updates
   ui = {
     border = "rounded",
   },
@@ -41,7 +39,7 @@ require("lazy").setup({
       enabled = true,
     },
     rtp = {
-      reset = true,       -- reset runtimepath
+      reset = true, -- reset runtimepath
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
