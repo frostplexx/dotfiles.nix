@@ -149,9 +149,9 @@ cmd-0 = 'workspace 10'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 cmd-shift-1 = [ 'move-node-to-workspace 🌐', 'workspace 🌐']
 cmd-shift-2 = [ 'move-node-to-workspace 💽', 'workspace 💽']
-cmd-shift-3 = [ 'move-node-to-workspace 💬', 'workspace 💬']
-cmd-shift-4 = [ 'move-node-to-workspace 🎵', 'workspace 🎵']
-cmd-shift-5 = [ 'move-node-to-workspace 📕', 'workspace 📕']
+cmd-shift-3 = [ 'move-node-to-workspace 📕', 'workspace 📕']
+cmd-shift-4 = [ 'move-node-to-workspace 💬', 'workspace 💬']
+cmd-shift-5 = [ 'move-node-to-workspace 🎵', 'workspace 🎵']
 cmd-shift-6 = [ 'move-node-to-workspace 6', 'workspace 6']
 cmd-shift-7 = [ 'move-node-to-workspace 7', 'workspace 7']
 cmd-shift-8 = [ 'move-node-to-workspace 8', 'workspace 8']
