@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 let
   themeFile = "midnight-catppuccin-macchiato.theme.css";
@@ -7,15 +7,15 @@ let
   # Define theme path based on operating system
   themePath =
     if pkgs.stdenv.isDarwin
-    then "/Users/daniel/Library/Application Support/vesktop/themes/${themeFile}"
+    then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in
 {
   stylix.targets.vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
   programs.nixcord = {
     enable = true;
-    discord.enable = false;
-    vesktop.enable = true;
+    discord.enable = true;
+    vesktop.enable = false;
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
