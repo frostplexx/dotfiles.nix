@@ -75,7 +75,7 @@ deploy-darwin:
 			echo "${SUCCESS} System rebuilt successfully") || \
 			(echo "${ERROR} Build failed with errors:" && \
 			cat darwin-switch.log | grep --color error && false) && \
-		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/Generation \1 - \2 at \3/') && \
+		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/\1 - \2 at \3/') && \
 		export NIXOS_GENERATION_COMMIT=1 && \
 		git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
 		echo "${SUCCESS} Changes committed for generation: $$gen" && \
