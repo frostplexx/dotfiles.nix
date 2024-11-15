@@ -76,13 +76,6 @@
           inputs.yuki.nixosModules.default
           ./hosts/nixos/configuration.nix
           inputs.stylix.nixosModules.stylix
-          ({ pkgs, ... }: {
-            nixpkgs.overlays = [
-              (final: _prev: {
-                custom-pkgs = import ./pkgs { pkgs = final; };
-              })
-            ];
-          })
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [ inputs.nur.overlay ];

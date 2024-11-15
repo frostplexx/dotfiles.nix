@@ -5,6 +5,7 @@
 # Targets:
 # - all:      deploy changes and clean old generations
 # - deploy:   auto-detects OS and deploys appropriate configuration
+# - test:     test configuration without switching to it
 # - update:   updates all dependencies and deploys
 # - install:  first-time setup for macOS systems
 # - lint:     format and lint nix files
@@ -15,6 +16,7 @@
 # 1. First time setup:    make install
 # 2. Regular deploys:     make deploy
 # 3. Update everything:   make update
+# 4. Test changes:        make test
 #
 # Features:
 # - Automatic OS detection
@@ -27,7 +29,7 @@
 MAKEFLAGS += --no-print-directory
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config
 include format.mk
-.PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair test
+.PHONY: all deploy deploy-darwin deploy-nixos test test-darwin test-nixos update install lint clean repair
 
 define get_commit_message
 OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
@@ -44,6 +46,13 @@ deploy:
 		$(MAKE) deploy-darwin; \
 	else \
 		$(MAKE) deploy-nixos; \
+	fi
+
+test:
+	@if [ "$$(uname)" = "Darwin" ]; then \
+		$(MAKE) test-darwin; \
+	else \
+		$(MAKE) test-nixos; \
 	fi
 
 deploy-darwin:
@@ -73,6 +82,25 @@ deploy-darwin:
 		echo "${DONE}Darwin deployment complete!${RESET}"; \
 	}
 
+test-darwin:
+	@echo "${HEADER}Testing Darwin Configuration${RESET}"
+	@echo "${INFO} Caching sudo authentication..."
+	@sudo -v
+	@{ \
+		while true; do \
+			sudo -n true; \
+			sleep 60; \
+			kill -0 "$$" || exit; \
+		done 2>/dev/null & \
+		echo "${INFO} Running lints and checks..." && \
+		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+		echo "${INFO} Testing Darwin configuration..." && \
+		(darwin-rebuild check --flake .#darwin 2>darwin-test.log && \
+			echo "${SUCCESS} Configuration test successful") || \
+			(echo "${ERROR} Test failed with errors:" && \
+			cat darwin-test.log | grep --color error && false) && \
+		echo "${DONE}Darwin test complete!${RESET}"; \
+	}
 
 deploy-nixos:
 	@echo "${HEADER}Starting NixOS Deployment${RESET}"
@@ -105,6 +133,30 @@ deploy-nixos:
 		fi; \
 	}
 
+test-nixos:
+	@echo "${HEADER}Testing NixOS Configuration${RESET}"
+	@echo "${INFO} Caching sudo authentication..."
+	@sudo -v
+	@{ \
+		while true; do \
+			sudo -n true; \
+			sleep 60; \
+			kill -0 "$$" || exit; \
+		done 2>/dev/null & \
+		trap 'kill %1' EXIT; \
+		echo "${INFO} Running lints and checks..." && \
+		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+		echo "${INFO} Testing NixOS configuration..." && \
+		if sudo nixos-rebuild test --flake .#nixos 2>nixos-test.log; then \
+			echo "${SUCCESS} Configuration test successful" && \
+			exit 0; \
+		else \
+			echo "${ERROR} Test failed with errors:" && \
+			cat nixos-test.log | grep --color error && \
+			exit 1; \
+		fi; \
+	}
+
 update:
 	@echo "${INFO} Updating channels..."
 	@nix-channel --update
@@ -112,39 +164,6 @@ update:
 	@nix $(NIX_FLAGS) flake update
 	@echo "${SUCCESS} Updates complete, starting deployment"
 	@$(MAKE) deploy
-
-test:
-	@if [ "$$(uname)" = "Darwin" ]; then \
-		$(MAKE) test-darwin; \
-	else \
-		$(MAKE) test-nixos; \
-	fi
-
-test-darwin:
-	@echo "${HEADER}Testing Darwin Configuration${RESET}"
-	@echo "${INFO} Running lints and checks..."
-	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
-	@echo "${INFO} Building configuration..."
-	@if nix build $(NIX_FLAGS) .#darwinConfigurations.darwin.system 2>darwin-test.log; then \
-		echo "${SUCCESS} Configuration built successfully"; \
-	else \
-		echo "${ERROR} Build failed with errors:"; \
-		cat darwin-test.log | grep --color error; \
-		exit 1; \
-	fi
-
-test-nixos:
-	@echo "${HEADER}Testing NixOS Configuration${RESET}"
-	@echo "${INFO} Running lints and checks..."
-	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
-	@echo "${INFO} Building configuration..."
-	@if nix build $(NIX_FLAGS) .#nixosConfigurations.nixos.config.system.build.toplevel 2>nixos-test.log; then \
-		echo "${SUCCESS} Configuration built successfully"; \
-	else \
-		echo "${ERROR} Build failed with errors:"; \
-		cat nixos-test.log | grep --color error; \
-		exit 1; \
-	fi
 
 install:
 	@if [ "$$(uname)" != "Darwin" ]; then \
