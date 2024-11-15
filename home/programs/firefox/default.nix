@@ -4,10 +4,7 @@
   nixpkgs.config.allowUnfree = true;
   programs.firefox = {
     enable = true;
-    package =
-      if pkgs.stdenv.isDarwin
-      then pkgs.firefox-bin
-      else pkgs.firefox;
+    package = pkgs.firefox-beta-bin;
     profiles.default = {
       id = 0;
       name = "default";
