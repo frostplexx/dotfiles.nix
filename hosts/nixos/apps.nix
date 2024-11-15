@@ -75,6 +75,7 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
+    haruna
 
     # Gaming related
     vintagestory
