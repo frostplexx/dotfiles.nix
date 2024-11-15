@@ -13,8 +13,8 @@
       };
     };
     cursor = {
-      name = "Vimix-Cursors";
-      package = pkgs.vimix-cursor-theme;
+      name = "Phinger Cursors";
+      package = pkgs.phinger-cursors;
       size = 28;
     };
 
