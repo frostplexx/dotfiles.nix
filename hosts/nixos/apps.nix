@@ -75,7 +75,6 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
-    custom-pkgs.apple-music-desktop
 
     # Gaming related
     vintagestory
