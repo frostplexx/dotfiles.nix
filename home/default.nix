@@ -15,9 +15,7 @@ let
 in
 {
   nixpkgs.config.allowUnfree = true;
-  imports = programModules ++ [
-    ./stylix.nix
-  ];
+  imports = programModules;
 
   home = {
     inherit homeDirectory;
