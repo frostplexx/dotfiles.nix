@@ -4,7 +4,7 @@
   nixpkgs.config.allowUnfree = true;
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-beta-bin;
+    package = pkgs.firefox-bin;
     profiles.default = {
       id = 0;
       name = "default";
@@ -76,8 +76,7 @@
             display: none;
           }
         '' else "";
-      userContent = ''
-          '';
+      userContent = '''';
 
       extraConfig = "";
     };
