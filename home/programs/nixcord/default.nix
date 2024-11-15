@@ -21,7 +21,7 @@ in
       enableReactDevtools = true;
       disableMinSize = true;
       frameless = true;
-      enabledThemes = [themeFile];
+      enabledThemes = [ themeFile ];
       plugins = {
         alwaysAnimate.enable = true;
         betterFolders = {
