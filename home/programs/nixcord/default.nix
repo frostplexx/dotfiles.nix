@@ -7,7 +7,7 @@ let
   # Define theme path based on operating system
   themePath =
     if pkgs.stdenv.isDarwin
-    then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
+    then "/Users/${vars.user}/Library/Application Support/Vencord/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in
 {
