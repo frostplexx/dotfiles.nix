@@ -17,13 +17,11 @@ in
     discord.enable = true;
     vesktop.enable = false;
     config = {
-      useQuickCss = true;
+      useQuickCss = false;
       enableReactDevtools = true;
       disableMinSize = true;
-      themeLinks = [
-        themePath
-      ];
       frameless = true;
+      enabledThemes = [themeFile];
       plugins = {
         alwaysAnimate.enable = true;
         betterFolders = {
