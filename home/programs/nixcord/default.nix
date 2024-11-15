@@ -1,17 +1,27 @@
 { config, pkgs, ... }:
+
+let
+  themeFile = "midnight-catppuccin-macchiato.theme.css";
+  themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css";
+
+  # Define theme path based on operating system
+  themePath =
+    if pkgs.stdenv.isDarwin
+    then "/Users/daniel/Library/Application Support/vesktop/themes/${themeFile}"
+    else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
+in
 {
+  stylix.targets.vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
   programs.nixcord = {
     enable = true;
     discord.enable = false;
-    vesktop = {
-      enable = true;
-    };
+    vesktop.enable = true;
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
       disableMinSize = true;
       themeLinks = [
-        # "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
+        themePath
       ];
       frameless = true;
       plugins = {
@@ -67,26 +77,33 @@
     };
   };
 
-
-  # force the following json into vesktop.configDir/settings.json because you cant do that in the
-  # nixcord config
-  home.file."${config.programs.nixcord.vesktop.configDir}/settings.json" = {
-    text = builtins.toJSON {
-      discordBranch = "stable";
-      minimizeToTray = true;
-      arRPC = true;
-      customTitleBar = if pkgs.stdenv.isDarwin then true else false;
+  # Download theme file
+  home.file = {
+    ${themePath} = {
+      source = builtins.fetchurl {
+        url = themeUrl;
+        sha256 = "17k26qv8f87ryqz9c04ra96122b4kqijv4mnbakgrng4ji3himgn";
+      };
+      force = true;
     };
-    force = true; # Force the file to be written so it overrides the settings nixvim creates
-  };
-
-
-  home.file."${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
-    text = ''
-      .titleBar_a934d8 {
-        display: none !important;
-      }
-    '';
-    force = true;
+    # Settings configuration
+    "${config.programs.nixcord.vesktop.configDir}/settings.json" = {
+      text = builtins.toJSON {
+        discordBranch = "stable";
+        minimizeToTray = true;
+        arRPC = true;
+        customTitleBar = if pkgs.stdenv.isDarwin then true else false;
+      };
+      force = true;
+    };
+    # Quick CSS configuration
+    "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
+      text = ''
+        .titleBar_a934d8 {
+          display: none !important;
+        }
+      '';
+      force = true;
+    };
   };
 }
