@@ -2,16 +2,16 @@
 {
   programs.nixcord = {
     enable = true;
-    discord.enable = true;
+    discord.enable = false;
     vesktop = {
-      enable = false;
+      enable = true;
     };
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
       disableMinSize = true;
       themeLinks = [
-        "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
+        # "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
       ];
       frameless = true;
       plugins = {
