@@ -27,7 +27,7 @@
 MAKEFLAGS += --no-print-directory
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config
 include format.mk
-.PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair
+.PHONY: all deploy deploy-darwin deploy-nixos update install lint clean repair test
 
 define get_commit_message
 OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
@@ -112,6 +112,39 @@ update:
 	@nix $(NIX_FLAGS) flake update
 	@echo "${SUCCESS} Updates complete, starting deployment"
 	@$(MAKE) deploy
+
+test:
+	@if [ "$$(uname)" = "Darwin" ]; then \
+		$(MAKE) test-darwin; \
+	else \
+		$(MAKE) test-nixos; \
+	fi
+
+test-darwin:
+	@echo "${HEADER}Testing Darwin Configuration${RESET}"
+	@echo "${INFO} Running lints and checks..."
+	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
+	@echo "${INFO} Building configuration..."
+	@if nix build $(NIX_FLAGS) .#darwinConfigurations.darwin.system 2>darwin-test.log; then \
+		echo "${SUCCESS} Configuration built successfully"; \
+	else \
+		echo "${ERROR} Build failed with errors:"; \
+		cat darwin-test.log | grep --color error; \
+		exit 1; \
+	fi
+
+test-nixos:
+	@echo "${HEADER}Testing NixOS Configuration${RESET}"
+	@echo "${INFO} Running lints and checks..."
+	@$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1)
+	@echo "${INFO} Building configuration..."
+	@if nix build $(NIX_FLAGS) .#nixosConfigurations.nixos.config.system.build.toplevel 2>nixos-test.log; then \
+		echo "${SUCCESS} Configuration built successfully"; \
+	else \
+		echo "${ERROR} Build failed with errors:"; \
+		cat nixos-test.log | grep --color error; \
+		exit 1; \
+	fi
 
 install:
 	@if [ "$$(uname)" != "Darwin" ]; then \
