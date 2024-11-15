@@ -41,7 +41,6 @@
         "extensions.pocket.enabled" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allow userChrome.css
         "layout.css.color-mix.enabled" = true;
-        "ui.systemUsesDarkTheme" = 1;
         "media.ffmpeg.vaapi.enabled" = true; # Enable hardware video acceleration
         "cookiebanners.ui.desktop.enabled" = true; # Reject cookie popups
         "devtools.command-button-screenshot.enabled" = true; # Scrolling screenshot of entire page

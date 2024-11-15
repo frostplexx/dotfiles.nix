@@ -135,11 +135,11 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-cmd-1 = 'workspace 🌐'
-cmd-2 = 'workspace 💽'
-cmd-3 = 'workspace 📕'
-cmd-4 = 'workspace 💬'
-cmd-5 = 'workspace 🎵'
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
 cmd-6 = 'workspace 6'
 cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 8'
@@ -147,11 +147,11 @@ cmd-9 = 'workspace 9'
 cmd-0 = 'workspace 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-cmd-shift-1 = [ 'move-node-to-workspace 🌐', 'workspace 🌐']
-cmd-shift-2 = [ 'move-node-to-workspace 💽', 'workspace 💽']
-cmd-shift-3 = [ 'move-node-to-workspace 📕', 'workspace 📕']
-cmd-shift-4 = [ 'move-node-to-workspace 💬', 'workspace 💬']
-cmd-shift-5 = [ 'move-node-to-workspace 🎵', 'workspace 🎵']
+cmd-shift-1 = [ 'move-node-to-workspace 1', 'workspace 1']
+cmd-shift-2 = [ 'move-node-to-workspace 2', 'workspace 2']
+cmd-shift-3 = [ 'move-node-to-workspace 3', 'workspace 3']
+cmd-shift-4 = [ 'move-node-to-workspace 4', 'workspace 4']
+cmd-shift-5 = [ 'move-node-to-workspace 5', 'workspace 5']
 cmd-shift-6 = [ 'move-node-to-workspace 6', 'workspace 6']
 cmd-shift-7 = [ 'move-node-to-workspace 7', 'workspace 7']
 cmd-shift-8 = [ 'move-node-to-workspace 8', 'workspace 8']
@@ -191,48 +191,48 @@ ctrl-shift-l = ['join-with right','layout accordion' ,'mode main']
 # use `aerospace list-apps` to list open apps
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
-run = 'move-node-to-workspace 🌐'
+run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'
-run = 'move-node-to-workspace 💽'
+run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 💽'
+run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 if.app-id = 'com.termius-beta.mac'
-run = 'move-node-to-workspace 💽'
+run = 'move-node-to-workspace 2'
 
-[[on-window-detected]]
-if.app-id = 'dev.vencord.vesktop'
-run = 'move-node-to-workspace 💬'
-
-[[on-window-detected]]
-if.app-id = 'us.zoom.xos'
-run = 'move-node-to-workspace 💬'
-
-[[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace 💬'
-
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = 'move-node-to-workspace 🎵'
 
 [[on-window-detected]]
 if.app-id = 'com.goodnotesapp.x'
-run = 'move-node-to-workspace 📕'
+run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace 📕'
+run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-id = 'com.culturedcode.ThingsMac'
-run = 'move-node-to-workspace 📕'
+run = 'move-node-to-workspace 3'
 
+[[on-window-detected]]
+if.app-id = 'dev.vencord.vesktop'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 5'
 
 # floating rules
 
