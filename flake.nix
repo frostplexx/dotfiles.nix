@@ -2,20 +2,6 @@
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
 
-  nixConfig = {
-    substituters = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org/"
-    ];
-    experimental-features = [ "nix-command" "flakes" ];
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -73,6 +59,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit vars inputs; };
         modules = [
+          ./nix/core.nix
           inputs.yuki.nixosModules.default
           ./hosts/nixos/configuration.nix
           inputs.stylix.nixosModules.stylix
@@ -97,6 +84,7 @@
         system = "aarch64-darwin";
         specialArgs = { inherit vars inputs; };
         modules = [
+          ./nix/core.nix
           inputs.yuki.nixosModules.default
           inputs.stylix.darwinModules.stylix
           ./hosts/darwin/configuration.nix

@@ -21,22 +21,6 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  # Set auto optimise store and garbage collection
-  # TODO: make this shared between darwin and nixos
-  nix = {
-    package = pkgs.nixVersions.git;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-
-    optimise.automatic = true;
-    # Optional but recommended: Keep build dependencies around for offline builds
-    settings = {
-      keep-outputs = true;
-      keep-derivations = true;
-    };
-  };
-
 
   # Automatic System Upgrades
   system.autoUpgrade = {
