@@ -87,7 +87,7 @@
         show-recents = false;
         persistent-apps = [
           "/Applications/Things3.app"
-          "${pkgs.firefox-bin}/Applications/Firefox.app"
+          "${pkgs.arc-browser}/Applications/Arc.app"
           "/Applications/kitty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];
