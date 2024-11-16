@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports =
     [
@@ -9,13 +9,4 @@
       ./stylix.nix
     ];
   services.nix-daemon.enable = true;
-  # TODO: make this shared between darwin and nixos
-  nix = {
-    package = pkgs.nixVersions.git;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    optimise.automatic = true;
-  };
-
 }

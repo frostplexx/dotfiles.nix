@@ -22,13 +22,5 @@ in
     stateVersion = "24.05";
   };
 
-
-  # Write nix config that enables nix command and flakes
-  nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
-
   programs.home-manager.enable = true;
 }
