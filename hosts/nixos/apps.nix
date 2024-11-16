@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, vars, ... }:
 
 {
 
@@ -19,7 +19,6 @@
   };
 
 
-  # install steam
   programs = {
     gamescope = {
       enable = true;
@@ -33,12 +32,22 @@
       ];
     };
 
+  # install steam
     steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
+
+    # Set up some settings for 1password
+    _1password-gui = {
+        enable = true;
+        # Certain features, including CLI integration and system authentication support,
+        # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+        polkitPolicyOwners = [ vars.user ];
+      };
+
   };
 
   # List packages installed in system profile. To search, run:
