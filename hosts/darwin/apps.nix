@@ -44,6 +44,7 @@
     skhd
 
     # GUI Applications
+    arc-browser
     obsidian
     spotify
     transmission_4
