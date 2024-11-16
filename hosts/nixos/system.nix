@@ -20,7 +20,7 @@
   };
 
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "pc-dev-phoenix"; # Define your hostname.
 
     # Enable networking
     networkmanager.enable = true;

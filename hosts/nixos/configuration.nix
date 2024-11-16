@@ -15,12 +15,6 @@
       ./stylix.nix
     ];
 
-  nix = {
-    package = pkgs.nixVersions.stable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
 
 
   # Set shell for all users
@@ -30,10 +24,17 @@
   # Set auto optimise store and garbage collection
   # TODO: make this shared between darwin and nixos
   nix = {
+    package = pkgs.nixVersions.git;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+
     optimise.automatic = true;
     # Optional but recommended: Keep build dependencies around for offline builds
-    settings.keep-outputs = true;
-    settings.keep-derivations = true;
+    settings = {
+      keep-outputs = true;
+      keep-derivations = true;
+    };
   };
 
 
