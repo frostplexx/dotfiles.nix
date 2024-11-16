@@ -28,36 +28,39 @@
   };
 
   # In your flake.nix, replace just the outputs section:
-  outputs = { nixpkgs, home-manager, nix-darwin, flake-utils, ... }@inputs:
-    let
-      # Set some global variables
-      vars = {
-        user = "daniel";
-        location = "$HOME/.setup";
-        terminal = "kitty";
-        editor = "nvim";
-      };
-    in
+  outputs = {
+    nixpkgs,
+    home-manager,
+    nix-darwin,
+    flake-utils,
+    ...
+  } @ inputs: let
+    # Set some global variables
+    vars = {
+      user = "daniel";
+      location = "$HOME/.setup";
+      terminal = "kitty";
+      editor = "nvim";
+    };
+  in
     # First, generate the system-specific outputs (shells, formatter)
     flake-utils.lib.eachDefaultSystem
-      (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        in
-        {
-          devShells = import ./shells { inherit pkgs; };
-          formatter = pkgs.nixpkgs-fmt;
-        }
-      ) // {
-
-
+    (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in {
+        devShells = import ./shells {inherit pkgs;};
+        formatter = pkgs.alejandra;
+      }
+    )
+    // {
       # Your existing nixosConfigurations and darwinConfigurations stay the same
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit vars inputs; };
+        specialArgs = {inherit vars inputs;};
         modules = [
           ./nix/core.nix
           inputs.yuki.nixosModules.default
@@ -65,11 +68,11 @@
           inputs.stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = [inputs.nur.overlay];
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit vars inputs; };
+              extraSpecialArgs = {inherit vars inputs;};
               users.${vars.user} = import ./home;
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
@@ -82,7 +85,7 @@
 
       darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit vars inputs; };
+        specialArgs = {inherit vars inputs;};
         modules = [
           ./nix/core.nix
           inputs.yuki.nixosModules.default
@@ -98,7 +101,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit vars inputs; };
+              extraSpecialArgs = {inherit vars inputs;};
               users.${vars.user} = import ./home;
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager

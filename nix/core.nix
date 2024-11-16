@@ -1,5 +1,8 @@
-{pkgs, vars, ...}:
 {
+  pkgs,
+  vars,
+  ...
+}: {
   # Shared nix settings
   nix = {
     package = pkgs.nixVersions.git;
@@ -18,10 +21,9 @@
       # given the users in this list the right to specify additional substituters via:
       #    1. `nixConfig.substituters` in `flake.nix`
       #    2. command line args `--options substituters http://xxx`
-      trusted-users = [ "root" vars.user];
+      trusted-users = ["root" vars.user];
 
       substituters = [
-
         "https://cache.nixos.org"
         # nix community's cache server
         "https://nix-community.cachix.org"
@@ -33,6 +35,4 @@
       ];
     };
   };
-
-
 }

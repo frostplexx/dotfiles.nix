@@ -1,7 +1,8 @@
-{ config, vars, ... }:
-
 {
-
+  config,
+  vars,
+  ...
+}: {
   # Bootloader.
   boot = {
     # Themes and such set in stylix
@@ -34,7 +35,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -66,7 +66,7 @@
         variant = "";
       };
       # Load nvidia driver for Xorg and Wayland
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = ["nvidia"];
     };
 
     # Enable the KDE Plasma Desktop Environment.
@@ -78,14 +78,11 @@
     };
     desktopManager.plasma6.enable = true;
 
-
     xrdp = {
       enable = true;
       defaultWindowManager = "startplasma-x11";
       openFirewall = true;
     };
-
-
 
     # Enable CUPS to print documents.
     printing.enable = true;
@@ -120,9 +117,7 @@
       enable = true;
     };
 
-
     nvidia = {
-
       # Modesetting is required.
       modesetting.enable = true;
 
@@ -151,18 +146,11 @@
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-
     };
-
-
   };
-
 
   # Source: https://blog.aktsbot.in/no-more-blurry-fonts.html
   environment.variables = {
     "FREETYPE_PROPERTIES" = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
-
-
 }

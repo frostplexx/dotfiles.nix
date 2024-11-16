@@ -1,6 +1,9 @@
-{ config, pkgs, vars, ... }:
-
-let
+{
+  config,
+  pkgs,
+  vars,
+  ...
+}: let
   themeFile = "midnight-catppuccin-macchiato.theme.css";
   themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css";
 
@@ -9,8 +12,7 @@ let
     if pkgs.stdenv.isDarwin
     then "/Users/${vars.user}/Library/Application Support/Vencord/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
-in
-{
+in {
   stylix.targets.vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
   programs.nixcord = {
     enable = true;
@@ -21,7 +23,7 @@ in
       enableReactDevtools = true;
       disableMinSize = true;
       frameless = true;
-      enabledThemes = [ themeFile ];
+      enabledThemes = [themeFile];
       plugins = {
         alwaysAnimate.enable = true;
         betterFolders = {
@@ -90,7 +92,10 @@ in
         discordBranch = "stable";
         minimizeToTray = true;
         arRPC = true;
-        customTitleBar = if pkgs.stdenv.isDarwin then true else false;
+        customTitleBar =
+          if pkgs.stdenv.isDarwin
+          then true
+          else false;
       };
       force = true;
     };

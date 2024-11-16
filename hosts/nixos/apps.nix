@@ -1,7 +1,9 @@
-{ pkgs, inputs, vars, ... }:
-
 {
-
+  pkgs,
+  inputs,
+  vars,
+  ...
+}: {
   # Set start up applications
   # shitty version of this https://github.com/nix-community/home-manager/issues/3447#issuecomment-1328294558
   environment.etc = {
@@ -18,7 +20,6 @@
     '';
   };
 
-
   programs = {
     gamescope = {
       enable = true;
@@ -32,7 +33,7 @@
       ];
     };
 
-  # install steam
+    # install steam
     steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -42,12 +43,11 @@
 
     # Set up some settings for 1password
     _1password-gui = {
-        enable = true;
-        # Certain features, including CLI integration and system authentication support,
-        # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-        polkitPolicyOwners = [ vars.user ];
-      };
-
+      enable = true;
+      # Certain features, including CLI integration and system authentication support,
+      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+      polkitPolicyOwners = [vars.user];
+    };
   };
 
   # List packages installed in system profile. To search, run:
@@ -64,7 +64,6 @@
     inputs.yuki.packages.${pkgs.system}.default
     pkg-config
     xclip # for copying to clipboard
-
 
     # CLI utilities
     ffmpeg
@@ -98,6 +97,6 @@
 
   # Fonts
   fonts.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 }

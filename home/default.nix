@@ -1,5 +1,8 @@
-{ vars, pkgs, ... }:
-let
+{
+  vars,
+  pkgs,
+  ...
+}: let
   # Get all immediate subdirectories of ./programs
   programDirs = builtins.attrNames (
     builtins.readDir ./programs
@@ -12,8 +15,7 @@ let
     if pkgs.stdenv.isDarwin
     then "/Users/${vars.user}"
     else "/home/${vars.user}";
-in
-{
+in {
   nixpkgs.config.allowUnfree = true;
   imports = programModules;
 

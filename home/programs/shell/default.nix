@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
 
@@ -9,7 +11,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     autocd = true;
-
 
     # Load extra plugins
     plugins = [
@@ -54,16 +55,12 @@
       share = true;
       extended = true;
     };
-
   };
-
-
 
   # Hushlogin to not show login message
   home.file = {
     ".hushlogin".text = "";
   };
-
 
   # Install required packages
   home.packages = with pkgs; [
@@ -74,7 +71,6 @@
 
   # Shell utilities
   programs = {
-
     # Better cd
     zoxide = {
       enable = true;
@@ -140,11 +136,8 @@
       };
     };
 
-
-
     # Automatically enable dev shells
     direnv.enable = true;
-
 
     # Fuzzy finder
     fzf = {

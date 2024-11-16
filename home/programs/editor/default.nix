@@ -1,21 +1,20 @@
 # programs/editor/default.nix
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # Filter out lazy-lock.json from the source directory
   nvimConfigFiltered = lib.cleanSourceWith {
     src = ./nvim;
-    filter = path: _type:
-      let
-        baseName = baseNameOf path;
-      in
+    filter = path: _type: let
+      baseName = baseNameOf path;
+    in
       baseName != "lazy-lock.json";
   };
 
-
   treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
-in
-{
-
+in {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -49,10 +48,7 @@ in
     };
   };
 
-
-
   home.file = {
-
     # Copy LTeX configuration files
     "ltex.hiddenFalsePositives.en-US.txt".text = builtins.readFile ./ltex/ltex.dictionary.en-US.txt;
     "ltex.dictionary.en-US.txt".text = builtins.readFile ./ltex/ltex.hiddenFalsePositives.en-US.txt;
@@ -76,7 +72,5 @@ in
       recursive = true;
       source = treeSitterWithAllGrammars;
     };
-
-
   };
 }
