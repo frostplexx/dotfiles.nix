@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.plasma = {
     enable = !pkgs.stdenv.isDarwin;
 
@@ -107,7 +106,6 @@
         ];
       }
     ];
-
 
     kscreenlocker = {
       lockOnResume = true;

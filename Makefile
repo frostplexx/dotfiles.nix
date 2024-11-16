@@ -203,7 +203,7 @@ install:
 	@echo "${WARN} Please restart your shell and run 'make deploy'\n"
 
 lint:
-	# @nix $(NIX_FLAGS) fmt
+	@nix $(NIX_FLAGS) fmt .
 	@nix run $(NIX_FLAGS) nixpkgs#statix -- check .
 	@nix run $(NIX_FLAGS) nixpkgs#deadnix -- -eq .
 

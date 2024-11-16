@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
   programs.firefox = {
     enable = true;
@@ -24,7 +22,10 @@
         "app.update.auto" = false;
         "browser.aboutConfig.showWarning" = false;
         "browser.warnOnQuit" = false;
-        "browser.quitShortcut.disabled" = if pkgs.stdenv.isLinux then true else false;
+        "browser.quitShortcut.disabled" =
+          if pkgs.stdenv.isLinux
+          then true
+          else false;
         "browser.theme.dark-private-windows" = true;
         "browser.toolbars.bookmarks.visibility" = false;
         "browser.startup.page" = 3; # Restore previous session
@@ -52,22 +53,25 @@
         default = "Kagi";
         engines = {
           "Kagi" = {
-            urls = [{
-              template = "https://kagi.com/search";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://kagi.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = [ "@k" ];
+            definedAliases = ["@k"];
           };
-
-
         };
-
       };
       userChrome =
-        if pkgs.stdenv.isDarwin then ''
+        if pkgs.stdenv.isDarwin
+        then ''
           #TabsToolbar {
               visibility: collapse;
           }
@@ -75,7 +79,8 @@
           #titlebar {
             display: none;
           }
-        '' else "";
+        ''
+        else "";
       userContent = '''';
 
       extraConfig = "";
@@ -94,14 +99,13 @@
 
   xdg.mimeApps = {
     associations.added = {
-      "text/html" = [ "firefox.desktop" ];
+      "text/html" = ["firefox.desktop"];
     };
     defaultApplications = {
-      "text/html" = [ "firefox.desktop" ];
+      "text/html" = ["firefox.desktop"];
     };
     associations.removed = {
-      "text/html" = [ "wine-extension-htm.desktop" ];
+      "text/html" = ["wine-extension-htm.desktop"];
     };
-
   };
 }

@@ -1,5 +1,8 @@
-{ pkgs, vars, ... }:
-
+{
+  pkgs,
+  vars,
+  ...
+}:
 ###################################################################################
 #
 #  macOS's System configuration
@@ -58,7 +61,6 @@
         NSNavPanelExpandedStateForSaveMode2 = true;
 
         AppleFontSmoothing = 1;
-
       };
 
       finder = {
@@ -70,7 +72,6 @@
         ShowPathbar = true;
       };
       dock = {
-
         # Disable Hot corners
         wvous-tl-corner = 1;
         wvous-tr-corner = 1;
@@ -137,9 +138,7 @@
           location = "~/Desktop";
           type = "png";
         };
-
       };
-
     };
   };
 
@@ -148,5 +147,4 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-
 }

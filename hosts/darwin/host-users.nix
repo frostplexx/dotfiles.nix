@@ -1,11 +1,9 @@
-{ vars, ... }:
-
+{vars, ...}:
 #############################################################
 #
 #  Host & Users configuration
 #
 #############################################################
-
 {
   networking.hostName = "pc-dev-lyra";
   networking.computerName = "pc-dev-lyra";
@@ -16,5 +14,5 @@
     description = vars.user;
   };
 
-  nix.settings.trusted-users = [ vars.user ];
+  nix.settings.trusted-users = [vars.user];
 }

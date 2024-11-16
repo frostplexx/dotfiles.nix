@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Allow non-free apps
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
@@ -59,7 +58,7 @@
   ];
 
   fonts.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 
   homebrew = {

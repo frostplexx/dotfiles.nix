@@ -1,6 +1,5 @@
 # shells/python.nix
-{ pkgs }:
-
+{pkgs}:
 pkgs.mkShell {
   name = "python";
   buildInputs = with pkgs; [

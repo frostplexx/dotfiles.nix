@@ -1,9 +1,13 @@
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
   #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
-  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
     rm -f ~/.gitconfig
   '';
 
@@ -34,7 +38,8 @@
         format = "ssh";
       };
       "gpg \"ssh\"" = {
-        program = if pkgs.stdenv.isDarwin
+        program =
+          if pkgs.stdenv.isDarwin
           then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
           else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
       };

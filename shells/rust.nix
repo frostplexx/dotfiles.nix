@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.mkShell {
   name = "rust";
   buildInputs = with pkgs; [
