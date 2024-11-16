@@ -7,9 +7,9 @@
 #############################################################
 
 {
-  networking.hostName = "daniels-MacBook-Pro";
-  networking.computerName = "daniels-MacBook-Pro";
-  system.defaults.smb.NetBIOSName = "daniels-MacBook-Pro";
+  networking.hostName = "pc-dev-lyra";
+  networking.computerName = "pc-dev-lyra";
+  system.defaults.smb.NetBIOSName = "pc-dev-lyra";
 
   users.users."${vars.user}" = {
     home = "/Users/${vars.user}";

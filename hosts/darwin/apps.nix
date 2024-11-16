@@ -99,7 +99,7 @@
       "proxyman"
       "chromium"
       "vmware-fusion"
-    "ollama"
+      "ollama"
     ];
   };
 }
