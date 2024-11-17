@@ -20,7 +20,7 @@ in {
 
   home = {
     inherit homeDirectory;
-    stateVersion = "24.05";
+    stateVersion = "25.05";
     # Dont manage this file because it causes issues
     file."~/.gtkrc-2.0".enable = false;
   };
