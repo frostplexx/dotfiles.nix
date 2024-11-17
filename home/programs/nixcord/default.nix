@@ -11,7 +11,7 @@
   themePath =
     if pkgs.stdenv.isDarwin
     then "/Users/${vars.user}/Library/Application Support/Vencord/themes/${themeFile}"
-    else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
+    else "${config.xdg.configHome}/Vencord/themes/${themeFile}";
 in {
   stylix.targets.vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
   programs.nixcord = {
