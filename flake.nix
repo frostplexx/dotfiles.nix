@@ -20,11 +20,23 @@
       inputs.home-manager.follows = "home-manager";
     };
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    yuki.url = "github:frostplexx/yuki/dev";
+    yuki = {
+url = "github:frostplexx/yuki/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # yuki.url = "git+file:///Users/daniel/Developer/yuki";
-    stylix.url = "github:danth/stylix";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixcord.url = "github:kaylorben/nixcord";
+    stylix = {
+url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixcord = {
+url= "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # In your flake.nix, replace just the outputs section:
