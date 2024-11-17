@@ -4,8 +4,8 @@
   vars,
   ...
 }: let
-  themeFile = "midnight-catppuccin-macchiato.theme.css";
-  themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css";
+  themeFile = "midnight-catppuccin-mocha.theme.css";
+  themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-mocha.theme.css";
 
   # Define theme path based on operating system
   themePath =
@@ -66,7 +66,7 @@ in {
         sendTimestamps.enable = true;
         shikiCodeblocks = {
           enable = true;
-          theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-macchiato.json";
+          theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
         };
         translate.enable = true;
         typingIndicator.enable = true;
@@ -85,7 +85,7 @@ in {
     ${themePath} = {
       source = builtins.fetchurl {
         url = themeUrl;
-        sha256 = "17k26qv8f87ryqz9c04ra96122b4kqijv4mnbakgrng4ji3himgn";
+        sha256 = "13bsrdxs7gvahsbi065fib847v6pi1yiyv6f8wv8zifclvi7p6bd";
       };
       force = true;
     };

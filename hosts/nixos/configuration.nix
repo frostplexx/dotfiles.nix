@@ -5,7 +5,6 @@
   inputs,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -19,7 +18,7 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  # Automatic System Upgrades
+  # Automatic System Upgradesconfixg
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;

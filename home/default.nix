@@ -16,7 +16,6 @@
     then "/Users/${vars.user}"
     else "/home/${vars.user}";
 in {
-  nixpkgs.config.allowUnfree = true;
   imports = programModules;
 
   home = {
