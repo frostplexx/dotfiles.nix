@@ -1,44 +1,14 @@
 {pkgs, ...}: {
   programs.plasma = {
     enable = !pkgs.stdenv.isDarwin;
-
     #
     # Some high-level settings:
     #
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
-      # Managed by stylix
-      # cursor = {
-      #   theme = "Breeze";
-      #   size = 28;
-      # };
       iconTheme = "Papirus-Dark";
       wallpaper = "/home/daniel/dotfiles/home/programs/plasma/wallpaper.jpg";
     };
-
-    # Managed by stylix
-    # fonts = {
-    #   general = {
-    #     family = "Noto Sans";
-    #     pointSize = 11;
-    #   };
-    # };
-
-    desktop.widgets = [
-      # {
-      #   plasmusicToolbar = {
-      #     position = {
-      #       horizontal = 51;
-      #       vertical = 100;
-      #     };
-      #     size = {
-      #       width = 250;
-      #       height = 250;
-      #     };
-      #   };
-      # }
-    ];
-
     panels = [
       # Windows-like panel at the bottom
       {
@@ -46,11 +16,6 @@
         hiding = "normalpanel";
         floating = true;
         widgets = [
-          # We can configure the widgets by adding the name and config
-          # attributes. For example to add the the kickoff widget and set the
-          # icon to "nix-snowflake-white" use the below configuration. This will
-          # add the "icon" key to the "General" group for the widget in
-          # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
           {
             name = "org.kde.plasma.kickoff";
             config = {
@@ -60,10 +25,19 @@
               };
             };
           }
-          # Adding configuration to the widgets can also for example be used to
-          # pin apps to the task-manager, which this example illustrates by
-          # pinning dolphin and konsole to the task-manager by default with widget-specific options.
           "org.kde.plasma.marginsseparator"
+          {
+            name = "org.kde.plasma.pager";
+            config = {
+              General = {
+                displayedText = "Number";
+                showWindowIcons = false;
+              };
+            };
+          }
+          {
+            name = "org.kde.plasma.panelspacer";
+          }
           {
             iconTasks = {
               launchers = [
@@ -74,30 +48,16 @@
               ];
             };
           }
-          # If no configuration is needed, specifying only the name of the
-          # widget will add them with the default configuration.
-          "org.kde.plasma.marginsseparator"
-          # If you need configuration for your widget, instead of specifying the
-          # the keys and values directly using the config attribute as shown
-          # above, plasma-manager also provides some higher-level interfaces for
-          # configuring the widgets. See modules/widgets for supported widgets
-          # and options for these widgets. The widgets below shows two examples
-          # of usage, one where we add a digital clock, setting 12h time and
-          # first day of the week to Sunday and another adding a systray with
-          # some modifications in which entries to show.
           {
-            digitalClock = {
-              calendar.firstDayOfWeek = "sunday";
-              time.format = "24h";
-            };
+            name = "org.kde.plasma.panelspacer";
           }
+          "org.kde.plasma.marginsseparator"
           {
             systemTray.items = {
               shown = [
                 "org.kde.plasma.bluetooth"
                 "org.kde.plasma.networkmanagement"
               ];
-              # And explicitly hide volume, clipboard and screen brightness
               hidden = [
                 "org.kde.plasma.volume"
                 "org.kde.plasma.clipboard"
@@ -105,35 +65,37 @@
               ];
             };
           }
+          {
+            digitalClock = {
+              calendar.firstDayOfWeek = "monday";
+              time.format = "24h";
+              # appearance = {
+              #   showDate = false;
+              #   fontScale = 0.8;
+              # };
+            };
+          }
         ];
       }
     ];
+
+    shortcuts = {
+      krunner = {
+        "_launch" = "Meta+Space";
+      };
+      kwin = {
+        "Switch to Desktop 1" = "Meta+1";
+        "Switch to Desktop 2" = "Meta+2";
+        "Switch to Desktop 3" = "Meta+3";
+        "Switch to Desktop 4" = "Meta+4";
+        "Switch to Desktop 5" = "Meta+5";
+      };
+    };
 
     kscreenlocker = {
       lockOnResume = true;
       timeout = 10;
     };
-
-    #
-    # Some mid-level settings:
-    #
-    # shortcuts = {
-    #   ksmserver = {
-    #     "Lock Session" = [
-    #       "Screensaver"
-    #       "Meta+Ctrl+Alt+L"
-    #     ];
-    #   };
-    #
-    #   kwin = {
-    #     "Expose" = "Meta+,";
-    #     "Switch Window Down" = "Meta+J";
-    #     "Switch Window Left" = "Meta+H";
-    #     "Switch Window Right" = "Meta+L";
-    #     "Switch Window Up" = "Meta+K";
-    #   };
-    # };
-
     #
     # Some low-level settings:
     #
@@ -143,7 +105,6 @@
         "General".ShowHiddenFiles = true;
         "KDE".SingleClick = false;
       };
-
       # Disable all hot corners
       kwinrc = {
         "ElectricBorders" = {
@@ -156,6 +117,17 @@
           TopLeft = "None";
           TopRight = "None";
         };
+        Desktops.Number = {
+          value = 5;
+          # Forces kde to not change this value (even through the settings app).
+          immutable = true;
+        };
+      };
+      kscreenlockerrc = {
+        Greeter.WallpaperPlugin = "org.kde.potd";
+        # To use nested groups use / as a separator. In the below example,
+        # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
+        "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
       };
     };
   };
