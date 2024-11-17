@@ -35,4 +35,10 @@
       ];
     };
   };
+
+  services.nix-daemon.enable = true;
+
+  # Allow non-free apps
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 }

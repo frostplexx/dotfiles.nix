@@ -8,8 +8,8 @@ return {
     if vim.g.neovide then
       vim.cmd([[
   hi Terminal guibg=NONE ctermbg=NONE cterm=NONE
-  hi TermCursor guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=macchiato_palette.text
-  hi TermCursorNC guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=macchiato_palette.text
+  hi TermCursor guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
+  hi TermCursorNC guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
   ]])
     end
 
@@ -32,7 +32,7 @@ return {
   ]])
 
     require("catppuccin").setup({
-      flavour = "macchiato",         -- latte, frappe, macchiato, mocha
+      flavour = "mocha",             -- latte, frappe, macchiato, mocha
       transparent_background = true, -- disables setting the background color.
       term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
       integrations = {

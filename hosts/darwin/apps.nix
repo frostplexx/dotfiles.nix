@@ -1,8 +1,4 @@
 {pkgs, ...}: {
-  # Allow non-free apps
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
-
   # Yuki configuration
   programs.yuki = {
     enable = true;
