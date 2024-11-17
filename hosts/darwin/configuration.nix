@@ -1,13 +1,15 @@
-{ pkgs,vars, ... }:
 {
-  imports =
-    [
-      ./apps.nix
-      ./system.nix
-      ./host-users.nix
-      ./custom_icons/custom_icons.nix
-      ./stylix.nix
-    ];
+  pkgs,
+  vars,
+  ...
+}: {
+  imports = [
+    ./apps.nix
+    ./system.nix
+    ./host-users.nix
+    ./custom_icons/custom_icons.nix
+    ./stylix.nix
+  ];
   services.nix-daemon.enable = true;
   # TODO: make this shared between darwin and nixos
   nix = {
@@ -20,5 +22,4 @@
       trusted-users = [vars.user];
     };
   };
-
 }
