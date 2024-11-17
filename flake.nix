@@ -21,12 +21,12 @@
     };
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     yuki = {
-url = "github:frostplexx/yuki/dev";
+      url = "github:frostplexx/yuki/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # yuki.url = "git+file:///Users/daniel/Developer/yuki";
     stylix = {
-url = "github:danth/stylix";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils = {
@@ -34,7 +34,7 @@ url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
-url= "github:kaylorben/nixcord";
+      url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
