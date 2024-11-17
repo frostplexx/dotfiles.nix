@@ -22,8 +22,8 @@ in {
       useQuickCss = false;
       enableReactDevtools = true;
       disableMinSize = true;
-      frameless = true;
-      enabledThemes = [themeFile];
+      frameless = if pkgs.stdenv.isDarwin then true else false;
+      enabledThemes = [ themeFile ];
       plugins = {
         alwaysAnimate.enable = true;
         betterFolders = {

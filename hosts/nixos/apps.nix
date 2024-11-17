@@ -84,6 +84,7 @@
     papirus-icon-theme
     simplescreenrecorder
     haruna
+    ckan # Kerbal space program mod manager
 
     # Gaming related
     vintagestory
