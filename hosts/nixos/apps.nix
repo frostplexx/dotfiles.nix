@@ -8,6 +8,7 @@
   # shitty version of this https://github.com/nix-community/home-manager/issues/3447#issuecomment-1328294558
   environment.etc = {
     "xdg/autostart/steam.desktop".source = pkgs.steam + "/share/applications/steam.desktop";
+    "xdg/autostart/1password.desktop".source = pkgs._1password-gui + "/share/applications/1password.desktop";
     # "xdg/autostart/solaar.desktop".source = pkgs.solaar + "/share/applications/solaar.desktop";
     "xdg/autostart/solaar.desktop".text = ''
       [Desktop Entry]

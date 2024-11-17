@@ -83,6 +83,19 @@
       krunner = {
         "_launch" = "Meta+Space";
       };
+      plasmashell = {
+        "Activate Task Manager Entry 1" = "";
+        "Activate Task Manager Entry 2" = "";
+        "Activate Task Manager Entry 3" = "";
+        "Activate Task Manager Entry 4" = "";
+        "Activate Task Manager Entry 5" = "";
+        "Activate Task Manager Entry 6" = "";
+        "Activate Task Manager Entry 7" = "";
+        "Activate Task Manager Entry 8" = "";
+        "Activate Task Manager Entry 9" = "";
+        "Activate Task Manager Entry 10" = "";
+      };
+
       kwin = {
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
