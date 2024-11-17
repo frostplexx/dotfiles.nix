@@ -138,10 +138,24 @@
     # Some low-level settings:
     #
     configFile = {
-  # Add Dolphin settings
+      # Add Dolphin settings
       dolphinrc = {
         "General".ShowHiddenFiles = true;
         "KDE".SingleClick = false;
+      };
+
+      # Disable all hot corners
+      kwinrc = {
+        "ElectricBorders" = {
+          Bottom = "None";
+          BottomLeft = "None";
+          BottomRight = "None";
+          Left = "None";
+          Right = "None";
+          Top = "None";
+          TopLeft = "None";
+          TopRight = "None";
+        };
       };
     };
   };
