@@ -63,6 +63,7 @@
           # Adding configuration to the widgets can also for example be used to
           # pin apps to the task-manager, which this example illustrates by
           # pinning dolphin and konsole to the task-manager by default with widget-specific options.
+          "org.kde.plasma.marginsseparator"
           {
             iconTasks = {
               launchers = [
@@ -92,14 +93,15 @@
           }
           {
             systemTray.items = {
-              # We explicitly show bluetooth and battery
               shown = [
                 "org.kde.plasma.bluetooth"
-              ];
-              # And explicitly hide networkmanagement and volume
-              hidden = [
                 "org.kde.plasma.networkmanagement"
+              ];
+              # And explicitly hide volume, clipboard and screen brightness
+              hidden = [
                 "org.kde.plasma.volume"
+                "org.kde.plasma.clipboard"
+                "org.kde.plasma.brightness"
               ];
             };
           }
@@ -135,19 +137,12 @@
     #
     # Some low-level settings:
     #
-    # configFile = {
-    #   baloofilerc."Basic Settings"."Indexing-Enabled" = false;
-    #   kwinrc.Desktops.Number = {
-    #     value = 5;
-    #     # Forces kde to not change this value (even through the settings app).
-    #     immutable = true;
-    #   };
-    #   kscreenlockerrc = {
-    #     Greeter.WallpaperPlugin = "org.kde.potd";
-    #     # To use nested groups use / as a separator. In the below example,
-    #     # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
-    #     "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
-    #   };
-    # };
+    configFile = {
+  # Add Dolphin settings
+      dolphinrc = {
+        "General".ShowHiddenFiles = true;
+        "KDE".SingleClick = false;
+      };
+    };
   };
 }

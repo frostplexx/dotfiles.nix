@@ -2,7 +2,7 @@
   stylix = {
     enable = true;
     image = ../../home/programs/plasma/wallpaper.jpg;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-moccha.yaml";
     opacity.terminal = 0.5;
     targets = {
       plymouth = {
@@ -11,7 +11,7 @@
       };
     };
     cursor = {
-      name = "Phinger Cursors";
+      name = "phinger-cursors";
       package = pkgs.phinger-cursors;
       size = 28;
     };
