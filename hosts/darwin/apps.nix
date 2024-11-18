@@ -93,7 +93,6 @@
       "orbstack"
       "tower"
       "proxyman"
-      "chromium"
       "vmware-fusion"
       "ollama"
     ];

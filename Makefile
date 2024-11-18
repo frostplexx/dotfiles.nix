@@ -158,6 +158,7 @@ test-nixos:
 	}
 
 update:
+	git add .
 	@echo "${INFO} Updating channels..."
 	@nix-channel --update
 	@echo "${INFO} Updating flakes..."
