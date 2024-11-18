@@ -15,6 +15,10 @@
       "hugepagesz=2M"
       "hugepages=1024"
     ];
+    kernel.sysctl = {
+      "vm.transparent_hugepage.enabled" = "always";
+      "vm.transparent_hugepage.defrag" = "always";
+    };
     # Themes and such set in stylix
     plymouth = {
       enable = true;
