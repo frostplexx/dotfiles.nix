@@ -95,6 +95,7 @@
     lutris
     cowsay
     filelight
+    openrgb-with-all-plugins
   ];
 
   # Fonts
