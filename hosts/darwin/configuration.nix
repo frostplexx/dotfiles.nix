@@ -5,7 +5,6 @@
     ./host-users.nix
     ./custom_icons/custom_icons.nix
     ./stylix.nix
-    ./skhd
     ./yabai
   ];
 
