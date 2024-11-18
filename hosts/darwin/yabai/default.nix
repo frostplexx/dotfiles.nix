@@ -13,17 +13,23 @@
       mouse_action1 = "move";
 
       # gaps
-      top_padding = 5;
-      bottom_padding = 5;
-      left_padding = 5;
-      right_padding = 5;
-      window_gap = 5;
+      top_padding = 10;
+      bottom_padding = 10;
+      left_padding = 10;
+      right_padding = 10;
+      window_gap = 10;
     };
     extraConfig = ''
 
       # Window appearance
       yabai -m config window_shadow float
       yabai -m config window_opacity on
+
+      yabai -m space 1 --label web
+      yabai -m space 2 --label dev
+      yabai -m space 3 --label docs
+      yabai -m space 4 --label comms
+      yabai -m space 5 --label media
 
       # Unmanaged apps
       yabai -m rule --add app="^System Settings$" manage=off
@@ -34,26 +40,28 @@
 
 
       # Space assignments with labels and proper management
-      yabai -m rule --add app="^Arc$" space=1 manage=on label="browser"
-      yabai -m rule --add app="^Firefox$" space=1 manage=on label="browser"
+      yabai -m rule --add app="^Arc$" space=1 manage=on
+      yabai -m rule --add app="^Firefox$" space=1 manage=on
 
-      yabai -m rule --add app="^kitty$" space=2 manage=on label="terminal"
-      yabai -m rule --add app="^Alacritty$" space=2 manage=on label="terminal"
-      yabai -m rule --add app="^Terminal$" space=2 manage=on label="terminal"
-      yabai -m rule --add app="^XCode$" space=2 manage=on label="dev"
+      yabai -m rule --add app="^kitty$" space=2 manage=on
+      yabai -m rule --add app="^Alacritty$" space=2 manage=on
+      yabai -m rule --add app="^Terminal$" space=2 manage=on
+      yabai -m rule --add app="^XCode$" space=2 manage=on
 
-      yabai -m rule --add app="^Messages$" space=3 manage=on label="communication"
-      yabai -m rule --add app="^WhatsApp$" space=3 manage=on label="communication"
-      yabai -m rule --add app="^Vesktop$" space=3 manage=on label="communication"
-      yabai -m rule --add app="^Discord$" space=3 manage=on label="communication"
-      yabai -m rule --add app="^zoom.us$" space=3 manage=on label="communication"
 
-      yabai -m rule --add app="^Spotify$" space=4 manage=on label="media"
-      yabai -m rule --add title="^Spotify Premium$" space=4 manage=on label="media"
-      yabai -m rule --add app="^Music$" space=4 manage=on label="media"
+      yabai -m rule --add app="^Obsidian$" space=3 manage=on
+      yabai -m rule --add app="^Goodnotes$" space=3 manage=on
 
-      yabai -m rule --add app="^Obsidian$" space=5 manage=on label="notes"
-      yabai -m rule --add app="^Goodnotes$" space=5 manage=on label="notes"
+      yabai -m rule --add app="^Messages$" space=4 manage=on
+      yabai -m rule --add app="^WhatsApp$" space=4 manage=on
+      yabai -m rule --add app="^Vesktop$" space=4 manage=on
+      yabai -m rule --add app="^Discord$" space=4 manage=on
+      yabai -m rule --add app="^zoom.us$" space=4 manage=on
+
+      yabai -m rule --add app="^Spotify$" space=5 manage=on
+      yabai -m rule --add title="^Spotify Premium$" space=5 manage=on
+      yabai -m rule --add app="^Music$" space=5 manage=on
+
 
       # Handle window creation for floating windows
       yabai -m signal --add event=window_created action='bash -c "
