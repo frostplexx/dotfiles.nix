@@ -26,6 +26,8 @@
     gnumake
     vscode
 
+    skhd
+
     # CLI utilities
     ffmpeg
     imagemagick
