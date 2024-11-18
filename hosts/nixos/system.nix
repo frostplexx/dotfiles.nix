@@ -14,6 +14,7 @@
       "default_hugepagesz=2M"
       "hugepagesz=2M"
       "hugepages=1024"
+      "transparent_hugepages=always"
     ];
     kernel.sysctl = {
       "vm.transparent_hugepage.enabled" = "always";
