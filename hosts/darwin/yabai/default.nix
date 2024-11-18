@@ -68,9 +68,6 @@
               yabai -m window $window_id --toggle float --layer above --grid 4:4:1:1:2:2
           fi
       "'
-
-      # Start borders
-      borders active_color=0xff8aadf4 inactive_color=0x00494d64 width=4.0 &
     '';
   };
 }
