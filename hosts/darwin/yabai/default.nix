@@ -1,9 +1,7 @@
-{pkgs, ...}: {
+{
   services.yabai = {
-    enable =
-      if pkgs.stdenv.isDarwin
-      then true
-      else false;
+    enable = true;
+    enableScriptingAddition = true;
     config = {
       layout = "bsp";
       auto_balance = "on";
@@ -22,10 +20,6 @@
       window_gap = 5;
     };
     extraConfig = ''
-
-      # Restart yabai scripting addition
-      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      sudo yabai --load-sa
 
       # Window appearance
       yabai -m config window_shadow float
