@@ -6,7 +6,15 @@
   # Bootloader.
   boot = {
     kernelModules = ["i2c-dev"];
-    kernelParams = ["acpi_enforce_resources=lax"];
+    kernelParams = [
+      "acpi_enforce_resources=lax"
+      "amd_iommu=on"
+      "iommu=pt"
+      "zswap.enabled=1"
+      "default_hugepagesz=1G"
+      "hugepagesz=1G"
+      "hugepages=16"
+    ];
     # Themes and such set in stylix
     plymouth = {
       enable = true;
