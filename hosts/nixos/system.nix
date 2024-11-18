@@ -6,6 +6,7 @@
   # Bootloader.
   boot = {
     kernelModules = ["i2c-dev"];
+    kernelParams = [ "acpi_enforce_resources=lax"];
     # Themes and such set in stylix
     plymouth = {
       enable = true;
