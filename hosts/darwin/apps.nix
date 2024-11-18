@@ -26,6 +26,8 @@
     gnumake
     vscode
 
+    jankyborders
+
     # CLI utilities
     ffmpeg
     imagemagick
