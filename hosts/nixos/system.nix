@@ -5,6 +5,7 @@
 }: {
   # Bootloader.
   boot = {
+    kernelModules = ["i2c-dev"];
     # Themes and such set in stylix
     plymouth = {
       enable = true;
@@ -126,6 +127,8 @@
     graphics = {
       enable = true;
     };
+
+    i2c.enable = true;
 
     nvidia = {
       # Modesetting is required.
