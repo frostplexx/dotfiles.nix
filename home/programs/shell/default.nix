@@ -88,6 +88,10 @@
       enable = true;
     };
 
+    fd = {
+      enable = true;
+    };
+
     # Terminal file manager
     yazi = {
       enable = true;
