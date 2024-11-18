@@ -36,7 +36,6 @@
     nixfmt-rfc-style
     ripgrep
     sshpass
-    skhd
 
     # GUI Applications
     arc-browser
