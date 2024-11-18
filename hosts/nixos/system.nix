@@ -100,7 +100,13 @@
     };
 
     hardware = {
-      openrgb.enable = true;
+      openrgb = {
+        enable = true;
+        motherboard = "amd";
+        server = {
+          port = 6742;
+        };
+      };
     };
   };
 
