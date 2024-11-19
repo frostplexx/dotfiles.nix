@@ -5,8 +5,9 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     opacity.terminal = 0.5;
     targets = {
+      # managed in ./system.nix
       plymouth = {
-        enable = true;
+        enable = false;
         logoAnimated = false;
       };
     };

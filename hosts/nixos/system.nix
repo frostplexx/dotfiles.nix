@@ -1,32 +1,60 @@
 {
   config,
   vars,
+  pkgs,
   ...
 }: {
   # Bootloader.
   boot = {
     kernelModules = ["i2c-dev"];
+    kernelPackages = pkgs.linuxPackages_latest; # Use the latest stable kernel.
     kernelParams = [
+      # Silent boot
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+      # Fix for ram not showing up in openrgb
       "acpi_enforce_resources=lax"
+      # Iommu settings
       "amd_iommu=on"
       "iommu=pt"
       "zswap.enabled=1"
       "default_hugepagesz=2M"
       "hugepagesz=2M"
       "hugepages=1024"
-      "transparent_hugepages=always"
+      "transparent_hugepage=always"
     ];
-    kernel.sysctl = {
-      "vm.transparent_hugepage.enabled" = "always";
-      "vm.transparent_hugepage.defrag" = "always";
-    };
-    # Themes and such set in stylix
+
+    # Enable plymouth for a splash screen.
     plymouth = {
       enable = true;
+      theme = "deus_ex";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = ["deus_ex"];
+        })
+      ];
     };
     # Enable systemd in initrd for earlier splash screen
-    initrd.systemd.enable = true;
+    initrd = {
+      systemd.enable = true;
+      verbose = false;
+    };
+
+    # Silent boot
+    consoleLogLevel = 0;
+
     loader = {
+      # Hide the OS choice for bootloaders.
+      # It's still possible to open the bootloader list by pressing any key
+      # It will just not appear on screen unless a key is pressed
+      timeout = 0;
+
       systemd-boot = {
         enable = true;
         configurationLimit = 5;
