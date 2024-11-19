@@ -20,13 +20,12 @@
     # Development tools
     git
     neovim
-    lazygit
+    lazygit # git ui
     nodePackages.nodejs
     llvm
     gnumake
     vscode
-
-    skhd
+    entr # Run arbitrary commands when files change
 
     # CLI utilities
     ffmpeg
@@ -35,8 +34,6 @@
     btop
     pandoc
     fastfetch
-    nixfmt-rfc-style
-    ripgrep
     sshpass
 
     # GUI Applications
