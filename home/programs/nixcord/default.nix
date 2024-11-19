@@ -19,9 +19,10 @@ in {
     discord.enable = true;
     vesktop.enable = false;
     quickCss = ''
-      --font: 'JetBrainsMono Nerd Font Mono' !important;
-      --pad: 10px !important;
-
+      :root {
+        --font: 'JetBrainsMono Nerd Font Mono' !important;
+        --pad: 10px !important;
+      }
     '';
     config = {
       useQuickCss = true;
