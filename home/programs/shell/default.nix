@@ -130,6 +130,10 @@
       };
     };
 
+    ripgrep = {
+      enable = true;
+    };
+
     # Automatically enable dev shells
     direnv.enable = true;
 
