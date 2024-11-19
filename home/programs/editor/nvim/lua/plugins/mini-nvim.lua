@@ -163,7 +163,7 @@ return {
       }
     )
   end,
-  keys = {
-    { "<leader>e", ":lua MiniFiles.open()<cr>", desc = "Mini Files" }
-  }
+  -- keys = {
+  --   { "<leader>e", ":lua MiniFiles.open()<cr>", desc = "Mini Files" }
+  -- }
 }
