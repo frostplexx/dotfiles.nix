@@ -12,15 +12,6 @@
     syntaxHighlighting.enable = true;
     autocd = true;
 
-    # Load extra plugins
-    plugins = [
-      {
-        name = "zsh-autopair";
-        src = pkgs.zsh-autopair;
-        file = "share/zsh-autopair/autopair.zsh";
-      }
-    ];
-
     # Load extra zsh configuration from initExtra.zsh
     initExtra = builtins.readFile ./initExtra.zsh;
     completionInit = builtins.readFile ./completions.zsh;
@@ -66,7 +57,6 @@
   home.packages = with pkgs; [
     zsh-syntax-highlighting
     zsh-autosuggestions
-    zsh-autopair
   ];
 
   # Shell utilities
