@@ -4,8 +4,8 @@
   vars,
   ...
 }: let
-  themeFile = "midnight-catppuccin-mocha.theme.css";
-  themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-mocha.theme.css";
+  themeFile = "catppuccin-mocha.theme.css";
+  themeUrl = "https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/catppuccin-mocha.theme.css";
 
   # Define theme path based on operating system
   themePath =
@@ -85,7 +85,7 @@ in {
     ${themePath} = {
       source = builtins.fetchurl {
         url = themeUrl;
-        sha256 = "13bsrdxs7gvahsbi065fib847v6pi1yiyv6f8wv8zifclvi7p6bd";
+        sha256 = "0rp7zk24nris587980klm6fj57cbmi5ml3ciamynkz8b8rnggkvv";
       };
       force = true;
     };
