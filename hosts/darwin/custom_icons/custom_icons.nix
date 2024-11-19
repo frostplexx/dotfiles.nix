@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, config, ... }: {
   environment.customIcons = {
     enable = true;
     icons = [
       {
-        path = "/${pkgs.spotify}/Applications/Spotify.app";
+        # Use proper path concatenation for home directory
+        path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/Spotify.app";
         icon = ./spotify.icns;
       }
       {

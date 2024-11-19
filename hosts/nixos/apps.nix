@@ -78,7 +78,6 @@
 
     # GUI Applications
     obsidian
-    spotify
     transmission_4
     _1password-cli
     _1password-gui
