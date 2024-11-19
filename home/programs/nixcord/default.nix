@@ -18,8 +18,13 @@ in {
     enable = true;
     discord.enable = true;
     vesktop.enable = false;
+    quickCss = ''
+      --font: 'JetBrainsMono Nerd Font Mono' !important;
+      --pad: 10px !important;
+
+    '';
     config = {
-      useQuickCss = false;
+      useQuickCss = true;
       enableReactDevtools = true;
       disableMinSize = true;
       frameless =
