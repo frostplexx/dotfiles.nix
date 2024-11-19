@@ -4,8 +4,8 @@ return {
   keys = {
     {
       -- Open in the current working directory
-      "<leader>yy",
-      "<cmd>Yazi cwd<cr>",
+      "<leader>e",
+      "<cmd>Yazi<cr>",
       desc = "Open the file manager in nvim's working directory",
     },
     {
@@ -16,9 +16,10 @@ return {
   },
   opts = {
     -- if you want to open yazi instead of netrw, see below for more info
-    open_for_directories = false,
+    open_for_directories = true,
     keymaps = {
-      show_help = '<f1>',
+      show_help = 'g?',
     },
+    open_multiple_tabs = true,
   },
 }
