@@ -39,7 +39,6 @@
     # GUI Applications
     arc-browser
     obsidian
-    spotify
     transmission_4
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
