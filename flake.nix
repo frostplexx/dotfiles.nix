@@ -37,6 +37,10 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # In your flake.nix, replace just the outputs section:
@@ -89,6 +93,12 @@
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
                 inputs.nixcord.homeManagerModules.nixcord
+                inputs.spicetify-nix.homeManagerModules.default
+                {
+                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
+                  # TODO: This is a stupid place to put this and needs to be refactored
+                  stylix.targets.spicetify.enable = false;
+                }
               ];
             };
           }
@@ -118,6 +128,12 @@
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
                 inputs.nixcord.homeManagerModules.nixcord
+                inputs.spicetify-nix.homeManagerModules.default
+                {
+                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
+                  # TODO: This is a stupid place to put this and needs to be refactored
+                  stylix.targets.spicetify.enable = false;
+                }
               ];
             };
           }
