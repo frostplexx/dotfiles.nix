@@ -39,7 +39,7 @@ printf "[%s] Gen: %s\n\nChanged files:\n%b\n\nSummary:\n%b" "$${OS_TYPE}" "$(1)"
 endef
 
 
-all: deploy clean
+all: deploy
 
 deploy:
 	@if [ "$$(uname)" = "Darwin" ]; then \
