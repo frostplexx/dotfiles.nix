@@ -3,6 +3,9 @@
 {
   pkgs,
   inputs,
+  nixpkgs,
+  home-manager,
+  vars,
   ...
 }: {
   imports = [
@@ -13,6 +16,38 @@
     ./users.nix
     ./stylix.nix
   ];
+
+  # Your existing nixosConfigurations and darwinConfigurations stay the same
+  nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    specialArgs = {inherit vars inputs;};
+    modules = [
+      ./nix/core.nix
+      inputs.yuki.nixosModules.default
+      ./hosts/nixos/configuration.nix
+      inputs.stylix.nixosModules.stylix
+      home-manager.nixosModules.home-manager
+      {
+        nixpkgs.overlays = [inputs.nur.overlay];
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = {inherit vars inputs;};
+          users.${vars.user} = import ./home;
+          sharedModules = [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            inputs.nixcord.homeManagerModules.nixcord
+            inputs.spicetify-nix.homeManagerModules.default
+            {
+              # explicitly disable stylix for spicetify because its managed by spicetify-nix
+              # TODO: This is a stupid place to put this and needs to be refactored
+              stylix.targets.spicetify.enable = false;
+            }
+          ];
+        };
+      }
+    ];
+  };
 
   # Set shell for all users
   programs.zsh.enable = true;
