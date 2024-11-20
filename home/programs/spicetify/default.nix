@@ -17,14 +17,16 @@
     # Pull the theme directly from the spicetify-themes repo because the nixpkgs is a bit out of date
     theme = {
       name = "text";
-      src = pkgs.fetchFromGitHub {
-        owner = "spicetify";
-        repo = "spicetify-themes";
-        # TODO: write some code that fetches the latest commit hash for every github fetcher
-        rev = "c6e82dfeaa46ee9060d0c02fc437989eb77f6c61";
-        sha256 = "kpHIWHuubTEwIoi+645Ai/PqXTlZMhRcBueYwgCqG2E=";
-      };
-
+     src =
+  pkgs.fetchFromGitHub {
+    owner = "spicetify";
+    repo = "spicetify-themes";
+    rev = "c6e82dfeaa46ee9060d0c02fc437989eb77f6c61";
+    sha256 = "kpHIWHuubTEwIoi+645Ai/PqXTlZMhRcBueYwgCqG2E=";
+    postFetch = ''
+      tar xf $downloadedFile --strip=2 "*/text"
+    '';
+  };
       patches = {
         "xpui.js_find_8008" = ",(\\w+=)56";
         "xpui.js_repl_8008" = ",\${1}32";
