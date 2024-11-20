@@ -2,7 +2,14 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  yazi-plugins = pkgs.fetchFromGitHub {
+    owner = "yazi-rs";
+    repo = "plugins";
+    rev = "main";
+    hash = "sha256-RYa7wbFGZ9citYYdF9FYJwzUGBmIUvNBdORpBPb6ZnQ=";
+  };
+in {
   programs.zsh = {
     enable = true;
 
@@ -32,7 +39,6 @@
       transfer = "kitten transfer --direction=receive";
       compress_to_mp4 = "~/dotfiles.nix/home/programs/shell/scripts/compress_mp4.sh";
       ssh = "~/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
-      y = "~/dotfiles.nix/home/programs/shell/scripts/yazi.zsh";
       shinit = "~/dotfiles.nix/home/programs/shell/scripts/shell_select.sh";
     };
 
@@ -85,18 +91,16 @@
     # Terminal file manager
     yazi = {
       enable = true;
+      enableZshIntegration = true;
+      shellWrapperName = "y";
       package = pkgs.yazi.override {
         _7zz = pkgs._7zz.override {
           useUasm = pkgs.stdenv.isLinux;
         };
       };
+
       settings = {
         manager = {
-          layout = [
-            1
-            4
-            3
-          ];
           sort_by = "natural";
           sort_sensitive = false;
           sort_reverse = false;
@@ -111,6 +115,61 @@
           macro_workers = 10;
           bizarre_retry = 5;
         };
+
+        plugin = {
+          preprend_fetchers = [
+            {
+              id = "git";
+              name = "*";
+              run = "git";
+            }
+            {
+              id = "git";
+              name = "*/";
+              run = "git";
+            }
+          ];
+        };
+      };
+
+      plugins = {
+        chmod = "${yazi-plugins}/chmod.yazi";
+        full-border = "${yazi-plugins}/full-border.yazi";
+        max-preview = "${yazi-plugins}/max-preview.yazi";
+        smart-filter = "${yazi-plugins}/smart-filter.yazi";
+        git = "${yazi-plugins}/git.yazi";
+        starship = pkgs.fetchFromGitHub {
+          owner = "Rolv-Apneseth";
+          repo = "starship.yazi";
+          rev = "main";
+          sha256 = "sha256-sAB0958lLNqqwkpucRsUqLHFV/PJYoJL2lHFtfHDZF8=";
+        };
+      };
+
+      initLua = ''
+        require("full-border"):setup()
+        require("starship"):setup()
+        require("git"):setup()
+      '';
+
+      keymap = {
+        manager.prepend_keymap = [
+          {
+            on = "T";
+            run = "plugin --sync max-preview";
+            desc = "Maximize or restore the preview pane";
+          }
+          {
+            on = ["c" "h"];
+            run = "plugin chmod";
+            desc = "Chmod on selected files";
+          }
+          {
+            on = "F";
+            run = "plugin smart-filter";
+            desc = "Toggle smart filter";
+          }
+        ];
       };
     };
 
