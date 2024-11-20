@@ -7,7 +7,7 @@
     owner = "yazi-rs";
     repo = "plugins";
     rev = "main";
-    hash = "sha256-RYa7wbFGZ9citYYdF9FYJwzUGBmIUvNBdORpBPb6ZnQ=";
+    hash = "sha256-0is0kiLEvTUasOGX882OnnrkvTUGVlfT4ohBmrWY8pc=";
   };
 in {
   programs.zsh = {

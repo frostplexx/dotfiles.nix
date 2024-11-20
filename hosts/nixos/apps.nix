@@ -88,7 +88,7 @@
 
     # Gaming related
     vintagestory
-    linuxKernel.packages.linux_6_6.xone
+    linuxKernel.packages.linux_6_11.xone
     gamemode
     solaar
     lutris
