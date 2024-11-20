@@ -19,9 +19,10 @@
       name = "text";
       src = pkgs.fetchFromGitHub {
         owner = "spicetify";
-        repo = "spicetify-themes/tree";
-        rev = "master/text";
-        hash = "sha256-kpHIWHuubTEwIoi+645Ai/PqXTlZMhRcBueYwgCqG2E=";
+        repo = "spicetify-themes";
+        # TODO: write some code that fetches the latest commit hash for every github fetcher
+        rev = "c6e82dfeaa46ee9060d0c02fc437989eb77f6c61";
+        sha256 = "kpHIWHuubTEwIoi+645Ai/PqXTlZMhRcBueYwgCqG2E=";
       };
 
       patches = {
