@@ -3,7 +3,7 @@ export KEYTIMEOUT=1
 
 
 # Set nvim as manpager
-export MANPAGER='nvim +Man!'
+# export MANPAGER='nvim +Man!'
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
