@@ -14,7 +14,6 @@
       goToSong
     ];
 
-    # Pull the theme directly from the spicetify-themes repo because the nixpkgs is a bit out of date
     theme = spicePkgs.themes.text;
     colorScheme = "CatppuccinMocha";
   };
