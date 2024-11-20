@@ -1,6 +1,12 @@
 # flake.nix
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
+  nixConfig.commit-lockfile-summary = "flake: bump inputs";
+
+  outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "aarch64-darwin" "x86_64-linux" ];
+    imports = [ ./modules/parts ./hosts ./modules/users ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -44,100 +50,37 @@
   };
 
   # In your flake.nix, replace just the outputs section:
-  outputs = {
-    nixpkgs,
-    home-manager,
-    nix-darwin,
-    flake-utils,
-    ...
-  } @ inputs: let
-    # Set some global variables
-    vars = {
-      user = "daniel";
-      location = "$HOME/.setup";
-      terminal = "kitty";
-      editor = "nvim";
-    };
-  in
-    # First, generate the system-specific outputs (shells, formatter)
-    flake-utils.lib.eachDefaultSystem
-    (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      in {
-        devShells = import ./shells {inherit pkgs;};
-        formatter = pkgs.alejandra;
-      }
-    )
-    // {
-      # Your existing nixosConfigurations and darwinConfigurations stay the same
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit vars inputs;};
-        modules = [
-          ./nix/core.nix
-          inputs.yuki.nixosModules.default
-          ./hosts/nixos/configuration.nix
-          inputs.stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [inputs.nur.overlay];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit vars inputs;};
-              users.${vars.user} = import ./home;
-              sharedModules = [
-                inputs.plasma-manager.homeManagerModules.plasma-manager
-                inputs.nixcord.homeManagerModules.nixcord
-                inputs.spicetify-nix.homeManagerModules.default
-                {
-                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
-                  # TODO: This is a stupid place to put this and needs to be refactored
-                  stylix.targets.spicetify.enable = false;
-                }
-              ];
-            };
-          }
-        ];
-      };
-
-      darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {inherit vars inputs;};
-        modules = [
-          ./nix/core.nix
-          inputs.yuki.nixosModules.default
-          inputs.stylix.darwinModules.stylix
-          ./hosts/darwin/configuration.nix
-          inputs.darwin-custom-icons.darwinModules.default
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [
-              inputs.nixpkgs-firefox-darwin.overlay
-              inputs.nur.overlay
-            ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit vars inputs;};
-              users.${vars.user} = import ./home;
-              sharedModules = [
-                inputs.plasma-manager.homeManagerModules.plasma-manager
-                inputs.nixcord.homeManagerModules.nixcord
-                inputs.spicetify-nix.homeManagerModules.default
-                {
-                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
-                  # TODO: This is a stupid place to put this and needs to be refactored
-                  stylix.targets.spicetify.enable = false;
-                }
-              ];
-            };
-          }
-        ];
-      };
-    };
+  # outputs = {
+  #   nixpkgs,
+  #   home-manager,
+  #   nix-darwin,
+  #   flake-utils,
+  #   ...
+  # } @ inputs: let
+  #   # Set some global variables
+  #   vars = {
+  #     user = "daniel";
+  #     location = "$HOME/.setup";
+  #     terminal = "kitty";
+  #     editor = "nvim";
+  #   };
+  # in
+  #   # First, generate the system-specific outputs (shells, formatter)
+  #   flake-utils.lib.eachDefaultSystem
+  #   (
+  #     system: let
+  #       pkgs = import nixpkgs {
+  #         inherit system;
+  #         config.allowUnfree = true;
+  #       };
+  #     in {
+  #       devShells = import ./shells {inherit pkgs;};
+  #       formatter = pkgs.alejandra;
+  #     }
+  #   )
+  #   // {
+  #
+  #
+  #
+  #   };
 }
