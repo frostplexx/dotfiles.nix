@@ -27,14 +27,10 @@
       # Additional theme options all set to defaults
       # the docs of the theme should say which of these
       # if any you have to change
- patches = {
-          "xpui.js_find_8008" = ",(\\w+=)32,";
-          "xpui.js_repl_8008" = ",$\{1}56,";
-        };
-        injectCss = true;
-        replaceColors = true;
-        overwriteAssets = true;
-        sidebarConfig = true;
+      patches = {
+        "xpui.js_find_8008" = ",(\\w+=)56";
+        "xpui.js_repl_8008" = ",\${1}32";
+      };
     };
     colorScheme = "CatppuccinMocha";
   };
