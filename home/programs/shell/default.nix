@@ -117,7 +117,7 @@ in {
         };
 
         plugin = {
-          preprend_fetchers = [
+          prepend_fetchers = [
             {
               id = "git";
               name = "*";
