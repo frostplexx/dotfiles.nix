@@ -31,9 +31,9 @@
       injectThemeJs = true;
       replaceColors = true;
       homeConfig = true;
-      overwriteAssets = false;
+      overwriteAssets = true;
       additonalCss = "";
     };
-    # colorScheme = "CatppuccinMocha";
+    colorScheme = "CatppuccinMocha";
   };
 }
