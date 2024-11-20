@@ -21,5 +21,7 @@ return {
       show_help = 'g?',
     },
     open_multiple_tabs = true,
+    -- window border is set in the yazi config see ~/dotfiles.nix/home/programs/shell/default.nix
+    yazi_floating_window_border = 'none',
   },
 }
