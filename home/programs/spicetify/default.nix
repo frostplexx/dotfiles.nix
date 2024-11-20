@@ -19,14 +19,11 @@
       name = "text";
       src = pkgs.fetchFromGitHub {
         owner = "spicetify";
-        repo = "spicetify-themes";
-        rev = "master";
+        repo = "spicetify-themes/tree";
+        rev = "master/text";
         hash = "sha256-kpHIWHuubTEwIoi+645Ai/PqXTlZMhRcBueYwgCqG2E=";
       };
 
-      # Additional theme options all set to defaults
-      # the docs of the theme should say which of these
-      # if any you have to change
       patches = {
         "xpui.js_find_8008" = ",(\\w+=)56";
         "xpui.js_repl_8008" = ",\${1}32";
