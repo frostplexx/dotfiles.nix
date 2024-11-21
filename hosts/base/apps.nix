@@ -1,5 +1,5 @@
 # Base applications that should be available on all systems
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Basic system packages
   environment.systemPackages = with pkgs; [
     # Development tools
@@ -11,6 +11,8 @@
     gnumake
     gcc
     vscode
+    man-pages
+    man-pages-posix
 
     # CLI utilities
     ffmpeg
@@ -32,6 +34,6 @@
 
   # Base fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["JetBrainsMono"]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 }

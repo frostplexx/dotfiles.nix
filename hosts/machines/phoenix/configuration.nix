@@ -1,9 +1,15 @@
 # Configuration for Phoenix gaming PC
-{ config, pkgs, inputs, mkHomeManagerConfiguration, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  mkHomeManagerConfiguration,
+  ...
+}: {
   imports = [
-    ./hardware-configuration.nix  # Hardware-specific settings
-    ../../base                   # Base configuration
-    ./apps.nix                   # Phoenix-specific apps
+    ./hardware-configuration.nix # Hardware-specific settings
+    ../../base # Base configuration
+    ./apps.nix # Phoenix-specific apps
     ./stylix.nix
   ];
 
@@ -15,7 +21,7 @@
     # Firewall configuration
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
     };
   };
 
@@ -37,12 +43,15 @@
   };
 
   # Boot configuration
+  # TODO: move this to hardware-configuration.nix
   boot = {
-    kernelModules = [ "i2c-dev" ];
+    kernelModules = ["i2c-dev"];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       # Silent boot
-      "quiet" "splash" "boot.shell_on_fail"
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
       "loglevel=3"
       "rd.systemd.show_status=false"
       "rd.udev.log_level=3"
@@ -62,9 +71,11 @@
     plymouth = {
       enable = true;
       theme = "deus_ex";
-      themePackages = [(pkgs.adi1090x-plymouth-themes.override {
-        selected_themes = [ "deus_ex" ];
-      })];
+      themePackages = [
+        (pkgs.adi1090x-plymouth-themes.override {
+          selected_themes = ["deus_ex"];
+        })
+      ];
     };
 
     initrd = {
@@ -88,7 +99,7 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = ["nvidia"];
     };
 
     displayManager = {
@@ -177,19 +188,18 @@
   programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
-    users.${config.user.name}.extraGroups = [ "wheel" "video" "audio" "docker" ];
+    users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
 
   # Home Manager configuration
-  home-manager.users.${config.user.name} =
-    mkHomeManagerConfiguration.withModules [
-      "editor"
-      "firefox"
-      "kitty"
-      "git"
-      "shell"
-      "plasma"
-      "nixcord"
-      "spicetify"
-    ];
+  home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
+    "editor"
+    "firefox"
+    "kitty"
+    "git"
+    "shell"
+    "plasma"
+    "nixcord"
+    "spicetify"
+  ];
 }

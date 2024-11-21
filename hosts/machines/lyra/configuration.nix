@@ -1,9 +1,14 @@
 # Configuration for Lyra MacBook
-{ config, pkgs, vars, mkHomeManagerConfiguration, ... }: {
+{
+  pkgs,
+  vars,
+  mkHomeManagerConfiguration,
+  ...
+}: {
   imports = [
-    ../../base              # Base configuration
-    ./apps.nix             # Lyra-specific apps
-    ./custom_icons/custom_icons.nix  # Custom application icons
+    ../../base # Base configuration
+    ./apps.nix # Lyra-specific apps
+    ./custom_icons/custom_icons.nix # Custom application icons
     ./stylix.nix
   ];
 
@@ -19,7 +24,7 @@
 
   # Security settings
   security.pam.enableSudoTouchIdAuth = true;
-  nix.settings.trusted-users = [ vars.user ];
+  nix.settings.trusted-users = [vars.user];
 
   # User configuration
   users.users.${vars.user} = {
@@ -28,18 +33,17 @@
   };
 
   # Home Manager configuration
-  home-manager.users.${vars.user} =
-    mkHomeManagerConfiguration.withModules [
-      "aerospace"
-      "editor"
-      "firefox"
-      "kitty"
-      "git"
-      "shell"
-      "nixcord"
-      "spicetify"
-      "ssh"
-    ];
+  home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
+    "aerospace"
+    "editor"
+    "firefox"
+    "kitty"
+    "git"
+    "shell"
+    "nixcord"
+    "spicetify"
+    "ssh"
+  ];
 
   # System defaults and preferences
   system = {
@@ -58,9 +62,7 @@
     '';
 
     defaults = {
-
-
-  smb.NetBIOSName = "pc-dev-lyra";
+      smb.NetBIOSName = "pc-dev-lyra";
       # Menu bar clock settings
       menuExtraClock = {
         Show24Hour = true;

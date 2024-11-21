@@ -1,5 +1,10 @@
 # Phoenix-specific applications
-{ pkgs, inputs, vars, ... }: {
+{
+  pkgs,
+  inputs,
+  vars,
+  ...
+}: {
   # Autostart applications
   environment.etc = {
     "xdg/autostart/steam.desktop".source = pkgs.steam + "/share/applications/steam.desktop";
@@ -50,7 +55,7 @@
     gamemode
     vintagestory
     solaar
-    linuxKernel.packages.linux_6_6.xone
+    linuxKernel.packages.linux_6_11.xone
     ckan
     openrgb-with-all-plugins
 

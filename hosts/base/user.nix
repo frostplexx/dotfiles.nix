@@ -1,15 +1,19 @@
 # Base user configuration for both NixOS and Darwin
-{ config, lib, pkgs, ... }:
-
-let
+{
+  vars,
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkOption types;
-  isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
+  inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs.stdenv) isLinux;
 in {
   options.user = {
     name = mkOption {
       type = types.str;
-      default = "daniel";
+      default = vars.user;
       description = "Primary user name";
     };
   };
@@ -29,7 +33,7 @@ in {
         users.${config.user.name} = {
           isNormalUser = true;
           home = "/home/${config.user.name}";
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
           shell = pkgs.zsh;
         };
       })
@@ -47,7 +51,8 @@ in {
     home-manager.users.${config.user.name} = {
       home = {
         username = config.user.name;
-        homeDirectory = if isDarwin
+        homeDirectory =
+          if isDarwin
           then "/Users/${config.user.name}"
           else "/home/${config.user.name}";
       };
@@ -55,6 +60,6 @@ in {
 
     # Set default shell for all users
     programs.zsh.enable = true;
-    nix.settings.trusted-users = [ config.user.name ];
+    nix.settings.trusted-users = [config.user.name];
   };
 }

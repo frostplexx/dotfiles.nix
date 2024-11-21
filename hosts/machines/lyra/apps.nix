@@ -1,5 +1,5 @@
 # Lyra-specific applications
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Yuki configuration
   programs.yuki = {
     enable = true;
@@ -55,7 +55,7 @@
       "homebrew/services"
       "nikitabobko/tap"
     ];
-    brews = [ "mas" ];
+    brews = ["mas"];
     casks = [
       "altserver"
       "mac-mouse-fix"

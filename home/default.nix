@@ -1,7 +1,5 @@
 # Home Manager configuration with module selection
-{ config, lib, ... }:
-
-let
+_: let
   # List of all available modules
   allModules = {
     aerospace = ./programs/aerospace;
@@ -17,7 +15,7 @@ let
   };
 
   # Helper function to create home-manager configuration
-  mkHomeConfiguration = { modules ? [] }: {
+  mkHomeConfiguration = {modules ? []}: {
     imports = map (name: allModules.${name}) modules;
   };
 in {
@@ -28,8 +26,9 @@ in {
     };
 
     # Create configuration with specific modules
-    withModules = modules: mkHomeConfiguration {
-      inherit modules;
-    };
+    withModules = modules:
+      mkHomeConfiguration {
+        inherit modules;
+      };
   };
 }

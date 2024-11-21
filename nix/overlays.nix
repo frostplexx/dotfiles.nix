@@ -1,6 +1,4 @@
-
-{ inputs }: let
-
+{inputs}: let
   baseOverlays = {
     nixos = [
       inputs.nur.overlay
