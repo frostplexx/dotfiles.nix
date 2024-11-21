@@ -10,37 +10,10 @@
   };
 
   # Helper function to get system-specific input modules
-  mkInputModules = { system ? "x86_64-linux" }: {
-    core = [
-      inputs.yuki.nixosModules.default
-      inputs.stylix.${if system == "aarch64-darwin" then "darwinModules" else "nixosModules"}.stylix
-    ];
-
-    home = [
-      inputs.plasma-manager.homeManagerModules.plasma-manager
-      inputs.nixcord.homeManagerModules.nixcord
-      inputs.spicetify-nix.homeManagerModules.default
-      {
-        # explicitly disable stylix for spicetify because its managed by spicetify-nix
-        stylix.targets.spicetify.enable = false;
-      }
-    ];
-
-    darwin = [
-      inputs.darwin-custom-icons.darwinModules.default
-    ];
-  };
+  mkInputModules = { system ? "x86_64-linux" }: import ./input-modules.nix { inherit system inputs; };
 
   # Base overlays that are always included
-  baseOverlays = {
-    nixos = [
-      inputs.nur.overlay
-    ];
-    darwin = [
-      inputs.nur.overlay
-      inputs.nixpkgs-firefox-darwin.overlay
-    ];
-  };
+  baseOverlays = import ./overlays.nix { inherit inputs; };
 
   # Helper function to create a pkgs instance with overlays
   mkPkgs = { system, overlays ? [] }:

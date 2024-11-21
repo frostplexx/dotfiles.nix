@@ -27,7 +27,6 @@
     # GUI applications
     obsidian
     _1password-cli
-    firefox
     transmission_4
   ];
 
