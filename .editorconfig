@@ -3,7 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-[*]
+[*.nix]
 indent_style = space
 indent_size = 2
 end_of_line = lf
@@ -26,3 +26,8 @@ indent_size = 2
 # Match YAML files specifically
 [*.yml, *.yaml]
 indent_size = 2
+
+# Set tab for Makefile
+[Makefile]
+indent_style = tab
+

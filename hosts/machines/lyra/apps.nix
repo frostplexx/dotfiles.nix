@@ -1,3 +1,4 @@
+# Lyra-specific applications
 {pkgs, ...}: {
   # Yuki configuration
   programs.yuki = {
@@ -15,7 +16,7 @@
     };
   };
 
-  # Packages managed by Nix
+  # MacOS-specific packages
   environment.systemPackages = with pkgs; [
     # Development tools
     git
@@ -26,6 +27,9 @@
     gnumake
     vscode
     entr # Run arbitrary commands when files change
+    # linux-manual
+    man-pages
+    man-pages-posix
 
     # CLI utilities
     ffmpeg
@@ -42,18 +46,18 @@
     transmission_4
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
-    _1password-cli
-    raycast # Spotlight replacement
-    aerospace # macOS window manager
-    keka # Archive utility
-    zoom-us # Video conferencing
+    entr
+
+    # MacOS-specific apps
+    arc-browser
+    raycast
+    aerospace
+    keka
+    zoom-us
     tailscale
   ];
 
-  fonts.packages = [
-    (pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];})
-  ];
-
+  # Homebrew configuration
   homebrew = {
     enable = true;
     caskArgs.no_quarantine = true;
@@ -76,9 +80,7 @@
       "homebrew/services"
       "nikitabobko/tap"
     ];
-    brews = [
-      "mas"
-    ];
+    brews = ["mas"];
     casks = [
       "altserver"
       "mac-mouse-fix"

@@ -39,4 +39,13 @@
   # Allow non-free apps
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+
+  documentation = {
+    enable = true;
+    man = {
+      enable = true;
+    };
+    # dev.enable = true;
+  };
+  # man.generateCaches = true;
 }
