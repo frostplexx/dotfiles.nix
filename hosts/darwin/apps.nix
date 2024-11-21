@@ -26,6 +26,9 @@
     gnumake
     vscode
     entr # Run arbitrary commands when files change
+    # linux-manual
+    man-pages
+    man-pages-posix
 
     # CLI utilities
     ffmpeg
