@@ -33,7 +33,7 @@
       cursor_shape = "block";
       cursor_blink_interval = "-1";
       cursor_stop_blinking_after = "30.0";
-      cursor_trail = "1";
+      cursor_trail = "3";
 
       # Scrolling
       scrollback_lines = "10000";

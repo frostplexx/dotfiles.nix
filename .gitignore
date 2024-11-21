@@ -2,8 +2,6 @@ result/
 result
 old/
 .DS_Store
-darwin-switch.log
-nixos-switch.log
-nixos-test.log
-darwin-test.log
+*-switch.log
+*-test.log
 

@@ -2,218 +2,98 @@
 
 [![Nix Configuration Validation](https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg)](https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/frostplexx/dotfiles.nix) ![GitHub License](https://img.shields.io/github/license/frostplexx/dotfiles.nix)
 
-This repository contains my personal system configuration using `nix-darwin` and `home-manager`. It provides a reproducible setup for macOS systems using declarative configuration.
+This repository contains my personal system configurations for NixOS and MacOS.
+It provides a reproducible setup for macOS systems using declarative configuration.
 
-## Structure
+|               | MacOS                 | Linux                                              |
+|---------------|-------------------------|--------------------------------------------------|
+| **Shell:**    | zsh | zsh                                                |
+| **WM:**       | aerospace       | kde plasma 6 |
+| **Editor:**   | neovim | neovim                                                |
+| **Terminal:** | kitty                    | kitty                                               |
+| **Launcher:** | raycast                    | krunner                                                |
+| **Browser:**  | arc                 | firefox                                                |
 
+
+---
+
+## Quick Start
+
+0. On MacOS run `xcode-select --install` to install make and git
+1. Clone this repo into your home directory and cd into it
+1.5. On MacOS run `make install`
+2. Run `make` it will prompt you to select a config.
+
+
+## Management
+
+### Add a New Host
+
+1. Create a folder in `hosts/machines`. That folder should contain the following
+    - `configuration.nix` for system configurtion
+    - `hardware-configuration.nix` (optional) for hardware configs
+    - `apps.nix` (optioanal) for specific apps that only that host should have
+    - `stylix.nix` (optional) if you want to specify stylix settings, e.g. font, cursor
+2. Add you config to `hosts/default.nix`. My computers are named after `<location>-<type>-<name>` but the make 
+script only looks at the name part so make sure that matches in the config:
+```nix
+# or darwinConfigurations
+nixosConfigurations = {
+    #...
+  foo = {
+    system = "x86_64-linux";
+    stateVersion = "24.05";
+    modules = [
+      ./base # Base configuration
+      ./machines/foo/configuration.nix # Machine-specific configs
+    ];
+  };
+    #...
+};
 ```
- .
-├──  flake.lock
-├──  flake.nix
-├── 󱂵 home
-│   ├──  default.nix
-│   ├──  programs
-│   │   ├──  aerospace
-│   │   ├──  editor
-│   │   ├──  git
-│   │   ├──  kitty
-│   │   ├──  plasma
-│   │   └──  shell
-│   └──  README.md
-├──  hosts
-│   ├──  darwin
-│   │   ├──  apps.nix
-│   │   ├──  configuration.nix
-│   │   ├──  custom_icons
-│   │   ├──  host-users.nix
-│   │   ├──  README.md
-│   │   └──  system.nix
-│   └──  nixos
-│       ├──  apps.nix
-│       ├──  configuration.nix
-│       ├──  hardware-configuration.nix
-│       ├──  system.nix
-│       └──  users.nix
-├──  LICENSE
-├──  Makefile
-├──  README.md
-└──  result -> /nix/store/...
-```
-
-## Key Files and Their Purpose
-
-### System Configuration
-
-- `flake.nix`: Entry point for the Nix configuration, defining input sources and outputs.
-- `flake.lock`: Lock file for reproducibility.
-- `Makefile`: Automation scripts for deploying configurations.
-
-### User Configuration
-
-- `home/default.nix`: Main `home-manager` configuration file with user-specific settings.
-- `home/programs/`: Configurations for various programs:
-  - `aerospace/`
-    - `aerospace.toml`
-    - `default.nix`
-  - `editor/`
-  - `git/`
-  - `kitty/`
-  - `plasma/`
-  - `shell/`
-
-### Host-Specific Configuration
-
-- `hosts/darwin/`: macOS-specific configurations using `nix-darwin`.
-  - `apps.nix`: Applications to be installed (Nix packages, Homebrew, App Store apps).
-  - `configuration.nix`: Main macOS configuration file.
-  - `system.nix`: System preferences and settings.
-  - `host-users.nix`: Host and user configurations.
-  - `custom_icons/`: Custom icon resources.
-- `hosts/nixos/`: NixOS-specific configurations.
-  - `apps.nix`: Applications to be installed.
-  - `configuration.nix`: Main NixOS configuration file.
-  - `hardware-configuration.nix`: Hardware specifics.
-  - `system.nix`: System-level settings.
-  - `users.nix`: User accounts and permissions.
-
-## Installation
-
-1. **Install Nix: (MacOS only)** 
-
-   ```bash
-   make install
-   ```
-
-   *Note: After Nix installation, restart your terminal and run `make install` again. Ensure Homebrew is installed correctly and you're logged into the App Store.*
-
-2. **Deploy Configuration:**
-
-   ```bash
-   make deploy
-   ```
-
-## Available Commands
-
-```bash
-# Full system deployment
-make deploy
-
-# Deploy only for macOS
-make deploy-darwin
-
-# Deploy only for NixOS
-make deploy-nixos
-
-# Update packages and configurations
-make update
-
-# Run linters
-make lint
-
-# Clean old generations
-make clean
+3. Add the home manager modules to your newly created `configuration.nix`:
+```nix
+# Home Manager configuration
+home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
+  "editor"
+  "firefox"
+  "kitty"
+  "git"
+  "shell"
+  "plasma"
+  "nixcord"
+  "spicetify"
+];
 ```
 
-## Configuration Guide
+### Add New Programs
 
-### Adding a New Program
+If the programs are shared across all configs e.g. neovim, git, ffmpeg then add them to `hosts/base/apps.nix`. 
+Else add them to your the appropriate host config `hosts/machines/<hostname>/apps.nix`
 
-#### As a User Package
+### Home Manager
 
-1. **Create a new directory under `programs`:**
+Home Manager dotfiles are saved in `home`. 
+To add a new module you need to: 
 
-   ```bash
-   mkdir -p home/programs/newprogram
-   ```
-
-2. **Create a `default.nix` in the new directory:**
-
+1. Create a folder with a `default.nix` inside
+2. Configure what you want to configure
+3. Add it to the `allModules` list in `home/default.nix`
+4. Inside one of your hosts configs (located in `hosts/machines/<hostname>/configuration.nix`) add the module to the list of 
+   modules for the home-manager config
    ```nix
-   { config, pkgs, ... }: {
-     programs.newprogram = {
-       enable = true;
-       # Program-specific configuration
-     };
-   }
+    # Home Manager configuration
+    home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
+      "aerospace"
+      "editor"
+      "firefox"
+      "kitty"
+      "git"
+      "shell"
+      "nixcord"
+      "spicetify"
+      "ssh"
+      "<your_module>"
+    ];
    ```
 
-#### As a System Package
-
-- **For macOS:** Open 
-
-apps.nix
-
- and add your package to `environment.systemPackages`.
-- **For NixOS:** Open 
-
-apps.nix
-
- and add your package to `environment.systemPackages`.
-
-### Modifying System Settings
-
-- **macOS:** Edit 
-
-system.nix
-
- to change system-level settings.
-- **NixOS:** Edit 
-
-system.nix
-
- for system-level configurations.
-
-## Maintenance
-
-### Updating
-
-To update all packages and configurations:
-
-```bash
-make update
-```
-
-### Cleaning Up
-
-To remove old generations and free up space:
-
-```bash
-make clean
-```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Nix command not found**
-
-   - Restart your terminal after installation.
-   - Run `make install` again.
-
-2. **Darwin rebuild fails**
-
-   - Check your 
-
-flake.nix
-
- for syntax errors.
-   - Ensure all required files exist.
-   - Run with `--show-trace` for detailed error messages.
-
-3. **Home-manager issues**
-
-   - Verify your configuration syntax.
-   - Check program availability in `nixpkgs`.
-   - Look for conflicting configurations.
-
-## Contributing
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Push to the branch.
-5. Create a Pull Request.
-
-## License
-
-This project is licensed under the Apache License 2.0.

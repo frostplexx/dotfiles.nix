@@ -1,8 +1,9 @@
-# flake.nix
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
+  nixConfig.commit-lockfile-summary = "flake: bump inputs";
 
   inputs = {
+    # Core dependencies
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -12,27 +13,25 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
+
+    # Darwin-specific inputs
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
-    nur.url = "github:nix-community/nur";
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+
+    # Desktop environment and theming
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    yuki = {
-      url = "github:frostplexx/yuki/dev";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # yuki.url = "git+file:///Users/daniel/Developer/yuki";
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    # Application-specific inputs
+    nur.url = "github:nix-community/nur";
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,103 +40,29 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Development tools
+    yuki = {
+      url = "github:frostplexx/yuki/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  # In your flake.nix, replace just the outputs section:
-  outputs = {
-    nixpkgs,
-    home-manager,
-    nix-darwin,
-    flake-utils,
-    ...
-  } @ inputs: let
-    # Set some global variables
+  outputs = inputs: let
+    # Global variables used across configurations
     vars = {
       user = "daniel";
-      location = "$HOME/.setup";
-      terminal = "kitty";
-      editor = "nvim";
+    };
+
+    # Import our utils function
+    utils = import ./nix/utils.nix {
+      inherit inputs vars;
     };
   in
-    # First, generate the system-specific outputs (shells, formatter)
-    flake-utils.lib.eachDefaultSystem
-    (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      in {
-        devShells = import ./shells {inherit pkgs;};
-        formatter = pkgs.alejandra;
-      }
-    )
-    // {
-      # Your existing nixosConfigurations and darwinConfigurations stay the same
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit vars inputs;};
-        modules = [
-          ./nix/core.nix
-          inputs.yuki.nixosModules.default
-          ./hosts/nixos/configuration.nix
-          inputs.stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [inputs.nur.overlay];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit vars inputs;};
-              users.${vars.user} = import ./home;
-              sharedModules = [
-                inputs.plasma-manager.homeManagerModules.plasma-manager
-                inputs.nixcord.homeManagerModules.nixcord
-                inputs.spicetify-nix.homeManagerModules.default
-                {
-                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
-                  # TODO: This is a stupid place to put this and needs to be refactored
-                  stylix.targets.spicetify.enable = false;
-                }
-              ];
-            };
-          }
-        ];
-      };
-
-      darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {inherit vars inputs;};
-        modules = [
-          ./nix/core.nix
-          inputs.yuki.nixosModules.default
-          inputs.stylix.darwinModules.stylix
-          ./hosts/darwin/configuration.nix
-          inputs.darwin-custom-icons.darwinModules.default
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [
-              inputs.nixpkgs-firefox-darwin.overlay
-              inputs.nur.overlay
-            ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit vars inputs;};
-              users.${vars.user} = import ./home;
-              sharedModules = [
-                inputs.plasma-manager.homeManagerModules.plasma-manager
-                inputs.nixcord.homeManagerModules.nixcord
-                inputs.spicetify-nix.homeManagerModules.default
-                {
-                  # explicitly disable stylix for spicetify because its managed by spicetify-nix
-                  # TODO: This is a stupid place to put this and needs to be refactored
-                  stylix.targets.spicetify.enable = false;
-                }
-              ];
-            };
-          }
-        ];
-      };
+    utils.lib.mkFlake {
+      inherit inputs;
+      imports = [
+        ./hosts # System configurations
+      ];
     };
 }

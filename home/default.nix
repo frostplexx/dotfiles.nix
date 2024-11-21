@@ -1,29 +1,34 @@
-{
-  vars,
-  pkgs,
-  ...
-}: let
-  # Get all immediate subdirectories of ./programs
-  programDirs = builtins.attrNames (
-    builtins.readDir ./programs
-  );
-  # Map each directory to its default.nix path
-  programModules = map (dir: ./programs/${dir}/default.nix) programDirs;
-
-  # Determine home directory based on system
-  homeDirectory =
-    if pkgs.stdenv.isDarwin
-    then "/Users/${vars.user}"
-    else "/home/${vars.user}";
-in {
-  imports = programModules;
-
-  home = {
-    inherit homeDirectory;
-    stateVersion = "25.05";
-    # Dont manage this file because it causes issues
-    file."~/.gtkrc-2.0".enable = false;
+# Home Manager configuration with module selection
+_: let
+  # List of all available modules
+  allModules = {
+    aerospace = ./programs/aerospace;
+    editor = ./programs/editor;
+    firefox = ./programs/firefox;
+    git = ./programs/git;
+    kitty = ./programs/kitty;
+    nixcord = ./programs/nixcord;
+    plasma = ./programs/plasma;
+    shell = ./programs/shell;
+    spicetify = ./programs/spicetify;
+    ssh = ./programs/ssh;
   };
 
-  programs.home-manager.enable = true;
+  # Helper function to create home-manager configuration
+  mkHomeConfiguration = {modules ? []}: {
+    imports = map (name: allModules.${name}) modules;
+  };
+in {
+  _module.args.mkHomeManagerConfiguration = {
+    # Create configuration with all modules
+    withAll = mkHomeConfiguration {
+      modules = builtins.attrNames allModules;
+    };
+
+    # Create configuration with specific modules
+    withModules = modules:
+      mkHomeConfiguration {
+        inherit modules;
+      };
+  };
 }

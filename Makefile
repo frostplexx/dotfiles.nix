@@ -1,11 +1,9 @@
-# Documentation (won't show in output)
 ###############################################################################
 # Makefile for NixOS/nix-darwin system management
 #
 # Targets:
 # - all:      deploy changes and clean old generations
 # - deploy:   auto-detects OS and deploys appropriate configuration
-# - test:     test configuration without switching to it
 # - update:   updates all dependencies and deploys
 # - install:  first-time setup for macOS systems
 # - lint:     format and lint nix files
@@ -16,7 +14,6 @@
 # 1. First time setup:    make install
 # 2. Regular deploys:     make deploy
 # 3. Update everything:   make update
-# 4. Test changes:        make test
 #
 # Features:
 # - Automatic OS detection
@@ -27,9 +24,13 @@
 ###############################################################################
 
 MAKEFLAGS += --no-print-directory
+
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config
+
+HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
+
 include format.mk
-.PHONY: all deploy deploy-darwin deploy-nixos test test-darwin test-nixos update install lint clean repair
+.PHONY: all update lint clean repair install
 
 define get_commit_message
 OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
@@ -38,133 +39,48 @@ SUMMARY=$$(git diff --cached --compact-summary | sed ':a;N;$$!ba;s/\n/\\n/g'); \
 printf "[%s] Gen: %s\n\nChanged files:\n%b\n\nSummary:\n%b" "$${OS_TYPE}" "$(1)" "$${CHANGES}" "$${SUMMARY}"
 endef
 
+all: select 
 
-all: deploy
+select:
+	@CONFIGS=$$(awk '/= \{/{name=$$1} /system =/{if(name) print name}' hosts/default.nix | sed 's/=//' | tr -d ' ') && \
+	if echo "$$CONFIGS" | grep -q "$$($(HOSTNAME))"; then \
+		$(MAKE) deploy CONFIG=$$($(HOSTNAME)); \
+	else \
+		echo "${INFO} Hostname not found in configs. Select a configuration:" && \
+		SELECTED_CONFIG=$$(echo "$$CONFIGS" | nix-shell -p fzf --run "fzf") && \
+		if [ -n "$$SELECTED_CONFIG" ]; then \
+			$(MAKE) deploy CONFIG=$$SELECTED_CONFIG; \
+		else \
+			echo "${ERROR} No configuration selected"; \
+			exit 1; \
+		fi \
+	fi
 
 deploy:
-	@if [ "$$(uname)" = "Darwin" ]; then \
-		$(MAKE) deploy-darwin; \
-	else \
-		$(MAKE) deploy-nixos; \
-	fi
-
-test:
-	@if [ "$$(uname)" = "Darwin" ]; then \
-		$(MAKE) test-darwin; \
-	else \
-		$(MAKE) test-nixos; \
-	fi
-
-deploy-darwin:
-	@echo "${HEADER}Starting Darwin Deployment${RESET}"
-	@echo "${INFO} Caching sudo authentication..."
-	@sudo -v
-	@{ \
-		while true; do \
-			sudo -n true; \
-			sleep 60; \
-			kill -0 "$$" || exit; \
-		done 2>/dev/null & \
-		git add . && \
-		echo "${INFO} Running lints and checks..." && \
-		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
-		echo "${INFO} Checking for changes..." && \
-		git --no-pager diff --no-prefix --minimal --unified=0 . && \
-		echo "${INFO} Rebuilding Darwin system..." && \
-		(darwin-rebuild switch --flake .#darwin 2>darwin-switch.log && \
-			echo "${SUCCESS} System rebuilt successfully") || \
-			(echo "${ERROR} Build failed with errors:" && \
-			cat darwin-switch.log | grep --color error && false) && \
-		gen=$$(darwin-rebuild switch --flake .#darwin --list-generations | grep current| sed -E 's/([0-9]*)   ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)   \(current\)/\1 - \2 at \3/') && \
+	@git --no-pager diff --no-prefix --minimal --unified=0 . && \
+	echo "${INFO} Running lints and checks..." && \
+	$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+	git add . && \
+	echo "${INFO} Deploying $(CONFIG) configuration..." && \
+   	NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
+	if $$NIX_CMD switch --flake .#$(CONFIG) 2>$(CONFIG)-switch.log; then \
+		echo "${SUCCESS} $(CONFIG) configuration deployed successfully"; \
 		export NIXOS_GENERATION_COMMIT=1 && \
-		git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
-		echo "${SUCCESS} Changes committed for generation: $$gen" && \
-		echo "${DONE}Darwin deployment complete!${RESET}"; \
-	}
-
-test-darwin:
-	@echo "${HEADER}Testing Darwin Configuration${RESET}"
-	@echo "${INFO} Caching sudo authentication..."
-	@sudo -v
-	@{ \
-		while true; do \
-			sudo -n true; \
-			sleep 60; \
-			kill -0 "$$" || exit; \
-		done 2>/dev/null & \
-		echo "${INFO} Running lints and checks..." && \
-		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
-		echo "${INFO} Testing Darwin configuration..." && \
-		(darwin-rebuild check --flake .#darwin 2>darwin-test.log && \
-			echo "${SUCCESS} Configuration test successful") || \
-			(echo "${ERROR} Test failed with errors:" && \
-			cat darwin-test.log | grep --color error && false) && \
-		echo "${DONE}Darwin test complete!${RESET}"; \
-	}
-
-deploy-nixos:
-	@echo "${HEADER}Starting NixOS Deployment${RESET}"
-	@echo "${INFO} Caching sudo authentication..."
-	@sudo -v
-	@{ \
-		while true; do \
-			sudo -n true; \
-			sleep 60; \
-			kill -0 "$$" || exit; \
-		done 2>/dev/null & \
-		trap 'kill %1' EXIT; \
-		git add . && \
-		echo "${INFO} Running lints and checks..." && \
-		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
-		echo "${INFO} Checking for changes..." && \
-		git --no-pager diff --no-prefix --minimal --unified=0 . && \
-		echo "${INFO} Rebuilding NixOS system..." && \
-		if sudo nixos-rebuild switch --flake .#nixos 2>nixos-switch.log; then \
-			echo "${SUCCESS} System rebuilt successfully" && \
-			gen="$$(nixos-rebuild list-generations | grep current| sed -E 's/([0-9]*) (current)  ([0-9]*-[0-9]*-[0-9]*) ([0-9]*:[0-9]*)(:[0-9]*)(.*)/\1 · \3 at \4/')" && \
-			export NIXOS_GENERATION_COMMIT=1 && \
-			git commit -m "$$($(call get_commit_message,$$gen))" > /dev/null && \
-			echo "${SUCCESS} Changes committed for generation: $$gen" && \
-			exit 0; \
-		else \
-			echo "${ERROR} Build failed with errors:" && \
-			cat nixos-switch.log | grep --color error && \
-			exit 1; \
-		fi; \
-	}
-
-test-nixos:
-	@echo "${HEADER}Testing NixOS Configuration${RESET}"
-	@echo "${INFO} Caching sudo authentication..."
-	@sudo -v
-	@{ \
-		while true; do \
-			sudo -n true; \
-			sleep 60; \
-			kill -0 "$$" || exit; \
-		done 2>/dev/null & \
-		trap 'kill %1' EXIT; \
-		echo "${INFO} Running lints and checks..." && \
-		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
-		echo "${INFO} Testing NixOS configuration..." && \
-		if sudo nixos-rebuild test --flake .#nixos 2>nixos-test.log; then \
-			echo "${SUCCESS} Configuration test successful" && \
-			exit 0; \
-		else \
-			echo "${ERROR} Test failed with errors:" && \
-			cat nixos-test.log | grep --color error && \
-			exit 1; \
-		fi; \
-	}
+		git commit -m "$$($(call get_commit_message))" > /dev/null && \
+		git push; \
+	else \
+		echo "${ERROR} $(CONFIG) configuration deployment failed"; \
+		cat $(CONFIG)-switch.log | grep --color error && \
+		exit 1; \
+	fi
 
 update:
 	git add .
-	@echo "${INFO} Updating channels..."
-	@nix-channel --update
 	@echo "${INFO} Updating flakes..."
 	@nix $(NIX_FLAGS) flake update
 	@echo "${SUCCESS} Updates complete, starting deployment"
-	@$(MAKE) deploy
+	@$(MAKE) select
+
 
 install:
 	@if [ "$$(uname)" != "Darwin" ]; then \
@@ -182,12 +98,6 @@ install:
 	@echo "${INFO} Installing Homebrew..."
 	@command -v brew >/dev/null 2>&1 || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	@echo "${INFO} Setting up channels..."
-	@nix-channel --remove darwin || true
-	@nix-channel --remove home-manager || true
-	@nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-	@nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
-	@nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-	@nix-channel --update
 	@if ! command -v darwin-rebuild > /dev/null 2>&1; then \
 		echo "${INFO} Installing nix-darwin..." && \
 		nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
@@ -203,11 +113,6 @@ install:
 	@echo "${SUCCESS} Installation complete!"
 	@echo "${WARN} Please restart your shell and run 'make deploy'\n"
 
-lint:
-	@nix $(NIX_FLAGS) fmt .
-	@nix run $(NIX_FLAGS) nixpkgs#statix -- check .
-	@nix run $(NIX_FLAGS) nixpkgs#deadnix -- -eq .
-
 clean:
 	@echo "${INFO} Cleaning up old generations..."
 	@sudo nix-collect-garbage -d
@@ -219,3 +124,8 @@ repair:
 	@echo "${INFO} Verifying and repairing Nix store..."
 	@sudo nix-store --verify --check-contents --repair
 	@echo "${SUCCESS} Repair complete"
+
+lint:
+	@nix $(NIX_FLAGS) fmt . 2> /dev/null
+	@nix run $(NIX_FLAGS) nixpkgs#statix -- check .
+	@nix run $(NIX_FLAGS) nixpkgs#deadnix -- -eq .
