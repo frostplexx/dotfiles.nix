@@ -52,9 +52,6 @@
     # Global variables used across configurations
     vars = {
       user = "daniel";
-      location = "$HOME/.setup";
-      terminal = "kitty";
-      editor = "nvim";
     };
 
     # Import our utils function
@@ -65,7 +62,7 @@
     utils.lib.mkFlake {
       inherit inputs;
       imports = [
-        ./hosts     # System configurations
+        ./hosts # System configurations
       ];
     };
 }
