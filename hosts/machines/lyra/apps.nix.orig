@@ -18,6 +18,9 @@
 
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
+<<<<<<< HEAD:hosts/machines/lyra/apps.nix
+    # Development
+=======
     # Development tools
     git
     neovim
@@ -44,6 +47,7 @@
     arc-browser
     obsidian
     transmission_4
+>>>>>>> main:hosts/darwin/apps.nix
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
     entr
