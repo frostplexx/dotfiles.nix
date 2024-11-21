@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 DOTFILES_DIR="$HOME/dotfiles.nix"  # Updated to match your vars.location
-SHELLS_DIR="$DOTFILES_DIR/shells"
+SHELLS_DIR="$DOTFILES_DIR/templates"
 DIRENV_FILE=".envrc"
 SHELL_CACHE_FILE="$HOME/.local/share/shell-select/last-shell"
 

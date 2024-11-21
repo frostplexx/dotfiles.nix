@@ -14,3 +14,6 @@ TODO:
 
 - [ ] On first install it should show all compatible configs as an fzf list
 - [ ] After the first install the device should have the correct hostname and the config for that should get applied
+- [ ] Add man pages: man-pages man-pages-posix
+- [ ] Set kitty trail to 3
+- [ ] Rewrite the Makefile
