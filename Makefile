@@ -76,8 +76,6 @@ deploy:
 
 update:
 	git add .
-	@echo "${INFO} Updating channels..."
-	@nix-channel --update
 	@echo "${INFO} Updating flakes..."
 	@nix $(NIX_FLAGS) flake update
 	@echo "${SUCCESS} Updates complete, starting deployment"
@@ -100,12 +98,6 @@ install:
 	@echo "${INFO} Installing Homebrew..."
 	@command -v brew >/dev/null 2>&1 || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	@echo "${INFO} Setting up channels..."
-	@nix-channel --remove darwin || true
-	@nix-channel --remove home-manager || true
-	@nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-	@nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
-	@nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-	@nix-channel --update
 	@if ! command -v darwin-rebuild > /dev/null 2>&1; then \
 		echo "${INFO} Installing nix-darwin..." && \
 		nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
