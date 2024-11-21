@@ -60,9 +60,9 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            config: "nixosConfigurations.nixos.config.system.build.toplevel"
+            config: "nixosConfigurations.phoenix.config.system.build.toplevel"
           - os: macos-latest
-            config: "darwinConfigurations.darwin.system"
+            config: "darwinConfigurations.lyra.system"
     steps:
       - uses: actions/checkout@v4
 
