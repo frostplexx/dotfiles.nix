@@ -180,6 +180,12 @@ in {
       enable = true;
     };
 
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
     # Fuzzy finder
     fzf = {
       enable = true;
