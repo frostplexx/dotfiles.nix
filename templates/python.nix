@@ -1,4 +1,3 @@
-# shells/python.nix
 {pkgs}:
 pkgs.mkShell {
   name = "python";

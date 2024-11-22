@@ -182,7 +182,7 @@
           else extraOverlays.nixos;
       };
     in {
-      devShells = import ../shells {inherit pkgs;};
+      devShells = import ../templates {inherit pkgs;};
       formatter = pkgs.alejandra;
     };
 
