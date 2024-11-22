@@ -180,9 +180,6 @@ in {
       enable = true;
     };
 
-    # Automatically enable dev shells
-    direnv.enable = true;
-
     # Fuzzy finder
     fzf = {
       enable = true;
