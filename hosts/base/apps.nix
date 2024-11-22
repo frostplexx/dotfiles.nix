@@ -13,7 +13,6 @@
     vscode
     man-pages
     man-pages-posix
-    nix-direnv
 
     # CLI utilities
     ffmpeg
