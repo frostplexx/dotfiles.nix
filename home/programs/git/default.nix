@@ -1,15 +1,20 @@
 {
   lib,
+  pkgs,
   ...
 }: {
+  # `programs.git` will generate the config file: ~/.config/git/config
+  # to make git use this config file, `~/.gitconfig` should not exist!
+  #
+  #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
   home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
     rm -f ~/.gitconfig
   '';
+
   programs.git = {
     enable = true;
     lfs.enable = true;
 
-    # Default configuration (used when no conditional includes match)
     userName = "daniel";
     userEmail = "daniel.inama02@gmail.com";
 
@@ -17,41 +22,27 @@
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
-
-      # Configure different credentials based on repository URL
-      "user \"https://github.com/**\"" = {
-        name = "daniel";
-        email = "daniel.inama02@gmail.com";
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
-      };
-
-      "user \"https://gitlab.lrz.de/**\"" = {
-        name = "Inama, Daniel"; # Replace with your university name
-        email = "D.Inama@campus.lmu.de"; # Replace with your university email
-      };
-
-      # GPG signing configuration (only for GitHub)
-      # "gpg \"https://github.com/**\"" = {
-      #   format = "ssh";
-      # };
-      #
-      # "gpg \"ssh\" \"https://github.com/**\"" = {
-      #   program =
-      #     if pkgs.stdenv.isDarwin
-      #     then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-      #     else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      # };
-
-      "commit \"https://github.com/**\"" = {
-        gpgsign = true;
-      };
-
-      # Diff tool configuration
       diff = {
         tool = "kitty";
         guitool = "kittygui";
       };
+      gpg = {
+        format = "ssh";
+      };
+      "gpg \"ssh\"" = {
+        program =
+          if pkgs.stdenv.isDarwin
+          then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+          else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+      };
+      commit = {
+        gpgsign = true;
+      };
 
+      user = {
+        # this is the gpg public key
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
+      };
       difftool = {
         prompt = false;
         trustExitCode = true;
@@ -64,14 +55,6 @@
       };
     };
 
-    # Work directory specific configuration
-    includes = [
-      {
-        path = "~/work/.gitconfig";
-        condition = "gitdir:~/work/";
-      }
-    ];
-
     delta = {
       enable = true;
       options = {
@@ -80,6 +63,7 @@
     };
 
     aliases = {
+      # common aliases
       br = "branch";
       co = "checkout";
       st = "status";
@@ -89,6 +73,8 @@
       ca = "commit -am";
       dc = "diff --cached";
       amend = "commit --amend -m";
+
+      # aliases for submodule
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
     };
