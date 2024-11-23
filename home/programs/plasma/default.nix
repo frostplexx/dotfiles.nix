@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  gtk.enable = true;
   programs.plasma = {
     enable = !pkgs.stdenv.isDarwin;
     #
