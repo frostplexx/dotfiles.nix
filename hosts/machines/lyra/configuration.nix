@@ -135,7 +135,8 @@
         # Pinned apps
         persistent-apps = [
           "/Applications/Things3.app"
-          "${pkgs.arc-browser}/Applications/Arc.app"
+          # "${pkgs.arc-browser}/Applications/Arc.app"
+          "/Applications/Safari.app"
           "/Applications/kitty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];

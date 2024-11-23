@@ -67,7 +67,12 @@
       cleanup = "zap";
     };
     masApps = {
+      # Safari extensions
       "1Password for Safari" = 1569813296;
+      "Kagi for Safari" = 1622835804;
+      "AdGuard for Safari" = 1440147259;
+      "SponsorBlock for Safari" = 1573461917;
+
       "Xcode" = 497799835;
       "Things" = 904280696;
       "eduVPN" = 1317704208;
