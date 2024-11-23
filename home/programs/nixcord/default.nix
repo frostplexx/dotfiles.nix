@@ -20,12 +20,7 @@ in {
       package = pkgs.vencord;
       enable = true;
     };
-    quickCss = ''
-      :root {
-        --font: 'JetBrainsMono Nerd Font Mono' !important;
-        --pad: 10px !important;
-      }
-    '';
+    quickCss = '''';
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
