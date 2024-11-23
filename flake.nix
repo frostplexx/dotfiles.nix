@@ -54,7 +54,6 @@
       user = "daniel";
     };
 
-    # Import our utils function
     utils = import ./nix/utils.nix {
       inherit inputs vars;
     };
@@ -62,7 +61,7 @@
     utils.lib.mkFlake {
       inherit inputs;
       imports = [
-        ./hosts # System configurations
+        ./hosts
       ];
     };
 }
