@@ -101,6 +101,7 @@
       "proxyman"
       "vmware-fusion"
       "ollama"
+      "zen-browser"
     ];
   };
 }
