@@ -67,6 +67,14 @@
     filelight
     xclip
 
+    #Dependencies
+    glslang
+    libdrm
+    openxr-loader
+    SDL2
+    vulkan-tools
+    vulkan-loader
+
     # Development
     inputs.yuki.packages.${system}.default
   ];
