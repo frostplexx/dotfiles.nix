@@ -55,42 +55,32 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v16
-      - name: Create Config Detection Script
-        run: |
-          cat > detect-configs.sh << 'EOL'
-          #!/usr/bin/env bash
-          set -euo pipefail
-
-          # Get all configurations using nix flake show
-          configs=$(nix flake show --json | jq -r '.nixosConfigurations + .darwinConfigurations | keys[]')
-
-          # Initialize arrays for different system types
-          declare -a nixos_configs=()
-          declare -a darwin_configs=()
-
-          # Categorize configurations
-          while IFS= read -r config; do
-            if nix flake show --json | jq -e ".nixosConfigurations.\"$config\"" >/dev/null 2>&1; then
-              nixos_configs+=("{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"}")
-            elif nix flake show --json | jq -e ".darwinConfigurations.\"$config\"" >/dev/null 2>&1; then
-              darwin_configs+=("{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"}")
-            fi
-          done <<< "$configs"
-
-          # Combine all configurations
-          all_configs=$(printf "%s\n" "${nixos_configs[@]}" "${darwin_configs[@]}" | jq -s .)
-
-          # Create matrix output
-          echo "{\"include\":$all_configs}"
-          EOL
-          chmod +x detect-configs.sh
-      - name: Detect Configurations
+      - name: Generate Configuration Matrix
         id: set-matrix
         run: |
-          matrix=$(./detect-configs.sh)
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          # Parse configurations using awk
+          NIXOS_CONFIGS=$(awk '/nixosConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
+          DARWIN_CONFIGS=$(awk '/darwinConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
+          
+          # Initialize matrix JSON
+          echo "matrix={\"include\":[" > matrix.json
+          
+          # Add NixOS configurations
+          for config in $NIXOS_CONFIGS; do
+            echo "{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"}," >> matrix.json
+          done
+          
+          # Add Darwin configurations
+          for config in $DARWIN_CONFIGS; do
+            echo "{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"}," >> matrix.json
+          done
+          
+          # Remove trailing comma and close JSON
+          sed -i '$ s/,$//' matrix.json
+          echo "]}" >> matrix.json
+          
+          # Set output for GitHub Actions
+          cat matrix.json >> $GITHUB_OUTPUT
 
   test-configurations:
     name: Test Nix Configurations
