@@ -1,5 +1,4 @@
 name: "Nix Configuration Validation"
-
 on:
   push:
     branches:
@@ -35,10 +34,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
@@ -51,29 +48,66 @@ jobs:
             exit 1
           fi
 
-  test-configurations:
-    name: Test Nix Configurations
-    needs: [security-check, lint]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        include:
-          - os: ubuntu-latest
-            config: "nixosConfigurations.phoenix.config.system.build.toplevel"
-          - os: macos-latest
-            config: "darwinConfigurations.lyra.system"
+  detect-configs:
+    name: Detect Configurations
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
+      - name: Create Config Detection Script
+        run: |
+          cat > detect-configs.sh << 'EOL'
+          #!/usr/bin/env bash
+          set -euo pipefail
 
+          # Get all configurations using nix flake show
+          configs=$(nix flake show --json | jq -r '.nixosConfigurations + .darwinConfigurations | keys[]')
+
+          # Initialize arrays for different system types
+          declare -a nixos_configs=()
+          declare -a darwin_configs=()
+
+          # Categorize configurations
+          while IFS= read -r config; do
+            if nix flake show --json | jq -e ".nixosConfigurations.\"$config\"" >/dev/null 2>&1; then
+              nixos_configs+=("{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"}")
+            elif nix flake show --json | jq -e ".darwinConfigurations.\"$config\"" >/dev/null 2>&1; then
+              darwin_configs+=("{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"}")
+            fi
+          done <<< "$configs"
+
+          # Combine all configurations
+          all_configs=$(printf "%s\n" "${nixos_configs[@]}" "${darwin_configs[@]}" | jq -s .)
+
+          # Create matrix output
+          echo "{\"include\":$all_configs}"
+          EOL
+          chmod +x detect-configs.sh
+      - name: Detect Configurations
+        id: set-matrix
+        run: |
+          matrix=$(./detect-configs.sh)
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+
+  test-configurations:
+    name: Test Nix Configurations
+    needs: [security-check, lint, detect-configs]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
       - name: Enable Nix Flakes
         run: |
           mkdir -p ~/.config/nix
           echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
       - name: Build Configuration
         run: |
+          echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
           nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
