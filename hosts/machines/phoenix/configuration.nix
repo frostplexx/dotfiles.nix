@@ -46,9 +46,7 @@
   # TODO: move this to hardware-configuration.nix
   boot = {
     kernelModules = ["i2c-dev"];
-    # Nvidia drivers have problems with kerne 6.12
-    # TODO: upgrade in the future
-    kernelPackages = pkgs.linuxPackages_6_11;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       # Silent boot
       "quiet"
