@@ -96,4 +96,3 @@ To add a new module you need to:
       "<your_module>"
     ];
    ```
-
