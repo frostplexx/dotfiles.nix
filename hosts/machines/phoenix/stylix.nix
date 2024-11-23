@@ -9,7 +9,7 @@
       };
     };
     cursor = {
-      name = "phinger-cursors";
+      name = "Phinger Cursors (dark)";
       package = pkgs.phinger-cursors;
       size = 28;
     };
