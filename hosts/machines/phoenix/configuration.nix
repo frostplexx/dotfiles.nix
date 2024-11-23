@@ -94,25 +94,12 @@
     };
   };
 
-  # Envision is an orchestrator for the FOSS VR stack
-  #TODO: Move this to apps.nix
-  programs.envision = {
-    enable = true;
-    openFirewall = true; # This is set true by default
-  };
-
   # Desktop environment
   services = {
     xserver = {
       enable = true;
       xkb.layout = "us";
       videoDrivers = ["nvidia"];
-    };
-
-    # Vr Runtime
-    monado = {
-      enable = true;
-      defaultRuntime = true; # Register as default OpenXR runtime
     };
 
     displayManager = {
@@ -220,6 +207,5 @@
     "plasma"
     "nixcord"
     "spicetify"
-    "openComposite"
   ];
 }
