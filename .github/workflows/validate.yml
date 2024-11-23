@@ -54,13 +54,24 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+      - name: Install nix-editor
+        run: nix profile install github:snowfallorg/nix-editor
       - name: Generate Configuration Matrix
         id: set-matrix
         shell: bash
         run: |
-          # Parse configurations using awk
-          NIXOS_CONFIGS=$(awk '/nixosConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
-          DARWIN_CONFIGS=$(awk '/darwinConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
+          # Get configurations using nix-editor and extract just the top-level key
+          echo "Detecting NixOS configurations..."
+          NIXOS_CONFIGS=$(nix-editor hosts/default.nix nixosConfigurations | grep -E "^  [a-zA-Z]+ = {" | cut -d' ' -f3)
+          
+          echo "Detecting Darwin configurations..."
+          DARWIN_CONFIGS=$(nix-editor hosts/default.nix darwinConfigurations | grep -E "^  [a-zA-Z]+ = {" | cut -d' ' -f3)
+          
+          # Debug output
+          echo "Detected NixOS configs: $NIXOS_CONFIGS"
+          echo "Detected Darwin configs: $DARWIN_CONFIGS"
           
           # Build the JSON array
           MATRIX_JSON="{"
@@ -84,7 +95,7 @@ jobs:
           MATRIX_JSON=${MATRIX_JSON%,}
           MATRIX_JSON+="]}"
           
-          # Properly escape the JSON for GitHub Actions output
+          # Set the output
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   test-configurations:
