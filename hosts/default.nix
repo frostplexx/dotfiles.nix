@@ -11,8 +11,6 @@
     };
   };
 
-
-
   nixosConfigurations = {
     phoenix = {
       system = "x86_64-linux";
