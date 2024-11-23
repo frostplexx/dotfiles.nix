@@ -32,8 +32,7 @@ jobs:
     name: Statix Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Run statix linter
@@ -57,30 +56,36 @@ jobs:
       - uses: actions/checkout@v4
       - name: Generate Configuration Matrix
         id: set-matrix
+        shell: bash
         run: |
           # Parse configurations using awk
           NIXOS_CONFIGS=$(awk '/nixosConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
           DARWIN_CONFIGS=$(awk '/darwinConfigurations = \{/{f=1;next} /\};/{if(f){f=0}} f{if($1 ~ /^[a-zA-Z]/) print $1}' hosts/default.nix | sed 's/=//')
           
-          # Initialize matrix JSON
-          echo "matrix={\"include\":[" > matrix.json
+          # Build the JSON array
+          MATRIX_JSON="{"
+          MATRIX_JSON+="\"include\": ["
           
           # Add NixOS configurations
           for config in $NIXOS_CONFIGS; do
-            echo "{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"}," >> matrix.json
+            if [ -n "$config" ]; then
+              MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"},"
+            fi
           done
           
           # Add Darwin configurations
           for config in $DARWIN_CONFIGS; do
-            echo "{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"}," >> matrix.json
+            if [ -n "$config" ]; then
+              MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"},"
+            fi
           done
           
           # Remove trailing comma and close JSON
-          sed -i '$ s/,$//' matrix.json
-          echo "]}" >> matrix.json
+          MATRIX_JSON=${MATRIX_JSON%,}
+          MATRIX_JSON+="]}"
           
-          # Set output for GitHub Actions
-          cat matrix.json >> $GITHUB_OUTPUT
+          # Properly escape the JSON for GitHub Actions output
+          echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   test-configurations:
     name: Test Nix Configurations

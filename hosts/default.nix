@@ -1,6 +1,5 @@
 # Main entry point for host configurations
 {
-
   darwinConfigurations = {
     lyra = {
       system = "aarch64-darwin";
