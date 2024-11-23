@@ -15,12 +15,11 @@
 in {
   stylix.targets.vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
   programs.nixcord = {
-    enable = false;
-    discord = {
+    enable = true;
+    discord.vencord = {
+      package = pkgs.vencord;
       enable = true;
-      vencord.package = pkgs.vencord;
     };
-    vesktop.enable = false;
     quickCss = ''
       :root {
         --font: 'JetBrainsMono Nerd Font Mono' !important;
