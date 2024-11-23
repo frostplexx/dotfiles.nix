@@ -73,6 +73,7 @@
       "AdGuard for Safari" = 1440147259;
       "SponsorBlock for Safari" = 1573461917;
       "Vimkey" = 1585682577;
+      "Noir" = 1592917505;
 
       "Xcode" = 497799835;
       "Things" = 904280696;
