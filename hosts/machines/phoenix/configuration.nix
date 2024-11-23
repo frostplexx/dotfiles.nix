@@ -46,7 +46,7 @@
   # TODO: move this to hardware-configuration.nix
   boot = {
     kernelModules = ["i2c-dev"];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_11;
     kernelParams = [
       # Silent boot
       "quiet"
@@ -85,7 +85,7 @@
 
     consoleLogLevel = 0;
     loader = {
-      timeout = 0;
+      timeout = 3;
       systemd-boot = {
         enable = true;
         configurationLimit = 5;
