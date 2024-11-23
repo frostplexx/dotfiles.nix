@@ -213,5 +213,6 @@
     "plasma"
     "nixcord"
     "spicetify"
+    "openComposite"
   ];
 }
