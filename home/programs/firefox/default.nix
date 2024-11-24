@@ -71,74 +71,69 @@
       userChrome =
         if pkgs.stdenv.isDarwin
         then ''
-                              #TabsToolbar {
-                                  visibility: collapse;
-                              }
-
-                              #titlebar {
-                                display: none;
-                              }
-
-
+                    #TabsToolbar {
+                        visibility: collapse;
+                    }
 
                     #titlebar {
-                      display: none !important;
-                    }
-
-                    .titlebar-buttonbox-container {
-                      display: none !important;
-                    }
-
-                    #navigator-toolbox:not(:hover) {
-                      --is-bar-visible: hidden;
-                      height: 3px
-                      opacity: 0 !important;
-                      transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
-                    }
-
-                    #navigator-toolbox {
-                      position: fixed;
-                      z-index: 1;
-                      height: 15px;
-                      overflow: var(--is-bar-visible);
-                      width: 100%;
-                      transition: 0.1s !important;
-                      background-color: transparent !important;
-                      border-color: transparent !important;
-           /* Center the toolbar contents */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-                    }
-
-                    #navigator-toolbox:hover {
-                      height: 40px;
-                      opacity: 1 !important;
-                      transition: opacity 175ms ease-in-out;
-                    }
-
-                    /* Adjust nav-bar positioning */
-          #nav-bar {
-            margin: 0 auto !important;
-            max-width: 80% !important; /* Adjust this value as needed */
-            padding: 0 16px !important;
-          }
-
-
-                    #navigator-toolbox:focus-within {
-                      height: 40px;
-                      opacity: 1 !important;
-                      transition: opacity 175ms ease-in-out;
-                      --is-bar-visible: visible;
-                    }
-
-                    #PersonalToolbar {
                       display: none;
                     }
 
-                    toolbarbutton[open="true"] {
-                      --is-bar-visible: visible !important;
-                    }
+
+
+          #titlebar {
+            display: none !important;
+          }
+
+          .titlebar-buttonbox-container {
+            display: none !important;
+          }
+
+          #navigator-toolbox:not(:hover) {
+            --is-bar-visible: hidden;
+            height: 3px
+            opacity: 0 !important;
+            transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+          }
+
+          #navigator-toolbox {
+            position: fixed;
+            opacity: 0 !important;
+            z-index: 1;
+            height: 15px;
+            overflow: var(--is-bar-visible);
+            width: 100%;
+            transition: 0.1s !important;
+            background-color: transparent !important;
+            border-color: transparent !important;
+
+            /* Center the toolbar contents */
+             display: flex;
+             justify-content: center;
+             align-items: center;
+          }
+
+          #navigator-toolbox:hover {
+            height: 40px;
+            opacity: 1 !important;
+            transition: opacity 175ms ease-in-out;
+          }
+
+
+          #navigator-toolbox:focus-within {
+            height: 40px;
+            opacity: 1 !important;
+            transition: opacity 175ms ease-in-out;
+            --is-bar-visible: visible;
+          }
+
+          #PersonalToolbar {
+            display: none;
+          }
+
+          toolbarbutton[open="true"] {
+            --is-bar-visible: visible !important;
+          }
         ''
         else "";
       userContent = '''';
