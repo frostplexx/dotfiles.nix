@@ -107,9 +107,9 @@
             z-index: 1;
             height: 15px;
             overflow: var(--is-bar-visible);
-            right: 0;
-            top: 0;
-            width: calc(100% - 310px);
+            # right: 0;
+            # top: 0;
+            width: 100%;
             transition: 0.1s !important;
             background-color: transparent !important;
             border-color: transparent !important;
