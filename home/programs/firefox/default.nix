@@ -101,6 +101,7 @@
             opacity: 0 !important;
             z-index: 1;
             height: 5px;
+            width:  100%;
             overflow: var(--is-bar-visible);
             transition: 0.1s !important;
             background-color: transparent !important;
@@ -114,6 +115,7 @@
 
           #navigator-toolbox:hover {
             height: 40px;
+            width:  100%;
             opacity: 1 !important;
             transition: opacity 175ms ease-in-out;
           }
