@@ -89,7 +89,7 @@
           }
 
           #navigator-toolbox {
-            position: fixed;
+            position: absolute !important;
             z-index: 1000;
             height: 5px;
             /* Center the toolbar and constrain width to 16:9 ratio */
