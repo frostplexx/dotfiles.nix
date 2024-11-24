@@ -71,13 +71,147 @@
       userChrome =
         if pkgs.stdenv.isDarwin
         then ''
-          #TabsToolbar {
-              visibility: collapse;
+                    #TabsToolbar {
+                        visibility: collapse;
+                    }
+
+                    #titlebar {
+                      display: none;
+                    }
+
+          #appcontent
+            > #tabbrowser-tabbox
+            > #tabbrowser-tabpanels
+            > .deck-selected
+            > .browserContainer
+            > .browserStack
+            > browser {
+            border-radius: 10px !important;
+            margin: 10px !important;
+          }
+
+          browser {
+            background: linear-gradient(#262834, #262834);
+            border-radius: 6px;
+          }
+
+          .browserStack {
+            padding: 10px;
+            background: linear-gradient(#3b3f52, #3b3f52);
+          }
+
+          .browserContainer {
+            background-color: var(
+              --lwt-accent-color-inactive,
+              var(--lwt-accent-color)
+            ) !important;
+            background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
+            background-repeat: no-repeat, var(--lwt-background-tiling) !important;
+            background-position: right top, var(--lwt-background-alignment) !important;
           }
 
           #titlebar {
+            display: none !important;
+          }
+
+          .titlebar-buttonbox-container {
+            display: none !important;
+          }
+
+          #forward-button,
+          #back-button,
+          #reload-button {
+            display: none !important;
+          }
+
+          #sidebar-button {
+            margin-left: 10px !important;
+          }
+
+          #navigator-toolbox:not(:hover) {
+            --is-bar-visible: hidden;
+            opacity: 0 !important;
+            transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+          }
+
+          #PersonalToolbar {
             display: none;
           }
+
+          #navigator-toolbox {
+            position: fixed;
+            z-index: 1;
+            height: 15px;
+            overflow: var(--is-bar-visible);
+            right: 0;
+            top: 0;
+            width: calc(100% - 310px);
+            transition: 0.1s !important;
+            background-color: transparent !important;
+            border-color: transparent !important;
+          }
+
+          #navigator-toolbox:hover {
+            height: 40px;
+            opacity: 1 !important;
+            transition: opacity 175ms ease-in-out;
+          }
+
+          #navigator-toolbox:focus-within {
+            height: 40px;
+            opacity: 1 !important;
+            transition: opacity 175ms ease-in-out;
+            --is-bar-visible: visible;
+          }
+
+          #nav-bar {
+            background: #3b3f52 !important;
+            border-radius: 10px;
+          }
+
+          #urlbar-background {
+            background: #3b3f52 !important;
+          }
+
+          toolbarbutton[open="true"] {
+            --is-bar-visible: visible !important;
+          }
+
+          #sidebar-header {
+            display: none;
+          }
+
+          #sidebar-box {
+            width: 200px;
+            min-width: 190px !important;
+            max-width: 300px !important;
+            min-height: unset !important;
+            max-height: unset !important;
+            border-right: none !important;
+            background-color: #3b3f52 !important;
+          }
+
+          #sidebar-splitter {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+          }
+
+          /* Hiding the header on new tab page */
+          #main-window[BookmarksToolbarOverlapsBrowser] .newTabBrowserPanel,
+          #main-window[BookmarksToolbarOverlapsBrowser] #sidebar-box {
+            padding-top: 0 !important;
+          }
+
+          @media (prefers-color-scheme: light) {
+            .browserStack {
+              background: linear-gradient(#dadce5, #dadce5);
+            }
+            #nav-bar,
+            #urlbar-background {
+              background: #dadce5 !important;
+            }
+          } /*# sourceMappingURL=userChrome.css.map */
         ''
         else "";
       userContent = '''';
