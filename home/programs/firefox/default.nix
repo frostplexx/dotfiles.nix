@@ -71,71 +71,74 @@
       userChrome =
         if pkgs.stdenv.isDarwin
         then ''
-          /* Hide default tab bar */
-          #TabsToolbar {
-            visibility: collapse !important;
-          }
+                              #TabsToolbar {
+                                  visibility: collapse;
+                              }
 
-          /* Hide title bar and related elements */
-          #titlebar,
-          .titlebar-buttonbox-container {
-            display: none !important;
-          }
+                              #titlebar {
+                                display: none;
+                              }
 
-          /* Base navigator toolbox styles */
-          #navigator-toolbox {
-            position: fixed !important;
-            z-index: 1;
-            width: 100%;
-            background-color: transparent !important;
-            border: none !important;
-            transition: all 200ms ease-in-out !important;
 
-            /* Center the toolbar contents */
+
+                    #titlebar {
+                      display: none !important;
+                    }
+
+                    .titlebar-buttonbox-container {
+                      display: none !important;
+                    }
+
+                    #navigator-toolbox:not(:hover) {
+                      --is-bar-visible: hidden;
+                      height: 3px
+                      opacity: 0 !important;
+                      transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+                    }
+
+                    #navigator-toolbox {
+                      position: fixed;
+                      z-index: 1;
+                      height: 15px;
+                      overflow: var(--is-bar-visible);
+                      width: 100%;
+                      transition: 0.1s !important;
+                      background-color: transparent !important;
+                      border-color: transparent !important;
+           /* Center the toolbar contents */
             display: flex;
             justify-content: center;
             align-items: center;
-          }
+                    }
 
-          /* Collapsed state */
-          #navigator-toolbox:not(:hover):not(:focus-within) {
-            height: 3px !important; /* Minimal height when collapsed */
-            opacity: 0.6 !important;
-            margin-top: 0 !important;
-            --is-bar-visible: hidden;
-            pointer-events: auto;
-          }
+                    #navigator-toolbox:hover {
+                      height: 40px;
+                      opacity: 1 !important;
+                      transition: opacity 175ms ease-in-out;
+                    }
 
-          /* Expanded state (hover or focus) */
-          #navigator-toolbox:hover,
-          #navigator-toolbox:focus-within {
-            height: 40px !important;
-            opacity: 1 !important;
-            --is-bar-visible: visible;
-            background-color: var(--toolbar-bgcolor) !important;
-          }
-
-          /* Ensure proper expansion when dropdowns are open */
-          toolbarbutton[open="true"] {
-            --is-bar-visible: visible !important;
-          }
-
-          /* Hide personal toolbar */
-          #PersonalToolbar {
-            display: none !important;
-          }
-
-          /* Adjust nav-bar positioning */
+                    /* Adjust nav-bar positioning */
           #nav-bar {
             margin: 0 auto !important;
-            max-width: 1200px !important; /* Adjust this value as needed */
+            max-width: 80% !important; /* Adjust this value as needed */
             padding: 0 16px !important;
           }
 
-          /* Ensure smooth transitions */
-          #nav-bar * {
-            transition: opacity 175ms ease-in-out !important;
-          }
+
+                    #navigator-toolbox:focus-within {
+                      height: 40px;
+                      opacity: 1 !important;
+                      transition: opacity 175ms ease-in-out;
+                      --is-bar-visible: visible;
+                    }
+
+                    #PersonalToolbar {
+                      display: none;
+                    }
+
+                    toolbarbutton[open="true"] {
+                      --is-bar-visible: visible !important;
+                    }
         ''
         else "";
       userContent = '''';
