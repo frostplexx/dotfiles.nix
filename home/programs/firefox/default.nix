@@ -88,9 +88,29 @@
             --sixteen-nine-width: calc(100vh * (16/9));
           }
 
+          /* Ensure sidebar stays fixed */
+          #sidebar-box,
+          #sidebar {
+            position: relative !important;
+            z-index: 2;
+          }
+
+          /* Main browser content */
+          #browser {
+            position: relative;
+            z-index: 1;
+          }
+
+          /* Round the top-right corner of web content */
+          #content-deck,
+          .browserStack > browser {
+            border-top-right-radius: 8px !important;
+            overflow: hidden !important;
+          }
+
           #navigator-toolbox {
             position: fixed;
-            z-index: 1;
+            z-index: 3;
             height: 5px;
             /* Center the toolbar and constrain width to 16:9 ratio */
             width: min(100%, var(--sixteen-nine-width));
@@ -138,6 +158,16 @@
           #nav-bar {
             width: 100% !important;
             margin: 0 !important;
+          }
+
+          /* Prevent content shift when toolbar expands */
+          #browser vbox#appcontent {
+            margin-top: 5px !important;
+          }
+
+          /* Ensure main content doesn't shift */
+          #main-window[sizemode="normal"] {
+            padding-top: 0px !important;
           }
         ''
         else "";
