@@ -36,7 +36,7 @@
   transition: 0.1s !important;
   border-color: transparent !important;
   background-color: transparent !important;
-  border-radius: 5 !important;
+  border-radius: 5% !important;
   /* Center the toolbar contents */
   display: flex;
   justify-content: center;
@@ -51,15 +51,16 @@
 }
 
 #navigator-toolbox:hover {
-  height: 40px;
+  height: 50px;
   z-index: 1000 !important;
   opacity: 1 !important;
   transition: opacity 175ms ease-in-out;
 }
 
 #navigator-toolbox:focus-within {
-  height: 40px;
+  height: 50px;
   opacity: 1 !important;
+  z-index: 1000 !important;
   transition: opacity 175ms ease-in-out;
   --is-bar-visible: visible;
 }
