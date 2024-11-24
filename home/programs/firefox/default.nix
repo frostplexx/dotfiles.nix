@@ -70,77 +70,7 @@
       };
       userChrome =
         if pkgs.stdenv.isDarwin
-        then ''
-          #TabsToolbar {
-            visibility: collapse;
-          }
-
-          #titlebar {
-            display: none !important;
-          }
-
-          .titlebar-buttonbox-container {
-            display: none !important;
-          }
-
-          /* Calculate width based on viewport height to maintain 16:9 ratio */
-          :root {
-            --sixteen-nine-width: calc(100vh * (16/9));
-          }
-
-          #navigator-toolbox {
-            position: absolute !important;
-            z-index: 1000;
-            height: 5px;
-            /* Center the toolbar and constrain width to 16:9 ratio */
-            width: min(100%, var(--sixteen-nine-width));
-            left: 50%;
-            transform: translateX(-50%);
-            overflow: var(--is-bar-visible);
-            transition: 0.1s !important;
-            background-color: transparent !important;
-            border-color: transparent !important;
-            /* Center the toolbar contents */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-
-          #navigator-toolbox:not(:hover) {
-            --is-bar-visible: hidden;
-            height: 5px;
-            opacity: 0 !important;
-            transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
-          }
-
-          #navigator-toolbox:hover {
-            height: 40px;
-            z-index: 1000 !important;
-            opacity: 1 !important;
-            transition: opacity 175ms ease-in-out;
-          }
-
-          #navigator-toolbox:focus-within {
-            height: 40px;
-            opacity: 1 !important;
-            transition: opacity 175ms ease-in-out;
-            --is-bar-visible: visible;
-          }
-
-          #PersonalToolbar {
-            display: none;
-          }
-
-          toolbarbutton[open="true"] {
-            --is-bar-visible: visible !important;
-          }
-
-          /* Ensure nav-bar fills the constrained width */
-          #nav-bar {
-            width: 100% !important;
-            margin: 0 !important;
-          }
-        ''
+        then builtins.readFile ./userChrome.css
         else "";
       userContent = '''';
 
