@@ -15,6 +15,15 @@
   --sixteen-nine-width: calc(100vh * (16/9));
 }
 
+
+#navigator-toolbox::before {
+    content: "";
+  position: static !important;
+  --is-bar-visible: hidden;
+  height: 10px;
+  opacity: 0 !important;
+}
+
 #navigator-toolbox {
   position: absolute !important;
   z-index: 1000;
@@ -32,17 +41,6 @@
   align-items: center;
 }
 
-/* Add larger trigger area */
-#navigator-toolbox::before {
-  content: '';
-  position: static;
-  top: -10px;
-  left: 0;
-  width: 100%;
-  height: 15px;
-  z-index: 999;
-}
-
 #navigator-toolbox:not(:hover) {
   --is-bar-visible: hidden;
   height: 5px;
@@ -50,10 +48,15 @@
   transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
 }
 
-#navigator-toolbox:hover,
-#navigator-toolbox:focus-within {
+#navigator-toolbox:hover {
   height: 40px;
   z-index: 1000 !important;
+  opacity: 1 !important;
+  transition: opacity 175ms ease-in-out;
+}
+
+#navigator-toolbox:focus-within {
+  height: 40px;
   opacity: 1 !important;
   transition: opacity 175ms ease-in-out;
   --is-bar-visible: visible;
