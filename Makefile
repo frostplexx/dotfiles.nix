@@ -67,8 +67,7 @@ deploy:
 	if $$NIX_CMD switch --flake .#$(CONFIG) 2>$(CONFIG)-switch.log; then \
 		echo "${SUCCESS} $(CONFIG) configuration deployed successfully"; \
 		export NIXOS_GENERATION_COMMIT=1 && \
-		git commit -m "$$($(call get_commit_message))" > /dev/null && \
-		git push; \
+		git commit -m "$$($(call get_commit_message))" > /dev/null \
 	else \
 		echo "${ERROR} $(CONFIG) configuration deployment failed"; \
 		cat $(CONFIG)-switch.log | grep --color error && \
