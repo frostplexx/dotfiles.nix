@@ -71,15 +71,9 @@
       userChrome =
         if pkgs.stdenv.isDarwin
         then ''
-                    #TabsToolbar {
-                        visibility: collapse;
-                    }
-
-                    #titlebar {
-                      display: none;
-                    }
-
-
+          #TabsToolbar {
+            visibility: collapse;
+          }
 
           #titlebar {
             display: none !important;
@@ -89,37 +83,41 @@
             display: none !important;
           }
 
-          #navigator-toolbox:not(:hover) {
-            --is-bar-visible: hidden;
-            height: 5px
-            opacity: 0 !important;
-            transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+          /* Calculate width based on viewport height to maintain 16:9 ratio */
+          :root {
+            --sixteen-nine-width: calc(100vh * (16/9));
           }
 
           #navigator-toolbox {
             position: fixed;
-            opacity: 0 !important;
             z-index: 1;
             height: 5px;
-            width:  100%;
+            /* Center the toolbar and constrain width to 16:9 ratio */
+            width: min(100%, var(--sixteen-nine-width));
+            left: 50%;
+            transform: translateX(-50%);
             overflow: var(--is-bar-visible);
             transition: 0.1s !important;
             background-color: transparent !important;
             border-color: transparent !important;
-
             /* Center the toolbar contents */
-             display: flex;
-             justify-content: center;
-             align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          #navigator-toolbox:not(:hover) {
+            --is-bar-visible: hidden;
+            height: 5px;
+            opacity: 0 !important;
+            transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
           }
 
           #navigator-toolbox:hover {
             height: 40px;
-            width:  100%;
             opacity: 1 !important;
             transition: opacity 175ms ease-in-out;
           }
-
 
           #navigator-toolbox:focus-within {
             height: 40px;
@@ -134,6 +132,12 @@
 
           toolbarbutton[open="true"] {
             --is-bar-visible: visible !important;
+          }
+
+          /* Ensure nav-bar fills the constrained width */
+          #nav-bar {
+            width: 100% !important;
+            margin: 0 !important;
           }
         ''
         else "";
