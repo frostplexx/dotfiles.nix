@@ -35,6 +35,8 @@
   overflow: var(--is-bar-visible);
   transition: 0.1s !important;
   border-color: transparent !important;
+  background-color: transparent !important;
+  border-radius: 5 !important;
   /* Center the toolbar contents */
   display: flex;
   justify-content: center;
