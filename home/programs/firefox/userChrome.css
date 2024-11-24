@@ -17,10 +17,11 @@
 
 
 #navigator-toolbox::before {
-    content: "";
-  position: static !important;
+content: "";
+  position: fixed !important;
   --is-bar-visible: hidden;
   height: 10px;
+    background-color: red !important;
   opacity: 0 !important;
 }
 
@@ -77,4 +78,5 @@ toolbarbutton[open="true"] {
 #nav-bar {
   width: 100% !important;
   margin: 0 !important;
+  height: 100% !important;
 }
