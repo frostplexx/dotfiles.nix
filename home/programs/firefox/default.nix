@@ -91,7 +91,7 @@
 
           #navigator-toolbox:not(:hover) {
             --is-bar-visible: hidden;
-            height: 3px
+            height: 5px
             opacity: 0 !important;
             transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
           }
@@ -100,9 +100,8 @@
             position: fixed;
             opacity: 0 !important;
             z-index: 1;
-            height: 15px;
+            height: 5px;
             overflow: var(--is-bar-visible);
-            width: 100%;
             transition: 0.1s !important;
             background-color: transparent !important;
             border-color: transparent !important;
