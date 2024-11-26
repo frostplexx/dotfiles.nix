@@ -16,7 +16,7 @@
         sponsorblock
         ublock-origin
         vimium
-        adaptive-tab-bar-colour
+        # adaptive-tab-bar-colour
       ];
       settings = {
         "app.update.auto" = false;
