@@ -26,4 +26,22 @@ return {
         },
 
     },
+    keys = {
+        {
+            -- Open in the current working directory
+            "<leader>os",
+            "<cmd>ObsidianSearch<cr>",
+            desc = "Search Obsidian Vault",
+        },
+        {
+            '<leader>ot',
+            "<cmd>ObsidianTOC<cr>",
+            desc = "Show Table of Contents for the current file",
+        },
+        {
+            '<leader>oo',
+            "<cmd>ObsidianOpen<cr>",
+            desc = "Open current file in Obsidian",
+        }
+    },
 }
