@@ -41,7 +41,6 @@
     sshpass
 
     # GUI Applications
-    arc-browser
     obsidian
     transmission_4
     jetbrains.idea-ultimate

@@ -1,50 +1,47 @@
 return {
-  {
-    "saghen/blink.cmp",
-    lazy = true, -- lazy loading handled internally
-    event = "InsertEnter",
-    -- optional: provides snippets for the snippet source
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-    -- use a release tag to download pre-built binaries
-    version = "v0.*",
-    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    opts = {
-      highlight = {
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
-        use_nvim_cmp_as_default = true,
-      },
-      keymap = 'super-tab',
-      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "normal",
+    {
+        "saghen/blink.cmp",
+        lazy = true,
+        event = "InsertEnter",
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+        },
+        version = "v0.*",
+        opts = {
+            highlight = {
+                use_nvim_cmp_as_default = true,
+            },
+            keymap = { preset = 'super-tab' },
+            nerd_font_variant = "mono",
 
-      accept = { auto_brackets = { enabled = true } },
-      trigger = { signature_help = { enabled = true } },
+            sources = {
+                completion = {
+                    enabled_providers = { 'lsp', 'path', 'snippets', 'buffer' },
+                },
+            },
 
-      windows = {
-        autocomplete = {
-          border = "rounded",
-          winhighlight =
-          "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
-          draw = "simple",
+            accept = { auto_brackets = { enabled = true } },
+            trigger = { signature_help = { enabled = true } },
+
+            windows = {
+                autocomplete = {
+                    border = "rounded",
+                    winhighlight =
+                    "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+                },
+                documentation = {
+                    border = "rounded",
+                    auto_show = true,
+                    winhighlight =
+                    "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+                },
+                signature_help = {
+                    border = "rounded",
+                    winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
+                },
+            },
         },
-        documentation = {
-          border = "rounded",
-          winhighlight =
-          "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
-        },
-        signature_help = {
-          border = "rounded",
-          winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
-        },
-      },
     },
-  },
 }
 -- return {
 --     {

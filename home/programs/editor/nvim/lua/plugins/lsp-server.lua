@@ -183,7 +183,7 @@ return {
             require("mason-lspconfig").setup_handlers({
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup({
-                        -- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                        capabilities = require('blink.cmp').get_lsp_capabilities(),
                         handlers = handlers,
                         on_attach = on_attach,
                     })
@@ -194,7 +194,7 @@ return {
                     require("lspconfig").lua_ls.setup({
                         handlers = handlers,
                         on_attach = on_attach,
-                        -- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                        capabilities = require('blink.cmp').get_lsp_capabilities(),
                         settings = {
                             Lua = {
                                 runtime = {
