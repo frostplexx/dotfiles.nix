@@ -48,7 +48,6 @@
     entr
 
     # MacOS-specific apps
-    arc-browser
     raycast
     aerospace
     keka
@@ -86,7 +85,9 @@
       "homebrew/services"
       "nikitabobko/tap"
     ];
-    brews = ["mas"];
+    brews = [
+      "mas"
+    ];
     casks = [
       "altserver"
       "mac-mouse-fix"
