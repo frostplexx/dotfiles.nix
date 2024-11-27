@@ -11,6 +11,7 @@
     ../../base # Base configuration
     ./apps.nix # Phoenix-specific apps
     ./stylix.nix
+    ./sunshine.nix
   ];
 
   networking = {
@@ -112,37 +113,6 @@
     };
 
     desktopManager.plasma6.enable = true;
-    sunshine = {
-      enable = true;
-      autoStart = true;
-      # capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
-      openFirewall = true;
-      settings = {
-        sunshine_name = "❄️NixOS❄️";
-        output_name = 1;
-        resolutions = "[ 2560x1080 1920x1080 ]";
-        fps = "[ 120 144 60 ]";
-        encoder = "nvenc";
-        nvenc_preset = 1;
-        av1_mode = 1;
-      };
-      applications = {
-        apps = [
-          {
-            name = "Desktop";
-            image-path = "";
-            prep-cmd = [
-              {
-                do = "xrandr --output DP-2 --mode 1920x1080";
-                undo = "xrandr --output DP-2 --mode 2560x1080";
-              }
-            ];
-            exclude-global-prep-cmd = "false";
-            auto-detach = "true";
-          }
-        ];
-      };
-    };
 
     # Hardware services
     hardware.openrgb = {
