@@ -16,8 +16,8 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
       diff = {
-        tool = "jetbrains";
-        guitool = "jetbrains";
+        tool = "nvim";
+        guitool = "nvim";
       };
       gpg = {
         format = "ssh";
@@ -37,28 +37,16 @@
       difftool = {
         prompt = false;
         trustExitCode = true;
-        jetbrains = {
-          cmd = ''
-            /usr/bin/env idea diff \
-            "$LOCAL" \
-            "$REMOTE" \
-          '';
-        };
         nvim = {
           cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
         };
       };
       merge = {
-        tool = "jetbrains";
+        tool = "nvim";
       };
       mergetool = {
-        jetbrains = {
-          cmd = "touch \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\" && /usr/bin/env idea merge
-            \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
-          trustExitCode = true;
-        };
         nvim = {
-          cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd J'";
+          cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
         };
       };
     };
