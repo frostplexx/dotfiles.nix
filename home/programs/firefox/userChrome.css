@@ -1,3 +1,74 @@
+
+/*
+┏━┓┏━┓╺┳┓╺┳┓╻┏┓╻┏━╸
+┣━┛┣━┫ ┃┃ ┃┃┃┃┗┫┃╺┓
+╹  ╹ ╹╺┻┛╺┻┛╹╹ ╹┗━┛
+┏━┓╻ ╻┏━┓┏━┓┏━┓╻ ╻┏┓╻╺┳┓
+┗━┓┃ ┃┣┳┛┣┳┛┃ ┃┃ ┃┃┗┫ ┃┃
+┗━┛┗━┛╹┗╸╹┗╸┗━┛┗━┛╹ ╹╺┻┛
+*/
+
+@media not all and (display-mode: fullscreen) {
+  #appcontent .browserStack,
+  #browser,
+  .browserContainer {
+    /*background: var(--lwt-accent-color)*/
+  }
+
+  #browser > #appcontent {
+    --margin: 10px;  
+
+    margin-left: 0px;
+    margin-right: var(--margin);
+    margin-top: 0px;
+    margin-bottom: var(--margin);
+  
+    browser {
+      --outline: 1px solid var(--arrowpanel-background);
+      border: var(--outline);
+    }
+  }
+}
+
+/*
+┏━╸┏━┓┏┓╻╺┳╸┏━╸╻ ╻╺┳╸
+┃  ┃ ┃┃┗┫ ┃ ┣╸ ┏╋┛ ┃
+┗━╸┗━┛╹ ╹ ╹ ┗━╸╹ ╹ ╹
+┏┳┓┏━╸┏┓╻╻ ╻
+┃┃┃┣╸ ┃┗┫┃ ┃
+╹ ╹┗━╸╹ ╹┗━┛
+*/
+
+#toolbar-menubar menupopup,
+#toolbar-context-menu,
+#toolbar-context-menu menupopup,
+#unified-extensions-context-menu,
+#unified-extensions-context-menu menupopup,
+#placesContext, #placesContext menupopup,
+#downloadsContextMenu, #downloadsContextMenu menupopup,
+#sidebarMenu-popup, #PopupSearchAutoComplete,
+:is(#back-button, #forward-button) menupopup,
+#permission-popup-menulist menupopup,
+#contentAreaContextMenu[showservicesmenu="true"],
+#contentAreaContextMenu[showservicesmenu="true"] menupopup {
+  --panel-background: var(--arrowpanel-background) !important;
+  --panel-border-color: var(--toolbar-bgcolor) !important;
+  --toolbar-field-focus-background-color: var(--toolbarbutton-icon-fill) !important;
+  --panel-color: var(--toolbarbutton-icon-fill) !important;
+
+  menu:where([_moz-menuactive="true"]:not([disabled="true"])), 
+  menuitem:where([_moz-menuactive="true"]:not([disabled="true"])) {
+    background-color: var(--panel-item-hover-bgcolor) !important;
+    color: var(--toolbarbutton-icon-fill) !important;
+  }
+  
+  menu:where([_moz-menuactive="true"][disabled="true"]), 
+  menuitem:where([_moz-menuactive="true"][disabled="true"]) {
+    background-color: transparent !important;
+  } 
+}
+
+
 /*
 ┏━╸┏━┓┏┓╻╺┳╸┏━┓
 ┣╸ ┃ ┃┃┗┫ ┃ ┗━┓
@@ -90,4 +161,66 @@ toolbar{
 
 /* Titlebar Window Control Buttons */
 .titlebar-buttonbox-container{ display:none }
+
+/* Url Bar  */
+#urlbar-input-container {
+  border: 1px solid rgba(0, 0, 0, 0) !important;
+}
+
+#urlbar-container {
+  margin: 0 !important;
+  padding-block: 2px !important;
+  min-height: var(--urlbar-height) !important;
+}
+
+#urlbar {
+  top: 0 !important;
+}
+
+#urlbar[focused='true'] > #urlbar-background {
+  box-shadow: none !important;
+}
+
+#navigator-toolbox {
+  border: none !important;
+}
+
+/* Toolbar  */
+#tracking-protection-icon-container,
+#urlbar-zoom-button,
+#star-button-box,
+#pageActionButton,
+#pageActionSeparator,
+#tabs-newtab-button,
+#back-button,
+#forward-button,
+.tab-secondary-label {
+  display: none !important;
+}
+
+/* Disable elements  */
+#context-pocket,
+#context-sendpagetodevice,
+#context-selectall,
+#context-inspect-a11y,
+#context-sendlinktodevice,
+#context-openlinkinusercontext-menu,
+#context-savelink,
+#context-savelinktopocket,
+#context-sendlinktodevice,
+#context-sendimage,
+#context-print-selection {
+  display: none !important;
+}
+
+#context_bookmarkTab,
+#context_moveTabOptions,
+#context_sendTabToDevice,
+#context_reopenInContainer,
+#context_selectAllTabs,
+#context_closeTabOptions {
+  display: none !important;
+}
+
+
 
