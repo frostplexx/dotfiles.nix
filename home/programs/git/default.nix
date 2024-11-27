@@ -38,7 +38,8 @@
         prompt = false;
         trustExitCode = true;
         jetbrains = {
-          cmd = "/usr/bin/env idea diff \"$(realpath \"$LOCAL\")\" \"$(realpath \"$REMOTE\")\"";
+          cmd = "/usr/bin/env idea diff $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\")
+          $(cd $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\")";
         };
         nvim = {
           cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
@@ -49,7 +50,9 @@
       };
       mergetool = {
         jetbrains = {
-          cmd = "/usr/bin/env idea merge \"$(realpath \"$LOCAL\")\" \"$(realpath \"$REMOTE\")\" \"$(realpath \"$BASE\")\" \"$(realpath \"$MERGED\")\"";
+          cmd = "/usr/bin/env merge $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd
+          $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\") $(cd $(dirname \"$BASE\") &&
+          pwd)/$(basename \"$BASE\") $(cd $(dirname \"$MERGED\") && pwd)/$(basename \"$MERGED\")";
           trustExitCode = true;
         };
         nvim = {
