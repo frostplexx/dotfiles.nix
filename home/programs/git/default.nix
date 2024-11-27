@@ -53,7 +53,7 @@
       };
       mergetool = {
         jetbrains = {
-          cmd = "touch \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"; /usr/bin/env idea merge
+          cmd = "touch \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\" && /usr/bin/env idea merge
             \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
           trustExitCode = true;
         };
