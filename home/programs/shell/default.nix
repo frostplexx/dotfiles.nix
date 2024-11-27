@@ -172,6 +172,12 @@ in {
             run = "plugin smart-filter";
             desc = "Toggle smart filter";
           }
+          {
+            on = "<C-p>";
+            run = ''
+              shell 'qlmanage -p "$@"' --confirm
+            '';
+          }
         ];
       };
     };
