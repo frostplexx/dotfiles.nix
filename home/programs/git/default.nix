@@ -40,9 +40,9 @@
         jetbrains = {
           cmd = "idea diff \"$LOCAL\" \"$REMOTE\"";
         };
-        nvim = {
-          cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
-        };
+        # nvim = {
+        #   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
+        # };
       };
       merge = {
         tool = "jetbrains";
@@ -52,9 +52,9 @@
           cmd = "idea merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
           trustExitCode = true;
         };
-        nvim = {
-          cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd J'";
-        };
+        # nvim = {
+        #   cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd J'";
+        # };
       };
     };
     delta = {
