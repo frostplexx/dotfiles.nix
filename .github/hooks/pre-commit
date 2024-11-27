@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# Check if commit is initiated by our Makefile
-if [ -z "$NIXOS_GENERATION_COMMIT" ]; then
-    echo "Error: Direct git commits are disabled"
-    echo "Please use 'make deploy' to commit changes"
-    exit 1
-fi
