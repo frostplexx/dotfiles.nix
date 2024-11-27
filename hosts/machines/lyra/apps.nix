@@ -45,8 +45,8 @@
     transmission_4
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
-    entr
     kitty
+    moonlight-qt
 
     # MacOS-specific apps
     raycast
