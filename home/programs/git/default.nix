@@ -53,14 +53,8 @@
       };
       mergetool = {
         jetbrains = {
-          cmd = ''
-            touch "$LOCAL" "$REMOTE" "$BASE" "$MERGED" && \
-            /usr/bin/env idea diff \
-            "$LOCAL" \
-            "$REMOTE" \
-            "$BASE" \
-            "$MERGED"
-          '';
+          cmd = "touch \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"; /usr/bin/env idea merge
+            \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
           trustExitCode = true;
         };
         nvim = {
