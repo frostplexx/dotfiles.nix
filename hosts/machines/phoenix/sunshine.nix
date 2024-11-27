@@ -28,7 +28,6 @@ in {
         fps = "[ 120 144 ]";
         encoder = "nvenc";
         nvenc_preset = 1;
-        av1_mode = 1;
       };
       applications = {
         apps = [
