@@ -44,6 +44,7 @@
     obsidian
     transmission_4
     jetbrains.idea-ultimate
+    jetbrains.clion
     jetbrains.pycharm-professional
     kitty
     moonlight-qt
