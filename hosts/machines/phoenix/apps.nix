@@ -63,7 +63,8 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
-    haruna
+    vlc
+    parsec-bin
     filelight
     xclip
 
