@@ -17,54 +17,54 @@
 ╹ ╹╹ ╹┗┛ ┗━┛╹ ╹╹┗╸
 */
 
-#nav-bar:not([customizing]) {
-  opacity: 0;
-  min-height: 5px;
-  max-height: 5px;
-  transition: max-height 100ms linear 100ms, opacity 100ms ease 100ms !important;
-}
-
-#nav-bar:hover,
-#nav-bar:focus-within {
-  opacity: 1;
-  min-height: 5px;
-  max-height: 50px; 
-  transition-duration: 200ms !important;
-  transition-delay: 0s, 200ms !important;
-}
-
-#urlbar:not([customizing]) {
- opacity: 0;
-  min-height: 5px;
-  max-height: 5px;
-  transition: max-height 100ms linear 100ms, opacity 100ms ease 100ms !important;
-}
-
-#urlbar:hover,
-#urlbar:focus-within {
-  min-height: 5px;
-  opacity: 1;
-  max-height: 50px !important; 
-  transition-duration: 100ms !important;
-  transition-delay: 0s, 100ms !important;
-}
-
-#urlbar:focus-within {
-  height: 0% !important;
-}
-
-toolbar{
-    min-height: 3px !important;
-}
-
-.urlbar-input-container {
-    height: 100% !important;
-}
-
-.urlbarView {
-    background: var(--arrowpanel-background) !important;
-    border-radius: 5px;
-}
+/*#nav-bar:not([customizing]) {*/
+/*  opacity: 0;*/
+/*  min-height: 5px;*/
+/*  max-height: 5px;*/
+/*  transition: max-height 100ms linear 100ms, opacity 100ms ease 100ms !important;*/
+/*}*/
+/**/
+/*#nav-bar:hover,*/
+/*#nav-bar:focus-within {*/
+/*  opacity: 1;*/
+/*  min-height: 5px;*/
+/*  max-height: 50px; */
+/*  transition-duration: 200ms !important;*/
+/*  transition-delay: 0s, 200ms !important;*/
+/*}*/
+/**/
+/*#urlbar:not([customizing]) {*/
+/* opacity: 0;*/
+/*  min-height: 5px;*/
+/*  max-height: 5px;*/
+/*  transition: max-height 100ms linear 100ms, opacity 100ms ease 100ms !important;*/
+/*}*/
+/**/
+/*#urlbar:hover,*/
+/*#urlbar:focus-within {*/
+/*  min-height: 5px;*/
+/*  opacity: 1;*/
+/*  max-height: 50px !important; */
+/*  transition-duration: 100ms !important;*/
+/*  transition-delay: 0s, 100ms !important;*/
+/*}*/
+/**/
+/*#urlbar:focus-within {*/
+/*  height: 0% !important;*/
+/*}*/
+/**/
+/*toolbar{*/
+/*    min-height: 3px !important;*/
+/*}*/
+/**/
+/*.urlbar-input-container {*/
+/*    height: 100% !important;*/
+/*}*/
+/**/
+/*.urlbarView {*/
+/*    background: var(--arrowpanel-background) !important;*/
+/*    border-radius: 5px;*/
+/*}*/
 
 /* 
 ┏━┓┏━╸┏┳┓┏━┓╻ ╻╻┏┓╻┏━╸
