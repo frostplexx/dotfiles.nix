@@ -3,7 +3,8 @@ pkgs.mkShell {
   name = "latex";
   buildInputs = with pkgs; [
     typst
-    zathura # PDF viewer
+    # zathura # PDF viewer
+    skimpdf # PDF Reader
   ];
 
   shellHook = ''

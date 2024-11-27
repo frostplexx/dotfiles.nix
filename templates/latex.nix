@@ -7,8 +7,8 @@ pkgs.mkShell {
 
     # Additional tools
     texlab # Language server
-    zathura # PDF viewer
-    biber # Bibliography
+    # zathura # PDF viewer
+    skimpdf # PDF Reader
   ];
 
   shellHook = ''
