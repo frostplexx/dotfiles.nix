@@ -38,23 +38,23 @@
         prompt = false;
         trustExitCode = true;
         jetbrains = {
-          cmd = "idea diff \"$LOCAL\" \"$REMOTE\"";
+          cmd = "/usr/bin/env idea diff \"$LOCAL\" \"$REMOTE\"";
         };
-        # nvim = {
-        #   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
-        # };
+        nvim = {
+          cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
+        };
       };
       merge = {
         tool = "jetbrains";
       };
       mergetool = {
         jetbrains = {
-          cmd = "idea merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
+          cmd = "/usr/bin/env idea merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
           trustExitCode = true;
         };
-        # nvim = {
-        #   cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd J'";
-        # };
+        nvim = {
+          cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd J'";
+        };
       };
     };
     delta = {
