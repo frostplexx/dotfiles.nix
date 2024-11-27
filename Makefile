@@ -32,13 +32,6 @@ HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
 include format.mk
 .PHONY: all update lint clean repair install
 
-define get_commit_message
-OS_TYPE=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin"; else echo "nixos"; fi); \
-CHANGES=$$(git diff --cached --name-only | sed ':a;N;$$!ba;s/\n/\\n/g'); \
-SUMMARY=$$(git diff --cached --compact-summary | sed ':a;N;$$!ba;s/\n/\\n/g'); \
-printf "[%s] Gen: %s\n\nChanged files:\n%b\n\nSummary:\n%b" "$${OS_TYPE}" "$(1)" "$${CHANGES}" "$${SUMMARY}"
-endef
-
 all: select 
 
 select:
@@ -63,13 +56,14 @@ deploy:
 	git add . && \
 	echo "${INFO} Deploying $(CONFIG) configuration..." && \
 	rm -rf ~/.gtkrc-2.0 && \
-   	NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
+	NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
 	if $$NIX_CMD switch --flake .#$(CONFIG) 2>$(CONFIG)-switch.log; then \
-		echo "${SUCCESS} $(CONFIG) configuration deployed successfully"; \
-		export NIXOS_GENERATION_COMMIT=1 && \
-		git commit -m "$$($(call get_commit_message))" > /dev/null \
+		echo "${SUCCESS} $(CONFIG) configuration deployed successfully" && \
+		echo "${INFO} Please enter a commit message:" && \
+		read -p "→ " commit_msg && \
+		git commit -m "$$commit_msg" > /dev/null; \
 	else \
-		echo "${ERROR} $(CONFIG) configuration deployment failed"; \
+		echo "${ERROR} $(CONFIG) configuration deployment failed" && \
 		cat $(CONFIG)-switch.log | grep --color error && \
 		exit 1; \
 	fi
