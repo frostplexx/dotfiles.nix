@@ -103,10 +103,6 @@ install:
 		nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
 		./result/bin/darwin-installer; \
 	fi
-	@echo "${INFO} Setting up git hooks..."
-	@mkdir -p .git/hooks
-	@cp $(PWD)/.github/hooks/pre-commit .git/hooks/
-	@chmod +x .git/hooks/pre-commit
 	@echo "${INFO} Installing home-manager..."
 	@nix-shell '<home-manager>' -A install
 	@$(MAKE) init-darwin
@@ -120,7 +116,6 @@ clean:
 
 repair:
 	@echo "${INFO} Configuring git hooks..."
-	@git config core.hooksPath ./.github/hooks
 	@echo "${INFO} Verifying and repairing Nix store..."
 	@sudo nix-store --verify --check-contents --repair
 	@echo "${SUCCESS} Repair complete"
