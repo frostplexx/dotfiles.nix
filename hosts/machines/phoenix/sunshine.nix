@@ -5,11 +5,11 @@
   };
   connectionScript = pkgs.writeShellScriptBin "script" ''
     export DISPLAY=:0
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 1920x1200 --rate 140
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 1920x1080 --rate 144
   '';
   disconnectionScript = pkgs.writeShellScriptBin "script" ''
     export DISPLAY=:0
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 1920x1200 --rate 144
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 2560x1080 --rate 144
   '';
 in {
   services = {
@@ -20,7 +20,7 @@ in {
       settings = {
         sunshine_name = "❄️NixOS❄️";
         output_name = 1;
-        resolutions = "[ 2560x1080 1920x1080 1920x1200 ]";
+        resolutions = "[ 2560x1080 1920x1080 ]";
         fps = "[ 120 144 ]";
         encoder = "nvenc";
         nvenc_preset = 1;
