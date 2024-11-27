@@ -63,7 +63,11 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
+<<<<<<< HEAD
     vlc
+    parsec-bin
+=======
+>>>>>>> 7299ceb (feat: change rdp to parsec)
     filelight
     vlc
     xclip

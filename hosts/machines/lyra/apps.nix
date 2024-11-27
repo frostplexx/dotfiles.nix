@@ -27,9 +27,9 @@
     gnumake
     vscode
     entr # Run arbitrary commands when files change
-    # linux-manual
     man-pages
     man-pages-posix
+    ollama
 
     # CLI utilities
     ffmpeg
@@ -46,6 +46,7 @@
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
     entr
+    kitty
 
     # MacOS-specific apps
     raycast
@@ -94,13 +95,12 @@
       "shottr"
       "hex-fiend"
       "onyx"
-      "kitty"
+      "parsec"
       "1password"
       "orbstack"
       "tower"
       "proxyman"
       "vmware-fusion"
-      "ollama"
       "zen-browser"
     ];
   };

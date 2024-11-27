@@ -112,11 +112,6 @@
     };
 
     desktopManager.plasma6.enable = true;
-    xrdp = {
-      enable = true;
-      defaultWindowManager = "startplasma-x11";
-      openFirewall = true;
-    };
 
     # Hardware services
     hardware.openrgb = {
