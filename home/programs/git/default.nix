@@ -49,7 +49,7 @@
       };
       mergetool = {
         jetbrains = {
-          cmd = "idea diff \"$LOCAL\" \"$REMOTE\"";
+          cmd = "idea merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"";
           trustExitCode = true;
         };
         nvim = {
