@@ -50,7 +50,7 @@
       };
       mergetool = {
         jetbrains = {
-          cmd = "/usr/bin/env merge $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd
+          cmd = "/usr/bin/env idea merge $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd
           $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\") $(cd $(dirname \"$BASE\") &&
           pwd)/$(basename \"$BASE\") $(cd $(dirname \"$MERGED\") && pwd)/$(basename \"$MERGED\")";
           trustExitCode = true;
