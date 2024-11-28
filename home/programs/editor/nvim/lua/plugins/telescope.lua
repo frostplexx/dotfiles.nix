@@ -35,7 +35,7 @@ return {
         { "<leader>fh", ":Telescope help_tags<cr>",           desc = "Help Tags",       silent = true },
         { "<leader>ch", "<cmd>Telescope command_history<cr>", desc = "Command History", silent = true },
         { "<leader>km", ":Telescope keymaps<cr>",             desc = "Keymap",          silent = true },
-        { "<Tab>",
+        { "<leader>bf",
             function()
                 local builtin = require("telescope.builtin")
 
@@ -45,7 +45,7 @@ return {
                 })
             end
         },
-        desc = "Go to next buffer",
+        desc = "List open Buffers",
         remap = true,
         silent = true
     }
