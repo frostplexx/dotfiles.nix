@@ -17,14 +17,12 @@ vim.keymap.set("n", "sc", ":lua require('scratch').toggle()<cr>", { desc = "togg
 
 -- lazygit
 vim.keymap.set("n", "<leader>gg", function()
-  vim.cmd("terminal lazygit")
-  vim.cmd("startinsert")
-  -- Autocmd to close the terminal when lazygit exits
-  vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
+    vim.cmd("terminal lazygit")
+    vim.cmd("startinsert")
+    -- Autocmd to close the terminal when lazygit exits
+    vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
 end, { desc = "open lazygit in terminal" })
 
-
-vim.keymap.set("n", "<leader>gb", ":!git blame -c -- % <cr>", { desc = "git blame on current file" })
 
 -- ctrl-a to select all
 vim.keymap.set("n", "<c-a>", "ggvgo", { desc = "select all text" })
@@ -49,7 +47,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affe
 
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
-  { desc = "search and replace in file" })
+    { desc = "search and replace in file" })
 
 -- diff mode keymap
 vim.keymap.set({ "n", "v" }, "dpr", ":diffput REMOTE <cr>", { desc = "Diff Put Remote" })
