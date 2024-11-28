@@ -47,6 +47,7 @@
     jetbrains.clion
     jetbrains.pycharm-professional
     moonlight-qt
+    sketchybar
 
     # MacOS-specific apps
     raycast

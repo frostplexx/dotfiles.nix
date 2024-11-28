@@ -12,6 +12,7 @@ _: let
     shell = ./programs/shell;
     spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;
+    sketchybar = ./programs/sketchybar;
   };
 
   # Helper function to create home-manager configuration
