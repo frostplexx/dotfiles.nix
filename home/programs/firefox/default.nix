@@ -68,6 +68,7 @@
         "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+        "extensions.activeThemeID" = "{8446b178-c865-4f5c-8ccc-1d7887811ae3}";
         "browser.newtabpage.pinned" = [
           {
             title = "github";

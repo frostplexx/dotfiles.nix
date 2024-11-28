@@ -65,3 +65,27 @@
 /*    background: var(--arrowpanel-background) !important;*/
 /*    border-radius: 5px;*/
 /*}*/
+
+/* 
+┏━┓┏━╸┏┳┓┏━┓╻ ╻╻┏┓╻┏━╸
+┣┳┛┣╸ ┃┃┃┃ ┃┃┏┛┃┃┗┫┃╺┓
+╹┗╸┗━╸╹ ╹┗━┛┗┛ ╹╹ ╹┗━┛
+┏━╸┏━┓┏┳┓┏━┓┏━┓┏┓╻┏━╸┏┓╻╺┳╸┏━┓
+┃  ┃ ┃┃┃┃┣━┛┃ ┃┃┗┫┣╸ ┃┗┫ ┃ ┗━┓
+┗━╸┗━┛╹ ╹╹  ┗━┛╹ ╹┗━╸╹ ╹ ╹ ┗━┛
+*/
+
+/* Hide tab bar */
+#TabsToolbar {
+  visibility: collapse;
+}
+
+#TabsToolbar .titlebar-spacer {
+    display: none !important;
+}
+
+
+#titlebar {
+  display: none !important;
+}
+
