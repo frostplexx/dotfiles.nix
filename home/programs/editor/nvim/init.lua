@@ -2,8 +2,6 @@
 vim.loader.enable() -- speed up startup time
 
 require("keymap")   -- load keymaps
-require('rename-ui').setup()
-require('auto-pairs').setup()
 
 -- [[ Lazy.nvim Plugin Manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,7 +28,7 @@ require("lazy").setup({
     },
     defaults = {
         lazy = true,
-        version = false,         -- always use the latest git commit
+        version = false,           -- always use the latest git commit
     },
     checker = { enabled = false }, -- automatically check for plugin updates
     ui = {
