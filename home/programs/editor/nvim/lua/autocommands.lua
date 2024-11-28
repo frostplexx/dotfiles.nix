@@ -33,9 +33,6 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI', 'InsertEnter' }, {
     group = vim.api.nvim_create_augroup('SearchHighlight', { clear = true }),
     callback = function()
-        -- Only clear if search highlighting is active
-        if vim.v.hlsearch == 1 then
-            vim.cmd('nohlsearch')
-        end
+        vim.cmd('nohlsearch')
     end,
 })

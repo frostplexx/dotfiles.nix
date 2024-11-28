@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>q", ":wqa<cr>", { desc = "quit", silent = true })
 vim.keymap.set("n", "<leader>q", ":qa!<cr>", { desc = "quit without saving", silent = true })
 
 vim.keymap.set("n", "<leader>bd", ":bd<cr>", { desc = "delete buffer", silent = true })
+vim.keymap.set("n", "<Tab>", ":bnext<cr>", { desc = "next buffer", silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent = true })
 
 -- remap redo to u
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
