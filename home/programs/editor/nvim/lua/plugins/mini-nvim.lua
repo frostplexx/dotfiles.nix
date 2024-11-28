@@ -3,7 +3,7 @@ return {
     version = false,
     lazy = true,
     event = "BufReadPost",
-    enabled = true,
+    enabled = false,
     config = function()
         local statusline = function()
             local mini = require("mini.statusline")
