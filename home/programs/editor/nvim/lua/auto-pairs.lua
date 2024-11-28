@@ -1,7 +1,7 @@
 local M = {}
 
 -- Map of opening characters to their closing pairs
-local pairs = {
+local pair_matches = {
     ['('] = ')',
     ['['] = ']',
     ['{'] = '}',
@@ -10,12 +10,6 @@ local pairs = {
     ['`'] = '`'
 }
 
--- Characters that should trigger pair deletion
-local pair_chars = {}
-for open, close in pairs(pairs) do
-    pair_chars[open] = true
-    pair_chars[close] = true
-end
 
 -- Helper function to check if we're in a string or comment
 local function in_string_or_comment()
@@ -51,7 +45,7 @@ local function should_auto_close(char)
     local prev_char = get_char_before_cursor()
 
     -- Don't auto-close if we're between the same characters (prevents doubling)
-    if prev_char == char and next_char == pairs[char] then
+    if prev_char == char and next_char == pair_matches[char] then
         return false
     end
 
@@ -74,7 +68,7 @@ local function handle_pair(char)
         return char
     end
 
-    local close = pairs[char]
+    local close = pair_matches[char]
     if close then
         -- Insert the pair and move cursor back one character
         return char .. close .. '<Left>'
@@ -90,7 +84,7 @@ local function handle_backspace()
     local char_after = line:sub(col + 1, col + 1)
 
     -- Check if we're between a pair
-    if pairs[char_before] == char_after then
+    if pair_matches[char_before] == char_after then
         -- Delete both characters
         return '<BS><Del>'
     end
@@ -102,7 +96,7 @@ function M.setup()
     local group = vim.api.nvim_create_augroup('AutoPairs', { clear = true })
 
     -- Set up mappings for each pair
-    for open, _ in pairs(pairs) do
+    for open, _ in pairs(pair_matches) do
         vim.keymap.set('i', open, function()
             return handle_pair(open)
         end, { expr = true, buffer = true })
@@ -119,7 +113,7 @@ function M.setup()
         pattern = '*',
         callback = function()
             -- Set up the mappings for this buffer
-            for open, _ in pairs(pairs) do
+            for open, _ in pairs(pair_matches) do
                 vim.keymap.set('i', open, function()
                     return handle_pair(open)
                 end, { expr = true, buffer = true })
