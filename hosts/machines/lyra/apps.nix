@@ -47,7 +47,6 @@
     jetbrains.clion
     jetbrains.pycharm-professional
     moonlight-qt
-    sketchybar
 
     # MacOS-specific apps
     raycast
@@ -86,9 +85,11 @@
       "FelixKratz/formulae"
       "homebrew/services"
       "nikitabobko/tap"
+      "FelixKratz/formulae"
     ];
     brews = [
       "mas"
+      "sketchybar"
     ];
     casks = [
       "altserver"
