@@ -10,17 +10,33 @@ local pair_matches = {
     ['`'] = '`'
 }
 
+-- Characters that should trigger pair deletion
+local pair_chars = {}
+for open, close in pairs(pair_matches) do
+    pair_chars[open] = true
+    pair_chars[close] = true
+end
 
 -- Helper function to check if we're in a string or comment
 local function in_string_or_comment()
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-    local context = vim.treesitter.get_node_at_pos(0, vim.fn.line('.') - 1, col - 1)
+    local ok, parser = pcall(vim.treesitter.get_parser)
+    if not ok then return false end
 
-    if context then
-        local type = context:type()
-        return type == 'string' or type == 'comment' or type == 'string_content'
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    row = row - 1 -- Convert to 0-based index
+
+    local tree = parser:parse()[1]
+    local root = tree:root()
+    local node = root:named_descendant_for_range(row, col, row, col)
+
+    while node do
+        local type = node:type()
+        if type == 'string' or type == 'comment' or type == 'string_content' then
+            return true
+        end
+        node = node:parent()
     end
+
     return false
 end
 
