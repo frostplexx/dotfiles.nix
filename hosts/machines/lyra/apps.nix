@@ -93,10 +93,8 @@
     casks = [
       "altserver"
       "mac-mouse-fix"
-      "shottr"
       "hex-fiend"
       "onyx"
-      "parsec"
       "1password"
       "orbstack"
       "tower"
