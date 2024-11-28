@@ -20,11 +20,21 @@ local function create_rename_window(curr_name)
     local bufnr = vim.api.nvim_create_buf(false, true)
     local width = calculate_width(curr_name)
 
+    -- Get current cursor and window position
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    local cursor_row = cursor_pos[1]
+    local cursor_col = cursor_pos[2]
+    local win_height = vim.api.nvim_win_get_height(0)
+
+    -- Determine if we should show above or below
+    -- Show above if we're in the bottom half of the window
+    local row_offset = cursor_row > (win_height / 2) and -2 or 1
+
     -- Window configuration
     local win_config = {
         relative = 'cursor',
-        row = 0,
-        col = 0,
+        row = row_offset,
+        col = -cursor_col, -- Align with the start of the line
         width = width,
         height = 1,
         style = 'minimal',
@@ -35,12 +45,12 @@ local function create_rename_window(curr_name)
     local winnr = vim.api.nvim_open_win(bufnr, true, win_config)
 
     -- Set window options
-    vim.api.nvim_win_set_option(winnr, 'winblend', 0)
-    vim.api.nvim_win_set_option(winnr, 'wrap', false)
+    vim.wo[winnr].winblend = 0
+    vim.wo[winnr].wrap = false
 
     -- Set buffer options
-    vim.api.nvim_buf_set_option(bufnr, 'buftype', 'prompt')
-    vim.api.nvim_buf_set_option(bufnr, 'bufhidden', 'wipe')
+    vim.bo[bufnr].buftype = 'prompt'
+    vim.bo[bufnr].bufhidden = 'wipe'
 
     -- Set the prompt prefix
     vim.fn.prompt_setprompt(bufnr, 'New Name: ')
@@ -58,13 +68,12 @@ local function create_rename_window(curr_name)
     return bufnr, winnr
 end
 
--- Override the default vim.lsp.buf.rename()
-local original_rename = vim.lsp.buf.rename
+function M.rename(new_name, opts)
+    opts = opts or {}
 
-vim.lsp.buf.rename = function(new_name, opts)
-    -- If new_name is provided, use the original function
+    -- If new_name is provided, use LSP rename directly
     if new_name then
-        return original_rename(new_name, opts)
+        return vim.lsp.buf.rename(new_name, opts)
     end
 
     -- Get current word
@@ -86,9 +95,18 @@ vim.lsp.buf.rename = function(new_name, opts)
             return
         end
 
-        -- Call original rename with new name
-        original_rename(new_name, opts)
+        -- Call LSP rename with new name
+        vim.lsp.buf.rename(new_name, opts)
     end)
+
+    -- Handle Escape key
+    vim.keymap.set('n', '<Esc>', function()
+        vim.api.nvim_win_close(winnr, true)
+    end, { buffer = bufnr, nowait = true })
+
+    vim.keymap.set('i', '<Esc>', function()
+        vim.api.nvim_win_close(winnr, true)
+    end, { buffer = bufnr, nowait = true })
 
     -- Handle window close
     vim.api.nvim_create_autocmd('BufLeave', {
@@ -104,6 +122,9 @@ end
 -- Configuration function
 function M.setup(opts)
     config = vim.tbl_deep_extend('force', config, opts or {})
+
+    -- Override the default rename keymap
+    vim.keymap.set('n', 'gr', M.rename, { desc = 'Rename symbol under cursor' })
 end
 
 return M
