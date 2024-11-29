@@ -19,6 +19,7 @@
     home = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
       inputs.nixcord.homeManagerModules.nixcord
+      inputs.textfox.homeManagerModules.default
       inputs.spicetify-nix.homeManagerModules.default
       {
         # explicitly disable stylix for spicetify because its managed by spicetify-nix

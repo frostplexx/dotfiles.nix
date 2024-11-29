@@ -1,4 +1,10 @@
 {pkgs, ...}: {
+  textfox = {
+    enable = true;
+    profile = "default";
+    config = {};
+  };
+
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
