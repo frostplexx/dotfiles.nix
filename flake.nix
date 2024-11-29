@@ -46,8 +46,6 @@
       url = "github:frostplexx/yuki/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    textfox.url = "github:frostplexx/textfox";
   };
 
   outputs = inputs: let
