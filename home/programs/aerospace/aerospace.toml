@@ -80,8 +80,6 @@ alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
 
 
-alt-p = ['exec-and-forget open -na kitty --args --title KITTYFZF -o remember_window_size=no -o initial_window_width=80c -o initial_window_height=10c -e "fzf ~/Developer"']
-
 alt-f = 'fullscreen'
 alt-shift-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 
@@ -226,9 +224,4 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
-run = 'layout floating'
-
-
-[[on-window-detected]]
-if.window-title-regex-substring = 'KITTYFZF'
 run = 'layout floating'
