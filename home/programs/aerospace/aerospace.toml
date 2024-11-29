@@ -10,7 +10,7 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = []
 
 
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -81,6 +81,9 @@ outer.right =      5
 
 alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
+
+
+alt-p = ['exec-and-forget open -na kitty --args --title KITTYFZF -o remember_window_size=no -o initial_window_width=80c -o initial_window_height=10c -e "fzf"']
 
 
 alt-f = 'fullscreen'
@@ -182,9 +185,9 @@ run = 'move-node-to-workspace 1'
 if.app-id = 'com.jetbrains.intellij'
 run = 'move-node-to-workspace 2'
 
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 2'
+# [[on-window-detected]]
+# if.app-id = 'net.kovidgoyal.kitty'
+# run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 if.app-id = 'com.termius-beta.mac'
@@ -227,4 +230,9 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'KITTYFZF'
 run = 'layout floating'

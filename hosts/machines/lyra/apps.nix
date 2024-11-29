@@ -85,11 +85,9 @@
       "FelixKratz/formulae"
       "homebrew/services"
       "nikitabobko/tap"
-      "FelixKratz/formulae"
     ];
     brews = [
       "mas"
-      "sketchybar"
     ];
     casks = [
       "altserver"

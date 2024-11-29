@@ -43,7 +43,6 @@
     "nixcord"
     "spicetify"
     "ssh"
-    "sketchybar"
   ];
 
   # System defaults and preferences
