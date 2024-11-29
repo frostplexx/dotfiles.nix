@@ -54,7 +54,7 @@
        # Disable mouse acceleration
        defaults write NSGlobalDomain com.apple.mouse.linear -bool true
        # Title bar icons in finder
-       defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+       # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 
        #set wallpaper
       osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/${vars.user}/dotfiles.nix/home/programs/plasma/cyberpunk.png"'
