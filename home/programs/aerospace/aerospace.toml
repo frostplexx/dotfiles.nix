@@ -83,7 +83,7 @@ alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
 
 
-alt-p = ['exec-and-forget open -na kitty --args --title KITTYFZF -o remember_window_size=no -o initial_window_width=80c -o initial_window_height=10c -e "fzf"']
+shift-cmd-f = ["exec-and-forget kitty --args --title KITTYFZF -o remember_window_size=no -o initial_window_width=80c -o initial_window_height=10c -e 'aerospace list-windows --all | fzf --bind 'enter:execute(bash -c 'aerospace focus --window-id {1}')+abort''"]
 
 
 alt-f = 'fullscreen'
