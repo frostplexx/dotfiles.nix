@@ -23,7 +23,7 @@
         "browser.aboutConfig.showWarning" = false;
         "browser.warnOnQuit" = false;
         "browser.quitShortcut.disabled" = false;
-        "browser.theme.dark-private-windows" = true;
+        # "browser.theme.dark-private-windows" = true;
         "browser.toolbars.bookmarks.visibility" = false;
         "browser.startup.page" = 3; # Restore previous session
         "trailhead.firstrun.didSeeAboutWelcome" = true; # Disable welcome splash
@@ -38,7 +38,6 @@
         "media.ffmpeg.vaapi.enabled" = true; # Enable hardware video acceleration
         "cookiebanners.ui.desktop.enabled" = true; # Reject cookie popups
         "devtools.command-button-screenshot.enabled" = true; # Scrolling screenshot of entire page
-        "svg.context-properties.content.enabled" = true; # Sidebery styling
         "browser.tabs.hoverPreview.enabled" = true; # Enable tab previews
         "browser.tabs.hoverPreview.showThumbnails" = true; # Enable tab previews
         "sidebar.verticalTabs" = true; # Enable vertical tabs
@@ -48,13 +47,8 @@
         "browser.sessionstore.enabled" = true;
         "browser.sessionstore.resume_from_crash" = true;
         "browser.sessionstore.resume_session_once" = true;
-        "browser.tabs.drawInTitlebar" = true;
         "general.smoothScroll" = true;
-        "layout.css.light-dark.enabled" = true;
-        "layout.css.has-selector.enabled" = true;
-        "media.rdd-vpx.enabled" = true;
         "browser.tabs.tabmanager.enabled" = false;
-        "full-screen-api.ignore-widgets" = false;
         "browser.urlbar.suggest.searches" = true;
         "browser.urlbar.showSearchSuggestionsFirst" = false;
         "browser.urlbar.suggest.engines" = false;
