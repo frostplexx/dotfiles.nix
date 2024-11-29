@@ -169,6 +169,11 @@ in {
             desc = "Chmod on selected files";
           }
           {
+            on = ["g" "i"];
+            run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
+            desc = "Go to iCloud";
+          }
+          {
             on = "F";
             run = "plugin smart-filter";
             desc = "Toggle smart filter";
