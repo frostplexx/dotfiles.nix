@@ -39,6 +39,7 @@ in {
       transfer = "kitten transfer --direction=receive";
       compress_to_mp4 = "~/dotfiles.nix/home/programs/shell/scripts/compress_mp4.sh";
       ssh = "~/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
+      ff = "~/dotfiles.nix/home/programs/shell/scripts/window_select.sh";
       shinit = "~/dotfiles.nix/home/programs/shell/scripts/shell_select.sh";
     };
 
@@ -166,6 +167,11 @@ in {
             on = ["c" "h"];
             run = "plugin chmod";
             desc = "Chmod on selected files";
+          }
+          {
+            on = ["g" "i"];
+            run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
+            desc = "Go to iCloud";
           }
           {
             on = "F";

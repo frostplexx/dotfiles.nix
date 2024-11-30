@@ -11,6 +11,10 @@
         icon = ./spotify.icns;
       }
       {
+        path = "${pkgs.kitty}/Applications/kitty.app";
+        icon = ../../../../home/programs/kitty/kitty.app.png;
+      }
+      {
         path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/Firefox.app";
         icon = ./firefox.icns;
       }
