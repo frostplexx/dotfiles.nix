@@ -386,17 +386,15 @@
     },
     "nur": {
       "locked": {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4ef3af7 (style changes)
         "lastModified": 1732961569,
         "narHash": "sha256-d/yl5ewjzl7Ur98LJFmEky9pbyN6Zx42X5haBJ2V0Pw=",
         "owner": "nix-community",
         "repo": "nur",
         "rev": "6fac7ca63269695e7928ff742c9b752c183e21ca",
-        "lastModified": 1732805641,
-        "narHash": "sha256-dt62iVgFbADlCT4j6XgUkwhejWU55kVQG5040HyA/bc=",
-        "owner": "nix-community",
-        "repo": "nur",
-        "rev": "5bfc920efdaa5044521000b95409a2594c1f3603",
         "type": "github"
       },
       "original": {
