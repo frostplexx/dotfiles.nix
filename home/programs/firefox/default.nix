@@ -23,8 +23,9 @@
         "browser.aboutConfig.showWarning" = false;
         "browser.warnOnQuit" = false;
         "browser.quitShortcut.disabled" = false;
-        # "browser.theme.dark-private-windows" = true;
+        "browser.theme.dark-private-windows" = true;
         "browser.toolbars.bookmarks.visibility" = false;
+        "browser.theme.toolbar-theme" = 0; # 0 for dark, 1 for light
         "browser.startup.page" = 3; # Restore previous session
         "trailhead.firstrun.didSeeAboutWelcome" = true; # Disable welcome splash
         "dom.forms.autocomplete.formautofill" = false; # Disable autofill
