@@ -25,7 +25,7 @@
 
 MAKEFLAGS += --no-print-directory
 
-NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config --show-trace
+NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config 
 
 HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
 
@@ -57,7 +57,7 @@ deploy:
 	echo "${INFO} Deploying $(CONFIG) configuration..." && \
 	rm -rf ~/.gtkrc-2.0 && \
 	NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
-	if $$NIX_CMD switch --flake .#$(CONFIG) 2>$(CONFIG)-switch.log; then \
+	if $$NIX_CMD switch --flake .#$(CONFIG) --show-trace 2>$(CONFIG)-switch.log ; then \
 		echo "${SUCCESS} $(CONFIG) configuration deployed successfully" && \
 		echo "${INFO} Please enter a commit message:" && \
 		read -p "→ " commit_msg && \

@@ -53,7 +53,7 @@
     steam
     lutris
     gamemode
-    vintagestory
+    # vintagestory
     solaar
     linuxKernel.packages.linux_6_11.xone
     ckan
@@ -63,7 +63,6 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
-    vlc
     filelight
     vlc
     xclip

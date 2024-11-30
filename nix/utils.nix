@@ -11,6 +11,11 @@
     allowUnfree = true;
     allowUnsupportedSystem = false;
     allowBroken = true;
+    alllowInsecure = true;
+    # Needed for vintagestory
+    permittedInsecurePackages = [
+      "dotnet-runtime-wrapped-7.0.20"
+    ];
   };
 
   # Helper function to get system-specific input modules
