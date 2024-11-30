@@ -18,8 +18,9 @@ in {
     enable = true;
     discord.vencord = {
       package = pkgs.vencord;
-      enable = true;
+      enable = false;
     };
+    vesktop.enable = true;
     quickCss = '''';
     config = {
       useQuickCss = true;
