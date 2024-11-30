@@ -53,7 +53,9 @@
     steam
     lutris
     gamemode
-    vintagestory
+    #TODO: this depends on an old dotnet runtime so i need to wait until they update
+    # https://github.com/NixOS/nixpkgs/issues/360384
+    # vintagestory
     solaar
     linuxKernel.packages.linux_6_11.xone
     ckan

@@ -386,10 +386,6 @@
     },
     "nur": {
       "locked": {
-<<<<<<< HEAD
-
-=======
->>>>>>> 4ef3af7 (style changes)
         "lastModified": 1732961569,
         "narHash": "sha256-d/yl5ewjzl7Ur98LJFmEky9pbyN6Zx42X5haBJ2V0Pw=",
         "owner": "nix-community",

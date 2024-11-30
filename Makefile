@@ -25,7 +25,7 @@
 
 MAKEFLAGS += --no-print-directory
 
-NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config
+NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config --show-trace
 
 HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
 
