@@ -37,8 +37,12 @@
   };
 
   # Allow non-free apps
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+    };
+  };
 
   documentation = {
     enable = true;
