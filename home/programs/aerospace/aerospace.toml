@@ -80,6 +80,9 @@ alt-t = 'layout tiles horizontal vertical'
 alt-s = ['layout accordion', 'layout vertical']
 
 
+cmd-e = ['exec-and-forget ~/dotfiles.nix/home/programs/aerospace/kittyazi.sh']
+
+
 alt-f = 'fullscreen'
 alt-shift-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 
@@ -224,4 +227,9 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'kittyyazi'
 run = 'layout floating'
