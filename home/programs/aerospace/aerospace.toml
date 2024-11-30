@@ -81,6 +81,7 @@ alt-s = ['layout accordion', 'layout vertical']
 
 
 cmd-e = ['exec-and-forget ~/dotfiles.nix/home/programs/aerospace/kittyazi.sh']
+cmd-shift-f = ['exec-and-forget open -na kitty --args --title kittyfloat  -o initial_window_width=140c -o initial_window_height=40c -o confirm_os_window_close=0 -o placement_strategy=center ~/dotfiles.nix/home/programs/aerospace/kittyfzf.sh']
 
 
 alt-f = 'fullscreen'
@@ -182,9 +183,6 @@ run = 'move-node-to-workspace 1'
 if.app-id = 'com.jetbrains.intellij'
 run = 'move-node-to-workspace 2'
 
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 if.app-id = 'com.termius-beta.mac'
@@ -230,6 +228,12 @@ if.app-id = 'com.1password.1password'
 run = 'layout floating'
 
 
+# Order matters here! 
+# Callbacks are run in order and the firt match counts
 [[on-window-detected]]
-if.window-title-regex-substring = 'kittyyazi'
+if.window-title-regex-substring = 'kittyfloat'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace 2'

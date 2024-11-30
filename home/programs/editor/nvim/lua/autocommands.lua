@@ -18,7 +18,7 @@ autocmd("TextYankPost", {
 -- Open the file at the last position it was edited earlier
 autocmd("BufReadPost", {
     desc = "Open file at the last position it was edited earlier",
-    group = vim.api.nvim_create_augroup("open_file_at_last_position", { clear = true }),
+    group = augroup("open_file_at_last_position", { clear = true }),
     pattern = "*",
     command = 'silent! normal! g`"zv',
 })
