@@ -51,14 +51,17 @@
 
     # Post-activation scripts
     activationScripts.postUserActivation.text = ''
-      # Disable mouse acceleration
-      defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-      # Title bar icons in finder
-      defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+       # Disable mouse acceleration
+       defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+       # Title bar icons in finder
+       # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 
-      # Reload settings
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-      killall Finder
+       #set wallpaper
+      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/${vars.user}/dotfiles.nix/home/programs/plasma/cyberpunk.png"'
+
+       # Reload settings
+       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+       killall Finder
     '';
 
     defaults = {

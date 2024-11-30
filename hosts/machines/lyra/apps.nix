@@ -46,7 +46,6 @@
     jetbrains.idea-ultimate
     jetbrains.clion
     jetbrains.pycharm-professional
-    kitty
     moonlight-qt
 
     # MacOS-specific apps
@@ -100,7 +99,6 @@
       "tower"
       "proxyman"
       "vmware-fusion"
-      "zen-browser"
     ];
   };
 }

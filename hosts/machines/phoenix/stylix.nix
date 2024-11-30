@@ -22,15 +22,15 @@
         popups = 11;
       };
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "Noto Serif";
+        package = pkgs.helvetica-neue-lt-std;
+        name = "Helvetica Neue LT Std";
       };
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "Noto Sans";
+        package = pkgs.helvetica-neue-lt-std;
+        name = "Helvetica Neue LT Std";
       };
       monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font Mono";
       };
       emoji = {

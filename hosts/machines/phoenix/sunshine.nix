@@ -26,7 +26,6 @@ in {
         output_name = 1;
         resolutions = "[ 2560x1080 1920x1080 ]";
         fps = "[ 120 144 ]";
-        encoder = "nvenc";
         nvenc_preset = 1;
       };
       applications = {
