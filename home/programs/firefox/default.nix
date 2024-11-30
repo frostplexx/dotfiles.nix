@@ -64,6 +64,32 @@
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
         "extensions.activeThemeID" = "{8446b178-c865-4f5c-8ccc-1d7887811ae3}";
+
+        #Dark reader settings
+        "extensions.darkreader.enabled" = true;
+
+        # Enable new UI
+        "extensions.darkreader.experimental.enableNewUI" = true;
+        "extensions.darkreader.experimental.previewNewDesign" = true;
+        "extensions.darkreader.enableContextMenus" = true;
+
+        # Set auto time mode
+        "extensions.darkreader.automation.enabled" = true;
+        "extensions.darkreader.automation.start" = "18:00"; # 6 PM
+        "extensions.darkreader.automation.end" = "9:00"; # 9 AM
+
+        "extensions.darkreader.changeBrowserTheme" = false;
+
+        # Custom theme colors
+        "extensions.darkreader.theme.darkSchemeBackgroundColor" = "#1e1e2e";
+        "extensions.darkreader.theme.darkSchemeTextColor" = "#cdd6f4";
+        "extensions.darkreader.theme.selectionColor" = "#585b70";
+
+        # Basic theme settings (recommended defaults)
+        "extensions.darkreader.theme.brightness" = 100;
+        "extensions.darkreader.theme.contrast" = 100;
+        "extensions.darkreader.theme.sepia" = 0;
+
         "browser.newtabpage.pinned" = [
           {
             title = "github";

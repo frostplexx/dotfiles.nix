@@ -97,6 +97,7 @@
         AppleInterfaceStyleSwitchesAutomatically = true;
         AppleICUForce24HourTime = true;
         NSAutomaticCapitalizationEnabled = false;
+        AppleInterfaceStyle = "Dark";
 
         # File dialogs
         NSNavPanelExpandedStateForSaveMode = true;
