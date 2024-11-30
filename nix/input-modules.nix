@@ -27,7 +27,6 @@
     ];
 
     darwin = [
-      inputs.darwin-custom-icons.darwinModules.default
     ];
   };
 in
