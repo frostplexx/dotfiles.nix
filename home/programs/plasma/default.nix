@@ -9,7 +9,7 @@
       lookAndFeel = "org.kde.breezedark.desktop";
       iconTheme = "Papirus-Dark";
       cursor.theme = "Phinger Cursors (dark)";
-      wallpaper = "/home/daniel/dotfiles/home/programs/plasma/cyberpunk.png";
+      wallpaper = "/home/daniel/dotfiles/home/programs/plasma/wallpaper.png";
     };
     panels = [
       # Windows-like panel at the bottom

@@ -75,15 +75,10 @@
 
         # Set auto time mode
         "extensions.darkreader.automation.enabled" = true;
-        "extensions.darkreader.automation.start" = "18:00"; # 6 PM
-        "extensions.darkreader.automation.end" = "9:00"; # 9 AM
+        "extensions.darkreader.automation.start" = "18:00";
+        "extensions.darkreader.automation.end" = "9:00";
 
         "extensions.darkreader.changeBrowserTheme" = false;
-
-        # Custom theme colors
-        "extensions.darkreader.theme.darkSchemeBackgroundColor" = "#1e1e2e";
-        "extensions.darkreader.theme.darkSchemeTextColor" = "#cdd6f4";
-        "extensions.darkreader.theme.selectionColor" = "#585b70";
 
         # Basic theme settings (recommended defaults)
         "extensions.darkreader.theme.brightness" = 100;

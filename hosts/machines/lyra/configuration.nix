@@ -58,7 +58,7 @@
        # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 
        #set wallpaper
-      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/${vars.user}/dotfiles.nix/home/programs/plasma/cyberpunk.png"'
+      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/${vars.user}/dotfiles.nix/home/programs/plasma/wallpaper.png"'
 
        # Reload settings
        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
