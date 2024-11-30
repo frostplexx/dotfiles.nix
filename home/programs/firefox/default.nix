@@ -103,15 +103,15 @@
           };
         };
       };
-      userChrome =
-        if pkgs.stdenv.isDarwin
-        then builtins.readFile ./userChrome.css
-        else "";
-      userContent =
-        if pkgs.stdenv.isDarwin
-        then builtins.readFile ./userContent.css
-        else "";
-
+      # userChrome =
+      #   if pkgs.stdenv.isDarwin
+      #   then builtins.readFile ./userChrome.css
+      #   else "";
+      # userContent =
+      #   if pkgs.stdenv.isDarwin
+      #   then builtins.readFile ./userContent.css
+      #   else "";
+      #
       extraConfig = "";
     };
   };
