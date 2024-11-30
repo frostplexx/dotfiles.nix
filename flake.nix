@@ -9,15 +9,14 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
+
+    # Darwin-specific inputs
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
-
-    # Darwin-specific inputs
-    darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
-    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
     # Desktop environment and theming
     plasma-manager = {
@@ -40,8 +39,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Development tools
     yuki = {
       url = "github:frostplexx/yuki/dev";
       inputs.nixpkgs.follows = "nixpkgs";

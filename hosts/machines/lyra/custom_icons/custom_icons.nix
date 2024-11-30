@@ -5,6 +5,7 @@
 }: {
   environment.customIcons = {
     enable = true;
+    clearCacheOnActivation = true; # Optional
     icons = [
       {
         path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/Spotify.app";
@@ -23,7 +24,7 @@
       #   icon = ./things.icns;
       # }
       {
-        path = "${pkgs.vesktop}/Applications/Vesktop.app";
+        path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/Vesktop.app";
         icon = ./discord.icns;
       }
     ];

@@ -10,6 +10,7 @@
     ./apps.nix # Lyra-specific apps
     ./custom_icons/custom_icons.nix # Custom application icons
     ./stylix.nix
+    ../../../nix/custom-icons.nix
   ];
 
   # Basic system configuration
