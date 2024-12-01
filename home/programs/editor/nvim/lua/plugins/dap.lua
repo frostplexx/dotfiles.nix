@@ -9,49 +9,41 @@ return {
     config = function()
         require("dapui").setup()
 
+        local dap, dapui = require("dap"), require("dapui")
         require("mason-nvim-dap").setup({
-            ensure_installed = { "python", "codelldb" },
+            ensure_installed = { "python" },
             handlers = {}, -- sets up dap in the predefined manner
         })
 
 
 
-
-        local dap, dapui = require("dap"), require("dapui")
-
-        -- Helper function to get program arguments
-        local function get_args()
-            local args_string = vim.fn.input('Program arguments: ')
-            local args = {}
-            for arg in args_string:gmatch("%S+") do
-                table.insert(args, arg)
-            end
-            return args
-        end
+        dap.adapters.lldb = {
+            type = 'executable',
+            command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
+            name = 'lldb'
+        }
 
         -- Configuration for C, C++, and Rust
-        local codelldb_config = {
-            name = 'Launch',
-            type = 'codelldb',
-            request = 'launch',
-            program = function()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-            end,
-            cwd = '${workspaceFolder}',
-            stopOnEntry = false,
-            args = get_args,
-            -- 💀
-            -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-            --
-            --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-            --
-            -- Otherwise you might get the following error:
-            --
-            --    Error on launch: Failed to attach to the target process
-            --
-            -- But you should be aware of the implications:
-            -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-            -- runInTerminal = false,
+        dap.configurations.cpp = {
+            {
+                name = 'Launch',
+                type = 'lldb',
+                request = 'launch',
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+                args = function()
+                    local args_string = vim.fn.input('Program arguments: ')
+                    local args = {}
+                    for arg in args_string:gmatch("%S+") do
+                        table.insert(args, arg)
+                    end
+                    return args
+                end
+
+            },
         }
 
         dap.listeners.before.attach.dapui_config = function()
@@ -68,16 +60,16 @@ return {
         end
     end,
     keys = {
-        { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>",          desc = "Continue" },
-        { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
-        { "<leader>dn", "<cmd>lua require'dap'.step_over()<CR>",         desc = "Step Over" },
-        { "<leader>di", "<cmd>lua require'dap'.step_into()<CR>",         desc = "Step Into" },
-        { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>",          desc = "Step Out" },
-        { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",              desc = "Down" },
-        { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",             desc = "Stop" },
-        { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",          desc = "Toggle Debug UI" },
-        { "<leader>dv", "<cmd>lua require'dapui'.variables()<CR>",       desc = "Variables" },
-        { "<leader>di", "<cmd>lua require'dapui'.inspector()<CR>",       desc = "Inspector" },
-        { "<leader>dk", "<cmd>lua require'dapui'.hover()<CR>",           desc = "Hover" },
+        { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>",          desc = "Debug Continue" },
+        { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Debug Toggle Breakpoint" },
+        { "<leader>dn", "<cmd>lua require'dap'.step_over()<CR>",         desc = "Debug Step Over" },
+        { "<leader>di", "<cmd>lua require'dap'.step_into()<CR>",         desc = "Debug Step Into" },
+        { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>",          desc = "Debug Step Out" },
+        { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",              desc = "Debug Down" },
+        { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",             desc = "Debug Stop" },
+        { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",          desc = "Debug Toggle Debug UI" },
+        { "<leader>dv", "<cmd>lua require'dapui'.variables()<CR>",       desc = "Debug Variables" },
+        { "<leader>di", "<cmd>lua require'dapui'.inspector()<CR>",       desc = "Debug Inspector" },
+        { "<leader>dk", "<cmd>lua require'dapui'.hover()<CR>",           desc = "Debug Hover" },
     }
 }
