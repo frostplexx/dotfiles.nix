@@ -45,6 +45,8 @@ return {
 
             },
         }
+        dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
 
         dap.listeners.before.attach.dapui_config = function()
             dapui.open()
