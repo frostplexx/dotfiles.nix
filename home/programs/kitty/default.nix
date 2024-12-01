@@ -83,7 +83,7 @@
       font_size =
         if pkgs.stdenv.isDarwin
         then "13"
-        else "9";
+        else "10";
       modify_font = "cell_height 100%";
     };
 
