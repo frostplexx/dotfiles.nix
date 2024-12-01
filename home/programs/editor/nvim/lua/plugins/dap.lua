@@ -8,10 +8,15 @@ return {
     },
     config = function()
         require("dapui").setup()
+
         require("mason-nvim-dap").setup({
             ensure_installed = { "python", "codelldb" },
             handlers = {}, -- sets up dap in the predefined manner
         })
+
+
+
+
         local dap, dapui = require("dap"), require("dapui")
 
         -- Helper function to get program arguments
@@ -27,7 +32,7 @@ return {
         -- Configuration for C, C++, and Rust
         local codelldb_config = {
             name = 'Launch',
-            type = 'lldb',
+            type = 'codelldb',
             request = 'launch',
             program = function()
                 return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -48,11 +53,6 @@ return {
             -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
             -- runInTerminal = false,
         }
-
-        -- Apply the configuration to C, C++, and Rust
-        dap.configurations.c = { codelldb_config }
-        dap.configurations.cpp = { codelldb_config }
-        dap.configurations.rust = { codelldb_config }
 
         dap.listeners.before.attach.dapui_config = function()
             dapui.open()
@@ -75,7 +75,7 @@ return {
         { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>",          desc = "Step Out" },
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",              desc = "Down" },
         { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",             desc = "Stop" },
-        { "<leader>dt", "<cmd>lua require'dap'.toggle()<CR>",            desc = "Toggle Debug UI" },
+        { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",          desc = "Toggle Debug UI" },
         { "<leader>dv", "<cmd>lua require'dapui'.variables()<CR>",       desc = "Variables" },
         { "<leader>di", "<cmd>lua require'dapui'.inspector()<CR>",       desc = "Inspector" },
         { "<leader>dk", "<cmd>lua require'dapui'.hover()<CR>",           desc = "Hover" },
