@@ -8,6 +8,7 @@
     lazygit
     nodePackages.nodejs
     llvm
+    lldb
     gnumake
     gcc
     vscode
