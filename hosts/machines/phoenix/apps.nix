@@ -68,6 +68,10 @@
     xclip
     parsec-bin
 
+    #Plasma specific
+    kde-rounded-corners
+    gnome-themes-extra # Breeze themes are included here
+
     # Development
     inputs.yuki.packages.${system}.default
   ];

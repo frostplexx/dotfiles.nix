@@ -1,5 +1,35 @@
-{pkgs, ...}: {
-  gtk.enable = true;
+{
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [
+    ./decorations.nix
+    ./panels.nix
+    ./rounded-corners.nix
+  ];
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = pkgs.kdePackages.breeze-gtk;
+      name = "Breeze";
+    };
+
+    cursorTheme = {
+      name = "Phinger Cursors (dark)";
+      package = pkgs.phinger-cursors;
+      size = 28;
+    };
+
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
   programs.plasma = {
     enable = !pkgs.stdenv.isDarwin;
     #
@@ -11,75 +41,6 @@
       cursor.theme = "Phinger Cursors (dark)";
       wallpaper = "/home/daniel/dotfiles/home/programs/plasma/wallpaper.png";
     };
-    panels = [
-      # Windows-like panel at the bottom
-      {
-        location = "bottom";
-        hiding = "normalpanel";
-        floating = true;
-        widgets = [
-          {
-            name = "org.kde.plasma.kickoff";
-            config = {
-              General = {
-                icon = "nix-snowflake-white";
-                alphaSort = true;
-              };
-            };
-          }
-          "org.kde.plasma.marginsseparator"
-          {
-            name = "org.kde.plasma.pager";
-            config = {
-              General = {
-                displayedText = "Number";
-                showWindowIcons = false;
-              };
-            };
-          }
-          {
-            name = "org.kde.plasma.panelspacer";
-          }
-          {
-            iconTasks = {
-              launchers = [
-                "applications:org.kde.dolphin.desktop"
-                "applications:firefox.desktop"
-                "applications:kitty.desktop"
-                "applications:steam.desktop"
-              ];
-            };
-          }
-          {
-            name = "org.kde.plasma.panelspacer";
-          }
-          "org.kde.plasma.marginsseparator"
-          {
-            systemTray.items = {
-              shown = [
-                "org.kde.plasma.bluetooth"
-                "org.kde.plasma.networkmanagement"
-              ];
-              hidden = [
-                "org.kde.plasma.volume"
-                "org.kde.plasma.clipboard"
-                "org.kde.plasma.brightness"
-              ];
-            };
-          }
-          {
-            digitalClock = {
-              calendar.firstDayOfWeek = "monday";
-              time.format = "24h";
-              # appearance = {
-              #   showDate = false;
-              #   fontScale = 0.8;
-              # };
-            };
-          }
-        ];
-      }
-    ];
 
     shortcuts = {
       krunner = {
@@ -132,6 +93,13 @@
           TopLeft = "None";
           TopRight = "None";
         };
+
+        Plugins = {
+          kwin4_effect_geometry_changeEnabled = true;
+          roundedcornersEnabled = true;
+          kwin4_effect_shapecornersEnabled.value = true;
+        };
+
         Desktops.Number = {
           value = 5;
           # Forces kde to not change this value (even through the settings app).
@@ -143,6 +111,20 @@
         # To use nested groups use / as a separator. In the below example,
         # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
         "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
+      };
+
+      # Window decoration settings
+      kwinrulesrc = {
+        "Windows" = {
+          BorderSize = "Normal";
+          BorderSizeAuto = false;
+        };
+        "org.kde.kdecoration2" = {
+          ButtonsOnLeft = "XIA";
+          ButtonsOnRight = "";
+          library = "org.kde.kwin.aurorae";
+          theme = "kwin4_decoration_qml_plastik";
+        };
       };
     };
   };
