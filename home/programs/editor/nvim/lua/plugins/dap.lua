@@ -11,23 +11,17 @@ return {
 
         local dap, dapui = require("dap"), require("dapui")
         require("mason-nvim-dap").setup({
-            ensure_installed = { "python" },
+            ensure_installed = { "python", "codelldb" },
             handlers = {}, -- sets up dap in the predefined manner
         })
 
 
 
-        dap.adapters.lldb = {
-            type = 'executable',
-            command = '/usr/bin/env lldb', -- adjust as needed, must be absolute path
-            name = 'lldb'
-        }
-
         -- Configuration for C, C++, and Rust
         dap.configurations.cpp = {
             {
                 name = 'Launch',
-                type = 'lldb',
+                type = 'codelldb',
                 request = 'launch',
                 program = function()
                     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -54,24 +48,21 @@ return {
         dap.listeners.before.launch.dapui_config = function()
             dapui.open()
         end
-        dap.listeners.before.event_terminated.dapui_config = function()
-            dapui.close()
-        end
-        dap.listeners.before.event_exited.dapui_config = function()
-            dapui.close()
-        end
+        -- dap.listeners.before.event_terminated.dapui_config = function()
+        --     dapui.close()
+        -- end
+        -- dap.listeners.before.event_exited.dapui_config = function()
+        --     dapui.close()
+        -- end
     end,
     keys = {
-        { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>",          desc = "Debug Continue" },
+        { "<leader>dc", "<cmd>DapStepContinue<CR>",                      desc = "Debug Continue" },
         { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Debug Toggle Breakpoint" },
-        { "<leader>dn", "<cmd>lua require'dap'.step_over()<CR>",         desc = "Debug Step Over" },
-        { "<leader>di", "<cmd>lua require'dap'.step_into()<CR>",         desc = "Debug Step Into" },
-        { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>",          desc = "Debug Step Out" },
+        { "<leader>dn", "<cmd>DapStepOver<CR>",                          desc = "Debug Step Over" },
+        { "<leader>di", "<cmd>DapStepInto<CR>",                          desc = "Debug Step Into" },
+        { "<leader>do", "<cmd>DapStepOut<CR>",                           desc = "Debug Step Out" },
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",              desc = "Debug Down" },
         { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",             desc = "Debug Stop" },
         { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",          desc = "Debug Toggle Debug UI" },
-        { "<leader>dv", "<cmd>lua require'dapui'.variables()<CR>",       desc = "Debug Variables" },
-        { "<leader>di", "<cmd>lua require'dapui'.inspector()<CR>",       desc = "Debug Inspector" },
-        { "<leader>dk", "<cmd>lua require'dapui'.hover()<CR>",           desc = "Debug Hover" },
     }
 }
