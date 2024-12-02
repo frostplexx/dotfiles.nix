@@ -56,7 +56,7 @@ return {
         -- end
     end,
     keys = {
-        { "<leader>dc", "<cmd>DapStepContinue<CR>",                      desc = "Debug Continue" },
+        { "<leader>dc", "<cmd>DapContinue<CR>",                          desc = "Debug Continue" },
         { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Debug Toggle Breakpoint" },
         { "<leader>dn", "<cmd>DapStepOver<CR>",                          desc = "Debug Step Over" },
         { "<leader>di", "<cmd>DapStepInto<CR>",                          desc = "Debug Step Into" },
@@ -64,5 +64,6 @@ return {
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",              desc = "Debug Down" },
         { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",             desc = "Debug Stop" },
         { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",          desc = "Debug Toggle Debug UI" },
+        { "<leader>da", "<cmd>DapNew<CR>",                               desc = "Debug New" },
     }
 }
