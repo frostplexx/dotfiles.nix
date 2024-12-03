@@ -66,7 +66,7 @@ return {
         { "<leader>di", "<cmd>DapStepInto<CR>",                                       desc = "Debug Step Into" },
         { "<leader>do", "<cmd>DapStepOut<CR>",                                        desc = "Debug Step Out" },
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",                           desc = "Debug Down" },
-        { "<leader>ds", "<cmd>lua require'dap'.close()<CR>",                          desc = "Debug Stop" },
+        { "<leader>ds", "<cmd>DapTerminate<CR>",                                      desc = "Debug Stop" },
         { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",                       desc = "Debug Toggle Debug UI" },
         { "<leader>da", "<cmd>DapNew<CR>",                                            desc = "Debug New" },
         { "<leader>?",  "<cmd>:lua require('dapui').eval(nil, { enter = true })<CR>", desc = "Debug New" },
