@@ -30,6 +30,7 @@
     man-pages
     man-pages-posix
     ollama
+    dotnet-sdk
 
     # CLI utilities
     ffmpeg
