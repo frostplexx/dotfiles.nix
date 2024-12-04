@@ -61,5 +61,4 @@
         ./hosts
       ];
     };
-  # some change
 }
