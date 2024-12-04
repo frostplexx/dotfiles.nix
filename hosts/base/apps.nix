@@ -14,6 +14,7 @@
     vscode
     man-pages
     man-pages-posix
+    jq
 
     # CLI utilities
     ffmpeg
