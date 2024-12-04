@@ -68,11 +68,11 @@ deploy:
 		exit 1; \
 	fi
 
-update:
+upgrade:
 	git add .
-	@echo "${INFO} Updating flakes..."
+	@echo "${INFO} Upgrading flakes..."
 	@nix $(NIX_FLAGS) flake update
-	@echo "${SUCCESS} Updates complete, starting deployment"
+	@echo "${SUCCESS} Upgrades complete, starting deployment"
 	@$(MAKE) select
 
 
