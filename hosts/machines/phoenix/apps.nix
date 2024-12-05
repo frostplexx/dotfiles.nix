@@ -58,6 +58,7 @@
     linuxKernel.packages.linux_6_11.xone
     ckan
     openrgb-with-all-plugins
+    furmark
 
     # Desktop utilities
     _1password-gui
@@ -66,7 +67,8 @@
     filelight
     vlc
     xclip
-    parsec-bin
+
+    cifs-utils
 
     #Plasma specific
     kde-rounded-corners

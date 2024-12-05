@@ -195,6 +195,16 @@
     users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
 
+  # File system configuration
+  fileSystems."/mnt/share" = {
+    device = "//u397529.your-storagebox.de/backup";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets"];
+  };
+
   # Home Manager configuration
   home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
     "editor"
