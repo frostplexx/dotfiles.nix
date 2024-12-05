@@ -215,6 +215,12 @@
   };
 
   services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    systemService = true;
+    user = "daniel";
+    group = "wheel";
+    dataDir = "/home/daniel/syncthing";
     settings = {
       devices = {
         "steamdeck" = {id = "H7CT2Y7-RNY2HRN-3N4U2BJ-TM5V3DE-URDDL6K-3X2USMG-DHHNHC7-TFPDXAI";};
@@ -223,6 +229,7 @@
         "VintageStory" = {
           path = "/home/daniel/.config/VintagestoryData";
           devices = ["steamdeck"];
+          ignorePerms = true;
         };
       };
     };
