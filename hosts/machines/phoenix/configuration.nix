@@ -202,7 +202,30 @@
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in ["${automount_opts},credentials=/etc/nixos/smb-secrets"];
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
+  };
+
+  fileSystems."/mnt/nas" = {
+    device = "//192.168.1.122/data";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts},credentials=/etc/nixos/nas-secrets"];
+  };
+
+  services.syncthing = {
+    settings = {
+      devices = {
+        "steamdeck" = {id = "H7CT2Y7-RNY2HRN-3N4U2BJ-TM5V3DE-URDDL6K-3X2USMG-DHHNHC7-TFPDXAI";};
+      };
+      folders = {
+        "VintageStory" = {
+          path = "/home/daniel/.config/VintagestoryData";
+          devices = ["steamdeck"];
+        };
+      };
+    };
   };
 
   # Home Manager configuration
