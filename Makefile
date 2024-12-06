@@ -70,6 +70,7 @@ deploy:
 
 upgrade:
 	git add .
+	@./update-flake-revs.sh
 	@echo "${INFO} Upgrading flakes..."
 	@nix $(NIX_FLAGS) flake update
 	@echo "${SUCCESS} Upgrades complete, starting deployment"

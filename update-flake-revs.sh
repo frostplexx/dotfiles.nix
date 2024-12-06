@@ -50,9 +50,6 @@ update_repo() {
     url="https://github.com/$owner/$repo/archive/$latest_rev.tar.gz"
     new_sha256=$(nix-prefetch-url --unpack "$url")
 
-
-    echo "New SHA256: $new_sha256 "
-    
     # Convert the sha256 to sri
     new_sha256_base64=$(nix hash convert --hash-algo sha256 --to sri "$new_sha256")
     
