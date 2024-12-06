@@ -1,15 +1,37 @@
 {
   pkgs,
-  buildFirefoxXpiAddon,
+  lib,
   ...
 }: let
+  buildFirefoxXpiAddon = lib.makeOverridable ({
+    stdenv ? pkgs.stdenv,
+    fetchurl ? pkgs.fetchurl,
+    pname,
+    version,
+    addonId,
+    url,
+    sha256,
+    ...
+  }:
+    stdenv.mkDerivation {
+      name = "${pname}-${version}";
+      src = fetchurl {inherit url sha256;};
+      preferLocalBuild = true;
+      allowSubstitutes = true;
+      buildCommand = ''
+        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+        mkdir -p "$dst"
+        install -v -m644 "$src" "$dst/${addonId}.xpi"
+      '';
+    });
+
   extra-addons = {
     catppuccin = buildFirefoxXpiAddon {
       pname = "catppuccin";
       version = "2.0";
-      addonId = "{e554e180-24a4-40a2-911d-bf48d5b1629c}";
-      url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_macchiato_pink.xpi";
-      sha256 = "4qyNw3VLEMnEQq1MYaFljHxJfYwzKXRdLQxqkLO8Iqk=";
+      addonId = "{8446b178-c865-4f5c-8ccc-1d7887811ae3}";
+      url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_mocha_lavender.xpi";
+      sha256 = "cCkrC4ZSy6tAjRXSYdxRUPaQ+1u6+W9OcxclbH2beTM=";
     };
   };
 in {
@@ -21,8 +43,7 @@ in {
       name = "default";
       isDefault = true;
       # https://nur.nix-community.org/repos/rycee/
-      extensions = with pkgs.nur.repos.rycee.firefox-addons;
-      with extra-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons // extra-addons; [
         onepassword-password-manager
         darkreader
         don-t-fuck-with-paste
@@ -31,6 +52,7 @@ in {
         sponsorblock
         ublock-origin
         vimium
+        catppuccin
         # adaptive-tab-bar-colour
       ];
       settings = {
