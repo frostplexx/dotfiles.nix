@@ -226,6 +226,11 @@ run = 'layout floating'
 if.app-id = 'com.1password.1password'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'pl.maketheweb.cleanshotx'
+run = 'layout floating'
+
+
 
 # Order matters here! 
 # Callbacks are run in order and the firt match counts

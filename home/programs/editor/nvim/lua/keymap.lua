@@ -25,6 +25,14 @@ vim.keymap.set("n", "<leader>gg", function()
     vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
 end, { desc = "open lazygit in terminal" })
 
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Move selected lines with shift+j or shift+k
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Duplicate a line and comment out the first line
+vim.keymap.set('n', 'yc', function() vim.api.nvim_feedkeys('yygccp', 'm', false) end)
 
 -- ctrl-a to select all
 vim.keymap.set("n", "<c-a>", "ggvgo", { desc = "select all text" })
