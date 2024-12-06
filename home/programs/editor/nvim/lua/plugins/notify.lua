@@ -1,7 +1,7 @@
 return {
     'rcarriga/nvim-notify',
     event = "BufReadPre",
-    enabled = false,
+    enabled = true,
     config = function()
         require("notify").setup(
             {
