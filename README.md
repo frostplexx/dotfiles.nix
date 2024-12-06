@@ -12,7 +12,7 @@ It provides a reproducible setup for macOS systems using declarative configurati
 | **Editor:**   | neovim | neovim                                                |
 | **Terminal:** | kitty                    | kitty                                               |
 | **Launcher:** | raycast                    | krunner                                                |
-| **Browser:**  | arc                 | firefox                                                |
+| **Browser:**  | firefox                 | firefox                                                |
 
 
 ---
