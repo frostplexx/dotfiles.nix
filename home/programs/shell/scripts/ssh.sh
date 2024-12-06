@@ -25,9 +25,9 @@ if [[ $# -eq 0 ]]; then
     if [[ -n $password ]]; then
       clear
       echo "Connecting to $hostname as $username..."
-      sshpass -p "$password" kitten ssh -l "$username" "$hostname"
+      sshpass -p "$password" ssh -l "$username" "$hostname"
     else
-      kitten ssh -l "$username" "$hostname"
+      ssh -l "$username" "$hostname"
     fi
   fi
 else
