@@ -1,21 +1,17 @@
 -- [[ keymaps that (re)map vim functions ]]
 
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-
-vim.keymap.set("n", "<leader>q", ":wqa<cr>", { desc = "quit", silent = true })
-vim.keymap.set("n", "<leader>q", ":qa!<cr>", { desc = "quit without saving", silent = true })
 
 vim.keymap.set("n", "<leader>bd", ":bd!<cr>", { desc = "delete buffer", silent = true })
 vim.keymap.set("n", "<Tab>", ":bnext<cr>", { desc = "next buffer", silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent = true })
 
--- remap redo to u
+-- remap redo to shift-u
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
 
 -- scratchpad
-vim.keymap.set("n", "sc", ":lua require('scratch').toggle()<cr>", { desc = "toggle scratchpad", silent = true })
+vim.keymap.set("n", "<leader>sc", ":lua require('scratch').toggle()<cr>", { desc = "toggle scratchpad", silent = true })
 
 -- lazygit
 vim.keymap.set("n", "<leader>gg", function()
@@ -28,20 +24,16 @@ end, { desc = "open lazygit in terminal" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Move selected lines with shift+j or shift+k
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines with shift+j", silent = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines with shift+k", silent = true })
 
 -- Duplicate a line and comment out the first line
-vim.keymap.set('n', 'yc', function() vim.api.nvim_feedkeys('yygccp', 'm', false) end)
-
--- ctrl-a to select all
-vim.keymap.set("n", "<c-a>", "ggvgo", { desc = "select all text" })
-
--- rearrange visually selected lines in normal mode
-vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "rearrange selected lines" })
+vim.keymap.set('n', 'yc', function() vim.api.nvim_feedkeys('yygccp', 'm', false) end,
+    { desc = "Duplicate a line and comment out the first line", silent = true })
 
 -- scroll up half a screen in normal mode, keeping the cursor in the same position
 vim.keymap.set("n", "<c-u>", "<c-u>zz", { desc = "scroll up half a screen" })
+vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "scroll down half a screen" })
 
 -- move to the next search result and center the screen
 vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })
@@ -49,18 +41,9 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })
 -- move to the previous search result and center the screen
 vim.keymap.set("n", "n", "nzzzv", { desc = "move to previous search result" })
 
--- delete selected text in visual mode and paste it at the cursor position
-vim.keymap.set("x", "<leader>p", [["_dp]], { desc = "cut and paste selected text" })
-
 -- delete selected text in normal and visual mode without affecting the system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affecting clipboard" })
 
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
     { desc = "search and replace in file" })
-
--- diff mode keymap
-vim.keymap.set({ "n", "v" }, "dpr", ":diffput REMOTE <cr>", { desc = "Diff Put Remote" })
-vim.keymap.set({ "n", "v" }, "dpl", ":diffput LOCAL <cr>", { desc = "Diff Put Local" })
-vim.keymap.set({ "n", "v" }, "dgr", ":diffget REMOTE <cr>", { desc = "Diff Get Remote" })
-vim.keymap.set({ "n", "v" }, "dgl", ":diffget LOCAL <cr>", { desc = "Diff Get Local" })
