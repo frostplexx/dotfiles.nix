@@ -1,4 +1,18 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  buildFirefoxXpiAddon,
+  ...
+}: let
+  extra-addons = {
+    catppuccin = buildFirefoxXpiAddon {
+      pname = "catppuccin";
+      version = "2.0";
+      addonId = "{e554e180-24a4-40a2-911d-bf48d5b1629c}";
+      url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_macchiato_pink.xpi";
+      sha256 = "4qyNw3VLEMnEQq1MYaFljHxJfYwzKXRdLQxqkLO8Iqk=";
+    };
+  };
+in {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
@@ -7,7 +21,8 @@
       name = "default";
       isDefault = true;
       # https://nur.nix-community.org/repos/rycee/
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons;
+      with extra-addons; [
         onepassword-password-manager
         darkreader
         don-t-fuck-with-paste
