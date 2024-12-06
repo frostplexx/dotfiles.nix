@@ -9,6 +9,26 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Check for required dependencies
+check_dependencies() {
+    local missing_deps=()
+    
+    if ! command -v jq >/dev/null 2>&1; then
+        missing_deps+=("jq")
+    fi
+    
+    if ! command -v fd >/dev/null 2>&1; then
+        missing_deps+=("fd")
+    fi
+    
+    if [ ${#missing_deps[@]} -ne 0 ]; then
+        echo -e "${RED}Error: Missing required dependencies:${NC}"
+        printf '%s\n' "${missing_deps[@]}"
+        echo "Please install the missing dependencies and try again."
+        exit 1
+    fi
+}
+
 # Store updates in an array
 declare -A updates=()
 declare -A current_revs=()
@@ -122,8 +142,8 @@ extract_value() {
 find_and_update_repos() {
     local dir="${1:-.}"
     
-    # Find all Nix files recursively
-    find "$dir" -type f -name "*.nix" | while read -r file; do
+    # Find all Nix files recursively using fd
+    fd --extension nix . "$dir" | while read -r file; do
         echo -e "${BLUE}Scanning ${file}${NC}"
         
         # Process the file line by line to find fetchFromGitHub blocks
@@ -161,8 +181,9 @@ find_and_update_repos() {
     done
 }
 
-
 # Main script
+check_dependencies
+
 echo -e "${BLUE}Checking for available updates...${NC}"
 
 find_and_update_repos "${1:-.}"
