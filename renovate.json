@@ -3,7 +3,7 @@
     "enabled": true
   },
   "lockFileMaintenance": {
-    "enabled": true,
+    "enabled": false,
     "schedule": ["before 4am on monday"]
   },
   "reviewers": ["frostplexx"],
