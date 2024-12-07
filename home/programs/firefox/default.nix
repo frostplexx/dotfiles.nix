@@ -139,6 +139,14 @@ in {
             title = "cyberchef";
             url = "https://cyberchef.org/";
           }
+          {
+            title = "UniFi";
+            url = "https://unifi.ui.com/";
+          }
+          {
+            title = "Home Assistant";
+            url = "https://ha.hl.kuipr.de/";
+          }
         ];
       };
       search = {
