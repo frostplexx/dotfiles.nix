@@ -32,5 +32,5 @@ if [[ $# -eq 0 ]]; then
   fi
 else
   # If arguments provided, use traditional SSH
-  kitten ssh "$@"
+  ssh "$@"
 fi
