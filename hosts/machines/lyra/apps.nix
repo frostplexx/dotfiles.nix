@@ -100,6 +100,7 @@
       "tower"
       "proxyman"
       "vmware-fusion"
+      "psst"
     ];
   };
 }
