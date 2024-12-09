@@ -13,6 +13,39 @@ vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
 -- scratchpad
 vim.keymap.set("n", "<leader>sc", ":lua require('scratch').toggle()<cr>", { desc = "toggle scratchpad", silent = true })
 
+-- spotify_player
+local function create_float_term()
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.8)
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',
+        width = width,
+        height = height,
+        col = math.floor((vim.o.columns - width) / 2),
+        row = math.floor((vim.o.lines - height) / 2),
+        style = 'minimal',
+        border = 'rounded'
+    })
+
+    return buf
+end
+
+vim.keymap.set('n', '<leader>sp', function()
+    local buf = create_float_term()
+    vim.fn.termopen('spotify_player')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>sn', function()
+    vim.fn.system('spotify_player playback next')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>sb', function()
+    vim.fn.system('spotify_player playback previous')
+end, { noremap = true, silent = true })
+
+
 -- lazygit
 vim.keymap.set("n", "<leader>gg", function()
     vim.cmd("terminal lazygit")

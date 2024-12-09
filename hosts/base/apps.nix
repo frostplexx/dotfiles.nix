@@ -27,7 +27,6 @@
     sshpass
     wget
     curl
-    spotify-player
 
     # GUI applications
     obsidian
