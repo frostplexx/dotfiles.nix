@@ -192,6 +192,22 @@ in {
       enable = true;
     };
 
+    spotify-player = {
+      enable = true;
+      settings = {
+        theme = "default";
+        playback_window_position = "Top";
+        copy_command = {
+          command = "wl-copy";
+          args = [];
+        };
+        device = {
+          audio_cache = true;
+          normalization = true;
+        };
+      };
+    };
+
     direnv = {
       enable = true;
       enableZshIntegration = true;
