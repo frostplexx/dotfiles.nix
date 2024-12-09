@@ -24,8 +24,9 @@ in {
     completionInit = builtins.readFile ./completions.zsh;
 
     shellAliases = {
-      v = "nvim"; # Neovim quick alias
-      g = "lazygit"; # Add lazygit alias
+      v = "nvim";
+      g = "lazygit";
+      s = "spotify_player";
       c = "clear";
       q = "exit";
 
