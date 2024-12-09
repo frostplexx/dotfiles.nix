@@ -33,8 +33,10 @@ local function create_float_term()
 end
 
 vim.keymap.set('n', '<leader>sp', function()
-    local buf = create_float_term()
+    create_float_term()
     vim.fn.termopen('spotify_player')
+    vim.cmd("startinsert")
+    vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'spotify_player' | bd! | endif")
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>sn', function()
