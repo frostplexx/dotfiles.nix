@@ -1,7 +1,7 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    event = "BufPre",
+    event = "BufRead",
     opts = {
         options = {
             icons_enabled = true,

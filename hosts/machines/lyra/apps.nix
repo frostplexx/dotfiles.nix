@@ -88,6 +88,7 @@
       "nikitabobko/tap"
     ];
     brews = [
+      "borders"
       "mas"
     ];
     casks = [
