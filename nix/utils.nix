@@ -14,8 +14,8 @@
     alllowInsecure = true;
     # Needed for vintagestory
     permittedInsecurePackages = [
-      "dotnet-runtime-wrapped-7.0.20"
-      "dotnet-runtime-7.0.20"
+      # "dotnet-runtime-wrapped-7.0.20"
+      # "dotnet-runtime-7.0.20"
     ];
   };
 

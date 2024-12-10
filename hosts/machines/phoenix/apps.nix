@@ -53,7 +53,7 @@
     steam
     lutris
     gamemode
-    vintagestory
+    # vintagestory
     solaar
     linuxKernel.packages.linux_6_11.xone
     ckan
