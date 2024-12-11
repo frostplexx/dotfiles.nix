@@ -177,7 +177,7 @@ if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
+if.app-id = 'org.mozilla.com.zen.browser'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
