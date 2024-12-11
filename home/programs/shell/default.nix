@@ -200,6 +200,9 @@ in {
         border_type = "Rounded";
         progress_bar_type = "Line";
         playback_window_position = "Top";
+        play_icon = "";
+        pause_icon = "";
+        liked_icon = "";
         copy_command = {
           command = "wl-copy";
           args = [];
