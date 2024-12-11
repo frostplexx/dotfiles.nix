@@ -197,14 +197,18 @@ in {
       enable = true;
       settings = {
         theme = "default";
+        border_type = "Rounded";
+        progress_bar_type = "Line";
         playback_window_position = "Top";
         copy_command = {
           command = "wl-copy";
           args = [];
         };
+        client_id_command = "~/dotfiles.nix/home/programs/shell/spotify_client_id.sh";
         device = {
           audio_cache = true;
           normalization = true;
+          volume = 50;
         };
       };
     };
