@@ -40,11 +40,19 @@ vim.keymap.set('n', '<leader>sp', function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>sn', function()
-    vim.fn.system('spotify_player playback next')
+    vim.schedule(function()
+        vim.fn.jobstart('spotify_player playback next', {
+            detach = true
+        })
+    end)
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>sb', function()
-    vim.fn.system('spotify_player playback previous')
+    vim.schedule(function()
+        vim.fn.jobstart('spotify_player playback previous', {
+            detach = true
+        })
+    end)
 end, { noremap = true, silent = true })
 
 
