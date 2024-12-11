@@ -208,6 +208,7 @@ in {
           args = [];
         };
         client_id_command = "~/dotfiles.nix/home/programs/shell/spotify_client_id.sh";
+        client_id = "";
         device = {
           audio_cache = true;
           normalization = true;
