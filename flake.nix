@@ -43,7 +43,8 @@
       url = "github:frostplexx/yuki/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser.url = "git+file:///Users/daniel/Developer/zen-browser-flake";
+    # zen-browser.url = "git+file:///Users/daniel/Developer/zen-browser-flake";
+    zen-browser.url = "github:frostplexx/zen-browser-flake";
   };
 
   outputs = inputs: let
