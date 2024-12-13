@@ -39,7 +39,7 @@
       transmission_4
     ]
     ++ [
-      inputs.zen-browser.packages.${system}.zen-browser
+      inputs.zen-browser.packages."${system}".specific
     ];
 
   # Base fonts
