@@ -3,14 +3,6 @@ vim.loader.enable() -- speed up startup time
 
 require("keymap")   -- load keymaps
 
-_G.dd = function(...)
-    Snacks.debug.inspect(...)
-end
-_G.bt = function()
-    Snacks.debug.backtrace()
-end
-vim.print = _G.dd
-
 -- [[ Lazy.nvim Plugin Manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

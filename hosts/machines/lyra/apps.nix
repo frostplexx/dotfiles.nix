@@ -101,7 +101,7 @@
       "tower"
       "proxyman"
       "vmware-fusion"
-      # "zen-browser"
+      "zen-browser"
     ];
   };
 }
