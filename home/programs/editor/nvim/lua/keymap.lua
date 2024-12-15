@@ -3,7 +3,29 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- vim.keymap.set("n", "<leader>bd", ":bd!<cr>", { desc = "delete buffer", silent = true })
+vim.keymap.set('n', 'bd', function()
+    -- Get current buffer number
+    local current_buffer = vim.api.nvim_get_current_buf()
+
+    -- Get list of all buffers
+    local buffers = vim.api.nvim_list_bufs()
+
+    -- Filter to get only listed buffers (visible/loaded)
+    local listed_buffers = vim.tbl_filter(function(buf)
+        return vim.api.nvim_buf_get_option(buf, 'buflisted')
+    end, buffers)
+
+    -- If this is the last buffer, create a new one before deleting
+    if #listed_buffers <= 1 then
+        vim.cmd('enew')
+    else
+        -- Switch to the previous buffer
+        vim.cmd('bprevious')
+    end
+
+    -- Delete the buffer we want to close
+    vim.api.nvim_buf_delete(current_buffer, {})
+end, { noremap = true, silent = true })
 vim.keymap.set("n", "<Tab>", ":bnext<cr>", { desc = "next buffer", silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent = true })
 

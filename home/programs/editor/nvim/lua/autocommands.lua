@@ -5,8 +5,6 @@ local fn = vim.fn
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
-local general = augroup("General", { clear = true })
-
 -- Highlight the yanked text
 autocmd("TextYankPost", {
     desc = "Highlight the selection on yank.",
@@ -31,5 +29,15 @@ autocmd('FileType', {
         if event.match == 'make' then
             vim.o.expandtab = false
         end
+    end
+})
+
+
+vim.api.nvim_set_hl(0, "Todo", { fg = "#f9e2af", bold = true }) -- Red and bold
+autocmd({ "BufEnter", "BufWinEnter" }, {
+    desc = 'Highlight TODOs',
+    pattern = "*",
+    callback = function()
+        vim.fn.matchadd("Todo", "^TODO:")
     end
 })
