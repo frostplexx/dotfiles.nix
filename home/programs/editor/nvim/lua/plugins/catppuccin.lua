@@ -1,20 +1,20 @@
 return {
-  "catppuccin/nvim",
-  enabled = true,
-  event = "WinEnter",
-  name = "catppuccin",
-  priority = 1000,
-  config = function()
-    if vim.g.neovide then
-      vim.cmd([[
+    "catppuccin/nvim",
+    enabled = true,
+    event = "WinEnter",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+        if vim.g.neovide then
+            vim.cmd([[
   hi Terminal guibg=NONE ctermbg=NONE cterm=NONE
   hi TermCursor guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
   hi TermCursorNC guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
   ]])
-    end
+        end
 
-    -- Set cursor colors to match the theme
-    vim.cmd([[
+        -- Set cursor colors to match the theme
+        vim.cmd([[
     highlight Cursor guifg=#1b1818 guibg=#cad3f5
     highlight nCursor guifg=#cad3f5 guibg=#cad3f5
     highlight iCursor guifg=#a6da95 guibg=#a6da95
@@ -31,33 +31,29 @@ return {
     set guicursor+=i:blinkwait0
   ]])
 
-    require("catppuccin").setup({
-      flavour = "mocha",             -- latte, frappe, macchiato, mocha
-      transparent_background = true, -- disables setting the background color.
-      term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
-      integrations = {
-        cmp = true,
-        gitsigns = true,
-        harpoon = true,
-        notify = true,
-        lsp_trouble = true,
-        treesitter = true,
-        mason = true,
-        telescope = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        },
-        mini = {
-          enabled = true,
-          indentscope_color = "surface2",
-        },
-      },
-    })
-  end,
+        require("catppuccin").setup({
+            flavour = "mocha",             -- latte, frappe, macchiato, mocha
+            transparent_background = true, -- disables setting the background color.
+            term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
+            integrations = {
+                cmp = true,
+                gitsigns = true,
+                notify = true,
+                lsp_trouble = true,
+                treesitter = true,
+                mason = true,
+                -- telescope = true,
+                fzf = true,
+                native_lsp = {
+                    enabled = true,
+                    underlines = {
+                        errors = { "undercurl" },
+                        hints = { "undercurl" },
+                        warnings = { "undercurl" },
+                        information = { "undercurl" },
+                    },
+                },
+            },
+        })
+    end,
 }
