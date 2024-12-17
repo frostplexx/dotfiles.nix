@@ -2,6 +2,7 @@
 return {
     'nvim-telescope/telescope.nvim',
     lazy = true,
+    enabled = false,
     dependencies = {
         { 'nvim-lua/plenary.nvim',                   lazy = true },
         { "nvim-telescope/telescope-ui-select.nvim", lazy = true }
@@ -35,7 +36,8 @@ return {
         { "<leader>fh", ":Telescope help_tags<cr>",           desc = "Help Tags",       silent = true },
         { "<leader>ch", "<cmd>Telescope command_history<cr>", desc = "Command History", silent = true },
         { "<leader>km", ":Telescope keymaps<cr>",             desc = "Keymap",          silent = true },
-        { "<leader>bf",
+        {
+            "<leader>bf",
             function()
                 local builtin = require("telescope.builtin")
 
@@ -43,10 +45,10 @@ return {
                     sort_mru = true,
                     ignore_current_buffer = true,
                 })
-            end
+            end,
+            desc = "List open Buffers",
+            remap = true,
+            silent = true
         },
-        desc = "List open Buffers",
-        remap = true,
-        silent = true
     }
 }
