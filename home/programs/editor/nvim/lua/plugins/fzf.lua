@@ -1,10 +1,8 @@
 return {
     "ibhagwan/fzf-lua",
     lazy = true,
-    opts = function(_, opts)
+    opts = function(_, _)
         local config = require('fzf-lua.config')
-        local actions = require('fzf-lua.actions')
-
         -- Quickfix
         config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
         config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
@@ -14,14 +12,13 @@ return {
         config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
         config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
         config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-
         config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
-
         return {
             "default-title",
             fzf_colors = true,
             fzf_opts = {
                 ["--no-scrollbar"] = true,
+                ["--layout"] = "reverse",
             },
             defaults = {
                 -- formatter = "path.filename_first",
@@ -29,7 +26,7 @@ return {
             },
             ui_select = function(fzf_opts, items)
                 return vim.tbl_deep_extend("force", fzf_opts, {
-                    prompt = " ",
+                    prompt = " ",
                     winopts = {
                         title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
                         title_pos = "center",
@@ -60,19 +57,6 @@ return {
                 col = 0.5,
                 preview = {
                     scrollchars = { "┃", "" },
-                },
-            },
-            files = {
-                cwd_prompt = false,
-                actions = {
-                    ["alt-i"] = { actions.toggle_ignore },
-                    ["alt-h"] = { actions.toggle_hidden },
-                },
-            },
-            grep = {
-                actions = {
-                    ["alt-i"] = { actions.toggle_ignore },
-                    ["alt-h"] = { actions.toggle_hidden },
                 },
             },
             lsp = {
