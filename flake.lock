@@ -732,15 +732,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1734083417,
-        "narHash": "sha256-YOhDQyixmUv5koLr4TP7GB79GkszI3i0iOGs27m58/8=",
-        "owner": "frostplexx",
+        "lastModified": 1734232136,
+        "narHash": "sha256-rQd9jiPTGVchefiwJhx1xUlCLcnOCWQ7KlQ+Pkio9zU=",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "5bfdabe72fbedde10a113d4af48e9b1d6291d55a",
+        "rev": "6acd5e9515e0d53347b7883ac02ac7ab4bd03a2c",
         "type": "github"
       },
       "original": {
-        "owner": "frostplexx",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
         "type": "github"
       }

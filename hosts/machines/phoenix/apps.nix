@@ -67,6 +67,7 @@
     filelight
     vlc
     xclip
+    inputs.zen-browser.packages."${system}".specific
 
     cifs-utils
 
