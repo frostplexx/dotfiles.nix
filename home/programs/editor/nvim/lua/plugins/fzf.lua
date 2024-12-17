@@ -18,7 +18,7 @@ return {
             fzf_colors = true,
             fzf_opts = {
                 ["--no-scrollbar"] = true,
-                ["--layout"] = "reverse",
+                ["--layout"] = "default",
             },
             defaults = {
                 -- formatter = "path.filename_first",
@@ -56,6 +56,9 @@ return {
                 row = 0.5,
                 col = 0.5,
                 preview = {
+                    default = "bat",
+                    layout = "horizontal",
+                    horizontal = "right:40%",
                     scrollchars = { "┃", "" },
                 },
             },
@@ -82,5 +85,19 @@ return {
         { "<leader>ch",      ":lua require('fzf-lua').command_history()<cr>",  desc = "Command History",   silent = true },
         { "<leader>km",      ":lua require('fzf-lua').keymaps()<cr>",          desc = "Keymap",            silent = true },
         { "<leader>bf",      ":lua require('fzf-lua').buffers()<cr>",          desc = "List open Buffers", remap = true, silent = true },
+        {
+            "<leader>sS",
+            function()
+                require("fzf-lua").lsp_document_symbols()
+            end,
+            desc = "Goto Symbol",
+        },
+        {
+            "<leader>ss",
+            function()
+                require("fzf-lua").lsp_live_workspace_symbols()
+            end,
+            desc = "Goto Symbol (Workspace)",
+        },
     }
 }
