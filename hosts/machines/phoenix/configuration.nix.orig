@@ -238,9 +238,14 @@
   # Home Manager configuration
   home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
     "editor"
+<<<<<<< HEAD
     # "firefox"
+    "kitty"
+=======
+    "firefox"
     # "kitty"
     "ghostty"
+>>>>>>> 168cb0c (add ghostty config)
     "git"
     "shell"
     "plasma"
