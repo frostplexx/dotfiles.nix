@@ -10,20 +10,21 @@
   # Define theme path based on operating system
   themePath =
     if pkgs.stdenv.isDarwin
-    then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
+    then "/Users/${vars.user}/Library/Application Support/Vencord/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in {
   stylix.targets = {
     vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
     gtk.enable = false;
   };
+
   programs.nixcord = {
     enable = true;
     discord.vencord = {
       package = pkgs.vencord;
-      enable = false;
+      enable = true;
     };
-    vesktop.enable = true;
+    vesktop.enable = false;
     quickCss = '''';
     config = {
       useQuickCss = true;
@@ -97,7 +98,7 @@ in {
       force = true;
     };
     # Settings configuration
-    "${config.programs.nixcord.vesktop.configDir}/settings.json" = {
+    "${config.programs.nixcord.discord.configDir}/settings.json" = {
       text = builtins.toJSON {
         discordBranch = "stable";
         minimizeToTray = true;
