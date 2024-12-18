@@ -25,9 +25,22 @@
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
+    gtk2.extraConfig = ''
+      gtk-xft-dpi = 96
+    '';
     gtk3.extraConfig = {
+      gtk-xft-dpi = 96;
       gtk-application-prefer-dark-theme = 1;
     };
+    gtk4.extraConfig = {
+      gtk-xft-dpi = 96;
+    };
+  };
+
+  home.sessionVariables = {
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    GDK_SCALE = "1";
+    GDK_DPI_SCALE = "1";
   };
 
   programs.plasma = {
