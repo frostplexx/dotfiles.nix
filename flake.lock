@@ -256,11 +256,11 @@
         "rev": "34dca8149b6d096e02ab2767aca1b106a4ba87e1",
         "revCount": 8319,
         "type": "git",
-        "url": "file:///home/daniel/Downloads/ghostty"
+        "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/daniel/Downloads/ghostty"
+        "url": "ssh://git@github.com/ghostty-org/ghostty"
       }
     },
     "gnome-shell": {
@@ -471,11 +471,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1734529681,
-        "narHash": "sha256-pe/fHd6nuz8nxwyVsLDDilgy+0rXJ1iYhCFojFlV8QE=",
+        "lastModified": 1734547928,
+        "narHash": "sha256-QcR5k79PKcgGvjWN00NLgIkUnE+UAuAuCKHOiJ4ofek=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "29cbfd0aad3f30ed30312668b3d8dca522175349",
+        "rev": "3e283929308430aa30e5d2be14c382ab69550b62",
         "type": "github"
       },
       "original": {
@@ -585,11 +585,11 @@
         "tinted-tmux": "tinted-tmux"
       },
       "locked": {
-        "lastModified": 1734110168,
-        "narHash": "sha256-Q0eeLYn45ErXlqGQyXmLLHGe1mqnUiK0Y9wZRa1SNFI=",
+        "lastModified": 1734531336,
+        "narHash": "sha256-BWwJTAiWmZudUdUbyets7e3zQfjvZYtkU51blBnUBjw=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "a9e3779949925ef22f5a215c5f49cf520dea30b1",
+        "rev": "a2d66f25478103ac9b4adc6d6713794f7005221e",
         "type": "github"
       },
       "original": {
