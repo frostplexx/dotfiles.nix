@@ -35,7 +35,7 @@
               # "applications:firefox.desktop"
               "applications:zen.desktop"
               # "applications:kitty.desktop"
-              "applications:ghostty.desktop"
+              "applications:com.mitchellh.ghostty.desktop"
               "applications:steam.desktop"
             ];
           };
