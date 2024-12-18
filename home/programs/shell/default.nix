@@ -42,6 +42,7 @@ in {
       ssh = "~/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
       ff = "~/dotfiles.nix/home/programs/shell/scripts/window_select.sh";
       shinit = "~/dotfiles.nix/home/programs/shell/scripts/shell_select.sh";
+      yb = "yabai --restart-service; sudo yabai --load-sa; skhd --restart-service";
     };
 
     # History Settings
