@@ -51,9 +51,10 @@
 
     # MacOS-specific apps
     raycast
-    aerospace
     keka
     zoom-us
+    yabai
+    skhd
   ];
 
   # Homebrew configuration
@@ -85,7 +86,6 @@
     taps = [
       "FelixKratz/formulae"
       "homebrew/services"
-      "nikitabobko/tap"
       "indirect/homebrew-tap"
     ];
     brews = [

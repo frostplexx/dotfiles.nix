@@ -1,21 +1,6 @@
 # Edit line in vim with ctrl-e:
 export KEYTIMEOUT=1
 
-
-# Create directory for storing shell state if it doesn't exist
-mkdir -p ~/.shell_state
-# Set trap for shell exit
-trap 'pwd > ~/.shell_state/last_pwd' EXIT
-
-# Restore and cd to previous directory if it exists
-if [ -f ~/.shell_state/last_pwd ]; then
-    last_pwd=$(cat ~/.shell_state/last_pwd)
-    if [ -d "$last_pwd" ]; then
-        cd "$last_pwd"
-    fi
-fi
-
-
 # Set nvim as manpager
 export MANPAGER='nvim +Man!'
 export MANPATH="/opt/local/man:/usr/local/man:$MANPATH"

@@ -58,7 +58,7 @@ return {
                 preview = {
                     default = "bat",
                     layout = "horizontal",
-                    horizontal = "right:40%",
+                    horizontal = "right:50%",
                     scrollchars = { "┃", "" },
                 },
             },

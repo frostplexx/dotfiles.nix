@@ -37,7 +37,7 @@ window-vsync = true
 # macOS: To hide the titlebar without removing the native window borders
 #        or rounded corners, use `macos-titlebar-style = hidden` instead.
 window-decoration = true
-macos-titlebar-style = tabs
+macos-titlebar-style = transparent
 
 # The position of the "quick" terminal window. To learn more about the
 # quick terminal, see the documentation for the `toggle_quick_terminal`
@@ -108,10 +108,10 @@ keybind = ctrl+shift+right=resize_split:right,20
 keybind = ctrl+shift+plus=new_split:right 
 keybind = ctrl+shift+minus=new_split:down
 keybind = ctrl+shift+enter=new_split:auto
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+l=goto_split:right
+keybind = alt+k=goto_split:top
+keybind = alt+j=goto_split:bottom
+keybind = alt+h=goto_split:left
+keybind = alt+l=goto_split:right
 
 # Misc
 keybind = super+shift+i=inspector:toggle
