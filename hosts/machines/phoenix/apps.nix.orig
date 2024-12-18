@@ -66,8 +66,11 @@
     filelight
     vlc
     xclip
+<<<<<<< HEAD
     inputs.zen-browser.packages."${system}".specific
+=======
     inputs.ghostty.packages.x86_64-linux.default
+>>>>>>> fad6644 (add ghostty)
 
     cifs-utils
 

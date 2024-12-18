@@ -54,7 +54,6 @@
     aerospace
     keka
     zoom-us
-    tailscale
   ];
 
   # Homebrew configuration
@@ -87,6 +86,7 @@
       "FelixKratz/formulae"
       "homebrew/services"
       "nikitabobko/tap"
+      "indirect/homebrew-tap"
     ];
     brews = [
       "borders"
@@ -104,6 +104,7 @@
       "vmware-fusion"
       "zen-browser"
       "tailscale"
+      "ghostty"
     ];
   };
 }
