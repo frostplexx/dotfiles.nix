@@ -34,7 +34,8 @@
               "applications:org.kde.dolphin.desktop"
               # "applications:firefox.desktop"
               "applications:zen.desktop"
-              "applications:kitty.desktop"
+              # "applications:kitty.desktop"
+              "applications:ghostty.desktop"
               "applications:steam.desktop"
             ];
           };
