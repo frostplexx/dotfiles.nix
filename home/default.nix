@@ -13,6 +13,7 @@ _: let
     shell = ./programs/shell;
     spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;
+    macos-wm = ./programs/macos-wm;
   };
 
   # Helper function to create home-manager configuration

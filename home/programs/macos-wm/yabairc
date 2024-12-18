@@ -1,0 +1,64 @@
+#!/usr/bin/env sh
+
+# Restart yabai scripting addition
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# Basic config
+yabai -m config layout bsp
+yabai -m config top_padding 5
+yabai -m config bottom_padding 5
+yabai -m config left_padding 5
+yabai -m config right_padding 5
+yabai -m config window_gap 4
+yabai -m config auto_balance on
+
+# Mouse settings
+yabai -m config mouse_modifier fn
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
+
+# Window appearance
+yabai -m config window_shadow float
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+yabai -m config window_opacity_duration 0.15
+
+# Unmanaged apps
+yabai -m rule --add app="^System Settings$" manage=off sticky=on
+yabai -m rule --add app="^1Password$" manage=off
+yabai -m rule --add app="^Finder$" manage=off sticky=on
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+
+# Space assignments with labels and proper management
+yabai -m rule --add app="^Zen Browser$" space=1
+yabai -m rule --add app="^Firefox$" space=1
+
+yabai -m rule --add app="^Ghostty$" space=2
+yabai -m rule --add app="^XCode$" space=2
+
+yabai -m rule --add app="^Obsidian$" space=3
+yabai -m rule --add app="^Goodnotes$" space=3
+
+yabai -m rule --add app="^Messages$" space=4
+yabai -m rule --add app="^WhatsApp$" space=4
+yabai -m rule --add app="^Vesktop$" space=4
+yabai -m rule --add app="^Discord$" space=4
+yabai -m rule --add app="^zoom.us$" space=4
+
+yabai -m rule --add app="^Spotify$" space=5
+yabai -m rule --add title="^Spotify Premium$" space=5
+yabai -m rule --add app="^Music$" space=5
+
+yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+yabai -m signal --add app='^Finder$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+
+# Handle window creation for floating windows
+yabai -m signal --add event=window_created action='bash -c " window_id=$YABAI_WINDOW_ID if yabai -m query --windows --window $window_id | jq -er \".\"can-resize\" or .\"is-floating\"\" > /dev/null; then yabai -m window $window_id --toggle float --layer above --grid 4:4:1:1:2:2 fi "'
+
+# Start borders
+borders active_color=0xff8aadf4 inactive_color=0x00494d64 width=4.0 &

@@ -35,7 +35,8 @@
 
   # Home Manager configuration
   home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
-    "aerospace"
+    # "aerospace"
+    "macos-wm"
     "editor"
     "firefox"
     # "kitty"
