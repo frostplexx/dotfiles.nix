@@ -88,6 +88,13 @@ shell-integration = zsh
 #    notify the user, but do not automatically install the update.
 # Managed using brew/nix
 auto-update = off
+# This will be used to set the `TERM` environment variable.
+# HACK: We set this with an `xterm` prefix because vim uses that to enable key
+# protocols (specifically this will enable `modifyOtherKeys`), among other
+# features. An option exists in vim to modify this: `:set
+# keyprotocol=ghostty:kitty`, however a bug in the implementation prevents it
+# from working properly. https://github.com/vim/vim/pull/13211 fixes this.
+term = xterm-ghostty
 
 
 # ==== Key bindings ====
