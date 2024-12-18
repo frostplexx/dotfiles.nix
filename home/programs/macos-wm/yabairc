@@ -54,8 +54,8 @@ yabai -m rule --add app="^Music$" space=5
 
 yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
 yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
-yabai -m signal --add app='^Finder$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
-yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+# yabai -m signal --add app='^Finder$' event=window_created action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
+# yabai -m signal --add app='^Finder$' event=window_destroyed action='yabai -m space --focus next; sleep 0.01; yabai -m space --focus prev'
 
 # Handle window creation for floating windows
 yabai -m signal --add event=window_created action='bash -c " window_id=$YABAI_WINDOW_ID if yabai -m query --windows --window $window_id | jq -er \".\"can-resize\" or .\"is-floating\"\" > /dev/null; then yabai -m window $window_id --toggle float --layer above --grid 4:4:1:1:2:2 fi "'
