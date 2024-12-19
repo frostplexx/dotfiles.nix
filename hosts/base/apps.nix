@@ -16,6 +16,8 @@
     man-pages
     man-pages-posix
     jq
+    unzip
+    python3
 
     # CLI utilities
     ffmpeg
