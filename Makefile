@@ -107,6 +107,8 @@ install:
 clean:
 	@echo "${INFO} Cleaning up old generations..."
 	@sudo nix-collect-garbage -d
+	@nix-store --gc
+	@nix-store --optimise
 	@echo "${SUCCESS} Cleanup complete"
 
 repair:

@@ -76,6 +76,14 @@ in {
       enableZshIntegration = true;
     };
 
+    zellij = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        theme = "catppuccin-macchiato";
+      };
+    };
+
     # Better ls
     eza = {
       enable = true;
