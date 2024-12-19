@@ -22,7 +22,7 @@ macos-titlebar-style = transparent
 # ==== Misc ==== 
 shell-integration = zsh
 auto-update = off
-term = xterm-256
+term = xterm-256color
 
 
 # ==== Key bindings ====
