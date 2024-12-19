@@ -78,7 +78,7 @@ in {
 
     zellij = {
       enable = true;
-      enableZshIntegration = true;
+      # enableZshIntegration = true;
       settings = {
         theme = "catppuccin-macchiato";
       };
