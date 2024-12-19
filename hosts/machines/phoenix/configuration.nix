@@ -239,8 +239,8 @@
   home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
     "editor"
     # "firefox"
-    # "kitty"
-    "ghostty"
+    "kitty"
+    # "ghostty"
     "git"
     "shell"
     "plasma"
