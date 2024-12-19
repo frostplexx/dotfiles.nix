@@ -1,11 +1,8 @@
 # ==== Font ====
 font-family = "JetBrains Mono"
-font-size = 13
 
 # ==== Themeing ====
 theme = catppuccin-mocha
-cursor-opacity = 1
-cursor-style = block
 background-opacity = 0.9
 # A value of 20 is reasonable for a good looking blur. Higher values will cause strange
 # rendering issues as well as performance issues.
@@ -17,89 +14,20 @@ unfocused-split-opacity = 0.8
 mouse-hide-while-typing = true
 
 # ==== Display ====
-window-padding-x = 2
-window-padding-y = 2
-window-padding-balance = false
-window-padding-color = background
-window-vsync = true
-# Valid values:
-# 
-#   * `true`
-#   * `false` - windows won't have native decorations, i.e. titlebar and
-#      borders. On macOS this also disables tabs and tab overview.
-# 
-# The "toggle_window_decoration" keybind action can be used to create
-# a keybinding to toggle this setting at runtime.
-# 
-# Changing this configuration in your configuration and reloading will
-# only affect new windows. Existing windows will not be affected.
-# 
-# macOS: To hide the titlebar without removing the native window borders
-#        or rounded corners, use `macos-titlebar-style = hidden` instead.
 window-decoration = true
 macos-titlebar-style = transparent
 
-# The position of the "quick" terminal window. To learn more about the
-# quick terminal, see the documentation for the `toggle_quick_terminal`
-# binding action.
-# 
-# Valid values are:
-# 
-#   * `top` - Terminal appears at the top of the screen.
-#   * `bottom` - Terminal appears at the bottom of the screen.
-#   * `left` - Terminal appears at the left of the screen.
-#   * `right` - Terminal appears at the right of the screen.
-# 
-# Changing this configuration requires restarting Ghostty completely.
-quick-terminal-position = top
-#  * `main` - The screen that the operating system recommends as the main
-#    screen. On macOS, this is the screen that is currently receiving
-#    keyboard input. This screen is defined by the operating system and
-#    not chosen by Ghostty.
-# 
-#  * `mouse` - The screen that the mouse is currently hovered over.
-# 
-#  * `macos-menu-bar` - The screen that contains the macOS menu bar as
-#    set in the display settings on macOS. This is a bit confusing because
-#    every screen on macOS has a menu bar, but this is the screen that
-#    contains the primary menu bar.
-quick-terminal-screen = mouse
 
 
 # ==== Misc ==== 
-scrollback-limit = 10000000
-# On macOS, this setting does not work if window-decoration is set to
-# "false", because native fullscreen on macOS requires window decorations
-# to be set.
-fullscreen = false
-# The value of this must be an absolute value or one of the special values
-# below:
-# 
-#   * `home` - The home directory of the executing user.
-# 
-#   * `inherit` - The working directory of the launching process.
-working-directory = inherit
 shell-integration = zsh
-#
-#  * `off` - Disable auto-updates.
-#  * `check` - Check for updates and notify the user if an update is
-#    available, but do not automatically download or install the update.
-#  * `download` - Check for updates, automatically download the update,
-#    notify the user, but do not automatically install the update.
-# Managed using brew/nix
 auto-update = off
-# This will be used to set the `TERM` environment variable.
-# HACK: We set this with an `xterm` prefix because vim uses that to enable key
-# protocols (specifically this will enable `modifyOtherKeys`), among other
-# features. An option exists in vim to modify this: `:set
-# keyprotocol=ghostty:kitty`, however a bug in the implementation prevents it
-# from working properly. https://github.com/vim/vim/pull/13211 fixes this.
-term = xterm-ghostty
+term = xterm-256
 
 
 # ==== Key bindings ====
 # Global
-keybind = global:cmd+s=toggle_quick_terminal
+# keybind = global:cmd+s=toggle_quick_terminal
 
 # Resize
 keybind = ctrl+shift+up=resize_split:up,20
