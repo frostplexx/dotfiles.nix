@@ -5,6 +5,7 @@
     # Development tools
     git
     neovim
+    zellij
     lazygit
     nodePackages.nodejs
     llvm
@@ -40,5 +41,6 @@
   # Base fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    jetbrains-mono
   ];
 }

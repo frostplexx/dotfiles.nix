@@ -20,8 +20,10 @@ in {
 
   programs.nixcord = {
     enable = true;
-    discord.vencord.package = pkgs.vencord;
-    vesktop.enable = true;
+    discord.vencord = {
+      package = pkgs.vencord;
+      enable = true;
+    };
     quickCss = '''';
     config = {
       useQuickCss = true;
