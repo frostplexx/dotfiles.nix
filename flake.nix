@@ -47,12 +47,11 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     # This is a private repo for now and needs an invite
     # See https://mitchellh.com/ghostty for more info
-    ghostty = {
-      url = "git+ssh://git@github.com/ghostty-org/ghostty";
-      # url = "git+file:///home/daniel/Downloads/ghostty";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
-    };
+    # ghostty = {
+    #   url = "git+ssh://git@github.com/ghostty-org/ghostty";
+    #   inputs.nixpkgs-stable.follows = "nixpkgs";
+    #   inputs.nixpkgs-unstable.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs: let
