@@ -10,7 +10,7 @@
   # Define theme path based on operating system
   themePath =
     if pkgs.stdenv.isDarwin
-    then "/Users/${vars.user}/Library/Application Support/vencord/themes/${themeFile}"
+    then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in {
   stylix.targets = {
@@ -22,8 +22,9 @@ in {
     enable = true;
     discord.vencord = {
       package = pkgs.vencord;
-      enable = true;
+      enable = false;
     };
+    vesktop.enable = true;
     quickCss = '''';
     config = {
       useQuickCss = true;
@@ -49,7 +50,7 @@ in {
         betterSettings.enable = true;
         betterUploadButton.enable = true;
         biggerStreamPreview.enable = true;
-        callTimer.enable = true;
+        # callTimer.enable = true;
         clearURLs.enable = true;
         crashHandler.enable = true;
         experiments.enable = true;

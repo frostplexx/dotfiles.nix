@@ -32,6 +32,9 @@ return {
                 end,
                 cwd = '${workspaceFolder}',
                 stopOnEntry = false,
+                followForks = true,
+                followExecs = true,
+                detachOnFork = false,
                 args = function()
                     local args_string = vim.fn.input('Program arguments: ')
                     local args = {}
