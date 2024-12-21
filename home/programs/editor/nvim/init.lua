@@ -1,6 +1,5 @@
 -- [[ Init File ]]
 vim.loader.enable() -- speed up startup time
-
 require("keymap")   -- load keymaps
 
 -- [[ Lazy.nvim Plugin Manager ]]
