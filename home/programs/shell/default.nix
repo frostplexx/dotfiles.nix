@@ -10,6 +10,10 @@
     hash = "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=";
   };
 in {
+  stylix.targets = {
+    btop.enable = false;
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -68,12 +72,31 @@ in {
     zsh-autosuggestions
   ];
 
+  xdg.configFile = {
+    #Btop theme
+    "btop/themes/catppuccin-mocha.theme" = {
+      source = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/btop/refs/heads/main/themes/catppuccin_mocha.theme";
+        sha256 = "0i263xwkkv8zgr71w13dnq6cv10bkiya7b06yqgjqa6skfmnjx2c";
+      };
+    };
+  };
+
   # Shell utilities
   programs = {
     # Better cd
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    btop = {
+      enable = true;
+      settings = {
+        color_theme = "catppuccin-mocha";
+        theme_background = false;
+        vim_keys = false;
+      };
     };
 
     zellij = {
