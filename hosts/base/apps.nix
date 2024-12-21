@@ -23,7 +23,6 @@
     ffmpeg
     imagemagick
     nmap
-    btop
     pandoc
     fastfetch
     ripgrep

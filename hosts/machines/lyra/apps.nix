@@ -36,7 +36,6 @@
     ffmpeg
     imagemagick
     nmap
-    btop
     pandoc
     fastfetch
     sshpass
