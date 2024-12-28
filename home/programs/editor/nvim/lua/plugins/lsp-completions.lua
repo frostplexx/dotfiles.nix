@@ -8,50 +8,12 @@ return {
         },
         version = "v0.*",
         opts = {
-            -- 'default' for mappings similar to built-in completion
-            -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-            -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-            -- see the "default configuration" section below for full documentation on how to define
-            -- your own keymap.
             keymap = { preset = 'super-tab' },
-
-            appearance = {
-                use_nvim_cmp_as_default = true,
-                nerd_font_variant = 'mono'
-            },
-
-            -- default list of enabled providers defined so that you can extend it
-            -- elsewhere in your config, without redefining it, via `opts_extend`
-            sources = {
-                completion = {
-                    enabled_providers = { 'lsp', 'path', 'snippets', 'buffer' },
-                },
-            },
-
-            signature = {
-                enabled = true,
-                window = {
-                    border = 'rounded',
-                },
-            },
-
-
             completion = {
-                menu = {
-                    border = 'rounded',
-                },
-                documentation = {
-                    -- Controls whether the documentation window will automatically show when selecting a completion item
-                    auto_show = true,
-                    window = {
-                        border = 'rounded',
-                    },
-                },
-                -- Displays a preview of the selected item on the current line
-                ghost_text = {
-                    enabled = false,
-                },
+                menu = { border = 'single' },
+                documentation = { window = { border = 'single' } },
             },
+            signature = { window = { border = 'single' } },
 
         },
     },
