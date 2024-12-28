@@ -6,8 +6,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "7afba3a73cdd69f346408b77ea5aac26fe09e551";
-    hash = "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=";
+    rev = "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46";
+    hash = "sha256-X3R5bsnzGv1TVXOKdhAyspDMguVAyc9tvCxJlypUUAA=";
   };
 in {
   stylix.targets = {
@@ -175,8 +175,8 @@ in {
         starship = pkgs.fetchFromGitHub {
           owner = "Rolv-Apneseth";
           repo = "starship.yazi";
-          rev = "247f49da1c408235202848c0897289ed51b69343";
-          hash = "sha256-0J6hxcdDX9b63adVlNVWysRR5htwAtP5WhIJ2AK2+Gs=";
+          rev = "9c37d37099455a44343f4b491d56debf97435a0e";
+          hash = "sha256-wESy7lFWan/jTYgtKGQ3lfK69SnDZ+kDx4K1NfY4xf4=";
         };
       };
 
