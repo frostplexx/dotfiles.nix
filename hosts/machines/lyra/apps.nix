@@ -104,6 +104,7 @@
       "zen-browser"
       "tailscale"
       "ghostty"
+      "mullvadvpn"
     ];
   };
 }
