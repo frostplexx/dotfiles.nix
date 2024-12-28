@@ -38,11 +38,6 @@ return {
 
 
             completion = {
-                accept = {
-                    auto_brackets = {
-                        enabled = true,
-                    },
-                },
                 menu = {
                     border = 'rounded',
                 },
