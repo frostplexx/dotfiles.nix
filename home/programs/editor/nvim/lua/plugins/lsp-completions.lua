@@ -28,7 +28,6 @@ return {
                 },
             },
 
-            accept = { auto_brackets = { enabled = true } },
             signature = {
                 enabled = true,
                 window = {
