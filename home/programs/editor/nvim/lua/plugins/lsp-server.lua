@@ -41,61 +41,6 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
-
-            -- Notify LSP integration
-            local notif_utils = require("notify_utils")
-
-            vim.lsp.handlers["$/progress"] = function(_, result, ctx)
-                local client_id = ctx.client_id
-
-                local val = result.value
-
-                if not val.kind then
-                    return
-                end
-
-                local notif_data = notif_utils.get_notif_data(client_id, result.token)
-
-                if val.kind == "begin" then
-                    local message = notif_utils.format_message(val.message, val.percentage)
-
-                    notif_data.notification = vim.notify(message, "info", {
-                        title = notif_utils.format_title(val.title, vim.lsp.get_client_by_id(client_id).name),
-                        icon = notif_utils.spinner_frames[1],
-                        timeout = false,
-                        hide_from_history = false,
-                    })
-
-                    notif_data.spinner = 1
-                    notif_utils.update_spinner(client_id, result.token)
-                elseif val.kind == "report" and notif_data then
-                    notif_data.notification =
-                        vim.notify(notif_utils.format_message(val.message, val.percentage), "info", {
-                            replace = notif_data.notification,
-                            hide_from_history = false,
-                        })
-                elseif val.kind == "end" and notif_data then
-                    notif_data.notification =
-                        vim.notify(val.message and notif_utils.format_message(val.message) or "Complete", "info", {
-                            icon = "",
-                            replace = notif_data.notification,
-                            timeout = 3000,
-                        })
-
-                    notif_data.spinner = nil
-                end
-            end
-
-            -- table from lsp severity to vim severity.
-            local severity = {
-                "error",
-                "warn",
-                "info",
-                "info", -- map both hint and info to info?
-            }
-            vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
-                vim.notify(method.message, severity[params.type])
-            end
         end,
     },
     {
