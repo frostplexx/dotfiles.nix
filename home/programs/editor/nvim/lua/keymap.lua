@@ -96,3 +96,79 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affe
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
     { desc = "search and replace in file" })
+
+
+-- Function to surround current word with quotes
+local function surround_word_with_quotes()
+    -- Get current cursor position
+    local line = vim.fn.line('.')
+    local col = vim.fn.col('.')
+
+    -- Get the current line's content
+    local current_line = vim.api.nvim_get_current_line()
+
+    -- Find the actual start and end positions of the word
+    local word_start_pos = vim.fn.searchpos('\\<' .. vim.fn.expand('<cword>') .. '\\>', 'bcn')
+    local word_end_pos = vim.fn.searchpos('\\<' .. vim.fn.expand('<cword>') .. '\\>', 'cen')
+
+    -- Add quotes around the word
+    local new_line = string.sub(current_line, 1, word_start_pos[2] - 1)
+        .. '"'
+        .. string.sub(current_line, word_start_pos[2], word_end_pos[2])
+        .. '"'
+        .. string.sub(current_line, word_end_pos[2] + 1)
+
+    -- Replace the current line with the modified one
+    vim.api.nvim_set_current_line(new_line)
+
+    -- Restore cursor position
+    vim.fn.cursor(line, col)
+end
+
+-- Function to surround visual selection with quotes
+local function surround_visual_with_quotes()
+    -- Get visual selection boundaries
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+    local start_line = start_pos[2]
+    local start_col = start_pos[3]
+    local end_line = end_pos[2]
+    local end_col = end_pos[3]
+
+    -- If selection is on the same line
+    if start_line == end_line then
+        local current_line = vim.api.nvim_get_current_line()
+        local new_line = string.sub(current_line, 1, start_col - 1)
+            .. '"'
+            .. string.sub(current_line, start_col, end_col)
+            .. '"'
+            .. string.sub(current_line, end_col + 1)
+
+        vim.api.nvim_set_current_line(new_line)
+    else
+        -- Multi-line selection handling
+        local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+        -- Add quotes to first and last line
+        lines[1] = string.sub(lines[1], 1, start_col - 1)
+            .. '"'
+            .. string.sub(lines[1], start_col)
+        lines[#lines] = string.sub(lines[#lines], 1, end_col)
+            .. '"'
+            .. string.sub(lines[#lines], end_col + 1)
+
+        -- Update buffer with modified lines
+        vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, lines)
+    end
+end
+
+-- Set up keymaps
+-- Normal mode: surround word under cursor with quotes
+vim.keymap.set('n', '<leader>q', surround_word_with_quotes, { noremap = true, silent = true })
+
+-- Visual mode: surround selection with quotes
+vim.keymap.set('v', '<leader>q', surround_visual_with_quotes, { noremap = true, silent = true })
+
+
+-- Switch to buffer using <leader>b<bufnr>
+vim.keymap.set('n', '<leader>b', ':<C-u>b', { noremap = true, desc = "Switch to buffer by number" })
