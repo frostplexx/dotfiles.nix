@@ -19,30 +19,10 @@
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
     # Development tools
-    git
-    neovim
-    lazygit # git ui
-    nodePackages.nodejs
-    llvm
-    gnumake
-    vscode
-    entr # Run arbitrary commands when files change
-    man-pages
-    man-pages-posix
     ollama
     dotnet-sdk
 
-    # CLI utilities
-    ffmpeg
-    imagemagick
-    nmap
-    pandoc
-    fastfetch
-    sshpass
-
     # GUI Applications
-    obsidian
-    transmission_4
     jetbrains.idea-ultimate
     jetbrains.clion
     jetbrains.pycharm-professional
@@ -98,11 +78,9 @@
       "onyx"
       "1password"
       "orbstack"
-      "tower"
       "proxyman"
       "vmware-fusion"
       "zen-browser"
-      "tailscale"
       "ghostty"
       "mullvadvpn"
     ];

@@ -13,6 +13,7 @@
     gnumake
     gcc
     vscode
+    entr # Run arbitrary commands when files change
     man-pages
     man-pages-posix
     jq
