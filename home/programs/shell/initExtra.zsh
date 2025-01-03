@@ -38,5 +38,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Prompt for spelling correction of commands.
 setopt CORRECT
+setopt CORRECT_ALL
 # Customize spelling correction prompt.
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [Nyae]? '
