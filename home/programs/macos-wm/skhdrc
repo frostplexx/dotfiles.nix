@@ -3,10 +3,10 @@
 ####### Window Management Hotkeys #############
 # change focus
 # (alt) change focus (using hjkl)
-cmd + shift - h  : yabai -m window --focus west
-cmd + shift - j  : yabai -m window --focus south || yabai -m window --focus stack.next
-cmd + shift - k    : yabai -m window --focus north || yabai -m window --focus stack.prev
-cmd + shift - l : yabai -m window --focus east
+alt - h  : yabai -m window --focus west
+alt - j  : yabai -m window --focus south || yabai -m window --focus stack.next
+alt - k    : yabai -m window --focus north || yabai -m window --focus stack.prev
+alt - l : yabai -m window --focus east
 
 # Move focus with mainMod + hjkl
 alt + shift - k : ~/dotfiles.nix/home/programs/macos-wm/stack.sh north
