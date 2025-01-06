@@ -13,6 +13,7 @@
       # Environment
       term = "xterm-256color";
       editor = "nvim";
+      shell_integration = "enabled";
 
       # Window
       window_padding_width = "2 2";
@@ -38,6 +39,7 @@
       # Scrolling
       scrollback_lines = "10000";
       scrollback_indicator_opacity = "0.5";
+      scrollback_pager = "nvim";
 
       # Copy behavior
       copy_on_select = "clipboard";
@@ -92,7 +94,11 @@
       "ctrl+shift+-" = "launch --location=hsplit --cwd=current";
       "ctrl+shift+=" = "launch --location=vsplit --cwd=current";
       "f4" = "launch --location=split";
-      "f1" = "launch --stdin-source=@screen_scrollback --stdin-add-formatting less +G -R";
+      "f1" = "show_scrollback";
+      "ctrl+alt+k" = "scroll_line_up";
+      "ctrl+alt+j" = "scroll_line_down";
+      "ctrl+alt+u" = "scroll_page_up";
+      "ctrl+alt+d" = "scroll_page_down";
       "ctrl+shift+h" = "move_window left";
       "ctrl+shift+j" = "move_window down";
       "ctrl+shift+k" = "move_window up";
