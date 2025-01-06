@@ -70,6 +70,7 @@
     brews = [
       "borders"
       "mas"
+      "svim"
     ];
     casks = [
       "altserver"
@@ -83,6 +84,7 @@
       "zen-browser"
       "ghostty"
       "mullvadvpn"
+      "tidal"
     ];
   };
 }

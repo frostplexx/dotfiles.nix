@@ -49,6 +49,7 @@ yabai -m rule --add app="^Discord$" space=4
 yabai -m rule --add app="^zoom.us$" space=4
 
 yabai -m rule --add app="^Spotify$" space=5
+yabai -m rule --add app="^TIDAL$" space=5
 yabai -m rule --add title="^Spotify Premium$" space=5
 yabai -m rule --add app="^Music$" space=5
 
