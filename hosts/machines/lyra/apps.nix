@@ -84,7 +84,6 @@
       "zen-browser"
       "ghostty"
       "mullvadvpn"
-      "tidal"
     ];
   };
 }
