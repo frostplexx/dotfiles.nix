@@ -1,88 +1,74 @@
 return {
-    { -- Collection of various small independent plugins/modules
-        'echasnovski/mini.nvim',
-        event = "VeryLazy",
+    {
+        "frostplexx/mason-bridge.nvim",
+        lazy = true,
+        dev = false,
+        event = { "BufWritePre", "InsertEnter" },
+        opts = {
+        },
+        config = function(_, opts)
+            require("mason-bridge").setup(opts)
+        end,
+    },
+    {
+        "stevearc/conform.nvim",
+        cmd = { "ConformInfo" },
+        event = { "BufWritePre", "InsertLeave" },
         config = function()
-            local function get_buffer_list()
-                local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-                local current_buf = vim.fn.bufnr('%')
-                local buf_list = {}
+            local bridge = require("mason-bridge")
+            -- This snippet will automatically detect which formatters take too long to run synchronously and will
+            -- run them async on save instead.
+            local slow_format_filetypes = {}
+            require("conform").setup({
+                formatters_by_ft = bridge.get_formatters(),
+                format_on_save = function(bufnr)
+                    require("conform").formatters_by_ft = bridge.get_formatters()
 
-                for _, buf in ipairs(buffers) do
-                    local name = vim.fn.fnamemodify(buf.name, ':t') -- Get only filename for non-active buffers
-                    local modified = buf.changed == 1 and "+" or ""
-                    local buffer_text = string.format("%d:%s%s", buf.bufnr, name, modified)
-
-                    if buf.bufnr == current_buf then
-                        -- Show full path and highlight active buffer
-                        name = vim.fn.fnamemodify(buf.name, ':~:.')
-                        buffer_text = string.format("%%#MiniStatuslineActiveBuffer#%d:%s%s%%*", buf.bufnr, name, modified)
-                    else
-                        -- Use inactive color for other buffers
-                        buffer_text = string.format("%%#MiniStatuslineInactiveBuffer#%s%%*", buffer_text)
+                    if slow_format_filetypes[vim.bo[bufnr].filetype] then
+                        return
                     end
 
-                    table.insert(buf_list, buffer_text)
-                end
-
-                return table.concat(buf_list, " | ")
-            end
-
-            local statusline = function()
-                local mini = require("mini.statusline")
-                local mode, mode_hl = mini.section_mode({ trunc_width = 9999 })
-                local git = mini.section_git({ trunc_width = 75 })
-                local diagnostics = mini.section_diagnostics({ trunc_width = 75 })
-                local fileinfo = mini.section_fileinfo({ trunc_width = 9999 })
-                local location = mini.section_location({ trunc_width = 9999 })
-                local search = mini.section_searchcount({ trunc_width = 0 })
-                local diff = mini.section_diff({ trunc_width = 0 })
-
-                local function show_macro_recording()
-                    local recording_register = vim.fn.reg_recording()
-                    if recording_register == "" then
-                        return ""
-                    else
-                        return "recording @" .. recording_register
+                    local function on_format(err)
+                        if err and err:match("timeout$") then
+                            slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                        end
                     end
-                end
+                    return { timeout_ms = 200, lsp_fallback = true }, on_format
+                end,
 
-                vim.api.nvim_set_hl(0, "MiniStatuslineGit", { bg = "", fg = "#cad3f5" })
-                vim.api.nvim_set_hl(0, "MiniStatuslineRecording", { bg = "", fg = "#8aadf4" })
-                vim.api.nvim_set_hl(0, "MiniStatuslineFilepath", { bg = "", fg = "#8087a2" })
-                vim.api.nvim_set_hl(0, "MiniStatuslineActiveBuffer", { bg = "", fg = "#ffffff" })
-                vim.api.nvim_set_hl(0, "MiniStatuslineInactiveBuffer", { bg = "", fg = "#6e738d" })
+                format_after_save = function(bufnr)
+                    if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+                        return
+                    end
+                    return { lsp_fallback = true }
+                end,
+            })
+        end,
+    },
+    {
 
-                return mini.combine_groups({
-                    { hl = mode_hl,             strings = { mode } },
-                    { hl = "MiniStatuslineGit", strings = { git, diff, diagnostics } },
-                    "%<", -- truncate point
-                    { hl = "MiniStatuslineRecording", strings = { show_macro_recording() } },
-                    { hl = "MiniStatuslineBuffers",   strings = { get_buffer_list() } },
-                    "%=", -- end left alignment
-                    { hl = "MiniStatuslineLocation", strings = { search, location } },
-                    { hl = mode_hl,                  strings = { fileinfo } },
-                })
-            end
+        "mfussenegger/nvim-lint",
+        event = { "BufWritePost", "InsertLeave" },
+        config = function()
+            local bridge = require("mason-bridge")
+            -- nvim lint
+            local lint = require("lint")
+            -- lint.linters_by_ft = bridge.get_linters()
 
-            local inactive = function()
-                local mini = require("mini.statusline")
-                local fileinfo = mini.section_fileinfo({ trunc_width = 9999 })
-                return mini.combine_groups({
-                    { hl = "MiniStatuslineBuffers",  strings = { get_buffer_list() } },
-                    "%=", -- end left alignment
-                    { hl = "MiniStatuslineLocation", strings = { fileinfo } },
-                })
-            end
-
-            -- -- [[ Mini Statusline ]]
-            require("mini.statusline").setup({
-                content = {
-                    active = statusline,
-                    inactive = inactive,
-                },
-                use_icons = true,
-                set_vim_settings = true,
+            local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
+            vim.api.nvim_create_autocmd({ "bufwritepost", "insertleave" }, {
+                group = lint_autogroup,
+                callback = function()
+                    -- get the linters for the current filetype
+                    local linters = bridge.get_linters()
+                    local names = linters[vim.bo.filetype] or {}
+                    -- Create a copy of the names table to avoid modifying the original.
+                    names = vim.list_extend({}, names)
+                    -- insert the linters that have ["*"] as filetype into the names table
+                    vim.list_extend(names, linters["*"] or {})
+                    -- apply those linters to the current buffer
+                    lint.try_lint(names)
+                end,
             })
         end,
     },

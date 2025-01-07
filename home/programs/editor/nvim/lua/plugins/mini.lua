@@ -21,6 +21,7 @@ return {
                         -- Use inactive color for other buffers
                         buffer_text = string.format("%%#MiniStatuslineInactiveBuffer#%s%%*", buffer_text)
                     end
+
                     table.insert(buf_list, buffer_text)
                 end
 
@@ -68,7 +69,7 @@ return {
                 local mini = require("mini.statusline")
                 local fileinfo = mini.section_fileinfo({ trunc_width = 9999 })
                 return mini.combine_groups({
-                    { hl = "MiniStatuslineBuffers", strings = { get_buffer_list() } },
+                    { hl = "MiniStatuslineBuffers",  strings = { get_buffer_list() } },
                     "%=", -- end left alignment
                     { hl = "MiniStatuslineLocation", strings = { fileinfo } },
                 })
