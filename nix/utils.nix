@@ -98,7 +98,7 @@
 
             # Basic home-manager configuration
             home-manager = {
-              useGlobalPkgs = true;
+              useGlobalPkgs = false;
               useUserPackages = true;
               extraSpecialArgs = {inherit inputs vars pkgs;};
               users.${vars.user} = import ../home;
@@ -142,7 +142,7 @@
 
             # Basic home-manager configuration
             home-manager = {
-              useGlobalPkgs = true;
+              useGlobalPkgs = false;
               useUserPackages = true;
               extraSpecialArgs = {inherit inputs vars pkgs;};
               users.${vars.user} = import ../home;
