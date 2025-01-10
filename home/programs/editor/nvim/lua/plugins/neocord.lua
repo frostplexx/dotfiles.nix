@@ -4,7 +4,7 @@ return {
         "IogaMaster/neocord",
         enabled = true,
         lazy = true,
-        event = "BufReadPre",
+        event = "VeryLazy",
         opts = {
             -- General options
             logo = "auto",                        -- "auto" or url
