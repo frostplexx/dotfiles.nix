@@ -175,8 +175,8 @@ in {
         starship = pkgs.fetchFromGitHub {
           owner = "Rolv-Apneseth";
           repo = "starship.yazi";
-          rev = "9c37d37099455a44343f4b491d56debf97435a0e";
-          hash = "sha256-wESy7lFWan/jTYgtKGQ3lfK69SnDZ+kDx4K1NfY4xf4=";
+          rev = "4053c8c486f9cfd60f1f42fa5d80e97caef41eb1";
+          hash = "sha256-KTN3gf3VFGlBxgsQFMa/fdhoovapXo0X65IJjXcl98A=";
         };
       };
 
