@@ -80,6 +80,12 @@
     dconf
     adwaita-icon-theme
     gsettings-desktop-schemas
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.just-perfection
+    gnomeExtensions.space-bar
+    gnomeExtensions.tactile
+    gnomeExtensions.undecorate
+    gnomeExtensions.appindicator
 
     # Development
     inputs.yuki.packages.${system}.default
