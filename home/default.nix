@@ -10,6 +10,7 @@ _: let
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
     plasma = ./programs/plasma;
+    gnome = ./programs/gnome;
     shell = ./programs/shell;
     spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;
