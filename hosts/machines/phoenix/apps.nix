@@ -86,6 +86,9 @@
     gnomeExtensions.tactile
     gnomeExtensions.undecorate
     gnomeExtensions.appindicator
+    gnome-keyring
+    libgnome-keyring
+    libsecret
 
     # Development
     inputs.yuki.packages.${system}.default
