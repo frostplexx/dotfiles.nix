@@ -6,13 +6,13 @@
         disable-user-extensions = false;
         enabled-extensions = with pkgs.gnomeExtensions; [
           blur-my-shell.extensionUuid
-          custom-accent-colors.extensionUuid
           just-perfection.extensionUuid
           space-bar.extensionUuid
           tactile.extensionUuid
           undecorate.extensionUuid
           user-themes.extensionUuid
           appindicator.extensionUuid
+          # status-icons.extensionUuid
         ];
       };
 
