@@ -30,11 +30,14 @@ in {
 
       # Linux-specific settings
       (lib.mkIf isLinux {
-        users.${config.user.name} = {
-          isNormalUser = true;
-          home = "/home/${config.user.name}";
-          extraGroups = ["wheel"];
-          shell = pkgs.zsh;
+        groups.owner = {};
+        users = {
+          ${config.user.name} = {
+            isNormalUser = true;
+            home = "/home/${config.user.name}";
+            extraGroups = ["wheel"];
+            shell = pkgs.zsh;
+          };
         };
       })
 
