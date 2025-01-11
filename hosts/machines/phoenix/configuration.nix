@@ -200,8 +200,6 @@
   # Environment settings
   environment.variables = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
-    # Set the global GTK theme to Breeze Dark
-    GTK_THEME = "Breeze-Dark";
   };
 
   # User configuration

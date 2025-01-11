@@ -15,7 +15,6 @@
 in {
   stylix.targets = {
     vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
-    gtk.enable = false;
   };
 
   programs.nixcord = {
