@@ -1,6 +1,6 @@
 return {
     {
-        "~whynothugo/lsp_lines.nvim",
+        url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         lazy = true,
         event = "BufEnter",
         config = function()
