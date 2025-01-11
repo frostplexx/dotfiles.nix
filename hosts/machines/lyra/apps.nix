@@ -26,6 +26,7 @@
     jetbrains.idea-ultimate
     jetbrains.clion
     jetbrains.pycharm-professional
+    jetbrains.datagrip
     moonlight-qt
 
     # MacOS-specific apps
