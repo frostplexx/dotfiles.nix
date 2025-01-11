@@ -6,6 +6,11 @@ vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#8087a2", bold = false })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#b4befe", bold = true })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#8087a2", bold = false })
 
+-- Disable virtual_text since it's redundant due to lsp_lines.
+vim.diagnostic.config({
+    virtual_text = false,
+})
+
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
