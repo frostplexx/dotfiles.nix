@@ -1,15 +1,15 @@
 return {
-    {
-        "frostplexx/mason-bridge.nvim",
-        lazy = true,
-        dev = false,
-        event = { "BufWritePre", "InsertEnter" },
-        opts = {
-        },
-        config = function(_, opts)
-            require("mason-bridge").setup(opts)
-        end,
-    },
+    -- {
+    --     "frostplexx/mason-bridge.nvim",
+    --     lazy = true,
+    --     dev = false,
+    --     event = { "BufWritePre", "InsertEnter" },
+    --     opts = {
+    --     },
+    --     config = function(_, opts)
+    --         require("mason-bridge").setup(opts)
+    --     end,
+    -- },
     {
         "stevearc/conform.nvim",
         cmd = { "ConformInfo" },
