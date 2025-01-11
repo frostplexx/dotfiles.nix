@@ -254,7 +254,7 @@
     "editor"
     # "firefox"
     "kitty"
-    # "ghostty"
+    "ghostty"
     "git"
     "shell"
     # "plasma"
