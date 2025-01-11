@@ -1,16 +1,5 @@
 return {
     {
-        url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        lazy = true,
-        event = "BufReadPre",
-        config = function()
-            require("lsp_lines").setup()
-        end,
-        -- keys = {
-        --     { "<Leader>l", require("lsp_lines").toggle, desc = "Toggle lsp_lines" }
-        -- }
-    },
-    {
         "saghen/blink.cmp",
         lazy = true,
         event = "InsertEnter",
