@@ -49,14 +49,6 @@
     kernelModules = ["i2c-dev"];
     kernelPackages = pkgs.linuxPackages_6_11;
     kernelParams = [
-      # Silent boot
-      "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "loglevel=3"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
       # Hardware optimizations
       "acpi_enforce_resources=lax"
       "amd_iommu=on"
@@ -68,16 +60,6 @@
       "hugepages=1024"
       "transparent_hugepage=always"
     ];
-
-    plymouth = {
-      enable = true;
-      theme = "deus_ex";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override {
-          selected_themes = ["deus_ex"];
-        })
-      ];
-    };
 
     initrd = {
       systemd.enable = true;
@@ -101,18 +83,32 @@
       enable = true;
       xkb.layout = "us";
       videoDrivers = ["nvidia"];
-    };
-
-    displayManager = {
-      sddm.enable = true;
-      autoLogin = {
-        enable = true;
-        user = config.user.name;
+      desktopManager.gnome.enable = true;
+      displayManager = {
+        gdm.enable = true;
+        autoLogin = {
+          enable = true;
+          user = "daniel";
+        };
       };
-      defaultSession = "plasmax11";
     };
 
-    desktopManager.plasma6.enable = true;
+    udev = {
+      packages = with pkgs; [
+        gnome-settings-daemon
+      ];
+    };
+
+    # displayManager = {
+    #   sddm.enable = true;
+    #   autoLogin = {
+    #     enable = true;
+    #     user = config.user.name;
+    #   };
+    #   defaultSession = "plasmax11";
+    # };
+
+    # desktopManager.plasma6.enable = true;
 
     # Hardware services
     hardware.openrgb = {
@@ -135,6 +131,25 @@
     printing.enable = true;
     openssh.enable = true;
   };
+
+  # Exclude some packages from gnome
+  environment.gnome.excludePackages = with pkgs; [
+    atomix
+    cheese
+    epiphany
+    evince
+    geary
+    gedit
+    gnome-characters
+    gnome-music
+    gnome-photos
+    gnome-terminal
+    gnome-tour
+    hitori
+    iagno
+    tali
+    totem
+  ];
 
   # Hardware configuration
   hardware = {
@@ -161,11 +176,12 @@
   };
 
   # Systemd user services
-  systemd.user.services.monado.environment = {
-    STEAMVR_LH_ENABLE = "1";
-    XRT_COMPOSITOR_COMPUTE = "1";
+  systemd = {
+    services = {
+      "getty@tty1".enable = false;
+      "autovt@tty1".enable = false;
+    };
   };
-
   # System maintenance
   system = {
     autoUpgrade = {
@@ -243,7 +259,8 @@
     # "ghostty"
     "git"
     "shell"
-    "plasma"
+    # "plasma"
+    "gnome"
     "nixcord"
     "spicetify"
   ];
