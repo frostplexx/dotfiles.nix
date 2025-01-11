@@ -12,6 +12,7 @@
     ./apps.nix # Phoenix-specific apps
     ./stylix.nix
     ./sunshine.nix
+    ./vfio
   ];
 
   networking = {
