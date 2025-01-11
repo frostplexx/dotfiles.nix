@@ -72,8 +72,14 @@
     cifs-utils
 
     #Plasma specific
-    kde-rounded-corners
-    gnome-themes-extra # Breeze themes are included here
+    # kde-rounded-corners
+    # gnome-themes-extra # Breeze themes are included here
+
+    # Gnome specific
+    gtk3
+    dconf
+    adwaita-icon-theme
+    gsettings-desktop-schemas
 
     # Development
     inputs.yuki.packages.${system}.default
