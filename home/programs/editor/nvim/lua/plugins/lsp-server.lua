@@ -8,10 +8,10 @@ return {
             vim.diagnostic.config({
                 underline = true,
                 update_in_insert = true,
-                virtual_text = {
-                    spacing = 4,
-                    source = "if_many",
-                },
+                -- virtual_text = {
+                --     spacing = 4,
+                --     source = "if_many",
+                -- },
                 -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
                 -- Be aware that you also will need to properly configure your LSP server to
                 -- provide the code lenses.
