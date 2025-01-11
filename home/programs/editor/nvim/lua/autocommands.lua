@@ -21,6 +21,13 @@ autocmd("BufReadPost", {
     command = 'silent! normal! g`"zv',
 })
 
+autocmd("BufWritePre", {
+    desc = "Format the file using the lsp",
+    callback = function ()
+        vim.lsp.buf.format()
+    end
+})
+
 
 -- Ensures tabs are used on Makefiles instead of spaces
 autocmd('FileType', {
