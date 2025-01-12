@@ -150,6 +150,7 @@
     iagno
     tali
     totem
+    yelp
   ];
 
   # Hardware configuration
