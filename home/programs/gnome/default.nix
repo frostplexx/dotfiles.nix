@@ -1,4 +1,31 @@
 {pkgs, ...}: {
+  # https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
+  gtk = {
+    enable = true;
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    cursorTheme = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+    };
+
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+  };
+
   dconf = {
     enable = true;
     settings = {
@@ -12,8 +39,23 @@
           undecorate.extensionUuid
           user-themes.extensionUuid
           appindicator.extensionUuid
-          # status-icons.extensionUuid
+          user-themes.extensionUuid
         ];
+
+        favorite-apps = [
+          "zen.desktop"
+          "kitty.desktop"
+          "1password.desktop"
+          "steam.desktop"
+          "spotify.desktop"
+          "vesktop.desktop"
+          "org.gnome.Nautilus.desktop"
+        ];
+      };
+
+      "org/gnome/desktop/interface" = {
+        enable-hot-corners = false;
+        text-scaling-factor = 0.85;
       };
 
       "org/gnome/mutter" = {
