@@ -34,6 +34,12 @@
       user = {
         signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
       };
+      credential = {
+        helper =
+          if pkgs.stdenv.isDarwin
+          then ""
+          else "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
+      };
       difftool = {
         prompt = false;
         trustExitCode = true;
