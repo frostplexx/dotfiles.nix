@@ -36,36 +36,36 @@ all: select
 
 select:
 	@CONFIGS=$$(awk '/= \{/{name=$$1} /system =/{if(name) print name}' hosts/default.nix | sed 's/=//' | tr -d ' ') && \
-	if echo "$$CONFIGS" | grep -q "$$($(HOSTNAME))"; then \
+		if echo "$$CONFIGS" | grep -q "$$($(HOSTNAME))"; then \
 		$(MAKE) deploy CONFIG=$$($(HOSTNAME)); \
-	else \
+		else \
 		echo "${INFO} Hostname not found in configs. Select a configuration:" && \
 		SELECTED_CONFIG=$$(echo "$$CONFIGS" | nix-shell -p fzf --run "fzf") && \
 		if [ -n "$$SELECTED_CONFIG" ]; then \
-			$(MAKE) deploy CONFIG=$$SELECTED_CONFIG; \
+		$(MAKE) deploy CONFIG=$$SELECTED_CONFIG; \
 		else \
-			echo "${ERROR} No configuration selected"; \
-			exit 1; \
+		echo "${ERROR} No configuration selected"; \
+		exit 1; \
 		fi \
-	fi
+		fi
 
 deploy:
 	@git --no-pager diff --no-prefix --minimal --unified=0 . && \
-	echo "${INFO} Running lints and checks..." && \
-	$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
-	git add . && \
-	echo "${INFO} Deploying $(CONFIG) configuration..." && \
-	NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
-	if $$NIX_CMD switch --flake .#$(CONFIG) --show-trace 2>$(CONFIG)-switch.log ; then \
+		echo "${INFO} Running lints and checks..." && \
+		$(MAKE) -s lint || (echo "${ERROR} Linting failed" && exit 1) && \
+		git add . && \
+		echo "${INFO} Deploying $(CONFIG) configuration..." && \
+		NIX_CMD=$$(if [ "$$(uname)" = "Darwin" ]; then echo "darwin-rebuild"; else echo "sudo nixos-rebuild"; fi) && \
+		if $$NIX_CMD switch --flake .#$(CONFIG) --show-trace 2>$(CONFIG)-switch.log ; then \
 		echo "${SUCCESS} $(CONFIG) configuration deployed successfully" && \
 		echo "${INFO} Please enter a commit message:" && \
 		read -p "→ " commit_msg && \
 		git commit -m "$$commit_msg" > /dev/null; \
-	else \
+		else \
 		echo "${ERROR} $(CONFIG) configuration deployment failed" && \
 		cat $(CONFIG)-switch.log | grep --color error && \
 		exit 1; \
-	fi
+		fi
 
 upgrade:
 	git add .
@@ -75,12 +75,11 @@ upgrade:
 	@echo "${SUCCESS} Upgrades complete, starting deployment"
 	@$(MAKE) select
 
-
 install:
 	@if [ "$$(uname)" != "Darwin" ]; then \
 		echo "${ERROR} Install is only supported on MacOS"; \
 		exit 1; \
-	fi
+		fi
 	@echo "${HEADER}Starting MacOS Setup${RESET}"
 	@if ! command -v nix >/dev/null 2>&1; then \
 		echo "${INFO} Installing Nix..." && \
@@ -88,7 +87,7 @@ install:
 		echo "${SUCCESS} Nix installed successfully!" && \
 		echo "${WARN} Please restart your terminal and run 'make install' again." && \
 		exit 0; \
-	fi
+		fi
 	@echo "${INFO} Installing Homebrew..."
 	@command -v brew >/dev/null 2>&1 || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	@echo "${INFO} Setting up channels..."
@@ -96,7 +95,7 @@ install:
 		echo "${INFO} Installing nix-darwin..." && \
 		nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
 		./result/bin/darwin-installer; \
-	fi
+		fi
 	@echo "${INFO} Installing home-manager..."
 	@nix-shell '<home-manager>' -A install
 	@$(MAKE) init-darwin
@@ -106,6 +105,7 @@ install:
 clean:
 	@echo "${INFO} Cleaning up old generations..."
 	@sudo nix-collect-garbage -d
+	@nix-collect-garbage -d
 	@nix-store --gc
 	@nix-store --optimise
 	@echo "${SUCCESS} Cleanup complete"

@@ -22,6 +22,12 @@ autocmd("BufReadPost", {
 })
 
 autocmd("BufWritePre", {
+<<<<<<< HEAD
+    desc = "Format the file using the lsp",
+    callback = function()
+        vim.lsp.buf.format()
+    end
+=======
 	desc = "Format the file using LSP or vim's built-in formatter",
 	callback = function()
 		-- Save the cursor position
@@ -41,6 +47,7 @@ autocmd("BufWritePre", {
 		-- Restore the cursor position
 		vim.fn.setpos(".", cursor_pos)
 	end
+>>>>>>> 91e6dd5 (stuff)
 })
 
 
