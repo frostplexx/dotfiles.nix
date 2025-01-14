@@ -88,6 +88,9 @@ return {
                     on_attach = on_attach,
                     capabilities = require('blink.cmp').get_lsp_capabilities(),
                 },
+                excluded_servers = {
+                    "ccls", "zk",
+                },
                 configs = {
                     -- Special configuration for lua_ls
                     lua_ls = {
