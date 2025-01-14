@@ -112,17 +112,6 @@ autocmd("BufLeave", {
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 local progress = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {
-<<<<<<< HEAD
-    ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-    callback = function(ev)
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        local value = ev.data.params
-            .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
-        if not client or type(value) ~= "table" then
-            return
-        end
-        local p = progress[client.id]
-=======
 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -132,8 +121,6 @@ vim.api.nvim_create_autocmd("LspProgress", {
 			return
 		end
 		local p = progress[client.id]
->>>>>>> 91e6dd5 (stuff)
-
 		for i = 1, #p + 1 do
 			if i == #p + 1 or p[i].token == ev.data.params.token then
 				p[i] = {
