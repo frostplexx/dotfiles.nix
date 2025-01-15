@@ -9,9 +9,6 @@ vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent 
 -- remap redo to shift-u
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
 
--- scratchpad
-vim.keymap.set("n", "<leader>sc", ":lua require('scratch').toggle()<cr>", { desc = "toggle scratchpad", silent = true })
-
 -- spotify_player
 local function create_float_term()
     local width = math.floor(vim.o.columns * 0.8)

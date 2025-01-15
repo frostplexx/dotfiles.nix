@@ -36,21 +36,34 @@ return {
             transparent_background = true, -- disables setting the background color.
             term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
             integrations = {
-                cmp = true,
+                blink_cmp = true,
                 gitsigns = true,
-                notify = true,
                 lsp_trouble = true,
                 treesitter = true,
-                mason = true,
-                -- telescope = true,
-                fzf = true,
+                dap = true,
+                dap_ui = true,
+                snacks = true,
+                mini = {
+                    enabled = true,
+                },
                 native_lsp = {
                     enabled = true,
+                    virtual_text = {
+                        errors = { "italic" },
+                        hints = { "italic" },
+                        warnings = { "italic" },
+                        information = { "italic" },
+                        ok = { "italic" },
+                    },
                     underlines = {
-                        errors = { "undercurl" },
-                        hints = { "undercurl" },
-                        warnings = { "undercurl" },
-                        information = { "undercurl" },
+                        errors = { "underline" },
+                        hints = { "underline" },
+                        warnings = { "underline" },
+                        information = { "underline" },
+                        ok = { "underline" },
+                    },
+                    inlay_hints = {
+                        background = true,
                     },
                 },
             },
