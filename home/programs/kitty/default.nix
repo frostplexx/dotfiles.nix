@@ -75,7 +75,7 @@
       remote_kitty = "if-needed";
 
       # Fonts
-      font_family = "JetBrainsMono Nerd Font Mono";
+      font_family = "JetBrains Mono";
       bold_font = "auto";
       italic_font = "auto";
       bold_italic_font = "auto";
