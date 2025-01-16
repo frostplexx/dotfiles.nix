@@ -76,9 +76,6 @@
 
       # Fonts
       font_family = "JetBrains Mono";
-      bold_font = "auto";
-      italic_font = "auto";
-      bold_italic_font = "auto";
       disable_ligatures = "cursor";
 
       # Set font size based on system because on linux wayland, font zise 13 is huge for some reason

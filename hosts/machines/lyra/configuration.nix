@@ -40,6 +40,7 @@
     "editor"
     "firefox"
     "kitty"
+    "wezterm"
     "ghostty"
     "git"
     "shell"
