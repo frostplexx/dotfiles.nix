@@ -7,6 +7,7 @@ _: let
     firefox = ./programs/firefox;
     git = ./programs/git;
     kitty = ./programs/kitty;
+    wezterm = ./programs/wezterm;
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
     plasma = ./programs/plasma;
