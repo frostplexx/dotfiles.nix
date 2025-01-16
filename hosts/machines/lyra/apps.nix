@@ -54,7 +54,7 @@
       "SponsorBlock for Safari" = 1573461917;
       "Vimkey" = 1585682577;
       "Noir" = 1592917505;
-      "Tailscale" = 1470499037;
+      "Tailscale" = 1475387142;
 
       "Xcode" = 497799835;
       "Things" = 904280696;
