@@ -57,7 +57,7 @@ vim.opt.undofile = true
 
 -- [[ Neovide Config ]]
 if vim.g.neovide then
-    vim.o.guifont = "JetbrainsMono Nerd Font:h13"
+    vim.o.guifont = "JetBrains Mono:h13"
     vim.g.neovide_padding_top = 15
     vim.g.neovide_padding_bottom = 0
     vim.g.neovide_padding_right = 0
