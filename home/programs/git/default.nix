@@ -37,7 +37,7 @@
       credential = {
         helper =
           if pkgs.stdenv.isDarwin
-          then ""
+          then "git-credential-osxkeychain"
           else "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
       };
       difftool = {
