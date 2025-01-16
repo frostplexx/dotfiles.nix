@@ -5,14 +5,6 @@ return {
     name = "catppuccin",
     priority = 1000,
     config = function()
-        if vim.g.neovide then
-            vim.cmd([[
-  hi Terminal guibg=NONE ctermbg=NONE cterm=NONE
-  hi TermCursor guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
-  hi TermCursorNC guibg=NONE ctermbg=NONE cterm=NONE ctermfg=1 guifg=mocha_palette.text
-  ]])
-        end
-
         -- Set cursor colors to match the theme
         vim.cmd([[
     highlight Cursor guifg=#1b1818 guibg=#cad3f5
