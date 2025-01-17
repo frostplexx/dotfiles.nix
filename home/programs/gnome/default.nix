@@ -44,7 +44,8 @@
 
         favorite-apps = [
           "zen.desktop"
-          "kitty.desktop"
+          # "kitty.desktop"
+          "wezterm.desktop"
           "1password.desktop"
           "steam.desktop"
           "spotify.desktop"
