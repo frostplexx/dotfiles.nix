@@ -1,13 +1,12 @@
 return {
     'numToStr/Navigator.nvim',
-    event = "VeryLazy",
     config = function()
-        require('Navigator').setup()
+        require("Navigator").setup();
     end,
     keys = {
-        { '<C-h>', '<CMD>NavigatorLeft<CR>',  silent = true, desc = 'Move to left window' },
-        { '<C-j>', '<CMD>NavigatorDown<CR>',  silent = true, desc = 'Move to bottom window' },
-        { '<C-k>', '<CMD>NavigatorUp<CR>',    silent = true, desc = 'Move to top window' },
-        { '<C-l>', '<CMD>NavigatorRight<CR>', silent = true, desc = 'Move to right window' },
+        { "<C-h>", "<cmd>NavigatorLeft<CR>",  silent = true, desc = 'Move to left window' },
+        { "<C-j>", "<cmd>NavigatorDown<CR>",  silent = true, desc = 'Move to bottom window' },
+        { "<C-k>", "<cmd>NavigatorUp<CR>",    silent = true, desc = 'Move to top window' },
+        { "<C-l>", "<cmd>NavigatorRight<CR>", silent = true, desc = 'Move to right window' },
     }
 }
