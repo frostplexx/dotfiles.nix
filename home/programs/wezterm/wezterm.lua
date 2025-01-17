@@ -204,13 +204,14 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 config.default_cwd = wezterm.home_dir
 
 
-config.unix_domains = {
-    {
-        name = 'unix',
-        local_echo_threshold_ms = 10,
-
-    },
-}
-config.default_gui_startup_args = { 'connect', 'unix' }
+-- Multiplexing, but breaks pane keybinds and Navigator.nvim
+-- config.unix_domains = {
+--     {
+--         name = 'unix',
+--         local_echo_threshold_ms = 10,
+--
+--     },
+-- }
+-- config.default_gui_startup_args = { 'connect', 'unix' }
 
 return config
