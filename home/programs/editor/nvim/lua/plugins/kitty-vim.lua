@@ -1,5 +1,5 @@
 return {
     "knubie/vim-kitty-navigator",
-    enabled = true,
+    enabled = false,
     event = "VeryLazy",
 }
