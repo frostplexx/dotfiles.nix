@@ -91,6 +91,7 @@
     libgnome-keyring
     libsecret
     gnome-tweaks
+    xdg-desktop-portal-gnome
 
     # Development
     inputs.yuki.packages.${system}.default

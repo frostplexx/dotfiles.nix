@@ -22,7 +22,7 @@ config.inactive_pane_hsb = {
 config.max_fps = 144
 
 config.macos_window_background_blur = 20
-config.window_decorations = "RESIZE"
+config.window_decorations = wezterm.target_triple:find('darwin') and "RESIZE" or "TITLE | RESIZE"
 config.enable_scroll_bar = false
 config.default_cursor_style = 'SteadyBlock'
 config.scrollback_lines = 10000

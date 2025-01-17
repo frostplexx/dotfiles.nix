@@ -1,5 +1,5 @@
 _: {
   stylix = {
-    opacity.terminal = 0.8;
+    opacity.terminal = 1.0;
   };
 }
