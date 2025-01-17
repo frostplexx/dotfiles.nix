@@ -15,6 +15,10 @@
         path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/Vesktop.app";
         icon = ./discord.icns;
       }
+      {
+        path = "${config.users.users.daniel.home}/Applications/Home Manager Apps/WezTerm.app";
+        icon = ./wezterm.icns;
+      }
     ];
   };
 }
