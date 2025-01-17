@@ -51,8 +51,6 @@ config.visual_bell = {
 }
 
 
-
--- Source: https://github.com/numToStr/Navigator.nvim/wiki/WezTerm-Integration
 local function switch_in_direction(dir)
     return function(window)
         local tab = window:active_tab()
@@ -64,6 +62,7 @@ local function switch_in_direction(dir)
 end
 
 
+-- Source: https://github.com/numToStr/Navigator.nvim/wiki/WezTerm-Integration
 local function isViProcess(pane)
     -- get_foreground_process_name On Linux, macOS and Windows,
     -- the process can be queried to determine this path. Other operating systems
@@ -75,7 +74,7 @@ local function conditionalActivatePane(window, pane, pane_direction, vim_directi
     if isViProcess(pane) then
         window:perform_action(
         -- This should match the keybinds you set in Neovim.
-            act.SendKey({ key = vim_direction, mods = 'ALT' }),
+            act.SendKey({ key = vim_direction, mods = 'CTRL' }),
             pane
         )
     else
@@ -184,12 +183,7 @@ config.keys = {
         mods = 'CTRL|SHIFT',
         action = wezterm.action.AdjustPaneSize { 'Down', 1 },
     },
-    -- Close pane
-    {
-        key = 'x',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.CloseCurrentPane { confirm = true },
-    },
+
 }
 
 -- Mouse configuration
@@ -208,5 +202,15 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- Set working directory for new splits
 config.default_cwd = wezterm.home_dir
+
+
+config.unix_domains = {
+    {
+        name = 'unix',
+        local_echo_threshold_ms = 10,
+
+    },
+}
+config.default_gui_startup_args = { 'connect', 'unix' }
 
 return config
