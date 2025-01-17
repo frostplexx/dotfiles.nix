@@ -148,7 +148,7 @@
           "/Applications/Zen Browser.app/"
           # "/Users/daniel/Applications/Home Manager Apps/Firefox.app"
           # "${pkgs.kitty}/Applications/kitty.app"
-          "/Users/daniel/Applications/Home Manager Apps/WezTerm.app"
+          "${pkgs.wezterm}/Applications/WezTerm.app"
           # "/Applications/Ghostty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];
