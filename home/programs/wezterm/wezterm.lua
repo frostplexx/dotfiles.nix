@@ -2,6 +2,41 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 local act = wezterm.action
 
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup({
+    options = {
+        icons_enabled = true,
+        theme = 'Catppuccin Mocha',
+        tabs_enabled = true,
+        theme_overrides = {},
+        section_separators = {
+            left = wezterm.nerdfonts.pl_left_hard_divider,
+            right = wezterm.nerdfonts.pl_right_hard_divider,
+        },
+        component_separators = {
+            left = wezterm.nerdfonts.pl_left_soft_divider,
+            right = wezterm.nerdfonts.pl_right_soft_divider,
+        },
+        tab_separators = {
+            left = wezterm.nerdfonts.pl_left_hard_divider,
+            right = wezterm.nerdfonts.pl_right_hard_divider,
+        },
+    },
+    sections = {
+        tabline_a = { 'mode' },
+        tabline_b = { 'workspace' },
+        tabline_c = { '' },
+        tab_active = { 'index', { 'cwd', padding = { left = 0, right = 1 } }, },
+        tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+        tabline_x = { 'ram', 'cpu' },
+        tabline_y = { 'battery' },
+        tabline_z = { 'datetime' },
+    },
+    extensions = {},
+})
+
+tabline.apply_to_config(config)
+
 -- Font configuration
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = wezterm.target_triple:find('darwin') and 13 or 10
@@ -9,7 +44,7 @@ config.font_size = wezterm.target_triple:find('darwin') and 13 or 10
 -- Window configuration
 config.window_padding = {
     left = 2,
-    right = 2,
+    right = 0,
     top = 4,
     bottom = 0.5,
 }
@@ -31,7 +66,7 @@ config.scrollback_lines = 10000
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.tab_max_width = 25
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 
 -- Color configuration
 config.colors = {
@@ -61,7 +96,6 @@ local function switch_in_direction(dir)
     end
 end
 
-
 -- Source: https://github.com/numToStr/Navigator.nvim/wiki/WezTerm-Integration
 local function isViProcess(pane)
     -- get_foreground_process_name On Linux, macOS and Windows,
@@ -73,7 +107,6 @@ end
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
     if isViProcess(pane) then
         window:perform_action(
-        -- This should match the keybinds you set in Neovim.
             act.SendKey({ key = vim_direction, mods = 'CTRL' }),
             pane
         )
@@ -95,51 +128,51 @@ wezterm.on('ActivatePaneDirection-down', function(window, pane)
     conditionalActivatePane(window, pane, 'Down', 'j')
 end)
 
--- Key bindings
+-- Key bindings with force-local modifier to ensure they work in multiplexed mode
 config.keys = {
     -- Split management
     {
         key = '_',
         mods = 'CTRL|SHIFT',
-        action = wezterm.action.SplitPane {
-            direction = 'Down',
-            size = { Percent = 50 },
-        },
+        action = act({ SplitPane = { direction = 'Down', size = { Percent = 50 } } }),
     },
     {
         key = '+',
         mods = 'CTRL|SHIFT',
-
-        action = wezterm.action.SplitPane {
-            direction = 'Right',
-            size = { Percent = 50 },
-        },
+        action = act({ SplitPane = { direction = 'Right', size = { Percent = 50 } } }),
     },
     -- Navigation
-    { key = 'h', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-left') },
-    { key = 'j', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-down') },
-    { key = 'k', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-up') },
-    { key = 'l', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-right') },
-    -- Resize panes
     {
-        key = 'LeftArrow',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Left', 1 },
+        key = 'h',
+        mods = 'CTRL',
+        action = act.Multiple({
+            act({ EmitEvent = 'ActivatePaneDirection-left' }),
+            act.DisableDefaultAssignment,
+        })
     },
     {
-        key = 'RightArrow',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Right', 1 },
+        key = 'j',
+        mods = 'CTRL',
+        action = act.Multiple({
+            act({ EmitEvent = 'ActivatePaneDirection-down' }),
+            act.DisableDefaultAssignment,
+        })
     },
     {
-        key = 'UpArrow',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Up', 1 },
+        key = 'k',
+        mods = 'CTRL',
+        action = act.Multiple({
+            act({ EmitEvent = 'ActivatePaneDirection-up' }),
+            act.DisableDefaultAssignment,
+        })
     },
     {
-        key = 'DownArrow',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Down', 1 },
+        key = 'l',
+        mods = 'CTRL',
+        action = act.Multiple({
+            act({ EmitEvent = 'ActivatePaneDirection-right' }),
+            act.DisableDefaultAssignment,
+        })
     },
     -- Move Panes
     {
@@ -166,24 +199,23 @@ config.keys = {
     {
         key = 'LeftArrow',
         mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Left', 1 },
+        action = act({ AdjustPaneSize = { 'Left', 1 } }),
     },
     {
         key = 'RightArrow',
         mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Right', 1 },
+        action = act({ AdjustPaneSize = { 'Right', 1 } }),
     },
     {
         key = 'UpArrow',
         mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Up', 1 },
+        action = act({ AdjustPaneSize = { 'Up', 1 } }),
     },
     {
         key = 'DownArrow',
         mods = 'CTRL|SHIFT',
-        action = wezterm.action.AdjustPaneSize { 'Down', 1 },
+        action = act({ AdjustPaneSize = { 'Down', 1 } }),
     },
-
 }
 
 -- Mouse configuration
@@ -193,7 +225,7 @@ config.mouse_bindings = {
     {
         event = { Up = { streak = 1, button = 'Left' } },
         mods = 'ALT',
-        action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
+        action = act.CompleteSelection 'ClipboardAndPrimarySelection',
     },
 }
 
@@ -202,16 +234,5 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- Set working directory for new splits
 config.default_cwd = wezterm.home_dir
-
-
--- Multiplexing, but breaks pane keybinds and Navigator.nvim
--- config.unix_domains = {
---     {
---         name = 'unix',
---         local_echo_threshold_ms = 10,
---
---     },
--- }
--- config.default_gui_startup_args = { 'connect', 'unix' }
 
 return config
