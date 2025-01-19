@@ -33,6 +33,10 @@
       ];
     };
 
+    hyprland = {
+      enable = true;
+    };
+
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -77,21 +81,25 @@
 
     # Gnome specific
     gtk3
-    dconf
     adwaita-icon-theme
-    gsettings-desktop-schemas
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.just-perfection
-    gnomeExtensions.space-bar
-    gnomeExtensions.tactile
-    gnomeExtensions.undecorate
-    gnomeExtensions.appindicator
-    gnomeExtensions.user-themes
+    # gsettings-desktop-schemas
+    # gnomeExtensions.blur-my-shell
+    # gnomeExtensions.just-perfection
+    # gnomeExtensions.space-bar
+    # gnomeExtensions.tactile
+    # gnomeExtensions.undecorate
+    # gnomeExtensions.appindicator
+    # gnomeExtensions.user-themes
+    # gnome-tweaks
+    # xdg-desktop-portal-gnome
     gnome-keyring
     libgnome-keyring
     libsecret
-    gnome-tweaks
-    xdg-desktop-portal-gnome
+
+    # Hyprland
+    swww
+    wl-clipboard
+    hyprpolkitagent
 
     # Development
     inputs.yuki.packages.${system}.default

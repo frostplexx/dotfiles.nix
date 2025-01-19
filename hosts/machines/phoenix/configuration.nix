@@ -78,37 +78,40 @@
     };
   };
 
-
   # Desktop environment
   services = {
+    blueman = {
+      enable = true;
+    };
     xserver = {
       enable = true;
       xkb.layout = "us";
       videoDrivers = ["nvidia"];
       # desktopManager.gnome.enable = true;
       displayManager = {
-        gdm.enable = true;
-        autoLogin = {
-          enable = true;
-          user = "daniel";
-        };
+        # gdm.enable = true;
+        # autoLogin = {
+        #   enable = true;
+        #   user = "daniel";
+        # };
       };
     };
 
     udev = {
-      packages = with pkgs; [
-        gnome-settings-daemon
-      ];
+      # packages = with pkgs; [
+      #   gnome-settings-daemon
+      # ];
     };
 
-    # displayManager = {
-    #   sddm.enable = true;
-    #   autoLogin = {
-    #     enable = true;
-    #     user = config.user.name;
-    #   };
-    #   defaultSession = "plasmax11";
-    # };
+    displayManager = {
+      sddm.enable = true;
+      sddm.wayland.enable = true;
+      autoLogin = {
+        enable = true;
+        user = config.user.name;
+      };
+      defaultSession = "hyprland";
+    };
 
     # desktopManager.plasma6.enable = true;
 
@@ -134,25 +137,30 @@
     openssh.enable = true;
   };
 
+  environment.sessionVariables = {
+    # WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+  };
+
   # Exclude some packages from gnome
-  environment.gnome.excludePackages = with pkgs; [
-    atomix
-    cheese
-    epiphany
-    evince
-    geary
-    gedit
-    gnome-characters
-    gnome-music
-    gnome-photos
-    gnome-terminal
-    gnome-tour
-    hitori
-    iagno
-    tali
-    totem
-    yelp
-  ];
+  # environment.gnome.excludePackages = with pkgs; [
+  #   atomix
+  #   cheese
+  #   epiphany
+  #   evince
+  #   geary
+  #   gedit
+  #   gnome-characters
+  #   gnome-music
+  #   gnome-photos
+  #   gnome-terminal
+  #   gnome-tour
+  #   hitori
+  #   iagno
+  #   tali
+  #   totem
+  #   yelp
+  # ];
 
   # Hardware configuration
   hardware = {
@@ -160,6 +168,7 @@
     graphics.enable = true;
     i2c.enable = true;
 
+    opengl.enable = true;
     nvidia = {
       modesetting.enable = true;
       powerManagement = {
@@ -203,6 +212,11 @@
   # Environment settings
   environment.variables = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   # User configuration
@@ -262,7 +276,8 @@
     "git"
     "shell"
     # "plasma"
-    "gnome"
+    # "gnome"
+    "hyprland"
     "nixcord"
     "spicetify"
   ];
