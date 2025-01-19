@@ -12,6 +12,7 @@ _: let
     nixcord = ./programs/nixcord;
     plasma = ./programs/plasma;
     gnome = ./programs/gnome;
+    hyprland = ./programs/hyprland;
     shell = ./programs/shell;
     spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;

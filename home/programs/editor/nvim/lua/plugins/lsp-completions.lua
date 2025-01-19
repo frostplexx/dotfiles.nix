@@ -20,41 +20,9 @@ return {
                     "emoji",
                 },
                 providers = {
-                    lsp = {
-                        name = 'LSP',
-                        module = 'blink.cmp.sources.lsp',
-                        fallbacks = { 'buffer' },
-                        -- Filter text items from the LSP provider, since we have the buffer provider for that
-                        transform_items = function(_, items)
-                            for _, item in ipairs(items) do
-                                if item.kind == require('blink.cmp.types').CompletionItemKind.Snippet then
-                                    item.score_offset = item.score_offset - 3
-                                end
-                            end
-
-                            return vim.tbl_filter(
-                                function(item) return item.kind ~= require('blink.cmp.types').CompletionItemKind.Text end,
-                                items
-                            )
-                        end,
-
-                        --- NOTE: All of these options may be functions to get dynamic behavior
-                        --- See the type definitions for more information
-                        enabled = true,           -- Whether or not to enable the provider
-                        async = false,            -- Whether we should wait for the provider to return before showing the completions
-                        timeout_ms = 2000,        -- How long to wait for the provider to return before showing completions and treating it as asynchronous
-                        should_show_items = true, -- Whether or not to show the items
-                        max_items = nil,          -- Maximum number of items to display in the menu
-                        min_keyword_length = 0,   -- Minimum number of characters in the keyword to trigger the provider
-                        -- If this provider returns 0 items, it will fallback to these providers.
-                        -- If multiple providers falback to the same provider, all of the providers must return 0 items for it to fallback
-                        score_offset = 150, -- Boost/penalize the score of the items
-                        override = nil,     -- Override the source's functions
-                    },
                     copilot = {
                         name = "copilot",
                         module = "blink-cmp-copilot",
-                        score_offset = -50,
                         async = true,
                         transform_items = function(_, items)
                             local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
@@ -69,7 +37,6 @@ return {
                     snippets = {
                         name = 'Snippets',
                         module = 'blink.cmp.sources.snippets',
-                        score_offset = 25,
                         opts = {
                             friendly_snippets = true,
                             search_paths = { vim.fn.stdpath('config') .. '/snippets' },
