@@ -1,7 +1,4 @@
-{config, pkgs, ... }:
-{
-
-
+{pkgs, ...}: {
   xdg.configFile = {
     # Copy the filtered nvim configuration directory
     "hypr" = {
@@ -17,11 +14,11 @@
       recursive = true;
     };
     "waybar" = {
-      source = ./swaync;
+      source = ./waybar;
       recursive = true;
     };
     "wlogout" = {
-      source = ./swaync;
+      source = ./wlogout;
       recursive = true;
     };
   };
@@ -33,16 +30,21 @@
     wlogout = {
       enable = true;
     };
+    hyprlock = {
+      enable = true;
+    };
+    waybar = {
+      enable = true;
+    };
   };
 
-  services.swaync = {
-    enable = true;
+  services = {
+    swaync = {
+      enable = true;
+    };
   };
-
-
 
   wayland.windowManager.hyprland = {
-
     # Whether to enable Hyprland wayland compositor
     enable = true;
     # The hyprland package to use
@@ -55,4 +57,3 @@
     systemd.enable = true;
   };
 }
-
