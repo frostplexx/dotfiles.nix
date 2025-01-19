@@ -83,6 +83,8 @@
     blueman = {
       enable = true;
     };
+    gnome.gnome-keyring.enable = true;
+
     xserver = {
       enable = true;
       xkb.layout = "us";
@@ -104,8 +106,10 @@
     };
 
     displayManager = {
-      sddm.enable = true;
-      sddm.wayland.enable = true;
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
       autoLogin = {
         enable = true;
         user = config.user.name;
@@ -116,10 +120,12 @@
     # desktopManager.plasma6.enable = true;
 
     # Hardware services
-    hardware.openrgb = {
-      enable = true;
-      motherboard = "amd";
-      server.port = 6742;
+    hardware = {
+      openrgb = {
+        enable = true;
+        motherboard = "amd";
+        server.port = 6742;
+      };
     };
 
     # Audio
@@ -167,6 +173,11 @@
     pulseaudio.enable = false;
     graphics.enable = true;
     i2c.enable = true;
+
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+    };
 
     opengl.enable = true;
     nvidia = {
