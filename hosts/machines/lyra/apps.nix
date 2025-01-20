@@ -19,7 +19,6 @@
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
     # Development tools
-    ollama
     dotnet-sdk
 
     # GUI Applications
@@ -75,6 +74,7 @@
     ];
     casks = [
       "altserver"
+      "ollama"
       "mac-mouse-fix"
       "hex-fiend"
       "onyx"
