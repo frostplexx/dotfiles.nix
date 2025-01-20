@@ -6,8 +6,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc";
-    hash = "sha256-dIj2YgLN04nFxmw7I/sdbJY2QCs+Nmb4eUtfLlPL53E=";
+    rev = "7707c09f03e02144e528625ba82f54c6177715b2";
+    hash = "sha256-oWdptgAtTAHX5u7lYe1o2TlvyCiOsuV1D5gm85J4dSE=";
   };
 in {
   stylix.targets = {
@@ -96,6 +96,7 @@ in {
         color_theme = "catppuccin-mocha";
         theme_background = false;
         vim_keys = false;
+        update_ms = 700;
       };
     };
 
