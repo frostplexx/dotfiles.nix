@@ -31,7 +31,6 @@ in {
       # Language servers
       pyright
       gopls
-      ruff
     ];
 
     plugins = [
