@@ -55,6 +55,7 @@ config.inactive_pane_hsb = {
 }
 
 config.max_fps = 144
+config.animation_fps = 144
 
 config.macos_window_background_blur = 20
 config.window_decorations = wezterm.target_triple:find('darwin') and "RESIZE" or "TITLE | RESIZE"
