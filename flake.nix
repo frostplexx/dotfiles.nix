@@ -39,8 +39,8 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    yuki = {
-      url = "github:frostplexx/yuki/dev";
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # zen-browser.url = "git+file:///Users/daniel/Developer/zen-browser-flake";

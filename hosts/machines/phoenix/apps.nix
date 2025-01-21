@@ -101,8 +101,7 @@
     wl-clipboard
     hyprpolkitagent
     nautilus
-
-    # Development
-    inputs.yuki.packages.${system}.default
+    gpustat
+    hyprshot
   ];
 }

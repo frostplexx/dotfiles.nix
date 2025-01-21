@@ -1,21 +1,5 @@
 # Lyra-specific applications
 {pkgs, ...}: {
-  # Yuki configuration
-  programs.yuki = {
-    enable = true;
-    settings = {
-      system_packages_path = "~/dotfiles.nix/hosts/darwin/apps.nix";
-      homebrew_packages_path = "~/dotfiles.nix/hosts/darwin/apps.nix";
-      auto_commit = true;
-      auto_push = false;
-      install_message = "installed <package>";
-      uninstall_message = "removed <package>";
-      install_command = "cd ~/dotfiles.nix ; make";
-      uninstall_command = "cd ~/dotfiles.nix; make";
-      update_command = "cd ~/dotfiles.nix; make update";
-    };
-  };
-
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
     # Development tools
