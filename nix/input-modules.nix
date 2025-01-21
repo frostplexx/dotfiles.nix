@@ -5,7 +5,6 @@
   # Helper function to get system-specific input modules
   mkInputModules = {
     core = [
-      inputs.yuki.nixosModules.default
       inputs
       .stylix
       .${
@@ -18,6 +17,7 @@
 
     home = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
+      inputs.anyrun.homeManagerModules.default
       inputs.nixcord.homeManagerModules.nixcord
       inputs.spicetify-nix.homeManagerModules.default
       {

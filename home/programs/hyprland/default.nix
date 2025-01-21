@@ -5,10 +5,6 @@
       source = ./hypr;
       recursive = true;
     };
-    "rofi" = {
-      source = ./rofi;
-      recursive = true;
-    };
     "swaync" = {
       source = ./swaync;
       recursive = true;
@@ -35,6 +31,21 @@
     };
     waybar = {
       enable = true;
+    };
+    anyrun = {
+      enable = true;
+      config = {
+        x = {fraction = 0.5;};
+        y = {fraction = 0.3;};
+        width = {fraction = 0.3;};
+        hideIcons = false;
+        ignoreExclusiveZones = false;
+        layer = "overlay";
+        hidePluginInfo = false;
+        closeOnClick = false;
+        showResultsImmediately = false;
+        maxEntries = null;
+      };
     };
   };
 
