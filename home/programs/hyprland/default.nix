@@ -20,9 +20,6 @@
   };
 
   programs = {
-    rofi = {
-      enable = true;
-    };
     wlogout = {
       enable = true;
     };
@@ -32,20 +29,20 @@
     waybar = {
       enable = true;
     };
-    anyrun = {
+    wofi = {
       enable = true;
-      config = {
-        x = {fraction = 0.5;};
-        y = {fraction = 0.3;};
-        width = {fraction = 0.3;};
-        hideIcons = false;
-        ignoreExclusiveZones = false;
-        layer = "overlay";
-        hidePluginInfo = false;
-        closeOnClick = false;
-        showResultsImmediately = false;
-        maxEntries = null;
+      settings = {
+        width = "50%";
+        height = "40%";
+        show = "drun";
+        insensitive = true;
+
+        key_up = "Ctrl+k";
+        key_down = "Ctrl+j";
+        key_left = "Ctrl+h";
+        key_right = "Ctrl+l";
       };
+      # style = builtins.readFile ./wofi/style.css;
     };
   };
 

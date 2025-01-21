@@ -17,7 +17,6 @@
 
     home = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
-      inputs.anyrun.homeManagerModules.default
       inputs.nixcord.homeManagerModules.nixcord
       inputs.spicetify-nix.homeManagerModules.default
       {
