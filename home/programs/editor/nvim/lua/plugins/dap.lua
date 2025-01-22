@@ -4,7 +4,7 @@ return {
     dependencies = {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
-        "theHamsta/nvim-dap-virtual-text"
+        "theHamsta/nvim-dap-virtual-text",
     },
     config = function()
         local dap, dapui = require("dap"), require("dapui")
@@ -15,31 +15,17 @@ return {
             virt_text_pos = "eol",
         })
 
-        -- Define paths for Nix-installed debug adapters
-        local codelldb_path = "nix shell nixpkgs#lldb --command which codelldb"
-        local node_debug_path = "nix shell nixpkgs#nodePackages.node-debug2-adapter --command which node-debug2-adapter"
-        local bash_debug_path = "nix shell nixpkgs#bash-debug-adapter --command which bash-debug-adapter"
+        -- Define paths for debug adapters
+        local codelldb_path = vim.fn.expand("~/dotfiles.nix/home/programs/editor/debug/darwin/codelldb")
 
-        -- Setup debug adapters using Nix
+        -- Setup codelldb adapter with proper executable path
         dap.adapters.codelldb = {
             type = 'server',
-            port = "${port}",
+            port = '13000',
             executable = {
                 command = codelldb_path,
-                args = { "--port", "${port}" },
+                args = { "--port", "13000" }
             }
-        }
-
-        dap.adapters.node2 = {
-            type = 'executable',
-            command = node_debug_path,
-            args = {}
-        }
-
-        dap.adapters.bash = {
-            type = 'executable',
-            command = bash_debug_path,
-            args = {}
         }
 
         -- Configuration for C, C++
@@ -68,45 +54,6 @@ return {
         }
         dap.configurations.c = dap.configurations.cpp
 
-        -- Configuration for TypeScript/JavaScript
-        dap.configurations.typescript = {
-            {
-                name = 'Launch TypeScript',
-                type = 'node2',
-                request = 'launch',
-                program = '${file}',
-                cwd = vim.fn.getcwd(),
-                sourceMaps = true,
-                protocol = 'inspector',
-                console = 'integratedTerminal',
-                outFiles = { "${workspaceFolder}/dist/**/*.js" },
-            },
-            {
-                name = 'Attach to Process',
-                type = 'node2',
-                request = 'attach',
-                processId = require('dap.utils').pick_process,
-            }
-        }
-        dap.configurations.javascript = dap.configurations.typescript
-
-        -- Configuration for Bash
-        dap.configurations.sh = {
-            {
-                name = 'Launch Bash Script',
-                type = 'bash',
-                request = 'launch',
-                program = '${file}',
-                cwd = '${workspaceFolder}',
-                pathBash = 'bash',
-                pathCat = 'cat',
-                pathMkfifo = 'mkfifo',
-                pathPkill = 'pkill',
-                env = {},
-                args = {},
-            }
-        }
-
         -- UI Listeners
         dap.listeners.before.attach.dapui_config = function()
             dapui.open()
@@ -120,18 +67,6 @@ return {
         dap.listeners.before.event_exited.dapui_config = function()
             dapui.close()
         end
-
-        -- Utility function to ensure debug adapters are installed
-        local function ensure_debug_adapters()
-            local handle = io.popen(
-                "nix shell nixpkgs#lldb nixpkgs#nodePackages.node-debug2-adapter nixpkgs#bash-debug-adapter --command echo OK")
-            if handle then
-                handle:close()
-            end
-        end
-
-        -- Ensure debug adapters are installed when loading configuration
-        ensure_debug_adapters()
     end,
     keys = {
         { "<leader>dc", "<cmd>DapContinue<CR>",                                       desc = "Debug Continue" },
@@ -141,7 +76,7 @@ return {
         { "<leader>do", "<cmd>DapStepOut<CR>",                                        desc = "Debug Step Out" },
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",                           desc = "Debug Down" },
         { "<leader>ds", "<cmd>DapTerminate<CR>",                                      desc = "Debug Stop" },
-        { "<leader>dt", "<cmd>lua require'dap'.toggle()<CR>",                         desc = "Debug Toggle Debug UI" },
+        { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",                       desc = "Debug Toggle Debug UI" },
         { "<leader>da", "<cmd>DapNew<CR>",                                            desc = "Debug New" },
         { "<leader>?",  "<cmd>:lua require('dapui').eval(nil, { enter = true })<CR>", desc = "Debug Eval" },
     }
