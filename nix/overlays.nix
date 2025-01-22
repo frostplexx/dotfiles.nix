@@ -1,10 +1,10 @@
 {inputs}: let
   baseOverlays = {
     nixos = [
-      inputs.nur.overlay
+      inputs.nur.overlays.default
     ];
     darwin = [
-      inputs.nur.overlay
+      inputs.nur.overlays.default
       inputs.nixpkgs-firefox-darwin.overlay
     ];
   };

@@ -12,29 +12,29 @@
     in
       baseName != "lazy-lock.json";
   };
-
   treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
-
   # Helper to determine system-specific values
-  platformDict = {
-    "x86_64-linux" = {
-      arch = "x64";
-      os = "linux";
-    };
-    "aarch64-darwin" = {
-      arch = "arm64";
-      os = "darwin";
-    };
-  };
-  platform = platformDict.${pkgs.system};
-
   # Fetch and extract the VSIX file
-  codelldbExtracted = pkgs.fetchzip {
-    url = "https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-${platform.os}-${platform.arch}.vsix";
-    hash = "sha256-V6jxBZu2Y8DXVW59ykqK2mZTitMT4XyNpE8eJwbAIRE=";
-    stripRoot = false;
-    extension = "zip";
-  };
+  # codelldb-fhs = pkgs.buildFHSUserEnv {
+  #   name = "codelldb";
+  #   targetPkgs = pkgs:
+  #     with pkgs; [
+  #       # Basic runtime dependencies
+  #       stdenv.cc.cc
+  #       zlib
+  #       glib
+  #       xorg.libX11
+  #       xorg.libXcursor
+  #       xorg.libXrandr
+  #       xorg.libXi
+  #       # Add the actual codelldb binary
+  #       (runCommand "codelldb-binary" {} ''
+  #         mkdir -p $out/bin
+  #         cp -r ${codelldbExtracted}/extension/* $out/
+  #       '')
+  #     ];
+  #   runScript = "~/.local/share/codelldb/adapter/codelldb";
+  # };
 in {
   programs.neovim = {
     enable = true;
@@ -52,6 +52,9 @@ in {
       # Language servers
       pyright
       gopls
+
+      # Debug
+      vscode-extensions.vadimcn.vscode-lldb
     ];
 
     plugins = [
@@ -67,6 +70,10 @@ in {
       recursive = true;
     };
   };
+
+  # home.packages = [
+  #   codelldb-fhs
+  # ];
 
   home.file = {
     # Copy LTeX configuration files
@@ -94,7 +101,7 @@ in {
     };
 
     ".local/share/codelldb" = {
-      source = "${codelldbExtracted}/extension";
+      source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
       recursive = true;
     };
   };
