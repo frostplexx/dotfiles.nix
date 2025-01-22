@@ -17,9 +17,15 @@ return {
 
 
         -- Setup codelldb adapter with proper executable path
+        -- TODO: When nix packages upgrades to 1.11 then update this to no longer be a server
+        -- https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
         dap.adapters.codelldb = {
-            type = 'executable',
-            command = "~/.local/share/codelldb/adapter/codelldb",
+            type = 'server',
+            port = "${port}",
+            executable = {
+                command = vim.fn.expand('$HOME/.local/share/codelldb'),
+                args = { "--port", "${port}" },
+            },
         }
 
         -- Configuration for C, C++
@@ -32,18 +38,41 @@ return {
                     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
                 end,
                 cwd = '${workspaceFolder}',
-                stopOnEntry = false,
-                followForks = true,
-                followExecs = true,
-                detachOnFork = false,
-                args = function()
-                    local args_string = vim.fn.input('Program arguments: ')
-                    local args = {}
-                    for arg in args_string:gmatch("%S+") do
-                        table.insert(args, arg)
+                -- stopOnEntry = false,
+                followForks = true,               -- Keep this
+                followExecs = true,               -- Keep this
+                detachOnFork = false,             -- Keep this
+                -- Add these new settings
+                sourceLanguages = { 'cpp', 'c' }, -- Help debugger identify source types
+                pid = function()                  -- Allow attaching to existing process
+                    local handle = io.popen('pgrep -n ' .. vim.fn.expand('%:t:r'))
+                    if handle then
+                        local pid = handle:read("*a")
+                        handle:close()
+                        return pid
                     end
-                    return args
-                end
+                    return nil
+                end,
+                processCreateCommands = { -- Commands run when new process is created
+                    'set follow-fork-mode child',
+                    'set detach-on-fork off',
+                },
+                -- Ensure LLDB is configured to catch all signals
+                stopOnEntry = true, -- Stop at program entry to set up debugging
+                setupCommands = {
+                    {
+                        description = 'Enable all signal catching',
+                        text = 'process handle -p true -s true -n true',
+                        ignoreFailures = true,
+                    },
+                },
+                env = function() -- Ensure proper environment variables
+                    local variables = {}
+                    for k, v in pairs(vim.fn.environ()) do
+                        table.insert(variables, string.format("%s=%s", k, v))
+                    end
+                    return variables
+                end,
             },
         }
         dap.configurations.c = dap.configurations.cpp
