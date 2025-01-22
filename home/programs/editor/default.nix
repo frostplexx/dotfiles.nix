@@ -14,6 +14,27 @@
   };
 
   treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
+
+  # Helper to determine system-specific values
+  platformDict = {
+    "x86_64-linux" = {
+      arch = "x64";
+      os = "linux";
+    };
+    "aarch64-darwin" = {
+      arch = "arm64";
+      os = "darwin";
+    };
+  };
+  platform = platformDict.${pkgs.system};
+
+  # Fetch and extract the VSIX file
+  codelldbExtracted = pkgs.fetchzip {
+    url = "https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-${platform.os}-${platform.arch}.vsix";
+    hash = "sha256-V6jxBZu2Y8DXVW59ykqK2mZTitMT4XyNpE8eJwbAIRE=";
+    stripRoot = false;
+    extension = "zip";
+  };
 in {
   programs.neovim = {
     enable = true;
@@ -70,6 +91,11 @@ in {
     ".local/share/nvim/nix/nvim-treesitter/" = {
       recursive = true;
       source = treeSitterWithAllGrammars;
+    };
+
+    ".local/share/codelldb" = {
+      source = "${codelldbExtracted}/extension";
+      recursive = true;
     };
   };
 }

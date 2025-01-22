@@ -15,17 +15,11 @@ return {
             virt_text_pos = "eol",
         })
 
-        -- Define paths for debug adapters
-        local codelldb_path = vim.fn.expand("~/dotfiles.nix/home/programs/editor/debug/darwin/codelldb")
 
         -- Setup codelldb adapter with proper executable path
         dap.adapters.codelldb = {
-            type = 'server',
-            port = '13000',
-            executable = {
-                command = codelldb_path,
-                args = { "--port", "13000" }
-            }
+            type = 'executable',
+            command = "~/.local/share/codelldb/adapter/codelldb",
         }
 
         -- Configuration for C, C++
@@ -53,6 +47,7 @@ return {
             },
         }
         dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
 
         -- UI Listeners
         dap.listeners.before.attach.dapui_config = function()
@@ -76,7 +71,7 @@ return {
         { "<leader>do", "<cmd>DapStepOut<CR>",                                        desc = "Debug Step Out" },
         { "<leader>dd", "<cmd>lua require'dap'.down()<CR>",                           desc = "Debug Down" },
         { "<leader>ds", "<cmd>DapTerminate<CR>",                                      desc = "Debug Stop" },
-        { "<leader>dt", "<cmd>lua require'dapui'.toggle()<CR>",                       desc = "Debug Toggle Debug UI" },
+        { "<leader>dt", "<cmd>:lua require('dapui').toggle()<CR>",                    desc = "Debug Toggle Debug UI" },
         { "<leader>da", "<cmd>DapNew<CR>",                                            desc = "Debug New" },
         { "<leader>?",  "<cmd>:lua require('dapui').eval(nil, { enter = true })<CR>", desc = "Debug Eval" },
     }
