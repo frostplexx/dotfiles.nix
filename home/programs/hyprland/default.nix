@@ -30,7 +30,7 @@
       enable = true;
     };
     wofi = {
-      enable = true;
+      enable = false;
       settings = {
         width = "50%";
         height = "40%";

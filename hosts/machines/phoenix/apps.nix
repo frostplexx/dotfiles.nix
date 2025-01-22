@@ -103,5 +103,6 @@
     nautilus
     gpustat
     hyprshot
+    ulauncher
   ];
 }
