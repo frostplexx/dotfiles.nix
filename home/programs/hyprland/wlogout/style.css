@@ -1,52 +1,52 @@
-@import "../../.cache/wal/colors-waybar.css";
+@import "../waybar/mocha.css";
 
 * {
-  font-size: 18px;
-  font-family: "JetBrainsMono Nerd Font";
-	border-radius: 10px;
+    font-size: 18px;
+    font-family: "JetBrainsMono Nerd Font";
+    border-radius: 10px;
 }
 
 window {
-	background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
 }
 
 button {
-	color: #fff;
-  background-color: rgba(0, 0, 0, 0.4);
-  outline-style: none;
-  border: none;
-  box-shadow: none;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30%;
+    color: @text;
+    background-color: alpha(@base, 0.4);
+    outline-style: none;
+    border: none;
+    box-shadow: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
 }
 
 button:hover,
 button:focus {
-  color: @color6;
-  background-color: rgba(0, 0, 0, 0.6);
-  background-size: 40%;
+    color: @mauve;
+    background-color: alpha(@base, 0.6);
+    background-size: 40%;
 }
 
 #logout {
-	background-image: image(url("icons/logout.png"));
+    background-image: image(url("/home/daniel/dotfiles.nix/home/programs/hyprland/wlogout/icons/logout.png"));
 }
 
 #suspend {
-	background-image: image(url("icons/suspend.png"));
+    background-image: image(url("/home/daniel/dotfiles.nix/home/programs/hyprland/wlogout/icons/suspend.png"));
 }
 
 #shutdown {
-	background-image: image(url("icons/shutdown.png"));
+    background-image: image(url("/home/daniel/dotfiles.nix/home/programs/hyprland/wlogout/icons/shutdown.png"));
 }
 
 #reboot {
-	background-image: image(url("icons/reboot.png"));
+    background-image: image(url("/home/daniel/dotfiles.nix/home/programs/hyprland/wlogout/icons/reboot.png"));
 }
 
 #logout,
 #suspend,
 #shutdown,
 #reboot {
-  margin: 2px;
+    margin: 2px;
 }
