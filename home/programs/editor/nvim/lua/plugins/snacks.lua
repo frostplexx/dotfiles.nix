@@ -36,6 +36,7 @@ return {
         words = { enabled = true },
 
         picker = {
+            enabled = true,
             win = {
                 -- input window
                 input = {
@@ -61,7 +62,6 @@ return {
         { "<leader>un",      function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference",              mode = { "n", "t" } },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference",              mode = { "n", "t" } },
-
         { "<leader><space>", function() Snacks.picker.files() end,                 desc = "Find Files",                  remap = true,       silent = true },
         { "<leader>bf",      function() Snacks.picker.buffers() end,               desc = "List open Buffers",           remap = true,       silent = true },
         { "<leader>ch",      function() Snacks.picker.command_history() end,       desc = "Command History",             silent = true },
