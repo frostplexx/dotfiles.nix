@@ -5,8 +5,12 @@
         "separate-outputs": false,
         "rewrite": {
             "^.*(Zen|Zen ?Browser)$": "󰈹 Zen",
-            "^.*v( .*|$)": " Neovim",
-            "^.*~$": "󰄛 Kitty",
+            "^.*(nvim)$": " Neovim",
+            "^.*(Steam)$": " Steam",
+            "^.*(Spotify)$": " Spotify",
+            "^.*(Obsidian).*$": " Obsidian",
+            "^.*(Discord|Vesktop).*$": " Discord",
+            "^.*(zsh)$": " Wezterm",
             "(.*) ": " Empty"
         }
     },
