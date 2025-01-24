@@ -104,5 +104,6 @@
     gpustat
     hyprshot
     ulauncher
+    alsa-utils
   ];
 }
