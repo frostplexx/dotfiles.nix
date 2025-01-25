@@ -144,13 +144,12 @@
         # Pinned apps
         persistent-apps = [
           "/Applications/Things3.app"
+          "${pkgs.vesktop}/Applications/Vesktop.app"
           # "${inputs.zen-browser.packages."${pkgs.system}".specific}/Applications/Zen Browser.app/"
           "/Applications/Zen Browser.app/"
-          # "/Users/daniel/Applications/Home Manager Apps/Firefox.app"
-          # "${pkgs.kitty}/Applications/kitty.app"
           "${pkgs.wezterm}/Applications/WezTerm.app"
-          # "/Applications/Ghostty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
+          "${pkgs.spotify}/Applications/Spotify.app"
         ];
       };
 
