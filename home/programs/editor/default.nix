@@ -54,7 +54,7 @@ in {
       gopls
 
       # Debug
-      vscode-extensions.vadimcn.vscode-lldb
+      # vscode-extensions.vadimcn.vscode-lldb
     ];
 
     plugins = [
