@@ -67,6 +67,7 @@
       "orbstack"
       "proxyman"
       "vmware-fusion"
+      "cursor"
       "zen-browser"
       "ghostty"
       "mullvadvpn"

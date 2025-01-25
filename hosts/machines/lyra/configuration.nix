@@ -38,7 +38,7 @@
     # "aerospace"
     "macos-wm"
     "editor"
-    "firefox"
+    # "firefox"
     # "kitty"
     "wezterm"
     "ghostty"
@@ -145,7 +145,6 @@
         persistent-apps = [
           "/Applications/Things3.app"
           "${pkgs.vesktop}/Applications/Vesktop.app"
-          # "${inputs.zen-browser.packages."${pkgs.system}".specific}/Applications/Zen Browser.app/"
           "/Applications/Zen Browser.app/"
           "${pkgs.wezterm}/Applications/WezTerm.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
