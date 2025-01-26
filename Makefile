@@ -72,8 +72,16 @@ upgrade:
 	@./update-flake-revs.sh
 	@echo "${INFO} Upgrading flakes..."
 	@nix $(NIX_FLAGS) flake update
-	@echo "${SUCCESS} Upgrades complete, starting deployment"
-	@$(MAKE) select
+	@echo "Would you like to deploy now? Y/n/c(leanup after) - Auto-continues in 5s: "; \
+		read -t 5 -n 1 response; echo; \
+		if [ -n "$$response" ] && [ "$$response" != "Y" ] && [ "$$response" != "y" ] && [ "$$response" != "c" ]; then \
+			echo "${INFO} Deployment skipped"; \
+			exit 0; \
+		fi; \
+		$(MAKE) select; \
+		if [ "$$response" = "c" ]; then \
+			$(MAKE) clean; \
+		fi
 
 install:
 	@if [ "$$(uname)" != "Darwin" ]; then \
