@@ -30,25 +30,30 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+" Temporary files storage
+set backup
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
+
+" Simple Color Scheme (Catppuccin-inspired)
+highlight Normal ctermfg=255 ctermbg=234
+highlight Comment ctermfg=242
+highlight Constant ctermfg=173
+highlight Identifier ctermfg=110
+highlight Statement ctermfg=204
+highlight Type ctermfg=114
+highlight Special ctermfg=117
+highlight Search ctermbg=214 ctermfg=232
+highlight Visual ctermbg=239
+highlight Pmenu ctermbg=236 ctermfg=252
+highlight LineNr ctermfg=242
+highlight CursorLineNr cterm=bold ctermfg=178
+highlight CursorLine cterm=NONE
+
 " Leader Keys
 let mapleader = " "
 let maplocalleader = "\\"
-
-" Color and Theme (uncomment and modify as needed)
-" set background=dark
-" colorscheme desert
-
-" Plugins (uncomment and add your preferred plugin manager and plugins)
-" call plug#begin('~/.vim/plugged')
-" Plug 'tpope/vim-surround'
-" Plug 'machakann/vim-highlightedyank'
-" Plug 'preservim/nerdtree'
-" call plug#end()
-
-" NERDTree config (uncomment if using NERDTree)
-" let NERDTreeQuitOnOpen = 1
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
 
 " Key Mappings
 nnoremap <leader>q :wqa<CR>
@@ -72,7 +77,7 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>t :below terminal<CR>
 nnoremap <leader>vt :vertical terminal<CR>
-nnoremap <leader>/ :call ToggleComment()<CR>
+nnoremap <leader>gcc :call ToggleComment()<CR>
 nnoremap <leader>si :call SortINISections()<CR>
 nnoremap <leader>ae :call AlignEquals()<CR>
 nnoremap <leader>cf :call InsertFunctionComment()<CR>
@@ -87,6 +92,12 @@ inoremap <C-h> <Esc><C-w>h
 inoremap <C-j> <Esc><C-w>j
 inoremap <C-k> <Esc><C-w>k
 inoremap <C-l> <Esc><C-w>l
+
+" Filetype-specific Settings
+autocmd FileType c,cpp setlocal cindent
+autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 expandtab
+autocmd FileType markdown setlocal wrap
 
 " Autocommands
 augroup vimrc_autocommands
@@ -192,3 +203,14 @@ set omnifunc=syntaxcomplete#Complete
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
+" Basic Autocompletion
+set completeopt=menuone,noinsert,noselect
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Terminal Settings
+if has('terminal')
+    nnoremap <leader>t :terminal<CR>i
+    tnoremap <Esc> <C-\><C-n>
+endif
