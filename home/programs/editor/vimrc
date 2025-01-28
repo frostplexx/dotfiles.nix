@@ -77,7 +77,7 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>t :below terminal<CR>
 nnoremap <leader>vt :vertical terminal<CR>
-nnoremap <leader>gcc :call ToggleComment()<CR>
+nnoremap gcc :call ToggleComment()<CR>
 nnoremap <leader>si :call SortINISections()<CR>
 nnoremap <leader>ae :call AlignEquals()<CR>
 nnoremap <leader>cf :call InsertFunctionComment()<CR>
