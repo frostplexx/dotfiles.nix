@@ -105,5 +105,6 @@
     hyprshot
     ulauncher
     alsa-utils
+    pavucontrol
   ];
 }
