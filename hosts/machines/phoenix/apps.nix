@@ -106,5 +106,6 @@
     ulauncher
     alsa-utils
     pavucontrol
+    vlc
   ];
 }
