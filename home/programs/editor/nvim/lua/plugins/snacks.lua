@@ -69,6 +69,7 @@ return {
         { "<leader>fg",      function() Snacks.picker.grep() end,                  desc = "Live Grep",                   silent = true },
         { "<leader>fh",      function() Snacks.picker.help() end,                  desc = "Help Tags",                   silent = true },
         { "<leader>ss",      function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Symbols" },
+        { "<leader>cu",      function() Snacks.picker.undo() end,                  desc = "Undo Tree" },
 
 
     },
