@@ -19,12 +19,13 @@ in {
 
   programs.nixcord = {
     enable = true;
+    discord.enable = false;
     discord.vencord = {
-      package = pkgs.vencord;
-      enable = false;
+      unstable = true;
     };
     vesktop.enable = true;
     quickCss = '''';
+    openASAR.enable = true;
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
