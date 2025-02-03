@@ -93,19 +93,21 @@
     # gnome-tweaks
     # xdg-desktop-portal-gnome
     gnome-keyring
+    xdg-desktop-portal-gnome
     libgnome-keyring
     libsecret
 
     # Hyprland
     swww
     wl-clipboard
-    hyprpolkitagent
+    # hyprpolkitagent
     nautilus
     gpustat
     hyprshot
-    ulauncher
+    # ulauncher
     alsa-utils
     pavucontrol
     vlc
+    xwayland-satellite
   ];
 }

@@ -115,7 +115,8 @@
         enable = true;
         user = config.user.name;
       };
-      defaultSession = "hyprland";
+      # defaultSession = "hyprland";
+      # defaultSession = "niri";
     };
 
     # desktopManager.plasma6.enable = true;
@@ -290,6 +291,7 @@
     # "plasma"
     # "gnome"
     "hyprland"
+    "niri"
     "nixcord"
     "spicetify"
   ];

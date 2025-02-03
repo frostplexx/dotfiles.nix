@@ -10,6 +10,7 @@ _: let
     wezterm = ./programs/wezterm;
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
+    niri = ./programs/niri;
     plasma = ./programs/plasma;
     gnome = ./programs/gnome;
     hyprland = ./programs/hyprland;
