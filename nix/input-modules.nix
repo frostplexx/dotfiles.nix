@@ -19,6 +19,7 @@
       inputs.plasma-manager.homeManagerModules.plasma-manager
       inputs.nixcord.homeManagerModules.nixcord
       inputs.spicetify-nix.homeManagerModules.default
+      inputs.niri.homeModules.niri
       {
         # explicitly disable stylix for spicetify because its managed by spicetify-nix
         stylix.targets.spicetify.enable = false;
