@@ -33,21 +33,20 @@ It provides a reproducible setup for macOS systems using declarative configurati
     - `configuration.nix` for system configurtion
     - `hardware-configuration.nix` (optional) for hardware configs
     - `apps.nix` (optioanal) for specific apps that only that host should have
-    - `stylix.nix` (optional) if you want to specify stylix settings, e.g. font, cursor
 2. Add you config to `hosts/default.nix`. My computers are named after `<location>-<type>-<name>` but the make 
 script only looks at the name part so make sure that matches in the config:
 ```nix
 # or darwinConfigurations
 nixosConfigurations = {
     #...
-  foo = {
-    system = "x86_64-linux";
-    stateVersion = "24.05";
-    modules = [
-      ./base # Base configuration
-      ./machines/foo/configuration.nix # Machine-specific configs
-    ];
-  };
+    foo = {
+        system = "x86_64-linux";
+        stateVersion = "24.05";
+        modules = [
+            ./base # Base configuration
+            ./machines/foo/configuration.nix # Machine-specific configs
+        ];
+    };
     #...
 };
 ```
@@ -55,14 +54,14 @@ nixosConfigurations = {
 ```nix
 # Home Manager configuration
 home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
-  "editor"
-  "firefox"
-  "kitty"
-  "git"
-  "shell"
-  "plasma"
-  "nixcord"
-  "spicetify"
+    "editor"
+    "firefox"
+    "kitty"
+    "git"
+    "shell"
+    "plasma"
+    "nixcord"
+    "spicetify"
 ];
 ```
 
@@ -80,19 +79,19 @@ To add a new module you need to:
 2. Configure what you want to configure
 3. Add it to the `allModules` list in `home/default.nix`
 4. Inside one of your hosts configs (located in `hosts/machines/<hostname>/configuration.nix`) add the module to the list of 
-   modules for the home-manager config
+modules for the home-manager config
    ```nix
     # Home Manager configuration
     home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
-      "aerospace"
-      "editor"
-      "firefox"
-      "kitty"
-      "git"
-      "shell"
-      "nixcord"
-      "spicetify"
-      "ssh"
-      "<your_module>"
+        "aerospace"
+        "editor"
+        "firefox"
+        "kitty"
+        "git"
+        "shell"
+        "nixcord"
+        "spicetify"
+        "ssh"
+        "<your_module>"
     ];
    ```

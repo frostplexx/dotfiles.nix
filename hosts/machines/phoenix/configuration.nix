@@ -10,7 +10,6 @@
     ./hardware-configuration.nix # Hardware-specific settings
     ../../base # Base configuration
     ./apps.nix # Phoenix-specific apps
-    ./stylix.nix
     ./sunshine.nix
     ./vfio
   ];
@@ -85,25 +84,12 @@
       enable = true;
     };
     gnome.gnome-keyring.enable = true;
+    gvfs.enable = true;
 
     xserver = {
       enable = true;
       xkb.layout = "us";
       videoDrivers = ["nvidia"];
-      # desktopManager.gnome.enable = true;
-      displayManager = {
-        # gdm.enable = true;
-        # autoLogin = {
-        #   enable = true;
-        #   user = "daniel";
-        # };
-      };
-    };
-
-    udev = {
-      # packages = with pkgs; [
-      #   gnome-settings-daemon
-      # ];
     };
 
     displayManager = {
@@ -115,11 +101,8 @@
         enable = true;
         user = config.user.name;
       };
-      # defaultSession = "hyprland";
-      # defaultSession = "niri";
+      defaultSession = "niri";
     };
-
-    # desktopManager.plasma6.enable = true;
 
     # Hardware services
     hardware = {
@@ -148,27 +131,8 @@
   environment.sessionVariables = {
     # WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    DISPLAY = "DP-2";
   };
-
-  # Exclude some packages from gnome
-  # environment.gnome.excludePackages = with pkgs; [
-  #   atomix
-  #   cheese
-  #   epiphany
-  #   evince
-  #   geary
-  #   gedit
-  #   gnome-characters
-  #   gnome-music
-  #   gnome-photos
-  #   gnome-terminal
-  #   gnome-tour
-  #   hitori
-  #   iagno
-  #   tali
-  #   totem
-  #   yelp
-  # ];
 
   # Hardware configuration
   hardware = {
@@ -205,8 +169,28 @@
     services = {
       "getty@tty1".enable = false;
       "autovt@tty1".enable = false;
+      xwayland-satellite = {
+        enable = true;
+        unitConfig = {
+          Description = "Xwayland outside your Wayland";
+          BindsTo = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
+          Requisite = ["graphical-session.target"];
+        };
+
+        serviceConfig = {
+          Type = "notify";
+          NotifyAccess = "all";
+          ExecStart = "xwayland-satellite";
+          StandardOutput = "journal";
+        };
+
+        wantedBy = ["graphical-session.target"];
+      };
     };
   };
+
   # System maintenance
   system = {
     autoUpgrade = {
@@ -229,7 +213,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [pkgs.xdg-desktop-portal-gnome];
   };
 
   # User configuration
@@ -258,39 +242,16 @@
     in ["${automount_opts},credentials=/etc/nixos/nas-secrets,uid=1000,gid=100"];
   };
 
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    systemService = true;
-    user = "daniel";
-    group = "wheel";
-    dataDir = "/home/daniel/syncthing";
-    settings = {
-      devices = {
-        "steamdeck" = {id = "H7CT2Y7-RNY2HRN-3N4U2BJ-TM5V3DE-URDDL6K-3X2USMG-DHHNHC7-TFPDXAI";};
-      };
-      folders = {
-        "VintageStory" = {
-          path = "/home/daniel/.config/VintagestoryData";
-          devices = ["steamdeck"];
-          ignorePerms = true;
-        };
-      };
-    };
+  services = {
   };
 
   # Home Manager configuration
   home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
     "editor"
-    # "firefox"
-    # "kitty"
     "wezterm"
     "ghostty"
     "git"
     "shell"
-    # "plasma"
-    # "gnome"
-    "hyprland"
     "niri"
     "nixcord"
     "spicetify"

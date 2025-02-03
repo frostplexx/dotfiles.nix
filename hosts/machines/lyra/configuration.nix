@@ -9,7 +9,6 @@
     ../../base # Base configuration
     ./apps.nix # Lyra-specific apps
     ./custom_icons/custom_icons.nix # Custom application icons
-    ./stylix.nix
     ../../../nix/custom-icons.nix
   ];
 
@@ -62,7 +61,8 @@
        # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 
        #set wallpaper
-      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/${vars.user}/dotfiles.nix/home/programs/plasma/wallpaper.png"'
+      osascript -e 'tell application "Finder" to set desktop picture to POSIX file
+       "/Users/${vars.user}/dotfiles.nix/assets/wallpaper.png"'
 
        # Reload settings
        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u

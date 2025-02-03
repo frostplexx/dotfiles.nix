@@ -18,17 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Desktop environment and theming
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Application-specific inputs
     nur.url = "github:nix-community/nur";
     nixcord = {

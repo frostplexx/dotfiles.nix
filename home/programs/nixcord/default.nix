@@ -13,10 +13,6 @@
     then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in {
-  stylix.targets = {
-    vesktop.enable = false; # Deactivate stylix because it doesnt work on macos
-  };
-
   programs.nixcord = {
     enable = true;
     discord.enable = false;
