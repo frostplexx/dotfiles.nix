@@ -33,21 +33,21 @@ _: {
     "Shift+Mod+9".action.move-column-to-workspace = 9;
 
     # Window movement with Alt+hjkl
-    "Alt+h".action.move-window = "left";
-    "Alt+j".action.move-window = "down";
-    "Alt+k".action.move-window = "up";
-    "Alt+l".action.move-window = "right";
+    # "Alt+h".action.move-window = "left";
+    # "Alt+j".action.move-window = "down";
+    # "Alt+k".action.move-window = "up";
+    # "Alt+l".action.move-window = "right";
 
     # Window swapping with Alt+Shift+hjkl
-    "Alt+Shift+h".action.swap-window-with = "left";
-    "Alt+Shift+j".action.swap-window-with = "down";
-    "Alt+Shift+k".action.swap-window-with = "up";
-    "Alt+Shift+l".action.swap-window-with = "right";
+    # "Alt+Shift+h".action.swap-window-with = "left";
+    # "Alt+Shift+j".action.swap-window-with = "down";
+    # "Alt+Shift+k".action.swap-window-with = "up";
+    # "Alt+Shift+l".action.swap-window-with = "right";
 
     # Window states
-    "Alt+t".action.set-window-layout = "tiles"; # Tiling mode
-    "Alt+s".action.set-window-layout = "stacked"; # Stacking mode
-    "Alt+f".action.toggle-fullscreen = {}; # Toggle fullscreen
-    "Alt+Shift+f".action.toggle-floating = {}; # Toggle floating
+    # "Alt+t".action.set-window-layout = "tiles"; # Tiling mode
+    # "Alt+s".action.set-window-layout = "stacked"; # Stacking mode
+    # "Alt+f".action.toggle-fullscreen = {}; # Toggle fullscreen
+    # "Alt+Shift+f".action.toggle-floating = {}; # Toggle floating
   };
 }
