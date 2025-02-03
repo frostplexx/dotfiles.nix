@@ -47,7 +47,7 @@
   # TODO: move this to hardware-configuration.nix
   boot = {
     kernelModules = ["i2c-dev"];
-    kernelPackages = pkgs.linuxPackages_6_11;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
       # Hardware optimizations
       "acpi_enforce_resources=lax"
