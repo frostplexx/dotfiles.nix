@@ -32,22 +32,36 @@ _: {
     "Shift+Mod+8".action.move-column-to-workspace = 8;
     "Shift+Mod+9".action.move-column-to-workspace = 9;
 
+    "Mod+Tab".action.focus-workspace-previous = {};
+
+    "Mod+BracketLeft".action.consume-or-expel-window-left = {};
+    "Mod+BracketRight".action.consume-or-expel-window-right = {};
+
     # Window movement with Alt+hjkl
-    # "Alt+h".action.move-window = "left";
-    # "Alt+j".action.move-window = "down";
-    # "Alt+k".action.move-window = "up";
-    # "Alt+l".action.move-window = "right";
+    "Alt+H".action.focus-column-left = {};
+    "Alt+J".action.focus-window-or-workspace-down = {};
+    "Alt+K".action.focus-window-or-workspace-up = {};
+    "Alt+L".action.focus-column-right = {};
 
     # Window swapping with Alt+Shift+hjkl
-    # "Alt+Shift+h".action.swap-window-with = "left";
-    # "Alt+Shift+j".action.swap-window-with = "down";
-    # "Alt+Shift+k".action.swap-window-with = "up";
-    # "Alt+Shift+l".action.swap-window-with = "right";
+    "Alt+Shift+H".action.move-column-left = {};
+    "Alt+Shift+J".action.move-window-down-or-to-workspace-down = {};
+    "Alt+Shift+K".action.move-window-up-or-to-workspace-up = {};
+    "Alt+Shift+L".action.move-column-right = {};
 
     # Window states
     # "Alt+t".action.set-window-layout = "tiles"; # Tiling mode
     # "Alt+s".action.set-window-layout = "stacked"; # Stacking mode
-    # "Alt+f".action.toggle-fullscreen = {}; # Toggle fullscreen
+    "Alt+f".action.fullscreen-window = {}; # Toggle fullscreen
+    "Mod+R".action.switch-preset-column-width = {};
+    "Mod+Shift+R".action.reset-window-height = {};
+
+    # "Mod+Minus".action.set-column-width = "-10%";
+    # "Mod+Plus".action.set-column-width = "+10%";
+    # "Mod+Shift+Minus".action.set-column-height = "-10%";
+    # "Mod+Shift+Plus".action.set-column-height = "+10%";
+
+    "Ctrl+Shift+2".action.screenshot-window = {};
     # "Alt+Shift+f".action.toggle-floating = {}; # Toggle floating
   };
 }

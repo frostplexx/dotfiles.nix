@@ -52,16 +52,26 @@ in {
         size = 20;
         theme = "${pointer.name}";
       };
+      input = {
+        mouse.accel-profile = "flat";
+        focus-follows-mouse.enable = true;
+      };
       layout = {
         gaps = 8;
         focus-ring.enable = false;
         always-center-single-column = true;
+        center-focused-column = "on-overflow";
         border = {
           enable = true;
           width = 1;
           active.color = "rgb(137 180 250)";
           inactive.color = "rgb(127 132 156)";
         };
+        preset-column-widths = [
+          {proportion = 1.0;}
+          {proportion = 1.0 / 2.0;}
+          {proportion = 2.0 / 3.0;}
+        ];
       };
       cursor.hide-when-typing = true;
     };
