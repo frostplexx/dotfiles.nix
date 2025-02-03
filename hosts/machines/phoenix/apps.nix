@@ -33,7 +33,7 @@
       ];
     };
 
-    hyprland = {
+    niri = {
       enable = true;
     };
 
@@ -72,39 +72,15 @@
     xclip
     inputs.zen-browser.packages."${system}".beta
     # inputs.ghostty.packages.x86_64-linux.default
-
     cifs-utils
 
-    #Plasma specific
-    # kde-rounded-corners
-    # gnome-themes-extra # Breeze themes are included here
-
-    # Gnome specific
-    gtk3
-    adwaita-icon-theme
-    # gsettings-desktop-schemas
-    # gnomeExtensions.blur-my-shell
-    # gnomeExtensions.just-perfection
-    # gnomeExtensions.space-bar
-    # gnomeExtensions.tactile
-    # gnomeExtensions.undecorate
-    # gnomeExtensions.appindicator
-    # gnomeExtensions.user-themes
-    # gnome-tweaks
-    # xdg-desktop-portal-gnome
     gnome-keyring
-    xdg-desktop-portal-gnome
     libgnome-keyring
     libsecret
-
-    # Hyprland
     swww
     wl-clipboard
-    # hyprpolkitagent
     nautilus
     gpustat
-    hyprshot
-    # ulauncher
     alsa-utils
     pavucontrol
     vlc

@@ -1,0 +1,143 @@
+@import "/home/daniel/.config/waybar/mocha.css";
+
+@define-color main-color @blue;
+@define-color background @base;
+@define-color foreground @text;
+
+* {
+    font: bold 13px "JetBrainsMono Nerd Font Propo";
+    border: none;
+    border-radius: 0px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window#waybar {
+    background: alpha(@base, 0.3);
+    border-radius: 10px;
+}
+
+#window {
+    padding: 2px 10px;
+    margin: 4px 2px 4px 4px;
+    background: alpha(@base, 0.3);
+    border-radius: 10px;
+    color: @lavender;
+}
+
+tooltip {
+    background: alpha(@base, 0.3);
+    border: 2px solid alpha(@lavender, 0.3);
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: @text;
+}
+
+#custom-arrow-right {
+    color: @blue;
+    margin: 0px 4px;
+}
+
+#cpu,
+#memory,
+#disk,
+#custom-updates {
+    padding: 0px 6px;
+    margin: 8px 4px;
+    background: alpha(@surface0, 0.3);
+    color: @blue;
+    border-radius: 10px;
+}
+
+#workspaces {
+    margin: 4px 4px;
+    background: alpha(@base, 0.5);
+    border-radius: 10px;
+}
+
+#workspaces button {
+    padding: 0px 4px;
+    margin: 4px 4px;
+    color: alpha(@text, 0.5);
+}
+
+#workspaces button.active {
+    transition: color 0.5s;
+    color: @lavender;
+}
+
+#workspaces button.urgent,
+#workspaces button:hover {
+    color: @mauve;
+    background-color: transparent;
+}
+
+#control-center {
+    padding: 0px 8px;
+    margin: 8px 4px;
+    color: @lavender;
+    background: alpha(@base, 0.3);
+    border-radius: 10px;
+}
+
+#bluetooth,
+#network,
+#pulseaudio {
+    padding: 0px 0 0 4px;
+}
+
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#pulseaudio-slider {
+    margin: 10px;
+}
+
+#pulseaudio-slider highlight {
+    border-radius: 8px;
+    background-color: @lavender;
+}
+
+#language {
+    padding: 0px 3px 2px 0px;
+}
+
+#custom-arrow-left {
+    color: @lavender;
+    margin: 0px 4px;
+}
+
+#custom-notifications,
+#custom-weather,
+#custom-theme-switcher {
+    padding: 0px 8px;
+    margin: 8px 4px;
+    color: @blue;
+    background: alpha(@surface0, 0.3);
+    border-radius: 10px;
+}
+
+#clock {
+    padding: 0px 8px;
+    margin: 4px 2px 4px 2px;
+    background: alpha(@base, 0.3);
+    border-radius: 10px;
+    color: @lavender;
+}
+
+#power {
+    background: alpha(@blue, 0.3);
+    border-radius: 10px;
+    margin: 4px;
+}
+
+#battery {
+    padding: 0px 8px;
+}

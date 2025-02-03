@@ -10,10 +10,6 @@
     hash = "sha256-1FZ8wcf2VVp6ZWY27vm1dUU1KAL32WwoYbNA/8RUAog=";
   };
 in {
-  stylix.targets = {
-    btop.enable = false;
-  };
-
   programs.zsh = {
     enable = true;
 

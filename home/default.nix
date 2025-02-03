@@ -6,14 +6,10 @@ _: let
     editor = ./programs/editor;
     firefox = ./programs/firefox;
     git = ./programs/git;
-    kitty = ./programs/kitty;
     wezterm = ./programs/wezterm;
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
     niri = ./programs/niri;
-    plasma = ./programs/plasma;
-    gnome = ./programs/gnome;
-    hyprland = ./programs/hyprland;
     shell = ./programs/shell;
     spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;
