@@ -54,7 +54,7 @@ config.inactive_pane_hsb = {
     brightness = 0.8,
 }
 
-config.color_scheme = "catppuccin-mocha";
+config.color_scheme = 'Catppuccin Mocha'
 config.window_background_opacity = 0.8
 
 config.max_fps = 144

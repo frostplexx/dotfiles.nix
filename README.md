@@ -5,14 +5,14 @@
 This repository contains my personal system configurations for NixOS and MacOS.
 It provides a reproducible setup for macOS systems using declarative configuration.
 
-|               | MacOS                 | Linux                                              |
-|---------------|-------------------------|--------------------------------------------------|
-| **Shell:**    | zsh | zsh                                                |
-| **WM:**       | aerospace       | kde plasma 6 |
-| **Editor:**   | neovim | neovim                                                |
-| **Terminal:** | kitty                    | kitty                                               |
-| **Launcher:** | raycast                    | krunner                                                |
-| **Browser:**  | firefox                 | firefox                                                |
+|               | MacOS                 | Linux                                            |
+|---------------|-----------------------|--------------------------------------------------|
+| **Shell:**    | zsh                   | zsh                                              |
+| **WM:**       | yabai                 | niri                                             |
+| **Editor:**   | neovim                | neovim                                           |
+| **Terminal:** | wezterm               | wezterm                                          |
+| **Launcher:** | raycast               | fuzzel                                           |
+| **Browser:**  | zen browser           | zen browser                                      |
 
 
 ---

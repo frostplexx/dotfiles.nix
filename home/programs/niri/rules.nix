@@ -2,39 +2,40 @@ _: {
   programs.niri.settings.window-rules = [
     {
       matches = [{app-id = "zen$";}];
-      open-on-workspace = "1";
+      open-on-workspace = "browse";
     }
     {
       matches = [{app-id = "org.wezfurlong.wezterm$";}];
-      open-on-workspace = "2";
+      open-on-workspace = "dev";
     }
     {
       matches = [{app-id = "jetbrains-idea$";}];
-      open-on-workspace = "2";
+      open-on-workspace = "dev";
     }
     # Space 3: Notes
     {
       matches = [{app-id = "obsidian$";}];
-      open-on-workspace = "3";
+      open-on-workspace = "write";
     }
     # Space 4: Communication
     {
       matches = [{app-id = "vesktop$";}];
-      open-on-workspace = "4";
+      open-on-workspace = "chat";
     }
     # Space 5: Music
     {
       matches = [{app-id = "spotify$";}];
-      open-on-workspace = "6";
+      open-on-workspace = "music";
+      open-maximized = true;
     }
     # Space 6: Gaming
     {
       matches = [{app-id = "steam$";}];
-      open-on-workspace = "6";
+      open-on-workspace = "game";
     }
     {
       matches = [{app-id = "steam_app_.*";}];
-      open-on-workspace = "6";
+      open-on-workspace = "game";
     }
     {
       geometry-corner-radius = let
