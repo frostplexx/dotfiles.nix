@@ -61,7 +61,6 @@ home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules 
     "shell"
     "plasma"
     "nixcord"
-    "spicetify"
 ];
 ```
 
@@ -90,7 +89,6 @@ modules for the home-manager config
         "git"
         "shell"
         "nixcord"
-        "spicetify"
         "ssh"
         "<your_module>"
     ];

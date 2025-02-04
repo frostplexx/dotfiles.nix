@@ -34,6 +34,7 @@
     obsidian
     _1password-cli
     transmission_4
+    spotify
   ];
   # ++ [
   #   inputs.zen-browser.packages."${system}".specific

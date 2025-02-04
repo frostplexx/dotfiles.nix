@@ -44,7 +44,6 @@
     "git"
     "shell"
     "nixcord"
-    "spicetify"
     "ssh"
   ];
 

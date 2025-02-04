@@ -11,7 +11,6 @@ _: let
     nixcord = ./programs/nixcord;
     niri = ./programs/niri;
     shell = ./programs/shell;
-    spicetify = ./programs/spicetify;
     ssh = ./programs/ssh;
     macos-wm = ./programs/macos-wm;
   };
