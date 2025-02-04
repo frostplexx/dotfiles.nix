@@ -254,6 +254,5 @@
     "shell"
     "niri"
     "nixcord"
-    "spicetify"
   ];
 }

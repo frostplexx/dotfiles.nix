@@ -6,7 +6,6 @@
 
     home = [
       inputs.nixcord.homeManagerModules.nixcord
-      inputs.spicetify-nix.homeManagerModules.default
       inputs.niri.homeModules.niri
     ];
 
