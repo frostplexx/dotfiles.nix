@@ -60,7 +60,6 @@ in {
         gaps = 8;
         focus-ring.enable = false;
         always-center-single-column = true;
-        center-focused-column = "on-overflow";
         border = {
           enable = true;
           width = 1;
