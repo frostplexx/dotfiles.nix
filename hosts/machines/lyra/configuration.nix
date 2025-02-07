@@ -53,19 +53,18 @@
 
     # Post-activation scripts
     activationScripts.postUserActivation.text = ''
-       # Disable mouse acceleration
-       defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-       defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
-       # Title bar icons in finder
-       # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+             # Disable mouse acceleration
+             defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+             defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
+             # Title bar icons in finder
+             # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 
-       #set wallpaper
-      osascript -e 'tell application "Finder" to set desktop picture to POSIX file
-       "/Users/${vars.user}/dotfiles.nix/assets/wallpaper.png"'
+             #set wallpaper
+      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/daniel/dotfiles.nix/assets/wallpaper.png"'
 
-       # Reload settings
-       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-       killall Finder
+             # Reload settings
+             /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+             killall Finder
     '';
 
     defaults = {
