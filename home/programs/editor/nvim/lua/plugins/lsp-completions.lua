@@ -27,7 +27,7 @@ return {
                             global_snippets = { 'all' },
                             extended_filetypes = {},
                             ignored_filetypes = {},
-                            get_filetype = function(context)
+                            get_filetype = function()
                                 return vim.bo.filetype
                             end,
                             clipboard_register = nil,

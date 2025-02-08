@@ -3,27 +3,58 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = { "dundalek/lazy-lsp.nvim" },
+        opts = {
+            diagnostics = {
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN] = "",
+                        [vim.diagnostic.severity.HINT] = "",
+                        [vim.diagnostic.severity.INFO] = "",
+                    },
+                    numhl = {
+                        [vim.diagnostic.severity.WARN] = "WarningMsg",
+                        [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+                        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+                        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+                    },
+                },
+            },
+        },
         config = function()
             -- Update diagnostics in insert mode
             vim.diagnostic.config({
-                underline = true,
                 update_in_insert = true,
-                virtual_text = {
-                    spacing = 4,
-                    source = "if_many",
-                },
+                virtual_lines = true, -- disable if you dont want multiline diagnostics as virtual lines
+                -- enable if you want previous diagnostics behaviour
+                virtual_text = false,
+                -- virtual_text = {
+                --     spacing = 4,
+                --     source = "if_many",
+                -- },
                 codelens = {
                     enabled = true,
                 },
                 document_highlight = {
                     enabled = true,
                 },
+                underline_style = {
+                    [vim.diagnostic.severity.ERROR] = "curly",
+                    [vim.diagnostic.severity.WARN] = "curly",
+                    [vim.diagnostic.severity.INFO] = "underline",
+                    [vim.diagnostic.severity.HINT] = "underline",
+                },
+                underline = {
+                    severity = {
+                        min = vim.diagnostic.severity.HINT,
+                    },
+                },
                 severity_sort = true,
                 float = {
                     focusable = true,
                     style = "minimal",
                     border = "rounded",
-                    source = "always",
+                    source = "if_many",
                     header = "",
                     prefix = "",
                 },
@@ -89,15 +120,16 @@ return {
                     capabilities = require('blink.cmp').get_lsp_capabilities(),
                 },
                 excluded_servers = {
-                    "ccls",            -- prefer clangd
-                    "denols",          -- prefer eslint and ts_ls
+                    "ccls",                            -- prefer clangd
+                    "sourcekit",                       -- prefer clangd
+                    "denols",                          -- prefer eslint and ts_ls
                     "docker_compose_language_service", -- yamlls should be enough?
-                    "flow",            -- prefer eslint and ts_ls
-                    "ltex",            -- grammar tool using too much CPU
-                    "quick_lint_js",   -- prefer eslint and ts_ls
-                    "scry",            -- archived on Jun 1, 2023
-                    "tailwindcss",     -- associates with too many filetypes
-                    "biome",           -- not mature enough to be default
+                    "flow",                            -- prefer eslint and ts_ls
+                    "ltex",                            -- grammar tool using too much CPU
+                    "quick_lint_js",                   -- prefer eslint and ts_ls
+                    "scry",                            -- archived on Jun 1, 2023
+                    "tailwindcss",                     -- associates with too many filetypes
+                    "biome",                           -- not mature enough to be default
                 },
                 preferred_servers = {
                     markdown = {},
