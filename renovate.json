@@ -3,9 +3,14 @@
     "enabled": true
   },
   "lockFileMaintenance": {
-    "enabled": false,
-    "schedule": ["before 4am on monday"]
+    "enabled": true,
+    "schedule": [
+      "at any time"
+    ]
   },
-  "reviewers": ["frostplexx"],
-  "schedule": ["before 4am on monday"]
+  "schedule": [
+    "at any time"
+  ],
+  "automerge": true,
+  "automergeType": "pr"
 }
