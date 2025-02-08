@@ -28,7 +28,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.g.vimtex_view_method = "skim"
 
-vim.opt.numberwidth = 4                                  -- Minimal number of columns to use for the line number
+vim.opt.numberwidth = 3                                  -- Minimal number of columns to use for the line number
 vim.opt.signcolumn = "yes:1"                             -- Always show signcolumn (after line numbers)
 vim.wo.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s' -- Custom format that places signs after numbers
 
@@ -41,7 +41,6 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-
 
 -- diff mopde settings
 -- show merged at the bottom
