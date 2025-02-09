@@ -54,6 +54,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
+
 -- [[ Neovide Config ]]
 if vim.g.neovide then
     vim.o.guifont = "JetBrains Mono:h13"
