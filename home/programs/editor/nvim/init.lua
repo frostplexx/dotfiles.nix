@@ -1,6 +1,12 @@
 -- [[ Init File ]]
+--
+if vim.fn.has("nvim-0.10") == 0 then
+    vim.notify("This config only supports Neovim 0.10+", vim.log.levels.ERROR)
+    return
+end
+
 vim.loader.enable() -- speed up startup time
-require("keymap")   -- load keymaps
+require("core.keymap")   -- load keymaps
 
 _G.dd = function(...)
     Snacks.debug.inspect(...)
@@ -35,7 +41,10 @@ require("lazy").setup({
     },
     defaults = {
         lazy = true,
-        version = false,           -- always use the latest git commit
+        version = false, -- always use the latest git commit
+    },
+    change_detection = {
+        notify = false,
     },
     checker = { enabled = false }, -- automatically check for plugin updates
     ui = {
@@ -61,3 +70,5 @@ require("lazy").setup({
         },
     },
 })
+
+require("core.lsp")

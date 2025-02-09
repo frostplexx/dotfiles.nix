@@ -1,3 +1,2 @@
-require("options")
-require("autocommands")
-require('auto-pairs').setup()
+require("core.options")
+require("core.autocommands")

@@ -6,7 +6,6 @@ return {
         version = '*',
         dependencies = {
             "rafamadriz/friendly-snippets",
-            "moyiz/blink-emoji.nvim",
         },
         opts = {
             sources = {
@@ -15,7 +14,6 @@ return {
                     'path',
                     'snippets',
                     'buffer',
-                    "emoji",
                 },
                 providers = {
                     snippets = {
@@ -33,12 +31,6 @@ return {
                             clipboard_register = nil,
                         }
                     },
-                    emoji = {
-                        module = "blink-emoji",
-                        name = "Emoji",
-                        score_offset = 15,        -- Tune by preference
-                        opts = { insert = true }, -- Insert emoji (default) or complete its name
-                    }
                 }
             },
             appearance = {

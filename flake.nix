@@ -49,6 +49,4 @@
         ./hosts
       ];
     };
-
-  # some important changes
 }

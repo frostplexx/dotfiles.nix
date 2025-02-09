@@ -96,14 +96,6 @@ in {
       };
     };
 
-    zellij = {
-      enable = true;
-      # enableZshIntegration = true;
-      settings = {
-        theme = "catppuccin-macchiato";
-      };
-    };
-
     # Better ls
     eza = {
       enable = true;
@@ -179,8 +171,8 @@ in {
 
       initLua = ''
         require("full-border"):setup {
-        	-- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
-        	type = ui.Border.ROUNDED,
+          -- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
+          type = ui.Border.ROUNDED,
         }
         require("starship"):setup()
         require("git"):setup()

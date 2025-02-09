@@ -9,6 +9,19 @@ vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent 
 -- remap redo to shift-u
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
 
+
+-- Key mappings for LSP actions
+vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
+vim.keymap.set('n', '<leader>r', vim.lsp.buf.references)
+vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename)
+vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+vim.keymap.set('n', 'ca', vim.lsp.buf.code_action)
+
+
 -- spotify_player
 local function create_float_term()
     local width = math.floor(vim.o.columns * 0.8)
