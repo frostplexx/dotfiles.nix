@@ -65,4 +65,3 @@ yabai -m signal --add event=window_created action='bash -c " window_id=$YABAI_WI
 
 # Start borders
 borders active_color=0xff8aadf4 inactive_color=0x00494d64 width=4.0 &
-yabai -m signal --add event=space_changed action="nohup open -g raycast://extensions/krzysztoff1/yabai/screens-menu-bar?launchType=background > /dev/null 2>&1 &"
