@@ -80,6 +80,7 @@
       # Mouse settings
       ".GlobalPreferences"."com.apple.mouse.scaling" = 0.875;
 
+      hitoolbox.AppleFnUsageType = "Do Nothing";
       # Global system preferences
       NSGlobalDomain = {
         # Window behavior
