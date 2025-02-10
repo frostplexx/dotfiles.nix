@@ -54,7 +54,6 @@
     brews = [
       "borders"
       "mas"
-      "svim"
     ];
     casks = [
       "altserver"
