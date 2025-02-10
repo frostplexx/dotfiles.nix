@@ -48,6 +48,9 @@ return {
             reverse = true,
         }
     },
+    config = function()
+        Snacks.input.enable()
+    end,
     keys = {
         { "<leader>z",       function() Snacks.zen() end,                                                                              desc = "Toggle Zen Mode" },
         { "<leader>.",       function() Snacks.scratch() end,                                                                          desc = "Toggle Scratch Buffer" },

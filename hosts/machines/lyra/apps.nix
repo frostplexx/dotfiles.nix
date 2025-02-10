@@ -13,11 +13,11 @@
     moonlight-qt
 
     # MacOS-specific apps
-    raycast
+    # raycast
     keka
     zoom-us
     yabai
-    skhd
+    # skhd
   ];
 
   # Homebrew configuration
@@ -35,7 +35,6 @@
       "Kagi for Safari" = 1622835804;
       "AdGuard for Safari" = 1440147259;
       "SponsorBlock for Safari" = 1573461917;
-      "Vimkey" = 1585682577;
       "Noir" = 1592917505;
       "Tailscale" = 1475387142;
 
@@ -71,6 +70,7 @@
       "zen-browser"
       "ghostty"
       "mullvadvpn"
+      "raycast"
     ];
   };
 }
