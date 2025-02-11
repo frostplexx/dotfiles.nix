@@ -23,7 +23,6 @@ in {
       };
     };
     vesktop.enable = true;
-    quickCss = '''';
     config = {
       useQuickCss = true;
       enableReactDevtools = true;
@@ -51,7 +50,10 @@ in {
         # callTimer.enable = true;
         clearURLs.enable = true;
         crashHandler.enable = true;
-        experiments.enable = true;
+        experiments = {
+          enable = true;
+          toolbarDevMenu = true;
+        };
         fakeNitro.enable = true;
         favoriteGifSearch.enable = true;
         fixImagesQuality.enable = true;
@@ -95,6 +97,7 @@ in {
       };
       force = true;
     };
+
     # Settings configuration
     "${config.programs.nixcord.discord.configDir}/settings.json" = {
       text = builtins.toJSON {
