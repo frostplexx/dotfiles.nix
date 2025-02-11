@@ -13,16 +13,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Nix
+      - name: Set up Nix and Environment
+        id: nix-setup
         uses: cachix/install-nix-action@v2
         with:
-          nix_path: /nix/store/nixpkgs.narinfo # Optional: if you want to pin nixpkgs, otherwise remove this line
+          nix_path: /nix/store/nixpkgs.narinfo # Optional: Pin nixpkgs (adjust path if needed)
+          environment_file: ${{ github.workspace }}/nix-environment.env # Output env file
+
+      - name: Load Nix Environment
+        run: |
+          if [ -f "${{ steps.nix-setup.outputs.environment_file }}" ]; then
+            echo "Loading Nix environment from ${{ steps.nix-setup.outputs.environment_file }}"
+            source "${{ steps.nix-setup.outputs.environment_file }}"
+            env # Optional: Print loaded env vars for debugging
+          else
+            echo "Nix environment file not found: ${{ steps.nix-setup.outputs.environment_file }}"
+          fi
 
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9' # Match the Python version the script is developed for
+          python-version: '3.9'
 
       - name: Run hash update script
         run: chmod +x ./utils/update-hashes.py && ./utils/update-hashes.py # Adjust path if needed
-        working-directory: ${{ github.workspace }} # Ensure script runs from the repository root
+        working-directory: ${{ github.workspace }}
