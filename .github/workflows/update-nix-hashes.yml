@@ -18,7 +18,9 @@ jobs:
 
       - name: Set up Nix environment (legacy profile)
         run: |
-          . /home/runner/.nix-profile/etc/profile.d/nix.sh
+          . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+          mkdir -p ~/.config/nix
+          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
