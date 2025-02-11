@@ -13,22 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Nix and Environment
-        id: nix-setup
-        uses: cachix/install-nix-action@v2
-        with:
-          nix_path: /nix/store/nixpkgs.narinfo # Optional: Pin nixpkgs (adjust path if needed)
-          environment_file: ${{ github.workspace }}/nix-environment.env # Output env file
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16 # or 'latest'
 
-      - name: Load Nix Environment
+      - name: Set up Nix environment (legacy profile)
         run: |
-          if [ -f "${{ steps.nix-setup.outputs.environment_file }}" ]; then
-            echo "Loading Nix environment from ${{ steps.nix-setup.outputs.environment_file }}"
-            source "${{ steps.nix-setup.outputs.environment_file }}"
-            env # Optional: Print loaded env vars for debugging
-          else
-            echo "Nix environment file not found: ${{ steps.nix-setup.outputs.environment_file }}"
-          fi
+          . /home/runner/.nix-profile/etc/profile.d/nix.sh
 
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
