@@ -21,6 +21,8 @@ jobs:
           . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
           mkdir -p ~/.config/nix
           echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+          nix-env -i fd
+          nix-env -i jq
 
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
@@ -28,5 +30,7 @@ jobs:
           python-version: '3.9'
 
       - name: Run hash update script
-        run: chmod +x ./utils/update-hashes.py && ./utils/update-hashes.py # Adjust path if needed
+        run: |
+          chmod +x ./utils/update-flake-revs.sh  && ./utils/update-flake-revs.sh 
+          chmod +x ./utils/update-hashes.py && ./utils/update-hashes.py # Adjust path if needed
         working-directory: ${{ github.workspace }}
