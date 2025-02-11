@@ -1,0 +1,28 @@
+name: Update Nix Hashes
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run every 24 hours at midnight UTC
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update_hashes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v2
+        with:
+          nix_path: /nix/store/nixpkgs.narinfo # Optional: if you want to pin nixpkgs, otherwise remove this line
+
+      - name: Install Python (if needed, try without initially)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Match the Python version the script is developed for
+
+      - name: Run hash update script
+        run: chmod +x ./utils/update-hashes.py && ./utils/update-hashes.py # Adjust path if needed
+        working-directory: ${{ github.workspace }} # Ensure script runs from the repository root

@@ -4,4 +4,4 @@ old/
 .DS_Store
 *-switch.log
 *-test.log
-
+.idea

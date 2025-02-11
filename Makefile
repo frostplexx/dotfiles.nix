@@ -29,7 +29,7 @@ NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-co
 
 HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
 
-include format.mk
+include ./utils/format.mk
 .PHONY: all update lint clean repair install
 
 all: select 
@@ -75,12 +75,12 @@ upgrade:
 	@echo "Would you like to deploy now? Y/n/c(leanup after) - Auto-continues in 5s: "; \
 		read -t 5 -n 1 response; echo; \
 		if [ -n "$$response" ] && [ "$$response" != "Y" ] && [ "$$response" != "y" ] && [ "$$response" != "c" ]; then \
-			echo "${INFO} Deployment skipped"; \
-			exit 0; \
+		echo "${INFO} Deployment skipped"; \
+		exit 0; \
 		fi; \
 		$(MAKE) select; \
 		if [ "$$response" = "c" ]; then \
-			$(MAKE) clean; \
+		$(MAKE) clean; \
 		fi
 
 install:
