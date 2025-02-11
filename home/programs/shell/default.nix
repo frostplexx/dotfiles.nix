@@ -6,8 +6,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "07258518f3bffe28d87977bc3e8a88e4b825291b";
-    hash = "sha256-axoMrOl0pdlyRgckFi4DiS+yBKAIHDhVeZQJINh8+wk=";
+    rev = "";
+    hash = "";
   };
 in {
   programs.zsh = {
@@ -73,7 +73,7 @@ in {
     "btop/themes/catppuccin-mocha.theme" = {
       source = builtins.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/btop/refs/heads/main/themes/catppuccin_mocha.theme";
-        sha256 = "0i263xwkkv8zgr71w13dnq6cv10bkiya7b06yqgjqa6skfmnjx2c";
+        sha256 = "sha256-THRpq5vaKCwf9gaso3ycC4TNDLZtBB5Ofh/tOXkfRkQ=";
       };
     };
   };
@@ -164,7 +164,7 @@ in {
         starship = pkgs.fetchFromGitHub {
           owner = "Rolv-Apneseth";
           repo = "starship.yazi";
-          rev = "af8bf6f82165b83272b6501ce7445cf2c61fbf51";
+          rev = "d1cd0a38aa6a2c2e86e62a466f43e415f781031e";
           hash = "sha256-L7MkZZqJ+t+A61ceC4Q1joLF6ytoWdgx9BwZWAGAoCA=";
         };
       };

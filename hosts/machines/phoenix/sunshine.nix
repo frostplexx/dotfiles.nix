@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   image = builtins.fetchurl {
     url = "https://cdn.osxdaily.com/wp-content/uploads/2017/12/classic-mac-os-tile-wallpapers-4.png";
-    sha256 = "sha256:1mf6298l74ll251z2qrr9ld5mzn4ncgdr4sg5gz6h8sd39pzj5wz";
+    sha256 = "sha256-nxf5bxpNI2j+K0+T3B6zxP5aGk05Y/FDEZSSQ1ESxtU=";
   };
   connectionScript = pkgs.writeShellScriptBin "script" ''
     export DISPLAY=:0
@@ -13,7 +13,7 @@
   '';
   steamImage = builtins.fetchurl {
     url = "https://cdn2.steamgriddb.com/grid/39c2966989c4f0091a99eef7f1d09c09.png";
-    sha256 = "sha256:18hka29nfwxj5xzfhxhy2ccjjaxhb8ir6v7wx0rs2lwc941r36b1";
+    sha256 = "sha256-YZmRA0mMU6Ez6PxskyNasCspGRMeduh+L7JzZ5NQE6I=";
   };
 in {
   services = {
