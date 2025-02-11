@@ -29,7 +29,7 @@ in {
       s = "spotify_player";
       c = "clear";
       q = "exit";
-
+      p = "cd $(ls -d -1 ~/Developer/* |fzf); wezterm cli split-pane --cwd $PWD --top --percent 80 -- vim .";
       # More aliases for other apps
       ls = "eza --icons=auto --git --header";
       cat = "bat --theme=base16-256";
