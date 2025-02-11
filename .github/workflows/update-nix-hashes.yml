@@ -15,7 +15,7 @@ jobs:
 
       - name: Set up Nix and Environment
         id: nix-setup
-        uses: cachix/install-nix-action@v2
+        uses: cachix/install-nix-action@v30
         with:
           nix_path: /nix/store/nixpkgs.narinfo # Optional: Pin nixpkgs (adjust path if needed)
           environment_file: ${{ github.workspace }}/nix-environment.env # Output env file
