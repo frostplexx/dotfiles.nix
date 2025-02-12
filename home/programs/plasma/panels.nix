@@ -33,7 +33,7 @@
             launchers = [
               "applications:org.kde.dolphin.desktop"
               "applications:zen.desktop"
-              "applications:wezterm.desktop"
+              "applications:org.wezfurlong.wezterm.desktop"
               "applications:steam.desktop"
             ];
           };
