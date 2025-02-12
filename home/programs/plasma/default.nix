@@ -44,7 +44,7 @@
   };
 
   programs.plasma = {
-    enable = !pkgs.stdenv.isDarwin;
+    enable = true;
     #
     # Some high-level settings:
     #
