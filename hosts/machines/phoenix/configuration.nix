@@ -95,7 +95,7 @@
     displayManager = {
       sddm = {
         enable = true;
-        wayland.enable = true;
+        # wayland.enable = true;
       };
       autoLogin = {
         enable = true;
@@ -104,9 +104,7 @@
       defaultSession = "plasma";
     };
 
-    desktopManager.plasma6 = {
-      enable = true;
-    };
+    desktopManager.plasma6.enable = true;
 
     # Hardware services
     hardware = {

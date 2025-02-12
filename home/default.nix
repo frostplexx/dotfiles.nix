@@ -9,7 +9,6 @@ _: let
     wezterm = ./programs/wezterm;
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
-    niri = ./programs/niri;
     plasma = ./programs/plasma;
     shell = ./programs/shell;
     ssh = ./programs/ssh;
