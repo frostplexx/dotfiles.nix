@@ -5,6 +5,7 @@
   config,
   lib,
   modulesPath,
+  pkgs,
   ...
 }: {
   imports = [
@@ -12,26 +13,76 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-    initrd.kernelModules = [];
-    kernelModules = ["kvm-amd"];
+    initrd = {
+      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+      kernelModules = [];
+    };
+    kernelModules = ["kvm-amd" "i2c-dev"];
     extraModulePackages = [];
+    kernelPackages = pkgs.linuxPackages_zen;
+    kernelParams = [
+      # Hardware optimizations
+      "acpi_enforce_resources=lax"
+      "amd_iommu=on"
+      "iommu=pt"
+      "zswap.enabled=1"
+      # Memory management
+      "default_hugepagesz=2M"
+      "hugepagesz=2M"
+      "hugepages=1024"
+      "transparent_hugepage=always"
+    ];
+
+    initrd = {
+      systemd.enable = true;
+      verbose = false;
+    };
+
+    consoleLogLevel = 0;
+    loader = {
+      timeout = 3;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   hardware = {
     xone.enable = true;
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";
-    fsType = "btrfs";
-    options = ["subvol=@"];
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";
+      fsType = "btrfs";
+      options = ["subvol=@"];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7209-F281";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    "/boot" = {
+      device = "/dev/disk/by-uuid/7209-F281";
+      fsType = "vfat";
+      options = ["fmask=0077" "dmask=0077"];
+    };
+
+    "/mnt/share" = {
+      device = "//u397529.your-storagebox.de/backup";
+      fsType = "cifs";
+      options = let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
+    };
+
+    "/mnt/nas" = {
+      device = "//192.168.1.122/data";
+      fsType = "cifs";
+      options = let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in ["${automount_opts},credentials=/etc/nixos/nas-secrets,uid=1000,gid=100"];
+    };
   };
 
   swapDevices = [{device = "/dev/disk/by-uuid/d74f495a-a51e-4fa6-a55a-2ce0a2b2c985";}];

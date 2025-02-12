@@ -42,48 +42,9 @@
     };
   };
 
-  # Boot configuration
-  # TODO: move this to hardware-configuration.nix
-  boot = {
-    kernelModules = ["i2c-dev"];
-    kernelPackages = pkgs.linuxPackages_zen;
-    kernelParams = [
-      # Hardware optimizations
-      "acpi_enforce_resources=lax"
-      "amd_iommu=on"
-      "iommu=pt"
-      "zswap.enabled=1"
-      # Memory management
-      "default_hugepagesz=2M"
-      "hugepagesz=2M"
-      "hugepages=1024"
-      "transparent_hugepage=always"
-    ];
-
-    initrd = {
-      systemd.enable = true;
-      verbose = false;
-    };
-
-    consoleLogLevel = 0;
-    loader = {
-      timeout = 3;
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 5;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-  };
-
   # Desktop environment
   services = {
     tailscale.enable = true;
-    blueman = {
-      enable = true;
-    };
-    gnome.gnome-keyring.enable = true;
-    gvfs.enable = true;
 
     xserver = {
       enable = true;
@@ -94,25 +55,16 @@
     displayManager = {
       sddm = {
         enable = true;
-        wayland.enable = true;
+        # wayland.enable = true;
       };
       autoLogin = {
         enable = true;
         user = config.user.name;
       };
-      defaultSession = "plasma";
+      defaultSession = "plasmax11";
     };
 
     desktopManager.plasma6.enable = true;
-
-    # Hardware services
-    hardware = {
-      openrgb = {
-        enable = true;
-        motherboard = "amd";
-        server.port = 6742;
-      };
-    };
 
     # Audio
     pipewire = {
@@ -129,17 +81,10 @@
     openssh.enable = true;
   };
 
-  environment.sessionVariables = {
-    # WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    DISPLAY = "DP-2";
-  };
-
   # Hardware configuration
   hardware = {
     pulseaudio.enable = false;
     graphics.enable = true;
-    i2c.enable = true;
 
     bluetooth = {
       enable = true; # enables support for Bluetooth
@@ -190,25 +135,6 @@
   users = {
     defaultUserShell = pkgs.zsh;
     users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
-  };
-
-  # File system configuration
-  fileSystems."/mnt/share" = {
-    device = "//u397529.your-storagebox.de/backup";
-    fsType = "cifs";
-    options = let
-      # this line prevents hanging on network split
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
-  };
-
-  fileSystems."/mnt/nas" = {
-    device = "//192.168.1.122/data";
-    fsType = "cifs";
-    options = let
-      # this line prevents hanging on network split
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in ["${automount_opts},credentials=/etc/nixos/nas-secrets,uid=1000,gid=100"];
   };
 
   # Home Manager configuration
