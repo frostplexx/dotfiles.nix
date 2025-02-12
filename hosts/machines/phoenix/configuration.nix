@@ -101,7 +101,11 @@
         enable = true;
         user = config.user.name;
       };
-      defaultSession = "niri";
+      defaultSession = "plasma";
+    };
+
+    desktopManager.plasma6 = {
+      enable = true;
     };
 
     # Hardware services
@@ -169,25 +173,6 @@
     services = {
       "getty@tty1".enable = false;
       "autovt@tty1".enable = false;
-      xwayland-satellite = {
-        enable = true;
-        unitConfig = {
-          Description = "Xwayland outside your Wayland";
-          BindsTo = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
-          After = ["graphical-session.target"];
-          Requisite = ["graphical-session.target"];
-        };
-
-        serviceConfig = {
-          Type = "notify";
-          NotifyAccess = "all";
-          ExecStart = "xwayland-satellite";
-          StandardOutput = "journal";
-        };
-
-        wantedBy = ["graphical-session.target"];
-      };
     };
   };
 
@@ -242,17 +227,13 @@
     in ["${automount_opts},credentials=/etc/nixos/nas-secrets,uid=1000,gid=100"];
   };
 
-  services = {
-  };
-
   # Home Manager configuration
   home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
     "editor"
     "wezterm"
-    "ghostty"
     "git"
     "shell"
-    "niri"
+    "plasma"
     "nixcord"
   ];
 }

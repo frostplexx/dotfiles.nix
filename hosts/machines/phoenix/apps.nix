@@ -74,16 +74,19 @@
     # inputs.ghostty.packages.x86_64-linux.default
     cifs-utils
 
-    gnome-keyring
-    libgnome-keyring
-    libsecret
-    swww
-    wl-clipboard
-    nautilus
-    gpustat
-    alsa-utils
-    pavucontrol
-    vlc
-    xwayland-satellite
+    #Plasma specific
+    kde-rounded-corners
+    gnome-themes-extra # Breeze themes are included here
+
+    # gnome-keyring
+    # libgnome-keyring
+    # libsecret
+    # swww
+    # wl-clipboard
+    # nautilus
+    # gpustat
+    # alsa-utils
+    # pavucontrol
+    # xwayland-satellite
   ];
 }
