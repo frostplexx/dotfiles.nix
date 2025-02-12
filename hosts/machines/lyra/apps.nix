@@ -66,7 +66,7 @@
       "proxyman"
       "vmware-fusion"
       "cursor"
-      "zen-browser"
+      "zen-browser@twilight"
       "ghostty"
       "mullvadvpn"
       "raycast"
