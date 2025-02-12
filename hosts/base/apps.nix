@@ -9,7 +9,7 @@
     lazygit
     nodePackages.nodejs
     llvm
-    lldb
+    # lldb
     gnumake
     gcc
     entr # Run arbitrary commands when files change

@@ -10,6 +10,7 @@ _: let
     ghostty = ./programs/ghostty;
     nixcord = ./programs/nixcord;
     niri = ./programs/niri;
+    plasma = ./programs/plasma;
     shell = ./programs/shell;
     ssh = ./programs/ssh;
     macos-wm = ./programs/macos-wm;

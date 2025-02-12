@@ -6,6 +6,7 @@
 
     home = [
       inputs.nixcord.homeManagerModules.nixcord
+      inputs.plasma-manager.homeManagerModules.plasma-manager
       inputs.niri.homeModules.niri
     ];
 

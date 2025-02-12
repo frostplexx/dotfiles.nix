@@ -102,9 +102,9 @@ in {
       source = treeSitterWithAllGrammars;
     };
 
-    ".local/share/codelldb" = {
-      source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
-      recursive = true;
-    };
+    # ".local/share/codelldb" = {
+    #   source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+    #   recursive = true;
+    # };
   };
 }
