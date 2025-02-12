@@ -11,7 +11,6 @@
     ../../base # Base configuration
     ./apps.nix # Phoenix-specific apps
     ./sunshine.nix
-    ./vfio
   ];
 
   networking = {
@@ -95,7 +94,7 @@
     displayManager = {
       sddm = {
         enable = true;
-        # wayland.enable = true;
+        wayland.enable = true;
       };
       autoLogin = {
         enable = true;
@@ -166,14 +165,6 @@
     cpuFreqGovernor = "performance";
   };
 
-  # Systemd user services
-  systemd = {
-    services = {
-      "getty@tty1".enable = false;
-      "autovt@tty1".enable = false;
-    };
-  };
-
   # System maintenance
   system = {
     autoUpgrade = {
@@ -192,11 +183,6 @@
   # Environment settings
   environment.variables = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gnome];
   };
 
   # User configuration
