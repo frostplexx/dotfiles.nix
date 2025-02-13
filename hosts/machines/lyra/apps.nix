@@ -61,6 +61,7 @@
       "mac-mouse-fix"
       "onyx"
       "orbstack"
+      "1password@beta"
       "proxyman"
       "zen-browser"
       "raycast"

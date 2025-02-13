@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  vars,
   ...
 }: {
   # Autostart applications
@@ -30,6 +31,11 @@
         "-f"
         "-e"
       ];
+    };
+
+    _1password-gui-beta = {
+      enable = true;
+      polkitPolicyOwners = [vars.user];
     };
 
     steam = {
