@@ -1,12 +1,15 @@
 # Base applications that should be available on all systems
-{pkgs,vars, ...}: {
-
-  programs = {
-    _1password-gui-beta = {
-      enable = true;
-      polkitPolicyOwners = [vars.user];
-    };
-  };
+{
+  pkgs,
+  # vars,
+  ...
+}: {
+  # programs = {
+  #   _1password-gui-beta = {
+  #     enable = true;
+  #     polkitPolicyOwners = [vars.user];
+  #   };
+  # };
 
   # Basic system packages
   environment.systemPackages = with pkgs; [
@@ -44,11 +47,9 @@
     transmission_4
     spotify
     imhex
-code-cursor
+    code-cursor
+    _1password-gui-beta
   ];
-  # ++ [
-  #   inputs.zen-browser.packages."${system}".specific
-  # ];
 
   # Base fonts
   fonts.packages = with pkgs; [
