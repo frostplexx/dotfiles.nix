@@ -4,13 +4,6 @@
   # vars,
   ...
 }: {
-  # programs = {
-  #   _1password-gui-beta = {
-  #     enable = true;
-  #     polkitPolicyOwners = [vars.user];
-  #   };
-  # };
-
   # Basic system packages
   environment.systemPackages = with pkgs; [
     # Development tools
@@ -48,7 +41,6 @@
     spotify
     imhex
     code-cursor
-    _1password-gui-beta
   ];
 
   # Base fonts
