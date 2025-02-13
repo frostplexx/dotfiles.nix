@@ -19,9 +19,6 @@
   };
   time.timeZone = "Europe/Berlin";
 
-  # System services
-  services.nix-daemon.enable = true;
-
   # Security settings
   security.pam.enableSudoTouchIdAuth = true;
   nix.settings.trusted-users = [vars.user];

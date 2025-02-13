@@ -2,12 +2,30 @@
 
 -- Set up autocommands to attach to lsp
 local lsp_dir = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h") .. '/../../lsp'
+
+-- Track LSP load status and errors
+local lsp_load_status = {}
+
+-- Load LSPs dynamically from the lsp directory
 for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
     local lsp_name = file:match("(.+)%.lua$")
     if lsp_name then
-        vim.lsp.enable(lsp_name)
+        local ok, err = pcall(vim.lsp.enable, lsp_name)
+        if not ok then
+            lsp_load_status[lsp_name] = { error = err }
+            vim.notify(
+                string.format("Failed to load LSP: %s\nError: %s", lsp_name, err),
+                vim.log.levels.WARN,
+                {
+                    title = "LSP Load Error",
+                    icon = "󰅚 ",
+                    timeout = 5000
+                }
+            )
+        end
     end
 end
+
 
 vim.lsp.inlay_hint.enable(true)
 
@@ -91,9 +109,13 @@ vim.diagnostic.config({
     },
 })
 
-
-
-
+-- enable lsp completion
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+    callback = function(ev)
+        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf)
+    end,
+})
 
 -- LSP Progress
 local progress = vim.defaulttable()

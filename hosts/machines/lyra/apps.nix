@@ -17,6 +17,8 @@
     keka
     zoom-us
     yabai
+mullvad-vpn
+    utm
     # skhd
   ];
 
@@ -59,17 +61,12 @@
       "altserver"
       "ollama"
       "mac-mouse-fix"
-      "hex-fiend"
       "onyx"
-      "1password"
       "orbstack"
       "proxyman"
-      "vmware-fusion"
-      "cursor"
       "zen-browser"
-      "ghostty"
-      "mullvadvpn"
       "raycast"
+      "arc"
     ];
   };
 }
