@@ -137,7 +137,8 @@
         # Pinned apps
         persistent-apps = [
           "/Applications/Things3.app"
-          "/Applications/Zen Browser.app/"
+          # "/Applications/Zen Browser.app/"
+          "/Applications/Arc.app/"
           "${pkgs.wezterm}/Applications/WezTerm.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];

@@ -38,7 +38,6 @@
       dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
     };
-
   };
 
   # Additional packages specific to Phoenix
@@ -68,6 +67,5 @@
     #Plasma specific
     kde-rounded-corners
     gnome-themes-extra # Breeze themes are included here
-
   ];
 }

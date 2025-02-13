@@ -17,7 +17,6 @@
     keka
     zoom-us
     yabai
-mullvad-vpn
     utm
     # skhd
   ];
@@ -46,7 +45,6 @@ mullvad-vpn
       "Goodnotes" = 1444383602;
       "WhatsApp" = 310633997;
       "Window App" = 1295203466;
-      "Enchanted" = 6474268307;
     };
     taps = [
       "FelixKratz/formulae"
@@ -66,6 +64,7 @@ mullvad-vpn
       "proxyman"
       "zen-browser"
       "raycast"
+      "mullvadvpn"
       "arc"
     ];
   };
