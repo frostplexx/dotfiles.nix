@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  vars,
   ...
 }: {
   # Autostart applications
@@ -40,10 +39,6 @@
       localNetworkGameTransfers.openFirewall = true;
     };
 
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [vars.user];
-    };
   };
 
   # Additional packages specific to Phoenix
@@ -74,15 +69,5 @@
     kde-rounded-corners
     gnome-themes-extra # Breeze themes are included here
 
-    # gnome-keyring
-    # libgnome-keyring
-    # libsecret
-    # swww
-    # wl-clipboard
-    # nautilus
-    # gpustat
-    # alsa-utils
-    # pavucontrol
-    # xwayland-satellite
   ];
 }
