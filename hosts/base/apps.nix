@@ -40,7 +40,6 @@
     transmission_4
     spotify
     imhex
-    code-cursor
   ];
 
   # Base fonts

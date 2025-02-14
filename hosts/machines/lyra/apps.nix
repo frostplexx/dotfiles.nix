@@ -33,7 +33,6 @@
     masApps = {
       # Safari extensions
       "1Password for Safari" = 1569813296;
-      "Kagi for Safari" = 1622835804;
       "AdGuard for Safari" = 1440147259;
       "SponsorBlock for Safari" = 1573461917;
       "Noir" = 1592917505;
@@ -44,7 +43,7 @@
       "eduVPN" = 1317704208;
       "Goodnotes" = 1444383602;
       "WhatsApp" = 310633997;
-      "Window App" = 1295203466;
+      "Windows App" = 1295203466;
     };
     taps = [
       "FelixKratz/formulae"
@@ -61,6 +60,7 @@
       "mac-mouse-fix"
       "onyx"
       "orbstack"
+      "codeedit"
       "1password@beta"
       "proxyman"
       "zen-browser"
