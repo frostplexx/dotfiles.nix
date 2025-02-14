@@ -33,7 +33,7 @@
       ];
     };
 
-    _1password-gui-beta = {
+    _1password-gui= {
       enable = true;
       polkitPolicyOwners = [vars.user];
     };
