@@ -40,9 +40,9 @@
   documentation = {
     enable = true;
     man = {
+      generateCaches = true;
       enable = true;
     };
-    # dev.enable = true;
+    dev.enable = true;
   };
-  # man.generateCaches = true;
 }
