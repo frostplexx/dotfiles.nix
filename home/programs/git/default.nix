@@ -19,9 +19,9 @@
         tool = "nvim";
         guitool = "nvim";
       };
-      gpg = {
-        format = "ssh";
-      };
+      # gpg = {
+      #   format = "ssh";
+      # };
       # "gpg \"ssh\"" = {
       #   program =
       #     if pkgs.stdenv.isDarwin
