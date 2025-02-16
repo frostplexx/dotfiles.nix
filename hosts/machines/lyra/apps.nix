@@ -60,7 +60,6 @@
       "mac-mouse-fix"
       "onyx"
       "orbstack"
-      "codeedit"
       "1password@beta"
       "proxyman"
       "zen-browser"
