@@ -3,8 +3,6 @@
 -- Set up autocommands to attach to lsp
 local lsp_dir = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h") .. '/../../lsp'
 
--- Track LSP load status and errors
-local lsp_load_status = {}
 
 -- Load LSPs dynamically from the lsp directory
 for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
@@ -12,7 +10,6 @@ for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
     if lsp_name then
         local ok, err = pcall(vim.lsp.enable, lsp_name)
         if not ok then
-            lsp_load_status[lsp_name] = { error = err }
             vim.notify(
                 string.format("Failed to load LSP: %s\nError: %s", lsp_name, err),
                 vim.log.levels.WARN,
@@ -60,13 +57,13 @@ vim.lsp.config('*', {
 -- configure diagnostics design
 vim.diagnostic.config({
     update_in_insert = true,
-    virtual_lines = true, -- disable if you dont want multiline diagnostics as virtual lines
+    virtual_lines = false, -- disable if you dont want multiline diagnostics as virtual lines
     -- enable if you want previous diagnostics behaviour
-    virtual_text = false,
-    -- virtual_text = {
-    --     spacing = 4,
-    --     source = "if_many",
-    -- },
+    -- virtual_text = false,
+    virtual_text = {
+        spacing = 4,
+        source = "if_many",
+    },
     codelens = {
         enabled = true,
     },

@@ -15,13 +15,14 @@ mouse-hide-while-typing = true
 
 # ==== Display ====
 window-decoration = true
-macos-titlebar-style = transparent
+# macos-titlebar-style = transparent
+macos-titlebar-style = tabs
+window-decoration = server
 
 
 
 # ==== Misc ==== 
 shell-integration = zsh
-auto-update = off
 term = xterm-256color
 
 
