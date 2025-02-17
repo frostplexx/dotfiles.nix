@@ -16,6 +16,7 @@ return {
         },
         debug = { enabled = true },
         input = { enabled = true },
+        image = { enabled = true },
         notifier = { enabled = true },
         quickfile = { enabled = true },
         statuscolumn = {
