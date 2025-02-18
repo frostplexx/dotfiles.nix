@@ -26,7 +26,7 @@ autocmd("BufWritePre", {
     callback = function()
         -- Save the cursor position
         local cursor_pos = vim.fn.getpos(".")
-        local has_lsp = next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil
+        local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
 
         if has_lsp then
             vim.lsp.buf.format()
