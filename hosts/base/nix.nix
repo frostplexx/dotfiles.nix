@@ -1,6 +1,7 @@
 {
   pkgs,
   vars,
+  lib,
   ...
 }: {
   # Shared nix settings
@@ -37,12 +38,18 @@
     };
   };
 
-  documentation = {
-    enable = true;
-    man = {
-      generateCaches = true;
+  documentation =
+    {
       enable = true;
+      man =
+        {
+          enable = true;
+        }
+        // lib.optionalAttrs pkgs.stdenv.isLinux {
+          generateCaches = true;
+        };
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux {
+      dev.enable = true;
     };
-    dev.enable = true;
-  };
 }
