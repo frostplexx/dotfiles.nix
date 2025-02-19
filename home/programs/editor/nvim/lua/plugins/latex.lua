@@ -12,8 +12,6 @@ return {
         event = "BufRead *.tex",
         enabled = true,
         ft = { "tex" },
-        dependencies = { "neovim/nvim-lspconfig" },
-        -- yes, you can use the opts field, just I'm showing the setup explicitly
         config = function()
             require("ltex_extra").setup({
                 server_opts = {

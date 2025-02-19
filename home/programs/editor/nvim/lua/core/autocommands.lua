@@ -1,5 +1,5 @@
 -- [[ Autocommands ]]
---
+
 local fn = vim.fn
 
 local autocmd = vim.api.nvim_create_autocmd

@@ -14,28 +14,6 @@
       baseName != "lazy-lock.json";
   };
   treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
-  # Helper to determine system-specific values
-  # Fetch and extract the VSIX file
-  # codelldb-fhs = pkgs.buildFHSUserEnv {
-  #   name = "codelldb";
-  #   targetPkgs = pkgs:
-  #     with pkgs; [
-  #       # Basic runtime dependencies
-  #       stdenv.cc.cc
-  #       zlib
-  #       glib
-  #       xorg.libX11
-  #       xorg.libXcursor
-  #       xorg.libXrandr
-  #       xorg.libXi
-  #       # Add the actual codelldb binary
-  #       (runCommand "codelldb-binary" {} ''
-  #         mkdir -p $out/bin
-  #         cp -r ${codelldbExtracted}/extension/* $out/
-  #       '')
-  #     ];
-  #   runScript = "~/.local/share/codelldb/adapter/codelldb";
-  # };
 in {
   programs.neovim = {
     enable = true;
@@ -50,10 +28,6 @@ in {
       fd
       git
       nodejs
-
-      # Language servers
-      pyright
-      gopls
 
       # Debug
       # vscode-extensions.vadimcn.vscode-lldb

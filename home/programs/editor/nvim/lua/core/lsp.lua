@@ -27,6 +27,7 @@ end
 vim.lsp.inlay_hint.enable(true)
 
 -- set up rounded border
+-- First, define your border
 local border = {
     { "╭", "FloatBorder" },
     { "─", "FloatBorder" },
@@ -37,16 +38,23 @@ local border = {
     { "╰", "FloatBorder" },
     { "│", "FloatBorder" },
 }
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover, {
-        border = border
-    }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help, {
-        border = border
-    }
-)
+
+
+vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(
+        vim.lsp.handlers.hover,
+        {
+            border = "single"
+        }
+    )
+
+vim.lsp.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(
+        vim.lsp.handlers.signature_help,
+        {
+            border = "single"
+        }
+    )
 
 -- set default capabilities for every lsp server
 vim.lsp.config('*', {
@@ -99,7 +107,7 @@ vim.diagnostic.config({
     float = {
         focusable = true,
         style = "minimal",
-        border = border,
+        border = "single",
         source = "if_many",
         header = "",
         prefix = "",

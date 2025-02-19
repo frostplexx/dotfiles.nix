@@ -2,7 +2,7 @@ return {
     { -- Collection of various small independent plugins/modules
         'echasnovski/mini.nvim',
         event = "VeryLazy",
-        enabled = true,
+        enabled = false,
         config = function()
             local function get_buffer_list()
                 local buffers = vim.fn.getbufinfo({ buflisted = 1 })
