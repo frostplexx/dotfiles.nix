@@ -35,9 +35,9 @@ return {
                 dap = true,
                 dap_ui = true,
                 snacks = true,
-                mini = {
-                    enabled = true,
-                },
+                -- mini = {
+                --     enabled = true,
+                -- },
                 native_lsp = {
                     enabled = true,
                     virtual_text = {

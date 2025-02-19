@@ -1,5 +1,5 @@
 local function LspInfo()
-    local clients = vim.lsp.buf_get_clients()
+    local clients = vim.lsp.get_clients()
     if #clients == 0 then
         vim.notify("No LSP clients attached", vim.log.levels.WARN)
         return

@@ -28,12 +28,12 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.g.vimtex_view_method = "skim"
 
-vim.opt.numberwidth = 3                                  -- Minimal number of columns to use for the line number
-vim.opt.signcolumn = "yes:1"                             -- Always show signcolumn (after line numbers)
-vim.wo.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s' -- Custom format that places signs after numbers
+vim.opt.numberwidth = 3      -- Minimal number of columns to use for the line number
+vim.opt.signcolumn = "yes:1" -- Always show signcolumn (after line numbers)
+-- vim.o.statuscolumn = "%=%{v:relnum?v:relnum:v:lnum} %s"
 
-vim.opt.shortmess:remove('S')                            -- Show search count
-vim.opt.hlsearch = true                                  -- Highlight all matches
+vim.opt.shortmess:remove('S') -- Show search count
+vim.opt.hlsearch = true       -- Highlight all matches
 
 -- Indentation and tab settings
 vim.opt.tabstop = 4
