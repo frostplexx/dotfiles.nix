@@ -38,7 +38,8 @@ tabline.setup({
 tabline.apply_to_config(config)
 
 -- Font configuration
-config.font = wezterm.font('JetBrains Mono')
+-- config.font = wezterm.font('JetBrains Mono')
+config.font = wezterm.font('CommitMono')
 config.font_size = wezterm.target_triple:find('darwin') and 13 or 10
 
 -- Window configuration
