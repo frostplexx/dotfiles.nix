@@ -17,6 +17,7 @@
     keka
     zoom-us
     utm
+    aerospace
     # yabai
     # skhd
   ];
@@ -48,8 +49,6 @@
     taps = [
       "FelixKratz/formulae"
       "homebrew/services"
-      "indirect/homebrew-tap"
-      "nikitabobko/tap/aerospace"
     ];
     brews = [
       "borders"
@@ -63,10 +62,10 @@
       "orbstack"
       "1password@beta"
       "proxyman"
-      "zen-browser@twilight"
+      "zen-browser"
       "raycast"
       "mullvadvpn"
-      "aerospace"
+      "nikitabobko/tap/aerospace"
     ];
   };
 }
