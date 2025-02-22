@@ -11,7 +11,7 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-      'exec-and-forget borders active_color=0xff8aadf4 inactive_color=0x00494d64 width=3.0'
+    'exec-and-forget borders active_color=0xff8aadf4 inactive_color=0x00494d64 width=3.0'
 ]
 
 
@@ -78,14 +78,10 @@ outer.right =      5
 [mode.main.binding]
 
 
-alt-t = 'layout tiles horizontal vertical'
-alt-s = ['layout accordion', 'layout vertical']
+ctrl-alt-shift-cmd-t = 'layout tiles horizontal vertical'
+ctrl-alt-shift-cmd-s = ['layout accordion', 'layout vertical']
 
-
-cmd-e = ['exec-and-forget ~/dotfiles.nix/home/programs/aerospace/kittyazi.sh']
-
-
-alt-f = 'fullscreen'
+ctrl-alt-shift-cmd-f = 'fullscreen'
 alt-shift-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 
 cmd-m = 'macos-native-minimize'
@@ -101,10 +97,10 @@ cmd-m = 'macos-native-minimize'
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+ctrl-alt-shift-cmd-h = 'focus left'
+ctrl-alt-shift-cmd-j = 'focus down'
+ctrl-alt-shift-cmd-k = 'focus up'
+ctrl-alt-shift-cmd-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
@@ -113,31 +109,31 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
+ctrl-alt-shift-cmd-minus = 'resize smart -50'
+ctrl-alt-shift-cmd-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-cmd-1 = 'workspace 1'
-cmd-2 = 'workspace 2'
-cmd-3 = 'workspace 3'
-cmd-4 = 'workspace 4'
-cmd-5 = 'workspace 5'
-cmd-6 = 'workspace 6'
-cmd-7 = 'workspace 7'
-cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9'
-cmd-0 = 'workspace 10'
+ctrl-alt-shift-cmd-1 = 'workspace 1'
+ctrl-alt-shift-cmd-2 = 'workspace 2'
+ctrl-alt-shift-cmd-3 = 'workspace 3'
+ctrl-alt-shift-cmd-4 = 'workspace 4'
+ctrl-alt-shift-cmd-5 = 'workspace 5'
+ctrl-alt-shift-cmd-6 = 'workspace 6'
+ctrl-alt-shift-cmd-7 = 'workspace 7'
+ctrl-alt-shift-cmd-8 = 'workspace 8'
+ctrl-alt-shift-cmd-9 = 'workspace 9'
+ctrl-alt-shift-cmd-0 = 'workspace 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-cmd-shift-1 = [ 'move-node-to-workspace 1', 'workspace 1']
-cmd-shift-2 = [ 'move-node-to-workspace 2', 'workspace 2']
-cmd-shift-3 = [ 'move-node-to-workspace 3', 'workspace 3']
-cmd-shift-4 = [ 'move-node-to-workspace 4', 'workspace 4']
-cmd-shift-5 = [ 'move-node-to-workspace 5', 'workspace 5']
-cmd-shift-6 = [ 'move-node-to-workspace 6', 'workspace 6']
-cmd-shift-7 = [ 'move-node-to-workspace 7', 'workspace 7']
-cmd-shift-8 = [ 'move-node-to-workspace 8', 'workspace 8']
-cmd-shift-9 = [ 'move-node-to-workspace 9', 'workspace 9']
+tab-ctrl-alt-shift-cmd-1 = [ 'move-node-to-workspace 1', 'workspace 1']
+tab-ctrl-alt-shift-cmd-2 = [ 'move-node-to-workspace 2', 'workspace 2']
+tab-ctrl-alt-shift-cmd-3 = [ 'move-node-to-workspace 3', 'workspace 3']
+tab-ctrl-alt-shift-cmd-4 = [ 'move-node-to-workspace 4', 'workspace 4']
+tab-ctrl-alt-shift-cmd-5 = [ 'move-node-to-workspace 5', 'workspace 5']
+tab-ctrl-alt-shift-cmd-6 = [ 'move-node-to-workspace 6', 'workspace 6']
+tab-ctrl-alt-shift-cmd-7 = [ 'move-node-to-workspace 7', 'workspace 7']
+tab-ctrl-alt-shift-cmd-8 = [ 'move-node-to-workspace 8', 'workspace 8']
+tab-ctrl-alt-shift-cmd-9 = [ 'move-node-to-workspace 9', 'workspace 9']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'focus-back-and-forth'
@@ -164,10 +160,10 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 
-ctrl-shift-h = ['join-with left', 'layout accordion' ,'mode main']
-ctrl-shift-j = ['join-with down', 'layout accordion' ,'mode main']
-ctrl-shift-k = ['join-with up',   'layout accordion' ,'mode main']
-ctrl-shift-l = ['join-with right','layout accordion' ,'mode main']
+tab-ctrl-alt-shift-cmd-h = ['join-with left', 'layout accordion' ,'mode main']
+tab-ctrl-alt-shift-cmd-j = ['join-with down', 'layout accordion' ,'mode main']
+tab-ctrl-alt-shift-cmd-k = ['join-with up',   'layout accordion' ,'mode main']
+tab-ctrl-alt-shift-cmd-l = ['join-with right','layout accordion' ,'mode main']
 
 
 # assign apps to workspaces
@@ -177,7 +173,7 @@ if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
+if.app-id = 'app.zen-browser.zen'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
