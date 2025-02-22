@@ -1,8 +1,8 @@
 # Base applications that should be available on all systems
 {
-  pkgs,
-  # vars,
-  ...
+pkgs,
+# vars,
+...
 }: {
   # Basic system packages
   environment.systemPackages = with pkgs; [
@@ -46,6 +46,5 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     jetbrains-mono
-    commit-mono
   ];
 }
