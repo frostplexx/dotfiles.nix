@@ -1,6 +1,6 @@
 return {
     "catppuccin/nvim",
-    enabled = true,
+    enabled = false,
     event = "WinEnter",
     name = "catppuccin",
     priority = 1000,

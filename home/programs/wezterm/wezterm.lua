@@ -2,41 +2,6 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 local act = wezterm.action
 
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-tabline.setup({
-    options = {
-        icons_enabled = true,
-        theme = 'Catppuccin Mocha',
-        tabs_enabled = true,
-        theme_overrides = {},
-        section_separators = {
-            left = wezterm.nerdfonts.pl_left_hard_divider,
-            right = wezterm.nerdfonts.pl_right_hard_divider,
-        },
-        component_separators = {
-            left = wezterm.nerdfonts.pl_left_soft_divider,
-            right = wezterm.nerdfonts.pl_right_soft_divider,
-        },
-        tab_separators = {
-            left = wezterm.nerdfonts.pl_left_hard_divider,
-            right = wezterm.nerdfonts.pl_right_hard_divider,
-        },
-    },
-    sections = {
-        tabline_a = { 'mode' },
-        tabline_b = { 'workspace' },
-        tabline_c = { '' },
-        tab_active = { 'index', { 'cwd', padding = { left = 0, right = 1 } }, },
-        tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
-        tabline_x = { 'ram', 'cpu' },
-        tabline_y = { 'battery' },
-        tabline_z = { 'datetime' },
-    },
-    extensions = {},
-})
-
-tabline.apply_to_config(config)
-
 -- Font configuration
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = wezterm.target_triple:find('darwin') and 13 or 10
@@ -51,11 +16,15 @@ config.window_padding = {
 
 config.inactive_pane_hsb = {
     saturation = 0.9,
-    brightness = 0.8,
+    brightness = 0.7,
 }
 
-config.color_scheme = 'Catppuccin Mocha'
-config.window_background_opacity = 0.8
+-- config.color_scheme = 'Catppuccin Mocha'
+-- config.color_scheme = 'rose-pine'
+local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
+config.colors = theme.colors()
+config.window_frame = theme.window_frame() -- needed only if using fancy tab bar
+config.window_background_opacity = 0.9
 
 config.max_fps = 144
 config.animation_fps = 144
@@ -70,17 +39,8 @@ config.scrollback_lines = 10000
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.tab_max_width = 25
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 
--- Color configuration
-config.colors = {
-    tab_bar = {
-        active_tab = {
-            bg_color = '#8aadf4',
-            fg_color = '#1a1b26',
-        }
-    }
-}
 
 -- Bell configuration
 config.audible_bell = "Disabled"

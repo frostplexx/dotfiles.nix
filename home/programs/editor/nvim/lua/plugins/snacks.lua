@@ -1,6 +1,7 @@
 return {
     "folke/snacks.nvim",
     priority = 1000,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     opts = {
         bigfile = {
@@ -93,7 +94,6 @@ return {
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,                                                           desc = "Next Reference",              mode = { "n", "t" } },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                                                          desc = "Prev Reference",              mode = { "n", "t" } },
         { "<leader><space>", function() Snacks.picker.files() end,                                                                     desc = "Find Files",                  remap = true,       silent = true },
-        { "<leader>bf",      function() Snacks.picker.buffers({ layout = { preset = "vscode", preview = "main" } }) end,               desc = "List open Buffers",           remap = true,       silent = true },
         { "<leader>ch",      function() Snacks.picker.command_history({ layout = { preset = "vscode", preview = "main" } }) end,       desc = "Command History",             silent = true },
         { "<leader>km",      function() Snacks.picker.keymaps() end,                                                                   desc = "Keymap",                      silent = true },
         { "<leader>fg",      function() Snacks.picker.grep() end,                                                                      desc = "Live Grep",                   silent = true },

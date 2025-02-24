@@ -3,12 +3,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.keymap.set("n", "<Tab>", ":bnext<cr>", { desc = "next buffer", silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", { desc = "next buffer", silent = true })
-
 -- remap redo to shift-u
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
-
 
 -- Key mappings for LSP actions
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist)
@@ -20,7 +16,6 @@ vim.keymap.set('n', '<leader>r', vim.lsp.buf.references)
 vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename)
 vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
 vim.keymap.set('n', 'ca', vim.lsp.buf.code_action)
-
 
 -- spotify_player
 local function create_float_term()
@@ -64,17 +59,6 @@ vim.keymap.set('n', '<leader>sb', function()
     end)
 end, { noremap = true, silent = true })
 
-
-
-
--- lazygit
--- vim.keymap.set("n", "<leader>gg", function()
---     vim.cmd("terminal lazygit")
---     vim.cmd("startinsert")
---     -- Autocmd to close the terminal when lazygit exits
---     vim.cmd("autocmd TermClose * if &buftype == 'terminal' && expand('<afile>') =~ 'lazygit' | bd! | endif")
--- end, { desc = "open lazygit in terminal" })
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Move selected lines with shift+j or shift+k
@@ -93,7 +77,7 @@ vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "scroll down half a screen" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })
 
 -- move to the previous search result and center the screen
-vim.keymap.set("n", "n", "nzzzv", { desc = "move to previous search result" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) -- Fixed duplicate 'n' mapping
 
 -- delete selected text in normal and visual mode without affecting the system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affecting clipboard" })
@@ -101,7 +85,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affe
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
     { desc = "search and replace in file" })
-
 
 -- Function to surround current word with quotes
 local function surround_word_with_quotes()
@@ -174,6 +157,10 @@ vim.keymap.set('n', '<leader>q', surround_word_with_quotes, { noremap = true, si
 -- Visual mode: surround selection with quotes
 vim.keymap.set('v', '<leader>q', surround_visual_with_quotes, { noremap = true, silent = true })
 
-
 -- Switch to buffer using <leader>b<bufnr>
 vim.keymap.set('n', '<leader>b', ':<C-u>b', { noremap = true, desc = "Switch to buffer by number" })
+
+
+
+vim.keymap.set('n', "<Tab>", function() Snacks.picker.buffers({ layout = { preset = "vscode", preview = "main" } }) end,
+    { noremap = true, silent = true })
