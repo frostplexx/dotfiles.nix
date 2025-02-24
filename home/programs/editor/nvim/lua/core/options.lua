@@ -1,10 +1,12 @@
 -- [[ Vim options ]]
-vim.cmd.colorscheme("catppuccin-mocha")
+-- vim.cmd.colorscheme("catppuccin-mocha")
+vim.cmd.colorscheme("rose-pine")
+
 
 -- Make current line number brighter than the rest
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#8087a2", bold = false })
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#b4befe", bold = true })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#8087a2", bold = false })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#403d52", bold = false })
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#c4a7e7", bold = true })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#403d52", bold = false })
 
 vim.opt.nu = true
 vim.opt.relativenumber = true

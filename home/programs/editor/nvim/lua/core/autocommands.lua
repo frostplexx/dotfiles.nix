@@ -44,17 +44,6 @@ autocmd("BufWritePre", {
 })
 
 
--- Ensures tabs are used on Makefiles instead of spaces
-autocmd('FileType', {
-    desc = 'Ensures tabs are used on Makefiles instead of spaces',
-    callback = function(event)
-        if event.match == 'make' then
-            vim.o.expandtab = false
-        end
-    end
-})
-
-
 -- Create sign for TODOs
 vim.fn.sign_define('todo', {
     text = '✓',
@@ -83,15 +72,15 @@ autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "*",
     callback = function()
         -- Match and highlight just the TODO keyword, excluding comment characters
-        vim.fn.matchadd("TodoKeyword", "\\(//\\s*\\)\\@<=TODO:")
+        vim.fn.matchadd("TodoKeyword", "\\(\\s*\\)\\@<=TODO:")
         -- Match and highlight the rest of the line after TODO:
-        vim.fn.matchadd("TodoLine", "^.*//\\s*TODO:\\zs.*$")
+        vim.fn.matchadd("TodoLine", "^.*\\s*TODO:\\zs.*$")
 
         -- Add signs for lines containing TODO
         local bufnr = vim.api.nvim_get_current_buf()
         local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
         for i, line in ipairs(lines) do
-            if line:match("//%s*TODO:") then
+            if line:match("%s*TODO:") then
                 vim.fn.sign_place(0, 'todo_signs', 'todo', bufnr, { lnum = i })
             end
         end

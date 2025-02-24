@@ -5,7 +5,8 @@
   ...
 }: let
   themeFile = "midnight-catppuccin-mocha.theme.css";
-  themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/refs/heads/master/flavors/midnight-catppuccin-mocha.theme.css";
+  # themeUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/refs/heads/master/flavors/midnight-catppuccin-mocha.theme.css";
+  themeUrl = "https://raw.githubusercontent.com/rose-pine/discord/refs/heads/main/rose-pine.theme.css";
 
   # Define theme path based on operating system
   themePath =
@@ -74,7 +75,8 @@ in {
         sendTimestamps.enable = true;
         shikiCodeblocks = {
           enable = true;
-          theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
+          # theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
+          theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/rose-pine.json";
         };
         translate.enable = true;
         typingIndicator.enable = true;
@@ -93,13 +95,14 @@ in {
     ${themePath} = {
       source = builtins.fetchurl {
         url = themeUrl;
-        sha256 = "0rl39szkrjb1lgg7ig590pad9j4y23fg5cskghvb9nksdimv3px2";
+        # sha256 = "0rl39szkrjb1lgg7ig590pad9j4y23fg5cskghvb9nksdimv3px2";
+        sha256 = "1asjy6j6csdy0r4cb5kar9j00ryh1r2az4k0axvxjz35qny43p05";
       };
       force = true;
     };
 
     # Settings configuration
-    "${config.programs.nixcord.discord.configDir}/settings.json" = {
+    "${config.programs.nixcord.vesktop.configDir}/settings.json" = {
       text = builtins.toJSON {
         discordBranch = "stable";
         minimizeToTray = true;

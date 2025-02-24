@@ -76,6 +76,12 @@ in {
         sha256 = "sha256-THRpq5vaKCwf9gaso3ycC4TNDLZtBB5Ofh/tOXkfRkQ=";
       };
     };
+    "btop/themes/rose-pine.theme" = {
+      source = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/rose-pine/btop/refs/heads/main/rose-pine.theme";
+        sha256 = "1injry07mx683f1cy2ks73rdiv4dfi8b5ija8bq6adhbgcw7b1h8";
+      };
+    };
   };
 
   # Shell utilities
@@ -89,7 +95,8 @@ in {
     btop = {
       enable = true;
       settings = {
-        color_theme = "catppuccin-mocha";
+        # color_theme = "catppuccin-mocha";
+        color_theme = "rose-pine";
         theme_background = false;
         vim_keys = false;
         update_ms = 700;

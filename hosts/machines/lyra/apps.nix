@@ -49,6 +49,7 @@
     taps = [
       "FelixKratz/formulae"
       "homebrew/services"
+      "nikitabobko/tap"
     ];
     brews = [
       "borders"
@@ -65,7 +66,7 @@
       "zen-browser"
       "raycast"
       "mullvadvpn"
-      "nikitabobko/tap/aerospace"
+      "aerospace"
     ];
   };
 }
