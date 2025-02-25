@@ -20,7 +20,7 @@
   time.timeZone = "Europe/Berlin";
 
   # Security settings
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   nix.settings.trusted-users = [vars.user];
 
   # User configuration
