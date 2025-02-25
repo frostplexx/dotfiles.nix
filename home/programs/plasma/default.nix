@@ -13,13 +13,13 @@
     enable = true;
 
     theme = {
-      package = pkgs.kdePackages.breeze-gtk;
-      name = "Breeze";
+      package = pkgs.rose-pine-gtk-theme;
+      name = "Rosé Pine";
     };
 
     cursorTheme = {
-      name = "Phinger Cursors (dark)";
-      package = pkgs.phinger-cursors;
+      name = "BreezeX-RoséPine";
+      package = pkgs.rose-pine-cursor;
       size = 28;
     };
 
@@ -50,7 +50,7 @@
     #
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
-      iconTheme = "Papirus-Dark";
+      iconTheme = "BreezeX-RoséPine";
       cursor.theme = "Phinger Cursors (dark)";
       wallpaper = "/home/daniel/dotfiles.nix/assets/wallpaper.png";
     };
@@ -139,6 +139,13 @@
           theme = "kwin4_decoration_qml_plastik";
         };
       };
+    };
+  };
+
+  home.file = {
+    ".local/share/color-schemes/rose-pine.colors".text = builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/ashbork/kde/refs/heads/main/Rose%20Pine/colorschemes/rose-pine.colors";
+      sha356 = "";
     };
   };
 }
