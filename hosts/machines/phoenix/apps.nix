@@ -63,7 +63,7 @@
     _1password-gui
     papirus-icon-theme
     simplescreenrecorder
-    filelight
+    kdePackages.filelight
     vlc
     xclip
     inputs.zen-browser.packages."${system}".beta
