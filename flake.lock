@@ -267,11 +267,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1740690416,
-        "narHash": "sha256-ZVyJvL/sEkBuxNh1+Y5K3XXzYowIz5UUyOqrzK2rkdc=",
+        "lastModified": 1740736429,
+        "narHash": "sha256-6ysGU2ZGReqOYW+gzaV89GWNNwsGsTx5YMC1B6Dqqls=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "18a5c6286802a8ef1109760d61740b6f321c810c",
+        "rev": "edd95539765237da2244858cdc02a64cc3a27014",
         "type": "github"
       },
       "original": {
@@ -300,11 +300,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1740683787,
-        "narHash": "sha256-Q3ZqUR1xVG9MuHxInsLfqytgqCZKICYpWDIz8L11av8=",
+        "lastModified": 1740732333,
+        "narHash": "sha256-YcAyQqLA3EvC1xVC2TpnWzXor7ZduPJsU2r6X57hgO4=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "311f3be5d861bfb12ee8b3d7241bd1d1fcb5110b",
+        "rev": "aa2e8b402cc65de2b4c3556f67cfc35da72c284e",
         "type": "github"
       },
       "original": {
@@ -494,11 +494,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1740715395,
-        "narHash": "sha256-K5RjsCwS60wO9Y999R2q4J1KH/pZcxOGJZmdvucs8v4=",
+        "lastModified": 1740738267,
+        "narHash": "sha256-k4jJh7pFQaky9j6Z1yM/dl6IwLYbGo0mal4Bv6RVuwQ=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "0ed1a467447a04a60cdc6444de0dedd9adc55952",
+        "rev": "39a9dea8c7e9f7efc8bd9b72e07b48b657cee1c5",
         "type": "github"
       },
       "original": {
