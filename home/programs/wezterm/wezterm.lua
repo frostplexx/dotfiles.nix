@@ -19,11 +19,7 @@ config.inactive_pane_hsb = {
     brightness = 0.7,
 }
 
--- config.color_scheme = 'Catppuccin Mocha'
--- config.color_scheme = 'rose-pine'
-local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
-config.colors = theme.colors()
-config.window_frame = theme.window_frame() -- needed only if using fancy tab bar
+config.color_scheme = 'Catppuccin Mocha'
 config.window_background_opacity = 0.9
 
 config.max_fps = 144

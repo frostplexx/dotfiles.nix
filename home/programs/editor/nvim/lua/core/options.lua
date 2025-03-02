@@ -1,6 +1,5 @@
 -- [[ Vim options ]]
--- vim.cmd.colorscheme("catppuccin-mocha")
-vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("catppuccin-mocha")
 
 
 -- Make current line number brighter than the rest

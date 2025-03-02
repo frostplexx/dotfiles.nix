@@ -50,8 +50,7 @@
     activationScripts.postUserActivation.text = ''
        # Disable mouse acceleration
        defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-       #9C CF D8
-       defaults write NSGlobalDomain AppleHighlightColor -string "0.609375 0.80859375 0.84375"
+       defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
        # Title bar icons in finder
        # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 

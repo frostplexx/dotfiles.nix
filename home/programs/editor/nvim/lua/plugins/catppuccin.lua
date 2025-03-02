@@ -1,6 +1,6 @@
 return {
     "catppuccin/nvim",
-    enabled = false,
+    enabled = true,
     event = "WinEnter",
     name = "catppuccin",
     priority = 1000,
@@ -27,6 +27,24 @@ return {
             flavour = "mocha",             -- latte, frappe, macchiato, mocha
             transparent_background = true, -- disables setting the background color.
             term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
+            dim_inactive = {
+                enabled = false,           -- dims the background color of inactive window
+            },
+            styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
+                comments = { "italic" },   -- Change the style of comments
+                conditionals = { "italic" },
+                loops = {},
+                functions = {},
+                keywords = {},
+                strings = {},
+                variables = {},
+                numbers = {},
+                booleans = {},
+                properties = {},
+                types = {},
+                operators = {},
+                -- miscs = {}, -- Uncomment to turn off hard-coded styles
+            },
             integrations = {
                 blink_cmp = true,
                 gitsigns = true,
@@ -35,29 +53,6 @@ return {
                 dap = true,
                 dap_ui = true,
                 snacks = true,
-                -- mini = {
-                --     enabled = true,
-                -- },
-                native_lsp = {
-                    enabled = true,
-                    virtual_text = {
-                        errors = { "italic" },
-                        hints = { "italic" },
-                        warnings = { "italic" },
-                        information = { "italic" },
-                        ok = { "italic" },
-                    },
-                    underlines = {
-                        errors = { "underline" },
-                        hints = { "underline" },
-                        warnings = { "underline" },
-                        information = { "underline" },
-                        ok = { "underline" },
-                    },
-                    inlay_hints = {
-                        background = true,
-                    },
-                },
             },
         })
     end,

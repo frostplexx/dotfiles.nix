@@ -2,8 +2,7 @@
 font-family = "JetBrains Mono"
 
 # ==== Themeing ====
-# theme = catppuccin-mocha
-theme = rose-pine
+theme = catppuccin-mocha
 background-opacity = 0.9
 # A value of 20 is reasonable for a good looking blur. Higher values will cause strange
 # rendering issues as well as performance issues.
