@@ -45,7 +45,8 @@ perform_ssh_connection() {
   fi
   
   clear
-  printf "Connecting to \033[1;33m$username\033[0m@\033[1;34m$hostname\033[0m"
+  printf "Connecting to \033[1;33m$username\033[0m@\033[1;34m$hostname\033[0m\n"
+  wezterm cli set-tab-title "$(echo "$item_details" | jq -r '.title')"
   
   
   if [[ -n "$password" ]]; then
@@ -53,7 +54,6 @@ perform_ssh_connection() {
     sshpass -p "$password" ssh -l "$username" "$hostname" -t
   else
     # No password, regular SSH with forced tty allocation
-    echo "Running test"
     ssh -t -l "$username" "$hostname"
   fi
   
@@ -102,7 +102,7 @@ EOF
         --border-label=" 󰒋 SSH " \
         --color=label:bold:blue \
         --prompt="Fetching from 1Password..." \
-        --bind 'load:change-prompt: ' \
+        --bind 'load:change-prompt: ' \
         --border \
         --preview="$preview_script {}" \
         --delimiter=$'\t')
