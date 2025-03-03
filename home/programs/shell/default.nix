@@ -6,8 +6,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "5186af7984aa8cb0550358aefe751201d7a6b5a8";
-    hash = "sha256-Cw5iMljJJkxOzAGjWGIlCa7gnItvBln60laFMf6PSPM=";
+    rev = "3d0c7c6be9dbdf64a387a9a141eb8d22863db8d7";
+    hash = "sha256-4e+jcvJPPNhtfTxr7g+INpyyRrevXY3oxKqzdin6ENw=";
   };
 in {
   programs.zsh = {
