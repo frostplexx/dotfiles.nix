@@ -19,7 +19,7 @@ in {
       enable = false;
       openASAR.enable = true;
       vencord = {
-        unstable = true;
+        unstable = false;
       };
     };
     vesktop.enable = true;
