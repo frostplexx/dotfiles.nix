@@ -1,42 +1,48 @@
 name: Update Nix Hashes
-
 on:
   schedule:
     - cron: '0 0 * * *' # Run every 24 hours at midnight UTC
   workflow_dispatch: # Allow manual trigger
-
 jobs:
   update_hashes:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write # Required for pushing changes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16 # or 'latest'
-
       - name: Set up Nix environment
         run: |
           . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
           mkdir -p ~/.config/nix
           echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
-
       - name: Run hash update script
         run: |
           # Install jq and fd in this step to ensure availability
           nix profile install nixpkgs#jq
           nix profile install nixpkgs#fd
-
           # Verify installation (optional, for debugging)
           which jq
           which fd
-
           chmod +x ./utils/update-flake-revs.sh && ./utils/update-flake-revs.sh
           chmod +x ./utils/update-hashes.py && ./utils/update-hashes.py # Adjust path if needed
         working-directory: ${{ github.workspace }}
+      - name: Check for changes
+        id: git-check
+        run: |
+          git status --porcelain
+          echo "modified=$(if git status --porcelain | grep .; then echo "true"; else echo "false"; fi)" >> $GITHUB_OUTPUT
+      - name: Commit and push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Auto-update Nix hashes"
+          git push
