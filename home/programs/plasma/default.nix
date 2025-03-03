@@ -145,7 +145,7 @@
   home.file = {
     ".local/share/color-schemes/rose-pine.colors".text = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/ashbork/kde/refs/heads/main/Rose%20Pine/colorschemes/rose-pine.colors";
-      sha256 = "0wn2rdgrqswvbfbyry4acgz845g5xayq5f933215bdncqyvj1p96";
+      sha256 = "sha256-Jt0gt8fMtlWCGCO5gr3q5RWC/mOK+OyXW5trnF/LwnI=";
     };
   };
 }
