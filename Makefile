@@ -70,6 +70,7 @@ deploy:
 upgrade:
 	git add .
 	@./utils/update-flake-revs.sh
+	@./utils/update-hashes.py
 	@echo "${INFO} Upgrading flakes..."
 	@nix $(NIX_FLAGS) flake update
 	@echo "Would you like to deploy now? Y/n/c(leanup after) - Auto-continues in 5s: "; \
