@@ -21,7 +21,7 @@ jobs:
       - name: Install Python (if needed, try without initially)
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.13'
       - name: Run hash update script
         run: |
           # Install jq and fd in this step to ensure availability
