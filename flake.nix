@@ -28,10 +28,6 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     # Desktop environments
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";

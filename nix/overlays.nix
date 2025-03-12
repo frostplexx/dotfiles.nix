@@ -2,7 +2,6 @@
   baseOverlays = {
     nixos = [
       inputs.nur.overlays.default
-      inputs.niri.overlays.niri
       inputs.neovim-nightly-overlay.overlays.default
     ];
     darwin = [
