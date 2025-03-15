@@ -36,7 +36,7 @@
       "1Password for Safari" = 1569813296;
       "AdGuard for Safari" = 1440147259;
       "SponsorBlock for Safari" = 1573461917;
-      "Raycast Companion" =  6738274497;
+      "Raycast Companion" = 6738274497;
       "Super Agent for Safari" = 1568262835;
       "Noir" = 1592917505;
       "Tailscale" = 1475387142;
