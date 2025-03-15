@@ -139,7 +139,7 @@
         persistent-apps = [
           "/Applications/Things3.app"
           # "/Applications/Zen.app/"
-          "/Applications/Safari.app/"
+          "/Applications/Safari.app"
           "${pkgs.wezterm}/Applications/WezTerm.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];
