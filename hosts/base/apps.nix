@@ -34,9 +34,7 @@
     wget
     curl
     git-secret
-    fluxctl
-    talosctl
-    kubectl
+
     # GUI applications
     obsidian
     _1password-cli
