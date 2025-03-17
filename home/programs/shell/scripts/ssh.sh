@@ -1,16 +1,37 @@
 #!/usr/bin/env bash
-
 # Function to get 1Password item details by ID
 get_item_details() {
   local item_id="$1"
   op item get "$item_id" --format json
 }
 
-# Function to extract item field value
-get_field_value() {
+# Function to extract SSH URL and parse it
+extract_ssh_url() {
   local item_details="$1"
-  local field_label="$2"
-  echo "$item_details" | jq -r --arg label "$field_label" '.fields[] | select(.label == $label) .value | select(. != null) | values' | head -n1
+  
+  # First try to find a URL field
+  local ssh_url=$(echo "$item_details" | jq -r '.urls[] | select(.href | startswith("ssh://")) .href | select(. != null)' 2>/dev/null | head -n1)
+  
+  # If no URL field found, try looking in fields for a URL entry
+  if [[ -z "$ssh_url" ]]; then
+    ssh_url=$(echo "$item_details" | jq -r '.fields[] | select(.value | startswith("ssh://")) .value | select(. != null)' 2>/dev/null | head -n1)
+  fi
+  
+  echo "$ssh_url"
+}
+
+# Function to parse username and hostname from SSH URL
+parse_ssh_url() {
+  local ssh_url="$1"
+  
+  # Remove the ssh:// prefix
+  local connection_string=${ssh_url#ssh://}
+  
+  # Extract username and hostname
+  local username=$(echo "$connection_string" | cut -d '@' -f 1)
+  local hostname=$(echo "$connection_string" | cut -d '@' -f 2)
+  
+  echo "$username $hostname"
 }
 
 # Function to perform SSH connection
@@ -23,15 +44,25 @@ perform_ssh_connection() {
     return 1
   fi
   
-  # Extract connection details
-  local hostname=$(get_field_value "$item_details" "hostname")
-  local username=$(get_field_value "$item_details" "username")
-  local password=$(get_field_value "$item_details" "password")
+  # Extract SSH URL
+  local ssh_url=$(extract_ssh_url "$item_details")
   
-  # Fallback to title if hostname is missing
-  if [[ -z "$hostname" ]]; then
-    hostname=$(echo "$item_details" | jq -r '.title')
+  # If SSH URL exists, parse it
+  if [[ -n "$ssh_url" ]]; then
+    read -r username hostname <<< $(parse_ssh_url "$ssh_url")
+  else
+    # Fallback to the original method if no SSH URL is found
+    username=$(echo "$item_details" | jq -r '.fields[] | select(.label == "username") .value | select(. != null) | values' | head -n1)
+    hostname=$(echo "$item_details" | jq -r '.fields[] | select(.label == "hostname") .value | select(. != null) | values' | head -n1)
+    
+    # Fallback to title if hostname is missing
+    if [[ -z "$hostname" ]]; then
+      hostname=$(echo "$item_details" | jq -r '.title')
+    fi
   fi
+  
+  # Extract password (unchanged)
+  local password=$(echo "$item_details" | jq -r '.fields[] | select(.label == "password") .value | select(. != null) | values' | head -n1)
   
   # Validate required fields
   if [[ -z "$hostname" ]]; then
@@ -47,7 +78,6 @@ perform_ssh_connection() {
   clear
   printf "Connecting to \033[1;33m$username\033[0m@\033[1;34m$hostname\033[0m\n"
   wezterm cli set-tab-title "$(echo "$item_details" | jq -r '.title')"
-  
   
   if [[ -n "$password" ]]; then
     # Use sshpass for password-based auth
@@ -81,13 +111,40 @@ if [[ -z "$item_details" ]]; then
   echo -e "\033[1;31mError retrieving item details\033[0m"
   exit 1
 fi
-hostname=$(echo "$item_details" | jq -r '.fields[] | select(.label == "hostname") .value | select(. != null) | values' | head -n1)
-username=$(echo "$item_details" | jq -r '.fields[] | select(.label == "username") .value | select(. != null) | values' | head -n1)
-if [[ -z "$hostname" ]]; then
-  hostname=$(echo "$item_details" | jq -r '.title')
+
+# First try to extract SSH URL
+ssh_url=$(echo "$item_details" | jq -r '.urls[] | select(.href | startswith("ssh://")) .href | select(. != null)' 2>/dev/null | head -n1)
+
+# If no URL found in the urls array, check fields
+if [[ -z "$ssh_url" ]]; then
+  ssh_url=$(echo "$item_details" | jq -r '.fields[] | select(.value | startswith("ssh://")) .value | select(. != null)' 2>/dev/null | head -n1)
 fi
+
+# If SSH URL exists, parse it
+if [[ -n "$ssh_url" ]]; then
+  # Remove the ssh:// prefix
+  connection_string=${ssh_url#ssh://}
+  
+  # Extract username and hostname
+  username=$(echo "$connection_string" | cut -d '@' -f 1)
+  hostname=$(echo "$connection_string" | cut -d '@' -f 2)
+else
+  # Fallback to the original method
+  hostname=$(echo "$item_details" | jq -r '.fields[] | select(.label == "hostname") .value | select(. != null) | values' | head -n1)
+  username=$(echo "$item_details" | jq -r '.fields[] | select(.label == "username") .value | select(. != null) | values' | head -n1)
+  
+  # Fallback to title if hostname is missing
+  if [[ -z "$hostname" ]]; then
+    hostname=$(echo "$item_details" | jq -r '.title')
+  fi
+fi
+
 echo -e "\n\033[1;36m 󰣀 User:\033[0m \033[1;33m${username:-N/A}\033[0m"
 echo -e "\033[1;36m 󰖟 Host:\033[0m \033[1;32m${hostname:-N/A}\033[0m\n"
+
+if [[ -n "$ssh_url" ]]; then
+  echo -e "\033[1;36m 󰌷 URL:\033[0m \033[1;35m$ssh_url\033[0m\n"
+fi
 EOF
     
     # Make the script executable
@@ -102,7 +159,7 @@ EOF
         --border-label=" 󰒋 SSH " \
         --color=label:bold:blue \
         --prompt="Fetching from 1Password..." \
-        --bind 'load:change-prompt: ' \
+        --bind 'load:change-prompt: ' \
         --border \
         --preview="$preview_script {}" \
         --delimiter=$'\t')
