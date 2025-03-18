@@ -3,7 +3,6 @@
     enable = true;
     # Global SSH settings
     extraConfig = ''
-      Host *
         AddKeysToAgent yes
         ServerAliveInterval 60
         Include ~/.orbstack/ssh/config
