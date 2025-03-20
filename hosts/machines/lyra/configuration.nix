@@ -53,6 +53,9 @@
        defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
        # Title bar icons in finder
        # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+       defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
+       defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
+       defaults write NSGlobalDomain AppleAccentColor -int 10;
 
        #set wallpaper
       osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/daniel/dotfiles.nix/assets/wallpaper.png"'
@@ -81,7 +84,7 @@
         # Window behavior
         NSWindowShouldDragOnGesture = true;
         NSAutomaticWindowAnimationsEnabled = true;
-        NSWindowResizeTime = 0.2;
+        NSWindowResizeTime = 0.001;
 
         # Keyboard settings
         KeyRepeat = 2;
@@ -92,9 +95,9 @@
         # Interface preferences
         AppleShowAllExtensions = true;
         _HIHideMenuBar = true;
-        AppleInterfaceStyleSwitchesAutomatically = true;
         AppleICUForce24HourTime = true;
         NSAutomaticCapitalizationEnabled = false;
+        AppleInterfaceStyleSwitchesAutomatically = true;
         AppleInterfaceStyle = "Dark";
 
         # File dialogs
@@ -103,6 +106,8 @@
 
         # Font rendering
         AppleFontSmoothing = 1;
+
+        "com.apple.sound.beep.feedback" = 0;
       };
 
       # Finder preferences
@@ -150,6 +155,9 @@
       WindowManager = {
         AutoHide = true;
         EnableStandardClickToShowDesktop = false;
+        EnableTilingByEdgeDrag = true;
+        HideDesktop = true;
+        StageManagerHideWidgets = true;
       };
       spaces.spans-displays = false;
       ActivityMonitor.IconType = 6;
@@ -159,6 +167,13 @@
         GuestEnabled = false;
         SHOWFULLNAME = false;
         autoLoginUser = vars.user;
+      };
+
+      controlcenter = {
+        AirDrop = false;
+        Bluetooth = false;
+        NowPlaying = false;
+        BatteryShowPercentage = false;
       };
 
       # Additional user preferences
