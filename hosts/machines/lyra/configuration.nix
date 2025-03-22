@@ -1,9 +1,9 @@
 # Configuration for Lyra MacBook
 {
-  pkgs,
-  vars,
-  mkHomeManagerConfiguration,
-  ...
+pkgs,
+vars,
+mkHomeManagerConfiguration,
+...
 }: {
   imports = [
     ../../base # Base configuration
@@ -88,7 +88,7 @@
 
         # Keyboard settings
         KeyRepeat = 2;
-        InitialKeyRepeat = 15;
+        InitialKeyRepeat = 12;
         AppleKeyboardUIMode = 3;
         ApplePressAndHoldEnabled = true;
 
