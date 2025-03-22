@@ -1,9 +1,9 @@
 # Configuration for Lyra MacBook
 {
-pkgs,
-vars,
-mkHomeManagerConfiguration,
-...
+  pkgs,
+  vars,
+  mkHomeManagerConfiguration,
+  ...
 }: {
   imports = [
     ../../base # Base configuration
