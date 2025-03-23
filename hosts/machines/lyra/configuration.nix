@@ -33,7 +33,8 @@
   home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
     "macos-wm"
     "editor"
-    "wezterm"
+    # "wezterm"
+    "kitty"
     "ghostty"
     "git"
     "shell"
@@ -145,7 +146,8 @@
           "/Applications/Things3.app"
           # "/Applications/Zen.app/"
           "/Applications/Safari.app"
-          "${pkgs.wezterm}/Applications/WezTerm.app"
+          # "${pkgs.wezterm}/Applications/WezTerm.app"
+          "${pkgs.kitty}/Applications/kitty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
         ];
       };
