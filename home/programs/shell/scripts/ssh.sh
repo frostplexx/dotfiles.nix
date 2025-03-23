@@ -77,7 +77,8 @@ perform_ssh_connection() {
   
   clear
   printf "Connecting to \033[1;33m$username\033[0m@\033[1;34m$hostname\033[0m\n"
-  wezterm cli set-tab-title "$(echo "$item_details" | jq -r '.title')"
+  kitten @ set-tab-title "$(echo "$item_details" | jq -r '.title')"
+  # wezterm cli set-tab-title "$(echo "$item_details" | jq -r '.title')"
   
   if [[ -n "$password" ]]; then
     # Use sshpass for password-based auth
