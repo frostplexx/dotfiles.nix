@@ -22,11 +22,11 @@
       # Window
       window_padding_width = "2 2";
       draw_minimal_borders = "yes";
-      background_opacity = "0.8";
+      background_opacity = "0.9";
       background_blur = "25";
       remember_window_size = "yes";
-      initial_window_width = "640";
-      initial_window_height = "400";
+      initial_window_width = 1280;
+      initial_window_height = 800;
       confirm_os_window_close = "1";
       hide_window_decorations = "titlebar-only";
       enabled_layouts = "splits:split_axis=horizontal";
