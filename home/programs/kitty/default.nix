@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.kitty = {
     enable = true;
 
@@ -18,7 +22,7 @@
       # Window
       window_padding_width = "2 2";
       draw_minimal_borders = "yes";
-      # background_opacity = "0.8";
+      background_opacity = "0.8";
       background_blur = "25";
       remember_window_size = "yes";
       initial_window_width = "640";
@@ -112,9 +116,9 @@
     };
 
     # Extra configuration to ensure catpuccin theme is included
-    # extraConfig = ''
-    #   include ${config.xdg.configHome}/kitty/themes/catpuccin.conf
-    # '';
+    extraConfig = ''
+      include ${config.xdg.configHome}/kitty/themes/mocha.conf
+    '';
   };
 
   xdg.configFile = {
