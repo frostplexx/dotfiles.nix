@@ -28,7 +28,6 @@
     imagemagick
     nmap
     pandoc
-    fastfetch
     ripgrep
     sshpass
     wget
