@@ -1,19 +1,39 @@
-# Nix Configuration
-
-[![Nix Configuration Validation](https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg)](https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/frostplexx/dotfiles.nix) ![GitHub License](https://img.shields.io/github/license/frostplexx/dotfiles.nix)
+<p align="center">
+    <img src="https://nixos.wiki/images/thumb/2/20/Home-nixos-logo.png/414px-Home-nixos-logo.png" width=200/>
+    <h1 align="center">Nix Configuration </h1>
+    <div style="display: grid;" align="center">
+    <img src="https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg" height=20/>
+    <img src="https://img.shields.io/github/repo-size/frostplexx/dotfiles.nix" height=20/>
+    <img src="https://img.shields.io/github/license/frostplexx/dotfiles.nix" height=20/>
+    </div>
+</p>
 
 This repository contains my personal system configurations for NixOS and MacOS.
 It provides a reproducible setup for macOS systems using declarative configuration.
 
-|               | MacOS                 | Linux                                            |
-|---------------|-----------------------|--------------------------------------------------|
-| **Shell:**    | zsh                   | zsh                                              |
-| **WM:**       | yabai                 | niri                                             |
-| **Editor:**   | neovim                | neovim                                           |
-| **Terminal:** | wezterm               | wezterm                                          |
-| **Launcher:** | raycast               | fuzzel                                           |
-| **Browser:**  | zen browser           | zen browser                                      |
-
+<table align="center">
+    <tr>
+        <td></td><td>MacOS</td><td>NixOS</td>
+    </tr>
+    <tr>
+        <td>Shell</td><td>zsh</td><td>zsh</td>
+    </tr>
+    <tr>
+        <td>WM</td><td>Aerospace</td><td>KDE Plasma</td>
+    </tr>
+    <tr>
+        <td>Editor</td><td>NeoVim</td><td>NeoVim</td>
+    </tr>
+    <tr>
+        <td>Terminal</td><td>kitty</td><td>kitty</td>
+    </tr>
+    <tr>
+        <td>Launcher</td><td>Raycast</td><td>krun</td>
+    </tr>
+    <tr>
+        <td>Browser</td><td>Zen Browser</td><td>Zen Browser</td>
+    </tr>
+</table>
 
 ---
 
