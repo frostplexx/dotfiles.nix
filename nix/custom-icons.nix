@@ -65,7 +65,7 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       system.activationScripts.extraActivation.text = ''
-        echo -e "applying custom icons..."
+        echo -e "Applying custom icons..."
         ${
           (builtins.concatStringsSep "\n\n" (
             builtins.map (iconCfg: ''
