@@ -17,6 +17,14 @@
     hostName = "pc-dev-phoenix";
     networkmanager.enable = true;
     interfaces.enp4s0.wakeOnLan.enable = true;
+    nameservers = [
+      194.242
+      .2
+      .4
+      9.9
+      .9
+      .9
+    ];
 
     # Firewall configuration
     firewall = {

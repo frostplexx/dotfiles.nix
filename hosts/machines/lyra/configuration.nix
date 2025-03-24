@@ -16,6 +16,14 @@
   networking = {
     hostName = "pc-dev-lyra";
     computerName = "pc-dev-lyra";
+    dns = [
+      194.242
+      .2
+      .4
+      9.9
+      .9
+      .9
+    ];
   };
   time.timeZone = "Europe/Berlin";
 
