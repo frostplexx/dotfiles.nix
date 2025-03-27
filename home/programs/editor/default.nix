@@ -28,9 +28,7 @@ in {
       fd
       git
       nodejs
-
-      # Debug
-      # vscode-extensions.vadimcn.vscode-lldb
+      luajitPackages.luarocks-nix
     ];
 
     plugins = [
@@ -46,10 +44,6 @@ in {
       recursive = true;
     };
   };
-
-  # home.packages = [
-  #   codelldb-fhs
-  # ];
 
   home.file = {
     # Copy LTeX configuration files
@@ -75,10 +69,5 @@ in {
       recursive = true;
       source = treeSitterWithAllGrammars;
     };
-
-    # ".local/share/codelldb" = {
-    #   source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
-    #   recursive = true;
-    # };
   };
 }
