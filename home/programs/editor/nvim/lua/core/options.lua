@@ -82,3 +82,11 @@ if vim.g.neovide then
     end
     vim.g.neovide_background_color = "#24273A" .. alpha()
 end
+
+
+-- [[ Filetypes ]]
+vim.filetype.add({
+    pattern = {
+        [".*/templates/.*%.yaml"] = "helm",
+    },
+})
