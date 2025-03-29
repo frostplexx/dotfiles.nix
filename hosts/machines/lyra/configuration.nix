@@ -17,12 +17,13 @@
     hostName = "pc-dev-lyra";
     computerName = "pc-dev-lyra";
     dns = [
-      194.242
-      .2
-      .4
-      9.9
-      .9
-      .9
+      "194.242.2.4"
+      "9.9.9.9"
+    ];
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Ethernet Adaptor"
+      "Thunderbolt Ethernet"
     ];
   };
   time.timeZone = "Europe/Berlin";
@@ -143,7 +144,7 @@
         show-recents = false;
 
         # Behavior
-        expose-group-by-app = true;
+        expose-group-apps = true;
         mru-spaces = false;
         autohide = true;
         autohide-delay = 0.0;

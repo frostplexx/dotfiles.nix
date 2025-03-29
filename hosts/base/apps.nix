@@ -34,10 +34,10 @@
     curl
     git-secret
 
-    nixpkgs-review
-    nix-update
     nix-tree
     nix-output-monitor
+    nh
+    nvd
 
     # GUI applications
     obsidian
