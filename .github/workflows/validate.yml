@@ -56,46 +56,58 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
-      - name: Install nix-editor
-        run: nix profile install github:snowfallorg/nix-editor
       - name: Generate Configuration Matrix
         id: set-matrix
         shell: bash
         run: |
-          # Get configurations using nix-editor and extract just the top-level key
+          # Use nix eval to get configurations directly from the flake
           echo "Detecting NixOS configurations..."
-          NIXOS_CONFIGS=$(nix-editor hosts/default.nix nixosConfigurations | grep -E "^  [a-zA-Z]+ = {" | cut -d' ' -f3)
+          NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
           
           echo "Detecting Darwin configurations..."
-          DARWIN_CONFIGS=$(nix-editor hosts/default.nix darwinConfigurations | grep -E "^  [a-zA-Z]+ = {" | cut -d' ' -f3)
+          DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
           
           # Debug output
           echo "Detected NixOS configs: $NIXOS_CONFIGS"
           echo "Detected Darwin configs: $DARWIN_CONFIGS"
           
-          # Build the JSON array
-          MATRIX_JSON="{"
-          MATRIX_JSON+="\"include\": ["
+          # Create the matrix JSON using jq for reliability
+          MATRIX_JSON=$(cat <<EOF
+          {
+            "include": [
+              $(
+                # Process NIXOS_CONFIGS
+                echo "$NIXOS_CONFIGS" | jq -rc '.[] | 
+                  {
+                    "name": .,
+                    "os": "ubuntu-latest",
+                    "type": "nixos",
+                    "config": "nixosConfigurations.\(.)\.config.system.build.toplevel"
+                  }
+                ' | jq -sc '.[0:(.| length)]' | jq -r '.[] | tostring' | tr '\n' ',' | sed 's/,$//'
+                
+                # Add separator if both have entries
+                if [ "$NIXOS_CONFIGS" != "[]" ] && [ "$DARWIN_CONFIGS" != "[]" ]; then
+                  echo ","
+                fi
+                
+                # Process DARWIN_CONFIGS
+                if [ "$DARWIN_CONFIGS" != "[]" ]; then
+                  echo "$DARWIN_CONFIGS" | jq -rc '.[] | 
+                    {
+                      "name": .,
+                      "os": "macos-latest",
+                      "type": "darwin",
+                      "config": "darwinConfigurations.\(.)\.system"
+                    }
+                  ' | jq -sc '.[0:(.| length)]' | jq -r '.[] | tostring' | tr '\n' ',' | sed 's/,$//'
+                fi
+              )
+            ]
+          }
+          EOF
+          )
           
-          # Add NixOS configurations
-          for config in $NIXOS_CONFIGS; do
-            if [ -n "$config" ]; then
-              MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\"},"
-            fi
-          done
-          
-          # Add Darwin configurations
-          for config in $DARWIN_CONFIGS; do
-            if [ -n "$config" ]; then
-              MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"config\":\"darwinConfigurations.$config.system\"},"
-            fi
-          done
-          
-          # Remove trailing comma and close JSON
-          MATRIX_JSON=${MATRIX_JSON%,}
-          MATRIX_JSON+="]}"
-          
-          # Set the output
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   test-configurations:
