@@ -1,7 +1,7 @@
 # Main entry point for host configurations
 {
   darwinConfigurations = {
-    lyra = {
+    pc-dev-lyra = {
       system = "aarch64-darwin";
       stateVersion = 5;
       modules = [
@@ -12,7 +12,7 @@
   };
 
   nixosConfigurations = {
-    phoenix = {
+    pc-dev-phoenix = {
       system = "x86_64-linux";
       stateVersion = "24.05";
       modules = [

@@ -21,6 +21,11 @@ _: let
     imports = map (name: allModules.${name}) modules;
   };
 in {
+  # TODO: move to a better place
+  home.sessionVariables = {
+    NH_FLAKE = "$HOME/dotfiles.nix";
+  };
+
   _module.args.mkHomeManagerConfiguration = {
     # Create configuration with all modules
     withAll = mkHomeConfiguration {
