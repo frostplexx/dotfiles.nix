@@ -71,42 +71,41 @@ jobs:
           echo "Detected NixOS configs: $NIXOS_CONFIGS"
           echo "Detected Darwin configs: $DARWIN_CONFIGS"
           
-          # Create the matrix JSON using jq for reliability
-          MATRIX_JSON=$(cat <<EOF
-          {
-            "include": [
-              $(
-                # Process NIXOS_CONFIGS
-                echo "$NIXOS_CONFIGS" | jq -rc '.[] | 
-                  {
-                    "name": .,
-                    "os": "ubuntu-latest",
-                    "type": "nixos",
-                    "config": "nixosConfigurations.\(.)\.config.system.build.toplevel"
-                  }
-                ' | jq -sc '.[0:(.| length)]' | jq -r '.[] | tostring' | tr '\n' ',' | sed 's/,$//'
-                
-                # Add separator if both have entries
-                if [ "$NIXOS_CONFIGS" != "[]" ] && [ "$DARWIN_CONFIGS" != "[]" ]; then
-                  echo ","
-                fi
-                
-                # Process DARWIN_CONFIGS
-                if [ "$DARWIN_CONFIGS" != "[]" ]; then
-                  echo "$DARWIN_CONFIGS" | jq -rc '.[] | 
-                    {
-                      "name": .,
-                      "os": "macos-latest",
-                      "type": "darwin",
-                      "config": "darwinConfigurations.\(.)\.system"
-                    }
-                  ' | jq -sc '.[0:(.| length)]' | jq -r '.[] | tostring' | tr '\n' ',' | sed 's/,$//'
-                fi
-              )
-            ]
-          }
-          EOF
-          )
+          # Create a simpler matrix JSON formation approach
+          echo "Building matrix JSON..."
+          MATRIX_JSON='{"include":['
+          
+          # Process NixOS configs
+          NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
+          if [ "$NIXOS_ARRAY" != "[]" ]; then
+            for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"ubuntu-latest\","
+              MATRIX_JSON+="\"type\":\"nixos\","
+              MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
+              MATRIX_JSON+="},"
+            done
+          fi
+          
+          # Process Darwin configs
+          DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
+          if [ "$DARWIN_ARRAY" != "[]" ]; then
+            for config in $(echo "$DARWIN_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"macos-latest\","
+              MATRIX_JSON+="\"type\":\"darwin\","
+              MATRIX_JSON+="\"config\":\"darwinConfigurations.$config.system\""
+              MATRIX_JSON+="},"
+            done
+          fi
+          
+          # Remove trailing comma if it exists
+          MATRIX_JSON=${MATRIX_JSON%,}
+          MATRIX_JSON+="]}"
+          
+          echo "Matrix JSON: $MATRIX_JSON"
           
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
