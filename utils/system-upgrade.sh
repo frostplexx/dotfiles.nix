@@ -11,7 +11,7 @@ function upgrade_flakes() {
   ./utils/update-flake-revs.sh
   ./utils/update-hashes.py
   
-  print "${INFO} Upgrading flakes..."
+  echo -e "${INFO} Upgrading flakes..."
   
   nix --extra-experimental-features 'nix-command flakes' --accept-flake-config flake update
   
