@@ -70,6 +70,7 @@
       "raycast"
       "mullvadvpn"
       "aerospace"
+      "whisky"
       "betterdisplay"
     ];
   };
