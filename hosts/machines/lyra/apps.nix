@@ -2,8 +2,6 @@
 {pkgs, ...}: {
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
-    # Development tools
-    dotnet-sdk
 
     # GUI Applications
     jetbrains.idea-ultimate
