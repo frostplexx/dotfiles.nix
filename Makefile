@@ -32,25 +32,26 @@ HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
 include ./utils/format.mk
 .PHONY: all deploy upgrade install lint clean repair select
 
-all: deploy clean
+all: deploy
 
 select:
 	@bash ./utils/system-deploy.sh
 
-deploy:
-	@bash ./utils/system-deploy.sh
+deploy: lint
+	@bash ./utils/system-deploy.sh deploy
 
-# upgrade:
-# 	@bash ./utils/system-upgrade.sh
+upgrade: lint
+	@bash ./utils/system-deploy.sh update
 
 install:
 	@bash ./utils/system-install.sh
 
 clean:
-	@bash ./utils/system-clean.sh
+	@nix run github:viperml/nh -- clean all
 
 repair:
-	@bash ./utils/system-repair.sh
+	@sudo nix-store --verify --check-contents --repair
+
 
 lint:
 	@bash ./utils/lint.sh
