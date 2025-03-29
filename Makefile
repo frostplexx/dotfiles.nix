@@ -40,8 +40,8 @@ select:
 deploy:
 	@bash ./utils/system-deploy.sh
 
-upgrade:
-	@bash ./utils/system-upgrade.sh
+# upgrade:
+# 	@bash ./utils/system-upgrade.sh
 
 install:
 	@bash ./utils/system-install.sh

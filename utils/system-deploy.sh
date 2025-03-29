@@ -34,13 +34,13 @@ function deploy_system() {
     git add .
 
     # Check if nh is available
-        if [ "$(uname)" = "Darwin" ]; then
-            NIX_CMD="darwin"
-        else
-            NIX_CMD="os"
-        fi
+    if [ "$(uname)" = "Darwin" ]; then
+        NIX_CMD="darwin"
+    else
+        NIX_CMD="os"
+    fi
 
-        nix run github:viperml/nh -- $NIX_CMD switch -H $config .
+    nix run github:viperml/nh -- $NIX_CMD switch -H $config . --update
 }
 
 # Main script
