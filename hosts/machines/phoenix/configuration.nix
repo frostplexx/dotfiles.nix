@@ -18,12 +18,8 @@
     networkmanager.enable = true;
     interfaces.enp4s0.wakeOnLan.enable = true;
     nameservers = [
-      194.242
-      .2
-      .4
-      9.9
-      .9
-      .9
+      "194.242.2.4"
+      "9.9.9.10"
     ];
 
     # Firewall configuration

@@ -6,7 +6,7 @@
 }: {
   # Shared nix settings
   nix = {
-    package = pkgs.nixVersions.git;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
       warn-dirty = false
