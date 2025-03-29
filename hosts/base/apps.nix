@@ -34,6 +34,11 @@
     curl
     git-secret
 
+    nixpkgs-review
+    nix-update
+    nix-tree
+    nix-output-monitor
+
     # GUI applications
     obsidian
     _1password-cli
