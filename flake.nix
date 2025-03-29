@@ -36,7 +36,6 @@
   };
 
   outputs = inputs: let
-
     vars = {
       user = "daniel";
     };
