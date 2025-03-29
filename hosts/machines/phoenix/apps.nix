@@ -54,7 +54,7 @@
     gamemode
     # vintagestory
     solaar
-    linuxKernel.packages.linux_6_11.xone
+    linuxKernel.packages.linux_zen.xone
     ckan
     openrgb-with-all-plugins
     furmark
