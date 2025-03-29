@@ -36,7 +36,7 @@
   };
 
   outputs = inputs: let
-    # Global variables used across configurations
+
     vars = {
       user = "daniel";
     };
