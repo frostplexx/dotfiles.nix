@@ -13,9 +13,10 @@ function check_platform() {
 function install_nix() {
   if ! command -v nix >/dev/null 2>&1; then
     echo -e "${INFO} Installing Nix..."
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    #curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    curl -sSf -L https://install.lix.systems/lix | sh -s -- install
     echo -e "${SUCCESS} Nix installed successfully!"
-    echo -e "${WARN} Please restart your terminal and run '$0' again."
+    echo -e "${WARN} Please restart your terminal and run 'make install' again."
     exit 0
   else
     echo -e "${INFO} Nix already installed"
