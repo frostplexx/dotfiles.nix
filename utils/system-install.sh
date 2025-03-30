@@ -45,7 +45,7 @@ function setup_nix_darwin() {
     # Use the full flake command with all required experimental features
     nix run --extra-experimental-features "nix-command flakes" \
       --accept-flake-config \
-      --log-format internal-json -v
+      --log-format internal-json -v \
       github:LnL7/nix-darwin/master \
       -- \
       --flake .#"$(config)" switch \
