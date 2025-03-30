@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # system-install.sh - First-time setup for macOS systems
-
 set -e
 source "$(dirname "$0")/colors.sh"
 
@@ -23,9 +22,7 @@ function install_nix() {
   fi
 }
 
-
 function install_homebrew() {
-  echo "${INFO} Checking for Homebrew..."
   if ! command -v brew >/dev/null 2>&1; then
     echo -e "${INFO} Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -36,9 +33,8 @@ function install_homebrew() {
 }
 
 function setup_nix_darwin() {
-  echo "${INFO} Setting up nix-darwin..."
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
-    echo -e "${INFO} Installing nix-darwin..."
+    echo "${INFO} Installing nix-darwin..."
     nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' --accept-flake-config  -- switch 
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
@@ -47,25 +43,22 @@ function setup_nix_darwin() {
 }
 
 function setup_home_manager() {
-  echo -e "${INFO} Setting up home-manager..."
-  nix-shell '<home-manager>' -A install
-  echo -e "${SUCCESS} home-manager installed successfully!"
-}
-
-function init_darwin() {
-  echo -e "${INFO} Initializing nix-darwin configuration..."
-  # Add any additional Darwin-specific initialization here
+  # Check if home-manager is installed
+  if ! command -v home-manager >/dev/null 2>&1; then
+    echo -e "${INFO} Setting up home-manager..."
+    nix-shell '<home-manager>' -A install
+    echo -e "${SUCCESS} home-manager installed successfully!"
+  else
+    echo -e "${INFO} home-manager already installed"
+  fi
 }
 
 # Main script
 echo -e "${HEADER}Starting macOS Setup${RESET}"
-
 check_platform
 install_nix
 install_homebrew
 setup_nix_darwin
 setup_home_manager
-init_darwin
-
 echo -e "${SUCCESS} Installation complete!"
 echo -e "${WARN} Please restart your shell and run './system-deploy.sh'\n"
