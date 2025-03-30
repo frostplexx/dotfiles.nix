@@ -61,7 +61,7 @@ The Makefile offers the following targets that can be run for managing the syste
 - `all`:      same as deploy
 - `deploy`:   lints, auto-detects OS and deploys appropriate configuration
 - `update`:   updates flake and deploys
-- `install`:  first-time setup
+- `install`:  first-time setup for MacOS
 - `lint`:     format and lint nix files using alejandra, statix and deadnix
 - `clean`:    remove old system generations (runs `nh clean all`)
 - `repair`:   verify nix store and repair
