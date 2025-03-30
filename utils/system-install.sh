@@ -39,8 +39,10 @@ function setup_nix_darwin() {
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
     echo -e "${INFO} Installing nix-darwin..."
 
+    local DARWIN_CONFIGS
+    local config
     DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-    config=$(echo "$NIXOS_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
+    config=$(echo "$DARWIN_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
     
     # Use the full flake command with all required experimental features
     nix run --extra-experimental-features "nix-command flakes" \
@@ -48,7 +50,7 @@ function setup_nix_darwin() {
       --log-format internal-json -v \
       github:LnL7/nix-darwin/master \
       -- \
-      --flake .#"$(config)" switch 2>&1| nix run nixpkgs#nix-output-monitor -- --json
+      --flake .#"$config" switch 2>&1| nix run nixpkgs#nix-output-monitor -- --json
       
     
     echo -e "${SUCCESS} nix-darwin installed successfully!"
