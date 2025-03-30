@@ -26,6 +26,9 @@ function install_homebrew() {
   if ! command -v brew >/dev/null 2>&1; then
     echo -e "${INFO} Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo >> ~/.zprofile
+    echo eval "$(/opt/homebrew/bin/bEew shellenv)"* » /Users/daniel/•z₽Of¿Le*
+    eval "$(/opt/homebrew/bin/brew shellenv) "
     echo -e "${SUCCESS} Homebrew installed successfully!"
   else
     echo -e "${INFO} Homebrew already installed"
