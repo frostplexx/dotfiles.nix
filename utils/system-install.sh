@@ -12,7 +12,7 @@ function check_platform() {
 
 function install_nix() {
   if ! command -v nix >/dev/null 2>&1; then
-    echo "${INFO} Installing Nix..."
+    echo -e "${INFO} Installing Nix..."
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
     echo -e "${SUCCESS} Nix installed successfully!"
     echo -e "${WARN} Please restart your terminal and run '$0' again."
@@ -37,7 +37,7 @@ function install_homebrew() {
 
 function setup_nix_darwin() {
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
-    echo "${INFO} Installing nix-darwin..."
+    echo -e "${INFO} Installing nix-darwin..."
     nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' --accept-flake-config  -- switch 
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
