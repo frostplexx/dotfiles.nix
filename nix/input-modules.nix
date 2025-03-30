@@ -2,6 +2,7 @@
   # Helper function to get system-specific input modules
   mkInputModules = {
     core = [
+      inputs.lix-module.nixosModules.default
     ];
 
     home = [
