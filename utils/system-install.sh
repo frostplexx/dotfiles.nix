@@ -38,7 +38,21 @@ function install_homebrew() {
 function setup_nix_darwin() {
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
     echo -e "${INFO} Installing nix-darwin..."
-    nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' --accept-flake-config  -- switch 
+    
+    # Use the full flake command with all required experimental features
+    nix run --extra-experimental-features "nix-command flakes" \
+      --accept-flake-config \
+      github:LnL7/nix-darwin/master \
+      -- \
+      --flake . switch
+      
+    # If the above fails, try the alternative installation method
+    if [ $? -ne 0 ]; then
+      echo "${WARN} First installation method failed, trying alternative..."
+      nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+      ./result/bin/darwin-installer
+    fi
+    
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
     echo -e "${INFO} nix-darwin already installed"
