@@ -38,47 +38,19 @@ function install_homebrew() {
 function setup_nix_darwin() {
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
     echo -e "${INFO} Installing nix-darwin..."
+
+    DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
+    config=$(echo "$NIXOS_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
     
-    # Get available darwin configurations
-    DARWIN_CONFIGS=$(nix eval --extra-experimental-features "nix-command flakes" --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-    
-    # Check if we have any configurations
-    if [ "$DARWIN_CONFIGS" != "[]" ]; then
-      # Use fzf to select configuration with proper title
-      config=$(echo "$DARWIN_CONFIGS" | nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf -- --prompt="Select your macOS configuration: " --header="Available macOS Configurations")
+    # Use the full flake command with all required experimental features
+    nix run --extra-experimental-features "nix-command flakes" \
+      --accept-flake-config \
+      --log-format internal-json -v
+      github:LnL7/nix-darwin/master \
+      -- \
+      --flake .#"$(config)" switch \
+      |& nix run nixpkgs#nix-output-monitor -- --json
       
-      if [ -n "$config" ]; then
-        echo -e "${INFO} Selected configuration: $config"
-        
-        # Use the full flake command with the selected configuration
-        nix run --extra-experimental-features "nix-command flakes" \
-          --accept-flake-config \
-          github:LnL7/nix-darwin/master \
-          -- \
-          --flake .#"$config" switch
-      else
-        echo -e "${WARN} No configuration selected, using default..."
-        nix run --extra-experimental-features "nix-command flakes" \
-          --accept-flake-config \
-          github:LnL7/nix-darwin/master \
-          -- \
-          --flake . switch
-      fi
-    else
-      echo -e "${WARN} No darwin configurations found in flake, using default..."
-      nix run --extra-experimental-features "nix-command flakes" \
-        --accept-flake-config \
-        github:LnL7/nix-darwin/master \
-        -- \
-        --flake . switch
-    fi
-    
-    # If the above fails, try the alternative installation method
-    if [ $? -ne 0 ]; then
-      echo -e "${WARN} First installation method failed, trying alternative..."
-      nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-      ./result/bin/darwin-installer
-    fi
     
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
