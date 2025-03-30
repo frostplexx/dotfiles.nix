@@ -35,6 +35,7 @@
       # "Super Agent for Safari" = 1568262835;
       # "Noir" = 1592917505;
       # "Tailscale" = 1475387142;
+      # "Obsidian Web Clipper" = 6720708363;
       #
       # "Xcode" = 497799835;
       # "Things" = 904280696;
