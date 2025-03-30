@@ -27,15 +27,10 @@ MAKEFLAGS += --no-print-directory
 
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config 
 
-HOSTNAME = hostname |sed -E 's/([a-z]*-)([a-z]*-)([a-z]*)/\3/';
-
 include ./utils/format.mk
-.PHONY: all deploy upgrade install lint clean repair select
+.PHONY: all deploy upgrade install lint clean repair
 
 all: deploy
-
-select:
-	@bash ./utils/system-deploy.sh
 
 deploy: lint
 	@bash ./utils/system-deploy.sh deploy
@@ -51,7 +46,6 @@ clean:
 
 repair:
 	@sudo nix-store --verify --check-contents --repair
-
 
 lint:
 	@bash ./utils/lint.sh
