@@ -2,7 +2,6 @@
 {pkgs, ...}: {
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
-
     # GUI Applications
     jetbrains.idea-ultimate
     jetbrains.clion
