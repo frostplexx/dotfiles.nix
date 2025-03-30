@@ -39,8 +39,7 @@ function setup_nix_darwin() {
   echo "${INFO} Setting up nix-darwin..."
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
     echo -e "${INFO} Installing nix-darwin..."
-    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-    ./result/bin/darwin-installer
+    nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' --accept-flake-config  -- switch 
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
     echo -e "${INFO} nix-darwin already installed"
