@@ -15,7 +15,6 @@
     zoom-us
     utm
     aerospace
-    whatsapp-for-mac
   ];
 
   # Homebrew configuration
