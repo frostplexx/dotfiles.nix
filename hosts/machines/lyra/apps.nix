@@ -28,21 +28,21 @@
     };
     masApps = {
       # Safari extensions
-      # "1Password for Safari" = 1569813296;
-      # "AdGuard for Safari" = 1440147259;
-      # "SponsorBlock for Safari" = 1573461917;
-      # "Raycast Companion" = 6738274497;
-      # "Super Agent for Safari" = 1568262835;
-      # "Noir" = 1592917505;
-      # "Tailscale" = 1475387142;
-      # "Obsidian Web Clipper" = 6720708363;
+      "1Password for Safari" = 1569813296;
+      "AdGuard for Safari" = 1440147259;
+      "SponsorBlock for Safari" = 1573461917;
+      "Raycast Companion" = 6738274497;
+      "Super Agent for Safari" = 1568262835;
+      "Noir" = 1592917505;
+      "Tailscale" = 1475387142;
+      "Obsidian Web Clipper" = 6720708363;
       #
       # "Xcode" = 497799835;
-      # "Things" = 904280696;
-      # "eduVPN" = 1317704208;
-      # "Goodnotes" = 1444383602;
-      # "WhatsApp" = 310633997;
-      # "Windows App" = 1295203466;
+      "Things" = 904280696;
+      "eduVPN" = 1317704208;
+      "Goodnotes" = 1444383602;
+      "WhatsApp" = 310633997;
+      "Windows App" = 1295203466;
     };
     taps = [
       "FelixKratz/formulae"
