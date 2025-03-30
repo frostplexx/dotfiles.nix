@@ -48,23 +48,12 @@ function setup_nix_darwin() {
       --log-format internal-json -v \
       github:LnL7/nix-darwin/master \
       -- \
-      --flake .#"$(config)" switch |& nix run nixpkgs#nix-output-monitor -- --json
+      --flake .#"$(config)" switch 2>&1| nix run nixpkgs#nix-output-monitor -- --json
       
     
     echo -e "${SUCCESS} nix-darwin installed successfully!"
   else
     echo -e "${INFO} nix-darwin already installed"
-  fi
-}
-
-function setup_home_manager() {
-  # Check if home-manager is installed
-  if ! command -v home-manager >/dev/null 2>&1; then
-    echo -e "${INFO} Setting up home-manager..."
-    nix-shell '<home-manager>' -A install
-    echo -e "${SUCCESS} home-manager installed successfully!"
-  else
-    echo -e "${INFO} home-manager already installed"
   fi
 }
 
@@ -74,6 +63,5 @@ check_platform
 install_nix
 install_homebrew
 setup_nix_darwin
-setup_home_manager
 echo -e "${SUCCESS} Installation complete!"
 echo -e "${WARN} Please restart your shell and run './system-deploy.sh'\n"
