@@ -37,13 +37,36 @@ It provides a reproducible setup for macOS systems using declarative configurati
 
 ---
 
-## Quick Start
+## Getting Started
 
-0. On MacOS run `xcode-select --install` to install make and git
+### Prerequisites
+
+- A Computer running MacOS or NixOS
+- Make available
+  - On MacOS install it using `xcode-select --install`
+  - On NixOS you can get a shell with make by running `nix-shell -p gnumake`
+
+### Installation
+
 1. Clone this repo into your home directory and cd into it
-1.5. On MacOS run `make install`
-2. Run `make` it will prompt you to select a config.
+2. On MacOS run `make install` to install Nix, ni-darwin and home-manager
+3. Use `make` to deploy the system.This will prompt you to select a config. Choose the one for the hostname below
+    - MacBook: pc-dev-lyra
+    - NixOS Desktop: pc-dev-phoenix
 
+### Available Commands
+
+The Makefile offers the following targets that can be run for managing the system:
+
+- `all`:      same as deploy
+- `deploy`:   lints, auto-detects OS and deploys appropriate configuration
+- `update`:   updates flake and deploys
+- `install`:  first-time setup
+- `lint`:     format and lint nix files using alejandra, statix and deadnix
+- `clean`:    remove old system generations (runs `nh clean all`)
+- `repair`:   verify nix store and repair
+
+In addition `nix-tree`, `nix-output-monitor`, `nh` and `nvd` come installed.
 
 ## Management
 
