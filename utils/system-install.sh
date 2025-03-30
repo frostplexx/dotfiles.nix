@@ -48,8 +48,7 @@ function setup_nix_darwin() {
       --log-format internal-json -v \
       github:LnL7/nix-darwin/master \
       -- \
-      --flake .#"$(config)" switch \
-      |& nix run nixpkgs#nix-output-monitor -- --json
+      --flake .#"$(config)" switch |& nix run nixpkgs#nix-output-monitor -- --json
       
     
     echo -e "${SUCCESS} nix-darwin installed successfully!"
