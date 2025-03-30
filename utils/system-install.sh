@@ -39,16 +39,43 @@ function setup_nix_darwin() {
   if ! command -v darwin-rebuild > /dev/null 2>&1; then
     echo -e "${INFO} Installing nix-darwin..."
     
-    # Use the full flake command with all required experimental features
-    nix run --extra-experimental-features "nix-command flakes" \
-      --accept-flake-config \
-      github:LnL7/nix-darwin/master \
-      -- \
-      --flake . switch
+    # Get available darwin configurations
+    DARWIN_CONFIGS=$(nix eval --extra-experimental-features "nix-command flakes" --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
+    
+    # Check if we have any configurations
+    if [ "$DARWIN_CONFIGS" != "[]" ]; then
+      # Use fzf to select configuration with proper title
+      config=$(echo "$DARWIN_CONFIGS" | nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf -- --prompt="Select your macOS configuration: " --header="Available macOS Configurations")
       
+      if [ -n "$config" ]; then
+        echo -e "${INFO} Selected configuration: $config"
+        
+        # Use the full flake command with the selected configuration
+        nix run --extra-experimental-features "nix-command flakes" \
+          --accept-flake-config \
+          github:LnL7/nix-darwin/master \
+          -- \
+          --flake .#"$config" switch
+      else
+        echo -e "${WARN} No configuration selected, using default..."
+        nix run --extra-experimental-features "nix-command flakes" \
+          --accept-flake-config \
+          github:LnL7/nix-darwin/master \
+          -- \
+          --flake . switch
+      fi
+    else
+      echo -e "${WARN} No darwin configurations found in flake, using default..."
+      nix run --extra-experimental-features "nix-command flakes" \
+        --accept-flake-config \
+        github:LnL7/nix-darwin/master \
+        -- \
+        --flake . switch
+    fi
+    
     # If the above fails, try the alternative installation method
     if [ $? -ne 0 ]; then
-      echo "${WARN} First installation method failed, trying alternative..."
+      echo -e "${WARN} First installation method failed, trying alternative..."
       nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
       ./result/bin/darwin-installer
     fi
