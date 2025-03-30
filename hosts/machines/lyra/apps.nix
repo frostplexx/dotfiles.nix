@@ -16,7 +16,6 @@
     utm
     aerospace
     whatsapp-for-mac
-    darwin.xcode_16_2
   ];
 
   # Homebrew configuration
@@ -38,9 +37,11 @@
       # "Noir" = 1592917505;
       # "Tailscale" = 1475387142;
       #
+      # "Xcode" = 497799835;
       # "Things" = 904280696;
       # "eduVPN" = 1317704208;
       # "Goodnotes" = 1444383602;
+      # "WhatsApp" = 310633997;
       # "Windows App" = 1295203466;
     };
     taps = [

@@ -10,7 +10,6 @@
     # Development tools
     git
     neovim
-    zellij
     lazygit
     nodePackages.nodejs
     llvm
@@ -46,6 +45,7 @@
     transmission_4
     spotify
     imhex
+    zed-editor
   ];
 
   # Base fonts
