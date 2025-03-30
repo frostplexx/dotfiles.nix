@@ -45,12 +45,13 @@ function setup_nix_darwin() {
     config=$(echo "$DARWIN_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
     
     # Use the full flake command with all required experimental features
-    nix run --extra-experimental-features "nix-command flakes" \
-      --accept-flake-config \
-      --log-format internal-json -v \
-      github:LnL7/nix-darwin/master \
-      -- \
-      --flake .#"$config" switch 2>&1| nix run nixpkgs#nix-output-monitor -- --json
+    # nix run --extra-experimental-features "nix-command flakes" \
+    #   --accept-flake-config \
+    #   --log-format internal-json -v \
+    #   github:LnL7/nix-darwin/master \
+    #   -- \
+    #   --flake .#"$config" switch 2>&1 | nix run nixpkgs#nix-output-monitor -- --json
+    nix run --extra-experimental-features "nix-command flakes" github:viperML/nh -- darwin switch -H "$config" .
       
     
     echo -e "${SUCCESS} nix-darwin installed successfully!"
