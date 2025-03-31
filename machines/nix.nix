@@ -1,6 +1,5 @@
 {
   pkgs,
-  vars,
   lib,
   ...
 }: {
@@ -22,8 +21,6 @@
       # given the users in this list the right to specify additional substituters via:
       #    1. `nixConfig.substituters` in `flake.nix`
       #    2. command line args `--options substituters http://xxx`
-      trusted-users = ["root" vars.user];
-
       substituters = [
         "https://cache.nixos.org"
         # nix community's cache server

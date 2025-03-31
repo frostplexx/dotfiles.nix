@@ -1,43 +1,57 @@
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
-  nixConfig.commit-lockfile-summary = "flake: bump inputs";
 
   inputs = {
-    # Core dependencies
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
-    };
 
+    # Lix is a modern, delicious implementation of the Nix package manager
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix.follows = "lix";
     };
 
     # Darwin-specific inputs
-    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    nix-darwin = {
+    darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    # Declaratively manage homebrew
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    # Homebrew Taps
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-nikitabobko = {
+      url = "github:nikitabobko/homebrew-tap";
+      flake = false;
+    };
+    homebrew-felixkratz = {
+      url = "github:FelixKratz/homebrew-formulae";
+      flake = false;
+    };
 
-    # Application-specific inputs
-    nur.url = "github:nix-community/nur";
+    # Needed for firefox addons
+    # nur.url = "github:nix-community/nur";
+
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    # Desktop environments
+    # Manage KDE Plasma with Home Manager
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,19 +59,52 @@
     };
   };
 
-  outputs = inputs: let
-    vars = {
-      user = "daniel";
-    };
+  outputs = {nixpkgs, ...} @ inputs: let
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
 
-    utils = import ./nix/utils.nix {
-      inherit inputs vars;
+    mkSystem = import ./lib/mksystem.nix {
+      inherit overlays nixpkgs inputs;
     };
-  in
-    utils.lib.mkFlake {
-      inherit inputs;
-      imports = [
-        ./hosts
+  in {
+    #TODO: implement: devShells = import ../shells;
+
+    nixosConfigurations.pc-nixos = mkSystem "pc-nixos" {
+      system = "x86_64-linux";
+      user = "daniel";
+      # Home manager modules you want to include as defined in ./home
+      hm-modules = [
+        "editor"
+        "git"
+        "kitty"
+        "nixcord"
+        "plasma"
+        "shell"
+        "ssh"
       ];
     };
+
+    darwinConfigurations.macbook-pro-m1 = mkSystem "macbook-pro-m1" {
+      system = "aarch64-darwin";
+      user = "daniel";
+      # Home manager modules you want to include as defined in ./home
+      hm-modules = [
+        "aerospace"
+        "editor"
+        "ghostty"
+        "git"
+        "kitty"
+        "nixcord"
+        "shell"
+        "ssh"
+      ];
+    };
+
+    # Set a formatter for both the system architectures im using
+    formatter = {
+      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
+      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    };
+  };
 }

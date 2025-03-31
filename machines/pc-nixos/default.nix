@@ -3,14 +3,14 @@
   config,
   pkgs,
   inputs,
-  mkHomeManagerConfiguration,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix # Hardware-specific settings
-    ../../base # Base configuration
     ./apps.nix # Phoenix-specific apps
+    ../shared.nix
     ./sunshine.nix
+    ./services.nix
   ];
 
   networking = {
@@ -46,68 +46,6 @@
     };
   };
 
-  # Desktop environment
-  services = {
-    tailscale.enable = true;
-
-    xserver = {
-      enable = true;
-      xkb.layout = "us";
-      videoDrivers = ["nvidia"];
-    };
-
-    displayManager = {
-      sddm = {
-        enable = true;
-        # wayland.enable = true;
-      };
-      autoLogin = {
-        enable = true;
-        user = config.user.name;
-      };
-      defaultSession = "plasmax11";
-    };
-
-    desktopManager.plasma6.enable = true;
-
-    # Audio
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-    };
-
-    # Other services
-    printing.enable = true;
-    openssh.enable = true;
-  };
-
-  # Hardware configuration
-  hardware = {
-    pulseaudio.enable = false;
-    graphics.enable = true;
-
-    bluetooth = {
-      enable = true; # enables support for Bluetooth
-      powerOnBoot = true; # powers up the default Bluetooth controller on boot
-    };
-
-    opengl.enable = true;
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement = {
-        enable = true;
-        finegrained = false;
-      };
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-    };
-  };
-
   # Power management
   powerManagement = {
     enable = true;
@@ -140,14 +78,5 @@
     defaultUserShell = pkgs.zsh;
     users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
-
-  # Home Manager configuration
-  home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
-    "editor"
-    "wezterm"
-    "git"
-    "shell"
-    "plasma"
-    "nixcord"
-  ];
+  nixpkgs.overlays = import ../../lib/overlays.nix;
 }

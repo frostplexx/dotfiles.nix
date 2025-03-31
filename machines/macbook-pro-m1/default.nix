@@ -1,21 +1,20 @@
 # Configuration for Lyra MacBook
 {
   pkgs,
-  vars,
-  mkHomeManagerConfiguration,
+  user,
   ...
 }: {
   imports = [
-    ../../base # Base configuration
+    ../shared.nix # Base configuration
     ./apps.nix # Lyra-specific apps
     ./custom_icons/custom_icons.nix # Custom application icons
-    ../../../nix/custom-icons.nix
+    ../../lib/custom-icons.nix
   ];
 
   # Basic system configuration
   networking = {
-    hostName = "pc-dev-lyra";
-    computerName = "pc-dev-lyra";
+    hostName = "macbook-pro-m1";
+    computerName = "macbook-pro-m1";
     dns = [
       "194.242.2.4"
       "9.9.9.9"
@@ -30,27 +29,12 @@
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
-  nix.settings.trusted-users = [vars.user];
 
   # User configuration
-  users.users.${vars.user} = {
-    home = "/Users/${vars.user}";
-    description = vars.user;
+  users.users.${user} = {
+    home = "/Users/${user}";
+    description = user;
   };
-
-  # Home Manager configuration
-  home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
-    "macos-wm"
-    "editor"
-    # "wezterm"
-    "kitty"
-    "ghostty"
-    "git"
-    "shell"
-    "nixcord"
-    "ssh"
-    "aerospace"
-  ];
 
   # System defaults and preferences
   system = {
@@ -58,21 +42,21 @@
 
     # Post-activation scripts
     activationScripts.postUserActivation.text = ''
-       # Disable mouse acceleration
-       defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-       defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
-       # Title bar icons in finder
-       # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
-       defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
-       defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
-       defaults write NSGlobalDomain AppleAccentColor -int 10;
+      # Disable mouse acceleration
+      defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+      defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
+      # Title bar icons in finder
+      # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+      defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
+      defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
+      defaults write NSGlobalDomain AppleAccentColor -int 10;
 
-       #set wallpaper
+      #set wallpaper
       osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/daniel/dotfiles.nix/assets/wallpaper.png"'
 
-       # Reload settings
-       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-       killall Finder
+      # Reload settings
+      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      killall Finder
     '';
 
     defaults = {
@@ -177,7 +161,7 @@
       loginwindow = {
         GuestEnabled = false;
         SHOWFULLNAME = false;
-        autoLoginUser = vars.user;
+        autoLoginUser = user;
       };
 
       controlcenter = {
@@ -200,7 +184,7 @@
           ShowTabView = false;
           FXPreferredViewStyle = "Nlsv";
           FXDefaultSearchScope = "SCcf";
-          NewWindowTargetPath = "file:///Users/${vars.user}/Downloads/";
+          NewWindowTargetPath = "file:///Users/${user}/Downloads/";
         };
 
         "com.apple.desktopservices" = {

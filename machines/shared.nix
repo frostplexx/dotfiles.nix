@@ -1,27 +1,19 @@
-# Base applications that should be available on all systems
-{
-  pkgs,
-  # vars,
-  ...
-}: {
-  # Basic system packages
+{pkgs, ...}: {
+  # Nix settings import
+  imports = [
+    ./nix.nix
+  ];
 
+  # Basic system packages
   environment.systemPackages = with pkgs; [
     # Development tools
-    git
-    neovim
     lazygit
-    nodePackages.nodejs
-    llvm
-    lldb
     gnumake
     gcc
     entr # Run arbitrary commands when files change
     man-pages
     man-pages-posix
-    jq
-    unzip
-    python3
+    #TODO: move to home manager: jq
 
     # CLI utilities
     ffmpeg
@@ -32,7 +24,6 @@
     sshpass
     wget
     curl
-    git-secret
 
     nix-tree
     nix-output-monitor
