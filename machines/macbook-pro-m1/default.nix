@@ -31,12 +31,6 @@
   security.pam.services.sudo_local.touchIdAuth = true;
   nix.settings.trusted-users = [vars.user];
 
-  # User configuration
-  users.users.${vars.user} = {
-    home = "/Users/${vars.user}";
-    description = vars.user;
-  };
-
   # System defaults and preferences
   system = {
     startup.chime = false;

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  # vars,
-  ...
-}: {
+{pkgs, ...}: {
   # Basic system packages
 
   environment.systemPackages = with pkgs; [
