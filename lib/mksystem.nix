@@ -56,33 +56,33 @@ in
 
       machineConfig
       # userOSConfig
-      home-manager.home-manager
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs;
-            # Pass any other special arguments needed by home-manager modules
-          };
-          users.${user} = {config, ...}: {
-            imports = [
-              # Import the base home-manager configuration
-              ../home
-              # Then apply the selected modules using the function
-              {
-                _module.args.mkHomeManagerConfiguration = {
-                  withModules = modules: {
-                    imports = map (name: ../home/${name}) modules;
-                  };
-                };
-              }
-              # Apply the selected modules
-              (../home/_module.args.mkHomeManagerConfiguration.withModules hm-modules)
-            ];
-          };
-        };
-      }
+      # home-manager.home-manager
+      # {
+      #   home-manager = {
+      #     useGlobalPkgs = true;
+      #     useUserPackages = true;
+      #     extraSpecialArgs = {
+      #       inherit inputs;
+      #       # Pass any other special arguments needed by home-manager modules
+      #     };
+      #     users.${user} = {config, ...}: {
+      #       imports = [
+      #         # Import the base home-manager configuration
+      #         ../home
+      #         # Then apply the selected modules using the function
+      #         {
+      #           _module.args.mkHomeManagerConfiguration = {
+      #             withModules = modules: {
+      #               imports = map (name: ../home/${name}) modules;
+      #             };
+      #           };
+      #         }
+      #         # Apply the selected modules
+      #         (../home/_module.args.mkHomeManagerConfiguration.withModules hm-modules)
+      #       ];
+      #     };
+      #   };
+      # }
 
       # We expose some extra arguments so that our modules can parameterize
       # better based on these values.
