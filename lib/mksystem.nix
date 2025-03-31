@@ -8,9 +8,9 @@
 }: name: {
   system,
   user,
-  hm-modules,
+  hm-modules ? [],
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
+  inherit (pkgs.stdenv) isDarwin;
   # The config files for this system.
   machineConfig = ../machines/${name};
 
@@ -40,7 +40,6 @@
 
   # Build the home configuration from the modules
   mkHomeConfig = {
-    pkgs,
     modules ? [],
     user,
   }: {
@@ -57,6 +56,7 @@
 in
   systemFunc rec {
     inherit system;
+    inherit (inputs.nixpkgs) lib;
 
     modules = [
       # Apply our overlays. Overlays are keyed by system type so we have
@@ -65,11 +65,12 @@ in
       {nixpkgs.overlays = overlays;}
       # Apply the config we defined above
       {nixpkgs.config = nixpkgsConfig;}
-      # Trust our own user
-      {nix.settings.trusted-users = [user];}
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
+      # Import our machine config
       (import machineConfig {inherit user system pkgs;})
+      # Trust myself
+      {nix.settings.trusted-users = ["root" user];}
 
       # Home manager configuration
       home-manager.home-manager
@@ -90,8 +91,7 @@ in
           ];
           # Apply only the specific modules from hm-modules
           users.${user} = mkHomeConfig {
-            inherit pkgs;
-            user = user;
+            inherit user;
             modules = hm-modules;
           };
         };
@@ -106,5 +106,31 @@ in
           inherit inputs;
         };
       }
+
+      # Enable nix-homebrew on macOS
+      (
+        if isDarwin
+        then {
+          imports = [inputs.nix-homebrew.darwinModules.nix-homebrew];
+          nix-homebrew = {
+            # Install Homebrew under the default prefix
+            enable = true;
+            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = false;
+            # User owning the Homebrew prefix
+            inherit user;
+            # Optional: Enable fully-declarative tap management
+            # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+            mutableTaps = false;
+            taps = with inputs; {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+              "nikitabobko/homebrew-tap" = homebrew-nikitabobko;
+              "FelixKratz/formulae" = homebrew-felixkratz;
+            };
+          };
+        }
+        else {}
+      )
     ];
   }

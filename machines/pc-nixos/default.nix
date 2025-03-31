@@ -3,7 +3,6 @@
   config,
   pkgs,
   inputs,
-  mkHomeManagerConfiguration,
   ...
 }: {
   imports = [
@@ -47,10 +46,6 @@
     };
   };
 
-  # Desktop environment
-
-  # Hardware configuration
-
   # Power management
   powerManagement = {
     enable = true;
@@ -83,4 +78,5 @@
     defaultUserShell = pkgs.zsh;
     users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
+  nixpkgs.overlays = import ../../lib/overlays.nix;
 }

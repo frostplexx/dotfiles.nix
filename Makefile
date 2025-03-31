@@ -5,7 +5,7 @@
 # - all:      deploy changes and clean old generations
 # - deploy:   auto-detects OS and deploys appropriate configuration
 # - update:   updates all dependencies and deploys
-# - install:  first-time setup for macOS systems
+# - bootstrap:  first-time setup for macOS systems
 # - lint:     format and lint nix files
 # - clean:    remove old system generations
 # - repair:   fix git hooks and verify nix store
@@ -27,7 +27,7 @@ MAKEFLAGS += --no-print-directory
 
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config 
 
-.PHONY: all deploy upgrade install lint clean repair
+.PHONY: all deploy upgrade bootstrap lint clean repair
 
 all: deploy
 
@@ -37,8 +37,8 @@ deploy: lint
 upgrade: lint
 	@bash ./scripts/system-deploy.sh update
 
-install:
-	@bash ./scripts/system-install.sh
+bootstrap:
+	@bash ./scripts/system-bootstrap.sh
 
 clean:
 	@nix run github:viperml/nh -- clean all
