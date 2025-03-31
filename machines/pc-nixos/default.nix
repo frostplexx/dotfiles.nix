@@ -3,6 +3,7 @@
   user,
   pkgs,
   inputs,
+  modulesPath,
   ...
 }: {
   imports = [
@@ -12,6 +13,7 @@
     ./sunshine.nix
     (import ./services.nix)
     {inherit user;}
+    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   networking = {

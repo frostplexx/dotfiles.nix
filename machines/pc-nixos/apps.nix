@@ -1,6 +1,5 @@
 {
   pkgs,
-  vars,
   ...
 }: {
   # Autostart applications
@@ -34,7 +33,7 @@
 
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [vars.user];
+      polkitPolicyOwners = ["daniel"];
     };
 
     steam = {
