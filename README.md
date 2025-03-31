@@ -127,6 +127,19 @@ taps = with inputs; {
 };
 # ...
 ```
+In Homebrew, the repo part of all taps always have `homebrew-` prepended.
+- https://docs.brew.sh/Taps
+- https://docs.brew.sh/Interesting-Taps-and-Forks
+
+`brew tap <user>/<repo>` makes a clone of the repository at `https://github.com/<user>/homebrew-<repo>` into `$(brew --repository)/Library/Taps`.
+
+When declaring taps, please ensure to name the key as a unique folder starting with `homebrew-`, e.g.:
+```diff
+       nix-homebrew.taps = {
+-        "mtslzr/marmaduke-chromium" = inputs.marmaduke-chromium;
++        "mtslzr/homebrew-marmaduke-chromium" = inputs.marmaduke-chromium;
+```
+The exact GitHub `<user>/<repo>` should almost always work.
 
 Except this one quirk homebrew can be used like normal. It is however strongly preferred to add apps using `nix-darwin` because I'm using the 
 cleanup mode "zap" which will automatically uninstall any non-declaratively defined package.
