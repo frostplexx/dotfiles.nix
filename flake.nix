@@ -9,8 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # flake-utils.url = "github:numtide/flake-utils";
-
     # Lix is a modern, delicious implementation of the Nix package manager
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";

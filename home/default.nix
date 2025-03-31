@@ -1,8 +1,7 @@
 # Home Manager configuration with module selection
 {
   pkgs,
-  lib,
-  config,
+  user,
   ...
 }: let
   # List of all available modules
@@ -26,29 +25,20 @@
 in {
   # Global home settings
   home = {
-    username = lib.mkDefault (
-      if config._module.args ? currentSystemUser
-      then config._module.args.currentSystemUser
-      else ""
-    );
-    homeDirectory = lib.mkDefault (
-      if pkgs.stdenv.isDarwin
-      then "/Users/${config.home.username}"
-      else "/home/${config.home.username}"
-    );
+    # username = user;
+    # homeDirectory = "/Users/daniel";
     stateVersion = "23.11"; # Use appropriate state version
     sessionVariables = {
       NH_FLAKE = "$HOME/dotfiles.nix";
 
       EDITOR = "nvim"; # Default editor, can be overridden in specific modules
     };
-
-    programs = {
-      home-manager.enable = true; # Let Home Manager manage itself
-      zsh.enable = true; # Basic bash configuration
-    };
   };
 
+  programs = {
+    home-manager.enable = true; # Let Home Manager manage itself
+    zsh.enable = true; # Basic bash configuration
+  };
   # Create configuration with specific modules
   _module.args.mkHomeManagerConfiguration = {
     withModules = modules:

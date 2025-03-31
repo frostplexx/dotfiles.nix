@@ -66,8 +66,6 @@
     kdePackages.filelight
     vlc
     xclip
-    inputs.zen-browser.packages."${system}".beta
-    # inputs.ghostty.packages.x86_64-linux.default
     cifs-utils
 
     #Plasma specific
