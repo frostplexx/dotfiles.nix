@@ -25,8 +25,8 @@
 in {
   # Global home settings
   home = {
-    # username = user;
-    # homeDirectory = "/Users/daniel";
+    username = user;
+    homeDirectory = "/Users/daniel";
     stateVersion = "23.11"; # Use appropriate state version
     sessionVariables = {
       NH_FLAKE = "$HOME/dotfiles.nix";
