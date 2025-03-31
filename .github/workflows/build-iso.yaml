@@ -58,11 +58,14 @@ jobs:
         run: |
           echo "Building ISO for ${{ matrix.config }}..."
           
+          # Get absolute path to current directory
+          CURRENT_DIR=$(pwd)
+          
           # Create a temporary Nix expression to build the ISO
           cat > build-iso.nix <<EOF
           { config }:
           let
-            nixosConfigurations = (builtins.getFlake ".").nixosConfigurations;
+            nixosConfigurations = (builtins.getFlake "path:$CURRENT_DIR").nixosConfigurations;
             
             # Get the configuration we want to build
             nixosConfig = nixosConfigurations.\${config};
