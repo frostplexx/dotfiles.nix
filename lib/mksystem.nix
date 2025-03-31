@@ -10,7 +10,7 @@
   user,
   hm-modules,
 }: let
-  darwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.isDarwin;
   # The config files for this system.
   machineConfig = ../machines/${name};
 
@@ -24,14 +24,15 @@
 
   # NixOS vs nix-darwin functions
   systemFunc =
-    if darwin
+    if isDarwin
     then inputs.darwin.lib.darwinSystem
     else nixpkgs.lib.nixosSystem;
   home-manager =
-    if darwin
+    if isDarwin
     then inputs.home-manager.darwinModules
     else inputs.home-manager.nixosModules;
 
+  # Nixpkgs alias with settings applied that we can pass through to our machines
   pkgs = import inputs.nixpkgs {
     inherit system;
     config = nixpkgsConfig;
@@ -43,12 +44,14 @@
     modules ? [],
     user,
   }: {
+    # Import the fixed global config and each applied package
     imports =
       [
         ../home
       ]
       ++ builtins.map (name: ../home/${name}) modules;
     _module.args = {inherit user;};
+    # Apply nix config
     nixpkgs.config = nixpkgsConfig;
   };
 in
@@ -68,6 +71,7 @@ in
       inputs.lix-module.nixosModules.default
       (import machineConfig {inherit user system pkgs;})
 
+      # Home manager configuration
       home-manager.home-manager
       {
         nixpkgs.config = nixpkgsConfig;
