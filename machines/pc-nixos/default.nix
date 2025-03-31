@@ -78,5 +78,5 @@ user,
     defaultUserShell = pkgs.zsh;
     users.${user}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
-  nixpkgs.overlays = import ../../lib/overlays.nix;
+  # nixpkgs.overlays = import ../../lib/overlays.nix;
 }
