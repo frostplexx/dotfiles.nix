@@ -1,0 +1,106 @@
+" Run this command to symlink the file to the correct location
+" ln -s ~/.config/nvim/.ideavimrc ~/.ideavimrc
+
+
+" basic stuff
+set hlsearch
+set scrolloff=999
+set ignorecase smartcase
+set history=1000
+set incsearch
+set relativenumber number
+set visualbell
+set idearefactormode=keep
+set showcmd
+" test
+" extensions
+set sneak
+
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" plugins
+Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdtree'
+Plug 'vim-scripts/argtextobj.vim'
+
+" nerdtree config
+let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+" use system clipboard
+set clipboard=unnamedplus
+
+" wrap to new line when pressing l,h,...
+set whichwrap=b,s,<,>,h,l,[,]
+
+" register leader
+let mapleader = " "
+
+" register modifier
+
+" Center screen when jumping to next match
+nnoremap n nzz
+nnoremap N Nzz
+vnoremap n nzz
+vnoremap N Nzz
+
+nnoremap <leader>d F1
+
+nnoremap <leader><leader> <l-S><l-S>
+
+map <leader><leader> <Action>(SearchEverywhere)
+
+nnoremap <leader>w <ctrl-w>
+
+" clear the search buffer when hitting return
+nnoremap <leader><cr> :nohlsearch<cr>
+
+nnoremap J :m+<cr>
+nnoremap K :m-<cr>
+
+" code Refactoring
+:map <leader>r <Action>(RenameElement)
+:map <leader>R <Action>(Refactorings.QuickListPopupAction)
+:map <leader>fc <Action>(ReformatCode)
+:map <leader>oi <Action>(OptimizeImports)
+:map <leader>m <Action>(AutoIndentLines)
+
+" stuff
+:map <leader>ff <Action>(QuickJavaDoc)
+:map <leader>ee <Action>(ShowErrorDescription)
+:map <leader>hh <Action>(QuickImplementations)
+
+" terminal
+:map <leader>bt <Action>(ActivateTerminalToolWindow)
+
+" comment out
+:map gc <Action>(CommentByLineComment)
+:map <leader>bb <Action>(CommentByBlockComment)set clipboard+=ideaputset clipboard+=ideaput
+
+" navigation
+:map <leader>gg <Action>(GotoClass)
+:map <leader>gb <Action>(GotoDeclaration)
+:map <leader>gf <Action>(GotoFile)
+:map <leader>x <Action>(CloseContent)
+
+":map <leader>l <Action>(NextTab)
+":map <leader>h <Action>(PreviousTab)
+
+:map <Tab> <Action>(NextTab)
+:map <S-Tab> <Action>(PreviousTab)
+
+:map <leader>e :NERDTreeToggle<Enter>
+
+
+" ssh
+:map <leader>ss <Action>(com.jebrains.plugins.remotesdk.console.RunSshConsoleAction)

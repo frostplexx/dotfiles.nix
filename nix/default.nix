@@ -1,5 +1,0 @@
-_: {
-  imports = [
-    ./utils.nix
-  ];
-}

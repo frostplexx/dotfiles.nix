@@ -1,0 +1,3 @@
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\QX\nfzf\nstow\nripgrep\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qzsh\neza\nbat\nzoxide\npython 3.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdotfiles\\E$"}

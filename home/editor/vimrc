@@ -1,0 +1,216 @@
+" General Settings
+set nocompatible
+syntax on
+filetype plugin indent on
+set encoding=utf-8
+set hidden
+set nowrap
+set backspace=indent,eol,start
+set autoindent
+set copyindent
+set number
+set relativenumber
+set showmatch
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set wildmenu
+set wildmode=list:longest,full
+set ruler
+set laststatus=2
+set confirm
+set visualbell
+set t_vb=
+set mouse=a
+set cmdheight=1
+set notimeout ttimeout ttimeoutlen=200
+set pastetoggle=<F11>
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Temporary files storage
+set backup
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
+
+" Simple Color Scheme (Catppuccin-inspired)
+highlight Normal ctermfg=255 ctermbg=234
+highlight Comment ctermfg=242
+highlight Constant ctermfg=173
+highlight Identifier ctermfg=110
+highlight Statement ctermfg=204
+highlight Type ctermfg=114
+highlight Special ctermfg=117
+highlight Search ctermbg=214 ctermfg=232
+highlight Visual ctermbg=239
+highlight Pmenu ctermbg=236 ctermfg=252
+highlight LineNr ctermfg=242
+highlight CursorLineNr cterm=bold ctermfg=178
+highlight CursorLine cterm=NONE
+
+" Leader Keys
+let mapleader = " "
+let maplocalleader = "\\"
+
+" Key Mappings
+nnoremap <leader>q :wqa<CR>
+nnoremap <leader>Q :qa!<CR>
+nnoremap <leader>bd :bd<CR>
+nnoremap U <C-r>
+nnoremap sc :new<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<CR>
+nnoremap <leader>gg :terminal lazygit<CR>i
+nnoremap <leader>gb :!git blame -c -- %<CR>
+nnoremap <C-a> ggVG
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+xnoremap <leader>p "_dP
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gic<Left><Left><Left><Left>
+nnoremap <leader>e :Explore<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <leader>t :below terminal<CR>
+nnoremap <leader>vt :vertical terminal<CR>
+nnoremap gcc :call ToggleComment()<CR>
+nnoremap <leader>si :call SortINISections()<CR>
+nnoremap <leader>ae :call AlignEquals()<CR>
+nnoremap <leader>cf :call InsertFunctionComment()<CR>
+nnoremap <F4> :call ToggleHeader()<CR>
+
+" Window Navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+inoremap <C-h> <Esc><C-w>h
+inoremap <C-j> <Esc><C-w>j
+inoremap <C-k> <Esc><C-w>k
+inoremap <C-l> <Esc><C-w>l
+
+" Filetype-specific Settings
+autocmd FileType c,cpp setlocal cindent
+autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 expandtab
+autocmd FileType markdown setlocal wrap
+
+" Autocommands
+augroup vimrc_autocommands
+    autocmd!
+    " C/C++ specific settings
+    autocmd FileType c,cpp setlocal tabstop=4 shiftwidth=4 expandtab
+    autocmd FileType c,cpp setlocal cindent cinoptions=g0
+    autocmd FileType c,cpp nnoremap <buffer> gd gd
+    autocmd FileType c,cpp nnoremap <F5> :w <CR>:!gcc % -o %< && ./%< <CR>
+    autocmd FileType c,cpp nnoremap <F6> :!cppcheck % <CR>
+    autocmd FileType c,cpp nnoremap <F7> :!ctags -R . <CR>
+    
+    " Config files
+    autocmd BufNewFile,BufRead *.conf,*.cfg,*.ini,*.properties setf dosini
+    autocmd BufNewFile,BufRead *.yaml,*.yml setf yaml
+    autocmd BufNewFile,BufRead *.toml setf toml
+    autocmd FileType dosini setlocal tabstop=4 shiftwidth=4 noexpandtab
+    autocmd FileType yaml,toml setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType dosini,yaml,toml setlocal spell spelllang=en_us
+    autocmd FileType dosini,yaml,toml match ErrorMsg '\s\+$'
+    
+    " Terminal settings
+    autocmd TerminalOpen * setlocal nonumber norelativenumber
+    autocmd TerminalOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+    autocmd TerminalOpen * tnoremap <buffer> <C-h> <C-\><C-n><C-w>h
+    autocmd TerminalOpen * tnoremap <buffer> <C-j> <C-\><C-n><C-w>j
+    autocmd TerminalOpen * tnoremap <buffer> <C-k> <C-\><C-n><C-w>k
+    autocmd TerminalOpen * tnoremap <buffer> <C-l> <C-\><C-n><C-w>l
+    
+    " Filetype-specific
+    autocmd FileType netrw call NetrwMapping()
+    autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+    autocmd FileType dosini setlocal foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*\\[.*\\]'?'>1':'='
+    autocmd FileType yaml syntax match yamlJsonKeyword /\<\(true\|false\|null\)\>/ containedin=yamlFlowString
+augroup END
+
+" Functions
+function! NetrwMapping()
+    nmap <buffer> q :bd<cr>
+endfunction
+
+function! s:insert_gates()
+    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+    execute "normal! i#ifndef " . gatename
+    execute "normal! o#define " . gatename
+    execute "normal! Go#endif /* " . gatename . " */"
+    normal! kk
+endfunction
+
+function! ToggleHeader()
+    if expand("%:e") == "c"
+        find %:t:r.h
+    elseif expand("%:e") == "h"
+        find %:t:r.c
+    endif
+endfunction
+
+function! InsertFunctionComment()
+    let l:line = line('.')
+    call append(l:line - 1, '/**')
+    call append(l:line, ' * @brief ')
+    call append(l:line + 1, ' *')
+    call append(l:line + 2, ' * @param ')
+    call append(l:line + 3, ' * @return ')
+    call append(l:line + 4, ' */')
+    execute "normal! 5k$"
+endfunction
+
+function! ToggleComment()
+    let l:comment = '#'
+    if &filetype == 'vim'
+        let l:comment = '"'
+    elseif &filetype == 'c' || &filetype == 'cpp'
+        let l:comment = '//'
+    endif
+    let l:line = getline('.')
+    if l:line =~ '^\s*' . l:comment
+        let l:line = substitute(l:line, '^\s*' . l:comment . '\s*', '', '')
+    else
+        let l:line = l:comment . ' ' . l:line
+    endif
+    call setline('.', l:line)
+endfunction
+
+function! SortINISections() range
+    execute a:firstline . ',' . a:lastline . 'sort /^\[.\+\]$/'
+endfunction
+
+function! AlignEquals() range
+    execute a:firstline . ',' . a:lastline . 's/\s*=\s*/=/'
+    execute a:firstline . ',' . a:lastline . 'AlignCtrl l='
+    execute a:firstline . ',' . a:lastline . 'Align ='
+endfunction
+
+" Highlight settings
+highlight link yamlJsonKeyword Keyword
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Enable completion where available
+set omnifunc=syntaxcomplete#Complete
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+" Basic Autocompletion
+set completeopt=menuone,noinsert,noselect
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Terminal Settings
+if has('terminal')
+    nnoremap <leader>t :terminal<CR>i
+    tnoremap <Esc> <C-\><C-n>
+endif
