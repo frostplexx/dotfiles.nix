@@ -5,7 +5,7 @@
   nixpkgs,
   overlays,
   ...
-}: name: {
+} @ args: name: {
   system,
   user,
   hm-modules ? [],
@@ -38,6 +38,9 @@
     config = nixpkgsConfig;
   };
 
+  # Merge the explicitly needed attributes with all the extra ones captured in args.
+  machineConfigArgs = {inherit system user pkgs inputs;} // args;
+
   # Build the home configuration from the modules
   mkHomeConfig = {
     modules ? [],
@@ -67,8 +70,8 @@ in
       {nixpkgs.config = nixpkgsConfig;}
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
-      # Import our machine config
-      (import machineConfig {inherit user system pkgs inputs;})
+      # Import our machine config with all available arguments
+      ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
       # Trust myself
       {nix.settings.trusted-users = ["root" user];}
 

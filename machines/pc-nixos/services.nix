@@ -1,4 +1,4 @@
-{user, ...}: {
+{...}: {
   services = {
     tailscale.enable = true;
 
@@ -15,7 +15,7 @@
       };
       autoLogin = {
         enable = true;
-        inherit user;
+        user = "daniel";
       };
       defaultSession = "plasmax11";
     };

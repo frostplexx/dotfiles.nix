@@ -55,55 +55,9 @@ jobs:
       - name: Build ISO for ${{ matrix.config }}
         run: |
           echo "Building ISO for ${{ matrix.config }}..."
-          
-          # Create a temporary Nix expression to build the ISO
-          cat > build-iso.nix <<EOF
-          { config }:
-          let
-            flake = builtins.getFlake (toString ./.);
-            nixosConfigurations = flake.nixosConfigurations;
-            
-            # Get the configuration we want to build
-            nixosConfig = nixosConfigurations.\${config};
-            
-            # Create a new configuration that includes the ISO image
-            isoConfig = nixosConfig.extendModules {
-              modules = [
-                # Define custom options if they're used in your flake
-                ({ lib, ... }: {
-                  options = {
-                    # Define the 'user' option that's referenced in your flake
-                    user = lib.mkOption {
-                      type = lib.types.str;
-                      description = "The primary user of the system";
-                      default = "daniel"; # Use the same default as in your flake
-                    };
-                  };
-                })
-                # ISO-specific configurations
-                ({ lib, config, pkgs, ... }: {
-                  isoImage.makeEfiBootable = true;
-                  isoImage.makeUsbBootable = true;
-                  isoImage.isoName = "\${config.networking.hostName or "nixos"}-\${config.system.nixos.label}-iso.iso";
-                  
-                  # Ensure your SSH keys are included for installation
-                  users.users.root.openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys or [];
-                })
-                (import <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>)
-              ];
-            };
-          in
-            isoConfig.config.system.build.isoImage
-          EOF
-          
-          # Build the ISO
-          ISO_PATH=$(nix build --impure --print-out-paths --no-link \
-            --expr "(import ./build-iso.nix { config = \"${{ matrix.config }}\"; })")
-          
-          # Copy ISO to a known location
+          nix run nixpkgs#nixos-generators -- --format iso --flake .#${{ matrix.config }} -o result
           mkdir -p isos
-          cp "$ISO_PATH"/*.iso "isos/${{ matrix.config }}.iso"
-          
+          cp result/*.iso "isos/${{ matrix.config }}.iso"
           echo "ISO built successfully: isos/${{ matrix.config }}.iso"
 
       - name: Upload ISO artifact

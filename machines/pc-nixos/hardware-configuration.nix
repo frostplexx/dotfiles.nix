@@ -40,7 +40,7 @@
 
     consoleLogLevel = 0;
     loader = {
-      timeout = 3;
+      # timeout = 3;
       systemd-boot = {
         enable = true;
         configurationLimit = 5;
@@ -60,7 +60,6 @@
       powerOnBoot = true; # powers up the default Bluetooth controller on boot
     };
 
-    opengl.enable = true;
     nvidia = {
       modesetting.enable = true;
       powerManagement = {
