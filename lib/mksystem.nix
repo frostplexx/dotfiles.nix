@@ -15,6 +15,13 @@
   # The config files for this system.
   machineConfig = ../machines/${name};
 
+  nixpkgsConfig = {
+    allowUnfree = true;
+    allowUnsupportedSystem = false;
+    allowBroken = true;
+    alllowInsecure = true;
+  };
+
   # TODO: port this to my system
   # userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos" }.nix;
   # userHMConfig = ../users/${user}/home-manager.nix;
@@ -29,9 +36,26 @@
     then inputs.home-manager.darwinModules
     else inputs.home-manager.nixosModules;
   pkgs = nixpkgs.legacyPackages.${system};
+
+  # Build the home configuration from the modules
+  mkHomeConfig = {
+    pkgs,
+    modules ? [],
+  }: {
+    imports = map (name: ../home/${name}) modules;
+    nixpkgs.config = nixpkgsConfig;
+  };
 in
   systemFunc rec {
     inherit system;
+
+    specialArgs = {
+      inherit inputs pkgs;
+      # Pass the home configuration helper to modules
+      mkHomeManagerConfiguration = {
+        withModules = modules: mkHomeConfig {inherit pkgs modules;};
+      };
+    };
 
     modules = [
       # Apply our overlays. Overlays are keyed by system type so we have
@@ -39,17 +63,8 @@ in
       # the overlays are available globally.
       {nixpkgs.overlays = overlays;}
 
-      # Allow unfree packages.
-      {nixpkgs.config.allowUnfree = true;}
-
       # Trust our own user
       {nix.settings.trusted-users = [user];}
-
-      # Use Nixcord for declaratively managing discord
-      inputs.nixcord.homeManagerModules.nixcord
-
-      # Plasma-manager for managing KDE Plasma
-      inputs.plasma-manager.homeManagerModules.plasma-manager
 
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
@@ -61,25 +76,23 @@ in
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs;
-            # Pass any other special arguments needed by home-manager modules
-          };
+          extraSpecialArgs = {inherit inputs pkgs;};
+          sharedModules = [
+            # Use Nixcord for declaratively managing discord
+            inputs.nixcord.homeManagerModules.nixcord
+
+            # Plasma-manager for managing KDE Plasma
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+          ];
+
           users.${user} = {config, ...}: {
             imports = [
               # Import the base home-manager configuration
               ../home
-              # Then apply the selected modules using the function
-              {
-                _module.args.mkHomeManagerConfiguration = {
-                  withModules = modules: {
-                    imports = map (name: ../home/${name}) modules;
-                  };
-                };
-              }
-              # Apply the selected modules
-              (../home/_module.args.mkHomeManagerConfiguration.withModules hm-modules)
             ];
+            _module.args = {
+              inherit user;
+            };
           };
         };
       }
