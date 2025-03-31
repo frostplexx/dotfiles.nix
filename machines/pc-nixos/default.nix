@@ -10,7 +10,7 @@ user,
     ./apps.nix # Phoenix-specific apps
     ../shared.nix
     ./sunshine.nix
-    ./services.nix
+    (import ./services.nix) {inherit user;}
   ];
 
   networking = {
