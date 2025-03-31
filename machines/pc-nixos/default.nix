@@ -1,6 +1,6 @@
 # Configuration for Phoenix gaming PC;
 {
-  config,
+user,
   pkgs,
   inputs,
   ...
@@ -76,7 +76,7 @@
   programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
-    users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
+    users.${user}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
   nixpkgs.overlays = import ../../lib/overlays.nix;
 }
