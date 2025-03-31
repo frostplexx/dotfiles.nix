@@ -1,0 +1,126 @@
+name: Build NixOS ISOs
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  discover-configurations:
+    runs-on: ubuntu-latest
+    outputs:
+      configurations: ${{ steps.get-configs.outputs.configs }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Get NixOS configurations
+        id: get-configs
+        run: |
+          CONFIGS=$(nix eval --impure --json '.#nixosConfigurations' --apply 'builtins.attrNames')
+          echo "configs=${CONFIGS}" >> $GITHUB_OUTPUT
+          echo "Discovered configurations: ${CONFIGS}"
+
+  build-isos:
+    needs: discover-configurations
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: ${{ fromJson(needs.discover-configurations.outputs.configurations) }}
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: ${{ github.repository_owner }}-nixos-isos
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Build ISO for ${{ matrix.config }}
+        run: |
+          echo "Building ISO for ${{ matrix.config }}..."
+          
+          # Create a temporary Nix expression to build the ISO
+          cat > build-iso.nix <<EOF
+          { config }:
+          let
+            nixosConfigurations = (builtins.getFlake ".").nixosConfigurations;
+            
+            # Get the configuration we want to build
+            nixosConfig = nixosConfigurations.\${config};
+            
+            # Create a new configuration that includes the ISO image
+            isoConfig = nixosConfig.extendModules {
+              modules = [
+                ({ config, pkgs, ... }: {
+                  isoImage.makeEfiBootable = true;
+                  isoImage.makeUsbBootable = true;
+                  isoImage.isoName = "\${config.networking.hostName or "nixos"}-\${config.system.nixos.label}-iso.iso";
+                  
+                  # Include your custom configurations
+                  imports = [];
+                  
+                  # Ensure your SSH keys are included for installation
+                  users.users.root.openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys or [];
+                })
+                (import <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>)
+              ];
+            };
+          in
+            isoConfig.config.system.build.isoImage
+          EOF
+          
+          # Build the ISO
+          ISO_PATH=$(nix build --impure --print-out-paths --no-link \
+            --expr "(import ./build-iso.nix { config = \"${{ matrix.config }}\"; })")
+          
+          # Get the ISO file name
+          ISO_FILENAME=$(basename "$ISO_PATH")/*.iso
+          
+          # Copy ISO to a known location
+          mkdir -p isos
+          cp "$ISO_PATH"/*.iso "isos/${{ matrix.config }}.iso"
+          
+          echo "ISO built successfully: isos/${{ matrix.config }}.iso"
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}-iso
+          path: isos/${{ matrix.config }}.iso
+          retention-days: 5
+
+  attach-to-release:
+    needs: build-isos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all ISO artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: isos/
+          merge-multiple: true
+
+      - name: List ISOs
+        run: find isos -type f -name "*.iso" | sort
+
+      - name: Attach ISOs to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: isos/**/*.iso
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
