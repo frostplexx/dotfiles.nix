@@ -14,9 +14,6 @@
     (import ./services.nix)
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
-      users.users.daniel.group = "daniel";
-       users.groups.daniel = {};
-users.users.daniel.isSystemUser = true;
 
   networking = {
     hostName = "pc-dev-phoenix";
@@ -34,7 +31,6 @@ users.users.daniel.isSystemUser = true;
     };
     wireless.enable = false;
   };
-
 
   nixpkgs.hostPlatform = "x86_64-linux";
   # System configuration
@@ -84,7 +80,12 @@ users.users.daniel.isSystemUser = true;
   programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
-    users.daniel.extraGroups = ["wheel" "video" "audio" "docker"];
+    users.daniel = {
+      extraGroups = ["wheel" "video" "audio" "docker"];
+      group = "daniel";
+      isSystemUser = true;
+    };
+    groups.daniel = {};
   };
   # nixpkgs.overlays = import ../../lib/overlays.nix;
 }

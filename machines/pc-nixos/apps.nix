@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Autostart applications
   environment.etc = {
     "xdg/autostart/steam.desktop".source = pkgs.steam + "/share/applications/steam.desktop";
