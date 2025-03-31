@@ -27,19 +27,18 @@ MAKEFLAGS += --no-print-directory
 
 NIX_FLAGS = --extra-experimental-features 'nix-command flakes' --accept-flake-config 
 
-include ./utils/format.mk
 .PHONY: all deploy upgrade install lint clean repair
 
 all: deploy
 
 deploy: lint
-	@bash ./utils/system-deploy.sh deploy
+	@bash ./scripts/system-deploy.sh deploy
 
 upgrade: lint
-	@bash ./utils/system-deploy.sh update
+	@bash ./scripts/system-deploy.sh update
 
 install:
-	@bash ./utils/system-install.sh
+	@bash ./scripts/system-install.sh
 
 clean:
 	@nix run github:viperml/nh -- clean all
@@ -48,4 +47,4 @@ repair:
 	@sudo nix-store --verify --check-contents --repair
 
 lint:
-	@bash ./utils/lint.sh
+	@bash ./scripts/lint.sh

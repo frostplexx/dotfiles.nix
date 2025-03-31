@@ -8,8 +8,8 @@
 }: {
   imports = [
     ./hardware-configuration.nix # Hardware-specific settings
-    ../../base # Base configuration
     ./apps.nix # Phoenix-specific apps
+    ../shared.nix
     ./sunshine.nix
   ];
 
@@ -140,14 +140,4 @@
     defaultUserShell = pkgs.zsh;
     users.${config.user.name}.extraGroups = ["wheel" "video" "audio" "docker"];
   };
-
-  # Home Manager configuration
-  home-manager.users.${config.user.name} = mkHomeManagerConfiguration.withModules [
-    "editor"
-    "wezterm"
-    "git"
-    "shell"
-    "plasma"
-    "nixcord"
-  ];
 }

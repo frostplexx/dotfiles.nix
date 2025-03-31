@@ -2,20 +2,19 @@
 {
   pkgs,
   vars,
-  mkHomeManagerConfiguration,
   ...
 }: {
   imports = [
-    ../../base # Base configuration
+    ../shared.nix # Base configuration
     ./apps.nix # Lyra-specific apps
     ./custom_icons/custom_icons.nix # Custom application icons
-    ../../../nix/custom-icons.nix
+    ../../lib/custom-icons.nix
   ];
 
   # Basic system configuration
   networking = {
-    hostName = "pc-dev-lyra";
-    computerName = "pc-dev-lyra";
+    hostName = "macbook-pro-m1";
+    computerName = "macbook-pro-m1";
     dns = [
       "194.242.2.4"
       "9.9.9.9"
@@ -37,20 +36,6 @@
     home = "/Users/${vars.user}";
     description = vars.user;
   };
-
-  # Home Manager configuration
-  home-manager.users.${vars.user} = mkHomeManagerConfiguration.withModules [
-    "macos-wm"
-    "editor"
-    # "wezterm"
-    "kitty"
-    "ghostty"
-    "git"
-    "shell"
-    "nixcord"
-    "ssh"
-    "aerospace"
-  ];
 
   # System defaults and preferences
   system = {
