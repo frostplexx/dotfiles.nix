@@ -71,6 +71,7 @@ in
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
       # Import our machine config with all available arguments
+      #TODO: this is weird and should get changed
       ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
 
       # Trust myself
