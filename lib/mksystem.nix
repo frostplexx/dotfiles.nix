@@ -68,7 +68,7 @@ in
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
       # Import our machine config
-      (import machineConfig {inherit user system pkgs;})
+      (import machineConfig {inherit user system pkgs inputs;})
       # Trust myself
       {nix.settings.trusted-users = ["root" user];}
 
