@@ -15,7 +15,7 @@
       };
       autoLogin = {
         enable = true;
-        user = user;
+        inherit user;
       };
       defaultSession = "plasmax11";
     };

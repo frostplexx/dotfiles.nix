@@ -77,7 +77,10 @@ in
       {
         nixpkgs.config = nixpkgsConfig;
         # Why do darwin and linux use different stateVerions???
-        system.stateVersion = if isDarwin then 6 else "24.05";
+        system.stateVersion =
+          if isDarwin
+          then 6
+          else "24.05";
         home-manager = {
           # useGlobalPkgs needs to be disabled to be able to use overlays
           useGlobalPkgs = false;
