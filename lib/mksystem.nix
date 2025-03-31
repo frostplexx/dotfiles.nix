@@ -11,20 +11,16 @@
   hm-modules,
 }: let
   darwin = pkgs.stdenv.isDarwin;
-
   # The config files for this system.
   machineConfig = ../machines/${name};
 
+  # Settings for Package management
   nixpkgsConfig = {
     allowUnfree = true;
     allowUnsupportedSystem = false;
     allowBroken = true;
-    alllowInsecure = true;
+    allowInsecure = true; # Fixed typo here
   };
-
-  # TODO: port this to my system
-  # userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos" }.nix;
-  # userHMConfig = ../users/${user}/home-manager.nix;
 
   # NixOS vs nix-darwin functions
   systemFunc =
@@ -35,68 +31,67 @@
     if darwin
     then inputs.home-manager.darwinModules
     else inputs.home-manager.nixosModules;
-  pkgs = nixpkgs.legacyPackages.${system};
+
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    config = nixpkgsConfig;
+  };
 
   # Build the home configuration from the modules
   mkHomeConfig = {
     pkgs,
     modules ? [],
+    user,
   }: {
-    imports = map (name: ../home/${name}) modules;
+    imports =
+      [
+        ../home
+      ]
+      ++ builtins.map (name: ../home/${name}) modules;
+    _module.args = {inherit user;};
     nixpkgs.config = nixpkgsConfig;
   };
 in
   systemFunc rec {
     inherit system;
 
-    specialArgs = {
-      inherit inputs pkgs;
-      # Pass the home configuration helper to modules
-      mkHomeManagerConfiguration = {
-        withModules = modules: mkHomeConfig {inherit pkgs modules;};
-      };
-    };
-
     modules = [
       # Apply our overlays. Overlays are keyed by system type so we have
       # to go through and apply our system type. We do this first so
       # the overlays are available globally.
       {nixpkgs.overlays = overlays;}
-
+      # Apply the config we defined above
+      {nixpkgs.config = nixpkgsConfig;}
       # Trust our own user
       {nix.settings.trusted-users = [user];}
-
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
+      (import machineConfig {inherit user system pkgs;})
 
-      machineConfig
-      # userOSConfig
       home-manager.home-manager
       {
+        nixpkgs.config = nixpkgsConfig;
+        system.stateVersion = 6;
         home-manager = {
-          useGlobalPkgs = true;
+          # useGlobalPkgs needs to be disabled to be able to use overlays
+          useGlobalPkgs = false;
           useUserPackages = true;
           extraSpecialArgs = {inherit inputs pkgs;};
+          # Home Manager Modules
           sharedModules = [
             # Use Nixcord for declaratively managing discord
             inputs.nixcord.homeManagerModules.nixcord
-
             # Plasma-manager for managing KDE Plasma
             inputs.plasma-manager.homeManagerModules.plasma-manager
           ];
-
-          users.${user} = {config, ...}: {
-            imports = [
-              # Import the base home-manager configuration
-              ../home
-            ];
-            _module.args = {
-              inherit user;
-            };
+          # Apply only the specific modules from hm-modules
+          users.${user} = mkHomeConfig {
+            inherit pkgs;
+            user = user;
+            modules = hm-modules;
           };
         };
       }
-
       # We expose some extra arguments so that our modules can parameterize
       # better based on these values.
       {
