@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  vars,
+  user,
   ...
 }: let
   themeFile = "catppuccin-mocha.theme.css";
@@ -10,7 +10,7 @@
   # Define theme path based on operating system
   themePath =
     if pkgs.stdenv.isDarwin
-    then "/Users/${vars.user}/Library/Application Support/vesktop/themes/${themeFile}"
+    then "/Users/${user}/Library/Application Support/vesktop/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in {
   programs.nixcord = {

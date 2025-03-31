@@ -1,7 +1,7 @@
 # Configuration for Lyra MacBook
 {
   pkgs,
-  vars,
+  user,
   ...
 }: {
   imports = [
@@ -29,7 +29,12 @@
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
-  nix.settings.trusted-users = [vars.user];
+
+  # User configuration
+  users.users.${user} = {
+    home = "/Users/${user}";
+    description = user;
+  };
 
   # System defaults and preferences
   system = {
@@ -156,7 +161,7 @@
       loginwindow = {
         GuestEnabled = false;
         SHOWFULLNAME = false;
-        autoLoginUser = vars.user;
+        autoLoginUser = user;
       };
 
       controlcenter = {
@@ -179,7 +184,7 @@
           ShowTabView = false;
           FXPreferredViewStyle = "Nlsv";
           FXDefaultSearchScope = "SCcf";
-          NewWindowTargetPath = "file:///Users/${vars.user}/Downloads/";
+          NewWindowTargetPath = "file:///Users/${user}/Downloads/";
         };
 
         "com.apple.desktopservices" = {
