@@ -43,16 +43,13 @@
       "Goodnotes" = 1444383602;
       "WhatsApp" = 310633997;
       "Windows App" = 1295203466;
+      "Parcel" = 639968404;
     };
-    taps = [
-      "FelixKratz/formulae"
-      "homebrew/services"
-      "nikitabobko/tap"
-    ];
+    # This doesn't work, taps are defined in flake.nix and then mksystem.nix
+    # taps = [];
     brews = [
       "borders"
       "mas"
-      "fluxcd/tap/flux"
     ];
     casks = [
       "altserver"

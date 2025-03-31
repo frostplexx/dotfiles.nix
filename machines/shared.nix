@@ -1,6 +1,10 @@
 {pkgs, ...}: {
-  # Basic system packages
+  # Nix settings import
+  imports = [
+    ./nix.nix
+  ];
 
+  # Basic system packages
   environment.systemPackages = with pkgs; [
     # Development tools
     lazygit

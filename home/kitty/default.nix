@@ -104,10 +104,10 @@
       "ctrl+shift+j" = "move_window down";
       "ctrl+shift+k" = "move_window up";
       "ctrl+shift+l" = "move_window right";
-      "ctrl+j" = "kitten ~/dotfiles.nix/home/programs/kitty/pass_keys.py bottom ctrl+j";
-      "ctrl+k" = "kitten ~/dotfiles.nix/home/programs/kitty/pass_keys.py top    ctrl+k";
-      "ctrl+h" = "kitten ~/dotfiles.nix/home/programs/kitty/pass_keys.py left   ctrl+h";
-      "ctrl+l" = "kitten ~/dotfiles.nix/home/programs/kitty/pass_keys.py right  ctrl+l";
+      "ctrl+j" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py bottom ctrl+j";
+      "ctrl+k" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py top    ctrl+k";
+      "ctrl+h" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py left   ctrl+h";
+      "ctrl+l" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py right  ctrl+l";
       "ctrl+shift+left" = "resize_window wider 5";
       "ctrl+shift+right" = "resize_window narrower 5";
       "ctrl+shift+up" = "resize_window taller";
