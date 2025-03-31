@@ -1,6 +1,6 @@
 # Configuration for Phoenix gaming PC;
 {
-user,
+  user,
   pkgs,
   inputs,
   ...
@@ -10,7 +10,8 @@ user,
     ./apps.nix # Phoenix-specific apps
     ../shared.nix
     ./sunshine.nix
-    (import ./services.nix) {inherit user;}
+    (import ./services.nix)
+    {inherit user;}
   ];
 
   networking = {
