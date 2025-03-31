@@ -112,7 +112,7 @@ in
           currentSystem = system;
           currentSystemName = name;
           currentSystemUser = user;
-        inherit user system inputs;
+          inherit user system inputs;
         };
       }
 

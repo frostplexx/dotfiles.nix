@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -12,7 +13,7 @@
     # Lix is a modern, delicious implementation of the Nix package manager
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Darwin-specific inputs
