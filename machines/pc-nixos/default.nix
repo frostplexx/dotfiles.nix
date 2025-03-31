@@ -1,6 +1,6 @@
 # Configuration for Phoenix gaming PC;
 {
-  user,
+  # user,
   pkgs,
   inputs,
   modulesPath,
@@ -12,9 +12,11 @@
     ../shared.nix
     ./sunshine.nix
     (import ./services.nix)
-    {inherit user;}
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
+      users.users.daniel.group = "daniel";
+       users.groups.daniel = {};
+users.users.daniel.isSystemUser = true;
 
   networking = {
     hostName = "pc-dev-phoenix";
@@ -30,8 +32,11 @@
       enable = true;
       allowedTCPPorts = [22];
     };
+    wireless.enable = false;
   };
 
+
+  nixpkgs.hostPlatform = "x86_64-linux";
   # System configuration
   time.timeZone = "Europe/Berlin";
   i18n = {
@@ -79,7 +84,7 @@
   programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
-    users.${user}.extraGroups = ["wheel" "video" "audio" "docker"];
+    users.daniel.extraGroups = ["wheel" "video" "audio" "docker"];
   };
   # nixpkgs.overlays = import ../../lib/overlays.nix;
 }

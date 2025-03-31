@@ -72,6 +72,7 @@ in
       inputs.lix-module.nixosModules.default
       # Import our machine config with all available arguments
       ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
+
       # Trust myself
       {nix.settings.trusted-users = ["root" user];}
 
@@ -110,7 +111,7 @@ in
           currentSystem = system;
           currentSystemName = name;
           currentSystemUser = user;
-          inherit inputs;
+        inherit user system inputs;
         };
       }
 
