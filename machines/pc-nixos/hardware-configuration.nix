@@ -51,6 +51,26 @@
 
   hardware = {
     xone.enable = true;
+
+    pulseaudio.enable = false;
+    graphics.enable = true;
+
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+    };
+
+    opengl.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement = {
+        enable = true;
+        finegrained = false;
+      };
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+    };
   };
 
   fileSystems = {

@@ -1,8 +1,5 @@
-# Home Manager configuration with module selection
-# Note: This file is imported from home-manager and defines the base configuration
 {user, ...}: {
   # Global home settings
-
   home = {
     username = user;
     stateVersion = "23.11";
