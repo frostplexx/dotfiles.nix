@@ -38,10 +38,10 @@ in {
       cd = "z";
       copy = "rsync -avz --partial --progress";
       transfer = "kitten transfer --direction=receive";
-      compress_to_mp4 = "~/dotfiles.nix/home/programs/shell/scripts/compress_mp4.sh";
-      ssh = "~/dotfiles.nix/home/programs/shell/scripts/ssh.sh";
-      ff = "~/dotfiles.nix/home/programs/shell/scripts/window_select.sh";
-      shinit = "~/dotfiles.nix/home/programs/shell/scripts/shell_select.sh";
+      compress_to_mp4 = "~/dotfiles.nix/home/shell/scripts/compress_mp4.sh";
+      ssh = "~/dotfiles.nix/home/shell/scripts/ssh.sh";
+      ff = "~/dotfiles.nix/home/shell/scripts/window_select.sh";
+      shinit = "~/dotfiles.nix/home/shell/scripts/shell_select.sh";
       yb = "yabai --restart-service; sudo yabai --load-sa; skhd --restart-service";
     };
 
