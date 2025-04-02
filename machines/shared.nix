@@ -24,6 +24,7 @@
     sshpass
     wget
     curl
+    gnupg
 
     nix-tree
     nix-output-monitor

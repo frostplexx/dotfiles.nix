@@ -1,8 +1,4 @@
-{
-  pkgs,
-  vars,
-  ...
-}: {
+{pkgs, ...}: {
   # Autostart applications
   environment.etc = {
     "xdg/autostart/steam.desktop".source = pkgs.steam + "/share/applications/steam.desktop";
@@ -34,7 +30,7 @@
 
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [vars.user];
+      polkitPolicyOwners = ["daniel"];
     };
 
     steam = {
