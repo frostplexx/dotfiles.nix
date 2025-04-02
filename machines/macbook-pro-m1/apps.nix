@@ -54,6 +54,7 @@
     casks = [
       "altserver"
       "ollama"
+      "cleanshot"
       "mac-mouse-fix"
       "onyx"
       "orbstack"

@@ -1,4 +1,4 @@
-{config, ...}: {
+_: {
   services = {
     tailscale.enable = true;
 
@@ -15,7 +15,7 @@
       };
       autoLogin = {
         enable = true;
-        user = config.user.name;
+        user = "daniel";
       };
       defaultSession = "plasmax11";
     };

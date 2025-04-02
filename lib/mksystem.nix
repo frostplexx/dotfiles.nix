@@ -5,7 +5,7 @@
   nixpkgs,
   overlays,
   ...
-}: name: {
+} @ args: name: {
   system,
   user,
   hm-modules ? [],
@@ -38,6 +38,9 @@
     config = nixpkgsConfig;
   };
 
+  # Merge the explicitly needed attributes with all the extra ones captured in args.
+  machineConfigArgs = {inherit system user pkgs inputs;} // args;
+
   # Build the home configuration from the modules
   mkHomeConfig = {
     modules ? [],
@@ -67,8 +70,10 @@ in
       {nixpkgs.config = nixpkgsConfig;}
       # New and faster replacement for cppNix (the default nix interpreter)
       inputs.lix-module.nixosModules.default
-      # Import our machine config
-      (import machineConfig {inherit user system pkgs;})
+      # Import our machine config with all available arguments
+      #TODO: this is weird and should get changed
+      ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
+
       # Trust myself
       {nix.settings.trusted-users = ["root" user];}
 
@@ -76,7 +81,11 @@ in
       home-manager.home-manager
       {
         nixpkgs.config = nixpkgsConfig;
-        system.stateVersion = 6;
+        # Why do darwin and linux use different stateVerions???
+        system.stateVersion =
+          if isDarwin
+          then 6
+          else "24.05";
         home-manager = {
           # useGlobalPkgs needs to be disabled to be able to use overlays
           useGlobalPkgs = false;
@@ -103,7 +112,7 @@ in
           currentSystem = system;
           currentSystemName = name;
           currentSystemUser = user;
-          inherit inputs;
+          inherit user system inputs;
         };
       }
 
