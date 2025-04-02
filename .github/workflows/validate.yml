@@ -47,6 +47,50 @@ jobs:
             exit 1
           fi
 
+  vulnerability-scan:
+    name: Nix Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+      - name: Install vulnix
+        run: |
+          nix-env -iA nixpkgs.vulnix
+          export LANG=C.UTF-8
+      - name: Run vulnerability scan
+        run: |
+          echo "Running vulnerability scan on configurations..."
+          # First detect the configurations
+          NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
+          
+          # Create a temporary file to collect all vulnerable packages
+          touch vulnerabilities.txt
+          
+          # Check each configuration
+          for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
+            echo "Scanning $config for vulnerabilities..."
+            # Build the configuration and scan it
+            nix build .#nixosConfigurations.$config.config.system.build.toplevel --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
+            
+            # Run vulnix on the result and save output
+            if vulnix --system; then
+              echo "No vulnerabilities found in $config" >> vulnerabilities.txt
+            else
+              echo "Vulnerabilities found in $config" >> vulnerabilities.txt
+              vulnix --system >> vulnerabilities.txt
+            fi
+          done
+          
+          # Check if vulnerabilities were found
+          if grep -q "Vulnerabilities found" vulnerabilities.txt; then
+            echo "::warning ::Vulnerabilities detected in Nix configurations. See details below:"
+            cat vulnerabilities.txt
+            # We don't fail the build yet, just warn about vulnerabilities
+          else
+            echo "No vulnerabilities found in any configuration."
+          fi
+
   detect-configs:
     name: Detect Configurations
     runs-on: ubuntu-latest
@@ -111,7 +155,7 @@ jobs:
 
   test-configurations:
     name: Test Nix Configurations
-    needs: [security-check, lint, detect-configs]
+    needs: [security-check, lint, vulnerability-scan, detect-configs]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false

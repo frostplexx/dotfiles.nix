@@ -31,17 +31,17 @@ in {
         if pkgs.stdenv.isDarwin
         then true
         else false;
-      # enabledThemes = [themeFile];
+      enabledThemes = [themeFile];
       plugins = {
         alwaysAnimate.enable = true;
-        # betterFolders = {
-        #   enable = true;
-        #   sidebar = true;
-        #   sidebarAnim = true;
-        #   closeAllFolders = true;
-        #   closeAllHomeButton = true;
-        #   forceOpen = true;
-        # };
+        betterFolders = {
+          enable = true;
+          sidebar = true;
+          sidebarAnim = true;
+          closeAllFolders = true;
+          closeAllHomeButton = true;
+          forceOpen = true;
+        };
         betterGifPicker.enable = true;
         betterRoleContext.enable = true;
         betterSettings.enable = true;
