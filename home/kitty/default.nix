@@ -90,6 +90,11 @@
       modify_font = "cell_height 100%";
     };
 
+    shellIntegration = {
+      mode = "no-cursor";
+      enableZshIntegration = true;
+    };
+
     # Keybindings
     keybindings = {
       "ctrl+shift+-" = "launch --location=hsplit --cwd=current";

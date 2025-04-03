@@ -30,6 +30,7 @@
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
 
+
   # User configuration
   users.users.${user} = {
     home = "/Users/${user}";
