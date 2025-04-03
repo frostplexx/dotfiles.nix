@@ -48,7 +48,6 @@
     # This doesn't work, taps are defined in flake.nix and then mksystem.nix
     # taps = [];
     brews = [
-      "borders"
       "mas"
     ];
     casks = [

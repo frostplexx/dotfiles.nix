@@ -135,7 +135,6 @@ in
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
               "nikitabobko/homebrew-tap" = homebrew-nikitabobko;
-              "FelixKratz/homebrew-formulae" = homebrew-felixkratz;
             };
           };
         }
