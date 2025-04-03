@@ -36,10 +36,6 @@
       url = "github:nikitabobko/homebrew-tap";
       flake = false;
     };
-    homebrew-felixkratz = {
-      url = "github:FelixKratz/homebrew-formulae";
-      flake = false;
-    };
 
     # Needed for firefox addons
     # nur.url = "github:nix-community/nur";
