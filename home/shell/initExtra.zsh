@@ -1,3 +1,4 @@
+source ~/dotfiles.nix/home/shell/p10k.zsh
 # Edit line in vim with ctrl-e:
 export KEYTIMEOUT=1
 
