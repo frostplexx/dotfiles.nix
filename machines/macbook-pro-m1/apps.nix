@@ -19,6 +19,7 @@
     mas
   ];
 
+  # TODO: figure out why this isnt working
   services.jankyborders = {
     enable = true;
     package = pkgs.jankyborders;

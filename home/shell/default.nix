@@ -9,6 +9,13 @@
     rev = "273019910c1111a388dd20e057606016f4bd0d17";
     hash = "sha256-80mR86UWgD11XuzpVNn56fmGRkvj0af2cFaZkU8M31I=";
   };
+
+  yazi-flavors = pkgs.fetchFromGitHub {
+    owner = "yazi-rs";
+    repo = "flavors";
+    rev = "68326b4ca4b5b66da3d4a4cce3050e5e950aade5";
+    hash = "sha256-nhIhCMBqr4VSzesplQRF6Ik55b3Ljae0dN+TYbzQb5s=";
+  };
 in {
   programs.zsh = {
     enable = true;
@@ -20,6 +27,7 @@ in {
     autocd = true;
 
     # Load extra zsh configuration from initExtra.zsh
+    initExtraFirst = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     initExtra = builtins.readFile ./initExtra.zsh;
     completionInit = builtins.readFile ./completions.zsh;
 
@@ -30,9 +38,7 @@ in {
       c = "clear";
       q = "exit";
       p = "cd $(ls -d -1 ~/Developer/* |fzf); wezterm cli split-pane --cwd $PWD --top --percent 80 -- vim .";
-      # More aliases for other apps
-      ls = "eza --icons=auto --git --header";
-      cat = "bat --theme=base16-256";
+      cat = "bat";
       tree = "eza --icons --git --header --tree";
       vimdiff = "nvim -d";
       cd = "z";
@@ -100,11 +106,32 @@ in {
     eza = {
       enable = true;
       enableZshIntegration = true;
+      git = true;
+      icons = "auto";
+      colors = "auto";
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
     };
 
     # Better cat
     bat = {
       enable = true;
+      config = {
+        theme = "catppuccin-mocha";
+      };
+      themes = {
+        catppuccin-mocha = {
+          src = pkgs.fetchFromGitHub {
+            owner = "catppuccin";
+            repo = "bat"; # Bat uses sublime syntax for its themes
+            rev = "699f60fc8ec434574ca7451b444b880430319941";
+            sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+          };
+          file = "Catppuccin Mocha.tmTheme";
+        };
+      };
     };
 
     fd = {
@@ -131,6 +158,9 @@ in {
           linemode = "mtime";
           show_hidden = false;
           show_symlink = true;
+        };
+        flavor = {
+          dark = "catppuccin-mocha";
         };
 
         tasks = {
@@ -167,6 +197,9 @@ in {
           rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
           hash = "sha256-bhLUziCDnF4QDCyysRn7Az35RAy8ibZIVUzoPgyEO1A=";
         };
+      };
+      flavors = {
+        catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
       };
 
       initLua = ''
@@ -423,14 +456,13 @@ in {
         palette = "supply";
       };
     };
-
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = {
-        add_newline = false;
-        scan_timeout = 10;
-      };
-    };
+    # starship = {
+    #   enable = true;
+    #   enableZshIntegration = true;
+    #   settings = {
+    #     add_newline = false;
+    #     scan_timeout = 10;
+    #   };
+    # };
   };
 }
