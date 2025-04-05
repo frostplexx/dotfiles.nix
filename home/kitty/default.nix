@@ -85,7 +85,7 @@
       # Set font size based on system because on linux wayland, font zise 13 is huge for some reason
       font_size =
         if pkgs.stdenv.isDarwin
-        then "13"
+        then "12"
         else "10";
       modify_font = "cell_height 100%";
     };

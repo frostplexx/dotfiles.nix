@@ -37,7 +37,7 @@
     transmission_4
     spotify
     imhex
-    zed-editor
+    sublime4
   ];
 
   # Base fonts
