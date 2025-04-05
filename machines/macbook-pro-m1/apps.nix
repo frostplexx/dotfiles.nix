@@ -10,7 +10,6 @@
     moonlight-qt
 
     # MacOS-specific apps
-    # raycast
     keka
     zoom-us
     utm
@@ -22,17 +21,11 @@
   # TODO: figure out why this isnt working
   services.jankyborders = {
     enable = true;
-    package = pkgs.jankyborders;
-
     style = "round";
     width = 3.0;
     hidpi = true;
     active_color = "0xffac8fd4";
     inactive_color = "0xffac8fd4";
-    whitelist = [
-      "ghostty"
-      "kitty"
-    ];
   };
 
   # Homebrew configuration
@@ -45,6 +38,7 @@
       cleanup = "zap";
     };
     masApps = {
+      # Uncommented after first install because mas is buggy and likes to update every app on every deploy
       # Safari extensions
       # "1Password for Safari" = 1569813296;
       # "AdGuard for Safari" = 1440147259;
@@ -76,8 +70,8 @@
       "orbstack"
       "1password@beta"
       "proxyman"
-      "zen-browser"
       "raycast"
+      "zen-browser"
       "mullvadvpn"
       "aerospace"
       "whisky"

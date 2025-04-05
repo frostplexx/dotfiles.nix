@@ -71,13 +71,14 @@
       user = "daniel";
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
-        "editor"
         "git"
         "kitty"
+        "neovim"
         "nixcord"
         "plasma"
         "shell"
         "ssh"
+        "zed"
       ];
     };
 
@@ -87,13 +88,14 @@
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
         "aerospace"
-        "editor"
         "ghostty"
         "git"
         "kitty"
+        "neovim"
         "nixcord"
         "shell"
         "ssh"
+        "zed"
       ];
     };
 
