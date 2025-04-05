@@ -37,7 +37,6 @@
     transmission_4
     spotify
     imhex
-    sublime4
   ];
 
   # Base fonts

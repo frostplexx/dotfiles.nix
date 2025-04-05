@@ -71,7 +71,7 @@ update_repo() {
     new_sha256=$(nix-prefetch-url --unpack "$url")
 
     # Convert the sha256 to sri
-    new_sha256_base64=$(nix hash convert --hash-algo sha256 --to sri "$new_sha256")
+    new_sha256_base64=$(nix-hash --type sha256 --to-sri "$new_sha256")
     
     echo "Current revision: $current_rev"
     echo "Latest revision:  $latest_rev"
