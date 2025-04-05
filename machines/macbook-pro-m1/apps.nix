@@ -18,14 +18,13 @@
     mas
   ];
 
-  # TODO: figure out why this isnt working
   services.jankyborders = {
     enable = true;
     style = "round";
     width = 3.0;
     hidpi = true;
-    active_color = "0xffac8fd4";
-    inactive_color = "0xffac8fd4";
+    active_color = "0xffcba6f7";
+    inactive_color = "0xff7f849c";
   };
 
   # Homebrew configuration

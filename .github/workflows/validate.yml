@@ -112,7 +112,7 @@ jobs:
 
   test-configurations:
     name: Test Nix Configurations
-    needs: [security-check, lint, vulnerability-scan, detect-configs]
+    needs: [security-check, lint, detect-configs]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -129,5 +129,3 @@ jobs:
         run: |
           echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
           nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
-          echo "Running vulnix"
-          nix run nixpkgs#vulnix -- --system
