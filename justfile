@@ -11,21 +11,18 @@ nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi
 default:
     @just --list --list-prefix "    " --list-heading $'🔧 Available Commands:\n'
 
-# Deploy without update
 [group('nix')]
 [doc('Deploy system configuration')]
-deploy: lint
+deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
-    @nix run github:viperml/nh -- {{nix_cmd}} switch
+    @nix run github:viperml/nh -- {{nix_cmd}} switch -H {{host}}
 
-# Deploy with update
 [group('nix')]
 [doc('Upgrade flake inputs and deploy')]
 upgrade: update-refs lint
     @echo "Deploying system configuration with update..."
     @nix run github:viperml/nh -- {{nix_cmd}} switch --update
 
-# Keep other existing recipes
 [group('nix')]
 [doc('Update every fetchFromGithub with its newest commit and hash')]
 update-refs:
