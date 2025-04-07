@@ -58,7 +58,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
 
 -- set default capabilities for every lsp server
 vim.lsp.config('*', {
-    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    -- capabilities = require('blink.cmp').get_lsp_capabilities(),
     root_markers = { '.git' }
 })
 
@@ -118,7 +118,7 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
     callback = function(ev)
-        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf)
+        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
     end,
 })
 
