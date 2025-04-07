@@ -11,33 +11,25 @@
 This repository contains my personal system configurations for NixOS and MacOS.
 It provides a reproducible setup for macOS systems using declarative configuration.
 
-<table align="center">
-    <tr>
-        <td></td><td>MacOS</td><td>NixOS</td>
-    </tr>
-    <tr>
-        <td>Shell</td><td>zsh</td><td>zsh</td>
-    </tr>
-    <tr>
-        <td>WM</td><td>Aerospace</td><td>KDE Plasma</td>
-    </tr>
-    <tr>
-        <td>Editor</td><td>NeoVim</td><td>NeoVim</td>
-    </tr>
-    <tr>
-        <td>Terminal</td><td>kitty</td><td>kitty</td>
-    </tr>
-    <tr>
-        <td>Launcher</td><td>Raycast</td><td>krun</td>
-    </tr>
-    <tr>
-        <td>Browser</td><td>Zen Browser</td><td>Zen Browser</td>
-    </tr>
-</table>
+This repository is home to the nix code that builds my systems:
+
+1. NixOS Desktops: NixOS with home-manager, kde plasma, steam, etc.
+2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
+
+See [./machines](./machines) for details of each host.
+Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
 
 ---
 
 ## Getting Started
+
+<!-- prettier-ignore -->
+> :red_circle: **IMPORTANT**: **You should NOT deploy this flake directly on your machine :exclamation:
+> It will not succeed.** This flake contains my hardware configuration(such as
+> [hardware-configuration.nix](hosts/idols-ai/hardware-configuration.nix),
+> [Nvidia Support](https://github.com/ryan4yin/nix-config/blob/v0.1.1/hosts/idols-ai/default.nix#L77-L91),
+> etc.) which is not suitable for your hardware to deploy. You
+> may use this repo as a reference to build your own configuration.
 
 ### Prerequisites
 
@@ -165,6 +157,14 @@ Overlays can either be added to the overlays array inside `flake.nix` or
 dropped as a file inside `./overlays/` which will then get automatically loaded.
 You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;` 
 to the configuration that should load its overlays from the folder
+
+## References
+
+Other dotfiles and flakes:
+
+- https://github.com/ryan4yin/nix-config/blob/main/README.md?plain=1
+- https://github.com/mitchellh/nixos-config
+- https://github.com/dustinlyons/nixos-config
 
 
 [^1]: After the first deployment `just` and its alias `j` will be available system wide
