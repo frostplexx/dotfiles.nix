@@ -15,7 +15,6 @@ function switch_system() {
     
     # Add --update flag only if arguments are passed
     if [ $# -gt 0 ]; then
-        ./scripts/update-flake-revs.sh
         nix run github:viperml/nh -- $NIX_CMD switch --update
     else
         nix run github:viperml/nh -- $NIX_CMD switch

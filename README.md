@@ -48,21 +48,27 @@ It provides a reproducible setup for macOS systems using declarative configurati
 
 ### Installation
 
-1. Clone this repo into your home directory and cd into it
-2. On macOS run `make install` to install Nix, nix-darwin and home-manager
-3. Use `make` to deploy the system. This will prompt you to select a config.
+Clone this repo into your home directory and cd into it
+
+#### MacOS
+On macOS run `./scripts/system-bootstrap.sh` to install Lix.
+The script will then also deploy the first generation on your device
+
+#### NixOS
+Run `nix run nixpkgs#just -- deploy` ^[After the first deployment `just` and its alias `j` will be available system wide] to deploy the system.
 
 ### Available Commands
 
 The Makefile offers the following targets that can be run for managing the system:
 
-- `all`:      same as deploy
-- `deploy`:   lints, auto-detects OS and deploys appropriate configuration
-- `update`:   updates flake and deploys
-- `bootstrap`:  first-time setup for MacOS
-- `lint`:     format and lint nix files using alejandra, statix and deadnix
-- `clean`:    remove old system generations (runs `nh clean all`)
-- `repair`:   verify nix store and repair
+- `deploy`:         lints, auto-detects OS and deploys appropriate configuration
+- `update`:         updates flake and deploys
+- `lint`:           format and lint nix files using alejandra, statix and deadnix
+- `clean`:          remove old system generations (runs `nh clean all`)
+- `repair`:         verify nix store and repair
+- `format`:         Format nix files
+- `diff`:           Show diff between current and commited changes
+- `update-refs`:    Update every fetchFromGithub with its newest commit and hash
 
 In addition `nix-tree`, `nix-output-monitor`, `nh` and `nvd` come installed.
 
@@ -127,6 +133,7 @@ taps = with inputs; {
 };
 # ...
 ```
+
 In Homebrew, the repo part of all taps always have `homebrew-` prepended.
 - https://docs.brew.sh/Taps
 - https://docs.brew.sh/Interesting-Taps-and-Forks

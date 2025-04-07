@@ -36,6 +36,7 @@
     _1password-cli
     transmission_4
     spotify
+    just
     imhex
   ];
 
