@@ -35,10 +35,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+      - name: Install Just
+        uses: extractions/setup-just@v2
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
-          if make lint; then
+          if just lint; then
             echo "success=true" >> $GITHUB_ENV
           else
             echo "Lint failed, listing flake.lock for debugging:"
