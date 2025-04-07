@@ -36,3 +36,8 @@ end
 
 -- Register the command
 vim.api.nvim_create_user_command("LspInfo", LspInfo, {})
+
+
+vim.api.nvim_create_user_command('Todos', function()
+    Snacks.picker.grep { search = [[TODO:|todo!\(.*\)]], no_esc = true }
+end, { desc = 'Grep TODOs', nargs = 0 })

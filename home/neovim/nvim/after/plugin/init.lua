@@ -1,5 +1,4 @@
-require("core.options")
-require("core.autocommands")
-require("utils.lspinfo")
-require("core.statusline")
-require("core.snippet")
+-- Load colorscheme after running setup
+vim.cmd.colorscheme("catppuccin-mocha")
+require 'core.winbar'
+require 'core.statusline'

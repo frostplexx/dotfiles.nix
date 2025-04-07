@@ -1,6 +1,7 @@
 {
     "diagnostics.disable": [
-        "missing-fields"
+        "missing-fields",
+        "assign-type-mismatch"
     ],
     "diagnostics.globals": [
         "vim",

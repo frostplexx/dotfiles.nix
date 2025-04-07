@@ -1,13 +1,15 @@
 -- [[ Init File ]]
---
 if vim.fn.has("nvim-0.10") == 0 then
     vim.notify("This config only supports Neovim 0.10+", vim.log.levels.ERROR)
     return
 end
 
-vim.loader.enable() -- speed up startup time
-require("core.keymap")   -- load keymaps
+-- Global variables.
+vim.g.projects_dir = vim.env.HOME .. '/Developer'
 
+vim.loader.enable() -- speed up startup time
+
+-- Set up snacks debug
 _G.dd = function(...)
     Snacks.debug.inspect(...)
 end
@@ -17,6 +19,8 @@ end
 vim.print = _G.dd
 
 -- [[ Lazy.nvim Plugin Manager ]]
+
+-- Install Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -28,28 +32,28 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
+vim.opt.rtp = vim.opt.rtp ^ lazypath
 
-vim.opt.rtp:prepend(lazypath)
+---@diagnostic disable-next-line: undefined-doc-name
+---@type LazySpec
+local plugins = 'plugins'
+
+-- General Setup
+require 'core.options'
+require 'core.keymap'
+require 'core.commands'
+require 'core.autocommands'
+require 'core.lsp'
+
 -- initialize lazy.nvim
-require("lazy").setup({
-    spec = {
-        { import = "plugins" },
-    },
+require("lazy").setup(plugins, {
+    ui = { border = "rounded", },
     dev = {
         path = "~/.local/share/nvim/nix",
         fallback = false,
     },
-    defaults = {
-        lazy = true,
-        version = false, -- always use the latest git commit
-    },
-    change_detection = {
-        notify = false,
-    },
-    checker = { enabled = false }, -- automatically check for plugin updates
-    ui = {
-        border = "rounded",
-    },
+    change_detection = { notify = false, },
+    rocks = { enabled = false },
     performance = {
         cache = {
             enabled = true,
@@ -70,5 +74,3 @@ require("lazy").setup({
         },
     },
 })
-
-require("core.lsp")

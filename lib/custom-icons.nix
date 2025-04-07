@@ -1,23 +1,3 @@
-# custom-icons.nix
-# A NixOS module for customizing macOS folder/file icons
-#
-# Usage in your configuration.nix or home-manager config:
-#
-# imports = [
-#   ./custom-icons.nix  # Adjust path as needed
-# ];
-#
-# environment.customIcons = {
-#   enable = true;
-#   clearCacheOnActivation = true;  # Optional: clear icon cache on activation
-#   icons = [
-#     {
-#       path = "/Applications/Firefox.app";  # Path to file/folder to customize
-#       icon = ./path/to/icon.icns;         # Path to .icns file
-#     }
-#     # Add more icon configurations as needed
-#   ];
-# };
 {
   lib,
   config,
