@@ -8,6 +8,9 @@
     </div>
 </p>
 
+![CleanShot 2025-04-07 at 17 51 45@2x](https://github.com/user-attachments/assets/705ebc82-d671-4ccd-845c-01d26904e430)
+
+
 This repository contains my personal system configurations for NixOS and MacOS.
 It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
 
