@@ -1,5 +1,4 @@
 -- [[ Vim options ]]
-vim.cmd.colorscheme("catppuccin-mocha")
 
 
 -- Make current line number brighter than the rest
@@ -7,26 +6,47 @@ vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#403d52", bold = false })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#c4a7e7", bold = true })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#403d52", bold = false })
 
+
+-- Show whitespace.
+vim.opt.list = true
+vim.opt.listchars = { space = '⋅', trail = '⋅', tab = '  ↦' }
+
+
+-- Use rounded borders for floating windows.
+-- vim.o.winborder = 'rounded'
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "manual"
 vim.opt.hlsearch = false
 vim.opt.breakindent = true
+
+-- Case insensitive searching UNLESS /C or the search has capitals.
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
 vim.opt.showmode = false
+vim.opt.wildignore:append { '.DS_Store' }
 vim.o.completeopt = "menu,menuone,popup,fuzzy"
 vim.opt.clipboard = "unnamedplus"
+-- Status line.
 vim.opt.cmdheight = 0
+vim.o.laststatus = 3
+
 vim.opt.textwidth = 160
 vim.opt.colorcolumn = "160"
+
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-vim.opt.updatetime = 50
+-- Update times and timeouts.
+vim.o.updatetime = 300
+vim.o.timeoutlen = 500
+vim.o.ttimeoutlen = 10
+
 vim.g.vimtex_view_method = "skim"
 
 vim.opt.numberwidth = 3      -- Minimal number of columns to use for the line number

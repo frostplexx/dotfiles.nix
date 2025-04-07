@@ -43,7 +43,6 @@
       # Scrolling
       scrollback_lines = "10000";
       scrollback_indicator_opacity = "0.5";
-      scrollback_pager = "nvim";
 
       # Copy behavior
       copy_on_select = "clipboard";
@@ -88,6 +87,8 @@
         then "12"
         else "10";
       modify_font = "cell_height 100%";
+
+      scrollback_pager = "nvim -u NONE -R -M -c 'lua require(\"core.kitty_scrollback\")(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)' -";
     };
 
     shellIntegration = {
@@ -100,7 +101,6 @@
       "ctrl+shift+-" = "launch --location=hsplit --cwd=current";
       "ctrl+shift+=" = "launch --location=vsplit --cwd=current";
       "f4" = "launch --location=split";
-      "f1" = "show_scrollback";
       "ctrl+alt+k" = "scroll_line_up";
       "ctrl+alt+j" = "scroll_line_down";
       "ctrl+alt+u" = "scroll_page_up";
@@ -117,7 +117,7 @@
       "ctrl+shift+right" = "resize_window narrower 5";
       "ctrl+shift+up" = "resize_window taller";
       "ctrl+shift+down" = "resize_window shorter";
-      "ctrl+shift+x" = "close_window";
+      "ctrl+shift+x" = "show_scrollback";
     };
 
     # Extra configuration to ensure catpuccin theme is included

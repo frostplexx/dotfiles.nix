@@ -61,17 +61,6 @@ in {
       share = true;
       extended = true;
     };
-    plugins = [
-      {
-        name = "zsh-autocomplete"; # completes history, commands, etc.
-        src = pkgs.fetchFromGitHub {
-          owner = "marlonrichert";
-          repo = "zsh-autocomplete";
-          rev = "a09c1c5c1c967a1a9541820370a9bab4edc0ab29";
-          sha256 = "1357hygrjwj5vd4cjdvxzrx967f1d2dbqm2rskbz5z1q6jri1hm3";
-        }; # e.g., nix-prefetch-url --unpack https://github.com/marlonrichert/zsh-autocomplete/archive/762afacbf227ecd173e899d10a28a478b4c84a3f.tar.gz
-      }
-    ];
   };
 
   # Hushlogin to not show login message

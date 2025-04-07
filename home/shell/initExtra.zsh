@@ -44,5 +44,3 @@ setopt CORRECT
 setopt CORRECT_ALL
 # Customize spelling correction prompt.
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [Nyae]? '
-
-bindkey -M menuselect '^M' .accept-line # run code when selected completion
