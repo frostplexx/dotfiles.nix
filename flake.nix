@@ -20,6 +20,7 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     # nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     # Declaratively manage homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
