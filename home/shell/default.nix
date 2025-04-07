@@ -37,6 +37,7 @@ in {
       s = "spotify_player";
       c = "clear";
       q = "exit";
+      j = "just";
       p = "cd $(ls -d -1 ~/Developer/* |fzf); wezterm cli split-pane --cwd $PWD --top --percent 80 -- vim .";
       cat = "bat";
       tree = "eza --icons --git --header --tree";
