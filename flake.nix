@@ -40,7 +40,6 @@
 
     # Needed for firefox addons
     # nur.url = "github:nix-community/nur";
-
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
