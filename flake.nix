@@ -65,7 +65,6 @@
       inherit overlays nixpkgs inputs;
     };
   in {
-
     #TODO: implement: devShells = import ../shells;
 
     nixosConfigurations.pc-nixos = mkSystem "pc-nixos" {
