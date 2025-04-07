@@ -1,6 +1,6 @@
 <p align="center">
     <img src="https://nixos.wiki/images/thumb/2/20/Home-nixos-logo.png/414px-Home-nixos-logo.png" width=200/>
-    <h1 align="center">Nix Configuration </h1>
+    <h1 align="center"><code>Nix System Configurations</code></h1>
     <div style="display: grid;" align="center">
     <img src="https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg" height=20/>
     <img src="https://img.shields.io/github/repo-size/frostplexx/dotfiles.nix" height=20/>
@@ -42,20 +42,23 @@ It provides a reproducible setup for macOS systems using declarative configurati
 ### Prerequisites
 
 - A Computer running macOS or NixOS
-- Make available
-  - On macOS install it using `xcode-select --install`
-  - On NixOS you can get a shell with make by running `nix-shell -p gnumake`
 
 ### Installation
 
-Clone this repo into your home directory and cd into it
+#### Setup
+Clone this repo into your home directory and cd into it.
+```bash
+git clone https://github.com/frostplexx/dotfiles.nix.git ~/
+cd ~/dotfiles.nix
 
-#### MacOS
+```
+
+#### Installing on MacOS
 On macOS run `./scripts/system-bootstrap.sh` to install Lix.
 The script will then also deploy the first generation on your device
 
-#### NixOS
-Run `nix run nixpkgs#just -- deploy` ^[After the first deployment `just` and its alias `j` will be available system wide] to deploy the system.
+#### Installing on NixOS
+Run `nix run nixpkgs#just -- deploy <hostname>`[^1] to deploy the system.
 
 ### Available Commands
 
@@ -163,3 +166,5 @@ dropped as a file inside `./overlays/` which will then get automatically loaded.
 You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;` 
 to the configuration that should load its overlays from the folder
 
+
+[^1]: After the first deployment `just` and its alias `j` will be available system wide
