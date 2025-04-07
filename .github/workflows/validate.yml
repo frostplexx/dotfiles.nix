@@ -36,7 +36,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Install Just
-        uses: extractions/setup-just@v3
+        uses: extractions/setup-just@v2
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
@@ -130,5 +130,4 @@ jobs:
       - name: Build Configuration
         run: |
           echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
-          nix_cmd=$(if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi)
-          nix run github:viperml/nh -- $nix_cmd switch -H ${{ matrix.config }}
+          nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
