@@ -130,4 +130,5 @@ jobs:
       - name: Build Configuration
         run: |
           echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
+          nix flake update
           nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
