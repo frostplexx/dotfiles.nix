@@ -130,5 +130,6 @@ jobs:
       - name: Build Configuration
         run: |
           echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
-          nix flake update
+          nix_cmd=$(if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi)
+          nix run github:viperml/nh -- $nix_cmd switch -H ${{ matrix.config }}
           nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
