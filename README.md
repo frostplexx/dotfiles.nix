@@ -9,14 +9,14 @@
 </p>
 
 This repository contains my personal system configurations for NixOS and MacOS.
-It provides a reproducible setup for macOS systems using declarative configuration.
+It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
 
 This repository is home to the nix code that builds my systems:
 
 1. NixOS Desktops: NixOS with home-manager, kde plasma, steam, etc.
 2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
 
-See [./machines](./machines) for details of each host.
+See [./machines](./machines) for details of each host.<br>
 Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
 
 ---
@@ -26,8 +26,8 @@ Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
 <!-- prettier-ignore -->
 > :red_circle: **IMPORTANT**: **You should NOT deploy this flake directly on your machine :exclamation:
 > It will not succeed.** This flake contains my hardware configuration(such as
-> [hardware-configuration.nix](hosts/idols-ai/hardware-configuration.nix),
-> [Nvidia Support](https://github.com/ryan4yin/nix-config/blob/v0.1.1/hosts/idols-ai/default.nix#L77-L91),
+> [hardware-configuration.nix](machines/pc-nixos/hardware-configuration.nix),
+> [Nvidia Support](https://github.com/frostplexx/dotfiles.nix/blob/53bd351febdff82a9f0a2c5de6d6fcf55b58d0aa/machines/pc-nixos/hardware-configuration.nix#L63C1-L72C7),
 > etc.) which is not suitable for your hardware to deploy. You
 > may use this repo as a reference to build your own configuration.
 
