@@ -6,8 +6,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "273019910c1111a388dd20e057606016f4bd0d17";
-    hash = "sha256-80mR86UWgD11XuzpVNn56fmGRkvj0af2cFaZkU8M31I=";
+    rev = "9a095057d698aaaedc4dd23d638285bd3fd647e9";
+    hash = "sha256-Lx+TliqMuaXpjaUtjdUac7ODg2yc3yrd1mSWJo9Mz2Q=";
   };
 
   yazi-flavors = pkgs.fetchFromGitHub {
@@ -61,6 +61,17 @@ in {
       share = true;
       extended = true;
     };
+    plugins = [
+      {
+        name = "zsh-autocomplete"; # completes history, commands, etc.
+        src = pkgs.fetchFromGitHub {
+          owner = "marlonrichert";
+          repo = "zsh-autocomplete";
+          rev = "a09c1c5c1c967a1a9541820370a9bab4edc0ab29";
+          sha256 = "1357hygrjwj5vd4cjdvxzrx967f1d2dbqm2rskbz5z1q6jri1hm3";
+        }; # e.g., nix-prefetch-url --unpack https://github.com/marlonrichert/zsh-autocomplete/archive/762afacbf227ecd173e899d10a28a478b4c84a3f.tar.gz
+      }
+    ];
   };
 
   # Hushlogin to not show login message
@@ -190,7 +201,7 @@ in {
         full-border = "${yazi-plugins}/full-border.yazi";
         max-preview = "${yazi-plugins}/max-preview.yazi";
         smart-filter = "${yazi-plugins}/smart-filter.yazi";
-        git = "${yazi-plugins}/git.yazi";
+        # git = "${yazi-plugins}/git.yazi";
         starship = pkgs.fetchFromGitHub {
           owner = "Rolv-Apneseth";
           repo = "starship.yazi";
@@ -208,7 +219,7 @@ in {
           type = ui.Border.ROUNDED,
         }
         require("starship"):setup()
-        require("git"):setup()
+        -- require("git"):setup()
       '';
 
       keymap = {
