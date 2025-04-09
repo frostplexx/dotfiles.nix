@@ -29,13 +29,24 @@
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  # You can enable the fish shell and manage fish configuration and plugins with Home Manager, but to enable vendor fish completions provided by Nixpkgs you
+  # will also want to enable the fish shell in /etc/nixos/configuration.nix:
   programs.fish.enable = true;
 
+  # Add ~/.local/bin to PATH
+  environment = {
+    # https://github.com/nix-community/home-manager/pull/2408
+    pathsToLink = ["/share/fish"];
+    shells = [pkgs.fish];
+  };
   # User configuration
-  users.users.${user} = {
-    home = "/Users/${user}";
-    description = user;
-    shell = pkgs.fish;
+  users = {
+    users.${user} = {
+      home = "/Users/${user}";
+      description = user;
+      shell = "/run/current-system/sw/bin/fish";
+    };
   };
 
   # System defaults and preferences
@@ -43,23 +54,30 @@
     startup.chime = false;
 
     # Post-activation scripts
-    activationScripts.postUserActivation.text = ''
-      # Disable mouse acceleration
-      defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-      defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
-      # Title bar icons in finder
-      # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
-      defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
-      defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
-      defaults write NSGlobalDomain AppleAccentColor -int 10;
+    activationScripts = {
+      postUserActivation.text = ''
+        # Disable mouse acceleration
+        defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+        defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
+        # Title bar icons in finder
+        # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+        defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
+        defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
+        defaults write NSGlobalDomain AppleAccentColor -int 10;
 
-      #set wallpaper
-      osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/daniel/dotfiles.nix/assets/wallpaper.png"'
+        #set wallpaper
+        osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/daniel/dotfiles.nix/assets/wallpaper.png"'
 
-      # Reload settings
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-      killall Finder
-    '';
+        # Reload settings
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+        killall Finder
+      '';
+
+      # https://github.com/LnL7/nix-darwin/issues/811
+      setFishAsShell.text = ''
+        dscl . -create /Users/${user} UserShell /run/current-system/sw/bin/fish
+      '';
+    };
 
     defaults = {
       smb.NetBIOSName = "pc-dev-lyra";

@@ -66,22 +66,20 @@
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
-      tab_title_template = "{index} { tab.active_exe if tab.active_exe not in ('-zsh', 'kitten') else title}{tab.last_focused_progress_percent}";
+      tab_title_template = "{index} { tab.active_exe if tab.active_exe not in ('-fish', 'kitten') else title}{tab.last_focused_progress_percent}";
       active_tab_font_style = "bold";
       inactive_tab_font_style = "normal";
       active_tab_background = "#8aadf4";
 
       # Remote control
-      startup_session = "./startup.conf";
       allow_remote_control = "yes";
       listen_on = "unix:/tmp/mykitty";
-      remote_kitty = "if-needed";
 
       # Fonts
       font_family = "JetBrains Mono";
       disable_ligatures = "cursor";
 
-      # Set font size based on system because on linux wayland, font zise 13 is huge for some reason
+      # Set font size based on system because on linux wayland, font zise 13 is huge for some reasoe
       font_size =
         if pkgs.stdenv.isDarwin
         then "12"
@@ -93,7 +91,8 @@
 
     shellIntegration = {
       mode = "no-cursor";
-      enableZshIntegration = true;
+      # enableFishIntegration = true;
+      enableFishIntegration = true;
     };
 
     # Keybindings
@@ -129,6 +128,9 @@
   xdg.configFile = {
     # Copy pass_keys.py
     "kitty/pass_keys.py".source = ./pass_keys.py;
+
+    # This is needed for the neovim plugin. It expects the file in ~/.config/kitty/
+    "kitty/navigate_kitty.py".source = ./navigate_kitty.py;
 
     # Copy ssh.conf
     "kitty/ssh.conf".source = ./ssh.conf;

@@ -15,6 +15,7 @@ default:
 [doc('Deploy system configuration')]
 deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
+    @git add .
     @nix run github:viperml/nh -- {{nix_cmd}} switch -H {{host}}
 
 [group('nix')]
