@@ -29,11 +29,13 @@
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
+  programs.fish.enable = true;
 
   # User configuration
   users.users.${user} = {
     home = "/Users/${user}";
     description = user;
+    shell = pkgs.fish;
   };
 
   # System defaults and preferences
