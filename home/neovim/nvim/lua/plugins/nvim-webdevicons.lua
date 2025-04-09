@@ -3,6 +3,7 @@ return {
         'nvim-tree/nvim-web-devicons',
         -- Lots of plugins will require this later.
         lazy = true,
+        event = "VeryLazy",
         opts = {
             -- Make the icon for query files more visible.
             override = {

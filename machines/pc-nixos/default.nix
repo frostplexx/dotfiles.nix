@@ -77,7 +77,8 @@
   };
 
   users = {
-    defaultUserShell = pkgs.zsh;
+    # defaultUserShell = pkgs.zsh;
+    defaultUserShell = pkgs.fish;
     users.daniel = {
       extraGroups = ["wheel" "video" "audio" "docker"];
       group = "daniel";

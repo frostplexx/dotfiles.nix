@@ -9,6 +9,9 @@
     jetbrains.datagrip
     moonlight-qt
 
+    # Dependency for the fish plugin "done": https://github.com/franciscolourenco/done?tab=readme-ov-file#dependencies
+    terminal-notifier
+
     # MacOS-specific apps
     keka
     zoom-us
