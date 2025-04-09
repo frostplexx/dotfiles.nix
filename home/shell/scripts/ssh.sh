@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: Rewrite and make simpler
 # Function to get 1Password item details by ID
 get_item_details() {
   local item_id="$1"
@@ -8,7 +9,7 @@ get_item_details() {
 # Function to extract SSH URL and parse it
 extract_ssh_url() {
   local item_details="$1"
-  
+ssh  
   # First try to find a URL field
   local ssh_url=$(echo "$item_details" | jq -r '.urls[] | select(.href | startswith("ssh://")) .href | select(. != null)' 2>/dev/null | head -n1)
   
@@ -77,7 +78,6 @@ perform_ssh_connection() {
   
   clear
   printf "Connecting to \033[1;33m$username\033[0m@\033[1;34m$hostname\033[0m\n"
-  kitten @ set-tab-title "$(echo "$item_details" | jq -r '.title')"
   # wezterm cli set-tab-title "$(echo "$item_details" | jq -r '.title')"
   
   if [[ -n "$password" ]]; then
