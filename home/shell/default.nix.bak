@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
@@ -13,30 +17,19 @@
     hash = "sha256-nhIhCMBqr4VSzesplQRF6Ik55b3Ljae0dN+TYbzQb5s=";
   };
 in {
-  programs.fish = {
+  programs.zsh = {
     enable = true;
-    plugins = [
-      {
-        name = "grc";
-        inherit (pkgs.fishPlugins.grc) src;
-      }
-      {
-        name = "z";
-        inherit (pkgs.fishPlugins.z) src;
-      }
-      {
-        name = "macos";
-        inherit (pkgs.fishPlugins.macos) src;
-      }
-      {
-        name = "fzf-fish";
-        inherit (pkgs.fishPlugins.fzf-fish) src;
-      }
-      {
-        name = "done";
-        inherit (pkgs.fishPlugins.done) src;
-      }
-    ];
+
+    # Load some plugins and shit
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    autocd = true;
+
+    # Load extra zsh configuration from initExtra.zsh
+    initExtraFirst = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    initExtra = builtins.readFile ./initExtra.zsh;
+    completionInit = builtins.readFile ./completions.zsh;
 
     shellAliases = {
       v = "nvim";
@@ -59,12 +52,29 @@ in {
       shinit = "~/dotfiles.nix/home/shell/scripts/shell_select.sh";
       yb = "yabai --restart-service; sudo yabai --load-sa; skhd --restart-service";
     };
+
+    # History Settings
+    history = {
+      save = 10000;
+      size = 10000;
+      path = "${config.xdg.cacheHome}/zsh/history";
+      expireDuplicatesFirst = true;
+      ignoreDups = true;
+      share = true;
+      extended = true;
+    };
   };
 
   # Hushlogin to not show login message
   home.file = {
     ".hushlogin".text = "";
   };
+
+  # Install required packages
+  home.packages = with pkgs; [
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+  ];
 
   xdg.configFile = {
     #Btop theme
@@ -81,7 +91,7 @@ in {
     # Better cd
     zoxide = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
     };
 
     btop = {
@@ -97,7 +107,7 @@ in {
     # Better ls
     eza = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       git = true;
       icons = "auto";
       colors = "auto";
@@ -133,7 +143,7 @@ in {
     # Terminal file manager
     yazi = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       shellWrapperName = "y";
       package = pkgs.yazi.override {
         _7zz = pkgs._7zz.override {
@@ -265,7 +275,7 @@ in {
 
     direnv = {
       enable = true;
-      # enableFishIntegration = true;
+      enableZshIntegration = true;
       nix-direnv.enable = true;
       silent = true;
     };
@@ -273,7 +283,7 @@ in {
     # Fuzzy finder
     fzf = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       defaultCommand = "fd --type f"; # Faster than find
       defaultOptions = [
         "--height 40%"
@@ -448,5 +458,13 @@ in {
         palette = "supply";
       };
     };
+    # starship = {
+    #   enable = true;
+    #   enableZshIntegration = true;
+    #   settings = {
+    #     add_newline = false;
+    #     scan_timeout = 10;
+    #   };
+    # };
   };
 }

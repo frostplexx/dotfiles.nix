@@ -76,8 +76,6 @@
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
 
-  # User configuration
-  programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
     users.daniel = {
