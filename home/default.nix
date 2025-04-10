@@ -8,6 +8,7 @@
       EDITOR = "nvim";
     };
   };
+
   programs = {
     home-manager.enable = true; # Let Home Manager manage itself
     zsh.enable = true; # Basic zsh configuration

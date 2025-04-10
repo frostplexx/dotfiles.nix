@@ -5,6 +5,7 @@
     ./fish
     ./spotify_player.nix
     ./yazi.nix
+    ./lazygit.nix
   ];
   # Hushlogin to not show login message
   home.file = {

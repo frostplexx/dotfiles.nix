@@ -23,7 +23,6 @@
         s = "spotify_player";
         c = "clear";
         q = "exit";
-        j = "just";
         p = "cd $(ls -d -1 ~/Developer/* |fzf); kitten @ launch --location=hsplit --bias=20 --cwd $PWD;nvim .";
         cat = "bat";
         tree = "eza --icons --git --header --tree";
@@ -39,16 +38,20 @@
         copy = "rsync -avz --partial --progress";
         transfer = "kitten transfer --direction=receive";
         nhs = "nh search";
+        ga = "git add";
+        gb = "git branch";
+        gc = "git commit";
+        gco = "git checkout";
+        gf = "git fetch";
+        gm = "git merge";
+        gp = "git pull";
+        gu = "git push";
+        gst = "git status";
+        s = "sudo";
+        j = "just";
       };
 
-      shellInit = ''
-        set -g fish_greeting ""
-        fish_vi_key_bindings
-      '';
-
-      interactiveShellInit = ''
-        fish_config theme choose "Catppuccin Mocha"
-      '';
+      shellInit = builtins.readFile ./shellInit.fish;
     };
   };
 
