@@ -7,7 +7,6 @@
   # Basic system packages
   environment.systemPackages = with pkgs; [
     # Development tools
-    lazygit
     gnumake
     gcc
     entr # Run arbitrary commands when files change

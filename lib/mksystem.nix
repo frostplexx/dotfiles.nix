@@ -90,6 +90,10 @@ in
           # useGlobalPkgs needs to be disabled to be able to use overlays
           useGlobalPkgs = false;
           useUserPackages = true;
+          # On activation move existing files by appending the given file extension rather than exiting with an error.
+          # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension
+          backupFileExtension = "backup";
+          # Extra specialArgs passed to Home Manager. This option can be used to pass additional arguments to all modules.
           extraSpecialArgs = {inherit inputs pkgs;};
           # Home Manager Modules
           sharedModules = [

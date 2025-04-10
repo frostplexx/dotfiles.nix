@@ -4,7 +4,7 @@
 alias d := deploy
 alias u := upgrade
 
-# Define variables
+# macOS need nh darwin switch and NixOS needs nh os switch
 nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi`
 
 # Set default recipe
