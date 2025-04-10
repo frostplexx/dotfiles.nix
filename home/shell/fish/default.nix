@@ -8,20 +8,12 @@
       enable = true;
       plugins = with pkgs.fishPlugins; [
         {
-          name = "z";
-          inherit (z) src;
-        }
-        {
           name = "macos";
           inherit (macos) src;
         }
         {
           name = "tide";
           inherit (tide) src;
-        }
-        {
-          name = "fzf-fish";
-          inherit (fzf-fish) src;
         }
       ];
 
@@ -50,11 +42,12 @@
       };
 
       shellInit = ''
-        #Load direnv due to: https://github.com/nix-community/home-manager/issues/2357#issuecomment-995457532
-        direnv hook fish | source
         set -g fish_greeting ""
-        fish_config theme choose "Catppuccin Mocha"
         fish_vi_key_bindings
+      '';
+
+      interactiveShellInit = ''
+        fish_config theme choose "Catppuccin Mocha"
       '';
     };
   };

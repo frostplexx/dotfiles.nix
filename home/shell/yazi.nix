@@ -45,18 +45,18 @@ in {
       };
 
       plugin = {
-        prepend_fetchers = [
-          {
-            id = "git";
-            name = "*";
-            run = "git";
-          }
-          {
-            id = "git";
-            name = "*/";
-            run = "git";
-          }
-        ];
+        # prepend_fetchers = [
+        #   {
+        #     id = "git";
+        #     name = "*";
+        #     run = "git";
+        #   }
+        #   {
+        #     id = "git";
+        #     name = "*/";
+        #     run = "git";
+        #   }
+        # ];
       };
     };
 
@@ -66,6 +66,7 @@ in {
       max-preview = "${yazi-plugins}/max-preview.yazi";
       smart-filter = "${yazi-plugins}/smart-filter.yazi";
       # git = "${yazi-plugins}/git.yazi";
+      vcs-files = "${yazi-plugins}/vcs-files.yazi";
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
@@ -102,6 +103,11 @@ in {
           on = ["g" "i"];
           run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
           desc = "Go to iCloud";
+        }
+        {
+          on = ["g" "c"];
+          run = "plugin vcs-files";
+          desc = "Show Git file changes";
         }
         {
           on = "F";
