@@ -49,6 +49,8 @@
         gst = "git status";
         s = "sudo";
         j = "just";
+        nixs = "nix shell nixpkgs#";
+        nixr = "nix run nixpkgs#";
       };
 
       shellInit = builtins.readFile ./shellInit.fish;
