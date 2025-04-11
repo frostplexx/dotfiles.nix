@@ -2,8 +2,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "9a095057d698aaaedc4dd23d638285bd3fd647e9";
-    hash = "sha256-Lx+TliqMuaXpjaUtjdUac7ODg2yc3yrd1mSWJo9Mz2Q=";
+    rev = "a1738e8088366ba73b33da5f45010796fb33221e";
+    hash = "sha256-eiLkIWviGzG9R0XP1Cik3Bg0s6lgk3nibN6bZvo8e9o=";
   };
 
   yazi-flavors = pkgs.fetchFromGitHub {
@@ -70,8 +70,8 @@ in {
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
-        rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
-        hash = "sha256-bhLUziCDnF4QDCyysRn7Az35RAy8ibZIVUzoPgyEO1A=";
+        rev = "c0707544f1d526f704dab2da15f379ec90d613c2";
+        hash = "sha256-H8j+9jcdcpPFXVO/XQZL3zq1l5f/WiOm4YUxAMduSRs=";
       };
     };
     flavors = {
