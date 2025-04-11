@@ -24,6 +24,8 @@
     wget
     curl
     gnupg
+    gh
+    hcloud
 
     nix-tree
     nix-output-monitor

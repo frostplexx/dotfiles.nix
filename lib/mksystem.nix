@@ -101,6 +101,8 @@ in
             inputs.nixcord.homeManagerModules.nixcord
             # Plasma-manager for managing KDE Plasma
             inputs.plasma-manager.homeManagerModules.plasma-manager
+            # 1Password shell integration
+            inputs._1password-shell-plugins.hmModules.default
           ];
           # Apply only the specific modules from hm-modules
           users.${user} = mkHomeConfig {
