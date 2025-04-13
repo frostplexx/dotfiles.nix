@@ -36,11 +36,7 @@ autocmd("BufWritePre", {
     group = augroup('frostplexx/auto_format', { clear = true }),
     desc = "Format the file using LSP or vim's built-in formatter",
     callback = function()
-        local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
-
-        if has_lsp then
             vim.lsp.buf.format()
-        end
     end
 })
 

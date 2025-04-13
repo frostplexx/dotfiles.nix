@@ -1,5 +1,4 @@
 #!/usr/bin/env just --justfile
-# deploy.just - Deploy system configuration using just
 
 alias d := deploy
 alias u := upgrade

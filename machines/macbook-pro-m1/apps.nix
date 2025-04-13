@@ -4,15 +4,8 @@
   environment.systemPackages = with pkgs; [
     # GUI Applications
     jetbrains.idea-ultimate
-    jetbrains.clion
     jetbrains.pycharm-professional
-    jetbrains.datagrip
     moonlight-qt
-
-    # Dependency for the fish plugin "done": https://github.com/franciscolourenco/done?tab=readme-ov-file#dependencies
-    terminal-notifier
-
-    # MacOS-specific apps
     keka
     zoom-us
     utm
@@ -20,15 +13,6 @@
     # mac app store cli
     mas
   ];
-
-  services.jankyborders = {
-    enable = true;
-    style = "round";
-    width = 3.0;
-    hidpi = true;
-    active_color = "0xffcba6f7";
-    inactive_color = "0xff7f849c";
-  };
 
   # Homebrew configuration
   homebrew = {
@@ -75,9 +59,9 @@
       "raycast"
       "zen-browser"
       "mullvadvpn"
-      "aerospace"
       "whisky"
       "betterdisplay"
+      "orion"
     ];
   };
 }

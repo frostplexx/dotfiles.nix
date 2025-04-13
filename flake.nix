@@ -89,7 +89,6 @@
       user = "daniel";
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
-        "aerospace"
         "ghostty"
         "git"
         "kitty"

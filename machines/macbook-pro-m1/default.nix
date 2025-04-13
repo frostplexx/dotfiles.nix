@@ -7,6 +7,7 @@
   imports = [
     ../shared.nix # Base configuration
     ./apps.nix # Lyra-specific apps
+    ./aerospace.nix
     ./custom_icons/custom_icons.nix # Custom application icons
     ../../lib/custom-icons.nix
   ];
