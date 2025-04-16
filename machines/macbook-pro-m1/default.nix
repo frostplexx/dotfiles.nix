@@ -12,6 +12,9 @@
     ../../lib/custom-icons.nix
   ];
 
+  # Set default browser
+  # nix-utils.lib.setDefaultBrowser = "zen";
+
   # Basic system configuration
   networking = {
     hostName = "macbook-pro-m1";
@@ -158,8 +161,8 @@
         # Pinned apps
         persistent-apps = [
           "/Applications/Things3.app"
-          # "/Applications/Zen.app/"
-          "/Applications/Safari.app"
+          "/Applications/Zen.app/"
+          # "/Applications/Safari.app"
           # "${pkgs.wezterm}/Applications/WezTerm.app"
           "${pkgs.kitty}/Applications/kitty.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"

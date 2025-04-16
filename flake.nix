@@ -22,7 +22,6 @@
     };
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
-    # nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
     # Declaratively manage homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
@@ -41,7 +40,6 @@
     };
 
     # Needed for firefox addons
-    # nur.url = "github:nix-community/nur";
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +53,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    # nix-utils = {
+    #   # url = "github:yourusername/my-nix-lib";
+    #   # or for local development:
+    #   url = "path:/Users/daniel/Developer/nix-utils";
+    # };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
