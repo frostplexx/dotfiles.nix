@@ -15,7 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     # Disko for configuring disk layouts
     # disko = {
     #   url = "github:nix-community/disko";

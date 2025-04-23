@@ -17,7 +17,7 @@
       # Optional but recommended: Keep build dependencies around for offline builds
       keep-outputs = true;
       keep-derivations = true;
-sandbox = false;
+      sandbox = false;
 
       # given the users in this list the right to specify additional substituters via:
       #    1. `nixConfig.substituters` in `flake.nix`
