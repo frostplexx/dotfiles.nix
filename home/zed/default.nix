@@ -13,8 +13,8 @@ _: {
       vim_mode = true;
       ui_font_size = 12;
       buffer_font_size = 12;
-      buffer_font_family = "JetBrains Mono";
-      ui_font_family = "JetBrains Mono";
+      buffer_font_family = "Maple Mono NF";
+      ui_font_family = "Maple Mono";
       tab_size = 4;
       theme = {
         mode = "system";
@@ -23,7 +23,7 @@ _: {
       };
       icon_theme = "Catppuccin Mocha";
       terminal = {
-        font_family = "JetBrains Mono";
+        font_family = "Maple Mono NF";
         toolbar = {
           title = false;
         };
