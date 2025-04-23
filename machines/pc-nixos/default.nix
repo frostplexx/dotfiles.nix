@@ -14,19 +14,19 @@
   ];
 
   networking = {
-    hostName = "pc-dev-phoenix";
-    networkmanager.enable = true;
-    interfaces.enp4s0.wakeOnLan.enable = true;
-    nameservers = [
-      "9.9.9.10"
-    ];
+    hostName = "pc-nixos";
+    # networkmanager.enable = true;
+    # interfaces.enp4s0.wakeOnLan.enable = true;
+    # nameservers = [
+    #   "9.9.9.10"
+    # ];
 
     # Firewall configuration
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [22];
-    };
-    wireless.enable = false;
+    # firewall = {
+    #   enable = true;
+    #   allowedTCPPorts = [22];
+    # };
+    # wireless.enable = false;
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -73,11 +73,11 @@
   #   FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   # };
 
-  programs.fish.enable = true;
+  # programs.fish.enable = true;
 
   users = {
     # defaultUserShell = pkgs.zsh;
-    defaultUserShell = pkgs.fish;
+    # defaultUserShell = pkgs.fish;
     users.daniel = {
       extraGroups = ["wheel" "video" "audio" "docker"];
       group = "daniel";
