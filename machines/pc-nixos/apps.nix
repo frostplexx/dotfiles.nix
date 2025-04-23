@@ -65,6 +65,5 @@
     #Gnome specific
     adwaita-icon-theme
     gnome-themes-extra
-    gnomeExentions.appindicator
   ];
 }
