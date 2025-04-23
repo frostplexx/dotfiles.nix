@@ -52,7 +52,6 @@
     linuxKernel.packages.linux_zen.xone
     ckan
     openrgb-with-all-plugins
-    furmark
 
     # Desktop utilities
     _1password-gui

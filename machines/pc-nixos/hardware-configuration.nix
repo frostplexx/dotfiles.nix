@@ -1,13 +1,11 @@
 {
   config,
   lib,
-  modulesPath,
   pkgs,
   disko,  # Add this import
   ...
 }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     disko.nixosModules.disko  # Add the Disko module
   ];
 
@@ -90,7 +88,6 @@
     };
   };
 
-  # Keep your network shares configuration
   fileSystems = {
     "/mnt/share" = {
       device = "//u397529.your-storagebox.de/backup";
@@ -132,7 +129,7 @@
       };
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
