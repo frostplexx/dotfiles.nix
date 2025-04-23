@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix # Hardware-specific settings
-    ./apps.nix # Phoenix-specific apps
+    # ./apps.nix # Phoenix-specific apps
     # ../shared.nix
     # ./sunshine.nix
     (import ./services.nix)
