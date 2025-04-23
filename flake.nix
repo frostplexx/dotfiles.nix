@@ -17,14 +17,14 @@
 
 
     # Disko for configuring disk layouts
-    disko = {
-      url = "github:nix-community/disko";
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
+    # disko = {
+    #   url = "github:nix-community/disko";
+    #   inputs = {
+    #     nixpkgs = {
+    #       follows = "nixpkgs";
+    #     };
+    #   };
+    # };
 
     # Darwin-specific inputs
     darwin = {

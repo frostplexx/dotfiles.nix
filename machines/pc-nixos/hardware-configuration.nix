@@ -44,49 +44,49 @@
   };
 
   # Add Disko configuration
-  disko.devices = {
-    disk = {
-      main = {
-        device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";  # Your root disk
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            boot = {
-              size = "512M";
-              type = "EF00";  # EFI System Partition
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["fmask=0077" "dmask=0077"];
-              };
-            };
-            swap = {
-              size = "8G";  # Adjust size as needed
-              content = {
-                type = "swap";
-              };
-            };
-            root = {
-              size = "100%";  # Use remaining space
-              content = {
-                type = "btrfs";
-                extraArgs = ["-f"];  # Force formatting
-                subvolumes = {
-                  "@" = {
-                    mountpoint = "/";
-                    mountOptions = ["compress=zstd" "noatime"];
-                  };
-                  # Add additional subvolumes if needed
-                };
-              };
-            };
-          };
-        };
-      };
-    };
-  };
+  # disko.devices = {
+  #   disk = {
+  #     main = {
+  #       device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";  # Your root disk
+  #       type = "disk";
+  #       content = {
+  #         type = "gpt";
+  #         partitions = {
+  #           boot = {
+  #             size = "512M";
+  #             type = "EF00";  # EFI System Partition
+  #             content = {
+  #               type = "filesystem";
+  #               format = "vfat";
+  #               mountpoint = "/boot";
+  #               mountOptions = ["fmask=0077" "dmask=0077"];
+  #             };
+  #           };
+  #           swap = {
+  #             size = "8G";  # Adjust size as needed
+  #             content = {
+  #               type = "swap";
+  #             };
+  #           };
+  #           root = {
+  #             size = "100%";  # Use remaining space
+  #             content = {
+  #               type = "btrfs";
+  #               extraArgs = ["-f"];  # Force formatting
+  #               subvolumes = {
+  #                 "@" = {
+  #                   mountpoint = "/";
+  #                   mountOptions = ["compress=zstd" "noatime"];
+  #                 };
+  #                 # Add additional subvolumes if needed
+  #               };
+  #             };
+  #           };
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
   fileSystems = {
     "/mnt/share" = {
