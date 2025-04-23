@@ -58,13 +58,6 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    # Manage KDE Plasma with Home Manager
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     # nix-utils = {
     #   # url = "github:yourusername/my-nix-lib";
     #   # or for local development:
@@ -92,7 +85,6 @@
         "kitty"
         "neovim"
         "nixcord"
-        "plasma"
         "shell"
         "ssh"
         "zed"

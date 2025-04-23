@@ -99,8 +99,6 @@ in
           sharedModules = [
             # Use Nixcord for declaratively managing discord
             inputs.nixcord.homeManagerModules.nixcord
-            # Plasma-manager for managing KDE Plasma
-            inputs.plasma-manager.homeManagerModules.plasma-manager
             # 1Password shell integration
             inputs._1password-shell-plugins.hmModules.default
           ];
