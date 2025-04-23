@@ -11,6 +11,25 @@
     };
 
 
+
+
+    # Audio
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+    };
+
+    # Other services
+    printing.enable = true;
+    openssh.enable = true;
+  };
+
+
+
  environment.gnome.excludePackages = with pkgs; [
     orca
     evince
@@ -62,20 +81,4 @@
     yelp
     gnome-software
   ];
-
-
-    # Audio
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-    };
-
-    # Other services
-    printing.enable = true;
-    openssh.enable = true;
-  };
 }
