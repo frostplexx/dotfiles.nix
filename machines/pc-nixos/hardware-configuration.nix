@@ -19,10 +19,10 @@
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
     kernelParams = [
+      # "acpi_enforce_resources=lax"
+      # "amd_iommu=on"
+      # "iommu=pt"
       # Hardware optimizations
-      "acpi_enforce_resources=lax"
-      "amd_iommu=on"
-      "iommu=pt"
       "zswap.enabled=1"
       # Memory management
       "default_hugepagesz=2M"
