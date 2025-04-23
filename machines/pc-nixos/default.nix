@@ -73,6 +73,8 @@
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
 
+  programs.fish.enable = true;
+
   users = {
     # defaultUserShell = pkgs.zsh;
     defaultUserShell = pkgs.fish;
