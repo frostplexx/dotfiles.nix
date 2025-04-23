@@ -3,7 +3,6 @@
   # user,
   pkgs,
   inputs,
-  modulesPath,
   ...
 }: {
   imports = [
@@ -12,7 +11,6 @@
     ../shared.nix
     ./sunshine.nix
     (import ./services.nix)
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   networking = {

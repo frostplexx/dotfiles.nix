@@ -15,6 +15,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
+    # Disko for configuring disk layouts
+    disko = {
+      url = "github:nix-community/disko";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     # Darwin-specific inputs
     darwin = {
       url = "github:lnl7/nix-darwin/master";
