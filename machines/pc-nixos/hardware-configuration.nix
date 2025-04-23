@@ -5,17 +5,19 @@
   config,
   lib,
   pkgs,
+  modulesPath,
   ...
 }: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot = {
-    initrd = {
-      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-      kernelModules = [];
-    };
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+    initrd.kernelModules = [];
+    kernelPackages = pkgs.linuxPackages_zen;
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
-    kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
       # Hardware optimizations
       "acpi_enforce_resources=lax"
@@ -28,78 +30,22 @@
       "hugepages=1024"
       "transparent_hugepage=always"
     ];
-
-    initrd = {
-      systemd.enable = true;
-      verbose = false;
-    };
-
-    consoleLogLevel = 0;
-    loader = {
-      # timeout = 3;
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 5;
-      };
-      efi.canTouchEfiVariables = true;
-    };
   };
 
-  hardware = {
-    xone.enable = false;
-
-    graphics.enable = true;
-
-    bluetooth = {
-      enable = false; # enables support for Bluetooth
-      powerOnBoot = false; # powers up the default Bluetooth controller on boot
-    };
-
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement = {
-        enable = false;
-        finegrained = false;
-      };
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/5974b2d7-61d3-4a1b-852d-63672dd404ae";
+    fsType = "ext4";
   };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/9dd20559-b9dd-4320-a392-7356b5391cbc";
-      fsType = "btrfs";
-      options = ["subvol=@"];
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/7209-F281";
-      fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
-    };
-
-    "/mnt/share" = {
-      device = "//u397529.your-storagebox.de/backup";
-      fsType = "cifs";
-      options = let
-        # this line prevents hanging on network split
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
-    };
-
-    "/mnt/nas" = {
-      device = "//192.168.1.122/data";
-      fsType = "cifs";
-      options = let
-        # this line prevents hanging on network split
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in ["${automount_opts},credentials=/etc/nixos/nas-secrets,uid=1000,gid=100"];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/5ADD-E585";
+    fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
   };
 
-  swapDevices = [{device = "/dev/disk/by-uuid/d74f495a-a51e-4fa6-a55a-2ce0a2b2c985";}];
+  swapDevices = [
+    {device = "/dev/disk/by-uuid/b259b6e6-e7aa-4f4a-a293-0fe955ca8ee5";}
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -109,5 +55,21 @@
   # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware = {
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    xone.enable = false;
+    graphics.enable = true;
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+    };
+
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+    };
+  };
 }
