@@ -48,30 +48,30 @@
   };
 
   # Power management
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "performance";
-  };
-
-  # System maintenance
-  system = {
-    autoUpgrade = {
-      enable = true;
-      flake = inputs.self.outPath;
-      flags = [
-        "--update-input"
-        "nixpkgs"
-        "--print-build-logs"
-      ];
-      dates = "02:00";
-      randomizedDelaySec = "45min";
-    };
-  };
-
-  # Environment settings
-  environment.variables = {
-    FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
-  };
+  # powerManagement = {
+  #   enable = true;
+  #   cpuFreqGovernor = "performance";
+  # };
+  #
+  # # System maintenance
+  # system = {
+  #   autoUpgrade = {
+  #     enable = true;
+  #     flake = inputs.self.outPath;
+  #     flags = [
+  #       "--update-input"
+  #       "nixpkgs"
+  #       "--print-build-logs"
+  #     ];
+  #     dates = "02:00";
+  #     randomizedDelaySec = "45min";
+  #   };
+  # };
+  #
+  # # Environment settings
+  # environment.variables = {
+  #   FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+  # };
 
   programs.fish.enable = true;
 

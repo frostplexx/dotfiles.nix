@@ -1,6 +1,6 @@
 {pkgs,...}: {
   services = {
-    tailscale.enable = true;
+    tailscale.enable = false;
 
     xserver = {
       enable = true;
@@ -15,7 +15,7 @@
 
     # Audio
     pipewire = {
-      enable = true;
+      enable = false;
       alsa = {
         enable = true;
         support32Bit = true;
@@ -24,8 +24,8 @@
     };
 
     # Other services
-    printing.enable = true;
-    openssh.enable = true;
+    printing.enable = false;
+    openssh.enable = false;
   };
 
 
