@@ -52,7 +52,6 @@
   hardware = {
     xone.enable = true;
 
-    pulseaudio.enable = false;
     graphics.enable = true;
 
     bluetooth = {

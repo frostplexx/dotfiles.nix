@@ -63,8 +63,9 @@
     xclip
     cifs-utils
 
-    #Plasma specific
-    kde-rounded-corners
-    gnome-themes-extra # Breeze themes are included here
+    #Gnome specific
+    adwaita-icon-theme
+    gnome-themes-extra
+    gnomeExentions.appindicator
   ];
 }
