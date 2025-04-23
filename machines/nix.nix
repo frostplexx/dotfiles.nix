@@ -4,6 +4,7 @@
   ...
 }: {
   # Shared nix settings
+sandbox = false;
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
