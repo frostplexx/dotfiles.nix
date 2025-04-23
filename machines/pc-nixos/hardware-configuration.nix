@@ -13,7 +13,7 @@
       availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       kernelModules = [];
     };
-    kernelModules = ["kvm-amd" "i2c-dev"];
+    kernelModules = ["kvm-amd"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
