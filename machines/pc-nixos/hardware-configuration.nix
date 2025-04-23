@@ -46,13 +46,13 @@
   };
 
   hardware = {
-    xone.enable = true;
+    xone.enable = false;
 
     graphics.enable = true;
 
     bluetooth = {
-      enable = true; # enables support for Bluetooth
-      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+      enable = false; # enables support for Bluetooth
+      powerOnBoot = false; # powers up the default Bluetooth controller on boot
     };
 
     nvidia = {
