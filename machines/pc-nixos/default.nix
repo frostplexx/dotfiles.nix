@@ -45,13 +45,40 @@
   # Configure keymap in X11
   services.xserver = {
     displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    desktopManager.gnome = {
+      enable = true;
+      extraGSettingsOverridePackages = [pkgs.mutter];
+      extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+      '';
+    };
     videoDrivers = ["nvidia"];
     xkb = {
       layout = "us";
       variant = "";
     };
   };
+
+  # Gnome settings
+  # Disable some packages
+  environment.gnome.excludePackages = with pkgs; [
+    atomix # puzzle game
+    cheese # webcam tool
+    epiphany # web browser
+    evince # document viewer
+    geary # email reader
+    gedit # text editor
+    gnome-characters
+    gnome-music
+    gnome-photos
+    gnome-terminal
+    gnome-tour
+    hitori # sudoku game
+    iagno # go game
+    tali # poker game
+    totem # video player
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
@@ -76,6 +103,8 @@
     ];
     variables = {
       FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+      QT_ENABLE_HIGHDPI_SCALING = "1";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "0.9";
     };
   };
 
@@ -92,7 +121,7 @@
     # Enable the OpenSSH daemon.
     openssh.enable = true;
     # Enable automatic login for the user.
-    getty.autologinUser = "daniel";
+    # getty.autologinUser = "daniel";
 
     # Audio
     pipewire = {

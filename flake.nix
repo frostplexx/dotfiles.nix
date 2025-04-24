@@ -81,6 +81,7 @@
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
         "git"
+        "gnome"
         "kitty"
         "neovim"
         "nixcord"
