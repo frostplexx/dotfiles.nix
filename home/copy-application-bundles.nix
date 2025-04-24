@@ -1,4 +1,4 @@
-# Source: https://github.com/joneshf/home-manager/blob/8e7a72395881668c41b7219cccdc95e13504236b/modules/copy-application-bundles/module.nix#L13-L62
+# Source: https://github.com/joneshf/home-manager/blob/main/modules/targets/darwin/copy-application-bundles/module.nix
 {
     config,
     lib,
@@ -8,7 +8,7 @@
     config = lib.modules.mkIf pkgs.stdenv.hostPlatform.isDarwin {
         home = {
             file = {
-                ${config.copy-application-bundles.directory} = {
+                ${config.targets.darwin.copy-application-bundles.directory} = {
                     # Setting `recursive = true` means that we get the structure we require:
                     # - This will create the actual `"Applications/Copied Application Bundles"` directory as a real directory.
                     # - Inside it will create the actual Application Bundles as real directories.
@@ -74,12 +74,16 @@
     ];
 
     options = {
-        copy-application-bundles = {
-            directory = lib.mkOption {
-                default = "Applications/Copied Application Bundles";
-                description = "Directory to put the copied Application Bundles in.";
-                example = "Applications/Home Manager Apps";
-                type = lib.types.str;
+        targets = {
+            darwin = {
+                copy-application-bundles = {
+                    directory = lib.mkOption {
+                        default = "Applications/Home Manager Apps";
+                        description = "Directory to put the copied Application Bundles in.";
+                        example = "Applications/Copied Application Bundles";
+                        type = lib.types.str;
+                    };
+                };
             };
         };
     };

@@ -10,10 +10,14 @@
         ./aerospace.nix
         ./custom_icons/custom_icons.nix # Custom application icons
         ../../lib/custom-icons.nix
+        ./darwin-app-hardlinks.nix
     ];
 
     # Set default browser
     # nix-utils.lib.setDefaultBrowser = "zen";
+
+    # Enable the hardlinks feature
+    nix.app-hardlinks.enable = true;
 
     # Basic system configuration
     networking = {

@@ -29,7 +29,7 @@ upgrade: update-refs lint
 [group('nix')]
 [doc('Update every fetchFromGithub with its newest commit and hash')]
 update-refs:
-    @ech -e "Updating refs..."
+    @echo -e "Updating refs..."
     @fd .nix --exec nix run nixpkgs#update-nix-fetchgit
 
 [group('maintain')]
