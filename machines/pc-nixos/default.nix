@@ -8,6 +8,7 @@
         ../shared.nix
         ./apps.nix
         ./sunshine.nix
+        ../../lib/copy-apps.nix
     ];
 
     # Bootloader.

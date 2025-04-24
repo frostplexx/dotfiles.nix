@@ -10,14 +10,26 @@
             warn-dirty = false
         '';
 
+        gc = {
+            automatic = true;
+            interval = {
+                Weekday = 0;
+                Hour = 2;
+                Minute = 0;
+            };
+            options = "--delete-older-than 30d";
+        };
+
         # Set auto optimise store and garbage collection
         optimise.automatic = true;
 
         settings = {
-            # Optional but recommended: Keep build dependencies around for offline builds
-            keep-outputs = true;
-            keep-derivations = true;
+            extra-platforms = ["aarch64-darwin"];
+            extra-trusted-users = ["daniel"];
+            max-jobs = 4;
             sandbox = false;
+            builders-use-substitutes = true;
+            use-xdg-base-directories = true;
 
             # given the users in this list the right to specify additional substituters via:
             #    1. `nixConfig.substituters` in `flake.nix`
