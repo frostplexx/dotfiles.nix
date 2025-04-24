@@ -29,7 +29,8 @@ upgrade: update-refs lint
 [group('nix')]
 [doc('Update every fetchFromGithub with its newest commit and hash')]
 update-refs:
-    @./scripts/update-flake-revs.sh
+    @ech -e "Updating refs..."
+    @fd .nix --exec nix run nixpkgs#update-nix-fetchgit
 
 [group('maintain')]
 [doc('Clean and optimise the nix store with nh')]
