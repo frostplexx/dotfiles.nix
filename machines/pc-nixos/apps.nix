@@ -54,5 +54,10 @@
     #Gnome specific
     adwaita-icon-theme
     gnome-themes-extra
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.gsconnect
+    gnomeExtensions.just-perfection
+    gnomeExtensions.dock-from-dash
+    gnomeExtensions.space-bar
   ];
 }

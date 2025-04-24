@@ -80,7 +80,6 @@
       font_family = "Maple Mono";
       disable_ligatures = "cursor";
 
-      # Set font size based on system because on linux wayland, font zise 13 is huge for some reasoe
       font_size =
         if pkgs.stdenv.isDarwin
         then "12"
