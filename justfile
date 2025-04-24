@@ -21,7 +21,10 @@ deploy host="$(hostname)": lint
 [doc('Upgrade flake inputs and deploy')]
 upgrade: update-refs lint
     @echo "Deploying system configuration with update..."
+    @git add .
     @nix run github:viperml/nh -- {{nix_cmd}} switch --update
+    @git commit -m "chore: update inputs"
+
 
 [group('nix')]
 [doc('Update every fetchFromGithub with its newest commit and hash')]
@@ -29,14 +32,15 @@ update-refs:
     @./scripts/update-flake-revs.sh
 
 [group('maintain')]
-[doc('Clean the nix store with nh')]
+[doc('Clean and optimise the nix store with nh')]
 clean:
-    @nix run github:viperml/nh -- clean all
+    @nix run github:viperml/nh -- clean all -k 5
+    @nix store optimise -v
 
 [group('maintain')]
 [doc('Verify and repair the nix-store')]
 repair:
-    @sudo nix-store --verify --check-contents --repair
+    @sudo nix-store --verify --check-contents --repair --optimise
 
 [group('lint')]
 [doc('Lint all nix files using statix and deadnix')]
