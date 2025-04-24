@@ -98,7 +98,7 @@ in
                     # Home Manager Modules
                     sharedModules = [
                         # Use Nixcord for declaratively managing discord
-                        inputs.nixcord.homeManagerModules.nixcord
+                        inputs.nixcord.homeModules.nixcord
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
                     ];
