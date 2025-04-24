@@ -36,12 +36,16 @@ update-refs:
 [doc('Clean and optimise the nix store with nh')]
 clean:
     @nix run github:viperml/nh -- clean all -k 5
+
+[group('maintain')]
+[doc('Optimise the nix store')]
+optimise:
     @nix store optimise -v
 
 [group('maintain')]
 [doc('Verify and repair the nix-store')]
 repair:
-    @sudo nix-store --verify --check-contents --repair --optimise
+    @sudo nix-store --verify --check-contents --repair
 
 [group('lint')]
 [doc('Lint all nix files using statix and deadnix')]

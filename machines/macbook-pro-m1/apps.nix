@@ -56,7 +56,7 @@
             "orbstack"
             "1password@beta"
             "proxyman"
-            "raycast"
+            # "raycast"
             "zen-browser"
             "mullvadvpn"
             "whisky"

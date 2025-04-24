@@ -1,8 +1,7 @@
 {user, ...}: {
     # Global home settings
     imports = [
-        # ./copy-application-bundles.nix
-        # ../lib/copy-apps.nix
+        ../lib/copy-apps.nix
     ];
 
     home = {

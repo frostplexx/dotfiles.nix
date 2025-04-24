@@ -59,6 +59,7 @@
 in
     systemFunc rec {
         inherit system;
+        inherit (inputs.nixpkgs) lib;
 
         modules = [
             # Apply our overlays. Overlays are keyed by system type so we have
@@ -75,6 +76,7 @@ in
 
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
+
             # Home manager configuration
             home-manager.home-manager
             {
