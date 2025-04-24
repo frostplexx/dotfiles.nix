@@ -26,10 +26,8 @@
         settings = {
             extra-platforms = ["aarch64-darwin"];
             extra-trusted-users = ["daniel"];
-            max-jobs = 4;
-            sandbox = false;
-            builders-use-substitutes = true;
-            use-xdg-base-directories = true;
+            max-jobs = 8;
+            sandbox = true;
 
             # given the users in this list the right to specify additional substituters via:
             #    1. `nixConfig.substituters` in `flake.nix`
