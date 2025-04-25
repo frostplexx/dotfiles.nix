@@ -112,13 +112,13 @@ in {
             force = true;
         };
         # Quick CSS configuration
-        "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
-            text = ''
-                .titleBar_a934d8 {
-                  display: none !important;
-                }
-            '';
-            force = true;
-        };
+        # "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
+        #     text = ''
+        #         .titleBar_a934d8 {
+        #           display: none !important;
+        #         }
+        #     '';
+        #     force = true;
+        # };
     };
 }
