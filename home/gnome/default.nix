@@ -8,7 +8,7 @@
                     blur-my-shell.extensionUuid
                     gsconnect.extensionUuid
                     just-perfection.extensionUuid
-                    dock-from-dash.extensionUuid
+                    dash-to-dock.extensionUuid
                     space-bar.extensionUuid
                     # forge.extensionUuid # Tiling window manager for gnome
                 ];
