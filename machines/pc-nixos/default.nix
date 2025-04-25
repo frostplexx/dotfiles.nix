@@ -44,7 +44,11 @@
 
     # Configure keymap in X11
     services.xserver = {
-        displayManager.gdm.enable = true;
+        enable = true;
+        displayManager.gdm = {
+            enable = true;
+            wayland = false;
+        };
         desktopManager.gnome = {
             enable = true;
             extraGSettingsOverridePackages = [pkgs.mutter];
