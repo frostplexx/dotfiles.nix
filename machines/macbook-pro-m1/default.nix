@@ -16,12 +16,17 @@
     # Set default browser
     # nix-utils.lib.setDefaultBrowser = "zen";
 
+    services.hyperkey = {
+        enable = true;
+        normalQuickPress = true; # Quick press of Caps Lock will send Escape
+        includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
+    };
+
     # Basic system configuration
     networking = {
         hostName = "macbook-pro-m1";
         computerName = "macbook-pro-m1";
         dns = [
-            "194.242.2.4"
             "9.9.9.9"
         ];
         knownNetworkServices = [

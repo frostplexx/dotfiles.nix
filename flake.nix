@@ -57,11 +57,11 @@
 
         neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-        # nix-utils = {
-        #   # url = "github:yourusername/my-nix-lib";
-        #   # or for local development:
-        #   url = "path:/Users/daniel/Developer/nix-utils";
-        # };
+        nixkit = {
+            url = "github:frostplexx/nixkit";
+            # or for local development:
+            # url = "path:/Users/daniel/Developer/nixkit";
+        };
     };
 
     outputs = {nixpkgs, ...} @ inputs: let
