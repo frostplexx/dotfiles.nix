@@ -117,18 +117,41 @@ M.get_filename = function(self)
     return " %<%F "
 end
 
-M.get_filetype = function()
-    local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
-    local icon = require 'nvim-web-devicons'.get_icon(file_name, file_ext, { default = true })
-    local filetype = vim.bo.filetype
-
-    if filetype == '' then return '' end
-    return string.format(' %s %s ', icon, filetype):lower()
-end
+-- M.get_filetype = function()
+--     local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
+--     local icon = require 'nvim-web-devicons'.get_icon(file_name, file_ext, { default = true })
+--     local filetype = vim.bo.filetype
+--
+--     if filetype == '' then return '' end
+--     return string.format(' %s %s ', icon, filetype):lower()
+-- end
 
 M.get_line_col = function(self)
     if self:is_truncated(self.trunc_width.line_col) then return ' %l:%c ' end
     return ' Ln %l, Col %c '
+end
+
+
+M.get_filetype = function(self)
+    local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
+    local icon = require('nvim-web-devicons').get_icon(file_name, file_ext, { default = true })
+    local filetype = vim.bo.filetype
+
+    if filetype == '' then return '' end
+
+    local lsp_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local lsp_names = {}
+
+    for _, client in ipairs(lsp_clients) do
+        table.insert(lsp_names, client.name)
+    end
+
+    local lsp_info = ''
+    if #lsp_names > 0 then
+        lsp_info = ' • ' .. table.concat(lsp_names, ', ')
+    end
+
+    return string.format(' %s %s%s ', icon, filetype:lower(), lsp_info)
 end
 
 M.set_active = function(self)
@@ -141,6 +164,7 @@ M.set_active = function(self)
     local modified     = vim.bo.modified and "%#ModifiedIcon# 󰈙 " or ""
     local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
     local filetype     = colors.filetype .. self:get_filetype()
+    -- local lsp_clients  = "" .. colors.filetype .. self:get_lsp_clients()
     local line_col     = colors.line_col .. self:get_line_col()
     local line_col_alt = colors.line_col_alt .. self.separators[active_sep][2]
 
