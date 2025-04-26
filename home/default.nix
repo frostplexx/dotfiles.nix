@@ -17,4 +17,10 @@
         home-manager.enable = true; # Let Home Manager manage itself
         # zsh.enable = true; # Basic zsh configuration
     };
+
+    # Enable and configure the default browser
+    programs.default-browser = {
+        enable = true;
+        browser = "zen"; # Or any other browser name
+    };
 }

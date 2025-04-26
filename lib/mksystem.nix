@@ -77,6 +77,8 @@ in
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
 
+            inputs.nixkit.nixosModules.default
+
             # Home manager configuration
             home-manager.home-manager
             {
@@ -101,6 +103,7 @@ in
                         inputs.nixcord.homeModules.nixcord
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
+                        inputs.nixkit.homeModules.default
                     ];
                     # Apply only the specific modules from hm-modules
                     users.${user} = mkHomeConfig {
