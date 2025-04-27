@@ -40,7 +40,6 @@
         linuxKernel.packages.linux_zen.xone
         ckan
         openrgb-with-all-plugins
-        firefox
 
         # Desktop utilities
         _1password-gui

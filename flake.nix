@@ -15,23 +15,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Disko for configuring disk layouts
-        # disko = {
-        #   url = "github:nix-community/disko";
-        #   inputs = {
-        #     nixpkgs = {
-        #       follows = "nixpkgs";
-        #     };
-        #   };
-        # };
-
         # Darwin-specific inputs
         darwin = {
             url = "github:lnl7/nix-darwin/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
         firefox-addons = {
             url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -77,7 +66,6 @@
     outputs = {nixpkgs, ...} @ inputs: let
         overlays = [
             inputs.neovim-nightly-overlay.overlays.default
-            inputs.nixpkgs-firefox-darwin.overlay
         ];
 
         mkSystem = import ./lib/mksystem.nix {
@@ -108,7 +96,6 @@
             user = "daniel";
             # Home manager modules you want to include as defined in ./home
             hm-modules = [
-                "firefox"
                 "git"
                 "kitty"
                 "neovim"

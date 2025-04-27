@@ -45,7 +45,7 @@ in {
             name = "default";
             isDefault = true;
             # https://nur.nix-community.org/repos/rycee/
-            extensions = with inputs.firefox-addons.packages."${system}" // extra-addons; [
+            extensions.packages = with inputs.firefox-addons.packages."${system}" // extra-addons; [
                 onepassword-password-manager
                 darkreader
                 don-t-fuck-with-paste
