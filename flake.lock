@@ -270,11 +270,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745555634,
-        "narHash": "sha256-lhVyVn1utb2UVTbyKJ6mfKB7wLTjrj14OlebvO0WU2s=",
+        "lastModified": 1745593878,
+        "narHash": "sha256-Rq5qNnUWuhQTqzXDcminu7Z1FPSB1wUaKIEfPTyZkAs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "98f4fef7fd7b4a77245db12e33616023162bc6d9",
+        "rev": "542078066b1a99cdc5d5fce1365f98b847ca0b5a",
         "type": "github"
       },
       "original": {
@@ -287,11 +287,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1745577580,
-        "narHash": "sha256-PQutu9RUXqyhB1QoCYl5YS4xgxHqGv1m9bYGHBb9mdE=",
+        "lastModified": 1745599836,
+        "narHash": "sha256-CQ/0U45pHDvegs3pnIV43fxFyO2co+5kl+wODMK8heQ=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "ee0b4a120b629e36319af0c93f07e5d1c8733d88",
+        "rev": "daef6faaadbb876367ccdd52961d91316c882d18",
         "type": "github"
       },
       "original": {
@@ -303,11 +303,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1745578325,
-        "narHash": "sha256-QmxhOmGtUg0f5FXJ6LQfyniUOm9tsuM/vdJJ39SrUjE=",
+        "lastModified": 1745595395,
+        "narHash": "sha256-pHSy/CCVohW9ms3M58wKdJoxpEvQrG7xpf1i9I/wpoI=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "9f831ef44e27328d64d84fdfad5f9859ea00069d",
+        "rev": "f5edcef29ca09d3a207b4aa10ffd63f006bca1a1",
         "type": "github"
       },
       "original": {
@@ -360,7 +360,7 @@
         "narHash": "sha256-fprwZKE1uMzO9tiWWOrmLWBW3GPkMayQfb0xOvVFIno=",
         "rev": "868d97695bab9d21f6070b03957bcace249fbe3c",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/868d97695bab9d21f6070b03957bcace249fbe3c.tar.gz?rev=868d97695bab9d21f6070b03957bcace249fbe3c"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/868d97695bab9d21f6070b03957bcace249fbe3c.tar.gz"
       },
       "original": {
         "type": "tarball",
