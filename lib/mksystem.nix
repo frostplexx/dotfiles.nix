@@ -127,7 +127,10 @@ in
             (
                 if isDarwin
                 then {
-                    imports = [inputs.nix-homebrew.darwinModules.nix-homebrew];
+                    imports = [
+            inputs.nix-homebrew.darwinModules.nix-homebrew
+            inputs.lazykeys.darwinModules.default
+          ];
                     nix-homebrew = {
                         # Install Homebrew under the default prefix
                         enable = true;
