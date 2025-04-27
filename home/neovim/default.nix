@@ -29,6 +29,7 @@ in {
             git
             nodejs
             luajitPackages.luarocks-nix
+            tree-sitter
         ];
 
         plugins = [
