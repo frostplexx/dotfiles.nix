@@ -14,7 +14,14 @@ function install_nix() {
     if ! command -v nix >/dev/null 2>&1; then
         echo -e "${INFO} Installing Nix..."
         curl -sSf -L https://install.lix.systems/lix | sh -s -- install
-        export PATH="/run/current-system/sw/bin/nix:$PATH".
+        # Source Nix immediately
+        if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+            echo -e "${SUCCESS} Nix installed and environment loaded!"
+        else
+            echo -e "${ERROR} Failed to find nix-daemon.sh to source environment"
+            exit 1
+        fi
         echo -e "${SUCCESS} Nix installed successfully!"
     else
         echo -e "${WARN} Nix already installed"
