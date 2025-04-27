@@ -106,7 +106,7 @@ nixos_install() {
     # Step 2: Deploy configuration
     local NIXOS_CONFIGS
     local config
-    NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
+    NIXOS_CONFIGS=$(nix eval --impure --json "$HOME/dotfiles.nix"#nixosConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
     config=$(echo "$NIXOS_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
 
     print_status "Rebuilding NixOS configuration..."
