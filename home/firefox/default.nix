@@ -1,6 +1,8 @@
 {
     pkgs,
     lib,
+    inputs,
+    system,
     ...
 }: let
     buildFirefoxXpiAddon = lib.makeOverridable ({
@@ -43,7 +45,7 @@ in {
             name = "default";
             isDefault = true;
             # https://nur.nix-community.org/repos/rycee/
-            extensions = with pkgs.nur.repos.rycee.firefox-addons // extra-addons; [
+            extensions = with inputs.firefox-addons.packages."${system}" // extra-addons; [
                 onepassword-password-manager
                 darkreader
                 don-t-fuck-with-paste

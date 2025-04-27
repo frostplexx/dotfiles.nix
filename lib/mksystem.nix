@@ -55,6 +55,7 @@
         _module.args = {inherit user;};
         # Apply nix config
         nixpkgs.config = nixpkgsConfig;
+        nixpkgs.overlays = overlays;
     };
 in
     systemFunc rec {
@@ -73,7 +74,6 @@ in
             # Import our machine config with all available arguments
             #TODO: this is weird and should get changed
             ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
-
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
 
@@ -83,6 +83,7 @@ in
             home-manager.home-manager
             {
                 nixpkgs.config = nixpkgsConfig;
+                nixpkgs.overlays = overlays;
                 # Why do darwin and linux use different stateVerions???
                 system.stateVersion =
                     if isDarwin
@@ -96,7 +97,7 @@ in
                     # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension
                     backupFileExtension = "backup";
                     # Extra specialArgs passed to Home Manager. This option can be used to pass additional arguments to all modules.
-                    extraSpecialArgs = {inherit inputs pkgs;};
+                    extraSpecialArgs = {inherit inputs pkgs system;};
                     # Home Manager Modules
                     sharedModules = [
                         # Use Nixcord for declaratively managing discord

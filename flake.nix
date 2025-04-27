@@ -31,6 +31,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+        firefox-addons = {
+            url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
         # Declaratively manage homebrew
@@ -71,6 +77,7 @@
     outputs = {nixpkgs, ...} @ inputs: let
         overlays = [
             inputs.neovim-nightly-overlay.overlays.default
+            inputs.nixpkgs-firefox-darwin.overlay
         ];
 
         mkSystem = import ./lib/mksystem.nix {
@@ -84,6 +91,7 @@
             user = "daniel";
             # Home manager modules you want to include as defined in ./home
             hm-modules = [
+                "firefox"
                 "git"
                 "gnome"
                 "kitty"
@@ -100,7 +108,7 @@
             user = "daniel";
             # Home manager modules you want to include as defined in ./home
             hm-modules = [
-                "ghostty"
+                "firefox"
                 "git"
                 "kitty"
                 "neovim"

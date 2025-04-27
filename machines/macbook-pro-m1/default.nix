@@ -14,7 +14,7 @@
     ];
 
     services.hyperkey = {
-        enable = true;
+        enable = false;
         normalQuickPress = true; # Quick press of Caps Lock will send Escape
         includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
     };
