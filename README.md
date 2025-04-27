@@ -37,7 +37,13 @@ Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
 
 ### Installation
 
-#### Setup
+#### Automatic
+
+```bash
+curl https://raw.githubusercontent.com/frostplexx/dotfiles.nix/refs/heads/main/scripts/install.sh | bash
+```
+
+#### Manual
 
 Clone this repo into your home directory and cd into it.
 ```bash
@@ -46,11 +52,11 @@ cd ~/dotfiles.nix
 
 ```
 
-#### Installing on MacOS
+##### Installing on MacOS
 On macOS run `./scripts/system-bootstrap.sh` to install Lix.
 The script will then also deploy the first generation on your device
 
-#### Installing on NixOS
+##### Installing on NixOS
 Run `nix run nixpkgs#just -- deploy <hostname>`[^1] to deploy the system.
 
 ### Available Commands
