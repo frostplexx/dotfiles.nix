@@ -75,16 +75,21 @@ clone_repo() {
 mac_install() {
     print_header "MACOS INSTALLATION"
     
-    # Step 1: Install Git
-    if command_exists git; then
-        print_success "Git is already installed"
+    
+    if ! xcode-select -p >/dev/null 2>&1; then
+        print_status "Installing Xcode Command Line Tools..."
+        xcode-select --install
+    
+        print_status "Waiting for Xcode Command Line Tools installation to complete..."
+        until xcode-select -p >/dev/null 2>&1; do
+            sleep 5
+        done
+
+        print_success "Xcode Command Line Tools installed."
     else
-        print_warning "Installing git with xcode-select. Please follow the instruction of the window that will open!"
-        sleep 2
-        xcode-select  --install
+        print_success "Xcode Command Line Tools already installed."
     fi
 
-    
     # Step 2: Clone the repository
     clone_repo || exit 1
     
