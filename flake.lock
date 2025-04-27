@@ -332,6 +332,21 @@
         "type": "github"
       }
     },
+    "lazykeys": {
+      "locked": {
+        "lastModified": 1745687215,
+        "narHash": "sha256-b4PckdSzjkSNYUY1dkpfAJE2Wy65qZhZYpxbtk80rqc=",
+        "owner": "frostplexx",
+        "repo": "lazykeys",
+        "rev": "05f231d2fb1c9f542f945dabf7d93ea0ff8bfab0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "frostplexx",
+        "repo": "lazykeys",
+        "type": "github"
+      }
+    },
     "lix": {
       "flake": false,
       "locked": {
@@ -468,6 +483,21 @@
         "type": "github"
       }
     },
+    "nixkit": {
+      "locked": {
+        "lastModified": 1745660089,
+        "narHash": "sha256-p0W6eQvkrz9p1/6GODSHeXw6TH86bTzdtv5F0CfzoD4=",
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "rev": "8c6a2a4f30c95706c94b039506e2b66fa2f02326",
+        "type": "github"
+      },
+      "original": {
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1716358718,
@@ -553,10 +583,12 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-nikitabobko": "homebrew-nikitabobko",
+        "lazykeys": "lazykeys",
         "lix-module": "lix-module",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-homebrew": "nix-homebrew",
         "nixcord": "nixcord",
+        "nixkit": "nixkit",
         "nixpkgs": "nixpkgs_5"
       }
     },

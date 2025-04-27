@@ -15,14 +15,14 @@ default:
 deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
     @git add .
-    @nix run github:viperml/nh -- {{nix_cmd}} switch -H {{host}}
+    @nix run nixpkgs#nh -- {{nix_cmd}} switch -H {{host}}
 
 [group('nix')]
 [doc('Upgrade flake inputs and deploy')]
 upgrade: update-refs lint
     @echo "Deploying system configuration with update..."
     @git add .
-    @nix run github:viperml/nh -- {{nix_cmd}} switch --update
+    @nix run nixpkgs#nh -- {{nix_cmd}} switch --update
     @git commit -m "chore: update inputs"
 
 
@@ -35,7 +35,7 @@ update-refs:
 [group('maintain')]
 [doc('Clean and optimise the nix store with nh')]
 clean:
-    @nix run github:viperml/nh -- clean all -k 5
+    @nix run nixpkgs#nh -- clean all -k 5
 
 [group('maintain')]
 [doc('Optimise the nix store')]

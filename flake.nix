@@ -63,10 +63,9 @@
             # url = "path:/Users/daniel/Developer/nixkit";
         };
 
-
-    lazykeys = {
-      url = "github:frostplexx/lazykeys";
-    };
+        lazykeys = {
+            url = "github:frostplexx/lazykeys";
+        };
     };
 
     outputs = {nixpkgs, ...} @ inputs: let

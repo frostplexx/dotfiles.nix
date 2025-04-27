@@ -19,7 +19,6 @@
         includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
     };
 
-
     # services.lazykeys = {
     #     enable = true;
     #     normalQuickPress = true; # Quick press of Caps Lock will send Escape
