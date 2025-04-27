@@ -121,7 +121,7 @@ nixos_install() {
 echo -e "${BLUE}${BOLD}
 ╭───────────────────────────────────────────────────────╮
 │                                                       │
-│   ${GREEN}❄️  Welcome to Nix Bootstrap Installer${BLUE}          │
+│       ${GREEN}❄️  Welcome to Nix Bootstrap Installer${BLUE}          │
 │                                                       │
 ╰───────────────────────────────────────────────────────╯${RESET}"
 
