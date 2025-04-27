@@ -104,7 +104,7 @@
                 {
                     type = "packages";
                     key = "  {#yellow}{icon} Packages";
-                    format = "{9} total ({1} pkg, {2} cask, {3} flatpak, {6} snap)";
+                    # format = "{9} total ({1} pkg, {2} cask, {3} flatpak, {6} snap)";
                 }
                 {
                     type = "shell";
