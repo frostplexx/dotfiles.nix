@@ -13,7 +13,7 @@ function check_platform() {
 function install_nix() {
     if ! command -v nix >/dev/null 2>&1; then
         echo -e "${INFO} Installing Nix..."
-        curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+        yes | curl -sSf -L https://install.lix.systems/lix | sh -s -- install
         # Source Nix immediately
         if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
             source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -22,7 +22,6 @@ function install_nix() {
             echo -e "${ERROR} Failed to find nix-daemon.sh to source environment"
             exit 1
         fi
-        echo -e "${SUCCESS} Nix installed successfully!"
     else
         echo -e "${WARN} Nix already installed"
     fi
