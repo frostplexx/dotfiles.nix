@@ -41,7 +41,7 @@ function setup_nix_darwin() {
 }
 
 # Main script
-echo -e "${INFO}Starting macOS Setup${RESET}"
+echo -e "${INFO} Starting macOS Setup${RESET}"
 check_platform
 install_nix
 setup_nix_darwin
