@@ -50,7 +50,7 @@ clone_repo() {
     local dest_dir="$HOME/dotfiles.nix"
     
     if [ -d "$dest_dir" ]; then
-        read -p "Directory $dest_dir already exists. Override? [y/N] " -n 1 -r
+        read -p "Directory $dest_dir already exists. Override? [y/N] " -n 1 -r < /dev/tty
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             print_status "INFO" "Using existing directory"
@@ -151,7 +151,7 @@ if [ "$OS_NAME" != "Unsupported OS" ]; then
     echo
 
     echo
-    read -p "Do you want to continue with the installation? [Y/n] " -n 1 -r
+    read -p "Do you want to continue? [Y/n] " -n 1 -r < /dev/tty
     echo
     if [[ ! $REPLY =~ ^[Nn]$ ]]; then
         # Run installation based on OS type
