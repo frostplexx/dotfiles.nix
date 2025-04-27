@@ -33,7 +33,7 @@ function setup_nix_darwin() {
         DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
         config=$(echo "$DARWIN_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
 
-        nix run --extra-experimental-features "nix-command flakes" github:viperML/nh -- darwin switch -H "$config" .
+        nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" .
 
 
         echo -e "${SUCCESS} nix-darwin installed successfully!"
