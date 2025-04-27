@@ -37,7 +37,7 @@ function setup_nix_darwin() {
         DARWIN_CONFIGS=$(nix eval --impure --json "$HOME/dotfiles.nix"#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
         config=$(echo "$DARWIN_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
 
-        nix run --extra-experimental-features "nix-command flakes" github:viperml/nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"
+        nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"
 
 
         echo -e "${SUCCESS} deployed successfully!"
