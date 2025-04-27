@@ -23,6 +23,8 @@ upgrade: update-refs lint
     @echo "Deploying system configuration with update..."
     @git add .
     @nix run nixpkgs#nh -- {{nix_cmd}} switch --update
+    # Add again because flake.lock gets updated
+    @git add .
     @git commit -m "chore: update inputs"
 
 
