@@ -131,6 +131,12 @@ _: {
                     ctrl-alt-shift-cmd-8 = ["move-node-to-workspace 8" "workspace 8"];
                     ctrl-alt-shift-cmd-9 = ["move-node-to-workspace 9" "workspace 9"];
 
+
+                    ctrl-alt-shift-cmd-h = ["join-with left"];
+                    ctrl-alt-shift-cmd-j = ["join-with down"];
+                    ctrl-alt-shift-cmd-k = ["join-with up"];
+                    ctrl-alt-shift-cmd-l = ["join-with right"];
+
                     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
                     alt-tab = "focus-back-and-forth";
                     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
@@ -147,11 +153,6 @@ _: {
 
                     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
                     #s = ['layout sticky tiling', 'mode main']
-
-                    alt-shift-h = ["join-with left" "mode main"];
-                    alt-shift-j = ["join-with down" "mode main"];
-                    alt-shift-k = ["join-with up" "mode main"];
-                    alt-shift-l = ["join-with right" "mode main"];
 
                     ctrl-alt-shift-cmd-h = ["join-with left" "layout accordion" "mode main"];
                     ctrl-alt-shift-cmd-j = ["join-with down" "layout accordion" "mode main"];
