@@ -13,17 +13,17 @@
         ../../lib/copy-apps.nix
     ];
 
-    services.hyperkey = {
-        enable = false;
-        normalQuickPress = true; # Quick press of Caps Lock will send Escape
-        includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
-    };
-
-    # services.lazykeys = {
-    #     enable = true;
+    # services.hyperkey = {
+    #     enable = false;
     #     normalQuickPress = true; # Quick press of Caps Lock will send Escape
     #     includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
     # };
+
+    services.lazykeys = {
+        enable = true;
+        normalQuickPress = true; # Quick press of Caps Lock will send Escape
+        includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
+    };
 
     # Basic system configuration
     networking = {

@@ -34,14 +34,14 @@
             # "Noir" = 1592917505;
             # "Tailscale" = 1475387142;
             # "Obsidian Web Clipper" = 6720708363;
-            #
-            # "Xcode" = 497799835;
-            # "Things" = 904280696;
-            # "eduVPN" = 1317704208;
-            # "Goodnotes" = 1444383602;
-            # "WhatsApp" = 310633997;
-            # "Windows App" = 1295203466;
-            # "Parcel" = 639968404;
+
+            "Xcode" = 497799835;
+            "Things" = 904280696;
+            "eduVPN" = 1317704208;
+            "Goodnotes" = 1444383602;
+            "WhatsApp" = 310633997;
+            "Windows App" = 1295203466;
+            "Parcel" = 639968404;
         };
         # This doesn't work, taps are defined in flake.nix and then mksystem.nix
         # taps = [];
@@ -61,7 +61,6 @@
             "mullvadvpn"
             "whisky"
             "betterdisplay"
-            "orion"
         ];
     };
 }
