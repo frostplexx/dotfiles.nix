@@ -31,6 +31,9 @@
             hide_window_decorations = "titlebar-only";
             enabled_layouts = "splits:split_axis=horizontal";
 
+            # macOS specific
+            macos_option_as_alt = "both";
+
             # Titlebar
             wayland_titlebar_color = "background";
 
