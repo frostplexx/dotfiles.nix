@@ -40,7 +40,7 @@ Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
 #### Automatic
 
 ```bash
-curl https://raw.githubusercontent.com/frostplexx/dotfiles.nix/refs/heads/main/scripts/install.sh | bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
 ```
 
 #### Manual
