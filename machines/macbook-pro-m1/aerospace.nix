@@ -98,12 +98,6 @@ _: {
                     ctrl-alt-cmd-k = "focus up";
                     ctrl-alt-cmd-l = "focus right";
 
-                    # See: https://nikitabobko.github.io/AeroSpace/commands#move
-                    alt-shift-h = "move left";
-                    alt-shift-j = "move down";
-                    alt-shift-k = "move up";
-                    alt-shift-l = "move right";
-
                     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
                     ctrl-alt-shift-cmd-minus = "resize smart -50";
                     ctrl-alt-shift-cmd-equal = "resize smart +50";
@@ -131,33 +125,36 @@ _: {
                     ctrl-alt-shift-cmd-8 = ["move-node-to-workspace 8" "workspace 8"];
                     ctrl-alt-shift-cmd-9 = ["move-node-to-workspace 9" "workspace 9"];
 
+                    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+                    ctrl-alt-shift-cmd-h = "move left";
+                    ctrl-alt-shift-cmd-j = "move down";
+                    ctrl-alt-shift-cmd-k = "move up";
+                    ctrl-alt-shift-cmd-l = "move right";
 
-                    ctrl-alt-shift-cmd-h = ["join-with left"];
-                    ctrl-alt-shift-cmd-j = ["join-with down"];
-                    ctrl-alt-shift-cmd-k = ["join-with up"];
-                    ctrl-alt-shift-cmd-l = ["join-with right"];
+                    alt-shift-h = ["join-with left" "layout accordion"];
+                    alt-shift-j = ["join-with down" "layout accordion"];
+                    alt-shift-k = ["join-with up" "layout accordion"];
+                    alt-shift-l = ["join-with right" "layout accordion"];
 
                     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
                     alt-tab = "focus-back-and-forth";
                     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-                    # alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+                    alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
 
                     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-                    alt-shift-semicolon = "mode service";
+                    ctrl-alt-cmd-semicolon = "mode service";
                 };
                 mode.service.binding = {
-                    esc = ["reload-config" "mode main"];
-                    r = ["flatten-workspace-tree" "mode main"]; # reset layout
+                    esc = ["mode main"];
+                    r = ["reload-config" "mode main"];
 
-                    backspace = ["enable toggle"];
+                    alt-shift-h = ["join-with left" "mode main"];
+                    alt-shift-j = ["join-with down" "mode main"];
+                    alt-shift-k = ["join-with up" "mode main"];
+                    alt-shift-l = ["join-with right" "mode main"];
 
                     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
                     #s = ['layout sticky tiling', 'mode main']
-
-                    ctrl-alt-shift-cmd-h = ["join-with left" "layout accordion" "mode main"];
-                    ctrl-alt-shift-cmd-j = ["join-with down" "layout accordion" "mode main"];
-                    ctrl-alt-shift-cmd-k = ["join-with up" "layout accordion" "mode main"];
-                    ctrl-alt-shift-cmd-l = ["join-with right" "layout accordion" "mode main"];
                 };
                 on-window-detected = [
                     {
