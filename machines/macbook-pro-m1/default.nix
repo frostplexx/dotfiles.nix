@@ -58,7 +58,7 @@
         users.${user} = {
             home = "/Users/${user}";
             description = user;
-            shell = "/run/current-system/sw/bin/fish";
+            shell = pkgs.fish;
         };
     };
 
@@ -87,9 +87,9 @@
             '';
 
             # https://github.com/LnL7/nix-darwin/issues/811
-            setFishAsShell.text = ''
-                dscl . -create /Users/${user} UserShell /run/current-system/sw/bin/fish
-            '';
+            # setFishAsShell.text = ''
+            #     dscl . -create /Users/${user} UserShell /run/current-system/sw/bin/fish
+            # '';
         };
 
         defaults = {
