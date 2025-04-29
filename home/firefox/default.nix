@@ -40,6 +40,7 @@ in {
     programs.firefox = {
         enable = true;
         package = pkgs.firefox-bin;
+        # package = inputs.nixpkgs-firefox-darwin.overlay.firefox-beta-bin;
         profiles.default = {
             id = 0;
             name = "default";
