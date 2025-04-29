@@ -54,9 +54,6 @@
             ]
             ++ builtins.map (name: ../home/${name}) modules;
         _module.args = {inherit user;};
-        # Apply nix config
-        nixpkgs.config = nixpkgsConfig;
-        nixpkgs.overlays = overlays;
     };
 in
     systemFunc rec {
@@ -84,15 +81,14 @@ in
             home-manager.home-manager
             {
                 nixpkgs.config = nixpkgsConfig;
-                nixpkgs.overlays = overlays;
+                # nixpkgs.overlays = overlays;
                 # Why do darwin and linux use different stateVerions???
                 system.stateVersion =
                     if isDarwin
                     then 6
                     else "24.05";
                 home-manager = {
-                    # useGlobalPkgs needs to be disabled to be able to use overlays
-                    useGlobalPkgs = false;
+                    useGlobalPkgs = true;
                     useUserPackages = true;
                     # On activation move existing files by appending the given file extension rather than exiting with an error.
                     # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension

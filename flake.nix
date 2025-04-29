@@ -20,9 +20,12 @@
             url = "github:lnl7/nix-darwin/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-        firefox-addons = {
-            url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+        nurpkgs = {
+            url = "github:nix-community/NUR";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        betterfox = {
+            url = "github:HeitorAugustoLN/betterfox-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -66,7 +69,7 @@
     outputs = {nixpkgs, ...} @ inputs: let
         overlays = [
             inputs.neovim-nightly-overlay.overlays.default
-            inputs.nixpkgs-firefox-darwin.overlay
+            inputs.nurpkgs.overlays.default
         ];
 
         mkSystem = import ./lib/mksystem.nix {

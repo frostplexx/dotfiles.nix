@@ -50,6 +50,7 @@
         ];
         casks = [
             "altserver"
+            "firefox"
             "cleanshot"
             "mac-mouse-fix"
             "onyx"

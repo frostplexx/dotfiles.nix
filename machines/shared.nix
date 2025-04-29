@@ -43,8 +43,8 @@
 
     # Base fonts
     fonts.packages = with pkgs; [
-        nerd-fonts.jetbrains-mono
-        jetbrains-mono
+        # nerd-fonts.jetbrains-mono
+        # jetbrains-mono
         # Maple Mono (Ligature TTF hinted)
         maple-mono.truetype-autohint
         # Maple Mono NF (Ligature hinted)
