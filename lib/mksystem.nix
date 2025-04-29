@@ -35,6 +35,7 @@
     # Nixpkgs alias with settings applied that we can pass through to our machines
     pkgs = import inputs.nixpkgs {
         inherit system;
+        inherit overlays;
         config = nixpkgsConfig;
     };
 
@@ -97,7 +98,7 @@ in
                     # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension
                     backupFileExtension = "backup";
                     # Extra specialArgs passed to Home Manager. This option can be used to pass additional arguments to all modules.
-                    extraSpecialArgs = {inherit inputs pkgs system;};
+                    extraSpecialArgs = {inherit inputs system;};
                     # Home Manager Modules
                     sharedModules = [
                         # Use Nixcord for declaratively managing discord
