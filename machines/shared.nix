@@ -26,6 +26,7 @@
         gnupg
         gh
         hcloud
+        just
 
         nix-tree
         nix-output-monitor
@@ -37,7 +38,6 @@
         _1password-cli
         transmission_4
         spotify
-        just
         imhex
     ];
 
