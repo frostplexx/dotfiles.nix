@@ -51,7 +51,7 @@ function setup_nix_darwin() {
             else
                 echo "Invalid choice, please try again."
             fi
-        done < /dev/tty  # Ensure input works correctly
+        done < /dev/tty
 
         # Deploy the chosen configuration
         nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"

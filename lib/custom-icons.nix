@@ -44,7 +44,8 @@ in {
 
     config = mkMerge [
         (mkIf cfg.enable {
-            system.activationScripts.extraActivation.text = ''
+            system.activationScripts.customIcons.priority = 2000;
+            system.activationScripts.customIcons.text = ''
                 echo -e "Applying custom icons..."
                 ${
                     (builtins.concatStringsSep "\n\n" (

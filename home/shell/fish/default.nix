@@ -71,6 +71,15 @@
     # tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Few icons' --transient=Yes
     # Custom activation script to configure tide
     home.activation.configureTide = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        $DRY_RUN_CMD ${pkgs.fish}/bin/fish -c "tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Few icons' --transient=Yes"
+        # Launch a kitty overlay terminal to configure tide without disturbing the current session
+        $DRY_RUN_CMD ${pkgs.kitty}/bin/kitten @ launch --type=overlay --title="Tide Configuration" --copy-env -- ${pkgs.fish}/bin/fish -C "
+          set -x SKIP_FF 1
+          set -x PATH $PATH:/usr/bin
+          # Configure tide with initial settings
+          tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Few icons' --transient=Yes
+          # echo 'Tide configuration complete. Window will close in 1 seconds.'
+          # sleep 1
+          exit 0
+        "
     '';
 }

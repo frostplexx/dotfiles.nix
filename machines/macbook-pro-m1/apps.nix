@@ -6,12 +6,14 @@
         jetbrains.idea-ultimate
         jetbrains.pycharm-professional
         # moonlight-qt
+        ollama
         keka
         zoom-us
         utm
         aerospace
         # mac app store cli
         mas
+        betterdisplay
     ];
 
     # Homebrew configuration
@@ -24,7 +26,6 @@
             cleanup = "zap";
         };
         masApps = {
-            # Uncommented after first install because mas is buggy and likes to update every app on every deploy
             # Safari extensions
             # "1Password for Safari" = 1569813296;
             # "AdGuard for Safari" = 1440147259;
@@ -49,18 +50,15 @@
         ];
         casks = [
             "altserver"
-            "ollama"
             "cleanshot"
             "mac-mouse-fix"
             "onyx"
             "orbstack"
             "1password@beta"
             "proxyman"
-            # "raycast"
             "zen-browser"
-            "mullvadvpn"
             "whisky"
-            "betterdisplay"
+            "mullvadvpn"
         ];
     };
 }

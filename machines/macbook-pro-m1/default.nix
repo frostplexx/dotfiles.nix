@@ -93,7 +93,7 @@
         };
 
         defaults = {
-            smb.NetBIOSName = "pc-dev-lyra";
+            smb.NetBIOSName = "macbook-pro-m1";
             # Menu bar clock settings
             menuExtraClock = {
                 Show24Hour = true;
