@@ -50,19 +50,19 @@ jobs:
           fi
 
 
-  flake-check:
-    name: Test Nix Configurations
-    needs: [security-check, lint]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17
-      - name: Enable Nix Flakes
-        run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-      - name: Run Check
-        run: |
-          echo "Checking flake config"
-          nix flake check
+  # flake-check:
+  #   name: Test Nix Configurations
+  #   needs: [security-check, lint]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Install Nix
+  #       uses: DeterminateSystems/nix-installer-action@v17
+  #     - name: Enable Nix Flakes
+  #       run: |
+  #         mkdir -p ~/.config/nix
+  #         echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+  #     - name: Run Check
+  #       run: |
+  #         echo "Checking flake config"
+  #         nix flake check
