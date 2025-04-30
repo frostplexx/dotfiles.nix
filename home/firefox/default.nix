@@ -154,6 +154,12 @@
                 "browser.ml.chat.sidebar" = false;
                 "sidebar.main.tools" = "";
                 "browser.shopping.experience2023.shoppingSidebar" = false;
+                "sidebar.expandOnHover" = true;
+                "sidebar.animation.expand-on-hover.duration-ms" = 50;
+                "sidebar.revamp.round-content-area" = true;
+
+                "browser.tabs.groups.enabled" = true;
+                "browser.tabs.groups.smart.enabled" = true;
 
                 "browser.newtabpage.pinned" = [
                     {
