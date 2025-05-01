@@ -1,5 +1,9 @@
 # Lyra-specific applications
-{pkgs, ...}: {
+{
+    pkgs,
+    config,
+    ...
+}: {
     # MacOS-specific packages
     environment.systemPackages = with pkgs; [
         # GUI Applications
@@ -46,6 +50,8 @@
         };
         # This doesn't work, taps are defined in flake.nix and then mksystem.nix
         # taps = [];
+        # https://github.com/zhaofengli/nix-homebrew/issues/5#issuecomment-1878798641
+        taps = builtins.attrNames config.nix-homebrew.taps;
         brews = [
         ];
         casks = [
