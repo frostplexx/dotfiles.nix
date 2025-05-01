@@ -3,12 +3,15 @@
     inputs,
     ...
 }: {
-    imports = [inputs.betterfox.homeManagerModules.betterfox];
+    imports = [
+        inputs.betterfox.homeManagerModules.betterfox
+    ];
     # Enable and configure the default browser
     programs.default-browser = {
         enable = true;
         browser = "firefox";
     };
+
     programs.firefox = {
         enable = true;
         betterfox = {
