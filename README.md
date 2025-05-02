@@ -17,7 +17,7 @@ This repository is home to the nix code that builds my systems:
 2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
 
 See [./machines](./machines) for details of each host.<br>
-Wallpaper: [./assets/wallpaper.png](./assets/wallpaper.png)
+Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/dotfiles-assets.nix/tree/main/wallpapers](https://github.com/frostplexx/dotfiles-assets.nix/tree/main/wallpapers)
 
 ---
 
