@@ -59,6 +59,11 @@ The script will then also deploy the first generation on your device
 ##### Installing on NixOS
 Run `nix run nixpkgs#just -- deploy <hostname>`[^1] to deploy the system.
 
+#### After Installing
+
+- Reboot the computer or log out and back in for all the changes to take effect.
+- Run `generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
+
 ### Available Commands
 
 The Makefile offers the following targets that can be run for managing the system:

@@ -32,21 +32,13 @@
                 tree = "eza --icons --git --header --tree";
                 vimdiff = "nvim -d";
                 cd = "z";
+                git="git-forgit";
             };
 
             shellAbbrs = {
                 copy = "rsync -avz --partial --progress";
                 transfer = "kitten transfer --direction=receive";
                 nhs = "nh search";
-                ga = "git add";
-                gb = "git branch";
-                gc = "git commit";
-                gco = "git checkout";
-                gf = "git fetch";
-                gm = "git merge";
-                gp = "git pull";
-                gu = "git push";
-                gst = "git status";
                 s = "sudo";
                 j = "just";
                 nixs = "nix shell nixpkgs#";
