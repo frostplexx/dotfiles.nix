@@ -32,7 +32,7 @@
                 tree = "eza --icons --git --header --tree";
                 vimdiff = "nvim -d";
                 cd = "z";
-                git="git-forgit";
+                gf = "git-forgit";
             };
 
             shellAbbrs = {
