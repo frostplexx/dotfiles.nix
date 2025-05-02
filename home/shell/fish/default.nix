@@ -15,6 +15,10 @@
                     name = "tide";
                     inherit (tide) src;
                 }
+                {
+                    name = "forgit";
+                    inherit (forgit) src;
+                }
             ];
 
             shellAliases = {
@@ -28,10 +32,6 @@
                 tree = "eza --icons --git --header --tree";
                 vimdiff = "nvim -d";
                 cd = "z";
-                compress_to_mp4 = "~/dotfiles.nix/home/shell/scripts/compress_mp4.sh";
-                ssh = "~/dotfiles.nix/home/shell/scripts/ssh.sh";
-                ff = "~/dotfiles.nix/home/shell/scripts/window_select.sh";
-                shinit = "~/dotfiles.nix/home/shell/scripts/shell_select.sh";
             };
 
             shellAbbrs = {
@@ -64,6 +64,13 @@
                 url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
                 sha256 = "kdA9Vh23nz9FW2rfOys9JVmj9rtr7n8lZUPK8cf7pGE=";
             });
+        };
+    };
+
+    home.file = {
+        ".fish_scripts" = {
+            recursive = true;
+            source = ./scripts;
         };
     };
 

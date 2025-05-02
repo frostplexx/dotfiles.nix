@@ -4,12 +4,6 @@ if not status is-interactive
     return 0
 end
 
-# Set up Ghostty's shell integration.
-if test -n "$GHOSTTY_RESOURCES_DIR"
-    source $GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
-end
-
-
 # Remove the gretting message.
 set -U fish_greeting
 
@@ -19,6 +13,13 @@ set fish_vi_force_cursor 1
 set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_replace_one underscore
+
+# Source additional scripts
+if test -d $HOME/.fish_scripts
+    for file in $HOME/.fish_scripts/*.fish
+        source $file
+    end
+end
 
 
 
