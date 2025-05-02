@@ -2,6 +2,7 @@
 {
     pkgs,
     user,
+    # assets,
     ...
 }: {
     imports = [
@@ -79,8 +80,6 @@
                 defaults write NSGlobalDomain AppleAccentColor -int 10;
 
                 #set wallpaper
-                osascript -e 'tell application "Finder" to set desktop picture to POSIX file
-                "${assets}/wallpapers/wallpaper.png"'
 
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u

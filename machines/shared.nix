@@ -4,14 +4,6 @@
         ./nix.nix
     ];
 
-    # Add assets repo to config so its accessible everywhere
-    assets = pkgs.fetchFromGitHub {
-        owner = "frostplexx";
-        repo = "dotfiles-assets.nix";
-        rev = "05d9e391b72618a13934f1fdd6ef9a97e0ca296f";
-        hash = "sha256-4MRo3b19fAVCY07sEN6AQGM6V4xiOO+UfVNGBIwwkGM=";
-    };
-
     # Basic system packages
     environment.systemPackages = with pkgs; [
         # Development tools

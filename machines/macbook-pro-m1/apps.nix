@@ -12,7 +12,6 @@
         # moonlight-qt
         ollama
         keka
-        zoom-us
         utm
         aerospace
         # mac app store cli
@@ -66,6 +65,7 @@
             "zen-browser"
             "whisky"
             "mullvadvpn"
+            "zoom"
         ];
     };
 }

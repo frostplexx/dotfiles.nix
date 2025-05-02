@@ -39,8 +39,16 @@
         config = nixpkgsConfig;
     };
 
+    # Remote git lfs storage of assets
+    assets = pkgs.fetchFromGitHub {
+        owner = "frostplexx";
+        repo = "dotfiles-assets.nix";
+        rev = "05d9e391b72618a13934f1fdd6ef9a97e0ca296f";
+        hash = "sha256-4MRo3b19fAVCY07sEN6AQGM6V4xiOO+UfVNGBIwwkGM=";
+    };
+
     # Merge the explicitly needed attributes with all the extra ones captured in args.
-    machineConfigArgs = {inherit system user pkgs inputs;} // args;
+    machineConfigArgs = {inherit system user pkgs inputs assets;} // args;
 
     # Build the home configuration from the modules
     mkHomeConfig = {
