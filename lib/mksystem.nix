@@ -74,7 +74,6 @@ in
             ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
-
             inputs.nixkit.nixosModules.default
 
             # Home manager configuration
@@ -110,9 +109,9 @@ in
                     };
                 };
             }
-            # We expose some extra arguments so that our modules can parameterize
-            # better based on these values.
             {
+                # We expose some extra arguments so that our modules can parameterize
+                # better based on these values.
                 config._module.args = {
                     currentSystem = system;
                     currentSystemName = name;
