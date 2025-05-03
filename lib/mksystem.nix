@@ -82,7 +82,7 @@ in
             ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
-      #inputs.nixkit.nixosModules.default
+            #inputs.nixkit.nixosModules.default
 
             # Home manager configuration
             home-manager.home-manager

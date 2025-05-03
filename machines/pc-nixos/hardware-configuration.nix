@@ -52,8 +52,8 @@
     # still possible to use this option, but it's recommended to use it in conjunction
     # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
     networking = {
-      useDHCP = lib.mkDefault true;
-      enp4s0.wakeOnLan = true;
+        useDHCP = lib.mkDefault true;
+        interfaces."enp4s0".wakeOnLan.enable = true;
     };
     # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
