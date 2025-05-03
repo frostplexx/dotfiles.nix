@@ -170,8 +170,8 @@
                 # Pinned apps
                 persistent-apps = [
                     "/Applications/Things3.app"
-                    # "/Applications/Zen.app/"
-                    "/Applications/Firefox.app"
+                    "/Applications/Zen.app/"
+                    # "/Applications/Firefox.app"
                     # "/Applications/Safari.app"
                     # "${pkgs.wezterm}/Applications/WezTerm.app"
                     "${pkgs.kitty}/Applications/kitty.app"

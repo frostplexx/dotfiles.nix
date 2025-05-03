@@ -9,7 +9,7 @@
     # Enable and configure the default browser
     programs.default-browser = {
         enable = true;
-        browser = "firefox";
+        browser = "zen";
     };
 
     programs.firefox = {
