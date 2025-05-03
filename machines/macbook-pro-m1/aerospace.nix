@@ -217,6 +217,11 @@ _: {
                         "if".app-id = "pl.maketheweb.cleanshotx";
                         run = "layout floating";
                     }
+                    # Make it so picture in picture doesnt tile
+                    {
+                        "if".window-title-regex-substring = "Picture-in-Picture";
+                        run = "layout floating";
+                    }
                     # Order matters here!
                     # Callbacks are run in order and the firt match counts
                     {
