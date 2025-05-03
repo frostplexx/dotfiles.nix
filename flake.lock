@@ -316,6 +316,7 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "c0962eeeabfb8127713f859ec8a5f0e86dead0f2",
+        "rev": "5f217e5a319f6c186283b530f8c975e66c028433",
         "type": "github"
       },
       "original": {
@@ -328,11 +329,12 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1746246289,
-        "narHash": "sha256-q/fQzCBqtYRoYs/txY4siJgyTjPLLvxe4ibxZ9npn1E=",
+        "lastModified": 1746092847,
+        "narHash": "sha256-8BOHXNMBmh0PgkA9jAAffuGJuOopTffms+UmRpCtvto=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
         "rev": "12ca2a7ead43ac215c0f1a267e40851b69796098",
+        "rev": "7dffac4d46a4420b6888bded4188274f32c67667",
         "type": "github"
       },
       "original": {
@@ -349,6 +351,7 @@
         "owner": "homebrew",
         "repo": "homebrew-core",
         "rev": "74b4496b62ff1cd893246b249db21140ed4955e7",
+        "rev": "39f4cb9e7de857cf47db0a7daf7a878f45244936",
         "type": "github"
       },
       "original": {
@@ -439,6 +442,7 @@
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
         "rev": "d4e6959d82e9e9dc609dcbf7a29fd293fad9c912",
+        "rev": "9142bf8e3b7588c316fe090149b124827f177fab",
         "type": "github"
       },
       "original": {
@@ -455,6 +459,7 @@
         "owner": "neovim",
         "repo": "neovim",
         "rev": "ce8b755a86c10496a81675c49b3bc9a42c79d80f",
+        "rev": "4bc7bac8842582cc1239373994327d5537155ec0",
         "type": "github"
       },
       "original": {
@@ -516,26 +521,12 @@
         "owner": "kaylorben",
         "repo": "nixcord",
         "rev": "d39fcd7380746c33807c7c691836a707780a8aaf",
+        "rev": "44bb507a24e66d8b3e46ea7e7730d31ffd2696c9",
         "type": "github"
       },
       "original": {
         "owner": "kaylorben",
         "repo": "nixcord",
-        "type": "github"
-      }
-    },
-    "nixkit": {
-      "locked": {
-        "lastModified": 1745660089,
-        "narHash": "sha256-p0W6eQvkrz9p1/6GODSHeXw6TH86bTzdtv5F0CfzoD4=",
-        "owner": "frostplexx",
-        "repo": "nixkit",
-        "rev": "8c6a2a4f30c95706c94b039506e2b66fa2f02326",
-        "type": "github"
-      },
-      "original": {
-        "owner": "frostplexx",
-        "repo": "nixkit",
         "type": "github"
       }
     },
@@ -562,6 +553,7 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "3afd19146cac33ed242fc0fc87481c67c758a59e",
+        "rev": "423d2df5b04b4ee7688c3d71396e872afa236a89",
         "type": "github"
       },
       "original": {
@@ -607,6 +599,7 @@
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "f02fddb8acef29a8b32f10a335d44828d7825b78",
+        "rev": "46e634be05ce9dc6d4db8e664515ba10b78151ae",
         "type": "github"
       },
       "original": {
@@ -630,6 +623,7 @@
         "owner": "nix-community",
         "repo": "NUR",
         "rev": "0150847d90961f362980d7dd662868dc6ee0907a",
+        "rev": "5ef4843da25edff082e0be1404ee4468112f49ff",
         "type": "github"
       },
       "original": {
@@ -652,7 +646,6 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-homebrew": "nix-homebrew",
         "nixcord": "nixcord",
-        "nixkit": "nixkit",
         "nixpkgs": "nixpkgs_5",
         "nurpkgs": "nurpkgs"
       }

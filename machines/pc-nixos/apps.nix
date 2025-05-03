@@ -36,6 +36,7 @@
         lutris
         gamemode
         # vintagestory
+        prismlauncher
         solaar
         linuxKernel.packages.linux_zen.xone
         ckan

@@ -27,6 +27,7 @@
         gh
         hcloud
         just
+        jq
 
         nix-tree
         nix-output-monitor

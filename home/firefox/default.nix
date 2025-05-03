@@ -7,11 +7,18 @@
         inputs.betterfox.homeManagerModules.betterfox
     ];
     # Enable and configure the default browser
+<<<<<<< HEAD
     programs.default-browser = {
         enable = true;
         browser = "zen";
     };
 
+=======
+    # programs.default-browser = {
+    #     enable = true;
+    #     browser = "firefox";
+    # };
+>>>>>>> 9905eef (chore: update inputs)
     programs.firefox = {
         enable = true;
         betterfox = {
