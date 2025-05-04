@@ -33,6 +33,7 @@
                 vimdiff = "nvim -d";
                 cd = "z";
                 gt = "git-forgit";
+                wake = "echo -e '\n\033[32m'$(nix run nixpkgs#fortune); printf '\n\n\033[30mKeeping PC awake...\a'; caffeinate -d -i -m -s";
             };
 
             shellAbbrs = {
