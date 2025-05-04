@@ -157,6 +157,13 @@ _: {
                     #s = ['layout sticky tiling', 'mode main']
                 };
                 on-window-detected = [
+                    # Make it so picture in picture doesnt tile
+                    # Order Matters
+                    {
+                        "if".window-title-regex-substring = "Picture-in-Picture";
+                        "if".app-id = "app.zen-browser.zen";
+                        run = "layout floating";
+                    }
                     {
                         "if".app-id = "org.mozilla.firefox";
                         run = "move-node-to-workspace 1";
@@ -215,11 +222,6 @@ _: {
                     }
                     {
                         "if".app-id = "pl.maketheweb.cleanshotx";
-                        run = "layout floating";
-                    }
-                    # Make it so picture in picture doesnt tile
-                    {
-                        "if".window-title-regex-substring = "Picture-in-Picture";
                         run = "layout floating";
                     }
                     # Order matters here!
