@@ -29,6 +29,7 @@
         just
         jq
 
+        # Nix utils
         nix-tree
         nix-output-monitor
         nh

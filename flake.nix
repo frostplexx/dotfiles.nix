@@ -53,8 +53,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
         # nixkit = {
         #     url = "github:frostplexx/nixkit";
         #     # or for local development:
@@ -68,7 +66,6 @@
 
     outputs = {nixpkgs, ...} @ inputs: let
         overlays = [
-            inputs.neovim-nightly-overlay.overlays.default
             inputs.nurpkgs.overlays.default
         ];
 

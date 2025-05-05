@@ -2,7 +2,6 @@
 {
     pkgs,
     lib,
-    inputs,
     ...
 }: let
     # Filter out lazy-lock.json from the source directory
@@ -18,7 +17,6 @@ in {
     programs.neovim = {
         enable = true;
         defaultEditor = true;
-        package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
         viAlias = true;
         vimAlias = true;
         withNodeJs = true;
@@ -30,6 +28,10 @@ in {
             nodejs
             luajitPackages.luarocks-nix
             tree-sitter
+            coreutils
+            mermaid-cli # mermaid rendering
+            tectonic # latex rendering
+            ghostscript # pdf rendering
         ];
 
         plugins = [

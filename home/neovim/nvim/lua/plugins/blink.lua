@@ -10,12 +10,7 @@ return {
         },
         opts = {
             sources = {
-                default = {
-                    'lsp',
-                    'path',
-                    'snippets',
-                    'buffer',
-                },
+                default = { 'lsp', 'buffer', 'snippets', 'path' },
                 providers = {
                     snippets = {
                         name = 'Snippets',
