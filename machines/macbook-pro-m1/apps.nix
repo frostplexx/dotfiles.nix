@@ -59,6 +59,7 @@
             "firefox"
             "cleanshot"
             "mac-mouse-fix"
+            "raycast"
             "onyx"
             "orbstack"
             "1password@beta"

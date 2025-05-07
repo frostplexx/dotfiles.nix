@@ -1,9 +1,4 @@
 {user, ...}: {
-    # Global home settings
-    imports = [
-        ../lib/copy-apps.nix
-    ];
-
     home = {
         username = user;
         stateVersion = "23.11";

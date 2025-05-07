@@ -39,7 +39,7 @@
         obsidian
         _1password-cli
         transmission_4
-        spotify
+        # spotify
         imhex
     ];
 

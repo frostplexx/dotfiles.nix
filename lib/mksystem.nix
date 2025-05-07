@@ -109,6 +109,7 @@ in
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
                         # inputs.nixkit.homeModules.default
+                        inputs.spicetify-nix.homeManagerModules.spicetify
                     ];
                     # Apply only the specific modules from hm-modules
                     users.${user} = mkHomeConfig {

@@ -11,7 +11,6 @@
         ./aerospace.nix
         ./custom_icons/custom_icons.nix # Custom application icons
         ../../lib/custom-icons.nix
-        ../../lib/copy-apps.nix
     ];
 
     # services.hyperkey = {
@@ -79,17 +78,15 @@
                 defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
                 defaults write NSGlobalDomain AppleAccentColor -int 10;
 
-                #set wallpaper
-
+                # turn of spotlight and its indexing
+                sudo mdutil -i off
+                defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = standard; }; }"
+                # disable emoji shortcut
+                defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0; value = { parameters = (32, 49, 262144); type = standard; }; }"
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
                 killall Finder
             '';
-
-            # https://github.com/LnL7/nix-darwin/issues/811
-            # setFishAsShell.text = ''
-            #     dscl . -create /Users/${user} UserShell /run/current-system/sw/bin/fish
-            # '';
         };
 
         defaults = {
