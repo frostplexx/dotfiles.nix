@@ -43,8 +43,8 @@
     assets = pkgs.fetchFromGitHub {
         owner = "frostplexx";
         repo = "dotfiles-assets.nix";
-        rev = "05d9e391b72618a13934f1fdd6ef9a97e0ca296f";
-        hash = "sha256-4MRo3b19fAVCY07sEN6AQGM6V4xiOO+UfVNGBIwwkGM=";
+        rev = "59306ae4a4cdf22af7e124833cd87754f5a8ced1";
+        hash = "sha256-+OfiGUf6FPdelkfdC9ypD+xCJp+4MiAiUdBGYWYujXY=";
     };
 
     # Merge the explicitly needed attributes with all the extra ones captured in args.
@@ -101,7 +101,7 @@ in
                     # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension
                     backupFileExtension = "backup";
                     # Extra specialArgs passed to Home Manager. This option can be used to pass additional arguments to all modules.
-                    extraSpecialArgs = {inherit inputs system;};
+                    extraSpecialArgs = {inherit inputs system assets;};
                     # Home Manager Modules
                     sharedModules = [
                         # Use Nixcord for declaratively managing discord
@@ -125,7 +125,7 @@ in
                     currentSystem = system;
                     currentSystemName = name;
                     currentSystemUser = user;
-                    inherit user system inputs;
+                    inherit user system inputs assets;
                 };
             }
 

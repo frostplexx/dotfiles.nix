@@ -139,7 +139,7 @@
         "kitty/ssh.conf".source = ./ssh.conf;
 
         # Copy icon
-        "kitty/kitty.app.png".source = ./kitty.app.png;
+        # "kitty/kitty.app.png".source = ./kitty.app.png;
 
         "kitty/themes/mocha.conf".source = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";

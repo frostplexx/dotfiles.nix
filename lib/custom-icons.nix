@@ -16,44 +16,33 @@ in {
     options.environment.customIcons = {
         enable = mkEnableOption "environment.customIcons";
         clearCacheOnActivation = mkEnableOption "environment.customIcons.clearCacheOnActivation";
+
         icons = mkOption {
             type = types.listOf (
                 types.submodule {
                     options = {
-                        path = mkOption {
-                            type = types.path;
-                            description = "Path to the file or folder to customize";
-                        };
-                        icon = mkOption {
-                            type = types.path;
-                            description = "Path to the .icns file to use as the custom icon";
-                        };
+                        path = mkOption {type = types.path;};
+                        icon = mkOption {type = types.path;};
                     };
                 }
             );
-            description = "List of icon configurations to apply";
-            default = [];
-            example = [
-                {
-                    path = "/Applications/Firefox.app";
-                    icon = ./icons/firefox.icns;
-                }
-            ];
         };
     };
 
     config = mkMerge [
         (mkIf cfg.enable {
-            system.activationScripts.customIcons.priority = 2000;
-            system.activationScripts.customIcons.text = ''
-                echo -e "Applying custom icons..."
+            system.activationScripts.extraActivation.text = ''
+                echo -e "applying custom icons..."
+
                 ${
                     (builtins.concatStringsSep "\n\n" (
                         builtins.map (iconCfg: ''
                             osascript <<EOF >/dev/null
                               use framework "Cocoa"
+
                               set iconPath to "${iconCfg.icon}"
                               set destPath to "${iconCfg.path}"
+
                               set imageData to (current application's NSImage's alloc()'s initWithContentsOfFile:iconPath)
                               (current application's NSWorkspace's sharedWorkspace()'s setIcon:imageData forFile:destPath options:2)
                             EOF
@@ -61,6 +50,7 @@ in {
                         cfg.icons
                     ))
                 }
+
                 ${lib.optionalString cfg.clearCacheOnActivation ''
                     sudo rm -rf /Library/Caches/com.apple.iconservices.store
                     sudo find /private/var/folders/ -name com.apple.dock.iconcache -or -name com.apple.iconservices -or -name com.apple.iconservicesagent -exec rm -rf {} \; || true

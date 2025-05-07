@@ -2,15 +2,14 @@
 {
     pkgs,
     user,
-    # assets,
     ...
 }: {
     imports = [
         ../shared.nix # Base configuration
         ./apps.nix # Lyra-specific apps
         ./aerospace.nix
-        ./custom_icons/custom_icons.nix # Custom application icons
         ../../lib/custom-icons.nix
+        ./custom_icons.nix
     ];
 
     # services.hyperkey = {
@@ -80,12 +79,11 @@
 
                 # turn of spotlight and its indexing
                 sudo mdutil -i off
-                defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = standard; }; }"
-                # disable emoji shortcut
-                defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0; value = { parameters = (32, 49, 262144); type = standard; }; }"
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
                 killall Finder
+                killall Dock
+
             '';
         };
 
