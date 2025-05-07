@@ -82,7 +82,7 @@
                 sudo mdutil -i off
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-                defaults write com.apple.desktop Background '{default = {ImageFilePath = "${assets}/wallpapers/wallpaper.png"; };}'
+                sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '${assets}/wallpapers/wallpaper.png'";
                 killall Finder
                 killall Dock
             '';
