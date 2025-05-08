@@ -52,7 +52,7 @@
                     ids = ["*"];
                     settings = {
                         main = {
-                            capslock = "overload(capslock_layer, esc)";
+                            capslock = "overload(capslock_layer, capslock)";
                         };
                         "capslock_layer:C-A-M" = {
                         };

@@ -53,9 +53,10 @@
 
         xorg.xrandr
         xorg.xinput
-        i3-gaps
-        xremap
         picom # Compositor for transparency/animations
+        xfce.thunar
+        flameshot
+        polkit
 
         #Gnome specific
         # adwaita-icon-theme

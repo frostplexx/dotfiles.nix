@@ -1,14 +1,18 @@
-{pkgs, ...}: {
+{
+    pkgs,
+    assets,
+    ...
+}: {
+    # imports = [./polybar.nix];
     # Enable X11 and i3
     xsession.windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
         config = {
             modifier = "Mod4"; # Windows/Super key
-            floating_modifier = "Mod4+Control"; # Enable dragging windows with Ctrl+Super
             gaps = {
                 inner = 5;
-                outer = 5;
+                outer = 2;
             };
 
             # Set monitor refresh rate to 144Hz and disable mouse acceleration
@@ -21,6 +25,11 @@
                 {
                     # Disable mouse acceleration
                     command = "xinput --set-prop 'Logitech USB Receiver' 'libinput Accel Profile Enabled' 0, 1";
+                    always = true;
+                    notification = false;
+                }
+                {
+                    command = "${pkgs.feh}/bin/feh --bg-fill ${assets}/wallpapers/wallpaper.png";
                     always = true;
                     notification = false;
                 }
@@ -48,6 +57,7 @@
                 # Application control (Cmd+Q to quit)
                 "${modifier}+q" = "kill";
                 "${modifier}+space" = "exec dmenu_run";
+                "${modifier}+${shift}+4" = "exec flameshot gui";
 
                 # Layout controls
                 "${ctrl}+${alt}+${modifier}+t" = "layout toggle split";
@@ -125,7 +135,7 @@
                 "3" = [
                     {class = "^GoodNotes$";}
                     {class = "^obsidian$";}
-                    {class = "^Things$";}
+                    {class = "^[sS]team$";}
                 ];
                 "4" = [
                     {class = "^vesktop$";}
@@ -169,6 +179,60 @@
             # Border styling (similar to your jankyborders configuration)
             window.border = 3;
             window.titlebar = false;
+
+            bars = [
+                {
+                    position = "bottom";
+                    statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${./i3status-rust.toml}";
+                    fonts = {
+                        names = ["Maple Mono NF"];
+                        size = 10.0;
+                    };
+                    hiddenState = "hide";
+                    mode = "dock";
+                    trayOutput = "primary";
+
+                    colors = {
+                        # Catppuccin Mocha colors
+                        background = "#1e1e2e";
+                        statusline = "#cdd6f4";
+                        separator = "#585b70";
+
+                        # Workspace colors
+                        focusedWorkspace = {
+                            border = "#cba6f7";
+                            background = "#1e1e2e";
+                            text = "#cdd6f4";
+                        };
+                        activeWorkspace = {
+                            border = "#45475a";
+                            background = "#1e1e2e";
+                            text = "#cdd6f4";
+                        };
+                        inactiveWorkspace = {
+                            border = "#181825";
+                            background = "#1e1e2e";
+                            text = "#a6adc8";
+                        };
+                        urgentWorkspace = {
+                            border = "#f38ba8";
+                            background = "#1e1e2e";
+                            text = "#cdd6f4";
+                        };
+                        bindingMode = {
+                            border = "#f9e2af";
+                            background = "#1e1e2e";
+                            text = "#11111b";
+                        };
+                    };
+                }
+            ];
+        };
+    };
+
+    home.file = {
+        ".background-image" = {
+            source = "${assets}/wallpapers/wallpaper.png";
         };
     };
 }
