@@ -51,13 +51,19 @@
         xclip
         cifs-utils
 
+        xorg.xrandr
+        xorg.xinput
+        i3-gaps
+        xremap
+        picom # Compositor for transparency/animations
+
         #Gnome specific
-        adwaita-icon-theme
-        gnome-themes-extra
-        gnomeExtensions.blur-my-shell
-        gnomeExtensions.gsconnect
-        gnomeExtensions.just-perfection
-        gnomeExtensions.dash-to-dock
-        gnomeExtensions.space-bar
+        # adwaita-icon-theme
+        # gnome-themes-extra
+        # gnomeExtensions.blur-my-shell
+        # gnomeExtensions.gsconnect
+        # gnomeExtensions.just-perfection
+        # gnomeExtensions.dash-to-dock
+        # gnomeExtensions.space-bar
     ];
 }

@@ -107,7 +107,7 @@ in
                         inputs.nixcord.homeModules.nixcord
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
-                        inputs.nixkit.homeModules.default
+                        # inputs.nixkit.homeModules.default
                         inputs.spicetify-nix.homeManagerModules.spicetify
                     ];
                     # Apply only the specific modules from hm-modules
@@ -135,7 +135,7 @@ in
                     imports = [
                         inputs.nix-homebrew.darwinModules.nix-homebrew
                         inputs.lazykeys.darwinModules.default
-                        inputs.nixkit.darwinModules.default
+                        # inputs.nixkit.darwinModules.default
                     ];
                     nix-homebrew = {
                         # Install Homebrew under the default prefix
@@ -157,7 +157,7 @@ in
                 # NixOS specific stuff
                 else {
                     imports = [
-                        inputs.nixkit.darwinModules.default
+                        # inputs.nixkit.darwinModules.default
                     ];
                 }
             )

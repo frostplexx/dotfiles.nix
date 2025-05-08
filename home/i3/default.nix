@@ -1,0 +1,174 @@
+{pkgs, ...}: {
+    # Enable X11 and i3
+    xsession.windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+        config = {
+            modifier = "Mod4"; # Windows/Super key
+            floating_modifier = "Mod4+Control"; # Enable dragging windows with Ctrl+Super
+            gaps = {
+                inner = 5;
+                outer = 5;
+            };
+
+            # Set monitor refresh rate to 144Hz and disable mouse acceleration
+            startup = [
+                {
+                    command = "xrandr --output DP-2 --mode 2560x1080 --rate 144";
+                    always = true;
+                    notification = false;
+                }
+                {
+                    # Disable mouse acceleration
+                    command = "xinput --set-prop 'Logitech USB Receiver' 'libinput Accel Profile Enabled' 0, 1";
+                    always = true;
+                    notification = false;
+                }
+                {
+                    # Set flat acceleration (1.0 = no acceleration)
+                    command = "xinput --set-prop 'Logitech USB Receiver' 'libinput Accel Speed' 0";
+                    always = true;
+                    notification = false;
+                }
+                {
+                    # Set default workspace to 1 when starting i3
+                    command = "i3-msg workspace number 1";
+                    always = true;
+                    notification = false;
+                }
+            ];
+
+            # Keybindings ported from AeroSpace
+            keybindings = let
+                modifier = "Mod4";
+                alt = "Mod1";
+                ctrl = "Control";
+                shift = "Shift";
+            in {
+                # Application control (Cmd+Q to quit)
+                "${modifier}+q" = "kill";
+                "${modifier}+space" = "exec dmenu_run";
+
+                # Layout controls
+                "${ctrl}+${alt}+${modifier}+t" = "layout toggle split";
+                "${ctrl}+${alt}+${modifier}+s" = "layout stacking";
+
+                # Fullscreen and floating toggle
+                "${ctrl}+${alt}+${modifier}+f" = "fullscreen toggle";
+                "${alt}+${shift}+f" = "floating toggle";
+
+                # Window focus
+                "${ctrl}+${alt}+${modifier}+h" = "focus left";
+                "${ctrl}+${alt}+${modifier}+j" = "focus down";
+                "${ctrl}+${alt}+${modifier}+k" = "focus up";
+                "${ctrl}+${alt}+${modifier}+l" = "focus right";
+
+                # Window resize
+                "${ctrl}+${alt}+${shift}+${modifier}+minus" = "resize shrink width 50 px or 50 ppt";
+                "${ctrl}+${alt}+${shift}+${modifier}+equal" = "resize grow width 50 px or 50 ppt";
+
+                # Workspace switching
+                "${ctrl}+${alt}+${modifier}+1" = "workspace number 1";
+                "${ctrl}+${alt}+${modifier}+2" = "workspace number 2";
+                "${ctrl}+${alt}+${modifier}+3" = "workspace number 3";
+                "${ctrl}+${alt}+${modifier}+4" = "workspace number 4";
+                "${ctrl}+${alt}+${modifier}+5" = "workspace number 5";
+                "${ctrl}+${alt}+${modifier}+6" = "workspace number 6";
+                "${ctrl}+${alt}+${modifier}+7" = "workspace number 7";
+                "${ctrl}+${alt}+${modifier}+8" = "workspace number 8";
+                "${ctrl}+${alt}+${modifier}+9" = "workspace number 9";
+                "${ctrl}+${alt}+${modifier}+0" = "workspace number 10";
+
+                # Move windows to workspaces
+                "${ctrl}+${alt}+${shift}+${modifier}+1" = "move container to workspace number 1; workspace number 1";
+                "${ctrl}+${alt}+${shift}+${modifier}+2" = "move container to workspace number 2; workspace number 2";
+                "${ctrl}+${alt}+${shift}+${modifier}+3" = "move container to workspace number 3; workspace number 3";
+                "${ctrl}+${alt}+${shift}+${modifier}+4" = "move container to workspace number 4; workspace number 4";
+                "${ctrl}+${alt}+${shift}+${modifier}+5" = "move container to workspace number 5; workspace number 5";
+                "${ctrl}+${alt}+${shift}+${modifier}+6" = "move container to workspace number 6; workspace number 6";
+                "${ctrl}+${alt}+${shift}+${modifier}+7" = "move container to workspace number 7; workspace number 7";
+                "${ctrl}+${alt}+${shift}+${modifier}+8" = "move container to workspace number 8; workspace number 8";
+                "${ctrl}+${alt}+${shift}+${modifier}+9" = "move container to workspace number 9; workspace number 9";
+
+                # Move windows
+                "${ctrl}+${alt}+${shift}+${modifier}+h" = "move left";
+                "${ctrl}+${alt}+${shift}+${modifier}+j" = "move down";
+                "${ctrl}+${alt}+${shift}+${modifier}+k" = "move up";
+                "${ctrl}+${alt}+${shift}+${modifier}+l" = "move right";
+
+                # Join/move window to another (using focus parent + move)
+                "${alt}+${shift}+h" = "focus parent; split h; focus right; move left";
+                "${alt}+${shift}+j" = "focus parent; split v; focus down; move up";
+                "${alt}+${shift}+k" = "focus parent; split v; focus up; move down";
+                "${alt}+${shift}+l" = "focus parent; split h; focus left; move right";
+
+                # Back and forth (similar to alt-tab)
+                "${alt}+Tab" = "workspace back_and_forth";
+                "${alt}+${shift}+Tab" = "move container to output next; focus output next";
+
+                # Reload config
+                "${ctrl}+${alt}+${modifier}+semicolon" = "exec i3-msg reload";
+            };
+
+            # Window assignments similar to your AeroSpace config
+            assigns = {
+                "1" = [
+                    {class = "^firefox$";}
+                    {class = "^Zen$";}
+                ];
+                "2" = [
+                    {class = "^jetbrains-idea$";}
+                    {class = "^WezTerm$";}
+                    {class = "^Termius$";}
+                    {class = "^kitty$";}
+                ];
+                "3" = [
+                    {class = "^GoodNotes$";}
+                    {class = "^obsidian$";}
+                    {class = "^Things$";}
+                ];
+                "4" = [
+                    {class = "^vesktop$";}
+                    {class = "^zoom$";}
+                    {class = "^Discord$";}
+                ];
+                "5" = [
+                    {class = "^Spotify$";}
+                ];
+            };
+
+            # Floating windows
+            floating = {
+                criteria = [
+                    {class = "^Finder$";}
+                    {class = "^1Password$";}
+                    {class = "^CleanShotX$";}
+                    {title = "^kittyfloat$";}
+                    {title = "^Picture-in-Picture$";}
+                ];
+            };
+
+            # Colors based on your jankyborders theme
+            colors = {
+                focused = {
+                    border = "#cba6f7";
+                    background = "#cba6f7";
+                    text = "#ffffff";
+                    indicator = "#cba6f7";
+                    childBorder = "#cba6f7";
+                };
+                unfocused = {
+                    border = "#7f849c";
+                    background = "#7f849c";
+                    text = "#ffffff";
+                    indicator = "#7f849c";
+                    childBorder = "#7f849c";
+                };
+            };
+
+            # Border styling (similar to your jankyborders configuration)
+            window.border = 3;
+            window.titlebar = false;
+        };
+    };
+}

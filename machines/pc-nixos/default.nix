@@ -42,47 +42,81 @@
         cpuFreqGovernor = "perfomance";
     };
 
-    # Configure keymap in X11
-    services.xserver = {
-        enable = true;
-        displayManager.gdm = {
+    environment.pathsToLink = ["/libexec"];
+
+    services = {
+        keyd = {
             enable = true;
-            wayland = false;
+            keyboards = {
+                default = {
+                    ids = ["*"];
+                    settings = {
+                        main = {
+                            capslock = "overload(capslock_layer, esc)";
+                        };
+                        "capslock_layer:C-A-M" = {
+                        };
+                    };
+                };
+            };
         };
-        desktopManager.gnome = {
+
+        displayManager = {
+            defaultSession = "none+i3";
+        };
+        xserver = {
             enable = true;
-            extraGSettingsOverridePackages = [pkgs.mutter];
-            extraGSettingsOverrides = ''
-                [org.gnome.mutter]
-                experimental-features=['scale-monitor-framebuffer']
-            '';
-        };
-        videoDrivers = ["nvidia"];
-        xkb = {
-            layout = "us";
-            variant = "";
+            windowManager.i3.enable = true;
+
+            # Configure mouse settings to disable acceleration
+            libinput = {
+                enable = true;
+                mouse = {
+                    accelProfile = "flat";
+                    accelSpeed = "0";
+                    middleEmulation = false;
+                };
+            };
+
+            # displayManager.gdm = {
+            #     enable = true;
+            #     wayland = false;
+            # };
+            # desktopManager.gnome = {
+            #     enable = true;
+            #     extraGSettingsOverridePackages = [pkgs.mutter];
+            #     extraGSettingsOverrides = ''
+            #         [org.gnome.mutter]
+            #         experimental-features=['scale-monitor-framebuffer']
+            #     '';
+            # };
+            videoDrivers = ["nvidia"];
+            xkb = {
+                layout = "us";
+                variant = "";
+            };
         };
     };
 
     # Gnome settings
     # Disable some packages
-    environment.gnome.excludePackages = with pkgs; [
-        atomix # puzzle game
-        cheese # webcam tool
-        epiphany # web browser
-        evince # document viewer
-        geary # email reader
-        gedit # text editor
-        gnome-characters
-        gnome-music
-        gnome-photos
-        gnome-terminal
-        gnome-tour
-        hitori # sudoku game
-        iagno # go game
-        tali # poker game
-        totem # video player
-    ];
+    # environment.gnome.excludePackages = with pkgs; [
+    #     atomix # puzzle game
+    #     cheese # webcam tool
+    #     epiphany # web browser
+    #     evince # document viewer
+    #     geary # email reader
+    #     gedit # text editor
+    #     gnome-characters
+    #     gnome-music
+    #     gnome-photos
+    #     gnome-terminal
+    #     gnome-tour
+    #     hitori # sudoku game
+    #     iagno # go game
+    #     tali # poker game
+    #     totem # video player
+    # ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     programs.fish.enable = true;
