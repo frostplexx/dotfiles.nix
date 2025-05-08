@@ -343,6 +343,21 @@
         "type": "github"
       }
     },
+    "nixkit": {
+      "locked": {
+        "lastModified": 1746690725,
+        "narHash": "sha256-CX0ssH04253OTTdbmmMigJXnFplDm5IrE3k9U+qSnb4=",
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "rev": "59c956380b35043e22d97279540b269ba69b0807",
+        "type": "github"
+      },
+      "original": {
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1716358718,
@@ -455,6 +470,7 @@
         "lix-module": "lix-module",
         "nix-homebrew": "nix-homebrew",
         "nixcord": "nixcord",
+        "nixkit": "nixkit",
         "nixpkgs": "nixpkgs_4",
         "nurpkgs": "nurpkgs",
         "spicetify-nix": "spicetify-nix"

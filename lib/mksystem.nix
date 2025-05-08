@@ -82,7 +82,6 @@ in
             ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
             # Trust myself
             {nix.settings.trusted-users = ["root" user];}
-            #inputs.nixkit.nixosModules.default
 
             # Home manager configuration
             home-manager.home-manager
@@ -108,7 +107,7 @@ in
                         inputs.nixcord.homeModules.nixcord
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
-                        # inputs.nixkit.homeModules.default
+                        inputs.nixkit.homeModules.default
                         inputs.spicetify-nix.homeManagerModules.spicetify
                     ];
                     # Apply only the specific modules from hm-modules
@@ -129,13 +128,14 @@ in
                 };
             }
 
-            # Enable nix-homebrew on macOS
             (
+                # Darwin specific stuff
                 if isDarwin
                 then {
                     imports = [
                         inputs.nix-homebrew.darwinModules.nix-homebrew
                         inputs.lazykeys.darwinModules.default
+                        inputs.nixkit.darwinModules.default
                     ];
                     nix-homebrew = {
                         # Install Homebrew under the default prefix
@@ -154,7 +154,12 @@ in
                         };
                     };
                 }
-                else {}
+                # NixOS specific stuff
+                else {
+                    imports = [
+                        inputs.nixkit.darwinModules.default
+                    ];
+                }
             )
         ];
     }

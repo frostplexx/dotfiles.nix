@@ -9,7 +9,6 @@
         ../shared.nix # Base configuration
         ./apps.nix # Lyra-specific apps
         ./aerospace.nix
-        ../../lib/custom-icons.nix
         ./custom_icons.nix
     ];
 
