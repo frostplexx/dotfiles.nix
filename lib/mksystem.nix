@@ -43,8 +43,8 @@
     assets = pkgs.fetchFromGitHub {
         owner = "frostplexx";
         repo = "dotfiles-assets.nix";
-        rev = "59306ae4a4cdf22af7e124833cd87754f5a8ced1";
-        hash = "sha256-+OfiGUf6FPdelkfdC9ypD+xCJp+4MiAiUdBGYWYujXY=";
+        rev = "982795ccc1e09b48129257224101136e1adacbf6";
+        hash = "sha256-Oz3VYS1Q4KB6CMQJnFlif4Aob6kZxEixHyFqeTR1ZGk=";
     };
 
     # Merge the explicitly needed attributes with all the extra ones captured in args.
