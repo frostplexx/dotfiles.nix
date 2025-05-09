@@ -55,11 +55,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # nixkit = {
-        #     url = "github:frostplexx/nixkit";
-        #     # or for local development:
-        #     # url = "path:/Users/daniel/Developer/nixkit";
-        # };
+        nixkit = {
+            url = "github:frostplexx/nixkit";
+            # or for local development:
+            # url = "path:/Users/daniel/Developer/nixkit";
+        };
 
         lazykeys = {
             url = "github:frostplexx/lazykeys";
