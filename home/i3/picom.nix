@@ -31,8 +31,8 @@ _: {
 
             # Fading effects
             fading = true;
-            fade-in-step = 0.06;
-            fade-out-step = 0.06;
+            fade-in-step = 0.12;
+            fade-out-step = 0.12;
             fade-delta = 5;
         };
     };

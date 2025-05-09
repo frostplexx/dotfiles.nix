@@ -5,6 +5,8 @@
 }: {
     imports = [./dunst.nix ./picom.nix];
 
+  services.gnome-keyring.enable = true;
+
     # Enable X11 and i3
     xsession.windowManager.i3 = {
         enable = true;

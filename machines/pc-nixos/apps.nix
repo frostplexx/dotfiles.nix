@@ -63,14 +63,5 @@
         feh
         networkmanager
         imlib2
-
-        #Gnome specific
-        # adwaita-icon-theme
-        # gnome-themes-extra
-        # gnomeExtensions.blur-my-shell
-        # gnomeExtensions.gsconnect
-        # gnomeExtensions.just-perfection
-        # gnomeExtensions.dash-to-dock
-        # gnomeExtensions.space-bar
     ];
 }
