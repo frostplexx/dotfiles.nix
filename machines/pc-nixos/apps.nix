@@ -57,6 +57,12 @@
         xfce.thunar
         flameshot
         polkit
+        catppuccin-gtk
+        papirus-icon-theme
+        catppuccin-cursors
+        feh
+        networkmanager
+        imlib2
 
         #Gnome specific
         # adwaita-icon-theme

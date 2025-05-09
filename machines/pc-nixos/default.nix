@@ -52,7 +52,7 @@
                     ids = ["*"];
                     settings = {
                         main = {
-                            capslock = "overload(capslock_layer, capslock)";
+                            capslock = "overload(capslock_layer, esc)";
                         };
                         "capslock_layer:C-A-M" = {
                         };
@@ -61,12 +61,8 @@
             };
         };
 
-        displayManager = {
-            defaultSession = "none+i3";
-        };
         xserver = {
             enable = true;
-            windowManager.i3.enable = true;
 
             # Configure mouse settings to disable acceleration
             libinput = {
@@ -78,17 +74,26 @@
                 };
             };
 
-            # displayManager.gdm = {
+            displayManager = {
+                defaultSession = "none+i3";
+                # defaultSession = "cinnamon";
+                autoLogin.user = "daniel";
+
+                sessionCommands = ''
+                    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
+                    Xft.autohint: 0
+                    Xft.antialias: 1
+                    Xft.hinting: true
+                    Xft.hintstyle: hintslight
+                    Xft.dpi: 96
+                    Xft.rgba: rgb
+                    Xft.lcdfilter: lcddefault
+                    EOF
+                '';
+            };
+            windowManager.i3.enable = true;
+            # desktopManager.cinnamon = {
             #     enable = true;
-            #     wayland = false;
-            # };
-            # desktopManager.gnome = {
-            #     enable = true;
-            #     extraGSettingsOverridePackages = [pkgs.mutter];
-            #     extraGSettingsOverrides = ''
-            #         [org.gnome.mutter]
-            #         experimental-features=['scale-monitor-framebuffer']
-            #     '';
             # };
             videoDrivers = ["nvidia"];
             xkb = {
@@ -97,26 +102,6 @@
             };
         };
     };
-
-    # Gnome settings
-    # Disable some packages
-    # environment.gnome.excludePackages = with pkgs; [
-    #     atomix # puzzle game
-    #     cheese # webcam tool
-    #     epiphany # web browser
-    #     evince # document viewer
-    #     geary # email reader
-    #     gedit # text editor
-    #     gnome-characters
-    #     gnome-music
-    #     gnome-photos
-    #     gnome-terminal
-    #     gnome-tour
-    #     hitori # sudoku game
-    #     iagno # go game
-    #     tali # poker game
-    #     totem # video player
-    # ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     programs.fish.enable = true;

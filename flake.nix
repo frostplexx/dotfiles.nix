@@ -84,7 +84,6 @@
             hm-modules = [
                 "firefox"
                 "git"
-                # "gnome"
                 "i3"
                 "kitty"
                 "neovim"

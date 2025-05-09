@@ -40,11 +40,11 @@
     };
 
     # Remote git lfs storage of assets
-    assets = pkgs.fetchFromGitHub {
-        owner = "frostplexx";
-        repo = "dotfiles-assets.nix";
-        rev = "982795ccc1e09b48129257224101136e1adacbf6";
-        hash = "sha256-Oz3VYS1Q4KB6CMQJnFlif4Aob6kZxEixHyFqeTR1ZGk=";
+    assets = pkgs.fetchgit {
+        url = "https://github.com/frostplexx/dotfiles-assets.nix";
+        branchName = "main";
+        hash = "sha256-dy0GjfttJde52JD7qcDSrzRaXAXJ2774NmQf6dKCQRM=";
+        fetchLFS = true;
     };
 
     # Merge the explicitly needed attributes with all the extra ones captured in args.

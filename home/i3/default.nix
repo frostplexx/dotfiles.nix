@@ -3,7 +3,8 @@
     assets,
     ...
 }: {
-    # imports = [./polybar.nix];
+    imports = [./dunst.nix ./picom.nix];
+
     # Enable X11 and i3
     xsession.windowManager.i3 = {
         enable = true;
@@ -234,5 +235,39 @@
         ".background-image" = {
             source = "${assets}/wallpapers/wallpaper.png";
         };
+    };
+
+    gtk = {
+        enable = true;
+        theme = {
+            name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+            package = pkgs.catppuccin-gtk.override {
+                accents = ["mauve"];
+                variant = "mocha";
+            };
+        };
+        iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+        };
+        font = {
+            name = "Inter";
+            size = 11;
+        };
+        gtk3.extraConfig = {
+            gtk-application-prefer-dark-theme = true;
+        };
+        gtk4.extraConfig = {
+            gtk-application-prefer-dark-theme = true;
+        };
+    };
+
+    # Cursor theme to match your overall aesthetic
+    home.pointerCursor = {
+        name = "Catppuccin-Mocha-Mauve-Cursors";
+        package = pkgs.catppuccin-cursors.mochaMauve;
+        size = 24;
+        gtk.enable = true;
+        x11.enable = true;
     };
 }
