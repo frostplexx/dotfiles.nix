@@ -11,7 +11,7 @@ _: {
                 diagnostics = false;
             };
             vim_mode = true;
-            ui_font_size = 12;
+            ui_font_size = 13;
             buffer_font_size = 12;
             buffer_font_family = "Maple Mono NF";
             ui_font_family = "Maple Mono";
@@ -28,7 +28,7 @@ _: {
                     title = false;
                 };
                 shell = {
-                    program = "zsh";
+                    program = "fish";
                 };
                 copy_on_select = true;
             };
