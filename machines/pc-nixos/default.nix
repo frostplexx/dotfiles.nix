@@ -43,6 +43,7 @@
     };
 
     environment.pathsToLink = ["/libexec"];
+    # Unlock gnome keyring on login
 
     services = {
         keyd = {
@@ -115,7 +116,6 @@
                 isNormalUser = true;
                 description = "Daniel";
                 extraGroups = ["networkmanager" "wheel"];
-                packages = with pkgs; [];
             };
         };
     };
@@ -123,10 +123,6 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment = {
-        systemPackages = with pkgs; [
-            #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-            #  wget
-        ];
         variables = {
             FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
             QT_ENABLE_HIGHDPI_SCALING = "1";

@@ -46,6 +46,12 @@
                     always = true;
                     notification = false;
                 }
+                {
+                    # Start 1password in the background
+                    command = "1password --silent";
+                    always = true;
+                    notification = false;
+                }
             ];
 
             # Keybindings ported from AeroSpace
