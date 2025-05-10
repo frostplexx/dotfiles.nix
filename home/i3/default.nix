@@ -3,7 +3,7 @@
     assets,
     ...
 }: {
-    imports = [./dunst.nix ./picom.nix];
+    imports = [./dunst.nix ./picom.nix ./rofi.nix];
 
     # Enable X11 and i3
     xsession.windowManager.i3 = {
@@ -63,7 +63,7 @@
             in {
                 # Application control (Cmd+Q to quit)
                 "${modifier}+q" = "kill";
-                "${modifier}+space" = "exec dmenu_run";
+                "${modifier}+space" = "exec rofi -show run";
                 "${modifier}+${shift}+4" = "exec flameshot gui";
 
                 # Layout controls

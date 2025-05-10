@@ -43,7 +43,6 @@
     };
 
     environment.pathsToLink = ["/libexec"];
-    # Unlock gnome keyring on login
 
     services = {
         keyd = {
@@ -63,7 +62,7 @@
         };
 
         # For git secrets and shit
-        gnome.gnome-keyring.enable = true;
+        # gnome.gnome-keyring.enable = true;
 
         xserver = {
             enable = true;
