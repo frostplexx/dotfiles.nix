@@ -22,7 +22,7 @@
             # Window
             window_padding_width = "2 2";
             draw_minimal_borders = "yes";
-            background_opacity = "0.95";
+            background_opacity = "0.9";
             background_blur = "25";
             remember_window_size = "yes";
             initial_window_width = 1280;

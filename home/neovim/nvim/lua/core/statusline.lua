@@ -139,7 +139,7 @@ M.get_filetype = function(self)
 
     if filetype == '' then return '' end
 
-    local lsp_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local lsp_clients = vim.lsp.get_clients({ bufnr = 0 })
     local lsp_names = {}
 
     for _, client in ipairs(lsp_clients) do

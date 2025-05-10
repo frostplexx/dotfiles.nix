@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+    pkgs,
+    assets,
+    ...
+}: {
     programs.fastfetch = {
         enable = true;
         settings = {
@@ -10,11 +14,7 @@
                             url = "https://daiderd.com/nix-darwin/images/nix-darwin.png";
                             hash = "sha256-CeA0LbC3q6HMZuqJ9MHncI5z8GZ/EMAn7ULjiIX0wH4=";
                         }
-                    else
-                        pkgs.fetchurl {
-                            url = "https://nixos.wiki/images/thumb/2/20/Home-nixos-logo.png/207px-Home-nixos-logo.png";
-                            hash = "sha256-+0/Z2IY5ilZD2XaWU81MtvqEGqtxYxQFNY0nPuVigQo=";
-                        };
+                    else "${assets}/logos/nixos-logo.png";
                 type = "kitty-direct";
                 padding = {
                     right = 3;

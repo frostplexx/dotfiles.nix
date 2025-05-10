@@ -32,7 +32,7 @@
                     notification = false;
                 }
                 {
-                    command = "${pkgs.feh}/bin/feh --bg-fill ${assets}/wallpapers/wallpaper.png";
+                    command = "${pkgs.feh}/bin/feh --bg-fill ${assets}/wallpapers/dark-waves.jpg";
                     always = true;
                     notification = false;
                 }
