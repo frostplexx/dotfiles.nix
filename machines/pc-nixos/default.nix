@@ -61,6 +61,9 @@
             };
         };
 
+        # For git secrets and shit
+        gnome.gnome-keyring.enable = true;
+
         xserver = {
             enable = true;
 
