@@ -14,7 +14,7 @@
         '';
     };
 
-    # Gaming-specific programs
+    services.gvfs.enable = true;
     programs = {
         _1password-gui = {
             enable = true;
@@ -26,6 +26,14 @@
             remotePlay.openFirewall = true;
             dedicatedServer.openFirewall = true;
             localNetworkGameTransfers.openFirewall = true;
+        };
+
+        thunar = {
+            enable = true;
+            plugins = with pkgs.xfce; [
+                thunar-archive-plugin
+                thunar-volman
+            ];
         };
     };
 
@@ -55,6 +63,11 @@
         xorg.xinput
         picom # Compositor for transparency/animations
         xfce.thunar
+        xfce.tumbler # thunar thumbnails
+        xfce.thunar-archive-plugin
+        xfce.thunar-volman
+        ffmpegthumbnailer # Video thumbnails
+        gvfs # For trash support
         flameshot
         polkit
         catppuccin-gtk
