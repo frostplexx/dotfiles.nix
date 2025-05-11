@@ -2,17 +2,22 @@ _: {
     services.picom = {
         enable = true;
         inactiveOpacity = 1;
+        backend = "glx"; # Use glx for better blur performance
+        vSync = true; # Prevents screen tearing
         settings = {
             blur = {
-                method = "gaussian";
-                size = 10;
-                deviation = 5.0;
+                method = "dual_kawase"; # Better looking blur for Spotlight effect
+                strength = 7; # Higher value for more blur
             };
 
-            # Looks weird on i3 because only border is rounded
+            # Add transparency specifically for Rofi
+            opacity-rule = [
+                "80:class_g = 'Rofi'"
+            ];
+
             # Rounded corners configuration
-            # corner-radius = 8;
-            # round-borders = 1;
+            corner-radius = 12;
+            round-borders = 1;
 
             # Exclude certain windows from having rounded corners
             rounded-corners-exclude = [
@@ -24,15 +29,23 @@ _: {
 
             # Additional picom settings for better appearance
             shadow = true;
-            shadow-radius = 12;
-            shadow-offset-x = -7;
-            shadow-offset-y = -7;
-            shadow-opacity = 0.7;
+            shadow-radius = 15;
+            shadow-offset-x = -12;
+            shadow-offset-y = -12;
+            shadow-opacity = 0.75;
 
-            # Fading effects
+            # Shadow exclusions
+            shadow-exclude = [
+                "! name~=''"
+                "name = 'Notification'"
+                "class_g = 'Conky'"
+                "class_g = 'Polybar'"
+            ];
+
+            # Fading effects (smoother transitions)
             fading = true;
-            fade-in-step = 0.12;
-            fade-out-step = 0.12;
+            fade-in-step = 0.08;
+            fade-out-step = 0.08;
             fade-delta = 5;
         };
     };
