@@ -40,13 +40,12 @@
     };
 
     # Remote git lfs storage of assets
-    # assets = pkgs.fetchgit {
-    #     url = "https://github.com/frostplexx/dotfiles-assets.nix";
-    #     branchName = "main";
-    #     hash = "sha256-pnHMrmAW9cSa/KzTKcHAR63H7LotU2U0M93YwUuhoi8=";
-    #     fetchLFS = true;
-    # };
-    assets = "";
+    assets = pkgs.fetchgit {
+        url = "https://github.com/frostplexx/dotfiles-assets.nix";
+        branchName = "main";
+        hash = "sha256-pnHMrmAW9cSa/KzTKcHAR63H7LotU2U0M93YwUuhoi8=";
+        fetchLFS = true;
+    };
 
     # Merge the explicitly needed attributes with all the extra ones captured in args.
     machineConfigArgs = {inherit system user pkgs inputs assets;} // args;
@@ -138,22 +137,22 @@ in
                         inputs.lazykeys.darwinModules.default
                         inputs.nixkit.darwinModules.default
                     ];
-                    # nix-homebrew = {
-                    #     # Install Homebrew under the default prefix
-                    #     enable = true;
-                    #     # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
-                    #     enableRosetta = false;
-                    #     # User owning the Homebrew prefix
-                    #     inherit user;
-                    #     # Optional: Enable fully-declarative tap management
-                    #     # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
-                    #     mutableTaps = false;
-                    #     taps = with inputs; {
-                    #         "homebrew/homebrew-core" = homebrew-core;
-                    #         "homebrew/homebrew-cask" = homebrew-cask;
-                    #         "nikitabobko/homebrew-tap" = homebrew-nikitabobko;
-                    #     };
-                    # };
+                    nix-homebrew = {
+                        # Install Homebrew under the default prefix
+                        enable = true;
+                        # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+                        enableRosetta = false;
+                        # User owning the Homebrew prefix
+                        inherit user;
+                        # Optional: Enable fully-declarative tap management
+                        # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+                        mutableTaps = false;
+                        taps = with inputs; {
+                            "homebrew/homebrew-core" = homebrew-core;
+                            "homebrew/homebrew-cask" = homebrew-cask;
+                            "nikitabobko/homebrew-tap" = homebrew-nikitabobko;
+                        };
+                    };
                 }
                 # NixOS specific stuff
                 else {
