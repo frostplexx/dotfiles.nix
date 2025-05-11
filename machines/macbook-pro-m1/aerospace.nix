@@ -80,6 +80,8 @@ _: {
                     ctrl-alt-cmd-f = "fullscreen";
                     alt-shift-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
+                    ctrl-alt-cmd-n = "exec-and-forget /etc/profiles/per-user/daniel/bin/fish -c ${./scratchpad.fish}";
+
                     cmd-m = "macos-native-minimize";
                     # cmd-shift-m = '''exec-and-forget osascript -e '
                     # tell application (path to frontmost application as text)
@@ -222,6 +224,10 @@ _: {
                     }
                     {
                         "if".app-id = "pl.maketheweb.cleanshotx";
+                        run = "layout floating";
+                    }
+                    {
+                        "if".app-id = "com.aone.keka";
                         run = "layout floating";
                     }
                     # Order matters here!

@@ -12,12 +12,6 @@
         ./custom_icons.nix
     ];
 
-    # services.hyperkey = {
-    #     enable = false;
-    #     normalQuickPress = true; # Quick press of Caps Lock will send Escape
-    #     includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
-    # };
-
     services.lazykeys = {
         enable = true;
         normalQuickPress = true; # Quick press of Caps Lock will send Escape
@@ -58,7 +52,10 @@
             home = "/Users/${user}";
             description = user;
             shell = pkgs.fish;
+            uid = 501;
         };
+        # https://github.com/nix-darwin/nix-darwin/issues/1237#issuecomment-2562230471
+        knownUsers = [user];
     };
 
     # System defaults and preferences

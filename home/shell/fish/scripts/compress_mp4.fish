@@ -19,10 +19,10 @@ function compress_mov_to_mp4
            -crf 22 \
            -c:a aac \
            -b:a 128k \
-           $output_file
+           "Compressed-$output_file"
     
     set end_time (date +%s)
     set duration (math $end_time - $start_time)
     
-    /Applications/kitty.app/Contents/MacOS/kitten notify "File compressed in $duration seconds"
+    /etc/profiles/per-user/daniel/bin/kitten notify "File compressed in $duration seconds"
 end

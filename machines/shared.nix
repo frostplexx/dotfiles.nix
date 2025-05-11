@@ -28,6 +28,7 @@
         hcloud
         just
         jq
+        magic-wormhole-rs
 
         # Nix utils
         nix-tree
