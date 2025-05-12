@@ -15,6 +15,7 @@
             init.defaultBranch = "main";
             push.autoSetupRemote = true;
             pull.rebase = true;
+            editor = "nvim";
             diff = {
                 tool = "nvim";
                 guitool = "nvim";

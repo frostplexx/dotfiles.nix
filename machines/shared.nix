@@ -41,7 +41,7 @@
         _1password-cli
         transmission_4
         # spotify
-        imhex
+        bvi
     ];
 
     # Base fonts

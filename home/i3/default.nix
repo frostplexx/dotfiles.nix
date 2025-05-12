@@ -72,8 +72,10 @@
                 "${ctrl}+${alt}+${modifier}+s" = "layout stacking";
 
                 # Fullscreen and floating toggle
-                "${ctrl}+${alt}+${modifier}+f" = "fullscreen toggle";
-                "${alt}+${shift}+f" = "floating toggle";
+                "${ctrl}+${alt}+${modifier}+Space" = "fullscreen toggle";
+                "${ctrl}+${alt}+${modifier}+f" = "floating toggle";
+
+                "${ctrl}+${alt}+${modifier}+Enter" = "exec kitty";
 
                 # Window focus
                 "${ctrl}+${alt}+${modifier}+h" = "focus left";

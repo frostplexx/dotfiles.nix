@@ -77,12 +77,16 @@ _: {
                     ctrl-alt-cmd-t = "layout tiles horizontal vertical";
                     ctrl-alt-cmd-s = ["layout accordion" "layout vertical"];
 
-                    ctrl-alt-cmd-f = "fullscreen";
-                    alt-shift-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
+
+                    ctrl-alt-cmd-space = "fullscreen";
+                    ctrl-alt-cmd-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
                     ctrl-alt-cmd-n = "exec-and-forget /etc/profiles/per-user/daniel/bin/fish -c ${./scratchpad.fish}";
 
                     cmd-m = "macos-native-minimize";
+
+
+                    ctrl-alt-cmd-enter = "exec-and-forget open -a kitty";
                     # cmd-shift-m = '''exec-and-forget osascript -e '
                     # tell application (path to frontmost application as text)
                     #     try
