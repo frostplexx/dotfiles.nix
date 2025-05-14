@@ -60,7 +60,7 @@
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware = {
         cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-        xone.enable = false;
+        xone.enable = true;
         graphics.enable = true;
         bluetooth = {
             enable = true; # enables support for Bluetooth
