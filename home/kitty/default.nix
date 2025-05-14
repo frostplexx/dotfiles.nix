@@ -86,7 +86,7 @@
             font_size =
                 if pkgs.stdenv.isDarwin
                 then "12"
-                else "10";
+                else "9";
             modify_font = "cell_height 100%";
 
             scrollback_pager = "nvim -u NONE -R -M -c 'lua require(\"core.kitty_scrollback\")(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)' -";
