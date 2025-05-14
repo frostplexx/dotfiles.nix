@@ -54,6 +54,7 @@
         taps = builtins.attrNames config.nix-homebrew.taps;
         brews = [
             # "coreutils"
+            "wtfis"
         ];
         casks = [
             "altserver"

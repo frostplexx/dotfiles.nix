@@ -16,18 +16,6 @@ return {
         })
 
 
-        -- Setup codelldb adapter with proper executable path
-        -- TODO: When nix packages upgrades to 1.11 then update this to no longer be a server
-        -- https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
-        dap.adapters.codelldb = {
-            type = 'server',
-            port = "${port}",
-            executable = {
-                command = vim.fn.expand('$HOME/.local/share/codelldb'),
-                args = { "--port", "${port}" },
-            },
-        }
-
         -- Configuration for C, C++
         dap.configurations.cpp = {
             {

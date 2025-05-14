@@ -80,8 +80,6 @@ _: {
                     ctrl-alt-cmd-space = "fullscreen";
                     ctrl-alt-cmd-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
-                    ctrl-alt-cmd-n = "exec-and-forget /etc/profiles/per-user/daniel/bin/fish -c ${./scratchpad.fish}";
-
                     cmd-m = "macos-native-minimize";
 
                     ctrl-alt-cmd-enter = "exec-and-forget open -a kitty";

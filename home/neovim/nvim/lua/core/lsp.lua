@@ -116,32 +116,3 @@ vim.lsp.buf.signature_help = function()
         max_width = math.floor(vim.o.columns * 0.4),
     }
 end
-
--- set up rounded border
-local border = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
-
-
-vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(
-        vim.lsp.handlers.hover,
-        {
-            border = border
-        }
-    )
-
-vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        {
-            border = border
-        }
-    )
