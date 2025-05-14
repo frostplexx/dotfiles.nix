@@ -162,5 +162,10 @@ vim.keymap.set('n', '<leader>b', ':<C-u>b', { noremap = true, desc = "Switch to 
 
 
 
-vim.keymap.set('n', "<Tab>", function() Snacks.picker.buffers({ layout = { preset = "vscode", preview = "main" } }) end,
+vim.keymap.set('n', "<leader>bf",
+    function() Snacks.picker.buffers({ layout = { preset = "vscode", preview = "main" } }) end,
     { noremap = true, silent = true })
+
+
+vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
+vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })

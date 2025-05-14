@@ -65,7 +65,7 @@
             "orbstack"
             "1password@beta"
             "proxyman"
-            "zen-browser"
+            "zen"
             "whisky"
             "mullvadvpn"
             "zoom"

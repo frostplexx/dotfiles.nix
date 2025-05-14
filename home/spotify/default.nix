@@ -12,7 +12,7 @@ in {
             hidePodcasts
             shuffle # shuffle+ (special characters are sanitized out of extension names)
             popupLyrics
-      keyboardShortcut
+            keyboardShortcut
             powerBar
         ];
         theme = spicePkgs.themes.catppuccin;

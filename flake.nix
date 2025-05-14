@@ -2,7 +2,8 @@
     description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/master";
 
         home-manager = {
             url = "github:nix-community/home-manager/master";
@@ -90,7 +91,6 @@
                 "nixcord"
                 "shell"
                 "ssh"
-                "zed"
                 "spotify"
             ];
         };
@@ -107,7 +107,6 @@
                 "nixcord"
                 "shell"
                 "ssh"
-                "zed"
                 "spotify"
             ];
         };

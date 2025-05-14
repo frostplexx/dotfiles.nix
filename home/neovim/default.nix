@@ -14,6 +14,33 @@
     };
     treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in {
+    programs.neovide = {
+        enable = true;
+        settings = {
+            fork = false;
+            frame =
+                if pkgs.stdenv.isDarwin
+                then "transparent"
+                else "none";
+            idle = true;
+            maximized = false;
+            neovim-bin = "${pkgs.neovim}/bin/nvim";
+            no-multigrid = false;
+            srgb = false;
+            tabs = true;
+            theme = "auto";
+            title-hidden = true;
+            vsync = true;
+            wsl = false;
+
+            font = {
+                family = "Maple Mono NF";
+                normal = [];
+                size = 12.0;
+            };
+        };
+    };
+
     programs.neovim = {
         enable = true;
         defaultEditor = true;
