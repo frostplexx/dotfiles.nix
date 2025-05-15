@@ -7,6 +7,9 @@ end
 # Remove the gretting message.
 set -U fish_greeting
 
+# Manpager
+set -U MANPAGER "nvim +Man!"
+
 # Vi mode.
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_vi_force_cursor 1

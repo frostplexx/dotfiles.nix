@@ -1,0 +1,4 @@
+creation_rules:
+- path_regex: .*
+  age: age1j34fef9lh8jpmrgcxzexfx624ydzupffzh2u0h4xduzc6l9pevjq2tklnh
+onepassworditem: op://Personal/dotfiles-age/Private Key

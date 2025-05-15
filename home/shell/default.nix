@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+    pkgs,
+    config,
+    ...
+}: {
     imports = [
         ./btop.nix
         ./fastfetch.nix
@@ -7,9 +11,19 @@
         ./yazi.nix
         ./lazygit.nix
     ];
-    # Hushlogin to not show login message
+
+    sops.secrets = {
+        "wtfis.env" = {
+            sopsFile = ./wtfis.env;
+            key = "";
+            format = "dotenv";
+        };
+    };
+
     home.file = {
+        # Hushlogin to not show login message
         ".hushlogin".text = "";
+        # ".env.wtfis".source = config.sops.secrets."wtfis.env".path;
     };
 
     # Shell utilities

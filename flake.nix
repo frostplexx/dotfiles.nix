@@ -3,7 +3,6 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-        # nixpkgs.url = "github:nixos/nixpkgs/master";
 
         home-manager = {
             url = "github:nix-community/home-manager/master";
@@ -16,39 +15,21 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Darwin-specific inputs
         darwin = {
             url = "github:lnl7/nix-darwin/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        # Declaratively manage homebrew
+        nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
         nurpkgs = {
             url = "github:nix-community/NUR";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        betterfox = {
-            url = "github:HeitorAugustoLN/betterfox-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
         spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
-
-        # Declaratively manage homebrew
-        nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-        # Homebrew Taps
-        homebrew-core = {
-            url = "github:homebrew/homebrew-core";
-            flake = false;
-        };
-        homebrew-cask = {
-            url = "github:homebrew/homebrew-cask";
-            flake = false;
-        };
-        homebrew-nikitabobko = {
-            url = "github:nikitabobko/homebrew-tap";
-            flake = false;
-        };
 
         # Needed for firefox addons
         nixcord = {
@@ -64,6 +45,25 @@
 
         lazykeys = {
             url = "github:frostplexx/lazykeys";
+        };
+
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # Homebrew Taps
+        homebrew-core = {
+            url = "github:homebrew/homebrew-core";
+            flake = false;
+        };
+        homebrew-cask = {
+            url = "github:homebrew/homebrew-cask";
+            flake = false;
+        };
+        homebrew-nikitabobko = {
+            url = "github:nikitabobko/homebrew-tap";
+            flake = false;
         };
     };
 

@@ -1,11 +1,4 @@
-{
-    pkgs,
-    inputs,
-    ...
-}: {
-    imports = [
-        inputs.betterfox.homeManagerModules.betterfox
-    ];
+{pkgs, ...}: {
     # Enable and configure the default browser
     # programs.default-browser = {
     #     enable = true;
@@ -14,9 +7,6 @@
 
     programs.firefox = {
         enable = true;
-        betterfox = {
-            enable = true;
-        };
         # Managed using homebrew on macos
         package =
             if pkgs.stdenv.isLinux
@@ -95,10 +85,6 @@
             id = 0;
             name = "default";
             isDefault = true;
-            betterfox = {
-                enable = true;
-                enableAllSections = true;
-            };
             # https://nur.nix-community.org/repos/rycee/
             extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
                 onepassword-password-manager
