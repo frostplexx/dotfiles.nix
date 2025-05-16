@@ -25,6 +25,8 @@
         curl
         gnupg
         gh
+        gh-dash # gh cli extension
+        gh-poi # gh cli extension
         hcloud
         just
         jq

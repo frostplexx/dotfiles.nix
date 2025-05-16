@@ -82,7 +82,7 @@ _: {
 
                     cmd-m = "macos-native-minimize";
 
-                    ctrl-alt-cmd-enter = "exec-and-forget kitten quick-access-terminal";
+                    ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
                     # cmd-shift-m = '''exec-and-forget osascript -e '
                     # tell application (path to frontmost application as text)
                     #     try

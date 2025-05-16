@@ -34,6 +34,7 @@
                 cd = "z";
                 gt = "git-forgit";
                 wake = "nix run nixpkgs#fortune; printf '\n\nKeeping PC awake...\a'; caffeinate -d -i -m -s";
+                ghd = "gh dash";
             };
 
             shellAbbrs = {
