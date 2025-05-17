@@ -47,7 +47,7 @@ in {
                 betterSettings.enable = true;
                 betterUploadButton.enable = true;
                 biggerStreamPreview.enable = true;
-                # callTimer.enable = true;
+                fakeProfileThemes.enable = true;
                 clearURLs.enable = true;
                 crashHandler.enable = true;
                 experiments = {
