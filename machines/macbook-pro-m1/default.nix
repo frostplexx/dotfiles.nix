@@ -60,11 +60,12 @@
 
     # System defaults and preferences
     system = {
+        primaryUser = user;
         startup.chime = false;
 
         # Post-activation scripts
         activationScripts = {
-            postUserActivation.text = ''
+            activateSettings = ''
                 # Disable mouse acceleration
                 defaults write NSGlobalDomain com.apple.mouse.linear -bool true
                 defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"

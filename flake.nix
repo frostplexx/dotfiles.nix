@@ -11,17 +11,18 @@
 
         # Lix is a modern, delicious implementation of the Nix package manager
         lix-module = {
-            url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
+            url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
         darwin = {
-            url = "github:lnl7/nix-darwin/master";
+            url = "github:nix-darwin/nix-darwin/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         # Declaratively manage homebrew
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
+        # Needed for firefox addons
         nurpkgs = {
             url = "github:nix-community/NUR";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +32,6 @@
 
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
-        # Needed for firefox addons
         nixcord = {
             url = "github:kaylorben/nixcord";
             inputs.nixpkgs.follows = "nixpkgs";

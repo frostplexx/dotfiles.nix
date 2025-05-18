@@ -99,6 +99,7 @@ return {
         { "<leader>fg",      function() Snacks.picker.grep() end,                                                                      desc = "Live Grep",                   silent = true },
         { "<leader>fh",      function() Snacks.picker.help({ layout = { preset = "vscode", preview = "main" } }) end,                  desc = "Help Tags",                   silent = true },
         { "<leader>ss",      function() Snacks.picker.lsp_workspace_symbols({ layout = { preset = "vscode", preview = "main" } }) end, desc = "LSP Symbols" },
+        { "<leader>ms",      function() Snacks.picker.marks() end,                                                                     desc = "Show Marks" },
         { "<leader>cu",      function() Snacks.picker.undo({ layout = { preset = "vscode", preview = "main" } }) end,                  desc = "Undo Tree" },
 
 
