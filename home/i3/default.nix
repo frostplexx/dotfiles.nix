@@ -67,6 +67,8 @@
                 "${modifier}+space" = "exec rofi -show run";
                 "${modifier}+${shift}+4" = "exec flameshot gui";
 
+                "${modifier}+Tab" = "exec rofi -show window";
+
                 # Layout controls
                 "${ctrl}+${alt}+${modifier}+t" = "layout toggle split";
                 "${ctrl}+${alt}+${modifier}+s" = "layout stacking";
