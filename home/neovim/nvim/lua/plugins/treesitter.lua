@@ -1,8 +1,8 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    version = false, -- last release is way too old and doesn't work on Windows
+    version = false,
     lazy = true,
-    event = "BufRead",
+event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
     dev = false,

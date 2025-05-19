@@ -1,7 +1,6 @@
 return {
     "folke/trouble.nvim",
     lazy = true,
-    -- event = "BufEnter",
     config = function()
         require("trouble").setup({
             icons = {

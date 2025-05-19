@@ -1,7 +1,6 @@
 return {
     "catppuccin/nvim",
     enabled = true,
-    event = "WinEnter",
     name = "catppuccin",
     priority = 1000,
     config = function()
