@@ -76,5 +76,6 @@
         feh
         networkmanager
         imlib2
+        libsecret
     ];
 }
