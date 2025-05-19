@@ -17,7 +17,6 @@
         # mac app store cli
         mas
         betterdisplay
-        apple-sdk_15
     ];
 
     # Homebrew configuration

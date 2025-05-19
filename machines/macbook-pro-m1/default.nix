@@ -18,6 +18,8 @@
         includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
     };
 
+    programs.opsops.enable = true;
+
     # Basic system configuration
     networking = {
         hostName = "macbook-pro-m1";
