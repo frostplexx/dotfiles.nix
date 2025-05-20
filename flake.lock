@@ -183,11 +183,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1747726119,
-        "narHash": "sha256-Ml12iP/Lu0zrPUu2GupPMTifu6iiNAyM8EiDVHqzo+w=",
+        "lastModified": 1747731153,
+        "narHash": "sha256-cr1fVGb54wOeeWWmnUFvxHGG2G571NJgDPCur4YCth4=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "3b429e30cb5bd2379639bf1eb632d319dacccfd0",
+        "rev": "25b3ece10a25f8391b55077573790c0eebf99a05",
         "type": "github"
       },
       "original": {
@@ -255,7 +255,7 @@
         "narHash": "sha256-7EICjbmG6lApWKhFtwvZovdcdORY1CEe6/K7JwtpYfs=",
         "rev": "3c23c6ae2aecc1f76ae7993efe1a78b5316f0700",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/3c23c6ae2aecc1f76ae7993efe1a78b5316f0700.tar.gz?rev=3c23c6ae2aecc1f76ae7993efe1a78b5316f0700"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/3c23c6ae2aecc1f76ae7993efe1a78b5316f0700.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -424,11 +424,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1747726433,
-        "narHash": "sha256-93T2KaP+19raaqqHRgowSk3LYVqXVBefFg9z3vNkY50=",
+        "lastModified": 1747729914,
+        "narHash": "sha256-4DIsMrtcGdEiucnZbwOiSYbJ5EKCNAikErVVNm3jqBg=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "087c4a3279e7369a419f3c95b0d9556ffe91efe9",
+        "rev": "7243546592afeca8373b4b881f257d263023828a",
         "type": "github"
       },
       "original": {
