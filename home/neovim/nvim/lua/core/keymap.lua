@@ -160,6 +160,8 @@ vim.keymap.set('v', '<leader>q', surround_visual_with_quotes, { noremap = true, 
 -- Switch to buffer using <leader>b<bufnr>
 vim.keymap.set('n', '<leader>b', ':<C-u>b', { noremap = true, desc = "Switch to buffer by number" })
 
+vim.keymap.set('n', '\'', '`', { noremap = true, desc = "Remap \' to `" })
+
 
 
 vim.keymap.set('n', "<leader>bf",

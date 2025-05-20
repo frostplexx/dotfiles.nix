@@ -36,7 +36,7 @@ set backupdir=/tmp//
 set directory=/tmp//
 set undodir=/tmp//
 
-" Simple Color Scheme (Catppuccin-inspired)
+" Simple Color Scheme
 highlight Normal ctermfg=255 ctermbg=234
 highlight Comment ctermfg=242
 highlight Constant ctermfg=173

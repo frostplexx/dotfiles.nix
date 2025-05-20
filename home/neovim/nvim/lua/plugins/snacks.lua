@@ -1,8 +1,9 @@
 return {
     "folke/snacks.nvim",
     priority = 1000,
+    lazy = true,
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
     opts = {
         bigfile = {
             enabled = true,
