@@ -19,9 +19,10 @@
         kernelModules = ["kvm-amd"];
         extraModulePackages = [];
         kernelParams = [
-            # "acpi_enforce_resources=lax"
-            # "amd_iommu=on"
-            # "iommu=pt"
+            "acpi_enforce_resources=lax"
+            "amd_iommu=on"
+            "kvm.enable_virt_at_load=0"
+            "iommu=pt"
             # Hardware optimizations
             "zswap.enabled=1"
             # Memory management

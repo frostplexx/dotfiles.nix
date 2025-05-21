@@ -43,6 +43,17 @@
     };
 
     environment.pathsToLink = ["/libexec"];
+    virtualisation.virtualbox = {
+        host = {
+            enable = true;
+            enableExtensionPack = true;
+            # enableKvm = true;
+        };
+        guest = {
+            enable = true;
+            dragAndDrop = true;
+        };
+    };
 
     services = {
         keyd = {
@@ -114,7 +125,7 @@
             daniel = {
                 isNormalUser = true;
                 description = "Daniel";
-                extraGroups = ["networkmanager" "wheel"];
+                extraGroups = ["networkmanager" "wheel" "vboxusers"];
             };
         };
     };
