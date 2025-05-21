@@ -28,12 +28,12 @@ end
 vim.lsp.inlay_hint.enable(true)
 
 -- enable lsp completion
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("frostplexx/attach_lsp", { clear = true }),
-    callback = function(ev)
-        -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
-    end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("frostplexx/attach_lsp", { clear = true }),
+--     callback = function(ev)
+--         vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+--     end,
+-- })
 
 
 -- set default root marker
@@ -58,16 +58,18 @@ vim.diagnostic.config {
                 ['Lua Diagnostics.'] = 'lua',
                 ['Lua Syntax Check.'] = 'lua',
             }
-
-            local message = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
-            if diagnostic.source then
-                message = string.format('%s %s', message, special_sources[diagnostic.source] or diagnostic.source)
-            end
-            if diagnostic.code then
-                message = string.format('%s[%s]', message, diagnostic.code)
-            end
-
-            return message .. ' '
+            local prefix = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
+            local message = diagnostic.message
+            -- local source = ''
+            -- if diagnostic.source then
+            --     source = string.format(' (%s)', special_sources[diagnostic.source] or diagnostic.source)
+            -- end
+            -- local code = ''
+            -- if diagnostic.code then
+            --     code = string.format('[%s]', diagnostic.code)
+            -- end
+            -- return string.format('%s%s%s: %s', prefix, source, code, message)
+            return string.format('%s %s', prefix, message)
         end,
     },
     float = {
