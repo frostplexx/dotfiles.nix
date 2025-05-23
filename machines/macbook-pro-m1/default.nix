@@ -77,6 +77,14 @@
                 defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
                 defaults write NSGlobalDomain AppleAccentColor -int 10;
 
+
+                # Enables HiDPi mode for my low dpi screen
+                if ! command -v displayplacer 2>&1 > /dev/null then
+                  displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:134"
+                else
+                  echo "Couldn't find displayplacer skippinng..."
+                fi
+
                 # turn of spotlight and its indexing
                 sudo mdutil -i off
                 # Reload settings

@@ -1,9 +1,15 @@
 {
-    lib,
     pkgs,
+    lib,
     ...
 }: {
     programs = {
+        # starship = {
+        #     enable = true;
+        #     enableFishIntegration = true;
+        #     enableTransience = true;
+        # };
+
         fish = {
             enable = true;
             plugins = with pkgs.fishPlugins; [

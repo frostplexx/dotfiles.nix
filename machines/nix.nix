@@ -1,6 +1,7 @@
 {
     pkgs,
     lib,
+    inputs,
     ...
 }: {
     # Shared nix settings
@@ -9,6 +10,8 @@
             experimental-features = nix-command flakes
             warn-dirty = false
         '';
+
+        nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
         gc = {
             automatic = true;

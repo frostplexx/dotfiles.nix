@@ -54,6 +54,7 @@
         brews = [
             # "coreutils"
             "wtfis"
+            "displayplacer"
         ];
         casks = [
             "altserver"
