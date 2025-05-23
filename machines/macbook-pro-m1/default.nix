@@ -89,7 +89,7 @@
                 sudo mdutil -i off
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-                sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '${assets}/wallpapers/wallpaper.png'";
+                osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Motion Blue.madesktop"'
                 killall Finder
                 killall Dock
             '';

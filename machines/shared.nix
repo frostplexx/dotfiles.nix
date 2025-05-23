@@ -31,6 +31,7 @@
         just
         jq
         magic-wormhole-rs
+        sops
 
         # Nix utils
         nix-tree
