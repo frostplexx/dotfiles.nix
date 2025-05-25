@@ -16,7 +16,6 @@
         aerospace
         # mac app store cli
         mas
-        betterdisplay
     ];
 
     # Homebrew configuration
