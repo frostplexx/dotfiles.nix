@@ -230,6 +230,10 @@ _: {
                         "if".app-id = "com.aone.keka";
                         run = "layout floating";
                     }
+                    {
+                        "if".app-id = "com.apple.iphonesimulator";
+                        run = "layout floating";
+                    }
                     # Order matters here!
                     # Callbacks are run in order and the firt match counts
                     {
