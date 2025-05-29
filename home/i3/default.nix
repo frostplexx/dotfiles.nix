@@ -53,6 +53,12 @@
                     always = true;
                     notification = false;
                 }
+                {
+                    # Start 1password in the background
+                    command = "steam-run -silent";
+                    always = true;
+                    notification = true;
+                }
             ];
 
             # Keybindings ported from AeroSpace
