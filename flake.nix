@@ -28,8 +28,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
         nixcord = {
@@ -91,7 +89,6 @@
                 "nixcord"
                 "shell"
                 "ssh"
-                "spotify"
             ];
         };
 
@@ -107,7 +104,6 @@
                 "nixcord"
                 "shell"
                 "ssh"
-                "spotify"
             ];
         };
 

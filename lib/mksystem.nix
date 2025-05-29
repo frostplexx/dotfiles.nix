@@ -108,7 +108,6 @@ in
                         # 1Password shell integration
                         inputs._1password-shell-plugins.hmModules.default
                         inputs.nixkit.homeModules.default
-                        inputs.spicetify-nix.homeManagerModules.spicetify
                         inputs.sops-nix.homeManagerModules.sops
                     ];
                     # Apply only the specific modules from hm-modules
