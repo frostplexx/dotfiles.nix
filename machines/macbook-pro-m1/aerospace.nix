@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
     services = {
         jankyborders = {
             enable = true;
@@ -83,6 +83,9 @@ _: {
                     cmd-m = "macos-native-minimize";
 
                     ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
+
+                    cmd-shift-6 = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./screenshot_window.fish}";
+                    ctrl-alt-cmd-z = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./zen_mode.fish}";
                     # cmd-shift-m = '''exec-and-forget osascript -e '
                     # tell application (path to frontmost application as text)
                     #     try

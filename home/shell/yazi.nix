@@ -43,48 +43,18 @@ in {
                 macro_workers = 10;
                 bizarre_retry = 5;
             };
-
-            plugin = {
-                # prepend_fetchers = [
-                #   {
-                #     id = "git";
-                #     name = "*";
-                #     run = "git";
-                #   }
-                #   {
-                #     id = "git";
-                #     name = "*/";
-                #     run = "git";
-                #   }
-                # ];
-            };
         };
 
         plugins = {
             chmod = "${yazi-plugins}/chmod.yazi";
-            full-border = "${yazi-plugins}/full-border.yazi";
-            max-preview = "${yazi-plugins}/max-preview.yazi";
             smart-filter = "${yazi-plugins}/smart-filter.yazi";
-            # git = "${yazi-plugins}/git.yazi";
             vcs-files = "${yazi-plugins}/vcs-files.yazi";
-            starship = pkgs.fetchFromGitHub {
-                owner = "Rolv-Apneseth";
-                repo = "starship.yazi";
-                rev = "6fde3b2d9dc9a12c14588eb85cf4964e619842e6";
-                hash = "sha256-+CSdghcIl50z0MXmFwbJ0koIkWIksm3XxYvTAwoRlDY=";
-            };
         };
         flavors = {
             catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
         };
 
         initLua = ''
-            require("full-border"):setup {
-              -- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
-              type = ui.Border.ROUNDED,
-            }
-            require("starship"):setup()
-            -- require("git"):setup()
         '';
 
         keymap = {

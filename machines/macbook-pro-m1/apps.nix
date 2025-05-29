@@ -69,6 +69,7 @@
             "whisky"
             "mullvadvpn"
             "zoom"
+            "spotify"
         ];
     };
 }
