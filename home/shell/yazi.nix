@@ -25,7 +25,7 @@ in {
         };
 
         settings = {
-            manager = {
+            mgr = {
                 sort_by = "natural";
                 sort_sensitive = false;
                 sort_reverse = false;

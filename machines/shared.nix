@@ -43,8 +43,7 @@
         obsidian
         _1password-cli
         transmission_4
-        # TODO: wait for fix
-        # spotify
+        spotify
         bvi
     ];
 
