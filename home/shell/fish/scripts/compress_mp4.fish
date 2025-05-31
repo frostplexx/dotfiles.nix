@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 function compress_mov_to_mp4
     if test (count $argv) -ne 1
         echo (set_color red)"Usage: compress_mov_to_mp4 input.mov"(set_color normal)

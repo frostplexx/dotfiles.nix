@@ -15,6 +15,8 @@
         enable = true;
         normalQuickPress = true; # Quick press of Caps Lock will send Escape
         includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
+        mode = "custom";
+        customKey = "escape";
     };
 
     programs.opsops.enable = true;
