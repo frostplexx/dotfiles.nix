@@ -59,17 +59,10 @@
             # Mouse
             mouse_hide_wait = "1.0";
 
-            # Bell
-            enable_audio_bell = "no";
-            visual_bell_duration = "0.0";
-            visual_bell_color = "none";
-            window_alert_on_bell = "no";
-
             # Tab bar
             tab_bar_edge = "top";
             tab_bar_style = "powerline";
             tab_powerline_style = "slanted";
-            # tab_title_template = "{index} { tab.active_exe if tab.active_exe not in ('-fish', 'kitten') else title}{tab.last_focused_progress_percent}";
             tab_title_template = "{index} {tab.active_exe.split('/')[-1] if tab.active_exe not in ('-fish', 'kitten') else ''} {title.split('/')[-1] if '/' in title else title}{tab.last_focused_progress_percent}";
             active_tab_font_style = "bold";
             inactive_tab_font_style = "normal";

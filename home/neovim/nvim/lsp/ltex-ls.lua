@@ -20,29 +20,22 @@ return {
     settings = {
         ltex = {
             enabled = { "bibtex", "context", "context.tex", "html", "latex", "markdown", "org", "restructuredtext", "rsweave" },
-            -- Add German as an additional language
             language = "en-US",
-            -- Multiple language dictionaries
             dictionary = {
-                ["en-US"] = {}, -- American English
-                ["en-GB"] = {}, -- British English
-                ["de-DE"] = {}, -- German
+                ["en-US"] = {
+                    "/Users/daniel/dotfiles.nix/home/neovim/ltex/ltex.dictionary.en-US.txt",
+                },
+                ["de-DE"] = {
+                    "/Users/daniel/dotfiles.nix/home/neovim/ltex/ltex.dictionary.en-US.txt",
+                },
             },
-            -- Disable specific rules per language
-            disabledRules = {
-                ["en-US"] = {},
-                ["en-GB"] = {},
-                ["de-DE"] = {},
-            },
-            -- Additional German-specific settings
             additionalRules = {
-                motherTongue = "de-DE", -- Helps with false positives in German
+                motherTongue = "de-DE",
             },
-            -- Support for German language variants
             languageVariants = {
                 ["de-DE"] = {
                     enabled = true,
-                    useAlternativeTypes = true, -- Includes Swiss and Austrian German variations
+                    useAlternativeTypes = true,
                 }
             }
         }

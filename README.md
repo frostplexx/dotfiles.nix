@@ -103,12 +103,12 @@ darwinConfigurations.<hostname> = mkSystem "<foldername>" {
 ```
 ### Add New Programs
 
-If the programs are shared across all configs e.g. neovim, git, ffmpeg then add them to `machines/shared.nix`. 
+If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `machines/shared.nix`. 
 Else add them to your appropriate host config `machines/<hostname>/apps.nix`
 
 ### Home Manager
 
-Home Manager dotfiles are saved in `./home`. 
+Home Manager dot files are saved in `./home`. 
 To add a new module you need to: 
 
 1. Create a folder with a `default.nix` inside `./home/`

@@ -74,5 +74,6 @@ function compress_mov_to_mp4
     echo (set_color green)"Final file size:"(set_color normal) $final_size_mb (set_color green)"MB"(set_color normal)
     echo (set_color green)"Time taken:"(set_color normal) $duration_time (set_color green)"seconds"(set_color normal)
 
-    /etc/profiles/per-user/daniel/bin/kitten notify "File compressed to $final_size_mb MB in $duration_time seconds"
+    tput bel
+
 end
