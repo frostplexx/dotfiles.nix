@@ -76,7 +76,7 @@
                 # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
                 defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
                 defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
-                defaults write NSGlobalDomain AppleAccentColor -int 10;
+                # defaults write NSGlobalDomain AppleAccentColor -int 10;
 
 
                 # Enables HiDPi mode for my low dpi screen
