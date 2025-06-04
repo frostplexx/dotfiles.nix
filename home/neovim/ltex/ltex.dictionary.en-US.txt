@@ -1,4 +1,6 @@
 Daniel
+frostplexx
+Frostplexx
 TODO
 Inama
 LMU
@@ -1403,3 +1405,6 @@ Zod
 ZooKeeper
 Zstd
 bcrypt
+alejandra
+statix
+deadnix

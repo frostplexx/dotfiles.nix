@@ -2,6 +2,7 @@
 {
     pkgs,
     user,
+    system,
     ...
 }: {
     imports = [
@@ -177,7 +178,6 @@
                     "/Applications/Zen.app/"
                     # "/Applications/Firefox.app"
                     # "/Applications/Safari.app"
-                    # "${pkgs.wezterm}/Applications/WezTerm.app"
                     "${pkgs.kitty}/Applications/kitty.app"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
                 ];

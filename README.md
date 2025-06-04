@@ -8,12 +8,12 @@
     </div>
 </p>
 
-This repository contains my personal system configurations for NixOS and MacOS.
+This repository contains my personal system configurations for NixOS and macOS.
 It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
 
 This repository is home to the nix code that builds my systems:
 
-1. NixOS Desktops: NixOS with home-manager, kde plasma, steam, etc.
+1. NixOS Desktops: NixOS with home-manager, KDE plasma, steam, etc.
 2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
 
 See [./machines](./machines) for details of each host.<br>
@@ -45,15 +45,15 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 #### Manual
 
-Clone this repo into your home directory and cd into it.
+Clone this repo into your home directory and `cd` into it.
 ```bash
 git clone https://github.com/frostplexx/dotfiles.nix.git ~/
 cd ~/dotfiles.nix
 
 ```
 
-##### Installing on MacOS
-On macOS run `./scripts/system-bootstrap.sh` to install Lix.
+##### Installing on macOS
+Run `./scripts/system-bootstrap.sh` to install Lix.
 The script will then also deploy the first generation on your device
 
 ##### Installing on NixOS
@@ -74,10 +74,10 @@ The Makefile offers the following targets that can be run for managing the syste
 - `clean`:          remove old system generations (runs `nh clean all`)
 - `repair`:         verify nix store and repair
 - `format`:         Format nix files
-- `diff`:           Show diff between current and commited changes
+- `diff`:           Show diff between current and committed changes
 - `update-refs`:    Update every fetchFromGithub with its newest commit and hash
 
-In addition `nix-tree`, `nix-output-monitor`, `nh` and `nvd` come installed.
+In addition, `nix-tree`, `nix-output-monitor`, `nh` and `nvd` come installed.
 
 ## Management
 
@@ -179,4 +179,4 @@ Other dotfiles and flakes:
 - https://github.com/dustinlyons/nixos-config
 
 
-[^1]: After the first deployment `just` and its alias `j` will be available system wide
+[^1]: After the first deployment `just` and its alias `j` will be available system-wide
