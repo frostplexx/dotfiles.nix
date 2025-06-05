@@ -185,11 +185,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1749086686,
-        "narHash": "sha256-YgVTEugylWwJxU5RxWDVu6QTlOmyb053rQXd3hUlu+I=",
+        "lastModified": 1749101118,
+        "narHash": "sha256-+TeLPkD05zInMH7J4ZjngM7K02gVelXgjZT1VUGPq7o=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "6dadaee6bd5493b13f1ca88c1184c71e6fe9e0a2",
+        "rev": "6c84111af3e62d46249355f24380cdb1d7703c56",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1749090539,
-        "narHash": "sha256-TrRJ9aotI/biBH4JNhPRRT829o9xnIzHW37Ih5UXHYU=",
+        "lastModified": 1749105259,
+        "narHash": "sha256-Y3W13qehWGoEgFIavXzELj67mjAfPF8CIclE9VIyZU8=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "29a8318aaa4570d4fa17e41f2993aa3ada2a2b31",
+        "rev": "0c3addf61bc59b3f71d55cfcc68b0dbd76ad4626",
         "type": "github"
       },
       "original": {
@@ -227,22 +227,6 @@
       "original": {
         "owner": "nikitabobko",
         "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
-    "homebrew-vladdoster": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1665942242,
-        "narHash": "sha256-HM4ZqBTR2u7V5Jg6k3ENvFbZMHUncJW5sZF1Gxv/Q0Q=",
-        "owner": "vladdoster",
-        "repo": "homebrew-formulae",
-        "rev": "cd0c34f48042860bcbb087d85c8d1614118581b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vladdoster",
-        "repo": "homebrew-formulae",
         "type": "github"
       }
     },
@@ -407,11 +391,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1749090456,
-        "narHash": "sha256-vXMK9kBmDbeQ5+AFhTaAujGP6kDE5HWyB9CDkPuLluU=",
+        "lastModified": 1749092205,
+        "narHash": "sha256-2QTM4E7QljCYsGNnCiibgFjx/K5hvQ7VkCHDY05rU4Y=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f06b1b5a1d06a912bd23425a9abaea6f83a2324d",
+        "rev": "bf9746362fc9a50cdf053883f0c06a4d9b93e3ca",
         "type": "github"
       },
       "original": {
@@ -428,7 +412,6 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-nikitabobko": "homebrew-nikitabobko",
-        "homebrew-vladdoster": "homebrew-vladdoster",
         "lazykeys": "lazykeys",
         "lix-module": "lix-module",
         "nix-homebrew": "nix-homebrew",
