@@ -1,8 +1,4 @@
 {pkgs, ...}: let
-    image = builtins.fetchurl {
-        url = "https://cdn.osxdaily.com/wp-content/uploads/2017/12/classic-mac-os-tile-wallpapers-4.png";
-        sha256 = "1mf6298l74ll251z2qrr9ld5mzn4ncgdr4sg5gz6h8sd39pzj5wz";
-    };
     connectionScript = pkgs.writeShellScriptBin "script" ''
         export DISPLAY=:0
         ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 1920x1080 --rate 144
@@ -32,7 +28,7 @@ in {
                 apps = [
                     {
                         name = "Desktop";
-                        image-path = "${image}";
+                        # image-path = "${image}";
                         prep-cmd = [
                             {
                                 do = "${connectionScript}/bin/script";
@@ -45,7 +41,7 @@ in {
                     {
                         name = "Steam Big Picture";
                         image-path = "${steamImage}";
-                        cmd = "${pkgs.steam}/bin/steam -bigpicture";
+                        cmd = "steam -bigpicture";
                         prep-cmd = [
                             {
                                 do = "${connectionScript}/bin/script";
@@ -54,7 +50,7 @@ in {
                         ];
                         exclude-global-prep-cmd = "false";
                         auto-detach = "true";
-                        detached = ["${pkgs.steam}/bin/steam"];
+                        detached = ["steam"];
                     }
                 ];
             };

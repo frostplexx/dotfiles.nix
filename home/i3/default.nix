@@ -55,7 +55,7 @@
                 }
                 {
                     # Start 1password in the background
-                    command = "steam-run -silent";
+                    command = "steam -silent";
                     always = true;
                     notification = true;
                 }

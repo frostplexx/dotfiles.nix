@@ -90,6 +90,7 @@
                 "nixcord"
                 "shell"
                 "ssh"
+                "zed"
             ];
         };
 

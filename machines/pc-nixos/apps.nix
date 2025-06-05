@@ -20,6 +20,10 @@
             enable = true;
             polkitPolicyOwners = ["daniel"];
         };
+        gamescope = {
+            enable = true;
+            capSysNice = true;
+        };
 
         steam = {
             enable = true;
