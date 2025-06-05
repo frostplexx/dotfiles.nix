@@ -230,6 +230,22 @@
         "type": "github"
       }
     },
+    "homebrew-vladdoster": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1665942242,
+        "narHash": "sha256-HM4ZqBTR2u7V5Jg6k3ENvFbZMHUncJW5sZF1Gxv/Q0Q=",
+        "owner": "vladdoster",
+        "repo": "homebrew-formulae",
+        "rev": "cd0c34f48042860bcbb087d85c8d1614118581b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vladdoster",
+        "repo": "homebrew-formulae",
+        "type": "github"
+      }
+    },
     "lazykeys": {
       "locked": {
         "lastModified": 1748592197,
@@ -412,6 +428,7 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-nikitabobko": "homebrew-nikitabobko",
+        "homebrew-vladdoster": "homebrew-vladdoster",
         "lazykeys": "lazykeys",
         "lix-module": "lix-module",
         "nix-homebrew": "nix-homebrew",

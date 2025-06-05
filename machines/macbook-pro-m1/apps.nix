@@ -29,22 +29,21 @@
         };
         masApps = {
             # Safari extensions
-            # "1Password for Safari" = 1569813296;
+            "1Password for Safari" = 1569813296;
             # "AdGuard for Safari" = 1440147259;
-            # "SponsorBlock for Safari" = 1573461917;
-            # "Raycast Companion" = 6738274497;
-            # "Super Agent for Safari" = 1568262835;
-            # "Noir" = 1592917505;
-            # "Tailscale" = 1475387142;
-            # "Obsidian Web Clipper" = 6720708363;
+            "SponsorBlock for Safari" = 1573461917;
+            "Raycast Companion" = 6738274497;
+            "Noir" = 1592917505;
+            "Obsidian Web Clipper for Safari" = 6720708363;
 
             "Xcode" = 497799835;
             "Things" = 904280696;
             "eduVPN" = 1317704208;
             "Goodnotes" = 1444383602;
             "WhatsApp" = 310633997;
-            "Windows App" = 1295203466;
-            "Parcel" = 639968404;
+            # "Windows App" = 1295203466;
+            "Testflight" = 899247664;
+            "Tailscale" = 1475387142;
         };
         # This doesn't work, taps are defined in flake.nix and then mksystem.nix
         # taps = [];
