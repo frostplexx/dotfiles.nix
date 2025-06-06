@@ -63,7 +63,6 @@
             url = "github:nikitabobko/homebrew-tap";
             flake = false;
         };
-
     };
 
     outputs = {nixpkgs, ...} @ inputs: let

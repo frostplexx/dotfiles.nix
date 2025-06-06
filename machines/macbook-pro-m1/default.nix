@@ -27,7 +27,7 @@
         hostName = "macbook-pro-m1";
         computerName = "macbook-pro-m1";
         dns = [
-            "9.9.9.9"
+            "9.9.9.10"
         ];
         knownNetworkServices = [
             "Wi-Fi"
