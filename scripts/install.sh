@@ -189,7 +189,7 @@ deploy_flake() {
         config=$(echo "$NIXOS_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
 
         print_status "Rebuilding NixOS configuration..."
-        nixos-rebuild switch --flake "$HOME/dotfiles.nix#""$config" 
+        nixos-rebuild --extra-experimental-features nix-command --extra-experimental-features flakes switch --flake "$HOME/dotfiles.nix#""$config" 
         
         print_header "INSTALLATION COMPLETE"
         print_success "Your NixOS system has been configured"
