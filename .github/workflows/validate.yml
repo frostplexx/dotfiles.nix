@@ -50,19 +50,35 @@ jobs:
           fi
 
 
-  # flake-check:
-  #   name: Test Nix Configurations
-  #   needs: [security-check, lint]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Install Nix
-  #       uses: DeterminateSystems/nix-installer-action@v17
-  #     - name: Enable Nix Flakes
-  #       run: |
-  #         mkdir -p ~/.config/nix
-  #         echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-  #     - name: Run Check
-  #       run: |
-  #         echo "Checking flake config"
-  #         nix flake check
+  test-configurations:
+    name: Test Nix Configurations
+    needs: [security-check, lint]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
+        include:
+          - os: macos-latest
+            nix_cmd: "darwin"
+            nix_host: "mac"
+            # - os: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3 # v17
+
+      - name: Install Just
+        uses: extractions/setup-just@v3
+        with:
+          just-version: "1.40.0"
+
+      - name: Enable Nix Flakes
+        run: |
+          mkdir -p ~/.config/nix
+          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+
+      - name: Check Configuration
+        run: |
+          nix run nixpkgs#nh -- ${{ matrix.nix_cmd }} build --no-nom -u -H ${{ matrix.nix_host }} .
