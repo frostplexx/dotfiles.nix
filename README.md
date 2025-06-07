@@ -40,6 +40,7 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 #### Automatic
 
 ```bash
+# Run in a terminal:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
 ```
 
@@ -53,16 +54,20 @@ cd ~/dotfiles.nix
 ```
 
 ##### Installing on macOS
-Run `./scripts/system-bootstrap.sh` to install Nix.
-The script will then also deploy the first generation on your device
+1. Install Determinate Nix from https://docs.determinate.systems.
+2. Run `sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake <path/to/flake>#<config-name>`
 
 ##### Installing on NixOS
-Run `nix run nixpkgs#just -- deploy <hostname>`[^1] to deploy the system.
+Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the system.
 
-#### After Installing
+#### Post-install Checklist
 
-- Reboot the computer or log out and back in for all the changes to take effect.
-- Run `generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
+- [ ] Reboot the computer or log out and back in for all the changes to take effect.
+- [ ] Log into 1Password and 1Password-cli
+- [ ] Enable SSH Agent and CLI integration in 1Password settings
+- [ ] Run `determinate-nixd login`
+- [ ] Run `generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
+- [ ] Restore folders from Time Machine
 
 ### Available Commands
 
@@ -177,6 +182,5 @@ Other dotfiles and flakes:
 - https://github.com/ryan4yin/nix-config/blob/main/README.md?plain=1
 - https://github.com/mitchellh/nixos-config
 - https://github.com/dustinlyons/nixos-config
+- https://github.com/wimpysworld/nix-config
 
-
-[^1]: After the first deployment `just` and its alias `j` will be available system-wide

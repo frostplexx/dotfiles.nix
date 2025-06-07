@@ -63,7 +63,6 @@
             "onyx"
             "orbstack"
             "1password@beta"
-            "proxyman"
             "zen"
             "whisky"
             "mullvadvpn"
