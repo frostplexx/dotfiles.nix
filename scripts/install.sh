@@ -59,7 +59,7 @@ check_tools() {
     if ! command -v jq > /dev/null; then return 1; fi # this exists on mac always
 
     if [ "$OS_TYPE" = "Darwin" ]; then
-        if ! xcode-select -p >/dev/null 2>&1; then
+        if xcode-select -p >/dev/null 2>&1; then
             return 1;
         fi
     fi
