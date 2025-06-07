@@ -36,7 +36,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Install Just
-        uses: extractions/setup-just@v2
+        uses: extractions/setup-just@v3
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
