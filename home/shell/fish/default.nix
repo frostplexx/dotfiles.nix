@@ -78,6 +78,8 @@
     # tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Few icons' --transient=Yes
     # Custom activation script to configure tide
     home.activation.configureTide = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      # Only run if we're inside kitty terminal
+      if [ "$TERM" = "xterm-kitty" ] || [ -n "$KITTY_WINDOW_ID" ]; then
         # Launch a kitty overlay terminal to configure tide without disturbing the current session
         $DRY_RUN_CMD ${pkgs.kitty}/bin/kitten @ launch --type=overlay --title="Tide Configuration" --copy-env -- ${pkgs.fish}/bin/fish -C "
           set -x SKIP_FF 1
@@ -88,5 +90,6 @@
           # sleep 1
           exit 0
         "
+      fi
     '';
 }
