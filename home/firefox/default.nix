@@ -1,9 +1,9 @@
 {pkgs, ...}: {
     # Enable and configure the default browser
-    # programs.default-browser = {
-    #     enable = true;
-    #     browser = "zen";
-    # };
+    programs.default-browser = {
+        enable = true;
+        browser = "zen";
+    };
 
     programs.firefox = {
         enable = true;

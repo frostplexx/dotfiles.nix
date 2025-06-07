@@ -10,10 +10,7 @@
         };
 
         # Lix is a modern, delicious implementation of the Nix package manager
-        lix-module = {
-            url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
         darwin = {
             url = "github:nix-darwin/nix-darwin/master";

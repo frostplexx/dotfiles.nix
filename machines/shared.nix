@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+    pkgs,
+    system,
+    inputs,
+    ...
+}: {
     # Nix settings import
     imports = [
         ./nix.nix
@@ -45,6 +50,8 @@
         transmission_4
         spotify
         bvi
+
+        inputs.determinate.packages.${system}.default
     ];
 
     # Base fonts
