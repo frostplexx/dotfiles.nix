@@ -180,13 +180,14 @@ deploy_flake() {
         done < /dev/tty
 
         # Deploy the chosen configuration
-	    sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "$HOME/dotfiles.nix#""$config"
+	sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "$HOME/dotfiles.nix#""$config"
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
 
         local NIXOS_CONFIGS
         local config
         NIXOS_CONFIGS=$(nix --extra-experimental-features nix-command --extra-experimental-features flakes eval --impure --json "$HOME/dotfiles.nix"#nixosConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-        configs=("$(echo "$NIXOS_CONFIGS" | jq -r '.[]')")
+        
+	configs=("$(echo "$NIXOS_CONFIGS" | jq -r '.[]')")
 
   	echo "Please select a configuration:"
         select config in "${configs[@]}"; do
@@ -202,6 +203,8 @@ deploy_flake() {
         
         print_header "INSTALLATION COMPLETE"
         print_success "Your NixOS system has been configured"
+    else
+    	echo -e "${RED} Couldn't determine OS"
     fi
 
 }
