@@ -169,6 +169,13 @@
         printing.enable = true;
     };
 
+    programs.nh = {
+        enable = true;
+        clean.enable = true;
+        clean.extraArgs = "--keep-since 4d --keep 3";
+        flake = "/home/daniel/dotfiles.nix";
+    };
+
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];

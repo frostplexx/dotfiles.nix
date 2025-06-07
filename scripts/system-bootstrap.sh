@@ -10,23 +10,6 @@ function check_platform() {
     fi
 }
 
-function install_nix() {
-    if ! command -v nix >/dev/null 2>&1; then
-	curl -L https://install.determinate.systems/determinate-pkg/stable/Universal --output /tmp/detnix-installer.pkg
-    	sudo installer -verbose -pkg /tmp/detnix-installer.pkg -target /
-	rm /tmp/detnix-installer.pkg
- 	if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-            echo -e "${SUCCESS} Nix installed and environment loaded!"
-        else
-            echo -e "${ERROR} Failed to find nix-daemon.sh to source environment"
-            exit 1
-        fi
-    else
-        echo -e "${WARN} Nix already installed"
-    fi
-}
-
 function setup_nix_darwin() {
     if ! command -v darwin-rebuild > /dev/null 2>&1; then
         echo -e "${INFO} Installing nix-darwin and deploying first generation..."
@@ -55,7 +38,7 @@ function setup_nix_darwin() {
 
         # Deploy the chosen configuration
         #nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"
-	sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake /Users/daniel/dotfiles.nix#"$config"
+	    sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake /Users/daniel/dotfiles.nix#"$config"
 
 
         echo -e "${SUCCESS} deployed successfully!"

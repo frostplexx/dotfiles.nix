@@ -129,8 +129,16 @@
                 _HIHideMenuBar = true;
                 AppleICUForce24HourTime = true;
                 NSAutomaticCapitalizationEnabled = false;
-                AppleInterfaceStyleSwitchesAutomatically = true;
+                AppleInterfaceStyleSwitchesAutomatically = false;
                 AppleInterfaceStyle = "Dark";
+                AppleMeasurementUnits = "Centimeters";
+                AppleMetricUnits = 1;
+                AppleTemperatureUnit = "Celsius";
+
+                NSAutomaticDashSubstitutionEnabled = false;
+                NSAutomaticPeriodSubstitutionEnabled = false;
+                NSAutomaticQuoteSubstitutionEnabled = false;
+                NSAutomaticSpellingCorrectionEnabled = true;
 
                 # File dialogs
                 NSNavPanelExpandedStateForSaveMode = true;
@@ -140,6 +148,10 @@
                 AppleFontSmoothing = 1;
 
                 "com.apple.sound.beep.feedback" = 0;
+            };
+
+            SoftwareUpdate = {
+                AutomaticallyInstallMacOSUpdates = true;
             };
 
             # Finder preferences
@@ -209,9 +221,34 @@
                 BatteryShowPercentage = false;
             };
 
+            # firewall settings
+            alf = {
+                # 0 = disabled 1 = enabled 2 = blocks all connections except for essential services
+                globalstate = 1;
+                loggingenabled = 0;
+                stealthenabled = 1;
+            };
+
             # Additional user preferences
             CustomUserPreferences = {
                 NSGlobalDomain.WebKitDeveloperExtras = true;
+
+                # Turn on app auto-update
+                "com.apple.commerce".AutoUpdate = true;
+
+                "com.apple.AdLib" = {
+                    allowApplePersonalizedAdvertising = false;
+                };
+
+                "com.apple.SoftwareUpdate" = {
+                    AutomaticCheckEnabled = true;
+                    # Check for software updates daily, not just once per week
+                    ScheduleFrequency = 1;
+                    # Download newly available updates in background
+                    AutomaticDownload = 1;
+                    # Install System data files & security updates
+                    CriticalUpdateInstall = 1;
+                };
 
                 "com.apple.finder" = {
                     ShowExternalHardDrivesOnDesktop = true;
@@ -221,11 +258,12 @@
                     _FXSortFoldersFirst = true;
                     ShowTabView = false;
                     FXPreferredViewStyle = "Nlsv";
-                    FXDefaultSearchScope = "SCcf";
-                    NewWindowTargetPath = "file:///Users/${user}/Downloads/";
+                    FXDefaultSearchScope = "SCcf"; # Search current folder by default
+                    NewWindowTargetPath = "file:///Users/${user}/Downloads";
                 };
 
                 "com.apple.desktopservices" = {
+                    # Avoid creating .DS_Store files on network or USB volumes
                     DSDontWriteNetworkStores = true;
                     DSDontWriteUSBStores = true;
                 };

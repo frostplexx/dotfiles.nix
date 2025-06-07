@@ -4,18 +4,15 @@
     inputs,
     ...
 }: {
-
-  # TODO: Rework this
-    # Shared nix settings
     environment.etc."nix/nix.custom.conf".text = ''
         lazy-trees = true
         experimental-features = nix-command flakes
         warn-dirty = false
     '';
 
+    # Determinate uses its own daemon to manage the Nix installation that
+    # conflicts with nix-darwin’s native Nix management.
     nix = {
-        # Determinate uses its own daemon to manage the Nix installation that
-        # conflicts with nix-darwin’s native Nix management.
         enable =
             if pkgs.stdenv.isDarwin
             then false
