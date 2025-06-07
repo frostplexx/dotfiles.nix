@@ -175,9 +175,9 @@
                 # Pinned apps
                 persistent-apps = [
                     "/Applications/Things3.app"
-                    # "/Applications/Zen.app/"
+                    "/Applications/Zen.app/"
                     # "/Applications/Firefox.app"
-                    "/Applications/Safari.app"
+                    # "/Applications/Safari.app"
                     "${pkgs.kitty}/Applications/kitty.app"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
                 ];
