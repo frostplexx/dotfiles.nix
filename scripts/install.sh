@@ -58,10 +58,8 @@ check_tools() {
     if ! command -v curl > /dev/null; then return 1; fi # check for curl
     if ! command -v jq > /dev/null; then return 1; fi # this exists on mac always
 
-    if [ "$OS_TYPE" = "Darwin" ]; then
-        if xcode-select -p >/dev/null 2>&1; then
-            return 1;
-        fi
+    if [ "$OS_TYPE" = "Darwin" ] && ! xcode-select -p >/dev/null 2>&1; then
+        return 1;
     fi
 
     return 0;
