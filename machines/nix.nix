@@ -8,7 +8,10 @@
     nix = {
         # Determinate uses its own daemon to manage the Nix installation that
         # conflicts with nix-darwin’s native Nix management.
-        enable = if pkgs.stdenv.isDarwin then false else true;
+        enable =
+            if pkgs.stdenv.isDarwin
+            then false
+            else true;
         # Disable channels
         channel.enable = false;
         extraOptions = ''

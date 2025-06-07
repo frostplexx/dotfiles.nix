@@ -54,7 +54,9 @@ function setup_nix_darwin() {
         done < /dev/tty
 
         # Deploy the chosen configuration
-        nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"
+        #nix run --extra-experimental-features "nix-command flakes" nixpkgs#nh -- darwin switch -H "$config" "$HOME/dotfiles.nix"
+	sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake /Users/daniel/dotfiles.nix#"$config"
+
 
         echo -e "${SUCCESS} deployed successfully!"
     else
