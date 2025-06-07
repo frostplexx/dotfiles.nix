@@ -222,7 +222,7 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     check_nix; nix_installed=$?
     check_flake; flake_exists=$?
     
-    echo -e "${YELLOW}This script will help you set up your ${OS_TYPE}. It will:"
+    echo -e "${YELLOW}This script will help you set up nix for ${OS_TYPE}. It will:"
     echo -e "${YELLOW}"
     # Check exit codes (0 = success, 1 = failure)
     if [ $tools_installed -ne 0 ]; then echo -e "• Install required tools like git, curl and jq"; fi
