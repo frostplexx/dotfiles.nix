@@ -12,10 +12,10 @@ function check_platform() {
 
 function install_nix() {
     if ! command -v nix >/dev/null 2>&1; then
-        echo -e "${INFO} Installing Nix..."
-        yes | curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
-        # Source Nix immediately
-        if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+	curl -L https://install.determinate.systems/determinate-pkg/stable/Universal --output /tmp/detnix-installer.pkg
+    	sudo installer -verbose -pkg /tmp/detnix-installer.pkg -target /
+	rm /tmp/detnix-installer.pkg
+ 	if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
             source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
             echo -e "${SUCCESS} Nix installed and environment loaded!"
         else
