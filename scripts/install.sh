@@ -186,7 +186,7 @@ deploy_flake() {
         local NIXOS_CONFIGS
         local config
         NIXOS_CONFIGS=$(nix --extra-experimental-features nix-command --extra-experimental-features flakes eval --impure --json "$HOME/dotfiles.nix"#nixosConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-        config=$(echo "$NIXOS_CONFIGS" |nix run nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
+        config=$(echo "$NIXOS_CONFIGS" |nix --extra-experimental-features nix-command --extra-experimental-features flakes run --extra-experimental-features nix-command --extra-experimental-features flakes nixpkgs#jq -- -r '.[]' | nix run nixpkgs#fzf)
 
         print_status "Rebuilding NixOS configuration..."
         nixos-rebuild switch --flake "$HOME/dotfiles.nix#""$config" 
