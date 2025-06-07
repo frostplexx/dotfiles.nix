@@ -86,9 +86,12 @@ install_tools() {
             print_success "Xcode Command Line Tools already installed."
         fi
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
-        nix-env -i git
-        nix-env -i curl
-        nix-env -i jq
+        print_status "Installig Git..."
+        nix-env -i git > /dev/null
+        print_status "Installig cUrl..."
+        nix-env -i curl > /dev/null
+        print_status "Installig jq..."
+        nix-env -i jq > /dev/null
     fi
 }
 
@@ -105,16 +108,16 @@ install_nix(){
 	    rm /tmp/detnix-installer.pkg
  	    if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
                 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-                echo -e "${SUCCESS} Nix installed and environment loaded!"
+                print_success "Nix installed and environment loaded!"
             else
-                echo -e "${ERROR} Failed to find nix-daemon.sh to source environment"
+                print_error "Failed to find nix-daemon.sh to source environment"
                 exit 1
             fi
         else
             echo -e "${WARN} Nix already installed"
         fi
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
-        echo -e "${RED}Couldnt find nix on NixOS...this is a big problem, arborting"
+        print_error "Couldnt find nix on NixOS...this is a big problem, arborting"
     fi
 }
 
@@ -155,7 +158,7 @@ install_flake(){
 
 deploy_flake() {
     if [ "$OS_TYPE" = "Darwin" ]; then
-        echo -e "${INFO} Installing nix-darwin and deploying first generation..."
+        print_status "Installing nix-darwin and deploying first generation..."
 
         local DARWIN_CONFIGS
         local config
@@ -175,7 +178,7 @@ deploy_flake() {
             if [ -n "$config" ]; then
                 break
             else
-                echo "Invalid choice, please try again."
+                print_error "Invalid choice, please try again."
             fi
         done < /dev/tty
 
@@ -194,14 +197,12 @@ deploy_flake() {
             if [ -n "$config" ]; then
                 break
             else
-                echo "Invalid choice, please try again."
+                print_error "Invalid choice, please try again."
             fi
         done < /dev/tty       
 	
  	print_status "Rebuilding NixOS configuration..."
         nixos-rebuild switch --flake "$HOME/dotfiles.nix#""$config" 
-        
-        print_header "INSTALLATION COMPLETE"
         print_success "Your NixOS system has been configured"
     else
     	echo -e "${RED} Couldn't determine OS"
@@ -212,7 +213,7 @@ deploy_flake() {
 
 if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release); then
     echo
-    echo -e "${BOLD}${BLUE}❄️ Nix Bootstrap Installer ❄️${BLUE}"
+    print_header "❄️ Nix Bootstrap Installer ❄️"
     echo
     echo
     
@@ -221,9 +222,8 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     check_nix; nix_installed=$?
     check_flake; flake_exists=$?
     
-    echo -e "${YELLOW}This script will help you set up your ${OS_TYPE} environment with Nix${RESET}."
-    echo -e "${YELLOW}It will:"
-    echo -e "${MAGENTA}"
+    echo -e "${YELLOW}This script will help you set up your ${OS_TYPE}. It will:"
+    echo -e "${YELLOW}"
     # Check exit codes (0 = success, 1 = failure)
     if [ $tools_installed -ne 0 ]; then echo -e "• Install git and curl"; fi
     if [ $nix_installed -ne 0 ]; then echo -e "• Install determinate nix"; fi
@@ -242,6 +242,10 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     if [ $flake_exists -ne 0 ]; then install_flake ; fi
 
     deploy_flake
+
+
+    echo
+    print_header " == INSTALLATION COMPLETE =="
 
 else
     print_error "Installation is only supported on macOS and NixOS"
