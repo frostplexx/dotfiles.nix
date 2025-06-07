@@ -131,7 +131,7 @@ check_flake(){
 
 install_flake(){
     # Get repo URL and destination from arguments
-    print_status "Cloning repository..."
+    print_status "Cloning dotfiles.nix repository..."
     
     if [ -d "$DEST_DIR" ]; then
         read -p "Directory $DEST_DIR already exists. Override? [y/N] " -n 1 -r < /dev/tty
