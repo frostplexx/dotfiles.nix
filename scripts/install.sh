@@ -88,7 +88,7 @@ install_tools() {
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
         print_status "Installig Git..."
         nix-env -i git > /dev/null
-        print_status "Installig cUrl..."
+        print_status "Installig cURL..."
         nix-env -i curl > /dev/null
         print_status "Installig jq..."
         nix-env -i jq > /dev/null
@@ -225,7 +225,7 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     echo -e "${YELLOW}This script will help you set up your ${OS_TYPE}. It will:"
     echo -e "${YELLOW}"
     # Check exit codes (0 = success, 1 = failure)
-    if [ $tools_installed -ne 0 ]; then echo -e "• Install git and curl"; fi
+    if [ $tools_installed -ne 0 ]; then echo -e "• Install required tools like git, curl and jq"; fi
     if [ $nix_installed -ne 0 ]; then echo -e "• Install determinate nix"; fi
     if [ $flake_exists -ne 0 ]; then echo -e "• Clone the flake"; fi
     echo -e "• Deploy the flake"
