@@ -41,7 +41,7 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 ```bash
 # Run in a terminal:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
+/usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
 ```
 
 #### Manual
