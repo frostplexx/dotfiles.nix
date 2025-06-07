@@ -8,7 +8,7 @@
     nix = {
         # Determinate uses its own daemon to manage the Nix installation that
         # conflicts with nix-darwin’s native Nix management.
-        enable = false;
+        enable = if pkgs.stdenv.isDarwin then false else true;
         # Disable channels
         channel.enable = false;
         extraOptions = ''
@@ -30,6 +30,7 @@
             #    2. command line args `--options substituters http://xxx`
             substituters = [
                 "https://cache.nixos.org"
+                "https://install.determinate.systems"
                 # nix community's cache server
                 "https://nix-community.cachix.org"
             ];
@@ -37,6 +38,7 @@
             trusted-public-keys = [
                 # nix community's cache server public key
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
             ];
         };
     };

@@ -9,7 +9,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Lix is a modern, delicious implementation of the Nix package manager
         determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
         darwin = {
