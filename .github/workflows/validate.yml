@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: GitGuardian scan
-        uses: GitGuardian/ggshield/actions/secret@v1.40.0
+        uses: GitGuardian/ggshield/actions/secret@v1.38.1
         env:
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
@@ -36,7 +36,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Install Just
-        uses: extractions/setup-just@v3
+        uses: extractions/setup-just@v2
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
@@ -50,35 +50,84 @@ jobs:
           fi
 
 
+  detect-configs:
+    name: Detect Configurations
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+      - name: Generate Configuration Matrix
+        id: set-matrix
+        shell: bash
+        run: |
+          # Use nix eval to get configurations directly from the flake
+          echo "Detecting NixOS configurations..."
+          NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
+          
+          echo "Detecting Darwin configurations..."
+          DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
+          
+          # Debug output
+          echo "Detected NixOS configs: $NIXOS_CONFIGS"
+          echo "Detected Darwin configs: $DARWIN_CONFIGS"
+          
+          # Create a simpler matrix JSON formation approach
+          echo "Building matrix JSON..."
+          MATRIX_JSON='{"include":['
+          
+          # Process NixOS configs
+          NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
+          if [ "$NIXOS_ARRAY" != "[]" ]; then
+            for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"ubuntu-latest\","
+              MATRIX_JSON+="\"type\":\"nixos\","
+              MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
+              MATRIX_JSON+="},"
+            done
+          fi
+          
+          # Process Darwin configs
+          DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
+          if [ "$DARWIN_ARRAY" != "[]" ]; then
+            for config in $(echo "$DARWIN_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"macos-latest\","
+              MATRIX_JSON+="\"type\":\"darwin\","
+              MATRIX_JSON+="\"config\":\"darwinConfigurations.$config.system\""
+              MATRIX_JSON+="},"
+            done
+          fi
+          
+          # Remove trailing comma if it exists
+          MATRIX_JSON=${MATRIX_JSON%,}
+          MATRIX_JSON+="]}"
+          
+          echo "Matrix JSON: $MATRIX_JSON"
+          
+          echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
+
   test-configurations:
     name: Test Nix Configurations
-    needs: [security-check, lint]
+    needs: [security-check, lint, detect-configs]
     runs-on: ${{ matrix.os }}
     strategy:
-      matrix:
-        # os: [ubuntu-latest, macos-latest]
-        os: [macos-latest]
-        include:
-          - os: macos-latest
-            nix_cmd: "darwin"
-            nix_host: "mac"
-            # - os: ubuntu-latest
+      fail-fast: false
+      matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
+      - uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3 # v17
-
-      - name: Install Just
-        uses: extractions/setup-just@v3
-        with:
-          just-version: "1.40.0"
-
+        uses: DeterminateSystems/nix-installer-action@v16
       - name: Enable Nix Flakes
         run: |
           mkdir -p ~/.config/nix
           echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
-      - name: Check Configuration
+      - name: Build Configuration
         run: |
-          nix run nixpkgs#nh -- ${{ matrix.nix_cmd }} build --no-nom -u -H ${{ matrix.nix_host }} .
+          echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
+          nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
