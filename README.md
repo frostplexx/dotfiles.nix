@@ -53,7 +53,7 @@ cd ~/dotfiles.nix
 ```
 
 ##### Installing on macOS
-Run `./scripts/system-bootstrap.sh` to install Lix.
+Run `./scripts/system-bootstrap.sh` to install Nix.
 The script will then also deploy the first generation on your device
 
 ##### Installing on NixOS

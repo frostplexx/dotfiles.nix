@@ -6,25 +6,18 @@
 }: {
     # Shared nix settings
     nix = {
+        # Determinate uses its own daemon to manage the Nix installation that
+        # conflicts with nix-darwin’s native Nix management.
+        enable = false;
+        # Disable channels
+        channel.enable = false;
         extraOptions = ''
             experimental-features = nix-command flakes
             warn-dirty = false
         '';
 
+        # Make flake registry and nix path match flake inputs
         nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-        gc = {
-            automatic = true;
-            # interval = {
-            #     Weekday = 0;
-            #     Hour = 2;
-            #     Minute = 0;
-            # };
-            options = "--delete-older-than 30d";
-        };
-
-        # Set auto optimise store and garbage collection
-        optimise.automatic = true;
 
         settings = {
             extra-platforms = ["aarch64-darwin"];

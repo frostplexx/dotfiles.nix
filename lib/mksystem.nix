@@ -75,8 +75,6 @@ in
             {nixpkgs.overlays = overlays;}
             # Apply the config we defined above
             {nixpkgs.config = nixpkgsConfig;}
-            # New and faster replacement for cppNix (the default nix interpreter)
-            inputs.lix-module.nixosModules.default
             # Import our machine config with all available arguments
             #TODO: this is weird and should get changed
             ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
@@ -136,6 +134,7 @@ in
                         inputs.nix-homebrew.darwinModules.nix-homebrew
                         inputs.lazykeys.darwinModules.default
                         inputs.nixkit.darwinModules.default
+                        inputs.determinate.darwinModules.default
                     ];
                     nix-homebrew = {
                         # Install Homebrew under the default prefix
