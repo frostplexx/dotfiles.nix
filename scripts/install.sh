@@ -59,10 +59,7 @@ check_tools() {
     if ! command -v jq > /dev/null; then return 1; fi # this exists on mac always
 
     if [ "$OS_TYPE" = "Darwin" ]; then
-        # Check if essential tools exist and SDK is available
-        if ! command -v gcc >/dev/null 2>&1 || \
-           ! command -v make >/dev/null 2>&1 || \
-           ! xcrun --show-sdk-path >/dev/null 2>&1; then
+        if ! xcode-select --install 2>&1 | grep -q "already installed"; then
             return 1
         fi
     fi
