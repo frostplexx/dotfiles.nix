@@ -134,7 +134,6 @@ in
                         inputs.nix-homebrew.darwinModules.nix-homebrew
                         inputs.lazykeys.darwinModules.default
                         inputs.nixkit.darwinModules.default
-                        inputs.determinate.darwinModules.default
                     ];
                     nix-homebrew = {
                         # Install Homebrew under the default prefix
