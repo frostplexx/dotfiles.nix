@@ -15,16 +15,14 @@ default:
 deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
     @git add .
-    @export NH_NO_CHECKS
-    @nh {{nix_cmd}} switch -H {{host}}
+    @export NH_NO_CHECKS; nh {{nix_cmd}} switch -H {{host}}
 
 [group('nix')]
 [doc('Upgrade flake inputs and deploy')]
 upgrade: update-refs lint
     @echo "Deploying system configuration with update..."
     @git add .
-    @export NH_NO_CHECKS
-    @nh {{nix_cmd}} switch --update
+    @export NH_NO_CHECKS; nh {{nix_cmd}} switch --update
     # Add again because flake.lock gets updated
     @git add .
     @git commit -m "chore: update inputs"
