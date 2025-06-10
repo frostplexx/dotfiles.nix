@@ -56,10 +56,11 @@
         ];
         casks = [
             "altserver"
+            "chromium"
             "firefox"
             "cleanshot"
             "mac-mouse-fix"
-            "raycast"
+            # "raycast"
             "onyx"
             "orbstack"
             "1password@beta"

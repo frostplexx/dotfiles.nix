@@ -79,16 +79,8 @@
                 defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
                 # defaults write NSGlobalDomain AppleAccentColor -int 10;
 
+                displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:$(displayplacer list |grep "res:2560x1080 hz:144 color_depth:8 scaling:on" |awk '{sub(/:/, ""); print $2}')"
 
-                # Enables HiDPi mode for my low dpi screen
-                if ! command -v displayplacer 2>&1 > /dev/null then
-                  displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:134"
-                else
-                  echo "Couldn't find displayplacer skippinng..."
-                fi
-
-                # turn of spotlight and its indexing
-                sudo mdutil -i off
                 # Reload settings
                 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
                 osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Motion Blue.madesktop"'

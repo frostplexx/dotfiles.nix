@@ -1,7 +1,7 @@
 {pkgs, ...}: {
     services = {
         jankyborders = {
-            enable = true;
+            enable = false;
             style = "round";
             width = 3.0;
             hidpi = true;
