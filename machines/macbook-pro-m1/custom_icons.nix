@@ -1,6 +1,6 @@
 {assets, ...}: {
     environment.customIcons = {
-        enable = true;
+        enable = false;
         icons = [
             {
                 path = "/Users/daniel/Applications/Home Manager Apps/Spotify.app";

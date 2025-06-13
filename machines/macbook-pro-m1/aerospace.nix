@@ -13,8 +13,7 @@
             enable = true;
             settings = {
                 # Start AeroSpace at login
-                # You dont need this when running it using nix-darwin.services
-                # start-at-login = true;
+                # You dont need this when running it using nix-darwin.services start-at-login = true;
 
                 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
                 enable-normalization-flatten-containers = true;
@@ -83,6 +82,8 @@
                     cmd-m = "macos-native-minimize";
 
                     ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
+
+                    ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../../home/shell/fish/switch-audio.fish}'";
 
                     cmd-shift-6 = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./screenshot_window.fish}";
                     ctrl-alt-cmd-z = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./zen_mode.fish}";
@@ -161,6 +162,7 @@
                     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
                     #s = ['layout sticky tiling', 'mode main']
                 };
+
                 on-window-detected = [
                     # Make it so picture in picture doesnt tile
                     # Order Matters

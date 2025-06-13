@@ -16,6 +16,7 @@
         aerospace
         # mac app store cli
         mas
+        switchaudio-osx
     ];
 
     # Homebrew configuration

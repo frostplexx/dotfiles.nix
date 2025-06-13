@@ -73,11 +73,6 @@
                 # Disable mouse acceleration
                 defaults write NSGlobalDomain com.apple.mouse.linear -bool true
                 defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
-                # Title bar icons in finder
-                # defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
-                defaults write NSGlobalDomain NSColorSimulateHardwareAccent -bool YES;
-                defaults write NSGlobalDomain NSColorSimulatedHardwareEnclosureNumber -int 11;
-                # defaults write NSGlobalDomain AppleAccentColor -int 10;
 
                 displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:$(displayplacer list |grep "res:2560x1080 hz:144 color_depth:8 scaling:on" |awk '{sub(/:/, ""); print $2}')"
 
@@ -121,7 +116,7 @@
                 _HIHideMenuBar = true;
                 AppleICUForce24HourTime = true;
                 NSAutomaticCapitalizationEnabled = false;
-                AppleInterfaceStyleSwitchesAutomatically = false;
+                AppleInterfaceStyleSwitchesAutomatically = true;
                 AppleInterfaceStyle = "Dark";
                 AppleMeasurementUnits = "Centimeters";
                 AppleMetricUnits = 1;
@@ -184,6 +179,7 @@
                     # "/Applications/Safari.app"
                     "${pkgs.kitty}/Applications/kitty.app"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
+                    "${pkgs.spotify}/Applications/Spotify.app"
                 ];
             };
 
@@ -192,7 +188,7 @@
             WindowManager = {
                 AutoHide = true;
                 EnableStandardClickToShowDesktop = false;
-                EnableTilingByEdgeDrag = true;
+                EnableTilingByEdgeDrag = false;
                 HideDesktop = true;
                 StageManagerHideWidgets = true;
             };
