@@ -12,8 +12,8 @@ function compress_mov_to_mp4
     # Get video duration in seconds
     set duration (ffprobe -v quiet -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $input_file)
 
-    # Target size in bits (10MB = 10 * 1024 * 1024 * 8 bits, with 3% buffer)
-    set target_size_bits (math "10 * 1024 * 1024 * 8 * 0.97")
+    # Target size in bits (10MB = 10 * 1024 * 1024 * 8 bits, with 10% buffer)
+    set target_size_bits (math "10 * 1024 * 1024 * 8 * 0.90")
 
     # Audio bitrate in bits per second
     set audio_bitrate 128000
