@@ -69,19 +69,34 @@
 
         # Post-activation scripts
         activationScripts = {
-            activateSettings = ''
-                # Disable mouse acceleration
-                defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-                defaults write NSGlobalDomain AppleHighlightColor -string "0.537 0.706 0.98"
+            activateSettings = {
+                enable = true;
+                text = ''
+                    echo "running activate settings..."
+                    # Disable mouse acceleration
+                    defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+                    defaults write "Apple Global Domain" AppleHighlightColor -string "0.768627 0.654902 0.905882 Other"
 
-                displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:$(displayplacer list |grep "res:2560x1080 hz:144 color_depth:8 scaling:on" |awk '{sub(/:/, ""); print $2}')"
+                    # Other for custom color or nothing
+                    defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
+                    # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors
+                    defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearDark
+                    # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
+                    # Color is rgb value divided by 256 so its between 0 and 1
+                    defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.768627 0.654902 0.905882 1.000000"
 
-                # Reload settings
-                /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-                osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Motion Blue.madesktop"'
-                killall Finder
-                killall Dock
-            '';
+                    # No idea what it doe
+                    defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "0.7686274509803921 0.6549019607843137 0.9058823529411765"
+
+                    displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:$(displayplacer list |grep "res:2560x1080 hz:144 color_depth:8 scaling:on" |awk '{sub(/:/, ""); print $2}')"
+
+                    # Reload settings
+                    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+                    osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Motion Blue.madesktop"'
+                    killall Finder
+                    killall Dock
+                '';
+            };
         };
 
         defaults = {
