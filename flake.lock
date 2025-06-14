@@ -42,10 +42,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749739639,
+        "lastModified": 1749873626,
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "72c88d5928196159e3a0d03e67b25d8044546ca6",
+        "rev": "2f140d6ac8840c6089163fb43ba95220c230f22b",
         "type": "github"
       },
       "original": {
@@ -257,10 +257,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749779443,
+        "lastModified": 1749821119,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "18f3a0d21c3739a242aafa17c04c5238bbab5a41",
+        "rev": "79dfd9aa295e53773aad45480b44c131da29f35b",
         "type": "github"
       },
       "original": {
@@ -273,10 +273,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1749794585,
+        "lastModified": 1749882113,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "85835f8a78c759e367317bf61ccb4bfe6569a737",
+        "rev": "0d13b1fc39d7af9dcaca5bc76deb24ce0e382b47",
         "type": "github"
       },
       "original": {
@@ -288,10 +288,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1749794257,
+        "lastModified": 1749872246,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "8f8690fb4fcb486945fe09e8d9bb0cdeff24727e",
+        "rev": "6029e2dd5500d84e9287812d994808f1bd22f18f",
         "type": "github"
       },
       "original": {
@@ -376,10 +376,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749748286,
+        "lastModified": 1749864314,
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "138fc5c441f967690b5de2359c10777e9160c5f1",
+        "rev": "d227daf78a135b98dca31786720f3051a091eb87",
         "type": "github"
       },
       "original": {
@@ -517,10 +517,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1749793929,
+        "lastModified": 1749874339,
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "6e15f4990e4c32382a927b68a6533ec254c60bbe",
+        "rev": "c70ec5f29a4642d6f412186a9f4d68f536089814",
         "type": "github"
       },
       "original": {
