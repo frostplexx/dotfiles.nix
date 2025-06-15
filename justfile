@@ -19,7 +19,7 @@ deploy host="$(hostname)": lint
 
 [group('nix')]
 [doc('Upgrade flake inputs and deploy')]
-upgrade: update-refs lint
+upgrade: lint
     @echo "Deploying system configuration with update..."
     @git add .
     @export NH_NO_CHECKS; nh {{nix_cmd}} switch --update

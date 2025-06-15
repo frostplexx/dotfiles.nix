@@ -75,7 +75,7 @@
                     echo "running activate settings..."
                     # Disable mouse acceleration
                     defaults write NSGlobalDomain com.apple.mouse.linear -bool true
-                    defaults write "Apple Global Domain" AppleHighlightColor -string "0.768627 0.654902 0.905882 Other"
+                    defaults write "Apple Global Domain" AppleHighlightColor -string "0.7421875 0.53515625 1.000000 Other"
 
                     # Other for custom color or nothing
                     defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
@@ -83,7 +83,7 @@
                     defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearDark
                     # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
                     # Color is rgb value divided by 256 so its between 0 and 1
-                    defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.768627 0.654902 0.905882 1.000000"
+                    defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.7421875 0.53515625 1.000000 1.000000"
 
                     # No idea what it doe
                     defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "0.7686274509803921 0.6549019607843137 0.9058823529411765"
