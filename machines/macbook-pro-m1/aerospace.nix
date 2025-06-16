@@ -239,6 +239,10 @@
                         "if".app-id = "com.apple.iphonesimulator";
                         run = "layout floating";
                     }
+                    {
+                        "if".app-id = "NULL-APP-BUNDLE-ID";
+                        run = "layout floating";
+                    }
                     # Order matters here!
                     # Callbacks are run in order and the firt match counts
                     {

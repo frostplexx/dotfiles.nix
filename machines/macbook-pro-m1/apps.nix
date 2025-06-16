@@ -66,6 +66,7 @@
             "whisky"
             "mullvadvpn"
             "zoom"
+            "hex-fiend"
         ];
     };
 }
