@@ -257,10 +257,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749944797,
+        "lastModified": 1750033262,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c5f345153397f62170c18ded1ae1f0875201d49a",
+        "rev": "66523b0efe93ce5b0ba96dcddcda15d36673c1f0",
         "type": "github"
       },
       "original": {
@@ -273,10 +273,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1749971345,
+        "lastModified": 1750079404,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "e9dd1090e4b6e9f24384abcc1834c9a1b45f78a9",
+        "rev": "360f3b4a2ffc714fe019436c79745737207c1e05",
         "type": "github"
       },
       "original": {
@@ -288,10 +288,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1749962665,
+        "lastModified": 1750078976,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "0579e1fb7c4197129c96e356bea651172d52282b",
+        "rev": "b5b056abfa1187f1dcef7db5fcd2bb11f8cd7131",
         "type": "github"
       },
       "original": {
@@ -376,10 +376,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749864314,
+        "lastModified": 1749998299,
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "d227daf78a135b98dca31786720f3051a091eb87",
+        "rev": "f57daf224f08ca61c2b5479b7227a6650f10e9db",
         "type": "github"
       },
       "original": {
@@ -517,10 +517,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1749971408,
+        "lastModified": 1750074471,
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "559f0dc2efb657fde0404a4f70dc45ac1a248dbb",
+        "rev": "dff5a5f17eb5a7803eaaccc504ca75afd921aeff",
         "type": "github"
       },
       "original": {
