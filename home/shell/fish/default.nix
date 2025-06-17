@@ -26,9 +26,9 @@
             shellAliases = {
                 v = "nvim";
                 g = "lazygit";
-                s = "spotify_player";
                 c = "clear";
                 q = "exit";
+                s = "kitten ssh";
                 p = "cd $(ls -d -1 ~/Developer/* |fzf); kitten @ launch --location=hsplit --bias=20 --cwd $PWD;nvim .";
                 cat = "bat";
                 tree = "eza --icons --git --header --tree";
@@ -43,7 +43,6 @@
                 copy = "rsync -avz --partial --progress";
                 transfer = "kitten transfer --direction=receive";
                 nhs = "nh search";
-                s = "sudo";
                 j = "just";
                 nixs = "nix shell nixpkgs#";
                 nixr = "nix run nixpkgs#";
