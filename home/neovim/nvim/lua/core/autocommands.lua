@@ -36,7 +36,7 @@ autocmd("BufWritePre", {
     group = augroup('frostplexx/auto_format', { clear = true }),
     desc = "Format the file using LSP or vim's built-in formatter",
     callback = function()
-        vim.lsp.buf.format({ async = true })
+        vim.lsp.buf.format()
     end
 })
 

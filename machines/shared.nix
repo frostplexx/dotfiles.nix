@@ -17,7 +17,8 @@
         entr # Run arbitrary commands when files change
         man-pages
         man-pages-posix
-        #TODO: move to home manager: jq
+        uv
+        python3
 
         # CLI utilities
         ffmpeg

@@ -13,6 +13,22 @@ return {
             end
         })
 
+
+        local blacklist = {
+            "https://github.com/frostplexx",
+        }
+
+        local is_blacklisted = function()
+            local remote = vim.fn.system('git config --get remote.origin.url'):gsub('\n', '')
+
+            for _, item in ipairs(blacklist) do
+                if vim.startswith(remote, item) then
+                    return true
+                end
+            end
+            return false
+        end
+
         require("cord").setup {
             editor = {
                 tooltip = "How do I exit this?",
@@ -26,6 +42,10 @@ return {
                 editing = function(opts)
                     return string.format('Editing %s - %s errors', opts.filename, #errors)
                 end,
+
+                workspace = function(opts)
+                    return string.format("Working on %s", opts.workspace)
+                end
             }
         }
     end

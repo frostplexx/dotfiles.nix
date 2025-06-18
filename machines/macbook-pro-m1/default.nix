@@ -82,7 +82,7 @@
                     # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors
                     defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearDark
                     # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
-                    # Color is rgb value divided by 256 so its between 0 and 1
+                    # Color is rgba value divided by 256 so its between 0 and 1
                     defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.7421875 0.53515625 1.000000 1.000000"
 
                     # No idea what it doe
