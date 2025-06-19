@@ -7,16 +7,17 @@ return {
     opts = {
         bigfile = {
             enabled = true,
-            notify = true,
-            size = 100 * 1024 -- 100Kb
+            notify = false,  -- Reduce notifications for speed
+            size = 50 * 1024 -- Reduce threshold to 50KB for better performance
         },
+
         animate = {
             enabled = true,
             duration = 20, -- ms per step
             easing = "linear",
             fps = 144,     -- frames per second. Global setting for all animations
         },
-        debug = { enabled = true },
+        debug = { enabled = false },
         input = { enabled = true },
         image = {
             formats = { 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'tiff', 'heic', 'avif', 'mp4', 'mov', 'avi', 'mkv', 'webm' },
@@ -62,14 +63,13 @@ return {
                 -- patterns to match Git signs
                 patterns = { "GitSign", "MiniDiffSign" },
             },
-            refresh = 50, -- refresh at most every 50ms
+            refresh = 100, -- refresh at most every 50ms
         },
         scroll = { enabled = false },
         words = { enabled = true },
 
         picker = {
             enabled = true,
-            ui_select = false, -- replace `vim.ui.select` with the snacks picker
             win = {
                 -- input window
                 input = {

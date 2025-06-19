@@ -19,15 +19,17 @@ autocmd('FileType', {
     end,
 })
 
--- Open the file at the last position it was edited earlier
+-- Open the file at the last position it was edited earlier (only for normal buffers)
 autocmd('BufReadPost', {
     group = augroup('frostplexx/last_location', { clear = true }),
     desc = 'Go to the last location when opening a buffer',
     callback = function(args)
-        local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-        local line_count = vim.api.nvim_buf_line_count(args.buf)
-        if mark[1] > 0 and mark[1] <= line_count then
-            vim.cmd 'normal! g`"zz'
+        if vim.bo[args.buf].buftype == "" then
+            local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+            local line_count = vim.api.nvim_buf_line_count(args.buf)
+            if mark[1] > 0 and mark[1] <= line_count then
+                vim.cmd 'normal! g`"zz'
+            end
         end
     end,
 })
@@ -35,8 +37,19 @@ autocmd('BufReadPost', {
 autocmd("BufWritePre", {
     group = augroup('frostplexx/auto_format', { clear = true }),
     desc = "Format the file using LSP or vim's built-in formatter",
-    callback = function()
-        vim.lsp.buf.format()
+    callback = function(args)
+        local ignore_ft = { "markdown", "text", "json" }
+        if not vim.tbl_contains(ignore_ft, vim.bo.filetype) then
+            vim.lsp.buf.format()
+        end
+
+        local save = vim.fn.winsaveview()
+        vim.api.nvim_buf_set_lines(args.buf, 0, -1, false,
+            vim.tbl_map(function(line)
+                return line:gsub("%s+$", "")
+            end, vim.api.nvim_buf_get_lines(args.buf, 0, -1, false))
+        )
+        vim.fn.winrestview(save)
     end
 })
 
@@ -84,21 +97,26 @@ autocmd({ "BufEnter", "BufWinEnter" }, {
     desc = 'Highlight TODO lines and add signs',
     pattern = "*",
     callback = function()
+        -- Clear previous matches and signs
+        vim.fn.clearmatches()
+        vim.fn.sign_unplace('todo_signs')
+
         -- Match and highlight just the TODO keyword, excluding comment characters
         vim.fn.matchadd("TodoKeyword", "\\(\\s*\\)\\@<=TODO:")
         -- Match and highlight the rest of the line after TODO:
         vim.fn.matchadd("TodoLine", "^.*\\s*TODO:\\zs.*$")
 
-        -- Add signs for lines containing TODO
+        -- Add signs for lines containing TODO (avoid duplicates)
         local bufnr = vim.api.nvim_get_current_buf()
         local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
         for i, line in ipairs(lines) do
             if line:match("%s*TODO:") then
-                vim.fn.sign_place(0, 'todo_signs', 'todo', bufnr, { lnum = i })
+                vim.fn.sign_place(0, 'todo_signs', 'todo', bufnr, { lnum = i, priority = 10 })
             end
         end
     end
 })
+
 
 -- Clean up signs when leaving buffer
 autocmd("BufLeave", {
@@ -107,4 +125,16 @@ autocmd("BufLeave", {
     callback = function()
         vim.fn.sign_unplace('todo_signs')
     end
+})
+
+
+
+-- Highlight trailing whitespace
+autocmd({ "BufWinEnter", "InsertLeave" }, {
+    group = augroup('frostplexx/trailing_whitespace', { clear = true }),
+    desc = "Highlight trailing whitespace",
+    pattern = "*",
+    callback = function()
+        vim.fn.matchadd("ErrorMsg", "\\s\\+$")
+    end,
 })

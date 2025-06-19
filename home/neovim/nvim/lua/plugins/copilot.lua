@@ -22,7 +22,7 @@ return {
         },
 
         keys = {
-            { "<leader>cp", ":CopilotChat <cr>", desc = "Open Copilot Chat" }
+            { "<leader>cp", ":CopilotChat <cr>", desc = "Open Copilot Chat", silent = true }
         },
 
     }
