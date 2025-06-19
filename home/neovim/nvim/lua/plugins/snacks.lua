@@ -69,6 +69,7 @@ return {
 
         picker = {
             enabled = true,
+            ui_select = false, -- replace `vim.ui.select` with the snacks picker
             win = {
                 -- input window
                 input = {

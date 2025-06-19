@@ -8,6 +8,7 @@ return {
         },
         build = "make tiktoken",                            -- Only on MacOS or Linux
         opts = {
+            model = 'claude-sonnet-4',
             mappings = {
                 reset = {
                     normal = '<C-c>',
@@ -19,5 +20,10 @@ return {
                 },
             },
         },
+
+        keys = {
+            { "<leader>cp", ":CopilotChat <cr>", desc = "Open Copilot Chat" }
+        },
+
     }
 }
