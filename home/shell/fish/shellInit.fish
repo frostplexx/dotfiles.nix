@@ -1,4 +1,3 @@
-
 # Nothing to do if not inside an interactive shell.
 if not status is-interactive
     return 0
@@ -24,7 +23,9 @@ if test -d $HOME/.fish_scripts
     end
 end
 
-
-
 # Color theme.
 fish_config theme choose "Catppuccin Mocha"
+
+if test (uname) = Linux -a (tty) = /dev/tty2
+    /home/daniel/dotfiles.nix/machines/pc-nixos/gh.sh
+end

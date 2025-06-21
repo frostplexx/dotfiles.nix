@@ -24,12 +24,11 @@
             enable = true;
             capSysNice = true;
         };
-
         steam = {
             enable = true;
-            remotePlay.openFirewall = true;
-            dedicatedServer.openFirewall = true;
-            localNetworkGameTransfers.openFirewall = true;
+            remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+            dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+            localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
         };
 
         thunar = {
@@ -45,9 +44,12 @@
     environment.systemPackages = with pkgs; [
         # Gaming
         steam
+        steam-run
         lutris
         gamemode
-        # vintagestory
+        gamescope
+        kbd # for chvt command
+        mangohud
         prismlauncher
         solaar
         linuxKernel.packages.linux_zen.xone

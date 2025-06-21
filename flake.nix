@@ -89,6 +89,17 @@
             ];
         };
 
+        nixosConfigurations.pc-nixos-gaming = mkSystem "pc-nixos-gaming" {
+            system = "x86_64-linux";
+            user = "daniel";
+            # Home manager modules you want to include as defined in ./home
+            hm-modules = [
+                "git"
+                "neovim"
+                "ssh"
+            ];
+        };
+
         darwinConfigurations.macbook-pro-m1 = mkSystem "macbook-pro-m1" {
             system = "aarch64-darwin";
             user = "daniel";

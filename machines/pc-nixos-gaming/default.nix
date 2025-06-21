@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{...}: {
     imports = [
         # Include the results of the hardware scan.
         ./hardware-configuration.nix
@@ -14,7 +14,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "pc-nixos"; # Define your hostname.
+    networking.hostName = "pc-nixos-gaming"; # Define your hostname.
 
     # Enable networking
     networking.networkmanager.enable = true;
@@ -43,100 +43,9 @@
     };
 
     environment.pathsToLink = ["/libexec"];
-    virtualisation.virtualbox = {
-        host = {
-            enable = true;
-            enableExtensionPack = true;
-            # enableKvm = true;
-        };
-        guest = {
-            enable = true;
-            dragAndDrop = true;
-        };
-    };
-
-    services = {
-        keyd = {
-            enable = true;
-            keyboards = {
-                default = {
-                    ids = ["*"];
-                    settings = {
-                        main = {
-                            capslock = "overload(capslock_layer, esc)";
-                        };
-                        "capslock_layer:C-A-M" = {
-                        };
-                    };
-                };
-            };
-        };
-
-        # For git secrets and shit
-        # gnome.gnome-keyring.enable = true;
-
-        xserver = {
-            enable = true;
-
-            # Configure mouse settings to disable acceleration
-            libinput = {
-                enable = true;
-                mouse = {
-                    accelProfile = "flat";
-                    accelSpeed = "0";
-                    middleEmulation = false;
-                };
-            };
-
-            displayManager = {
-                defaultSession = "none+i3";
-                # defaultSession = "cinnamon";
-                autoLogin.user = "daniel";
-
-                sessionCommands = ''
-                    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
-                    Xft.autohint: 0
-                    Xft.antialias: 1
-                    Xft.hinting: true
-                    Xft.hintstyle: hintslight
-                    Xft.dpi: 96
-                    Xft.rgba: rgb
-                    Xft.lcdfilter: lcddefault
-                    EOF
-                '';
-            };
-            windowManager.i3.enable = true;
-            # desktopManager.cinnamon = {
-            #     enable = true;
-            # };
-            videoDrivers = ["nvidia"];
-            xkb = {
-                layout = "us";
-                variant = "";
-            };
-        };
-    };
-
-    # Systemd service overrides for TTY2 auto-login
-    systemd.services."getty@tty2" = {
-        overrideStrategy = "asDropin";
-        serviceConfig = {
-            ExecStart = [
-                "" # Clear existing ExecStar
-                "${pkgs.util-linux}/bin/agetty --autologin daniel --noclear %i $TERM"
-            ];
-            Type = "idle";
-            Restart = "always";
-            RestartSec = "5";
-        };
-        after = ["graphical-session.target"];
-        wants = ["graphical-session.target"];
-    };
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    programs.fish.enable = true;
     users = {
-        defaultUserShell = pkgs.fish;
         users = {
             daniel = {
                 isNormalUser = true;
@@ -154,6 +63,9 @@
             QT_ENABLE_HIGHDPI_SCALING = "1";
             QT_AUTO_SCREEN_SCALE_FACTOR = "0.9";
         };
+        loginShellInit = ''
+            [[ "$(tty)" = "/dev/tty1" ]] && /home/daniel/dotfiles.nix/machines/pc-nixos-gaming/gh.sh
+        '';
     };
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -171,9 +83,6 @@
         # Enable automatic login for the user.
         getty = {
             autologinUser = "daniel";
-            # Only auto-login on tty2, leave others as normal login
-            extraArgs = ["--noclear"];
-            # Override just tty2 to have auto-login
         };
 
         # Audio
