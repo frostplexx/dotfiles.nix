@@ -288,10 +288,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1750667554,
+        "lastModified": 1750668359,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "c0ecf97cdaf62f976f6f80508d8581c8b8a4f7dd",
+        "rev": "946d2cb223f662bcb97237e544d704267f4149a6",
         "type": "github"
       },
       "original": {
@@ -533,10 +533,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1750665422,
+        "lastModified": 1750669062,
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3e5dbbef677b069341c1483a25842e0bb7bf69e9",
+        "rev": "4eac403a407210b974dc3d2cb9d3126adb45be59",
         "type": "github"
       },
       "original": {
