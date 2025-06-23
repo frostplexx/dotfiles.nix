@@ -31,6 +31,8 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
         nixkit = {
             url = "github:frostplexx/nixkit";
             # or for local development:
@@ -86,6 +88,7 @@
                 "shell"
                 "ssh"
                 "zed"
+                "spotify"
             ];
         };
 
@@ -112,6 +115,7 @@
                 "nixcord"
                 "shell"
                 "ssh"
+                "spotify"
             ];
         };
 

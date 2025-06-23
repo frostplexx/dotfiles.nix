@@ -92,7 +92,7 @@
         };
 
         direnv = {
-            enable = true;
+            enable = false;
             # Fish shell integration is bugged or something:
             # https://github.com/nix-community/home-manager/issues/2357
             # enableFishIntegration = true;

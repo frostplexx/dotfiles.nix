@@ -49,7 +49,6 @@
         obsidian
         _1password-cli
         transmission_4
-        spotify
         bvi
 
         inputs.determinate.packages.${system}.default

@@ -2,7 +2,7 @@
 {
     pkgs,
     user,
-    system,
+    assets,
     ...
 }: {
     imports = [
@@ -69,8 +69,7 @@
 
         # Post-activation scripts
         activationScripts = {
-            activateSettings = {
-                enable = true;
+            postActivation = {
                 text = ''
                     echo "running activate settings..."
                     # Disable mouse acceleration
@@ -78,21 +77,21 @@
                     defaults write "Apple Global Domain" AppleHighlightColor -string "0.7421875 0.53515625 1.000000 Other"
 
                     # Other for custom color or nothing
-                    defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
+                    # defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
                     # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors
-                    defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearDark
+                    # defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearDark
                     # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
                     # Color is rgba value divided by 256 so its between 0 and 1
-                    defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.7421875 0.53515625 1.000000 1.000000"
+                    # defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.7421875 0.53515625 1.000000 1.000000"
 
                     # No idea what it doe
                     defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "0.7686274509803921 0.6549019607843137 0.9058823529411765"
 
-                    displayplacer "id:78F355ED-6E7E-6318-0857-D6964E3302DB mode:$(displayplacer list |grep "res:2560x1080 hz:144 color_depth:8 scaling:on" |awk '{sub(/:/, ""); print $2}')"
+                    ${./highres_display.sh}
 
                     # Reload settings
                     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-                    osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Motion Blue.madesktop"'
+                    osascript -e 'tell application "System Events" to set picture of every desktop to "${assets}/wallpapers/denis-istomin-midnight-gazing.png"'
                     killall Finder
                     killall Dock
                 '';
@@ -113,6 +112,7 @@
             ".GlobalPreferences"."com.apple.mouse.scaling" = 0.875;
 
             hitoolbox.AppleFnUsageType = "Do Nothing";
+
             # Global system preferences
             NSGlobalDomain = {
                 # Window behavior
@@ -194,7 +194,6 @@
                     # "/Applications/Safari.app"
                     "${pkgs.kitty}/Applications/kitty.app"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
-                    "${pkgs.spotify}/Applications/Spotify.app"
                 ];
             };
 
@@ -222,14 +221,6 @@
                 Bluetooth = false;
                 NowPlaying = false;
                 BatteryShowPercentage = false;
-            };
-
-            # firewall settings
-            alf = {
-                # 0 = disabled 1 = enabled 2 = blocks all connections except for essential services
-                globalstate = 1;
-                loggingenabled = 0;
-                stealthenabled = 1;
             };
 
             # Additional user preferences

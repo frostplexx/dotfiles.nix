@@ -153,6 +153,7 @@ in
                             inputs._1password-shell-plugins.hmModules.default
                             inputs.nixkit.homeModules.default
                             inputs.sops-nix.homeManagerModules.sops
+                            inputs.spicetify-nix.homeManagerModules.spicetify
                         ];
                         # Apply only the specific modules from hm-modules
                         users.${user} = mkHomeConfig {

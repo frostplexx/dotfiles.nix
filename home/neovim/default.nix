@@ -53,7 +53,6 @@ in {
             fd
             git
             nodejs
-            luajitPackages.luarocks-nix
             tree-sitter
             coreutils
             mermaid-cli # mermaid rendering
