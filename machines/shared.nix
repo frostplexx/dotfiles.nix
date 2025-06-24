@@ -37,6 +37,7 @@
         just
         jq
         magic-wormhole-rs
+        netcat
         sops
 
         # Nix utils
