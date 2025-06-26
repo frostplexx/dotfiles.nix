@@ -22,7 +22,10 @@ in {
                 unstable = false;
             };
         };
-        vesktop.enable = true;
+        vesktop = {
+            enable = true;
+            package = pkgs.vesktop;
+        };
         config = {
             useQuickCss = true;
             enableReactDevtools = true;

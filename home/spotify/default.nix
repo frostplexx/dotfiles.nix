@@ -7,6 +7,7 @@
 in {
     programs.spicetify = {
         enable = true;
+        spotifyLaunchFlags = "--disable-update-restarts";
         enabledExtensions = with spicePkgs.extensions; [
             adblockify
             hidePodcasts

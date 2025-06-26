@@ -57,10 +57,6 @@
             url = "github:homebrew/homebrew-cask";
             flake = false;
         };
-        homebrew-nikitabobko = {
-            url = "github:nikitabobko/homebrew-tap";
-            flake = false;
-        };
     };
 
     outputs = {nixpkgs, ...} @ inputs: let
