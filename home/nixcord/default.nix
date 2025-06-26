@@ -15,16 +15,11 @@
 in {
     programs.nixcord = {
         enable = true;
-        discord = {
-            enable = false;
-            openASAR.enable = true;
-            vencord = {
-                unstable = false;
-            };
-        };
+        discord.enable = false;
         vesktop = {
             enable = true;
             package = pkgs.vesktop;
+            useSystemVencord = false;
         };
         config = {
             useQuickCss = true;
