@@ -84,6 +84,10 @@
                     ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
 
                     ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../../home/shell/fish/switch-audio.fish}'";
+                    ctrl-alt-cmd-m = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group spotify-player spotify_player'";
+                    ctrl-alt-cmd-right = "exec-and-forget ${pkgs.fish}/bin/fish -c spotify_player playback next";
+                    ctrl-alt-cmd-left = "exec-and-forget ${pkgs.fish}/bin/fish -c spotify_player playback previous";
+                    ctrl-alt-cmd-up = "exec-and-forget ${pkgs.fish}/bin/fish -c spotify_player playback play-pause";
 
                     cmd-shift-6 = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./screenshot_window.fish}";
                     ctrl-alt-cmd-z = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./zen_mode.fish}";
