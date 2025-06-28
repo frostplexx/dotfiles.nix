@@ -101,6 +101,9 @@ in {
             text = builtins.toJSON {
                 discordBranch = "stable";
                 minimizeToTray = true;
+                appBadge = false;
+                enableSplashScreen = false;
+                splashTheming = true;
                 arRPC = true;
                 customTitleBar =
                     if pkgs.stdenv.isDarwin
@@ -110,13 +113,13 @@ in {
             force = true;
         };
         # Quick CSS configuration
-        # "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
-        #     text = ''
-        #         .titleBar_a934d8 {
-        #           display: none !important;
-        #         }
-        #     '';
-        #     force = true;
-        # };
+        "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
+            text = ''
+                .titleBar_a934d8 {
+                  display: none !important;
+                }
+            '';
+            force = true;
+        };
     };
 }
