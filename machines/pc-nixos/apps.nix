@@ -16,10 +16,6 @@
 
     services.gvfs.enable = true;
     programs = {
-        _1password-gui = {
-            enable = true;
-            polkitPolicyOwners = ["daniel"];
-        };
         gamescope = {
             enable = true;
             capSysNice = true;

@@ -9,6 +9,18 @@
         ./nix.nix
     ];
 
+    programs = {
+        _1password-gui =
+            if pkgs.stdenv.isLinux
+            then {
+                enable = true;
+                polkitPolicyOwners = ["daniel"];
+            }
+            else {
+                enable = true;
+            };
+    };
+
     # Basic system packages
     environment.systemPackages = with pkgs; [
         # Development tools

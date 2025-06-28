@@ -1,7 +1,7 @@
 return {
     "folke/snacks.nvim",
     priority = 1000,
-    lazy = true,
+    lazy = false,
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
@@ -19,6 +19,7 @@ return {
         },
         debug = { enabled = false },
         input = { enabled = true },
+        scope = { enabled = true },
         image = {
             formats = { 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'tiff', 'heic', 'avif', 'mp4', 'mov', 'avi', 'mkv', 'webm' },
             force = false, -- try displaying the image, even if the terminal does not support it

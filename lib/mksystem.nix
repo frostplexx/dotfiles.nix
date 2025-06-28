@@ -131,7 +131,6 @@ in
                 home-manager.home-manager
                 {
                     nixpkgs.config = nixpkgsConfig;
-                    # nixpkgs.overlays = overlays;
                     # Why do darwin and linux use different stateVerions???
                     system.stateVersion =
                         if isDarwin

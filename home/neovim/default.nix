@@ -58,6 +58,8 @@ in {
             mermaid-cli # mermaid rendering
             tectonic # latex rendering
             ghostscript # pdf rendering
+            luajitPackages.tiktoken_core
+            lynx
         ];
 
         plugins = [

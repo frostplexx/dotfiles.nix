@@ -30,11 +30,11 @@
         };
         masApps = {
             # Safari extensions
-            "1Password for Safari" = 1569813296;
-            "SponsorBlock for Safari" = 1573461917;
-            "Raycast Companion" = 6738274497;
-            "Noir" = 1592917505;
-            "Obsidian Web Clipper for Safari" = 6720708363;
+            # "1Password for Safari" = 1569813296;
+            # "SponsorBlock for Safari" = 1573461917;
+            # "Raycast Companion" = 6738274497;
+            # "Noir" = 1592917505;
+            # "Obsidian Web Clipper for Safari" = 6720708363;
 
             "Xcode" = 497799835;
             "Things" = 904280696;
@@ -61,12 +61,12 @@
             "mac-mouse-fix"
             "orbstack"
             "1password@beta"
-            "zen"
             "whisky"
             "raycast"
             "mullvadvpn"
             "zoom"
             "hex-fiend"
+            "zen"
         ];
     };
 }

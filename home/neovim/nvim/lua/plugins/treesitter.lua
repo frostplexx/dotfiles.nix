@@ -2,7 +2,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = false,
     lazy = true,
-event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
+    event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
     dev = false,
@@ -19,7 +19,8 @@ event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
             "latex",
             "markdown_inline",
             "markdown",
-            "css", "html", "javascript", "latex", "norg", "scss", "svelte", "tsx", "typst", "vue", "regex", "lua"
+            "css", "html", "javascript", "latex", "norg", "scss", "svelte", "tsx", "typst", "vue", "regex", "lua",
+            "diff"
         },
         incremental_selection = {
             enable = true,

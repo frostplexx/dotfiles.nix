@@ -273,10 +273,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1751003151,
+        "lastModified": 1751096473,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "057e866cdf4cbfaaa8eb720a066335aafb4932c0",
+        "rev": "502eb3473258b45af0396bb521fe142a9950e259",
         "type": "github"
       },
       "original": {
@@ -288,10 +288,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1751002767,
+        "lastModified": 1751096495,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "9b44b925fd6fdb6c3a21204b225a5930864a8cad",
+        "rev": "30a971ad9eb3434b51156675bcf80d29367cfafe",
         "type": "github"
       },
       "original": {
@@ -518,10 +518,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1751010441,
+        "lastModified": 1751096345,
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "5b416fcfd1c236bd100f21b551ed33aa6a3bfd6c",
+        "rev": "2355fe2ca50b284b6f9110b31b45b89fa1a8e323",
         "type": "github"
       },
       "original": {
