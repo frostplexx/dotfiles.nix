@@ -25,5 +25,10 @@ return {
             { "<leader>cp", ":CopilotChat <cr>", desc = "Open Copilot Chat", silent = true }
         },
 
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        lazy = true,
+        event = "BufEnter"
     }
 }
