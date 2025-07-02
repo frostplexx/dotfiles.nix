@@ -62,7 +62,6 @@
             "orbstack"
             "1password@beta"
             "whisky"
-            "raycast"
             "mullvadvpn"
             "zoom"
             "hex-fiend"

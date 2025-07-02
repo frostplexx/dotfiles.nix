@@ -16,6 +16,8 @@
             url = "github:dwt/nix-darwin/application-linking-done-right";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        mac-app-util.url = "github:hraban/mac-app-util";
+
         # Declaratively manage homebrew
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
