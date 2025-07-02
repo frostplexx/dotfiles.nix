@@ -16,6 +16,8 @@
                         }
                     else "${assets}/logos/nixos-logo.png";
                 type = "kitty-direct";
+                width = 26;
+                height = 13;
                 padding = {
                     right = 3;
                     top = 2;
