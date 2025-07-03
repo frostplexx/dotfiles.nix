@@ -2,8 +2,8 @@
     yazi-plugins = pkgs.fetchFromGitHub {
         owner = "yazi-rs";
         repo = "plugins";
-        rev = "7c174cc0ae1e07876218868e5e0917308201c081";
-        hash = "sha256-RE93ZNlG6CRGZz7YByXtO0mifduh6MMGls6J9IYwaFA=";
+        rev = "e5f00e2716fd177b0ca0d313f1a6e64f01c12760";
+        hash = "sha256-DLcmzCmITybWrYuBpTyswtoGUimpagkyeVUWmbKjarY=";
     };
 
     yazi-flavors = pkgs.fetchFromGitHub {
@@ -31,7 +31,7 @@ in {
                 sort_reverse = false;
                 sort_dir_first = true;
                 linemode = "mtime";
-                show_hidden = false;
+                show_hidden = true;
                 show_symlink = true;
             };
             flavor = {
@@ -49,16 +49,42 @@ in {
             chmod = "${yazi-plugins}/chmod.yazi";
             smart-filter = "${yazi-plugins}/smart-filter.yazi";
             vcs-files = "${yazi-plugins}/vcs-files.yazi";
+            easyjump = pkgs.fetchFromGitHub {
+                owner = "DreamMaoMao";
+                repo = "easyjump.yazi";
+                rev = "6606fb1d56eea4c99809c056fd701e58890655be";
+                hash = "sha256-YKuznrwA7aT1lNP5F2+PnvyvMyBScd9kotrhA32th3M=";
+            };
+            starship = pkgs.fetchFromGitHub {
+                owner = "Rolv-Apneseth";
+                repo = "starship.yazi";
+                rev = "6a0f3f788971b155cbc7cec47f6f11aebbc148c9";
+                hash = "sha256-q1G0Y4JAuAv8+zckImzbRvozVn489qiYVGFQbdCxC98=";
+            };
         };
         flavors = {
             catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
         };
 
         initLua = ''
+            require("starship"):setup({
+                -- Hide flags (such as filter, find and search). This is recommended for starship themes which
+                -- are intended to go across the entire width of the terminal.
+                hide_flags = false, -- Default: false
+                -- Whether to place flags after the starship prompt. False means the flags will be placed before the prompt.
+                flags_after_prompt = true, -- Default: true
+                -- Custom starship configuration file to use
+                config_file = "~/.config/starship_full.toml", -- Default: nil
+            })
         '';
 
         keymap = {
             mgr.prepend_keymap = [
+                {
+                    on = "i";
+                    run = "plugin easyjump";
+                    desc = "easyjump";
+                }
                 {
                     on = "T";
                     run = "plugin max-preview";
