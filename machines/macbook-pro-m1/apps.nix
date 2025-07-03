@@ -66,6 +66,7 @@
             "zoom"
             "hex-fiend"
             "zen"
+            "VirtualBuddy"
         ];
     };
 }
