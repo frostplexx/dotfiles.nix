@@ -19,7 +19,6 @@ in {
         vesktop = {
             enable = true;
             package = pkgs.vesktop;
-            # useSystemVencord = false;
         };
         config = {
             useQuickCss = true;

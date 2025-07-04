@@ -80,6 +80,7 @@
                     ctrl-alt-cmd-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
                     cmd-m = "macos-native-minimize";
+                    cmd-enter = "exec-and-forget open -a kitty";
 
                     ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
 
