@@ -186,6 +186,8 @@ function parse_selection
 
     # Extract node key (hash) from brackets
     set -l node_name (string replace -r '.*\[(\w+)\].*' '$1' $selection)
+    echo $node_name
+
     echo "$input_name|$node_name"
 end
 
