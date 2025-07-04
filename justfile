@@ -5,6 +5,8 @@ alias u := upgrade
 
 # macOS need nh darwin switch and NixOS needs nh os switch
 nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi`
+# Use GITHUB_TOKEN from 1Password to prevent rate limiting
+NIX_CONFIG := "access-tokens = github.com=$(op read op://Personal/GitHub/token)"
 
 # Set default recipe
 default:
@@ -15,14 +17,14 @@ default:
 deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
     @git add .
-    @export NH_NO_CHECKS; nh {{nix_cmd}} switch -H {{host}}
+    @nh {{nix_cmd}} switch -H {{host}}
 
 [group('nix')]
 [doc('Upgrade flake inputs and deploy')]
 upgrade: lint
     @echo "Deploying system configuration with update..."
     @git add .
-    @export NH_NO_CHECKS; nh {{nix_cmd}} switch --update
+    @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
     # Add again because flake.lock gets updated
     @git add .
     @git commit -m "chore: update inputs"
