@@ -74,8 +74,7 @@ function get_changed_inputs
     rm -f $prev_lock
 
     if test (count $changed_inputs) -eq 0
-        echo "No changed inputs found in flake.lock"
-        exit 0
+        return 1
     end
 
     printf '%s\n' $changed_inputs
@@ -110,7 +109,7 @@ function revert_inputs
         set node_name (jq -r --arg input "$input_name" '.nodes.root.inputs[$input]' $prev_lock)
 
         if test "$node_name" = null
-            echo "$(set_color yellow) Warning: Could not find $input_name in previous lock file"
+            echo "$(set_color yellow) Warning: Could not find $input_name in previous lock file$(set_color normal)"
             continue
         end
 
@@ -136,13 +135,14 @@ end
 
 # Main script
 function main
-    echo "Analyzing flake.lock changes..."
 
     # Get changed inputs
     set changed_inputs_output (get_changed_inputs)
+    set get_inputs_status $status
 
-    if test -z "$changed_inputs_output"
-        echo "No changes detected in flake.lock"
+    if test $get_inputs_status -ne 0
+        echo ""
+        echo "$(set_color cyan)No changes detected in flake.lock"
         exit 0
     end
 
@@ -150,7 +150,7 @@ function main
     set selected_inputs (printf '%s\n' $changed_inputs_output | fzf --multi --header="󱄅 Select inputs to revert (use Tab to select multiple, Enter to confirm)")
 
     if test (count $selected_inputs) -eq 0
-        echo "No inputs selected. Exiting."
+        echo "$(set_color yellow) No inputs selected. Exiting."
         exit 0
     end
 
@@ -158,7 +158,7 @@ function main
     echo ""
     echo "You selected the following inputs to revert:"
     for input in $selected_inputs
-        echo "$(set_color red)  -  $input$(set_color normal)"
+        echo "  - $(set_color red) $input$(set_color normal)"
     end
     echo ""
 
@@ -166,7 +166,7 @@ function main
     echo ""
 
     if not string match -qi 'y*' $confirm
-        echo "Operation cancelled."
+        echo "$(set_color yellow) Operation cancelled."
         exit 0
     end
 
