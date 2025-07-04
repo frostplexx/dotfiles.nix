@@ -325,10 +325,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1751616575,
+        "lastModified": 1751605728,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "237a8dd8abbcfe40d079ee833e54210fa8826776",
+        "rev": "c826f1f8790c1bba85defd629974dcfc4bc19b65",
         "type": "github"
       },
       "original": {
@@ -340,10 +340,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1751621303,
+        "lastModified": 1751612348,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "1809392f739928eb8643e50e0c0799ad6ed04c0a",
+        "rev": "1141c8f959815dc286c481544dd0160cc07d52ad",
         "type": "github"
       },
       "original": {
@@ -434,10 +434,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1751592500,
+        "lastModified": 1751506084,
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "53ee7e4bd8cf17d055fcb89eea7465f0d96aca9b",
+        "rev": "4b1e9605bcbde835e6f2c1d77bbaaee2f0f68700",
         "type": "github"
       },
       "original": {
@@ -607,10 +607,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1751619100,
+        "lastModified": 1751612801,
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7f7cef81cce49ed8fbc2d82a3e4160648e928c8e",
+        "rev": "42cd07059585b6f8fa44c9cd585099339bc52606",
         "type": "github"
       },
       "original": {
@@ -738,27 +738,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "nixcord (4b1e9605 → 53ee7e4b)": {
-      "inputs": {
-        "flake-compat": "flake-compat_3",
-        "flake-parts": "flake-parts_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1751506084,
-        "owner": "kaylorben",
-        "repo": "nixcord",
-        "rev": "4b1e9605bcbde835e6f2c1d77bbaaee2f0f68700",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kaylorben",
-        "repo": "nixcord",
         "type": "github"
       }
     }

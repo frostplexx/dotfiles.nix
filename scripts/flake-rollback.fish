@@ -184,9 +184,8 @@ function parse_selection
     # Extract input name (everything before the first space or #)
     set -l input_name (string replace -r '([^#\s]+).*' '$1' $selection)
 
-    # Extract node name (between brackets)
-    set -l node_name (string replace -r '.*\[([^\]]+)\].*' '$1' $selection)
-
+    # Extract node key (hash) from brackets
+    set -l node_name (string replace -r '.*\[(\w+)\].*' '$1' $selection)
     echo "$input_name|$node_name"
 end
 
@@ -198,8 +197,6 @@ function revert_inputs
         echo "No inputs selected for reversion"
         return 0
     end
-
-    echo "Reverting selected inputs..."
 
     set -l prev_lock (get_previous_lock)
     set -l new_lock (mktemp)
@@ -215,7 +212,7 @@ function revert_inputs
         echo "Reverting $input_name [$node_name]..."
 
         # Get node data from previous lock
-        set -l node_data (jq --arg node "$input_name" '.nodes[$node]' $prev_lock)
+        set -l node_data (jq --arg node "$node_name" '.nodes[$node]' $prev_lock)
 
         if test "$node_data" = null
             echo "$(set_color yellow) Warning: Could not find node $input_name in previous lock file$(set_color normal)"
