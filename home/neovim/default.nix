@@ -54,7 +54,7 @@ in {
             git
             nodejs
             tree-sitter
-            coreutils
+            coreutils-prefixed
             mermaid-cli # mermaid rendering
             tectonic # latex rendering
             ghostscript # pdf rendering
