@@ -61,7 +61,6 @@
         # GUI applications
         obsidian
         _1password-cli
-        transmission_4
         bvi
 
         inputs.determinate.packages.${system}.default
