@@ -12,8 +12,13 @@ in {
             adblockify
             hidePodcasts
             shuffle # shuffle+ (special characters are sanitized out of extension names)
-            popupLyrics
             betterGenres
+            lastfm
+            listPlaylistsWithSong
+        ];
+        enabledCustomApps = with spicePkgs.apps; [
+            lyricsPlus
+            ncsVisualizer
         ];
         theme = spicePkgs.themes.comfy;
         colorScheme = "catppuccin-mocha";
