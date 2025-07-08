@@ -15,9 +15,10 @@ in {
             betterGenres
             lastfm
             listPlaylistsWithSong
+            wikify
+            history
         ];
         enabledCustomApps = with spicePkgs.apps; [
-            lyricsPlus
             ncsVisualizer
         ];
         theme = spicePkgs.themes.comfy;

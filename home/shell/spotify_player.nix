@@ -36,30 +36,30 @@
         };
     };
 
-    launchd.agents.spotify-player = {
-        enable = true;
-        config = {
-            ProgramArguments = [
-                "${pkgs.spotify-player.override {
-                    withAudioBackend = "rodio";
-                    withSixel = false;
-                    withFuzzy = false;
-                    withImage = false;
-                    withNotify = false;
-                    withDaemon = true;
-                    withStreaming = true;
-                    withMediaControl = false;
-                }}/bin/spotify_player"
-                "-d"
-            ];
-            RunAtLoad = true;
-            KeepAlive = {
-                Crashed = true;
-                SuccessfulExit = false;
-            };
-            StandardOutPath = "/tmp/spotify-player.log";
-            StandardErrorPath = "/tmp/spotify-player.error.log";
-            ProcessType = "Background";
-        };
-    };
+    # launchd.agents.spotify-player = {
+    #     enable = true;
+    #     config = {
+    #         ProgramArguments = [
+    #             "${pkgs.spotify-player.override {
+    #                 withAudioBackend = "rodio";
+    #                 withSixel = false;
+    #                 withFuzzy = false;
+    #                 withImage = false;
+    #                 withNotify = false;
+    #                 withDaemon = true;
+    #                 withStreaming = true;
+    #                 withMediaControl = false;
+    #             }}/bin/spotify_player"
+    #             "-d"
+    #         ];
+    #         RunAtLoad = true;
+    #         KeepAlive = {
+    #             Crashed = true;
+    #             SuccessfulExit = false;
+    #         };
+    #         StandardOutPath = "/tmp/spotify-player.log";
+    #         StandardErrorPath = "/tmp/spotify-player.error.log";
+    #         ProcessType = "Background";
+    #     };
+    # };
 }

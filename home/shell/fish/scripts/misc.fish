@@ -22,6 +22,18 @@ function manf
     /usr/bin/man -k . 2>/dev/null | fzf --preview 'man {1}' --preview-window=right:70%:wrap | awk '{print $1}' | xargs man
 end
 
+function update
+    cd ~/dotfiles.nix/
+    just u
+    cd -
+end
+
+function update_rollback
+    cd ~/dotfiles.nix/
+    just rollback
+    cd -
+end
+
 # Function to kill processes with fzf (Fish shell with Nerd Font icons - macOS compatible)
 function fkill
     set -l selection (ps -axo pid,pcpu,pmem,ucomm | \
