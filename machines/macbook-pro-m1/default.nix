@@ -84,8 +84,11 @@
                     # Color is rgba value divided by 256 so its between 0 and 1
                     # defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "0.7421875 0.53515625 1.000000 1.000000"
 
-                    # No idea what it doe
+                    # No idea what it does
                     defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "0.7686274509803921 0.6549019607843137 0.9058823529411765"
+
+                    # Set my display to use HiDPI mode
+                    # ./${./highres_display.sh}
 
                     # Reload settings
                     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u

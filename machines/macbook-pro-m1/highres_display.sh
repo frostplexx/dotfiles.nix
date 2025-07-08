@@ -39,21 +39,7 @@ fi
 echo "✓ Target display is connected"
 
 # Get the mode ID for the specific display with better error handling
-MODE_ID=$(echo "$DISPLAY_LIST" | \
-          awk -v display_id="$DISPLAY_ID" -v target_res="$TARGET_RES" '
-          BEGIN { found_display = 0 }
-          /^Persistent screen id:/ && $0 ~ display_id { found_display = 1; next }
-          found_display && $0 ~ target_res {
-              for(i=1; i<=NF; i++) {
-                  if($i ~ /^mode:/) {
-                      sub(/^mode:/, "", $i)
-                      print $i
-                      exit
-                  }
-              }
-          }
-          /^Persistent screen id:/ && $0 !~ display_id { found_display = 0 }
-          ')
+MODE_ID=$(echo "$DISPLAY_LIST" |grep "$TARGET_RES" | awk '{print $2}' | cut -d':' -f1)
 
 # Check if we found a mode ID for this specific display
 if [ -z "$MODE_ID" ]; then

@@ -5,6 +5,7 @@
             style = "round";
             width = 3.0;
             hidpi = true;
+            order = "above";
             active_color = "0xffcba6f7";
             inactive_color = "0xff7f849c";
         };
