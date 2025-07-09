@@ -15,7 +15,6 @@ SUCCESS="${GREEN}${BOLD}[SUCCESS]${RESET}"
 ERROR="${RED}${BOLD}[ERROR]${RESET}"
 WARN="${YELLOW}${BOLD}[WARN]${RESET}"
 INFO="${BLUE}${BOLD}[INFO]${RESET}"
-NC='\033[0m'  # No Color / reset
 
 # Check for required dependencies
 check_dependencies() {
@@ -30,7 +29,7 @@ check_dependencies() {
     fi
 
     if [ ${#missing_deps[@]} -ne 0 ]; then
-        echo -e "${RED}Error: Missing required dependencies:${NC}"
+        echo -e "${RED}Error: Missing required dependencies:${RESET}"
         printf '%s\n' "${missing_deps[@]}"
         echo "Please install the missing dependencies and try again."
         exit 1
@@ -47,8 +46,8 @@ show_change() {
     local old="$1"
     local new="$2"
     if [ "$old" != "$new" ]; then
-        echo -e "${RED}- ${old}${NC}"
-        echo -e "${GREEN}+ ${new}${NC}"
+        echo -e "${RED}- ${old}${RESET}"
+        echo -e "${GREEN}+ ${new}${RESET}"
     else
         echo "  $old (unchanged)"
     fi
@@ -62,14 +61,14 @@ update_repo() {
     local current_rev="$4"
     local repo_key="${file}:${owner}/${repo}"
 
-    echo -e "${BLUE}Checking ${owner}/${repo} in ${file}${NC}"
+    echo -e "${BLUE}Checking ${owner}/${repo} in ${file}${RESET}"
 
     # Get the latest commit hash
     latest_rev=$(curl -s "https://api.github.com/repos/$owner/$repo/commits/main" | jq -r '.sha')
     echo -e "$latest_rev"
 
     if [ "$latest_rev" = "$current_rev" ]; then
-        echo -e "${GREEN}Already at latest revision${NC}"
+        echo -e "${GREEN}Already at latest revision${RESET}"
         return 0
     fi
 
@@ -138,7 +137,7 @@ update_repo() {
     # Remove backup if everything went well
     rm -f "${file}.bak"
 
-    echo -e "${GREEN}Successfully updated ${owner}/${repo}${NC}"
+    echo -e "${GREEN}Successfully updated ${owner}/${repo}${RESET}"
 }
 
 # Function to extract value from a line
@@ -152,7 +151,7 @@ find_and_update_repos() {
 
     # Find all Nix files recursively using fd
     fd --extension nix . "$dir" | while read -r file; do
-        echo -e "${BLUE}Scanning ${file}${NC}"
+        echo -e "${BLUE}Scanning ${file}${RESET}"
 
         # Process the file line by line to find fetchFromGitHub blocks
         {
@@ -192,8 +191,8 @@ find_and_update_repos() {
 # Main script
 check_dependencies
 
-echo -e "${BLUE}Checking for available updates...${NC}"
+echo -e "${BLUE}Checking for available updates...${RESET}"
 
 find_and_update_repos "${1:-.}"
 
-echo -e "${GREEN}Done updating all repositories${NC}"
+echo -e "${GREEN}Done updating all repositories${RESET}"
