@@ -73,7 +73,7 @@ Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the s
 ### Available Commands
 
 This config comes with the `jinx` command which lets you manage your system. You can deploy, update, clean, repair and much more with it.
-Run `jinx` to get a list of possible commands
+Run `jinx` to get a list of possible commands. You can also chain them e.g. `jinx clean optimise`
 
 ## Management
 
