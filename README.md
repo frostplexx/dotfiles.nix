@@ -66,23 +66,14 @@ Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the s
 - [ ] Log into 1Password and 1Password-cli
 - [ ] Enable SSH Agent and CLI integration in 1Password settings
 - [ ] Run `determinate-nixd login`
-- [ ] Run `generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
+- [ ] Run `jinx generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
+- [ ] (On macOS) Run `jinx set_screen_hidpi` to set your screen to HiDPI mode
 - [ ] Restore folders from Time Machine
 
 ### Available Commands
 
-The Makefile offers the following targets that can be run for managing the system:
-
-- `deploy`:         lints, auto-detects OS and deploys appropriate configuration
-- `update`:         updates flake and deploys
-- `lint`:           format and lint nix files using alejandra, statix and deadnix
-- `clean`:          remove old system generations (runs `nh clean all`)
-- `repair`:         verify nix store and repair
-- `format`:         Format nix files
-- `diff`:           Show diff between current and committed changes
-- `update-refs`:    Update every fetchFromGithub with its newest commit and hash
-
-In addition, `nix-tree`, `nix-output-monitor`, `nh` and `nvd` come installed.
+This config comes with the `jinx` command which lets you manage your system. You can deploy, update, clean, repair and much more with it.
+Run `jinx` to get a list of possible commands
 
 ## Management
 
@@ -108,13 +99,13 @@ darwinConfigurations.<hostname> = mkSystem "<foldername>" {
 ```
 ### Add New Programs
 
-If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `machines/shared.nix`. 
+If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `machines/shared.nix`.
 Else add them to your appropriate host config `machines/<hostname>/apps.nix`
 
 ### Home Manager
 
-Home Manager dot files are saved in `./home`. 
-To add a new module you need to: 
+Home Manager dot files are saved in `./home`.
+To add a new module you need to:
 
 1. Create a folder with a `default.nix` inside `./home/`
 2. Configure what you want to configure
@@ -160,7 +151,7 @@ When declaring taps, please ensure to name the key as a unique folder starting w
 ```
 The exact GitHub `<user>/<repo>` should almost always work.
 
-Except this one quirk homebrew can be used like normal. It is however strongly preferred to add apps using `nix-darwin` because I'm using the 
+Except this one quirk homebrew can be used like normal. It is however strongly preferred to add apps using `nix-darwin` because I'm using the
 cleanup mode "zap" which will automatically uninstall any non-declaratively defined package.
 
 ### Modules
@@ -170,9 +161,9 @@ If a module should only be applied to one operating system use `isDarwin` to det
 
 ### Overlays
 
-Overlays can either be added to the overlays array inside `flake.nix` or 
+Overlays can either be added to the overlays array inside `flake.nix` or
 dropped as a file inside `./overlays/` which will then get automatically loaded.
-You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;` 
+You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;`
 to the configuration that should load its overlays from the folder
 
 ## References
