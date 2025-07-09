@@ -11,8 +11,17 @@ set_screen_hidpi:
 generate_ssh_hosts:
     @"$HOME/dotfiles.nix/scripts/jinx/misc/ssh.fish"
 
-
 [group('utility')]
 [doc('Edit the system config')]
+[no-cd]
 edit:
+    cd "$HOME/dotfiles.nix/"
     nvim "$HOME/dotfiles.nix/"
+
+[macos]
+[group('utility')]
+[doc('Clear DNS Cache')]
+[confirm]
+clear_dns:
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder

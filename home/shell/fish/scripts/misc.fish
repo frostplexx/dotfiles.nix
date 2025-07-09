@@ -1,9 +1,3 @@
-function clear_dns
-    sudo dscacheutil -flushcache
-
-    sudo killall -HUP mDNSResponder
-end
-
 function cocaine
     # Check current DPMS status
     set status (xset -q | grep 'DPMS is' | awk '{ print $3 }')

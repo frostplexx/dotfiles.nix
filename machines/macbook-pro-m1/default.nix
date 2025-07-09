@@ -87,9 +87,6 @@
                     # No idea what it does
                     defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "0.7686274509803921 0.6549019607843137 0.9058823529411765"
 
-                    # Set my display to use HiDPI mode
-                    # ./${./highres_display.sh}
-
                     # Reload settings
                     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
                     # osascript -e 'tell application "System Events" to set picture of every desktop to "${assets}/wallpapers/denis-istomin-midnight-gazing.png"'
