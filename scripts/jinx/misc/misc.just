@@ -13,10 +13,8 @@ generate_ssh_hosts:
 
 [group('utility')]
 [doc('Edit the system config')]
-[no-cd]
 edit:
-    cd "$HOME/dotfiles.nix/"
-    nvim "$HOME/dotfiles.nix/"
+    @cd "$HOME/dotfiles.nix/"; nvim "$HOME/dotfiles.nix/"
 
 [macos]
 [group('utility')]
