@@ -2,20 +2,33 @@
 
 set -euo pipefail
 
-source "$(dirname "$0")/colors.sh"
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+RESET='\033[0m'
+# Formatted output prefixes
+SUCCESS="${GREEN}${BOLD}[SUCCESS]${RESET}"
+ERROR="${RED}${BOLD}[ERROR]${RESET}"
+WARN="${YELLOW}${BOLD}[WARN]${RESET}"
+INFO="${BLUE}${BOLD}[INFO]${RESET}"
+NC='\033[0m'  # No Color / reset
 
 # Check for required dependencies
 check_dependencies() {
     local missing_deps=()
-    
+
     if ! command -v jq >/dev/null 2>&1; then
         missing_deps+=("jq")
     fi
-    
+
     if ! command -v fd >/dev/null 2>&1; then
         missing_deps+=("fd")
     fi
-    
+
     if [ ${#missing_deps[@]} -ne 0 ]; then
         echo -e "${RED}Error: Missing required dependencies:${NC}"
         printf '%s\n' "${missing_deps[@]}"
@@ -48,18 +61,18 @@ update_repo() {
     local repo="$3"
     local current_rev="$4"
     local repo_key="${file}:${owner}/${repo}"
-    
+
     echo -e "${BLUE}Checking ${owner}/${repo} in ${file}${NC}"
-    
+
     # Get the latest commit hash
     latest_rev=$(curl -s "https://api.github.com/repos/$owner/$repo/commits/main" | jq -r '.sha')
     echo -e "$latest_rev"
-    
+
     if [ "$latest_rev" = "$current_rev" ]; then
         echo -e "${GREEN}Already at latest revision${NC}"
         return 0
     fi
-    
+
     # Generate the new sha256 using nix-prefetch-url
     # For more info on hashes in nixos refer to: https://nixos.wiki/wiki/Nix_Hash
     url="https://github.com/$owner/$repo/archive/$latest_rev.tar.gz"
@@ -67,21 +80,21 @@ update_repo() {
 
     # Convert the sha256 to sri
     new_sha256_base64=$(nix-hash --type sha256 --to-sri "$new_sha256")
-    
+
     echo "Current revision: $current_rev"
     echo "Latest revision:  $latest_rev"
     echo "New SHA256 (base64): $new_sha256_base64"
-    
+
     # Create a backup of the file
     cp "$file" "${file}.bak"
-    
+
     # Handle both hash and sha256 attributes
     if grep -q "hash =" "$file"; then
         hash_attr="hash"
     else
         hash_attr="sha256"
     fi
-    
+
     # Update the file
     # First, update the rev that matches with the current owner/repo combo
     awk -v owner="$owner" -v repo="$repo" -v old_rev="$current_rev" -v new_rev="$latest_rev" '
@@ -97,10 +110,10 @@ update_repo() {
         }
         print
     }' "${file}.bak" > "$file"
-    
+
     # Then update the corresponding sha256 using awk
     echo -e "Updating Hash..."
-    
+
     # Update the hash that corresponds to this owner/repo combo
     awk -v owner="$owner" -v repo="$repo" -v new_hash="$new_sha256_base64" -v hash_attr="$hash_attr" '
     {
@@ -121,10 +134,10 @@ update_repo() {
         }
         print
     }' "${file}" > "${file}.tmp" && mv "${file}.tmp" "$file"
-    
+
     # Remove backup if everything went well
     rm -f "${file}.bak"
-    
+
     echo -e "${GREEN}Successfully updated ${owner}/${repo}${NC}"
 }
 
@@ -136,11 +149,11 @@ extract_value() {
 # Function to find and process fetchFromGitHub blocks
 find_and_update_repos() {
     local dir="${1:-.}"
-    
+
     # Find all Nix files recursively using fd
     fd --extension nix . "$dir" | while read -r file; do
         echo -e "${BLUE}Scanning ${file}${NC}"
-        
+
         # Process the file line by line to find fetchFromGitHub blocks
         {
             in_block=0

@@ -79,8 +79,11 @@ in
                 # Import our machine config with all available arguments
                 #TODO: this is weird and should get changed
                 ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
+                ({ pkgs,... }: import ../scripts/jinx {inherit pkgs;} )
                 # Trust myself
                 {nix.settings.trusted-users = ["root" user];}
+
+                # System management utility
 
                 # Home manager configuration
                 home-manager.home-manager

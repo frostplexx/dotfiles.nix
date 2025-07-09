@@ -2,15 +2,15 @@
     yazi-plugins = pkgs.fetchFromGitHub {
         owner = "yazi-rs";
         repo = "plugins";
-        rev = "e5f00e2716fd177b0ca0d313f1a6e64f01c12760";
-        hash = "sha256-DLcmzCmITybWrYuBpTyswtoGUimpagkyeVUWmbKjarY=";
+        rev = "b8860253fc44e500edeb7a09db648a829084facd";
+        hash = "sha256-29K8PmBoqAMcQhDIfOVnbJt2FU4BR6k23Es9CqyEloo=";
     };
 
     yazi-flavors = pkgs.fetchFromGitHub {
         owner = "yazi-rs";
         repo = "flavors";
-        rev = "d04a298a8d4ada755816cb1a8cfb74dd46ef7124";
-        hash = "sha256-m3yk6OcJ9vbCwtxkMRVUDhMMTOwaBFlqWDxGqX2Kyvc=";
+        rev = "d3fd3a5d774b48b3f88845f4f0ae1b82f106d331";
+        hash = "sha256-RtunaCs1RUfzjefFLFu5qLRASbyk5RUILWTdavThRkc=";
     };
 in {
     # Terminal file manager

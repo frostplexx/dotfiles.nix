@@ -1,6 +1,5 @@
 #!/usr/bin/env fish
 
-
 set -g ssh_hosts_file ~/.ssh/hosts
 
 function _create_hosts_file -a name url
@@ -12,18 +11,19 @@ function _create_hosts_file -a name url
     set -l user $user_host[1]
     set -l host $user_host[2]
 
-    echo "Host $name" >> $ssh_hosts_file
-    echo "    HostName \"$host\"" >> $ssh_hosts_file
-    echo "    User $user" >> $ssh_hosts_file
-    echo "" >> $ssh_hosts_file
+    echo "Host $name" >>$ssh_hosts_file
+    echo "    HostName \"$host\"" >>$ssh_hosts_file
+    echo "    User $user" >>$ssh_hosts_file
+    echo "" >>$ssh_hosts_file
 end
 
 function generate_ssh_hosts
     set -l items (op item list --tags ssh --format json | jq -r '.[] | @base64')
 
     # Clear previous content
-    echo -n "" > $ssh_hosts_file
-    
+    echo -n "" >$ssh_hosts_file
+
+    echo "Generating..."
     for item in $items
         set -l _item (echo $item | base64 --decode | jq -r '.id, .title')
         set -l id $_item[1]
@@ -31,4 +31,8 @@ function generate_ssh_hosts
         set -l url (op item get $id --fields label=url)
         _create_hosts_file $name $url
     end
+
+    echo Done
 end
+
+generate_ssh_hosts
