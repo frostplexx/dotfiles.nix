@@ -29,7 +29,7 @@
                 copy = "rsync -avz --partial --progress";
                 transfer = "kitten transfer --direction=receive";
                 nhs = "nh search";
-                j = "just";
+                j = "jinx";
                 nixs = "nix shell nixpkgs#";
                 nixr = "nix run nixpkgs#";
             };

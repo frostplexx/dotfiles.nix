@@ -1,9 +1,3 @@
-function clear_dns
-    sudo dscacheutil -flushcache
-
-    sudo killall -HUP mDNSResponder
-end
-
 function cocaine
     # Check current DPMS status
     set status (xset -q | grep 'DPMS is' | awk '{ print $3 }')
@@ -20,18 +14,6 @@ end
 
 function manf
     /usr/bin/man -k . 2>/dev/null | fzf --preview 'man {1}' --preview-window=right:70%:wrap | awk '{print $1}' | xargs man
-end
-
-function update
-    cd ~/dotfiles.nix/
-    just u
-    cd -
-end
-
-function update_rollback
-    cd ~/dotfiles.nix/
-    just rollback
-    cd -
 end
 
 # Function to kill processes with fzf (Fish shell with Nerd Font icons - macOS compatible)

@@ -1,0 +1,30 @@
+#!/usr/bin/env just --justfile
+
+alias d := deploy
+alias u := upgrade
+alias e := edit
+
+# macOS need nh darwin switch and NixOS needs nh os switch
+nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi`
+# Use GITHUB_TOKEN from 1Password to prevent rate limiting
+NIX_CONFIG := "access-tokens = github.com=$(op read op://Personal/GitHub/token)"
+
+# Set default recipe
+[private]
+default:
+    @just --list --list-prefix "    " --list-heading $'\033[0;36m    ==== ❄️Nix System Manager ====\n\n\033[0m'
+
+import "./deploy/deploy.just"
+import "./update/update.just"
+import "./maintain/maintain.just"
+import "./rollback/rollback.just"
+import "./misc/misc.just"
+
+
+
+[private]
+lint:
+    @nix fmt . 2> /dev/null
+    @nix run nixpkgs#statix -- check .
+    @nix run nixpkgs#deadnix -- -eq .
+
