@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17 # or 'latest'
+        uses: DeterminateSystems/nix-installer-action@v18 # or 'latest'
       - name: Set up Nix environment
         run: |
           . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
