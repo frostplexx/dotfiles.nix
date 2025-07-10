@@ -171,3 +171,46 @@ vim.keymap.set('n', "<leader>bf",
 
 vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
 vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })
+
+
+-- Toggle boolean values (true/false, True/False)
+local function toggle_bool()
+    local word = vim.fn.expand('<cword>')
+    local line = vim.fn.getline('.')
+    local col = vim.fn.col('.')
+
+    -- Find the start and end of the current word
+    local start_pos = vim.fn.searchpos('\\<' .. word .. '\\>', 'bcnW', vim.fn.line('.'))
+    local end_pos = vim.fn.searchpos('\\<' .. word .. '\\>', 'cenW', vim.fn.line('.'))
+
+    if start_pos[1] == 0 or start_pos[2] == 0 or end_pos[1] == 0 or end_pos[2] == 0 then
+        print("No boolean word found under cursor")
+        return
+    end
+
+    local replacement = ''
+
+    -- Check what the current word is and set replacement
+    if word == 'true' then
+        replacement = 'false'
+    elseif word == 'false' then
+        replacement = 'true'
+    elseif word == 'True' then
+        replacement = 'False'
+    elseif word == 'False' then
+        replacement = 'True'
+    else
+        print("Word under cursor is not a boolean value")
+        return
+    end
+
+    -- Replace the word
+    local new_line = string.sub(line, 1, start_pos[2] - 1) .. replacement .. string.sub(line, end_pos[2] + 1)
+    vim.fn.setline('.', new_line)
+
+    -- Position cursor at the beginning of the replaced word
+    vim.fn.cursor(vim.fn.line('.'), start_pos[2])
+end
+
+-- Optional: Create a keymap (uncomment if desired)
+vim.keymap.set('n', 'yt', toggle_bool, { desc = 'Toggle boolean value' })
