@@ -212,5 +212,4 @@ local function toggle_bool()
     vim.fn.cursor(vim.fn.line('.'), start_pos[2])
 end
 
--- Optional: Create a keymap (uncomment if desired)
 vim.keymap.set('n', 'yt', toggle_bool, { desc = 'Toggle boolean value' })
