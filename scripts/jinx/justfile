@@ -12,7 +12,10 @@ NIX_CONFIG := "access-tokens = github.com=$(op read op://Personal/GitHub/token)"
 # Set default recipe
 [private]
 default:
-    @just --list --list-prefix "    " --list-heading $'\033[0;36m    ==== ❄️Nix System Manager ====\n\n\033[0m'
+    @printf "\nWelcome to \033[0;36mjinx\033[0m - The nix configuration manager.\n"
+    @printf "Run \033[0;34mjinx --choose\033[0m to get an interactiv list of commands"
+    @printf " or \033[0;34mjinx help\033[0m for the help page.\n"
+    @just --list --list-prefix "  " --list-heading $'Available Commands:\n\n'
 
 import "./deploy/deploy.just"
 import "./update/update.just"

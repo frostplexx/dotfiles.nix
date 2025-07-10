@@ -1,5 +1,5 @@
 
-[group('nix')]
+[group('󱄅 nix')]
 [doc('Deploy system configuration')]
 deploy host="$(hostname)": lint
     @echo "Deploying system configuration without update..."
