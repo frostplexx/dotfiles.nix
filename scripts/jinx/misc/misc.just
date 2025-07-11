@@ -32,11 +32,11 @@ search package:
       --style minimal \
       --layout=reverse  \
       --delimiter='\t' \
-      --prompt="Query $QUERY took $(echo $ELAPSED)ms: " \
+      --prompt=" $QUERY took $(echo $ELAPSED)ms: " \
       --preview='
-        echo {2} | jq -r "
+        echo {2} | jq -r -C "
           . as \$pkg |
-          \"\(.package_pname) (\(.package_pversion))\n\n\(.package_description)\n\nSupported Platforms:\n\" +
+          \"\u001b[0;34m \(.package_pname) \u001b[0;0m(\u001b[0;32m\(.package_pversion)\u001b[0;0m)\n\n\(.package_description)\n\n\u001b[0;33m󰖟 Homepage:\u001b[0;0m \(.package_homepage[0])\n\u001b[0;33m󱄅 Defined at:\u001b[0;0m \(.package_position)\u001b[0;33m\n Supported Platforms:\u001b[0;0m\n  \" +
           (\$pkg.package_platforms
             | map(select(. == \"aarch64-linux\" or . == \"x86_64-linux\" or . == \"aarch64-darwin\" or . == \"x86_64-darwin\"))
             | join(\", \"))
