@@ -16,6 +16,38 @@ generate_ssh_hosts:
 edit:
     @cd "$HOME/dotfiles.nix/"; nvim "$HOME/dotfiles.nix/"
 
+
+[group('󰲽 utility')]
+[doc('Search for nix packages')]
+search package:
+    #!/usr/bin/env bash
+    # nh search produces a broken pipe error which we ignore
+    DATA=$(nh search "{{package}}" --json 2>/dev/null)
+    ELAPSED=$(echo $DATA |jq ".elapsed_ms")
+    QUERY=$(echo $DATA |jq ".query")
+    echo "$DATA" | jq -c '.results[] | "\(.package_attr_name)\t\(tojson)"' -r | \
+      fzf \
+      --with-nth=1 \
+      --multi \
+      --style minimal \
+      --layout=reverse  \
+      --delimiter='\t' \
+      --prompt="Query $QUERY took $(echo $ELAPSED)ms: " \
+      --preview='
+        echo {2} | jq -r "
+          . as \$pkg |
+          \"\(.package_pname) (\(.package_pversion))\n\n\(.package_description)\n\nSupported Platforms:\n\" +
+          (\$pkg.package_platforms
+            | map(select(. == \"aarch64-linux\" or . == \"x86_64-linux\" or . == \"aarch64-darwin\" or . == \"x86_64-darwin\"))
+            | join(\", \"))
+        "
+      ' \
+      --preview-window=wrap \
+      --bind 'enter:execute-silent(echo {+1} | tr " " "\n" | pbcopy)+abort' \
+      --ansi \
+      --preview-window=wrap \
+
+
 [macos]
 [group('󰲽 utility')]
 [doc('Clear DNS Cache')]
