@@ -6,36 +6,38 @@
   hm-modules ? [],
 }:
 let
-  # Load pkgs and config
+  # Load the Nixpkgs package set and configuration.
   pkgsConfig = import ./mksystem/pkgs.nix { inherit inputs system overlays; };
   pkgs = pkgsConfig.pkgs;
   nixpkgsConfig = pkgsConfig.nixpkgsConfig;
 
-  # Fetch assets
+  # Fetch remote assets (e.g., wallpapers).
   assets = import ./mksystem/assets.nix { inherit pkgs; };
 
   # Machine config path
   machineConfig = ../machines/${name};
 
-  # Merge args for machine config
+  # Merge all relevant arguments for the machine config.
   machineConfigArgs = { inherit system user pkgs inputs assets; } // args;
 
-  # Home config builder
+  # Function to build the Home Manager configuration for a user.
   mkHomeConfig = args: import ./mksystem/home-config.nix args;
 
-  # Modules list
+  # Assemble the full list of system modules.
   modules = import ./mksystem/modules.nix {
     inherit inputs pkgs nixpkgsConfig system user name machineConfig machineConfigArgs hm-modules assets mkHomeConfig;
   };
 
-  # System function
+  # Determine if we are building for Darwin (macOS).
   isDarwin = pkgs.stdenv.isDarwin;
+  # Select the correct system builder function for the OS.
   systemFunc =
     if isDarwin
     then inputs.darwin.lib.darwinSystem
     else nixpkgs.lib.nixosSystem;
 in
-systemFunc rec {
+# Call the system builder function with the assembled modules and configuration.
+systemFunc {
   inherit system;
   inherit (inputs.nixpkgs) lib;
   inherit modules;
