@@ -3,7 +3,7 @@
     name = "jinx";
     runtimeInputs = [pkgs.just];
     text = ''
-      exec just --justfile "$HOME/dotfiles.nix/scripts/jinx/justfile" "$@"
+      exec just --justfile "$HOME/dotfiles.nix/modules/jinx/justfile" "$@"
     '';
   };
 
