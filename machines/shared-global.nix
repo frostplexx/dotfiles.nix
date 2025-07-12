@@ -4,11 +4,6 @@
     inputs,
     ...
 }: {
-    # Nix settings import
-    imports = [
-        ./nix.nix
-    ];
-
     programs = {
         _1password-gui =
             if pkgs.stdenv.isLinux

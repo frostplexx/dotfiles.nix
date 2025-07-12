@@ -1,16 +1,8 @@
-# Configuration for Lyra MacBook
 {
     pkgs,
     user,
-    assets,
     ...
 }: {
-    imports = [
-        ../shared.nix # Base configuration
-        ./apps.nix # Lyra-specific apps
-        ./aerospace.nix
-        ./custom_icons.nix
-    ];
 
     services.lazykeys = {
         enable = true;
@@ -22,19 +14,7 @@
 
     programs.opsops.enable = true;
 
-    # Basic system configuration
-    networking = {
-        hostName = "macbook-pro-m1";
-        computerName = "macbook-pro-m1";
-        dns = [
-            "9.9.9.10"
-        ];
-        knownNetworkServices = [
-            "Wi-Fi"
-            "Ethernet Adaptor"
-            "Thunderbolt Ethernet"
-        ];
-    };
+
     time.timeZone = "Europe/Berlin";
 
     # Security settings
