@@ -23,8 +23,6 @@ import "./maintain/maintain.just"
 import "./rollback/rollback.just"
 import "./misc/misc.just"
 
-
-
 [private]
 lint:
     @nix fmt . 2> /dev/null
