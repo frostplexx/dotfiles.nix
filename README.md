@@ -156,8 +156,8 @@ cleanup mode "zap" which will automatically uninstall any non-declaratively defi
 
 ### Modules
 
-Modules should be added to the `modules` array in `./lib/mksystem.nix`.
-If a module should only be applied to one operating system use `isDarwin` to determine the OS type.
+Modules should be added to the `imports` array in `./lib/mksystem/darwin.nix` or in `./lib/mksystem/linux.nix`.
+Home Manager modules should be added to `./lib/mksystem/modules.nix` inside sharedModules.
 
 ### Overlays
 
