@@ -47,10 +47,10 @@ in
         inputs.nixkit.homeModules.default
         inputs.sops-nix.homeManagerModules.sops
         inputs.spicetify-nix.homeManagerModules.spicetify
-      ] ++ (if isDarwin then [
-          # Stupid module fails when not on darwin
-          inputs.mac-app-util.homeManagerModules.default
-          ] else [];
+      ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+        # Stupid module fails when not on darwin
+        inputs.mac-app-util.homeManagerModules.default
+      ];
       # Per-user Home Manager configuration
       users.${user} = mkHomeConfig {
         inherit user;
