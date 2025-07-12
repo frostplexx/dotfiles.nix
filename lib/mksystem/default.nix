@@ -8,8 +8,8 @@
 let
   # Load the Nixpkgs package set and configuration.
   pkgsConfig = import ./pkgs.nix { inherit inputs system overlays; };
-  pkgs = pkgsConfig.pkgs;
-  nixpkgsConfig = pkgsConfig.nixpkgsConfig;
+  inherit (pkgsConfig) pkgs;
+  inherit (pkgsConfig) nixpkgsConfig;
 
   # Fetch remote assets (e.g., wallpapers).
   assets = import ./assets.nix { inherit pkgs; };
@@ -29,7 +29,7 @@ let
   };
 
   # Determine if we are building for Darwin (macOS).
-  isDarwin = pkgs.stdenv.isDarwin;
+  inherit (inheritpkgs.stdenv) isDarwin;
   # Select the correct system builder function for the OS.
   systemFunc =
     if isDarwin
