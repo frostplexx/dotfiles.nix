@@ -63,8 +63,8 @@
             "zoom"
             "zen"
             "VirtualBuddy"
-      "wtfis"
-      "hex-fiend"
+            # "wtfis"
+            "hex-fiend"
         ];
     };
 }

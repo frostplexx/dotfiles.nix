@@ -68,7 +68,7 @@
             inputs.nurpkgs.overlays.default
         ];
 
-        mkSystem = import ./lib/mksystem.nix {
+        mkSystem = import ./lib/mksystem {
             inherit overlays nixpkgs inputs;
         };
     in {
