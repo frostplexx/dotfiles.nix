@@ -28,7 +28,7 @@
             shellAbbrs = {
                 copy = "rsync -avz --partial --progress";
                 transfer = "kitten transfer --direction=receive";
-                nhs = "nh search";
+                ns = "jinx search";
                 j = "jinx";
                 nixs = "nix shell nixpkgs#";
                 nixr = "nix run nixpkgs#";

@@ -8,7 +8,7 @@
         experimental-features = nix-command flakes
         lazy-trees = true
         warn-dirty = false
-        substituters = "https://cache.nixos.org" "https://install.determinate.systems" "https://nix-community.cachix.org"
+        substituters = "https://nix-community.cachix.org" "https://cache.nixos.org"
         trusted-public-keys = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     '';
 

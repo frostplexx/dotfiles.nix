@@ -9,14 +9,13 @@
         # GUI Applications
         jetbrains.idea-ultimate
         jetbrains.pycharm-professional
-        # moonlight-qt
         ollama
         keka
         utm
         aerospace
-        # mac app store cli
         mas
         switchaudio-osx
+        whisky
     ];
 
     # Homebrew configuration
@@ -44,13 +43,13 @@
             # "Windows App" = 1295203466;
             "Testflight" = 899247664;
             "Tailscale" = 1475387142;
+            "System Color Picker" = 1545870783;
         };
         # This doesn't work, taps are defined in flake.nix and then mksystem.nix
         # taps = [];
         # https://github.com/zhaofengli/nix-homebrew/issues/5#issuecomment-1878798641
         taps = builtins.attrNames config.nix-homebrew.taps;
         brews = [
-            "wtfis"
             "displayplacer"
         ];
         casks = [
@@ -60,13 +59,12 @@
             "cleanshot"
             "mac-mouse-fix"
             "orbstack"
-            "1password@beta"
-            "whisky"
             "mullvadvpn"
             "zoom"
-            "hex-fiend"
             "zen"
             "VirtualBuddy"
+      "wtfis"
+      "hex-fiend"
         ];
     };
 }
