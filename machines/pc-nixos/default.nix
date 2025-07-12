@@ -7,7 +7,6 @@
         ./hardware-configuration.nix
         ../shared.nix
         ./apps.nix
-        ./sunshine.nix
     ];
 
     # Bootloader.
