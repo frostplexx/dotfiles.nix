@@ -7,24 +7,24 @@
 }:
 let
   # Load the Nixpkgs package set and configuration.
-  pkgsConfig = import ./mksystem/pkgs.nix { inherit inputs system overlays; };
+  pkgsConfig = import ./pkgs.nix { inherit inputs system overlays; };
   pkgs = pkgsConfig.pkgs;
   nixpkgsConfig = pkgsConfig.nixpkgsConfig;
 
   # Fetch remote assets (e.g., wallpapers).
-  assets = import ./mksystem/assets.nix { inherit pkgs; };
+  assets = import ./assets.nix { inherit pkgs; };
 
   # Machine config path
-  machineConfig = ../machines/${name};
+  machineConfig = ../../machines/${name};
 
   # Merge all relevant arguments for the machine config.
   machineConfigArgs = { inherit system user pkgs inputs assets; } // args;
 
   # Function to build the Home Manager configuration for a user.
-  mkHomeConfig = args: import ./mksystem/home-config.nix args;
+  mkHomeConfig = args: import ./home-config.nix args;
 
   # Assemble the full list of system modules.
-  modules = import ./mksystem/modules.nix {
+  modules = import ./modules.nix {
     inherit inputs pkgs nixpkgsConfig system user name machineConfig machineConfigArgs hm-modules assets mkHomeConfig;
   };
 
