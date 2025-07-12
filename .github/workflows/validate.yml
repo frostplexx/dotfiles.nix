@@ -35,19 +35,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      - name: Install Just
-        uses: extractions/setup-just@v3
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
-          if just lint; then
-            echo "success=true" >> $GITHUB_ENV
-          else
-            echo "Lint failed, listing flake.lock for debugging:"
-            cat flake.lock
-            echo "success=false" >> $GITHUB_ENV
-            exit 1
-          fi
+          nix run nixpkgs#statix -- check .
+          nix run nixpkgs#deadnix -- -eq .
 
 
   detect-configs:
@@ -66,18 +58,18 @@ jobs:
           # Use nix eval to get configurations directly from the flake
           echo "Detecting NixOS configurations..."
           NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
-          
+
           echo "Detecting Darwin configurations..."
           DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-          
+
           # Debug output
           echo "Detected NixOS configs: $NIXOS_CONFIGS"
           echo "Detected Darwin configs: $DARWIN_CONFIGS"
-          
+
           # Create a simpler matrix JSON formation approach
           echo "Building matrix JSON..."
           MATRIX_JSON='{"include":['
-          
+
           # Process NixOS configs
           NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
           if [ "$NIXOS_ARRAY" != "[]" ]; then
@@ -90,7 +82,7 @@ jobs:
               MATRIX_JSON+="},"
             done
           fi
-          
+
           # Process Darwin configs
           DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
           if [ "$DARWIN_ARRAY" != "[]" ]; then
@@ -103,13 +95,13 @@ jobs:
               MATRIX_JSON+="},"
             done
           fi
-          
+
           # Remove trailing comma if it exists
           MATRIX_JSON=${MATRIX_JSON%,}
           MATRIX_JSON+="]}"
-          
+
           echo "Matrix JSON: $MATRIX_JSON"
-          
+
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   test-configurations:
