@@ -29,7 +29,7 @@ let
   };
 
   # Determine if we are building for Darwin (macOS).
-  inherit (inheritpkgs.stdenv) isDarwin;
+  inherit (pkgs.stdenv) isDarwin;
   # Select the correct system builder function for the OS.
   systemFunc =
     if isDarwin
