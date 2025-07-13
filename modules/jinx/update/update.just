@@ -10,4 +10,4 @@ upgrade: lint
 [doc('Update every fetchFromGithub with its newest commit and hash')]
 update-refs:
     @echo -e "Updating refs..."
-    @"$HOME/dotfiles.nix/scripts/jinx/update/update-flake-revs.sh" $HOME/dotfiles.nix
+    @"$HOME/dotfiles.nix/modules/jinx/update/update-flake-revs.sh" $HOME/dotfiles.nix

@@ -5,8 +5,9 @@
 
 # Check prerequisites
 function check_prerequisites
-    if not test -f flake.lock
-        echo "$(set_color red) Error: flake.lock not found in current directory$(set_color normal)"
+    set -l flake_dir $argv[1]
+    if not test -f "$flake_dir/flake.lock"
+        echo "$(set_color red) Error: flake.lock not found in $flake_dir$(set_color normal)"
         exit 1
     end
 
@@ -17,16 +18,17 @@ function check_prerequisites
         end
     end
 
-    if not git rev-parse --is-inside-work-tree >/dev/null 2>&1
-        echo "$(set_color red) Error: not in a git repository$(set_color normal)"
+    if not git -C "$flake_dir" rev-parse --is-inside-work-tree >/dev/null 2>&1
+        echo "$(set_color red) Error: not in a git repository ($flake_dir)$(set_color normal)"
         exit 1
     end
 end
 
 # Get previous flake.lock from git
 function get_previous_lock
+    set -l flake_dir $argv[1]
     set prev_lock (mktemp)
-    if not git show HEAD:flake.lock >$prev_lock 2>/dev/null
+    if not git -C "$flake_dir" show HEAD:flake.lock >$prev_lock 2>/dev/null
         echo "$(set_color red) Error: Could not get previous version of flake.lock from git$(set_color normal)"
         rm -f $prev_lock
         exit 1
@@ -112,8 +114,9 @@ end
 
 # Get all changed inputs with better duplicate handling
 function get_changed_inputs
-    set -l current_lock flake.lock
-    set -l prev_lock (get_previous_lock)
+    set -l flake_dir $argv[1]
+    set -l current_lock "$flake_dir/flake.lock"
+    set -l prev_lock (get_previous_lock $flake_dir)
     set -l changed_entries
 
     # Get all input names from current lock
@@ -193,6 +196,8 @@ end
 
 # Revert selected inputs with better error handling
 function revert_inputs
+    set -l flake_dir $argv[1]
+    set -e argv[1]
     set -l selected_inputs $argv
 
     if test (count $selected_inputs) -eq 0
@@ -200,9 +205,9 @@ function revert_inputs
         return 0
     end
 
-    set -l prev_lock (get_previous_lock)
+    set -l prev_lock (get_previous_lock $flake_dir)
     set -l new_lock (mktemp)
-    cp flake.lock $new_lock
+    cp "$flake_dir/flake.lock" $new_lock
 
     set -l reverted_count 0
 
@@ -232,7 +237,7 @@ function revert_inputs
 
     # Replace the current flake.lock with the updated one
     if test $reverted_count -gt 0
-        cp $new_lock flake.lock
+        cp $new_lock "$flake_dir/flake.lock"
         echo "$(set_color green) Successfully reverted $reverted_count input(s)$(set_color normal)"
         echo "You can now try rebuilding your configuration"
     else
@@ -245,10 +250,15 @@ end
 
 # Main function
 function main
-    check_prerequisites
+    set -l flake_dir "."
+    if test (count $argv) -ge 1
+        set flake_dir $argv[1]
+    end
+
+    check_prerequisites $flake_dir
 
     # Get changed inputs
-    set -l changed_inputs_output (get_changed_inputs)
+    set -l changed_inputs_output (get_changed_inputs $flake_dir)
     set -l get_inputs_status $status
 
     if test $get_inputs_status -ne 0
@@ -282,7 +292,7 @@ function main
     end
 
     # Revert the selected inputs
-    revert_inputs $selected_inputs
+    revert_inputs $flake_dir $selected_inputs
 end
 
 # Run main function
