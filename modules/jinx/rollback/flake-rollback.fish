@@ -28,10 +28,19 @@ end
 function get_previous_lock
     set -l flake_dir $argv[1]
     set prev_lock (mktemp)
-    if not git -C "$flake_dir" show HEAD:flake.lock >$prev_lock 2>/dev/null
-        echo "$(set_color red) Error: Could not get previous version of flake.lock from git$(set_color normal)"
-        rm -f $prev_lock
-        exit 1
+    # Try to get flake.lock from previous commit (HEAD^), fallback to HEAD if not available
+    if git -C "$flake_dir" rev-parse HEAD^ >/dev/null 2>&1
+        if not git -C "$flake_dir" show HEAD^:flake.lock >$prev_lock 2>/dev/null
+            echo "$(set_color red) Error: Could not get flake.lock from previous commit (HEAD^)$(set_color normal)"
+            rm -f $prev_lock
+            exit 1
+        end
+    else
+        if not git -C "$flake_dir" show HEAD:flake.lock >$prev_lock 2>/dev/null
+            echo "$(set_color red) Error: Could not get previous version of flake.lock from git$(set_color normal)"
+            rm -f $prev_lock
+            exit 1
+        end
     end
     echo $prev_lock
 end
@@ -239,7 +248,6 @@ function revert_inputs
     if test $reverted_count -gt 0
         cp $new_lock "$flake_dir/flake.lock"
         echo "$(set_color green) Successfully reverted $reverted_count input(s)$(set_color normal)"
-        echo "You can now try rebuilding your configuration"
     else
         echo "$(set_color yellow) No inputs were reverted$(set_color normal)"
     end
