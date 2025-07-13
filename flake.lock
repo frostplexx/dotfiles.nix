@@ -325,10 +325,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1752381194,
+        "lastModified": 1752390191,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "83e38402366d15d2911f6e6ac4fa520443cf03d9",
+        "rev": "4ae338d157e16ce37fb237d0dbbd89d5351ece15",
         "type": "github"
       },
       "original": {
