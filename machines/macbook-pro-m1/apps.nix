@@ -16,6 +16,8 @@
         mas
         switchaudio-osx
         whisky
+            wtfis
+            hexfiend
     ];
 
     # Homebrew configuration
@@ -63,8 +65,6 @@
             "zoom"
             "zen"
             "VirtualBuddy"
-            # "wtfis"
-            "hex-fiend"
         ];
     };
 }

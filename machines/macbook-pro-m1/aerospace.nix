@@ -93,17 +93,7 @@
 
                     cmd-shift-6 = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./screenshot_window.fish}";
                     ctrl-alt-cmd-z = "exec-and-forget ${pkgs.fish}/bin/fish -c ${./zen_mode.fish}";
-                    # cmd-shift-m = '''exec-and-forget osascript -e '
-                    # tell application (path to frontmost application as text)
-                    #     try
-                    #         set miniaturized of windows to false -- most applications
-                    #     end try
-                    #     try
-                    #         set collapsed of windows to false -- at least Finder
-                    #     end try
-                    # end tell
-                    # '''
-
+                    cmd-shift-m = "exec-and-forget /usr/bin/osascript ${./unminimize.scpt}";
                     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
                     ctrl-alt-cmd-h = "focus left";
                     ctrl-alt-cmd-j = "focus down";
