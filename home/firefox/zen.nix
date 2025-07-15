@@ -47,6 +47,9 @@
                 PreventInstalls = false;
                 Remove = [
                     "Bing"
+                    "Ecosia"
+                    "Google"
+                    "Wikipedia (en)"
                 ];
             };
             SearchSuggestEnabled = true;

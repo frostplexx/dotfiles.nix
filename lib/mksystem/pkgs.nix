@@ -5,6 +5,7 @@
     inputs,
     system,
     overlays,
+    ...
 }: let
     # Configuration for Nixpkgs, controlling which packages are allowed.
     nixpkgsConfig = {
@@ -12,6 +13,9 @@
         allowUnsupportedSystem = false; # Disallow unsupported systems
         allowBroken = true; # Allow broken packages (use with caution)
         allowInsecure = true; # Allow insecure packages (use with caution)
+        packageOverrides = pkgs: {
+          electron = pkgs.electron_37; # electron is ancient, so override it with electron_37 which is the newest version
+        };
     };
 
     # Import Nixpkgs with the above configuration and overlays.
