@@ -1,5 +1,8 @@
 {pkgs, ...}: {
     # Enable and configure the default browser
+    imports = [
+        ./zen.nix
+    ];
     programs = {
         # default-browser = {
         #     enable = true;
