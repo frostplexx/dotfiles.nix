@@ -16,8 +16,8 @@
         mas
         switchaudio-osx
         whisky
-            wtfis
-            hexfiend
+        wtfis
+        hexfiend
     ];
 
     # Homebrew configuration

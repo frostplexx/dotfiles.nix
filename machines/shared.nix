@@ -4,7 +4,6 @@
     inputs,
     ...
 }: {
-
     programs = {
         _1password-gui =
             if pkgs.stdenv.isLinux
@@ -53,6 +52,8 @@
         nix-output-monitor
         nh
         nvd
+        deadnix
+        statix
 
         # GUI applications
         obsidian
