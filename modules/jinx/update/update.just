@@ -4,6 +4,8 @@
 upgrade: lint
     @echo "Deploying system configuration with update..."
     @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
+    @git add .
+    @git commit -m "chore: update flake inputs"
 
 
 [group('󱄅 nix')]
