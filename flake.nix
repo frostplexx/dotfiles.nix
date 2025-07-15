@@ -21,12 +21,6 @@
         # Declaratively manage homebrew
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-        # Needed for firefox addons
-        nurpkgs = {
-            url = "github:nix-community/NUR";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
         nixcord = {
@@ -65,7 +59,6 @@
 
     outputs = {nixpkgs, ...} @ inputs: let
         overlays = [
-            inputs.nurpkgs.overlays.default
         ];
 
         mkSystem = import ./lib/mksystem {
