@@ -65,6 +65,7 @@
             "zoom"
             "zen"
             "VirtualBuddy"
+            "1password"
         ];
     };
 }

@@ -26,6 +26,15 @@
             dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
             localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
         };
+        _1password-gui =
+            if pkgs.stdenv.isLinux
+            then {
+                enable = true;
+                polkitPolicyOwners = ["daniel"];
+            }
+            else {
+                enable = true;
+            };
 
         thunar = {
             enable = true;

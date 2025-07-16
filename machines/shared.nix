@@ -4,17 +4,6 @@
     inputs,
     ...
 }: {
-    programs = {
-        _1password-gui =
-            if pkgs.stdenv.isLinux
-            then {
-                enable = true;
-                polkitPolicyOwners = ["daniel"];
-            }
-            else {
-                enable = true;
-            };
-    };
 
     # Basic system packages
     environment.systemPackages = with pkgs; [
@@ -58,7 +47,6 @@
         # GUI applications
         obsidian
         _1password-cli
-        _1password-gui
         bvi
 
         inputs.determinate.packages.${system}.default
