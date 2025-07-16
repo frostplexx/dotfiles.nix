@@ -288,10 +288,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1752467539,
+        "lastModified": 1752603129,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1e54837569e0b80797c47be4720fab19e0db1616",
+        "rev": "e8c19a3cec2814c754f031ab3ae7316b64da085b",
         "type": "github"
       },
       "original": {
@@ -304,10 +304,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1752569779,
+        "lastModified": 1752651989,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "5afb8facbcf15da1cbfa3a47425084a436052611",
+        "rev": "93884c25ba24cb42b8ecb5d02bbe501643186ebd",
         "type": "github"
       },
       "original": {
@@ -319,10 +319,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1752571370,
+        "lastModified": 1752650446,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "ca0c1f3b22c799941c8d74612b7dafca825abad6",
+        "rev": "741ce91724fbfcdea5819356adfd1f249e60eaa1",
         "type": "github"
       },
       "original": {
@@ -424,11 +424,14 @@
       }
     },
     "nixkit": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
       "locked": {
-        "lastModified": 1751440119,
+        "lastModified": 1752579183,
         "owner": "frostplexx",
         "repo": "nixkit",
-        "rev": "814902866c67734f1c656636b77c1661b79d443e",
+        "rev": "f5a7a3070a95294735ac2dcdfb8e0376ab6e998a",
         "type": "github"
       },
       "original": {
@@ -563,6 +566,21 @@
     "nixpkgs_6": {
       "locked": {
         "lastModified": 1752480373,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "62e0f05ede1da0d54515d4ea8ce9c733f12d9f08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_7": {
+      "locked": {
+        "lastModified": 1752480373,
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "62e0f05ede1da0d54515d4ea8ce9c733f12d9f08",
@@ -575,7 +593,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_7": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1751984180,
         "narHash": "sha256-LwWRsENAZJKUdD3SpLluwDmdXY9F45ZEgCb0X+xgOL0=",
@@ -604,7 +622,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixcord": "nixcord",
         "nixkit": "nixkit",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix"
       }
@@ -630,7 +648,7 @@
     },
     "spicetify-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7",
+        "nixpkgs": "nixpkgs_8",
         "systems": "systems_3"
       },
       "locked": {
