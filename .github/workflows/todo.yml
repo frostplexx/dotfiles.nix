@@ -40,7 +40,10 @@ jobs:
         EOF
 
     - name: Run TODO manager
-      run: node .github/todo-manager.js
+      run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          node .github/todo-manager.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
