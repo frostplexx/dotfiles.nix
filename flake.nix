@@ -24,9 +24,9 @@
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
         nixcord = {
-            # TODO: change back once https://github.com/KaylorBen/nixcord/pull/116 or https://github.com/KaylorBen/nixcord/pull/115 has been merged
+            # TODO: change back once https://github.com/KaylorBen/nixcord/pull/119 has been merged
             # url = "github:kaylorben/nixcord";
-            url = "github:invranet/nixcord";
+            url = "github:builtbyvys/nixcord";
         };
 
         spicetify-nix.url = "github:Gerg-L/spicetify-nix";
@@ -102,6 +102,7 @@
                 "firefox"
                 "git"
                 "kitty"
+                "ghostty"
                 "neovim"
                 "nixcord"
                 "shell"
