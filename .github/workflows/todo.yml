@@ -33,11 +33,17 @@ jobs:
 
     - name: Create TODO manager script
       run: |
+        cat > package.json << 'EOF'
+        {
+          "type": "module"
+        }
+        EOF
+
         cat > todo-manager.js << 'EOF'
-        const { Octokit } = require('@octokit/rest');
-        const fs = require('fs');
-        const path = require('path');
-        const { execSync } = require('child_process');
+        import { Octokit } from '@octokit/rest';
+        import fs from 'fs';
+        import path from 'path';
+        import { execSync } from 'child_process';
 
         const octokit = new Octokit({
           auth: process.env.GITHUB_TOKEN,
@@ -74,7 +80,7 @@ jobs:
         // Find all TODO comments in the codebase
         function findTodos() {
           const todos = [];
-          const extensions = ['.js', '.ts', '.jsx', '.tsx', '.py', '.java', '.cpp', '.c', '.h', '.cs', '.rb', '.go', '.rs', '.php', '.swift', '.kt', '.nix'];
+          const extensions = ['.js', '.ts', '.jsx', '.tsx', '.py', '.java', '.cpp', '.c', '.h', '.cs', '.rb', '.go', '.rs', '.php', '.swift', '.kt'];
 
           function scanDirectory(dir) {
             if (dir.includes('node_modules') || dir.includes('.git') || dir.includes('dist') || dir.includes('build')) {
@@ -217,10 +223,11 @@ jobs:
               console.log('No changes to commit or error committing:', error.message);
             }
 
-          } else if (eventName === 'issues') {
+                      } else if (eventName === 'issues') {
             console.log('Processing issue event...');
 
-            const issueNumber = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')).issue.number;
+            const eventData = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+            const issueNumber = eventData.issue.number;
 
             // Find TODO associated with this issue
             const todoEntry = Object.entries(tracking.todos).find(([_, data]) => data.issueNumber === issueNumber);
