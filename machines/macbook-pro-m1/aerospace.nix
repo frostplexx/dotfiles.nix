@@ -184,6 +184,10 @@
                         run = "move-node-to-workspace 2";
                     }
                     {
+                        "if".app-id = "com.mitchellh.ghostty";
+                        run = "layout tiling";
+                    }
+                    {
                         "if".app-id = "com.termius-beta.mac";
                         run = "move-node-to-workspace 2";
                     }

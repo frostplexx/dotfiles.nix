@@ -66,6 +66,7 @@
             "zen"
             "VirtualBuddy"
             "1password"
+            "ghostty"
         ];
     };
 }
