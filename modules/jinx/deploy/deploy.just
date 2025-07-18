@@ -1,7 +1,17 @@
 
 [group('󱄅 nix')]
 [doc('Deploy system configuration')]
+[positional-arguments]
 deploy host="$(hostname)": lint
-    @echo "Deploying system configuration without update..."
     @git add .
-    @nh {{nix_cmd}} switch -H {{host}}
+    @if [[ $1 == *"--verbose"* || $1 == *"-v"* ]]; then \
+        if [[ "$(uname)" == "Darwin" ]]; then \
+            echo "Running nix-darwin rebuild switch with verbose output..."; \
+            sudo darwin-rebuild switch --flake . --verbose --show-trace; \
+        else \
+            echo "Running nixos-rebuild switch with verbose output..."; \
+            nixos-rebuild switch --flake . --verbose --show-trace; \
+        fi; \
+    else \
+        nh {{nix_cmd}} switch -H {{host}}; \
+    fi
