@@ -71,49 +71,75 @@ jobs:
 
         // Generate AI title for TODO
         async function generateTitle(todoText) {
-          // Simple title generation - you can replace with OpenAI API call
+          // Clean and format the TODO text
           const cleaned = todoText.replace(/^(TODO|todo):\s*/i, '').trim();
-          const words = cleaned.split(' ').slice(0, 8).join(' ');
-          return `TODO: ${words}${cleaned.length > words.length ? '...' : ''}`;
+          if (!cleaned) {
+            return 'TODO: Empty comment';
+          }
+
+          // Take first 8 words and truncate if needed
+          const words = cleaned.split(' ').slice(0, 8);
+          const shortText = words.join(' ');
+
+          // Add ellipsis if truncated
+          const title = shortText.length < cleaned.length ? `${shortText}...` : shortText;
+
+          return `TODO: ${title}`;
         }
 
         // Find all TODO comments in the codebase
         function findTodos() {
           const todos = [];
-          const extensions = ['.js', '.ts', '.jsx', '.tsx', '.py', '.java', '.cpp', '.c', '.h', '.cs', '.rb', '.go', '.rs', '.php', '.swift', '.kt'];
+          const extensions = ['.js', '.ts', '.jsx', '.tsx', '.py', '.java', '.cpp', '.c', '.h', '.cs', '.rb', '.go', '.rs', '.php', '.swift', '.kt', '.yml', '.yaml', '.json', '.md', '.nix'];
 
           function scanDirectory(dir) {
-            if (dir.includes('node_modules') || dir.includes('.git') || dir.includes('dist') || dir.includes('build')) {
+            if (dir.includes('node_modules') || dir.includes('.git') || dir.includes('dist') || dir.includes('build') || dir.includes('.github/workflows')) {
               return;
             }
 
-            const items = fs.readdirSync(dir);
+            try {
+              const items = fs.readdirSync(dir);
 
-            for (const item of items) {
-              const fullPath = path.join(dir, item);
-              const stat = fs.statSync(fullPath);
+              for (const item of items) {
+                const fullPath = path.join(dir, item);
+                const stat = fs.statSync(fullPath);
 
-              if (stat.isDirectory()) {
-                scanDirectory(fullPath);
-              } else if (extensions.some(ext => item.endsWith(ext))) {
-                const content = fs.readFileSync(fullPath, 'utf8');
-                const lines = content.split('\n');
+                if (stat.isDirectory()) {
+                  scanDirectory(fullPath);
+                } else if (extensions.some(ext => item.endsWith(ext))) {
+                  try {
+                    const content = fs.readFileSync(fullPath, 'utf8');
+                    const lines = content.split('\n');
 
-                lines.forEach((line, index) => {
-                  const todoMatch = line.match(/(TODO|todo):\s*(.+)/);
-                  if (todoMatch) {
-                    const todoText = todoMatch[0].trim();
-                    const todoId = `${fullPath}:${index + 1}:${todoText}`;
-                    todos.push({
-                      id: todoId,
-                      file: fullPath,
-                      line: index + 1,
-                      text: todoText,
-                      comment: todoMatch[2].trim()
+                    lines.forEach((line, index) => {
+                      // Look for TODO comments with various comment styles
+                      const todoMatch = line.match(/(?:\/\/|\/\*|#|\*|<!--)?\s*(TODO|todo):\s*(.+?)(?:\*\/|-->)?$/);
+                      if (todoMatch && todoMatch[2]) {
+                        const fullComment = todoMatch[2].trim();
+                        const todoText = `${todoMatch[1]}: ${fullComment}`;
+
+                        // Clean up any template literals or special characters that might cause issues
+                        const cleanComment = fullComment.replace(/`/g, "'").replace(/\$\{[^}]*\}/g, '[template]');
+
+                        const todoId = `${fullPath}:${index + 1}:${todoText}`;
+                        todos.push({
+                          id: todoId,
+                          file: fullPath,
+                          line: index + 1,
+                          text: todoText,
+                          comment: cleanComment
+                        });
+
+                        console.log(`Found TODO: ${todoText} at ${fullPath}:${index + 1}`);
+                      }
                     });
+                  } catch (error) {
+                    console.log(`Error reading file ${fullPath}:`, error.message);
                   }
-                });
+                }
               }
+            } catch (error) {
+              console.log(`Error scanning directory ${dir}:`, error.message);
             }
           }
 
@@ -123,8 +149,13 @@ jobs:
 
         // Create issue for TODO
         async function createIssueForTodo(todo) {
+          console.log('Creating issue for TODO:', JSON.stringify(todo, null, 2));
+
           const title = await generateTitle(todo.text);
+          console.log('Generated title:', title);
+
           const body = `${todo.comment}\n\n**Location:** \`${todo.file}:${todo.line}\`\n\n_This issue was automatically created from a TODO comment._`;
+          console.log('Generated body:', body);
 
           try {
             const response = await octokit.rest.issues.create({
