@@ -113,26 +113,42 @@ jobs:
 
                     lines.forEach((line, index) => {
                       // Look for TODO comments with various comment styles
-                      const todoMatch = line.match(/(?:\/\/|\/\*|#|\*|<!--)?\s*(TODO|todo):\s*(.+?)(?:\*\/|-->)?$/);
-                      if (todoMatch && todoMatch[2]) {
-                        const fullComment = todoMatch[2].trim();
-                        const todoText = `${todoMatch[1]}: ${fullComment}`;
+                      // Replace the todoMatch line in your findTodos function with this improved version:
 
-                        // Clean up any template literals or special characters that might cause issues
-                        const cleanComment = fullComment.replace(/`/g, "'").replace(/\$\{[^}]*\}/g, '[template]');
+                      lines.forEach((line, index) => {
+                        // More precise regex for TODO comments
+                        // Matches: // TODO: text, /* TODO: text, # TODO: text, * TODO: text, <!-- TODO: text
+                        // But NOT: variable names, template literals, or other code constructs
+                        const todoMatch = line.match(/^\s*(?:\/\/|\/\*|#|\*|<!--)\s*(TODO|todo):\s*(.+?)(?:\*\/|-->)?$/);
 
-                        const todoId = `${fullPath}:${index + 1}:${todoText}`;
-                        todos.push({
-                          id: todoId,
-                          file: fullPath,
-                          line: index + 1,
-                          text: todoText,
-                          comment: cleanComment
-                        });
+                        if (todoMatch && todoMatch[2]) {
+                          const fullComment = todoMatch[2].trim();
 
-                        console.log(`Found TODO: ${todoText} at ${fullPath}:${index + 1}`);
-                      }
-                    });
+                          // Skip if this looks like code (contains template literals, function calls, etc.)
+                          if (fullComment.includes('${') ||
+                              fullComment.includes('JSON.stringify') ||
+                              fullComment.includes('console.') ||
+                              fullComment.match(/\w+\(/)) {
+                            return;
+                          }
+
+                          const todoText = `${todoMatch[1]}: ${fullComment}`;
+
+                          // Clean up any template literals or special characters that might cause issues
+                          const cleanComment = fullComment.replace(/`/g, "'").replace(/\$\{[^}]*\}/g, '[template]');
+
+                          const todoId = `${fullPath}:${index + 1}:${todoText}`;
+                          todos.push({
+                            id: todoId,
+                            file: fullPath,
+                            line: index + 1,
+                            text: todoText,
+                            comment: cleanComment
+                          });
+
+                          console.log(`Found TODO: ${todoText} at ${fullPath}:${index + 1}`);
+                        }
+                      });
                   } catch (error) {
                     console.log(`Error reading file ${fullPath}:`, error.message);
                   }
