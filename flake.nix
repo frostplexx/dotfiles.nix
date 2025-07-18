@@ -22,7 +22,6 @@
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # TODO: test
-    # TODO: test2
         _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
         nixcord = {
