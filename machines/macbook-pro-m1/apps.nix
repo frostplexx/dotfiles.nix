@@ -61,7 +61,7 @@
             "cleanshot"
             "mac-mouse-fix"
             "orbstack"
-            "mullvadvpn"
+            # "mullvadvpn"
             "zoom"
             "zen"
             "VirtualBuddy"

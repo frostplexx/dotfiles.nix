@@ -304,10 +304,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1752802615,
+        "lastModified": 1752899699,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "34eceb533b925da0c7480927eede713f4be6a7ff",
+        "rev": "25d388a53211d74bd8181f495183508832d49dab",
         "type": "github"
       },
       "original": {
@@ -319,10 +319,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1752824870,
+        "lastModified": 1752907489,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "0fa6712435155f9c9c04859675149d183cb1829a",
+        "rev": "57792a74463b0e9356efd6bd52a4e2a964db1664",
         "type": "github"
       },
       "original": {
@@ -411,10 +411,10 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1752787980,
+        "lastModified": 1752888308,
         "owner": "builtbyvys",
         "repo": "nixcord",
-        "rev": "c9f959514ba45b1a2ea6a551511682e093af7b9f",
+        "rev": "d1cad5b5a44464d3472711895261c6a7e0c02665",
         "type": "github"
       },
       "original": {
