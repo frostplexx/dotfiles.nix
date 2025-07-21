@@ -10,7 +10,7 @@
         ./apps.nix # Lyra-specific apps
         ./aerospace.nix
         ./custom_icons.nix
-        ./smb_automount.nix
+        # ./smb_automount.nix
     ];
 
     services.lazykeys = {
@@ -21,25 +21,25 @@
         customKey = "escape";
     };
 
-  services.smbAutoMount = {
-    enable = true;
-    autoSetup = true;
-
-    mounts = {
-      "/Volumes/backup" = {
-        share = "//u397529:tusRp8vxZAnJwwj2@u397529.your-storagebox.de/backup";
-        options = [ "rw" "soft" "noowners" "nosuid" ];
-        sidebarName = "Storage Box Backup";
-      };
-
-      # Add more mounts as needed
-      # "/Volumes/another-share" = {
-      #   share = "//user:pass@server.com/share";
-      #   options = [ "rw" "soft" "noowners" "nosuid" ];
-      #   sidebarName = "Another Server";
-      # };
-    };
-  };
+  # services.smbAutoMount = {
+  #   enable = true;
+  #   autoSetup = true;
+  #
+  #   mounts = {
+  #     "/Volumes/backup" = {
+  #       share = "//u397529:tusRp8vxZAnJwwj2@u397529.your-storagebox.de/backup";
+  #       options = [ "rw" "soft" "noowners" "nosuid" ];
+  #       sidebarName = "Storage Box Backup";
+  #     };
+  #
+  #     # Add more mounts as needed
+  #     # "/Volumes/another-share" = {
+  #     #   share = "//user:pass@server.com/share";
+  #     #   options = [ "rw" "soft" "noowners" "nosuid" ];
+  #     #   sidebarName = "Another Server";
+  #     # };
+  #   };
+  # };
 
     programs.opsops.enable = true;
 
