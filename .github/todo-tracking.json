@@ -1,15 +1,9 @@
 {
   "todos": {
-    "flake.nix:24:TODO: test": {
-      "issueNumber": 405,
+    "flake.nix:27:TODO: change back once https://github.com/KaylorBen/nixcord/pull/119 has been merged": {
+      "issueNumber": 409,
       "file": "flake.nix",
-      "line": 24,
-      "text": "TODO: test"
-    },
-    "flake.nix:29:TODO: change back once https://github.com/KaylorBen/nixcord/pull/119 has been merged": {
-      "issueNumber": 408,
-      "file": "flake.nix",
-      "line": 29,
+      "line": 27,
       "text": "TODO: change back once https://github.com/KaylorBen/nixcord/pull/119 has been merged"
     }
   }
