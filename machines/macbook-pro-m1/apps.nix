@@ -66,7 +66,7 @@
             "zen"
             "VirtualBuddy"
             "1password"
-            "ghostty"
+            "ghostty@tip"
         ];
     };
 }

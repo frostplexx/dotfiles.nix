@@ -1,6 +1,7 @@
 return {
     "MunsMan/kitty-navigator.nvim",
     lazy = true,
+    enabled = false,
     keys = {
         { "<C-h>", function() require("kitty-navigator").navigateLeft() end,  desc = "Move left a Split",  mode = { "n" } },
         { "<C-j>", function() require("kitty-navigator").navigateDown() end,  desc = "Move down a Split",  mode = { "n" } },

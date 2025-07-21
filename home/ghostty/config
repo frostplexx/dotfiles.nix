@@ -8,7 +8,7 @@ background-opacity = 0.9
 # rendering issues as well as performance issues.
 # This is only supported on macOS.
 background-blur-radius = 20
-unfocused-split-opacity = 0.8
+unfocused-split-opacity = 0.9
 
 # ==== Mouse ====
 mouse-hide-while-typing = true
@@ -22,8 +22,9 @@ macos-titlebar-style = tabs
 
 
 # ==== Misc ====
-shell-integration = zsh
-term = xterm-256color
+shell-integration = fish
+macos-option-as-alt = true
+# term = xterm-256color
 
 
 # ==== Key bindings ====
@@ -51,3 +52,9 @@ keybind = alt+l=goto_split:right
 
 # Misc
 keybind = super+shift+i=inspector:toggle
+
+keybind = global:ctrl+alt+cmd+enter=toggle_quick_terminal
+
+keybind = cmd+t=new_window
+keybind = ctrl+shift+x=write_scrollback_file:open
+# keybind = ctrl+shift+e=hint:link:link-url:open_browser

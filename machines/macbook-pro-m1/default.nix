@@ -211,7 +211,8 @@
                     "/Applications/Zen.app/"
                     # "/Applications/Firefox.app"
                     # "/Applications/Safari.app"
-                    "${pkgs.kitty}/Applications/kitty.app"
+                    # "${pkgs.kitty}/Applications/kitty.app"
+                    "/Applications/Ghostty.app/"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
                 ];
             };
