@@ -24,8 +24,9 @@ macos-titlebar-style = tabs
 # ==== Misc ====
 shell-integration = fish
 macos-option-as-alt = true
-# term = xterm-256color
-
+term = xterm-256color
+auto-update = off
+auto-update-channel = tip
 
 # ==== Key bindings ====
 # Global
@@ -42,7 +43,7 @@ keybind = ctrl+shift+right=resize_split:right,20
 # TODO: Wait for ability to have moving splits implemented
 
 # Splits
-keybind = ctrl+shift+plus=new_split:right
+keybind = ctrl+shift+equal=new_split:right
 keybind = ctrl+shift+minus=new_split:down
 keybind = ctrl+shift+enter=new_split:auto
 keybind = alt+k=goto_split:top

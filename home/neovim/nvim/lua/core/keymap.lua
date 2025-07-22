@@ -17,6 +17,9 @@ vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename)
 vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
 vim.keymap.set('n', 'ca', vim.lsp.buf.code_action)
 
+
+
+
 -- spotify_player
 local function create_float_term()
     local width = math.floor(vim.o.columns * 0.8)
@@ -172,6 +175,9 @@ vim.keymap.set('n', "<leader>bf",
 vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
 vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })
 
+-- Tabs
+vim.keymap.set('n', "<leader>tn", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>tc", ":tabclose<cr>", { desc = "New Tab", noremap = true, silent = true })
 
 -- Toggle boolean values (true/false, True/False)
 local function toggle_bool()
@@ -213,3 +219,105 @@ local function toggle_bool()
 end
 
 vim.keymap.set('n', 'yt', toggle_bool, { desc = 'Toggle boolean value' })
+
+-- Function to populate quickfix list with LSP diagnostics
+local function lsp_diagnostics_to_quickfix()
+    -- Get all diagnostics from all buffers
+    local diagnostics = vim.diagnostic.get()
+
+    -- If no diagnostics found, show message and return
+    if #diagnostics == 0 then
+        print("No LSP diagnostics found")
+        return
+    end
+
+    -- Sort diagnostics by severity, then by file, then by line
+    table.sort(diagnostics, function(a, b)
+        if a.severity ~= b.severity then
+            return a.severity < b.severity -- Errors first (1), then warnings (2), etc.
+        end
+        local bufname_a = vim.api.nvim_buf_get_name(a.bufnr)
+        local bufname_b = vim.api.nvim_buf_get_name(b.bufnr)
+        if bufname_a ~= bufname_b then
+            return bufname_a < bufname_b
+        end
+        return a.lnum < b.lnum
+    end)
+
+    -- Convert diagnostics to quickfix format with nice formatting
+    local qf_items = {}
+    local severity_icons = {
+        [vim.diagnostic.severity.ERROR] = "󰅚", -- Error icon
+        [vim.diagnostic.severity.WARN] = "󰀪", -- Warning icon
+        [vim.diagnostic.severity.INFO] = "󰋽", -- Info icon
+        [vim.diagnostic.severity.HINT] = "󰌶", -- Hint icon
+    }
+
+    local severity_names = {
+        [vim.diagnostic.severity.ERROR] = "Error",
+        [vim.diagnostic.severity.WARN] = "Warning",
+        [vim.diagnostic.severity.INFO] = "Info",
+        [vim.diagnostic.severity.HINT] = "Hint",
+    }
+
+    for _, diagnostic in ipairs(diagnostics) do
+        local bufname = vim.api.nvim_buf_get_name(diagnostic.bufnr)
+        local filename = vim.fn.fnamemodify(bufname, ':t')  -- Just the filename
+        local relative_path = vim.fn.fnamemodify(bufname, ':.') -- Relative to cwd
+
+        -- Get severity info
+        local icon = severity_icons[diagnostic.severity] or "●"
+        local severity_name = severity_names[diagnostic.severity] or "Unknown"
+
+        -- Determine type for quickfix
+        local type = "E" -- Default to error
+        if diagnostic.severity == vim.diagnostic.severity.WARN then
+            type = "W"
+        elseif diagnostic.severity == vim.diagnostic.severity.INFO then
+            type = "I"
+        elseif diagnostic.severity == vim.diagnostic.severity.HINT then
+            type = "N"
+        end
+
+        -- Format the text similar to trouble.nvim
+        local source = diagnostic.source and string.format("[%s]", diagnostic.source) or ""
+        local formatted_text = string.format(
+            "%s %s:%d:%d %s %s %s",
+            icon,
+            filename,
+            diagnostic.lnum + 1,
+            diagnostic.col + 1,
+            severity_name,
+            source,
+            diagnostic.message
+        )
+
+        table.insert(qf_items, {
+            filename = bufname,
+            lnum = diagnostic.lnum + 1, -- Convert to 1-indexed
+            col = diagnostic.col + 1, -- Convert to 1-indexed
+            text = formatted_text,
+            type = type,
+            valid = 1
+        })
+    end
+
+    -- Set the quickfix list with a custom title
+    vim.fn.setqflist({}, 'r', {
+        title = string.format("LSP Diagnostics (%d items)", #qf_items),
+        items = qf_items
+    })
+
+    -- Open the quickfix window and resize it
+    vim.cmd('copen')
+    vim.cmd('wincmd J') -- Move quickfix to bottom
+    vim.api.nvim_win_set_height(0, math.min(15, math.max(5, #qf_items + 1)))
+
+    print(string.format("Added %d LSP diagnostics to quickfix list", #qf_items))
+end
+
+-- Create the key mapping
+vim.keymap.set('n', '<leader>tr', lsp_diagnostics_to_quickfix, {
+    desc = 'LSP diagnostics to quickfix',
+    silent = true
+})

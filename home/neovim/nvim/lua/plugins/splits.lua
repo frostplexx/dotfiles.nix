@@ -70,7 +70,7 @@ return {
             -- and the $KITTY_LISTEN_ON environment variable for Kitty.
             -- You can also set this value by setting `vim.g.smart_splits_multiplexer_integration`
             -- before the plugin is loaded (e.g. for lazy environments).
-            multiplexer_integration = nil,
+            -- multiplexer_integration = nil,
             -- disable multiplexer navigation if current multiplexer pane is zoomed
             -- NOTE: This does not work on Zellij as there is no way to determine the
             -- pane zoom state outside of the Zellij Plugin API, which does not apply here
@@ -91,20 +91,20 @@ return {
         -- resizing splits
         -- these keymaps will also accept a range,
         -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-        { '<A-h>',             function() require('smart-splits').resize_left() end,       mode = { "n" } },
-        { '<A-j>',             function() require('smart-splits').resize_down() end,       mode = { "n" } },
-        { '<A-k>',             function() require('smart-splits').resize_up() end,         mode = { "n" } },
-        { '<A-l>',             function() require('smart-splits').resize_right() end,      mode = { "n" } },
+        { '<C-S-h>',    function() require('smart-splits').resize_left() end,       mode = { "n" } },
+        { '<C-S-j>',    function() require('smart-splits').resize_down() end,       mode = { "n" } },
+        { '<C-S-k>',    function() require('smart-splits').resize_up() end,         mode = { "n" } },
+        { '<C-S-l>',    function() require('smart-splits').resize_right() end,      mode = { "n" } },
         -- movingfunction() between splits
-        { '<C-h>',             function() require('smart-splits').move_cursor_left() end,  mode = { "n" } },
-        { '<C-j>',             function() require('smart-splits').move_cursor_down() end,  mode = { "n" } },
-        { '<C-k>',             function() require('smart-splits').move_cursor_up() end,    mode = { "n" } },
-        { '<C-l>',             function() require('smart-splits').move_cursor_right() end, mode = { "n" } },
-        { '<C-\\>',            function() require('smart-splits').move_cursprevious() end, mode = { "n" } },
+        { '<C-h>',      function() require('smart-splits').move_cursor_left() end,  mode = { "n" } },
+        { '<C-j>',      function() require('smart-splits').move_cursor_down() end,  mode = { "n" } },
+        { '<C-k>',      function() require('smart-splits').move_cursor_up() end,    mode = { "n" } },
+        { '<C-l>',      function() require('smart-splits').move_cursor_right() end, mode = { "n" } },
+        { '<C-\\>',     function() require('smart-splits').move_cursprevious() end, mode = { "n" } },
         -- swapping buffers between windows
-        { '<leader><leader>h', function() require('smart-splits').swap_buf_left() end,     mode = { "n" } },
-        { '<leader><leader>j', function() require('smart-splits').swap_buf_down() end,     mode = { "n" } },
-        { '<leader><leader>k', function() require('smart-splits').swap_buf_up() end,       mode = { "n" } },
-        { '<leader><leader>l', function() require('smart-splits').swap_buf_right() end,    mode = { "n" } }
+        { '<leader>wh', function() require('smart-splits').swap_buf_left() end,     mode = { "n" } },
+        { '<leader>wj', function() require('smart-splits').swap_buf_down() end,     mode = { "n" } },
+        { '<leader>wk', function() require('smart-splits').swap_buf_up() end,       mode = { "n" } },
+        { '<leader>wl', function() require('smart-splits').swap_buf_right() end,    mode = { "n" } }
     },
 }
