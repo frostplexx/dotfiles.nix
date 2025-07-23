@@ -14,15 +14,12 @@
                 g = "lazygit";
                 c = "clear";
                 q = "exit";
-                s = "kitten ssh";
+                s = "ssh";
                 p = "cd $(ls -d -1 ~/Developer/* |fzf); kitten @ launch --location=hsplit --bias=20 --cwd $PWD;nvim .";
                 cat = "bat";
                 tree = "eza --icons --git --header --tree";
                 vimdiff = "nvim -d";
                 cd = "z";
-                gt = "git-forgit";
-                wake = "printf 'Keeping PC awake...'; caffeinate -d -i -m -s";
-                ghd = "gh dash";
             };
 
             shellAbbrs = {

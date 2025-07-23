@@ -4,7 +4,7 @@
 upgrade: lint
     @echo "Deploying system configuration with update..."
     @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
-    @git add .
+    @cd $HOME/dotfiles.nix; git add .
     @git commit -m "chore: update flake inputs"
 
 

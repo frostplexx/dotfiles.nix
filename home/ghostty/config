@@ -1,3 +1,5 @@
+#TODO: move shaders into nix config
+# custom-shader = shaders/cursor_smear.glsl
 # ==== Font ====
 font-family = "Maple Mono"
 

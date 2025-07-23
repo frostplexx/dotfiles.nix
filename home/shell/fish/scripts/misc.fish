@@ -1,14 +1,20 @@
-function cocaine
-    # Check current DPMS status
-    set status (xset -q | grep 'DPMS is' | awk '{ print $3 }')
+function wake
 
-    # Toggle DPMS based on current status
-    if test "$status" = Enabled
-        xset -dpms
-        dunstify 'Screen suspend is disabled.'
+    if test (uname) = Linux
+        # Check current DPMS status
+        set status (xset -q | grep 'DPMS is' | awk '{ print $3 }')
+
+        # Toggle DPMS based on current status
+        if test "$status" = Enabled
+            xset -dpms
+            dunstify 'Screen suspend is disabled.'
+        else
+            xset +dpms
+            dunstify 'Screen suspend is enabled.'
+        end
     else
-        xset +dpms
-        dunstify 'Screen suspend is enabled.'
+        printf ' Keeping PC awake...'
+        caffeinate -d -i -m -s
     end
 end
 
