@@ -5,16 +5,9 @@
     inputs,
     system,
     overlays,
-    config,
+    nixpkgsConfig,
     ...
 }: let
-    # Configuration for Nixpkgs, controlling which packages are allowed.
-    nixpkgsConfig = config.getNixpkgsConfig ++ {
-        packageOverrides = pkgs: {
-          electron = pkgs.electron_37; # electron is ancient, so override it with electron_37 which is the newest version
-        };
-  };
-
     # Import Nixpkgs with the above configuration and overlays.
     pkgs = import inputs.nixpkgs {
         inherit system overlays;

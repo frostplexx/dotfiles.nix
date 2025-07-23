@@ -27,10 +27,12 @@
     linuxModule = import ./linux.nix {inherit inputs;};
 in
     [
+        # Import settings from settings.yaml
+        ../../modules/read_settings.nix
         # Apply overlays globally
         {nixpkgs.overlays = pkgs.overlays or [];}
         # Apply Nixpkgs configuration globally
-        {nixpkgs.config = nixpkgsConfig;}
+        ({config, ...}: { nixpkgs.config = config.getNixpkgsConfig; })
         # Import the machine-specific configuration, passing all relevant arguments
         ({config, modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit config modulesPath;}))
         # Import any additional modules (e.g., jinx)

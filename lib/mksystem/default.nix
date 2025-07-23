@@ -1,21 +1,15 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-{
-    inputs,
-    nixpkgs,
-    overlays,
-    lib,
-config,
-    ...
-} @ args: name: {
+{ inputs, nixpkgs, overlays, ... } @ args: name: {
     system,
     user,
     hm-modules ? [],
 }: let
     # Load the Nixpkgs package set and configuration.
+    readSettings = import ../../modules/read_settings.nix { inherit pkgs config; lib = nixpkgs.lib; };
     pkgsConfig = import ./pkgs.nix ({
         inherit inputs system overlays;
-        config = import ../../modules/read_settings.nix { inherit pkgs lib config; };
+        nixpkgsConfig = readSettings.getNixpkgsConfig;
     } // args);
     inherit (pkgsConfig) pkgs;
     inherit (pkgsConfig) nixpkgsConfig;

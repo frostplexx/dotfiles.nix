@@ -74,9 +74,10 @@ in {
       allowUnsupportedSystem = settings.nixpkgs.allow_unsupported_system;
       allowBroken = settings.nixpkgs.allow_broken;
       allowInsecure = settings.nixpkgs.allow_insecure;
-      packageOverrides = pkgs: {
-        electron = pkgs.${settings.electron_version};
-      };
+      packageOverrides = pkgs:
+        if builtins.hasAttr "electron_version" settings && settings.electron_version != null
+        then { electron = pkgs.${settings.electron_version}; }
+        else {};
     };
 
     getStateVersion = {
