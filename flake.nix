@@ -61,6 +61,7 @@
 
         mkSystem = import ./lib/mksystem {
             inherit overlays nixpkgs inputs;
+            lib = nixpkgs.lib; # Explicitly define `lib` from Nixpkgs
         };
     in {
         nixosConfigurations.pc-nixos = mkSystem "pc-nixos" {

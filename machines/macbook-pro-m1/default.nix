@@ -3,6 +3,7 @@
     pkgs,
     user,
     assets,
+    config,
     ...
 }: {
     imports = [
@@ -70,6 +71,7 @@
         # https://github.com/nix-community/home-manager/pull/2408
         pathsToLink = ["/share/fish"];
         shells = [pkgs.fish];
+        variables = config.mkDotfilesEnv;
     };
     # User configuration
     users = {

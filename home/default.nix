@@ -3,7 +3,6 @@
         username = user;
         stateVersion = "23.11";
         sessionVariables = {
-            NH_FLAKE = "$HOME/dotfiles.nix";
             EDITOR = "nvim";
         };
     };

@@ -1,0 +1,14 @@
+dotfiles_path: "$HOME/dotfiles.nix"
+
+# Nixpkgs configuration (used in lib/mksystem/pkgs.nix)
+nixpkgs:
+  allow_unfree: true
+  allow_unsupported_system: false
+  allow_broken: true
+  allow_insecure: true
+
+
+# System state versions (used in lib/mksystem/modules.nix)
+state_version:
+  darwin: 6
+  linux: "24.05"

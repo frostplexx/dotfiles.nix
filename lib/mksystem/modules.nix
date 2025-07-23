@@ -13,6 +13,7 @@
     hm-modules,
     assets,
     mkHomeConfig,
+    config,
 }: let
     # Determine if we are building for Darwin (macOS)
     inherit (pkgs.stdenv) isDarwin;
@@ -31,7 +32,7 @@ in
         # Apply Nixpkgs configuration globally
         {nixpkgs.config = nixpkgsConfig;}
         # Import the machine-specific configuration, passing all relevant arguments
-        ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
+        ({config, modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit config modulesPath;}))
         # Import any additional modules (e.g., jinx)
         ({pkgs, ...}: import ../../modules {inherit pkgs;})
         # Trust the root user and the system user for Nix operations
@@ -42,9 +43,9 @@ in
             nixpkgs.config = nixpkgsConfig;
             # Set the state version for Home Manager (Darwin and Linux differ)
             system.stateVersion =
-                if isDarwin
-                then 6
-                else "24.05";
+              if isDarwin
+              then config.getStateVersion.darwin
+              else config.getStateVersion.linux;
             home-manager = {
                 useGlobalPkgs = true; # Use the global pkgs set
                 useUserPackages = true; # Allow user packages

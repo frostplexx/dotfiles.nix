@@ -4,6 +4,8 @@
     inputs,
     nixpkgs,
     overlays,
+    lib,
+config,
     ...
 } @ args: name: {
     system,
@@ -11,7 +13,10 @@
     hm-modules ? [],
 }: let
     # Load the Nixpkgs package set and configuration.
-    pkgsConfig = import ./pkgs.nix {inherit inputs system overlays;};
+    pkgsConfig = import ./pkgs.nix ({
+        inherit inputs system overlays;
+        config = import ../../modules/read_settings.nix { inherit pkgs lib config; };
+    } // args);
     inherit (pkgsConfig) pkgs;
     inherit (pkgsConfig) nixpkgsConfig;
 
@@ -28,9 +33,9 @@
     mkHomeConfig = args: import ./home-config.nix args;
 
     # Assemble the full list of system modules.
-    modules = import ./modules.nix {
+    modules = import ./modules.nix ({
         inherit inputs pkgs nixpkgsConfig system user name machineConfig machineConfigArgs hm-modules assets mkHomeConfig;
-    };
+    } // args);
 
     # Determine if we are building for Darwin (macOS).
     inherit (pkgs.stdenv) isDarwin;
