@@ -3,18 +3,18 @@
 [group('󰲽 utility')]
 [doc('Sets the current screen to HiDPI mode')]
 set_screen_hidpi:
-    @"$HOME/dotfiles.nix/modules/jinx/misc/highres_display.sh"
+    @"{{DOTFILES_FOLDER}}/modules/jinx/misc/highres_display.sh"
 
 [group('󰲽 utility')]
 [doc('Generates an SSH config file from hosts inside 1Password')]
 [working-directory("./")]
 generate_ssh_hosts:
-    @"$HOME/dotfiles.nix/modules/jinx/misc/ssh.fish"
+    @"{{DOTFILES_FOLDER}}/modules/jinx/misc/ssh.fish"
 
 [group('󰲽 utility')]
 [doc('Edit the system config')]
 edit:
-    @cd "$HOME/dotfiles.nix/"; nvim "$HOME/dotfiles.nix/"
+    @cd "{{DOTFILES_FOLDER}}"; nvim "{{DOTFILES_FOLDER}}"
 
 
 [group('󰲽 utility')]

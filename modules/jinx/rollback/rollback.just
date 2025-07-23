@@ -2,4 +2,4 @@
 [group('󰒔 maintain')]
 [doc('Selectively rollback flake inputs')]
 rollback:
-    @"$HOME/dotfiles.nix/modules/jinx/rollback/flake-rollback.fish" "$HOME/dotfiles.nix"
+    @"{{DOTFILES_FOLDER}}/modules/jinx/rollback/flake-rollback.fish" "{{DOTFILES_FOLDER}}"
