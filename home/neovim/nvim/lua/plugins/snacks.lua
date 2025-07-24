@@ -3,7 +3,6 @@ return {
     priority = 1000,
     lazy = false,
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
         bigfile = {
             enabled = true,

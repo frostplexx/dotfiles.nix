@@ -1,5 +1,4 @@
 -- [[ LSP ]]
-local diagnostic_icons = require('core.icons').diagnostics
 
 -- Set up autocommands to attach to lsp
 local lsp_dir = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h") .. '/../../lsp'
@@ -42,7 +41,7 @@ vim.lsp.config('*', {
 })
 
 -- Define the diagnostic signs.
-for severity, icon in pairs(diagnostic_icons) do
+for severity, icon in pairs(tools.ui.diagnostics) do
     local hl = 'DiagnosticSign' .. severity:sub(1, 1) .. severity:sub(2):lower()
     vim.fn.sign_define(hl, { text = icon, texthl = hl })
 end
@@ -58,7 +57,7 @@ vim.diagnostic.config {
                 ['Lua Diagnostics.'] = 'lua',
                 ['Lua Syntax Check.'] = 'lua',
             }
-            local prefix = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
+            local prefix = tools.ui.diagnostics[vim.diagnostic.severity[diagnostic.severity]]
             local message = diagnostic.message
             -- local source = ''
             -- if diagnostic.source then
@@ -102,7 +101,6 @@ vim.diagnostic.handlers.virtual_text = {
 }
 
 local hover = vim.lsp.buf.hover
----@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.hover = function()
     return hover {
         max_height = math.floor(vim.o.lines * 0.5),
@@ -111,7 +109,6 @@ vim.lsp.buf.hover = function()
 end
 
 local signature_help = vim.lsp.buf.signature_help
----@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.signature_help = function()
     return signature_help {
         max_height = math.floor(vim.o.lines * 0.5),

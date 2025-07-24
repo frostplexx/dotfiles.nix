@@ -29,6 +29,6 @@ return {
     {
         "zbirenbaum/copilot.lua",
         lazy = true,
-        event = "BufEnter"
+        -- event = "BufEnter"
     }
 }

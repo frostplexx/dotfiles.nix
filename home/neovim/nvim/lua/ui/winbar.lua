@@ -1,4 +1,4 @@
-local folder_icon = require('core.icons').symbol_kinds.Folder
+local folder_icon = tools.ui.kind_icons.Folder
 
 -- Cache highlights setup
 local highlights_setup = false
@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
             and vim.api.nvim_buf_get_name(args.buf) ~= '' -- Has a file name
             and not vim.wo[0].diff                        -- Not in diff mode
         then
-            vim.wo.winbar = "%{%v:lua.require'core.winbar'.render()%}"
+            vim.wo.winbar = "%{%v:lua.require'ui.winbar'.render()%}"
         end
     end,
 })

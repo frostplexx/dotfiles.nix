@@ -72,7 +72,7 @@ autocmd('TextYankPost', {
 
 -- Create sign for TODOs
 vim.fn.sign_define('todo', {
-    text = '✓',
+    text = tools.ui.icons.ok,
     texthl = 'TodoSign'
 })
 
