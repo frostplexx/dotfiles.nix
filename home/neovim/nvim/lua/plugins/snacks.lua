@@ -79,7 +79,40 @@ return {
                 },
             },
             reverse = true,
+        },
+        dashboard = {
+            width = 60,
+            row = nil,                                                                   -- dashboard position. nil for center
+            col = nil,                                                                   -- dashboard position. nil for center
+            pane_gap = 4,                                                                -- empty columns between vertical panes
+            autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", -- autokey sequence
+            -- These settings are used by some built-in sections
+            preset = {
+                header = [[
+   .          .
+ ';;,.        ::'
+,:::;,,        :ccc,
+,::c::,,,,.     :cccc,
+,cccc:;;;;;.    cllll,
+,cccc;.;;;;;,   cllll;
+:cccc; .;;;;;;. coooo;
+;llll;   ,:::::'loooo;
+;llll:    ':::::loooo:
+:oooo:     .::::llodd:
+.;ooo:       ;cclooo:.
+.;oc        'coo;.
+  .'         .,. ]],
+                footer = "test"
+            },
+            -- item field formatters
+            formats = {
+                header = { "%s", align = "center" },
+            },
+            sections = {
+                { section = "header" },
+            },
         }
+
     },
     keys = {
         { "<leader>z",       function() Snacks.zen() end,                                                                              desc = "Toggle Zen Mode" },
