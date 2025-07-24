@@ -55,6 +55,9 @@
                     cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
                 };
             };
+        ghq=  {
+          root = "~/Developer";
+        };
         };
         delta = {
             enable = true;

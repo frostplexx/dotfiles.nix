@@ -35,6 +35,7 @@
         magic-wormhole-rs
         netcat
         sops
+        ghq
 
         # Nix utils
         nix-tree

@@ -208,11 +208,11 @@
                 # Pinned apps
                 persistent-apps = [
                     "/Applications/Things3.app"
+                    "/Applications/Ghostty.app/"
                     "/Applications/Zen.app/"
                     # "/Applications/Firefox.app"
                     # "/Applications/Safari.app"
                     # "${pkgs.kitty}/Applications/kitty.app"
-                    "/Applications/Ghostty.app/"
                     "${pkgs.obsidian}/Applications/Obsidian.app"
                 ];
             };
