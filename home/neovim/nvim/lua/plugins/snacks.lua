@@ -104,7 +104,6 @@ return {
   .'         .,. ]],
                 footer = "test"
             },
-            -- item field formatters
             formats = {
                 header = { "%s", align = "center" },
             },
