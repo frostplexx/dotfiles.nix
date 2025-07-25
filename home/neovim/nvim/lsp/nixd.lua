@@ -64,13 +64,7 @@ local function build_nixd_settings()
     }
 
     -- Dynamic formatter detection
-    if command_exists("alejandra") then
-        settings.nixd.formatting.command = { "alejandra" }
-    elseif command_exists("nixfmt") then
-        settings.nixd.formatting.command = { "nixfmt" }
-    elseif command_exists("nixpkgs-fmt") then
-        settings.nixd.formatting.command = { "nixpkgs-fmt" }
-    end
+    settings.nixd.formatting.command = { "alejandra" }
 
     -- Try to find flake and configure options dynamically
     local flake_dir, flake_configs = get_flake_configurations()

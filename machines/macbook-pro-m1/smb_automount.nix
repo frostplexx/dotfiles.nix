@@ -1,14 +1,17 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.smbAutoMount;
 
   autoDirectContent = concatStringsSep "\n" (
-    mapAttrsToList (mountPoint: mountConfig:
-      "${mountPoint} -fstype=smbfs,${concatStringsSep "," mountConfig.options} ${mountConfig.share}"
-    ) cfg.mounts
+    mapAttrsToList (
+      mountPoint: mountConfig: "${mountPoint} -fstype=smbfs,${concatStringsSep "," mountConfig.options} ${mountConfig.share}"
+    )
+    cfg.mounts
   );
 
   triggerScript = concatStringsSep "\n" (
@@ -17,10 +20,13 @@ let
         echo "Triggering SMB automounts..."
         sleep 3
       ''
-    ] ++ (mapAttrsToList (mountPoint: _: ''
-      echo "Triggering automount for ${mountPoint}..."
-      ls "${mountPoint}" >/dev/null 2>&1 || true
-    '') cfg.mounts) ++ [ "echo \"Mount triggering complete!\"" ]
+    ]
+    ++ (mapAttrsToList (mountPoint: _: ''
+        echo "Triggering automount for ${mountPoint}..."
+        ls "${mountPoint}" >/dev/null 2>&1 || true
+      '')
+      cfg.mounts)
+    ++ ["echo \"Mount triggering complete!\""]
   );
 
   finderScript = concatStringsSep "\n" (
@@ -53,12 +59,13 @@ let
           fi
         }
       ''
-    ] ++ (mapAttrsToList (mountPoint: mountConfig:
-      ''add_to_sidebar "${mountPoint}" "${mountConfig.sidebarName or (baseNameOf mountPoint)}"''
-    ) cfg.mounts)
+    ]
+    ++ (mapAttrsToList (
+        mountPoint: mountConfig: ''add_to_sidebar "${mountPoint}" "${mountConfig.sidebarName or (baseNameOf mountPoint)}"''
+      )
+      cfg.mounts)
   );
-in
-{
+in {
   options.services.smbAutoMount = {
     enable = mkEnableOption "SMB automounting with Finder sidebar integration";
 
@@ -72,7 +79,7 @@ in
 
           options = mkOption {
             type = types.listOf types.str;
-            default = [ "rw" "noauto" "soft" "noowners" "nosuid" ];
+            default = ["rw" "noauto" "soft" "noowners" "nosuid"];
             description = "Mount options";
           };
 
@@ -104,10 +111,11 @@ in
         echo "Setting up SMB automounts..."
 
         ${concatStringsSep "\n" (mapAttrsToList (mountPoint: _: ''
-          echo "Creating mount directory ${mountPoint}..."
-          mkdir -p "${mountPoint}" || true
-          chmod 755 "${mountPoint}" || true
-        '') cfg.mounts)}
+            echo "Creating mount directory ${mountPoint}..."
+            mkdir -p "${mountPoint}" || true
+            chmod 755 "${mountPoint}" || true
+          '')
+          cfg.mounts)}
 
         if [ -f /etc/auto_master ] && [ ! -f /etc/auto_master.backup ]; then
           cp /etc/auto_master /etc/auto_master.backup
