@@ -54,14 +54,26 @@ require("lazy").setup(plugins, {
         path = "~/.local/share/nvim/nix",
         fallback = false,
     },
-    change_detection = { notify = false, },
+    defaults = {
+        lazy = true,
+        version = nil,
+    },
+    change_detection = {
+        notify = false,
+        enabled = false,
+    },
     rocks = { enabled = false },
+    checker = {
+        enabled = false,
+        notify = false,
+    },
     performance = {
         cache = {
             enabled = true,
         },
+        reset_packpath = true, -- Reset packpath for better performance
         rtp = {
-            reset = true, -- reset runtimepath
+            reset = true,      -- reset the runtime path to $VIMRUNTIME and your config directory
             -- disable some rtp plugins
             disabled_plugins = {
                 "gzip",
@@ -72,8 +84,14 @@ require("lazy").setup(plugins, {
                 "tohtml",
                 "tutor",
                 "zipPlugin",
+                "rplugin", -- Disable remote plugins
+                "syntax",  -- Disable vim syntax (use treesitter)
             },
         },
+    },
+    profiling = {
+        loader = false,
+        require = false,
     },
 })
 require 'ui'
