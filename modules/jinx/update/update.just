@@ -12,3 +12,8 @@ upgrade: lint
 update-refs:
     @echo -e "Updating refs..."
     @"{{DOTFILES_FOLDER}}/modules/jinx/update/update-flake-revs.sh" {{DOTFILES_FOLDER}}
+
+[group('󱄅 nix')]
+[doc('list the changes from the updated inputs')]
+changelog:
+    @"{{DOTFILES_FOLDER}}/modules/jinx/update/changelog.fish" {{DOTFILES_FOLDER}}
