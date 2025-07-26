@@ -1,7 +1,6 @@
 #!/usr/bin/env fish
 
 function flake-diff --description "Compare flake.lock between commits and show GitHub commits" --argument-names flake_dir
-
     # Set default directory to current if not provided
     if test -z "$flake_dir"
         set flake_dir "."
@@ -78,7 +77,7 @@ function flake-diff --description "Compare flake.lock between commits and show G
     echo
 
     # Parse both flake.lock files and compare (only GitHub repos that are actual flakes)
-    set current_inputs (jq -r '.nodes | to_entries[] | select(.value.locked != null and .value.locked.type == "github" and (.value.flake != false)) | "\(.key):\(.value.locked.owner // ""):\(.value.locked.repo // ""):\(.value.locked.rev // "")"' flake.lock 2>/dev/null)
+    set current_inputs (jq -r '.nodes | to_entries[] | select(.value.locked != null and .value.locked.type == "github" and (.value.flake != false)) | "\(.key):\(.value.locked.owner // ""):\(.value.locked.repo // ""):\(.value.locked.rev // "")"' "$current_flake_lock" 2>/dev/null)
     set prev_inputs (jq -r '.nodes | to_entries[] | select(.value.locked != null and .value.locked.type == "github" and (.value.flake != false)) | "\(.key):\(.value.locked.owner // ""):\(.value.locked.repo // ""):\(.value.locked.rev // "")"' "$prev_flake_lock" 2>/dev/null)
 
     if test $status -ne 0
@@ -239,7 +238,7 @@ function flake-diff --description "Compare flake.lock between commits and show G
 
         if not $found_in_prev
             set found_updates true
-            echo "$(set_color green) New input: $(set_color -o green)$name$(set_color normal)"
+            echo "$(set_color green) New input: $(set_color -o green)$name$(set_color normal)"
             echo "$(set_color yellow)  Repository:$(set_color normal) https://github.com/$owner/$repo"
             echo "$(set_color yellow)  Revision:  $(set_color normal) $current_rev"
             echo "$(set_color yellow)  Link:      $(set_color normal) https://github.com/$owner/$repo/tree/$current_rev"
@@ -266,14 +265,14 @@ function flake-diff --description "Compare flake.lock between commits and show G
 
         if not $found_in_current
             set found_updates true
-            echo "$(set_color red) Removed input:$(set_color -o red) $name$(set_color normal)"
+            echo "$(set_color red) Removed input:$(set_color -o red) $name$(set_color normal)"
             echo "$(set_color red)   Repository:$(set_color normal) https://github.com/$owner/$repo"
             echo
         end
     end
 
     if not $found_updates
-        echo "$(set_color yellow)No changes found in flake inputs."
+        echo "$(set_color yellow)No changes found in flake inputs.$(set_color normal)"
     end
 
     # Cleanup
