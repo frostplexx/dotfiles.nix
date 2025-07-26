@@ -9,7 +9,6 @@ return {
             notify = false,  -- Reduce notifications for speed
             size = 50 * 1024 -- Reduce threshold to 50KB for better performance
         },
-
         animate = {
             enabled = true,
             duration = 20, -- ms per step
@@ -18,7 +17,18 @@ return {
         },
         debug = { enabled = false },
         input = { enabled = true },
-        scope = { enabled = true },
+        scope = { enabled = false },
+        -- indent = {
+        --     enabled = true, -- enable indent guides
+        --     hl = "SnacksIndent5", ---@type string|string[] hl groups for indent guides
+        --     animate = {
+        --         enabled = false
+        --     },
+        --     scope = {
+        --         underline = true,
+        --         hl = "SnacksIndent2", ---@type string|string[] hl group for scopes
+        --     },
+        -- },
         image = {
             formats = { 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'tiff', 'heic', 'avif', 'mp4', 'mov', 'avi', 'mkv', 'webm' },
             force = false, -- try displaying the image, even if the terminal does not support it
