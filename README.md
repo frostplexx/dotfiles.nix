@@ -67,7 +67,7 @@ Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the s
 - [ ] Enable SSH Agent and CLI integration in 1Password settings
 - [ ] Run `determinate-nixd login`
 - [ ] Run `jinx generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
-- [ ] (On macOS) Run `jinx set_screen_hidpi` to set your screen to HiDPI mode
+- [ ] (On macOS) Run `jinx set_screen_hidpi` to set your external screen to HiDPI mode
 - [ ] Restore folders from Time Machine
 
 ### Available Commands
