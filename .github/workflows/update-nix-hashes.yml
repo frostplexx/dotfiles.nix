@@ -43,5 +43,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git commit -m "Auto-update Nix hashes"
+          git commit -m "chore: auto updated revs and hashes for github fetchers"
           git push
