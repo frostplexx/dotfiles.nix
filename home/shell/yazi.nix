@@ -49,12 +49,6 @@ in {
       chmod = "${yazi-plugins}/chmod.yazi";
       smart-filter = "${yazi-plugins}/smart-filter.yazi";
       vcs-files = "${yazi-plugins}/vcs-files.yazi";
-      easyjump = pkgs.fetchFromGitHub {
-        owner = "DreamMaoMao";
-        repo = "easyjump.yazi";
-        rev = "6606fb1d56eea4c99809c056fd701e58890655be";
-        hash = "sha256-YKuznrwA7aT1lNP5F2+PnvyvMyBScd9kotrhA32th3M=";
-      };
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
@@ -80,11 +74,6 @@ in {
 
     keymap = {
       mgr.prepend_keymap = [
-        {
-          on = "i";
-          run = "plugin easyjump";
-          desc = "easyjump";
-        }
         {
           on = "T";
           run = "plugin max-preview";
