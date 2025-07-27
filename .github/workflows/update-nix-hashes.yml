@@ -30,7 +30,7 @@ jobs:
           # Verify installation (optional, for debugging)
           which jq
           which fd
-          chmod +x ./scripts/update-flake-revs.sh && ./scripts/update-flake-revs.sh
+          chmod +x ./modules/jinx/update/update-flake-revs.sh && .//modules/jinx/update/update-flake-revs.sh
         working-directory: ${{ github.workspace }}
       - name: Check for changes
         id: git-check
