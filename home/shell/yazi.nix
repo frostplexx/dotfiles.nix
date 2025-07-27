@@ -43,12 +43,28 @@ in {
         macro_workers = 10;
         bizarre_retry = 5;
       };
+
+      plugin = {
+        prepend_fetchers = [
+          {
+            id = "git";
+            name ="*";
+            run = "git";
+          }
+          {
+            id = "git";
+            name ="*/";
+            run = "git";
+          }
+        ];
+      };
     };
 
     plugins = {
       chmod = "${yazi-plugins}/chmod.yazi";
       smart-filter = "${yazi-plugins}/smart-filter.yazi";
-      vcs-files = "${yazi-plugins}/vcs-files.yazi";
+      git = "${yazi-plugins}/git.yazi";
+      jump-to-char = "${yazi-plugins}/jump-to-char.yazi";
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
@@ -61,6 +77,7 @@ in {
     };
 
     initLua = ''
+      require("git"):setup()
       require("starship"):setup({
           -- Hide flags (such as filter, find and search). This is recommended for starship themes which
           -- are intended to go across the entire width of the terminal.
@@ -75,6 +92,11 @@ in {
     keymap = {
       mgr.prepend_keymap = [
         {
+          on = "f";
+          run = "plugin jump-to-char";
+          desc = "Jump to char";
+        }
+        {
           on = "T";
           run = "plugin max-preview";
           desc = "Maximize or restore the preview pane";
@@ -88,11 +110,6 @@ in {
           on = ["g" "i"];
           run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
           desc = "Go to iCloud";
-        }
-        {
-          on = ["g" "c"];
-          run = "plugin vcs-files";
-          desc = "Show Git file changes";
         }
         {
           on = "F";
