@@ -2,8 +2,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "1ab21d43c7c6d326c1b9b06610ce7c8686257c43";
-    hash = "sha256-4p+VXUr76kC/dyJZzzkCwNGEUV53YYZ3tYoFpsKboU0=";
+    rev = "de53d90cb2740f84ae595f93d0c4c23f8618a9e4";
+    hash = "sha256-ixZKOtLOwLHLeSoEkk07TB3N57DXoVEyImR3qzGUzxQ=";
   };
 
   yazi-flavors = pkgs.fetchFromGitHub {
