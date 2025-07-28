@@ -36,8 +36,10 @@ vim.lsp.inlay_hint.enable(true)
 
 
 -- set default root marker
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 vim.lsp.config('*', {
-    root_markers = { '.git' }
+    root_markers = { '.git' },
+    capabilities = capabilities
 })
 
 -- Define the diagnostic signs.
