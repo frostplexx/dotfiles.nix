@@ -209,7 +209,7 @@ return {
             config_info = config_info .. " with Home Manager options"
         end
 
-        vim.notify(config_info, vim.log.levels.INFO)
+        -- vim.notify(config_info, vim.log.levels.INFO)
     end,
 
     -- Handle workspace folders for better project detection
