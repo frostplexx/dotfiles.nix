@@ -18,17 +18,6 @@ return {
         debug = { enabled = false },
         input = { enabled = true },
         scope = { enabled = false },
-        -- indent = {
-        --     enabled = true, -- enable indent guides
-        --     hl = "SnacksIndent5", ---@type string|string[] hl groups for indent guides
-        --     animate = {
-        --         enabled = false
-        --     },
-        --     scope = {
-        --         underline = true,
-        --         hl = "SnacksIndent2", ---@type string|string[] hl group for scopes
-        --     },
-        -- },
         image = {
             formats = { 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'tiff', 'heic', 'avif', 'mp4', 'mov', 'avi', 'mkv', 'webm' },
             force = false, -- try displaying the image, even if the terminal does not support it
@@ -128,7 +117,7 @@ return {
         { "<leader>.",       function() Snacks.scratch() end,                                                                          desc = "Toggle Scratch Buffer" },
         { "<leader>S",       function() Snacks.scratch.select() end,                                                                   desc = "Select Scratch Buffer" },
         { "<leader>n",       function() Snacks.notifier.show_history() end,                                                            desc = "Notification History" },
-        { "<leader>bd",      function() Snacks.bufdelete() end,                                                                        desc = "Delete Buffer" },
+        { "<leader>d",       function() Snacks.bufdelete() end,                                                                        desc = "Delete Buffer" },
         { "<leader>cR",      function() Snacks.rename.rename_file() end,                                                               desc = "Rename File" },
         { "<leader>gf",      function() Snacks.lazygit.log_file() end,                                                                 desc = "Lazygit Current File History" },
         { "<leader>gg",      function() Snacks.lazygit() end,                                                                          desc = "Lazygit" },
@@ -139,7 +128,7 @@ return {
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                                                          desc = "Prev Reference",              mode = { "n", "t" } },
         { "<leader><space>", function() Snacks.picker.files() end,                                                                     desc = "Find Files",                  remap = true,       silent = true },
         { "<leader>ch",      function() Snacks.picker.command_history({ layout = { preset = "vscode", preview = "main" } }) end,       desc = "Command History",             silent = true },
-        { "<leader>km",      function() Snacks.picker.keymaps() end,                                                                   desc = "Keymap",                      silent = true },
+        { "<leader>mk",      function() Snacks.picker.keymaps() end,                                                                   desc = "Keymap",                      silent = true },
         { "<leader>fg",      function() Snacks.picker.grep() end,                                                                      desc = "Live Grep",                   silent = true },
         { "<leader>fh",      function() Snacks.picker.help({ layout = { preset = "vscode", preview = "main" } }) end,                  desc = "Help Tags",                   silent = true },
         { "<leader>ss",      function() Snacks.picker.lsp_workspace_symbols({ layout = { preset = "vscode", preview = "main" } }) end, desc = "LSP Symbols" },

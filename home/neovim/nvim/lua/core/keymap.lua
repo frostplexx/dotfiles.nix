@@ -176,8 +176,10 @@ vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
 vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })
 
 -- Tabs
-vim.keymap.set('n', "<leader>tn", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
-vim.keymap.set('n', "<leader>tc", ":tabclose<cr>", { desc = "New Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>t", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>x", ":tabclose<cr>", { desc = "Close Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>j", ":tabprevious<cr>", { desc = "Prev Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>k", ":tabnext<cr>", { desc = "Next Tab", noremap = true, silent = true })
 
 -- Toggle boolean values (true/false, True/False)
 local function toggle_bool()
@@ -262,7 +264,7 @@ local function lsp_diagnostics_to_quickfix()
 
     for _, diagnostic in ipairs(diagnostics) do
         local bufname = vim.api.nvim_buf_get_name(diagnostic.bufnr)
-        local filename = vim.fn.fnamemodify(bufname, ':t')  -- Just the filename
+        local filename = vim.fn.fnamemodify(bufname, ':t')      -- Just the filename
         local relative_path = vim.fn.fnamemodify(bufname, ':.') -- Relative to cwd
 
         -- Get severity info
@@ -295,7 +297,7 @@ local function lsp_diagnostics_to_quickfix()
         table.insert(qf_items, {
             filename = bufname,
             lnum = diagnostic.lnum + 1, -- Convert to 1-indexed
-            col = diagnostic.col + 1, -- Convert to 1-indexed
+            col = diagnostic.col + 1,   -- Convert to 1-indexed
             text = formatted_text,
             type = type,
             valid = 1

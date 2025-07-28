@@ -91,20 +91,20 @@ return {
         -- resizing splits
         -- these keymaps will also accept a range,
         -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-        { '<C-S-h>',    function() require('smart-splits').resize_left() end,       mode = { "n" } },
-        { '<C-S-j>',    function() require('smart-splits').resize_down() end,       mode = { "n" } },
-        { '<C-S-k>',    function() require('smart-splits').resize_up() end,         mode = { "n" } },
-        { '<C-S-l>',    function() require('smart-splits').resize_right() end,      mode = { "n" } },
-        -- movingfunction() between splits
-        { '<C-h>',      function() require('smart-splits').move_cursor_left() end,  mode = { "n" } },
-        { '<C-j>',      function() require('smart-splits').move_cursor_down() end,  mode = { "n" } },
-        { '<C-k>',      function() require('smart-splits').move_cursor_up() end,    mode = { "n" } },
-        { '<C-l>',      function() require('smart-splits').move_cursor_right() end, mode = { "n" } },
-        { '<C-\\>',     function() require('smart-splits').move_cursprevious() end, mode = { "n" } },
+        { '<C-S-h>',    function() require('smart-splits').resize_left() end,       desc = "Resize Split Left",       mode = { "n" } },
+        { '<C-S-j>',    function() require('smart-splits').resize_down() end,       desc = "Resize Split Down",       mode = { "n" } },
+        { '<C-S-k>',    function() require('smart-splits').resize_up() end,         desc = "Resize Split Up",         mode = { "n" } },
+        { '<C-S-l>',    function() require('smart-splits').resize_right() end,      desc = "Resize Split Right",      mode = { "n" } },
+        -- moving between splits
+        { '<C-h>',      function() require('smart-splits').move_cursor_left() end,  desc = "Move to Split Left",      mode = { "n" } },
+        { '<C-j>',      function() require('smart-splits').move_cursor_down() end,  desc = "Move to Split Down",      mode = { "n" } },
+        { '<C-k>',      function() require('smart-splits').move_cursor_up() end,    desc = "Move to Split Up",        mode = { "n" } },
+        { '<C-l>',      function() require('smart-splits').move_cursor_right() end, desc = "Move to Split Right",     mode = { "n" } },
+        { '<C-\\>',     function() require('smart-splits').move_cursprevious() end, desc = "Move to Split Prev",      mode = { "n" } },
         -- swapping buffers between windows
-        { '<leader>wh', function() require('smart-splits').swap_buf_left() end,     mode = { "n" } },
-        { '<leader>wj', function() require('smart-splits').swap_buf_down() end,     mode = { "n" } },
-        { '<leader>wk', function() require('smart-splits').swap_buf_up() end,       mode = { "n" } },
-        { '<leader>wl', function() require('smart-splits').swap_buf_right() end,    mode = { "n" } }
+        { '<leader>wh', function() require('smart-splits').swap_buf_left() end,     desc = "Split Swap Buffer Left",  mode = { "n" } },
+        { '<leader>wj', function() require('smart-splits').swap_buf_down() end,     desc = "Split Swap Buffer Down",  mode = { "n" } },
+        { '<leader>wk', function() require('smart-splits').swap_buf_up() end,       desc = "Split Swap Buffer Up",    mode = { "n" } },
+        { '<leader>wl', function() require('smart-splits').swap_buf_right() end,    desc = "Split Swap Buffer Right", mode = { "n" } }
     },
 }
