@@ -8,7 +8,7 @@ function wtfis
     end
 
     # Decrypt the file temporarily
-    opsops read "$nix_base_path/home/shell/wtfis.env" --sops-file $nix_base_path/.sops.yaml >$HOME/.env.wtfis 2>/dev/null
+    opsops read "/Users/daniel/dotfiles.nix/home/shell/wtfis.env" --sops-file $nix_base_path/.sops.yaml >$HOME/.env.wtfis 2>/dev/null
     set decrypt_status $status
 
     # Set up cleanup to happen in any case
