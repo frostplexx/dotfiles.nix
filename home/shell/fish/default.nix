@@ -15,7 +15,7 @@
         c = "clear";
         q = "exit";
         s = "ssh";
-        p = "cd $(ls -d -1 ~/Developer/* |fzf); kitten @ launch --location=hsplit --bias=20 --cwd $PWD;nvim .";
+        p = "project_selector";
         cat = "bat";
         tree = "eza --icons --git --header --tree";
         vimdiff = "nvim -d";

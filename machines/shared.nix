@@ -50,6 +50,7 @@
     _1password-cli
     bvi
 
+
     inputs.determinate.packages.${system}.default
   ];
 

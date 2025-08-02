@@ -1,5 +1,11 @@
-function wake
+function project_selector
+    set selected (ghq list | fzf --height 40% --border --preview 'ls -la ~/Developer/{}' --preview-window right:50%)
+    if test -n "$selected"
+        cd ~/Developer/$selected && vim
+    end
+end
 
+function wake
     if test (uname) = Linux
         # Check current DPMS status
         set status (xset -q | grep 'DPMS is' | awk '{ print $3 }')
@@ -13,7 +19,7 @@ function wake
             dunstify 'Screen suspend is enabled.'
         end
     else
-        printf ' Keeping PC awake...'
+        printf '  Keeping PC awake...'
         caffeinate -d -i -m -s
     end
 end
