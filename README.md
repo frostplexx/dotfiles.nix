@@ -33,13 +33,6 @@ Minimal config of my main dotfiles.nix repo
 
 ### Installation
 
-#### Automatic
-
-```bash
-# Run in a terminal:
-/usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
-```
-
 #### Manual
 
 Clone this repo into your home directory and `cd` into it.
