@@ -34,7 +34,7 @@
 
     settings = {
       extra-platforms = ["aarch64-darwin"];
-      extra-trusted-users = ["daniel"];
+      extra-trusted-users = ["example-user"];
       max-jobs = 8;
       sandbox = true;
 

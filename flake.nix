@@ -63,49 +63,19 @@
       inherit overlays nixpkgs inputs;
     };
   in {
-    nixosConfigurations.pc-nixos = mkSystem "pc-nixos" {
-      system = "x86_64-linux";
-      user = "daniel";
-      # Home manager modules you want to include as defined in ./home
-      hm-modules = [
-        "firefox"
-        "git"
-        "i3"
-        "kitty"
-        "neovim"
-        "nixcord"
-        "shell"
-        "ssh"
-        "zed"
-        "spotify"
-      ];
-    };
-
-    nixosConfigurations.pc-nixos-gaming = mkSystem "pc-nixos-gaming" {
-      system = "x86_64-linux";
-      user = "daniel";
-      # Home manager modules you want to include as defined in ./home
-      hm-modules = [
-        "git"
-        "neovim"
-        "ssh"
-      ];
-    };
 
     darwinConfigurations.macbook-pro-m1 = mkSystem "macbook-pro-m1" {
       system = "aarch64-darwin";
-      user = "daniel";
+      user = "example-user"; # your username here
       # Home manager modules you want to include as defined in ./home
-      hm-modules = [
-        "firefox"
+      hm-modules = [ # modules are loaded from ./home/*
         "git"
-        "kitty"
+        "kitty" # installs kitty and ghostty config
         "ghostty"
-        "neovim"
-        "nixcord"
         "shell"
         "ssh"
-        "spotify"
+        "zed" # installs neovim and zed es text editors
+        "neovim"
       ];
     };
 

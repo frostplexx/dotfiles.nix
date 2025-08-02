@@ -9,8 +9,8 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "daniel";
-    userEmail = "daniel.inama02@gmail.com";
+    userName = "example-user"; # your username here
+    userEmail = "mail@example.com"; # your eamil here
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
@@ -22,23 +22,8 @@
       gpg = {
         format = "ssh";
       };
-      "gpg \"ssh\"" = {
-        program =
-          if pkgs.stdenv.isDarwin
-          then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-          else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      };
       commit = {
-        gpgsign = true;
-      };
-      user = {
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
-      };
-      credential = {
-        helper =
-          if pkgs.stdenv.isDarwin
-          then "osxkeychain"
-          else "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
+        gpgsign = false;
       };
       difftool = {
         prompt = false;

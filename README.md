@@ -8,32 +8,28 @@
     </div>
 </p>
 
-This repository contains my personal system configurations for NixOS and macOS.
-It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
-
-This repository is home to the nix code that builds my systems:
-
-1. NixOS Desktops: NixOS with home-manager, KDE plasma, steam, etc.
-2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
-
-See [./machines](./machines) for details of each host.<br>
-Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/dotfiles-assets.nix/tree/main/wallpapers](https://github.com/frostplexx/dotfiles-assets.nix/tree/main/wallpapers)
+Minimal config of my main dotfiles.nix repo
 
 ---
 
 ## Getting Started
 
-<!-- prettier-ignore -->
-> :red_circle: **IMPORTANT**: **You should NOT deploy this flake directly on your machine :exclamation:
-> It will not succeed.** This flake contains my hardware configuration(such as
-> [hardware-configuration.nix](machines/pc-nixos/hardware-configuration.nix),
-> [Nvidia Support](https://github.com/frostplexx/dotfiles.nix/blob/53bd351febdff82a9f0a2c5de6d6fcf55b58d0aa/machines/pc-nixos/hardware-configuration.nix#L63C1-L72C7),
-> etc.) which is not suitable for your hardware to deploy. You
-> may use this repo as a reference to build your own configuration.
+> :red_circle: **IMPORTANT**: **Here be dragons!!**
+> Deploying this config will:
+>   - replace your shell with fish and starship prompt
+>   - rename your device if you don't change the default settings in ./machines/macbook-pro-m1
+>   - override any settings of apps you have already installed and which will be installed again by this config e.g. it will change your git settings
+>   - install various programs, apps, tools and other miscellaneous things like fonts
+>   - possibly other stuff I forgot to list
+
 
 ### Prerequisites
 
 - A Computer running macOS or NixOS
+- Use ripgrep or something similar and replace all occurrences of:
+    - example-user with your username
+    - mail@example.com with your email
+    - macbook-pro-m1 with what the hostname of your pc should be. This includes renaming the folder in hosts
 
 ### Installation
 
@@ -57,8 +53,6 @@ cd ~/dotfiles.nix
 1. Install Determinate Nix from https://docs.determinate.systems.
 2. Run `sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake <path/to/flake>#<config-name>`
 
-##### Installing on NixOS
-Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the system.
 
 #### Post-install Checklist
 

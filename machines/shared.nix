@@ -45,12 +45,6 @@
     statix
     alejandra
 
-    # GUI applications
-    obsidian
-    _1password-cli
-    bvi
-
-
     inputs.determinate.packages.${system}.default
   ];
 

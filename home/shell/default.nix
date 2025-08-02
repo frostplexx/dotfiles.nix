@@ -12,22 +12,6 @@
     ./lazygit.nix
   ];
 
-  # sops.secrets = {
-  #     "wtfis.env" = {
-  #         sopsFile = ./wtfis.env;
-  #         key = "";
-  #         format = "dotenv";
-  #         path = "${config.home.homeDirectory}/.env.wtfis"; # Place it directly where needed
-  #     };
-  #
-  #     "spotify_player_credentials.json" = {
-  #         sopsFile = ./spotify_player_credentials.json;
-  #         key = "";
-  #         format = "json";
-  #         path = "~/.cache/spotify-player/credentials.json"; # Place it directly where needed
-  #     };
-  # };
-
   home.file = {
     # Hushlogin to not show login message
     ".hushlogin".text = "";
