@@ -57,6 +57,7 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
     overlays = [
+inputs.nixkit.overlays.default
     ];
 
     mkSystem = import ./lib/mksystem {
