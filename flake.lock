@@ -21,16 +21,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1751910772,
-        "narHash": "sha256-jQNdIkq2iRDNWskd5f8kX6q9BO/CBSXhMH41WNRft8E=",
+        "lastModified": 1753461463,
+        "narHash": "sha256-kGc7pRH0diLzKmOHsEFA8sZ9NJpgT+tqxAMsuqNd5Po=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "700d67a85e0129ab8a893ff69246943479e33df1",
+        "rev": "4d14be89e99a45181c18e96a5f19a5b43343cc0f",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "4.5.9",
+        "ref": "4.5.13",
         "repo": "brew",
         "type": "github"
       }
@@ -288,10 +288,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1754225444,
+        "lastModified": 1754263839,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0de18bd5c6681280d7ae017fa34ffd91bdcf0557",
+        "rev": "1d7abbd5454db97e0af51416f4960b3fb64a4773",
         "type": "github"
       },
       "original": {
@@ -304,10 +304,10 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1754230867,
+        "lastModified": 1754286206,
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "03fe7aa323a935b8434b1248f5378e4ef7f34cd1",
+        "rev": "40f0d38bf2e74f4f7a3ef610b10da4f3622051a4",
         "type": "github"
       },
       "original": {
@@ -319,10 +319,10 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1754231466,
+        "lastModified": 1754287025,
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "6805e62fcc304cbf2c50fe630d22e4343cc81b1e",
+        "rev": "2fde4aaf7eb4140cf712ef2524393284c4eb3e07",
         "type": "github"
       },
       "original": {
@@ -392,10 +392,10 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1754001565,
+        "lastModified": 1754250993,
         "owner": "zhaofengli-wip",
         "repo": "nix-homebrew",
-        "rev": "db11cc216d2ecd451e4952c60766d6cfaa0938b7",
+        "rev": "314d057294e79bc2596972126b84c6f9f144499a",
         "type": "github"
       },
       "original": {
@@ -411,10 +411,10 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1754013219,
+        "lastModified": 1754237845,
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "8ed848c550d1c9c3f2591da173814e2303ed00d6",
+        "rev": "e6b49fa5a6b49a0be6b59635e602b07628a6d608",
         "type": "github"
       },
       "original": {
@@ -428,10 +428,10 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1754080312,
+        "lastModified": 1754232724,
         "owner": "frostplexx",
         "repo": "nixkit",
-        "rev": "07d1e2be264a256f90437dba2ec8839575cf41d3",
+        "rev": "5a7573be0cf23027f1d5fea10d461a420f59badf",
         "type": "github"
       },
       "original": {
