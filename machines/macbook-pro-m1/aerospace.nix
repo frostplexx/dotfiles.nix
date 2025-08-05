@@ -244,6 +244,14 @@
             "if".app-id = "NULL-APP-BUNDLE-ID";
             run = "layout floating";
           }
+          {
+            "if".window-title-regex-substring = "MiniPlayer";
+            run = "layout floating";
+          }
+          {
+            "if".window-title-regex-substring = "Music";
+            run = "move-node-to-workspace 5";
+          }
           # Order matters here!
           # Callbacks are run in order and the firt match counts
           {
