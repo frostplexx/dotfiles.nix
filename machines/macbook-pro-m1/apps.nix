@@ -9,7 +9,7 @@
     # GUI Applications
     jetbrains.idea-ultimate
     jetbrains.pycharm-professional
-    ollama
+    # ollama
     keka
     utm
     aerospace

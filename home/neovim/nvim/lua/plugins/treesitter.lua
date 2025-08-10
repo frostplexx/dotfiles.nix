@@ -1,7 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    -- The master branch is frozen and provided for backward compatibility only. All future updates happen on the main branch, which will become the default branch in the future.
-    branch = "main",
+    version = false,
     lazy = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile", "BufEnter" },
     build = ":TSUpdate",
