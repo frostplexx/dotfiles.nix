@@ -3,6 +3,8 @@
 [doc('Clean and optimise the nix store with nh')]
 clean:
     @nh clean all -k 5
+    @nix-collect-garbage -d
+    @nix store gc
 
 [group('󰒔 maintain')]
 [doc('Optimise the nix store')]
