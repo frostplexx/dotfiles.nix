@@ -21,5 +21,13 @@ return {
             inc_rename = false,   -- enables an input dialog for inc-rename.nvim
             lsp_doc_border = false, -- add a border to hover docs and signature help
         },
+        win_options = {
+            winblend = 0,
+        },
     },
+    config = function(_, opts)
+        require("noice").setup(opts)
+        vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { bg = "none" })
+    end,
 }
