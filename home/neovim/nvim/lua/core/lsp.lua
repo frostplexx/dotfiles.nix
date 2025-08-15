@@ -26,16 +26,12 @@ end
 
 vim.lsp.inlay_hint.enable(true)
 
--- enable lsp completion
--- vim.api.nvim_create_autocmd("LspAttach", {
---     group = vim.api.nvim_create_augroup("frostplexx/attach_lsp", { clear = true }),
---     callback = function(ev)
---         vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
---     end,
--- })
-
-
--- set default root marker
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("frostplexx/attach_lsp", { clear = true }),
+    callback = function(ev)
+        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+    end,
+})
 
 -- Define the diagnostic signs.
 for severity, icon in pairs(tools.ui.diagnostics) do
