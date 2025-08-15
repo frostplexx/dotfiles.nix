@@ -106,7 +106,7 @@ inputs.nixkit.overlays.default
         "nixcord"
         "shell"
         "ssh"
-        "spotify"
+        # "spotify"
       ];
     };
 
