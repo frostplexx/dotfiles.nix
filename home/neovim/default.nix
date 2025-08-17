@@ -34,6 +34,8 @@ in {
       ghostscript # pdf rendering
       luajitPackages.tiktoken_core
       lynx
+      cargo
+      rustc
     ];
 
     plugins = [

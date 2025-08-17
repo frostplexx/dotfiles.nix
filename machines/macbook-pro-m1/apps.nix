@@ -18,6 +18,7 @@
     whisky
     wtfis
     hexfiend
+    claude-code
   ];
 
   # Homebrew configuration
