@@ -53,6 +53,7 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
   };
 
   outputs = {nixpkgs, ...} @ inputs: let

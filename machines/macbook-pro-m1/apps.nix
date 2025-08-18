@@ -38,7 +38,7 @@
       # "Noir" = 1592917505;
       # "Obsidian Web Clipper for Safari" = 6720708363;
 
-      "Xcode" = 497799835;
+      # "Xcode" = 497799835;
       "Things" = 904280696;
       "eduVPN" = 1317704208;
       "Goodnotes" = 1444383602;
