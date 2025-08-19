@@ -2,6 +2,7 @@ return {
     'mrjones2014/smart-splits.nvim',
     lazy = false,
     enabled = true,
+    build = './kitty/install-kittens.bash',
     config = function()
         require('smart-splits').setup({
             -- Ignored buffer types (only while resizing)
@@ -40,7 +41,7 @@ return {
             -- }
             -- NOTE: `at_edge = 'wrap'` is not supported on Kitty terminal
             -- multiplexer, as there is no way to determine layout via the CLI
-            at_edge = 'stop',
+            at_edge = 'wrap',
             -- Desired behavior when the current window is floating:
             -- 'previous' => Focus previous Vim window and perform action
             -- 'mux' => Always forward action to multiplexer
@@ -70,7 +71,7 @@ return {
             -- and the $KITTY_LISTEN_ON environment variable for Kitty.
             -- You can also set this value by setting `vim.g.smart_splits_multiplexer_integration`
             -- before the plugin is loaded (e.g. for lazy environments).
-            multiplexer_integration = nil,
+            multiplexer_integration = true,
             -- disable multiplexer navigation if current multiplexer pane is zoomed
             -- NOTE: This does not work on Zellij as there is no way to determine the
             -- pane zoom state outside of the Zellij Plugin API, which does not apply here
