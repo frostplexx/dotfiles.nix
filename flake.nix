@@ -102,12 +102,10 @@ inputs.nixkit.overlays.default
         "firefox"
         "git"
         "kitty"
-        "ghostty"
         "neovim"
         "nixcord"
         "shell"
         "ssh"
-        # "spotify"
       ];
     };
 

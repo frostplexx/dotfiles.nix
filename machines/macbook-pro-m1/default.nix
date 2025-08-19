@@ -186,7 +186,8 @@
         # Pinned apps
         persistent-apps = [
           "/Applications/Things3.app"
-          "/Applications/Ghostty.app/"
+          # "/Applications/Ghostty.app/"
+          "/Applications/kitty.app/"
           "/Applications/Zen.app/"
           # "/Applications/Firefox.app"
           # "/Applications/Safari.app"

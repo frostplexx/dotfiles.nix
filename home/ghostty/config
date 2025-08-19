@@ -16,10 +16,10 @@ unfocused-split-opacity = 0.9
 mouse-hide-while-typing = true
 
 # ==== Display ====
-# window-decoration = true
-window-decoration = none
-# macos-titlebar-style = transparent
-macos-titlebar-style = tabs
+window-decoration = true
+# window-decoration = none
+macos-titlebar-style = transparent
+# macos-titlebar-style = tabs
 
 
 

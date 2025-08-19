@@ -81,10 +81,10 @@
           ctrl-alt-cmd-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
           cmd-m = "macos-native-minimize";
-          # cmd-enter = "exec-and-forget open -a kitty";
-          cmd-enter = "exec-and-forget open -a Ghostty";
+          cmd-enter = "exec-and-forget open -a kitty";
+          # cmd-enter = "exec-and-forget open -a Ghostty";
 
-          # ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
+          ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
 
           ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../../home/shell/fish/switch-audio.fish}'";
           ctrl-alt-cmd-m = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group spotify-player spotify_player'";

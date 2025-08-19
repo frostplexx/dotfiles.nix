@@ -16,7 +16,9 @@
     enable = true; # Enable Homebrew management via Nix
     enableRosetta = false; # Do not install Intel Homebrew on Apple Silicon
     inherit user; # Set the Homebrew owner
-    mutableTaps = true; # Make Homebrew taps declarative
+    mutableTaps = false; # Make Homebrew taps declarative
+    # Automatically migrate existing Homebrew installations
+    autoMigrate = true;
     taps = with inputs; {
       "homebrew/homebrew-core" = homebrew-core;
       "homebrew/homebrew-cask" = homebrew-cask;

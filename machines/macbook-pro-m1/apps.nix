@@ -56,7 +56,7 @@
       "displayplacer"
     ];
     casks = [
-      "altserver"
+      # "altserver"
       "chromium"
       "firefox"
       "cleanshot"
@@ -67,7 +67,7 @@
       "zen"
       "VirtualBuddy"
       "1password"
-      "ghostty@tip"
+      # "ghostty@tip"
     ];
   };
 }
