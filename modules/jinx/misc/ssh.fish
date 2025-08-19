@@ -2,18 +2,33 @@
 
 set -g ssh_hosts_file ~/.ssh/hosts
 
-function _create_hosts_file -a name url
+function _create_hosts_file -a name url port
     # Remove ssh:// prefix
     set -l cleaned (string replace -r '^ssh://' '' $url)
 
     # Split into user and hostname
     set -l user_host (string split '@' $cleaned)
     set -l user $user_host[1]
-    set -l host $user_host[2]
+    set -l host_port $user_host[2]
+
+    # Check if port is embedded in hostname (host:port format)
+    set -l host_parts (string split ':' $host_port)
+    set -l host $host_parts[1]
+    
+    # Use embedded port if present, otherwise use provided port parameter
+    if test (count $host_parts) -gt 1
+        set port $host_parts[2]
+    end
 
     echo "Host $name" >>$ssh_hosts_file
     echo "    HostName \"$host\"" >>$ssh_hosts_file
     echo "    User $user" >>$ssh_hosts_file
+    
+    # Add port configuration if it's not the default SSH port (22)
+    if test -n "$port" -a "$port" != "22"
+        echo "    Port $port" >>$ssh_hosts_file
+    end
+    
     echo "" >>$ssh_hosts_file
 end
 
@@ -29,7 +44,14 @@ function generate_ssh_hosts
         set -l id $_item[1]
         set -l name $_item[2]
         set -l url (op item get $id --fields label=url)
-        _create_hosts_file $name $url
+        
+        # Try to get port field (check both "port" and "Port" labels)
+        set -l port (op item get $id --fields label=port 2>/dev/null)
+        if test -z "$port"
+            set port (op item get $id --fields label=Port 2>/dev/null)
+        end
+        
+        _create_hosts_file $name $url $port
     end
 
     echo Done
