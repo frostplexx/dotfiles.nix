@@ -43,7 +43,14 @@ function generate_ssh_hosts
         set -l _item (echo $item | base64 --decode | jq -r '.id, .title')
         set -l id $_item[1]
         set -l name $_item[2]
-        set -l url (op item get $id --fields label=url)
+        # Try to get URL field (check "url", "Url", and "URL" labels)
+        set -l url (op item get $id --fields label=url 2>/dev/null)
+        if test -z "$url"
+            set url (op item get $id --fields label=Url 2>/dev/null)
+        end
+        if test -z "$url"
+            set url (op item get $id --fields label=URL 2>/dev/null)
+        end
         
         # Try to get port field (check both "port" and "Port" labels)
         set -l port (op item get $id --fields label=port 2>/dev/null)
