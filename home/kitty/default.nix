@@ -112,11 +112,11 @@
       "ctrl+h" = "neighboring_window left";
       "ctrl+l" = "neighboring_window right";
 
+      "alt+j" = "kitten relative_resize.py down  3";
+      "alt+k" = "kitten relative_resize.py up    3";
+      "alt+h" = "kitten relative_resize.py left  3";
+      "alt+l" = "kitten relative_resize.py right 3";
 
-      "alt+j" = "kitten ${./relative_resize.py} down  3";
-      "alt+k" = "kitten ${./relative_resize.py} up    3";
-      "alt+h" = "kitten ${./relative_resize.py} left  3";
-      "alt+l" = "kitten ${./relative_resize.py} right 3";
       "ctrl+shift+x" = "show_scrollback";
     };
 
@@ -137,17 +137,14 @@
   };
 
   xdg.configFile = {
-    # Copy pass_keys.py
-    "kitty/pass_keys.py".source = ./pass_keys.py;
-
-    # This is needed for the neovim plugin. It expects the file in ~/.config/kitty/
-    "kitty/navigate_kitty.py".source = ./navigate_kitty.py;
 
     # Copy ssh.conf
     "kitty/ssh.conf".source = ./ssh.conf;
 
     # Copy icon
     "kitty/kitty.app.png".source = ./kitty.app.png;
+
+    "kitty/relative_resize.py".source = ./relative_resize.py;
 
     "kitty/themes/mocha.conf".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";

@@ -40,7 +40,7 @@ return {
             -- }
             -- NOTE: `at_edge = 'wrap'` is not supported on Kitty terminal
             -- multiplexer, as there is no way to determine layout via the CLI
-            -- at_edge = 'wrap',
+            at_edge = 'stop',
             -- Desired behavior when the current window is floating:
             -- 'previous' => Focus previous Vim window and perform action
             -- 'mux' => Always forward action to multiplexer
@@ -83,7 +83,7 @@ return {
             -- when the current pane is at the edge of the zellij tab/window
             zellij_move_focus_or_tab = false,
             -- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
-            log_level = 'info',
+            log_level = 'debug',
         })
     end,
     keys = {
