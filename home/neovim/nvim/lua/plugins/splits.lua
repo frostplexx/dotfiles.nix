@@ -1,6 +1,6 @@
 return {
     'mrjones2014/smart-splits.nvim',
-    lazy = true,
+    lazy = false,
     enabled = true,
     config = function()
         require('smart-splits').setup({
@@ -40,7 +40,7 @@ return {
             -- }
             -- NOTE: `at_edge = 'wrap'` is not supported on Kitty terminal
             -- multiplexer, as there is no way to determine layout via the CLI
-            at_edge = 'wrap',
+            -- at_edge = 'wrap',
             -- Desired behavior when the current window is floating:
             -- 'previous' => Focus previous Vim window and perform action
             -- 'mux' => Always forward action to multiplexer
@@ -70,7 +70,7 @@ return {
             -- and the $KITTY_LISTEN_ON environment variable for Kitty.
             -- You can also set this value by setting `vim.g.smart_splits_multiplexer_integration`
             -- before the plugin is loaded (e.g. for lazy environments).
-            -- multiplexer_integration = nil,
+            multiplexer_integration = nil,
             -- disable multiplexer navigation if current multiplexer pane is zoomed
             -- NOTE: This does not work on Zellij as there is no way to determine the
             -- pane zoom state outside of the Zellij Plugin API, which does not apply here
@@ -91,10 +91,10 @@ return {
         -- resizing splits
         -- these keymaps will also accept a range,
         -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-        { '<C-S-h>',    function() require('smart-splits').resize_left() end,       desc = "Resize Split Left",       mode = { "n" } },
-        { '<C-S-j>',    function() require('smart-splits').resize_down() end,       desc = "Resize Split Down",       mode = { "n" } },
-        { '<C-S-k>',    function() require('smart-splits').resize_up() end,         desc = "Resize Split Up",         mode = { "n" } },
-        { '<C-S-l>',    function() require('smart-splits').resize_right() end,      desc = "Resize Split Right",      mode = { "n" } },
+        { '<A-h>',      function() require('smart-splits').resize_left() end,       desc = "Resize Split Left",       mode = { "n" } },
+        { '<A-j>',      function() require('smart-splits').resize_down() end,       desc = "Resize Split Down",       mode = { "n" } },
+        { '<A-k>',      function() require('smart-splits').resize_up() end,         desc = "Resize Split Up",         mode = { "n" } },
+        { '<A-l>',      function() require('smart-splits').resize_right() end,      desc = "Resize Split Right",      mode = { "n" } },
         -- moving between splits
         { '<C-h>',      function() require('smart-splits').move_cursor_left() end,  desc = "Move to Split Left",      mode = { "n" } },
         { '<C-j>',      function() require('smart-splits').move_cursor_down() end,  desc = "Move to Split Down",      mode = { "n" } },

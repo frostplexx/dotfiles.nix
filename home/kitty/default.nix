@@ -91,6 +91,8 @@
       enableFishIntegration = true;
     };
 
+    enableGitIntegration = true;
+
     # Keybindings
     keybindings = {
       "ctrl+shift+-" = "launch --location=hsplit --cwd=current";
@@ -104,20 +106,33 @@
       "ctrl+shift+j" = "move_window down";
       "ctrl+shift+k" = "move_window up";
       "ctrl+shift+l" = "move_window right";
-      "ctrl+j" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py bottom ctrl+j";
-      "ctrl+k" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py top    ctrl+k";
-      "ctrl+h" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py left   ctrl+h";
-      "ctrl+l" = "kitten ~/dotfiles.nix/home/kitty/pass_keys.py right  ctrl+l";
-      "ctrl+shift+left" = "resize_window wider 5";
-      "ctrl+shift+right" = "resize_window narrower 5";
-      "ctrl+shift+up" = "resize_window taller";
-      "ctrl+shift+down" = "resize_window shorter";
+
+      "ctrl+j" = "neighboring_window down";
+      "ctrl+k" = "neighboring_window up";
+      "ctrl+h" = "neighboring_window left";
+      "ctrl+l" = "neighboring_window right";
+
+
+      "alt+j" = "kitten ${./relative_resize.py} down  3";
+      "alt+k" = "kitten ${./relative_resize.py} up    3";
+      "alt+h" = "kitten ${./relative_resize.py} left  3";
+      "alt+l" = "kitten ${./relative_resize.py} right 3";
       "ctrl+shift+x" = "show_scrollback";
     };
 
     # Extra configuration to ensure catpuccin theme is included
     extraConfig = ''
       include ${config.xdg.configHome}/kitty/themes/mocha.conf
+
+      map --when-focus-on var:IS_NVIM ctrl+j
+      map --when-focus-on var:IS_NVIM ctrl+k
+      map --when-focus-on var:IS_NVIM ctrl+h
+      map --when-focus-on var:IS_NVIM ctrl+l
+
+      map --when-focus-on var:IS_NVIM alt+j
+      map --when-focus-on var:IS_NVIM alt+k
+      map --when-focus-on var:IS_NVIM alt+h
+      map --when-focus-on var:IS_NVIM alt+l
     '';
   };
 
@@ -132,7 +147,7 @@
     "kitty/ssh.conf".source = ./ssh.conf;
 
     # Copy icon
-    # "kitty/kitty.app.png".source = ./kitty.app.png;
+    "kitty/kitty.app.png".source = ./kitty.app.png;
 
     "kitty/themes/mocha.conf".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
