@@ -1,5 +1,3 @@
--- [[ LSP ]]
-
 -- Set up autocommands to attach to lsp
 local lsp_dir = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h") .. '/../../lsp'
 
@@ -26,12 +24,6 @@ end
 
 vim.lsp.inlay_hint.enable(true)
 
--- vim.api.nvim_create_autocmd("LspAttach", {
---     group = vim.api.nvim_create_augroup("frostplexx/attach_lsp", { clear = true }),
---     callback = function(ev)
---         vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
---     end,
--- })
 
 -- Define the diagnostic signs.
 for severity, icon in pairs(tools.ui.diagnostics) do
@@ -76,35 +68,3 @@ vim.diagnostic.config {
     -- Disable signs in the gutter.
     signs = false,
 }
-
-
-
--- Override the virtual text diagnostic handler so that the most severe diagnostic is shown first.
-local show_handler = vim.diagnostic.handlers.virtual_text.show
-assert(show_handler)
-local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-vim.diagnostic.handlers.virtual_text = {
-    show = function(ns, bufnr, diagnostics, opts)
-        table.sort(diagnostics, function(diag1, diag2)
-            return diag1.severity > diag2.severity
-        end)
-        return show_handler(ns, bufnr, diagnostics, opts)
-    end,
-    hide = hide_handler,
-}
-
-local hover = vim.lsp.buf.hover
-vim.lsp.buf.hover = function()
-    return hover {
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    }
-end
-
-local signature_help = vim.lsp.buf.signature_help
-vim.lsp.buf.signature_help = function()
-    return signature_help {
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    }
-end

@@ -19,21 +19,6 @@ autocmd('FileType', {
     end,
 })
 
--- Open the file at the last position it was edited earlier (only for normal buffers)
-autocmd('BufReadPost', {
-    group = augroup('frostplexx/last_location', { clear = true }),
-    desc = 'Go to the last location when opening a buffer',
-    callback = function(args)
-        local bufname = vim.api.nvim_buf_get_name(args.buf)
-        if vim.bo[args.buf].buftype == "" and not bufname:match("yazi://") then
-            local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-            local line_count = vim.api.nvim_buf_line_count(args.buf)
-            if mark[1] > 0 and mark[1] <= line_count then
-                vim.cmd 'normal! g`"zz'
-            end
-        end
-    end,
-})
 
 autocmd("BufWritePre", {
     group = augroup('frostplexx/auto_format', { clear = true }),
@@ -54,12 +39,6 @@ autocmd("BufWritePre", {
     end
 })
 
-
-autocmd({ 'BufDelete', 'BufWipeout' }, {
-    group = augroup('frostplexx/wshada_on_buf_delete', { clear = true }),
-    desc = 'Write to ShaDa when deleting/wiping out buffers',
-    command = 'wshada',
-})
 
 autocmd('TextYankPost', {
     group = augroup('frostplexx/yank_highlight', { clear = true }),
@@ -126,16 +105,4 @@ autocmd("BufLeave", {
     callback = function()
         vim.fn.sign_unplace('todo_signs')
     end
-})
-
-
-
--- Highlight trailing whitespace
-autocmd({ "BufWinEnter", "InsertLeave" }, {
-    group = augroup('frostplexx/trailing_whitespace', { clear = true }),
-    desc = "Highlight trailing whitespace",
-    pattern = "*",
-    callback = function()
-        vim.fn.matchadd("ErrorMsg", "\\s\\+$")
-    end,
 })

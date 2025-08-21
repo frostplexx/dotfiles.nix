@@ -80,7 +80,7 @@ return {
             reverse = true,
         },
         dashboard = {
-            enabled = false,
+            enabled = true,
             width = 60,
             row = nil,                                                                   -- dashboard position. nil for center
             col = nil,                                                                   -- dashboard position. nil for center

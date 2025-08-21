@@ -8,45 +8,14 @@ return {
         dependencies = {
             "rafamadriz/friendly-snippets",
         },
-        config = function()
-            local blink = require("blink.cmp")
+        opts = {
+            keymap = { preset = 'super-tab' },
+            completion = {
+                menu = { border = 'rounded' },
+                documentation = { window = { border = 'rounded' } },
+            },
+            signature = { window = { border = 'rounded' } },
 
-            blink.setup({
-                sources = {
-                    default = { 'lsp', 'buffer', 'snippets', 'path', 'omni' },
-                    providers = {
-                        snippets = {
-                            name = 'Snippets',
-                            module = 'blink.cmp.sources.snippets',
-                            opts = {
-                                friendly_snippets = true,
-                                search_paths = { vim.fn.stdpath('config') .. '/snippets' },
-                                global_snippets = { 'all' },
-                                extended_filetypes = {},
-                                ignored_filetypes = {},
-                                get_filetype = function()
-                                    return vim.bo.filetype
-                                end,
-                                clipboard_register = nil,
-                            }
-                        },
-                    }
-                },
-                appearance = {
-                },
-                keymap = { preset = 'super-tab' },
-                completion = {
-                    menu = { border = 'rounded' },
-                    documentation = { window = { border = 'rounded' } },
-                },
-                signature = { window = { border = 'rounded' } },
-
-            })
-
-            vim.lsp.config('*', {
-                root_markers = { '.git' },
-                capabilities = require('blink.cmp').get_lsp_capabilities()
-            })
-        end,
+        }
     },
 }

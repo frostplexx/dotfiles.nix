@@ -1,22 +1,6 @@
--- [[ Init File ]]
-if vim.fn.has("nvim-0.11") == 0 then
-    vim.notify("This config only supports Neovim 0.11+", vim.log.levels.ERROR)
-    return
-end
-
 -- Global variables.
 vim.g.projects_dir = vim.env.HOME .. '/Developer'
 
-vim.loader.enable() -- speed up startup time
-
--- Set up snacks debug
-_G.dd = function(...)
-    Snacks.debug.inspect(...)
-end
-_G.bt = function()
-    Snacks.debug.backtrace()
-end
-vim.print = _G.dd
 
 -- [[ Lazy.nvim Plugin Manager ]]
 
@@ -41,11 +25,9 @@ local plugins = 'plugins'
 
 -- General Setup
 require 'globals' -- needs to be first
-require 'core.options'
-require 'core.keymap'
-require 'core.commands'
-require 'core.autocommands'
-require 'core.lsp'
+require 'core'
+require 'config'
+
 
 -- initialize lazy.nvim
 require("lazy").setup(plugins, {
@@ -94,6 +76,6 @@ require("lazy").setup(plugins, {
         require = false,
     },
 })
-require 'ui'
 
+require 'ui'
 vim.cmd.colorscheme("catppuccin-mocha")

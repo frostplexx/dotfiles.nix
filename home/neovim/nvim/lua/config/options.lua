@@ -1,11 +1,9 @@
--- [[ Vim options ]]
-
 -- Defer highlight setup to avoid startup delay
 vim.schedule(function()
     vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#403d52", bold = false })
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#c4a7e7", bold = true })
     vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#403d52", bold = false })
-    
+
     -- Make popup backgrounds transparent
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
@@ -14,6 +12,7 @@ vim.schedule(function()
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "none" })
 end)
+
 
 -- Essential options first
 vim.opt.nu = true
