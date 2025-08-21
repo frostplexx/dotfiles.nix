@@ -24,7 +24,8 @@ autocmd('BufReadPost', {
     group = augroup('frostplexx/last_location', { clear = true }),
     desc = 'Go to the last location when opening a buffer',
     callback = function(args)
-        if vim.bo[args.buf].buftype == "" then
+        local bufname = vim.api.nvim_buf_get_name(args.buf)
+        if vim.bo[args.buf].buftype == "" and not bufname:match("yazi://") then
             local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
             local line_count = vim.api.nvim_buf_line_count(args.buf)
             if mark[1] > 0 and mark[1] <= line_count then

@@ -1,11 +1,13 @@
 return {
     "mikavilpas/yazi.nvim",
     lazy = true,
-    -- event = "VeryLazy",
+    version = "*", -- use the latest stable version
+    event = "VeryLazy",
     dependencies = {
         -- check the installation instructions at
         -- https://github.com/folke/snacks.nvim
-        "folke/snacks.nvim"
+        "folke/snacks.nvim",
+        { "nvim-lua/plenary.nvim", lazy = true },
     },
     keys = {
         {
@@ -29,6 +31,8 @@ return {
         open_multiple_tabs = true,
         -- window border is set in the yazi config see ~/dotfiles.nix/home/programs/shell/default.nix
         yazi_floating_window_border = 'rounded',
+        yazi_floating_window_winblend = 0,
+        floating_window_scaling_factor = 0.9,
     },
     -- 👇 if you use `open_for_directories=true`, this is recommended
     init = function()

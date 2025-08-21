@@ -20,7 +20,8 @@ return {
             "markdown_inline",
             "markdown",
             "css", "html", "javascript", "latex", "norg", "scss", "svelte", "tsx", "typst", "vue", "regex", "lua",
-            "diff"
+            "diff",
+            "bash"
         },
         incremental_selection = {
             enable = true,
