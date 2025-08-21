@@ -95,3 +95,5 @@ require("lazy").setup(plugins, {
     },
 })
 require 'ui'
+
+vim.cmd.colorscheme("catppuccin-mocha")

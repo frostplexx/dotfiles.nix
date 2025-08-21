@@ -1,5 +1,6 @@
 # programs/editor/default.nix
 {
+inputs,
   pkgs,
   lib,
   ...
@@ -18,6 +19,7 @@ in {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
@@ -34,8 +36,7 @@ in {
       ghostscript # pdf rendering
       luajitPackages.tiktoken_core
       lynx
-      cargo
-      rustc
+      skim # for vimtex
     ];
 
     plugins = [

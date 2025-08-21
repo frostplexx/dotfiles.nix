@@ -3,7 +3,7 @@
 [doc('Deploy system configuration')]
 [positional-arguments]
 deploy host="$(hostname)": lint
-    @git add .
+    @cd {{DOTFILES_FOLDER}}; git add .
     @if [[ $1 == *"--verbose"* || $1 == *"-v"* ]]; then \
         if [[ "$(uname)" == "Darwin" ]]; then \
             echo "Running nix-darwin rebuild switch with verbose output..."; \
