@@ -9,14 +9,7 @@ return {
             transparent = true,        -- enable transparent floating windows
             solid = false,             -- use solid styling for floating windows, see |winborder|
         },
-        integrations = {
-            blink_cmp = true,
-            gitsigns = true,
-            lsp_trouble = true,
-            treesitter = true,
-            dap = true,
-            dap_ui = true,
-            snacks = true,
-        },
+        term_colors = true,
+        auto_integrations = true,
     }
 }
