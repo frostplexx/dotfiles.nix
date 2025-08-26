@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.spotify-player = {
-    enable = true;
+    enable = false;
     package = pkgs.spotify-player.override {
       withAudioBackend = "rodio";
       withSixel = false;

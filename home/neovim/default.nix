@@ -32,7 +32,7 @@ in {
       tree-sitter
       coreutils-prefixed
       mermaid-cli # mermaid rendering
-      tectonic # latex rendering
+      # tectonic # latex rendering
       ghostscript # pdf rendering
       luajitPackages.tiktoken_core
       lynx
@@ -40,7 +40,7 @@ in {
     ];
 
     plugins = [
-      treeSitterWithAllGrammars
+      # treeSitterWithAllGrammars
     ];
   };
 

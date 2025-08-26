@@ -117,6 +117,7 @@
         NSAutomaticWindowAnimationsEnabled = true;
         NSWindowResizeTime = 0.001;
 
+
         # Keyboard settings
         KeyRepeat = 2;
         InitialKeyRepeat = 12;
