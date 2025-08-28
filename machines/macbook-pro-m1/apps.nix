@@ -43,7 +43,7 @@
       "eduVPN" = 1317704208;
       "Goodnotes" = 1444383602;
       "WhatsApp" = 310633997;
-      # "Windows App" = 1295203466;
+      "Windows App" = 1295203466;
       "Testflight" = 899247664;
       "Tailscale" = 1475387142;
       "System Color Picker" = 1545870783;
