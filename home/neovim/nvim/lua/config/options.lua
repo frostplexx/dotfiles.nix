@@ -57,7 +57,7 @@ vim.opt.updatetime = 250 -- Faster updates
 vim.opt.timeoutlen = 300 -- Faster key timeout
 vim.opt.ttimeoutlen = 10
 
-vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_view_method = "zathura"
 
 vim.opt.numberwidth = 3
 vim.opt.statuscolumn = ""
