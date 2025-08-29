@@ -1,7 +1,15 @@
 function project_selector
-    set selected (ghq list | fzf --height 40% --border --preview 'ls -la ~/Developer/{}' --preview-window right:50%)
+    set selected (ghq list | fzf --height 40% --border \
+        --preview 'eza -la --git --color=always ~/Developer/{}' \
+        --preview-window right:50% \
+        --color=16 \
+        --prompt="Project: " \
+        --header="Select a project to open")
+
     if test -n "$selected"
-        cd ~/Developer/$selected && vim
+        set project_path ~/Developer/$selected
+        # Create new Kitty tab and activate direnv before starting neovim
+        fish -c "cd $project_path; direnv allow; direnv exec $project_path nvim"
     end
 end
 
