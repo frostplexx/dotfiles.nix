@@ -49,7 +49,6 @@
     obsidian
     _1password-cli
     bvi
-    skim
 
 
     inputs.determinate.packages.${system}.default

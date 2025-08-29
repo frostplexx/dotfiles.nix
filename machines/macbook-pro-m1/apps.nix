@@ -19,6 +19,7 @@
     wtfis
     hexfiend
     claude-code
+    skimpdf
   ];
 
   # Homebrew configuration

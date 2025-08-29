@@ -55,5 +55,19 @@ return {
             end, opts.ensure_installed)
         end
         require("nvim-treesitter.configs").setup(opts)
+
+        -- Fully disable treesitter attach for LaTeX buffers
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "tex",
+            callback = function(ctx)
+                -- ctx.buf is the buffer number
+                require("nvim-treesitter.configs").setup({
+                    highlight = { enable = false },
+                    indent = { enable = false },
+                })
+                -- Or: stop treesitter in that buffer only
+                vim.treesitter.stop(ctx.buf)
+            end,
+        })
     end,
 }

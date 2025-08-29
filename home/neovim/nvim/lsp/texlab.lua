@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
     cmd = { "nix-shell", "-p", "texlab", "--run", "texlab" },
-    filetypes = { 'tex', },
+    filetypes = { 'tex', 'plaintext', 'bib' },
     root_markers = {
         '.git',
         'src',
