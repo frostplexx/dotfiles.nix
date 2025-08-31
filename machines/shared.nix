@@ -35,6 +35,8 @@
     netcat
     sops
     ghq
+    termshark
+    unp
 
     # Nix utils
     nix-tree

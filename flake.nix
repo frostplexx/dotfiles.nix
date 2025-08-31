@@ -1,7 +1,7 @@
 {
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
 
-  inputs = {
+ inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
