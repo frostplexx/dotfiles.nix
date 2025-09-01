@@ -144,7 +144,6 @@
     # Copy icon
     "kitty/kitty.app.png".source = ./kitty.app.png;
 
-    "kitty/relative_resize.py".source = ./relative_resize.py;
 
     "kitty/themes/mocha.conf".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
