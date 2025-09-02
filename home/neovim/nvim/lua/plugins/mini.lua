@@ -24,6 +24,9 @@ return {
 
             -- picker
             require('mini.pick').setup({
+                mappings = {
+                    choose_marked = '<C-q>',
+                },
                 window = {
                     config = function()
                         return {
@@ -34,7 +37,11 @@ return {
                             height = 35,
                             relative = 'editor',
                         }
-                    end
+                    end,
+                    prompt_prefix = " ",
+                },
+                options = {
+                    use_cache = true,
                 }
             })
             ---@class FFFItem
@@ -281,17 +288,17 @@ return {
             })
         end,
         keys = {
-            { '<leader>n',       function() MiniNotify.show_history() end,                             desc = "Show Notification History", remap = true, silent = true },
-            { '<leader>d',       function() MiniBufremove.delete() end,                                desc = "Delete Buffer",             remap = true, silent = true },
-            { '<leader><space>', function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",                 remap = true, silent = true },
-            { '<leader>fg',      function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",                 remap = true, silent = true },
-            { '<leader>ss',      function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols",         remap = true, silent = true },
-            { '<leader>tr',      function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",               remap = true, silent = true },
-            { '<leader>gi',      function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",                 remap = true, silent = true },
-            { '<leader>bf',      function() MiniPick.builtin.buffers() end,                            desc = "Buffers",                   remap = true, silent = true },
-            { '<leader>ch',      function() MiniExtra.pickers.history() end,                           desc = "Command History",           remap = true, silent = true },
-            { '<leader>mk',      function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",                   remap = true, silent = true },
-            { '<leader>ms',      function() MiniExtra.pickers.marks() end,                             desc = "Marks",                     remap = true, silent = true },
+            { '<leader>n',  function() MiniNotify.show_history() end,                             desc = "Show Notification History", remap = true, silent = true },
+            { '<leader>d',  function() MiniBufremove.delete() end,                                desc = "Delete Buffer",             remap = true, silent = true },
+            { '<leader>f',  function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",                 remap = true, silent = true },
+            { '<leader>g',  function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",                 remap = true, silent = true },
+            { '<leader>ss', function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols",         remap = true, silent = true },
+            { '<leader>tr', function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",               remap = true, silent = true },
+            { '<leader>gi', function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",                 remap = true, silent = true },
+            { '<leader>bf', function() MiniPick.builtin.buffers() end,                            desc = "Buffers",                   remap = true, silent = true },
+            { '<leader>ch', function() MiniExtra.pickers.history() end,                           desc = "Command History",           remap = true, silent = true },
+            { '<leader>mk', function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",                   remap = true, silent = true },
+            { '<leader>ms', function() MiniExtra.pickers.marks() end,                             desc = "Marks",                     remap = true, silent = true },
         }
     },
     {
