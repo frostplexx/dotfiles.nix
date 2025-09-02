@@ -19,7 +19,7 @@ set fish_cursor_replace_one underscore
 # Source additional scripts
 if test -d $HOME/.fish_scripts
     for file in $HOME/.fish_scripts/*.fish
-        source $file
+        source $file &
     end
 end
 
@@ -27,5 +27,5 @@ end
 fish_config theme choose "Catppuccin Mocha"
 
 if test (uname) = Linux -a (tty) = /dev/tty2
-    /home/daniel/dotfiles.nix/machines/pc-nixos/gh.sh
+    /home/daniel/dotfiles.nix/machines/pc-nixos/gh.sh &
 end

@@ -24,8 +24,11 @@ return {
                 lsp_doc_border = false,       -- add a border to hover docs and signature help
             },
             notify = {
-                enabled = false,
+                enabled = true,
             },
         })
     end,
+    keys = {
+        { '<leader>n', "NoiceHistory", desc = "Show Notification History", remap = true, silent = true },
+    }
 }

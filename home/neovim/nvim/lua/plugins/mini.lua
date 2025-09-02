@@ -179,25 +179,25 @@ return {
             })
 
             -- notifier
-            require('mini.notify').setup({
-                content = {
-                    -- Show more recent notifications first
-                    sort = function(notif_arr)
-                        table.sort(
-                            notif_arr,
-                            function(a, b) return a.ts_update > b.ts_update end
-                        )
-                        return notif_arr
-                    end,
-                },
-                lsp_progress = {
-                    enable = false,
-                },
-                window = {
-                    winblend = 0
-                }
-            })
-            vim.notify = require('mini.notify').make_notify()
+            -- require('mini.notify').setup({
+            --     content = {
+            --         -- Show more recent notifications first
+            --         sort = function(notif_arr)
+            --             table.sort(
+            --                 notif_arr,
+            --                 function(a, b) return a.ts_update > b.ts_update end
+            --             )
+            --             return notif_arr
+            --         end,
+            --     },
+            --     lsp_progress = {
+            --         enable = false,
+            --     },
+            --     window = {
+            --         winblend = 0
+            --     }
+            -- })
+            -- vim.notify = require('mini.notify').make_notify()
 
             -- starter
             local starter = require('mini.starter')
@@ -272,7 +272,7 @@ return {
                     { hl = mode_hl,                 strings = { mode } },
                     { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
                     '%<', -- Mark general truncate point
-                    { hl = 'MiniStatuslineFilename', strings = { filename } },
+                    { hl = '',                       strings = { filename } },
                     '%=', -- End left alignment
                     { hl = 'MiniStatuslineFileinfo', strings = { lsp_status, filetype } },
                     { hl = mode_hl,                  strings = { location } },
@@ -288,17 +288,17 @@ return {
             })
         end,
         keys = {
-            { '<leader>n',  function() MiniNotify.show_history() end,                             desc = "Show Notification History", remap = true, silent = true },
-            { '<leader>d',  function() MiniBufremove.delete() end,                                desc = "Delete Buffer",             remap = true, silent = true },
-            { '<leader>f',  function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",                 remap = true, silent = true },
-            { '<leader>g',  function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",                 remap = true, silent = true },
-            { '<leader>ss', function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols",         remap = true, silent = true },
-            { '<leader>tr', function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",               remap = true, silent = true },
-            { '<leader>gi', function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",                 remap = true, silent = true },
-            { '<leader>bf', function() MiniPick.builtin.buffers() end,                            desc = "Buffers",                   remap = true, silent = true },
-            { '<leader>ch', function() MiniExtra.pickers.history() end,                           desc = "Command History",           remap = true, silent = true },
-            { '<leader>mk', function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",                   remap = true, silent = true },
-            { '<leader>ms', function() MiniExtra.pickers.marks() end,                             desc = "Marks",                     remap = true, silent = true },
+            -- { '<leader>n',  function() MiniNotify.show_history() end,                             desc = "Show Notification History", remap = true, silent = true },
+            { '<leader>d',  function() MiniBufremove.delete() end,                                desc = "Delete Buffer",     remap = true, silent = true },
+            { '<leader>f',  function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",         remap = true, silent = true },
+            { '<leader>g',  function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",         remap = true, silent = true },
+            { '<leader>ss', function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols", remap = true, silent = true },
+            { '<leader>tr', function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",       remap = true, silent = true },
+            { '<leader>gi', function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",         remap = true, silent = true },
+            { '<leader>bf', function() MiniPick.builtin.buffers() end,                            desc = "Buffers",           remap = true, silent = true },
+            { '<leader>ch', function() MiniExtra.pickers.history() end,                           desc = "Command History",   remap = true, silent = true },
+            { '<leader>mk', function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",           remap = true, silent = true },
+            { '<leader>ms', function() MiniExtra.pickers.marks() end,                             desc = "Marks",             remap = true, silent = true },
         }
     },
     {
