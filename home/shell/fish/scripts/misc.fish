@@ -9,7 +9,9 @@ function project_selector
     if test -n "$selected"
         set project_path ~/Developer/$selected
         # Create new Kitty tab and activate direnv before starting neovim
-        fish -c "cd $project_path; direnv allow; direnv exec $project_path nvim"
+        cd $project_path
+        direnv allow
+        direnv exec $project_path nvim"
     end
 end
 
