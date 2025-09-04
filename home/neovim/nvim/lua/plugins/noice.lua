@@ -5,7 +5,7 @@ return {
     dependencies = {
         "MunifTanjim/nui.nvim",
     },
-    config = function(_, opts)
+    config = function(_, _)
         require("noice").setup({
             lsp = {
                 -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

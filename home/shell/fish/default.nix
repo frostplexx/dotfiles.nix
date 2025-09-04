@@ -44,7 +44,7 @@
       });
     };
   };
-
+  #
   home.file = {
     ".fish_scripts" = {
       recursive = true;

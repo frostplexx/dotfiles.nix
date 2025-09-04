@@ -5,7 +5,6 @@ return {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
-        "mxsdev/nvim-dap-vscode-js",
     },
     config = function()
         local dap, dapui = require("dap"), require("dapui")
@@ -16,24 +15,45 @@ return {
             virt_text_pos = "eol",
         })
 
+        -- Setup CodeLLDB adapter using nix-shell
+        dap.adapters.codelldb = {
+            type = 'server',
+            port = "${port}",
+            executable = {
+                command = 'nix-shell',
+                args = {
+                    '-p', 'vscode-extensions.vadimcn.vscode-lldb',
+                    '--run', 'codelldb --port ${port}'
+                },
+            }
+        }
 
-        -- Configuration for C, C++
+        -- Alternative: Use lldb-vscode from llvmPackages
+        dap.adapters.lldb = {
+            type = 'executable',
+            command = 'nix-shell',
+            args = {
+                '-p', 'llvmPackages.lldb',
+                '--run', 'lldb-vscode'
+            },
+            name = 'lldb'
+        }
+
+        -- Configuration for C, C++, Rust
         dap.configurations.cpp = {
             {
-                name = 'Launch C/C++',
+                name = 'Launch C/C++ (CodeLLDB)',
                 type = 'codelldb',
                 request = 'launch',
                 program = function()
                     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
                 end,
                 cwd = '${workspaceFolder}',
-                -- stopOnEntry = false,
-                followForks = true,               -- Keep this
-                followExecs = true,               -- Keep this
-                detachOnFork = false,             -- Keep this
-                -- Add these new settings
-                sourceLanguages = { 'cpp', 'c' }, -- Help debugger identify source types
-                pid = function()                  -- Allow attaching to existing process
+                followForks = true,
+                followExecs = true,
+                detachOnFork = false,
+                sourceLanguages = { 'cpp', 'c' },
+                pid = function()
                     local handle = io.popen('pgrep -n ' .. vim.fn.expand('%:t:r'))
                     if handle then
                         local pid = handle:read("*a")
@@ -42,12 +62,11 @@ return {
                     end
                     return nil
                 end,
-                processCreateCommands = { -- Commands run when new process is created
+                processCreateCommands = {
                     'set follow-fork-mode child',
                     'set detach-on-fork off',
                 },
-                -- Ensure LLDB is configured to catch all signals
-                stopOnEntry = true, -- Stop at program entry to set up debugging
+                stopOnEntry = true,
                 setupCommands = {
                     {
                         description = 'Enable all signal catching',
@@ -55,7 +74,7 @@ return {
                         ignoreFailures = true,
                     },
                 },
-                env = function() -- Ensure proper environment variables
+                env = function()
                     local variables = {}
                     for k, v in pairs(vim.fn.environ()) do
                         table.insert(variables, string.format("%s=%s", k, v))
@@ -63,135 +82,148 @@ return {
                     return variables
                 end,
             },
+            {
+                name = 'Launch C/C++ (LLDB)',
+                type = 'lldb',
+                request = 'launch',
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+                args = {},
+            },
         }
         dap.configurations.c = dap.configurations.cpp
         dap.configurations.rust = dap.configurations.cpp
 
-        -- Helper function to detect package manager
-        local function get_package_manager()
-            if vim.fn.filereadable("yarn.lock") == 1 then
-                return "yarn"
-            elseif vim.fn.filereadable("package-lock.json") == 1 then
-                return "npm"
-            else
-                return "npm" -- default fallback
+        -- Python adapter using nix-shell
+        dap.adapters.python = {
+            type = 'executable',
+            command = 'nix-shell',
+            args = {
+                '-p', 'python3Packages.debugpy',
+                '--run', 'python -m debugpy.adapter'
+            },
+        }
+
+        dap.configurations.python = {
+            {
+                type = 'python',
+                request = 'launch',
+                name = 'Launch file',
+                program = '${file}',
+                pythonPath = function()
+                    -- Use python from nix-shell if needed
+                    local cwd = vim.fn.getcwd()
+                    if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+                        return cwd .. '/venv/bin/python'
+                    elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+                        return cwd .. '/.venv/bin/python'
+                    else
+                        -- Use nix-shell python3
+                        return vim.fn.system('nix-shell -p python3 --run "which python3"'):gsub('\n', '')
+                    end
+                end,
+            },
+        }
+
+        -- Go adapter using nix-shell with delve
+        dap.adapters.go = {
+            type = 'executable',
+            command = 'nix-shell',
+            args = {
+                '-p', 'delve',
+                '--run', 'dlv dap'
+            },
+        }
+
+        dap.configurations.go = {
+            {
+                type = "go",
+                name = "Debug",
+                request = "launch",
+                program = "${file}",
+            },
+            {
+                type = "go",
+                name = "Debug test",
+                request = "launch",
+                mode = "test",
+                program = "${file}",
+            },
+            {
+                type = "go",
+                name = "Debug test (go.mod)",
+                request = "launch",
+                mode = "test",
+                program = "./${relativeFileDirname}",
+            },
+        }
+
+
+        local function pick_process()
+            local handle = io.popen('ps -eo pid,comm --no-headers')
+            if not handle then
+                return nil
             end
+
+            local processes = {}
+            for line in handle:lines() do
+                local pid, name = line:match('(%d+)%s+(.+)')
+                if pid and name then
+                    table.insert(processes, { pid = pid, name = name })
+                end
+            end
+            handle:close()
+
+            if #processes == 0 then
+                return nil
+            end
+
+            local choices = {}
+            for i, proc in ipairs(processes) do
+                table.insert(choices, string.format("%d: %s (PID: %s)", i, proc.name, proc.pid))
+            end
+
+            local choice = vim.fn.inputlist(choices)
+            if choice > 0 and choice <= #processes then
+                return tonumber(processes[choice].pid)
+            end
+
+            return nil
         end
 
-        -- Setup TypeScript debugging
-        require("dap-vscode-js").setup({
-            debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-            adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-        })
-
-        -- TypeScript/JavaScript configurations
-        for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-            dap.configurations[language] = {
-                -- Debug single nodejs files
-                {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Launch file",
-                    program = "${file}",
-                    cwd = "${workspaceFolder}",
-                },
-                -- Debug nodejs processes (make sure to add --inspect when you run the process)
-                {
-                    type = "pwa-node",
-                    request = "attach",
-                    name = "Attach",
-                    processId = require("dap.utils").pick_process,
-                    cwd = "${workspaceFolder}",
-                },
-                -- Debug web app (client side)
-                {
-                    type = "pwa-chrome",
-                    request = "launch",
-                    name = "Launch Chrome",
-                    url = function()
-                        local url = vim.fn.input("URL: ", "http://localhost:3000")
-                        return url
-                    end,
-                    webRoot = "${workspaceFolder}",
-                    protocol = "inspector",
-                    sourceMaps = true,
-                    userDataDir = false,
-                },
-                -- Launch npm/yarn dev server and attach
-                {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Launch via npm/yarn",
-                    runtimeExecutable = function()
-                        return get_package_manager()
-                    end,
-                    runtimeArgs = function()
-                        local pm = get_package_manager()
-                        if pm == "yarn" then
-                            return { "dev" }
-                        else
-                            return { "run", "dev" }
-                        end
-                    end,
-                    rootPath = "${workspaceFolder}",
-                    cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
-                    internalConsoleOptions = "neverOpen",
-                },
-                -- Launch npm/yarn start script
-                {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Launch via start script",
-                    runtimeExecutable = function()
-                        return get_package_manager()
-                    end,
-                    runtimeArgs = function()
-                        local pm = get_package_manager()
-                        if pm == "yarn" then
-                            return { "start" }
-                        else
-                            return { "run", "start" }
-                        end
-                    end,
-                    rootPath = "${workspaceFolder}",
-                    cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
-                    internalConsoleOptions = "neverOpen",
-                },
-                -- Debug Jest tests
-                {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Debug Jest Tests",
-                    runtimeExecutable = "node",
-                    runtimeArgs = function()
-                        local pm = get_package_manager()
-                        if pm == "yarn" then
-                            return {
-                                "./node_modules/.bin/jest",
-                                "--runInBand",
-                                "--no-cache",
-                                "--no-coverage",
-                                "--watchAll=false",
-                            }
-                        else
-                            return {
-                                "./node_modules/.bin/jest",
-                                "--runInBand",
-                                "--no-cache",
-                                "--no-coverage",
-                                "--watchAll=false",
-                            }
-                        end
-                    end,
-                    rootPath = "${workspaceFolder}",
-                    cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
-                    internalConsoleOptions = "neverOpen",
-                },
+        -- Alternative setup using nix-shell for node
+        dap.adapters["pwa-node"] = {
+            type = "server",
+            host = "localhost",
+            port = "${port}",
+            executable = {
+                command = "js-debug",
+                args = {
+                    "${port}"
+                }
             }
-        end
+        }
+
+        dap.configurations["typescript"] = {
+            {
+                type = "pwa-node",
+                request = "launch",
+                name = "Launch file",
+                program = "${file}",
+                cwd = "${workspaceFolder}",
+            },
+            {
+                type = "pwa-node",
+                request = "attach",
+                name = "Attach to process ID",
+                processId = pick_process,
+                cwd = "${workspaceFolder}",
+            },
+        }
+
 
         -- UI Listeners
         dap.listeners.before.attach.dapui_config = function()

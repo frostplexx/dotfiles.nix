@@ -29,12 +29,13 @@ in {
       git
       nodejs
       tree-sitter
-      coreutils-prefixed
+      coreutils
       mermaid-cli # mermaid rendering
       # tectonic # latex rendering
       ghostscript # pdf rendering
       luajitPackages.tiktoken_core
       lynx
+vscode-js-debug
     ];
 
     plugins = [

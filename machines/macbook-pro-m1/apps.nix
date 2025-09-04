@@ -16,7 +16,7 @@
     mas
     switchaudio-osx
     whisky
-    wtfis
+    # wtfis
     hexfiend
     claude-code
     skimpdf

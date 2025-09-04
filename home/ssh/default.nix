@@ -2,11 +2,11 @@
   programs.ssh = {
     enable = true;
     # Global SSH settings
-    enableDefaultConfig = false;
-    matchBlocks."*" = {
-      forwardAgent = true;
-      addKeysToAgent = "yes";
-    };
+    # enableDefaultConfig = false;
+    # matchBlocks."*" = {
+    #   forwardAgent = true;
+    #   addKeysToAgent = "yes";
+    # };
 
     includes = [
       "~/.ssh/hosts"
