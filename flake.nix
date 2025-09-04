@@ -20,7 +20,6 @@
     # Declaratively manage homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
     nixcord = {
       url = "github:kaylorben/nixcord";

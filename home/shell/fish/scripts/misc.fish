@@ -11,7 +11,6 @@ function project_selector
         # Create new Kitty tab and activate direnv before starting neovim
         cd $project_path
         direnv allow
-        nvim .
     end
 end
 

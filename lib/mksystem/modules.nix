@@ -55,7 +55,6 @@ in
         sharedModules =
           [
             inputs.nixcord.homeModules.nixcord
-            inputs._1password-shell-plugins.hmModules.default
             inputs.nixkit.homeModules.default
             inputs.sops-nix.homeManagerModules.sops
             inputs.spicetify-nix.homeManagerModules.spicetify

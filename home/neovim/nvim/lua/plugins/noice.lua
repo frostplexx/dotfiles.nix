@@ -29,6 +29,6 @@ return {
         })
     end,
     keys = {
-        { '<leader>n', "NoiceHistory", desc = "Show Notification History", remap = true, silent = true },
+        { '<leader>n', ":NoiceHistory<cr>", desc = "Show Notification History", remap = true, silent = true },
     }
 }
