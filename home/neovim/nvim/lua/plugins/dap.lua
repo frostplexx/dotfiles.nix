@@ -5,6 +5,7 @@ return {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
+        "mxsdev/nvim-dap-vscode-js",
     },
     config = function()
         local dap, dapui = require("dap"), require("dapui")
@@ -65,6 +66,132 @@ return {
         }
         dap.configurations.c = dap.configurations.cpp
         dap.configurations.rust = dap.configurations.cpp
+
+        -- Helper function to detect package manager
+        local function get_package_manager()
+            if vim.fn.filereadable("yarn.lock") == 1 then
+                return "yarn"
+            elseif vim.fn.filereadable("package-lock.json") == 1 then
+                return "npm"
+            else
+                return "npm" -- default fallback
+            end
+        end
+
+        -- Setup TypeScript debugging
+        require("dap-vscode-js").setup({
+            debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+            adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+        })
+
+        -- TypeScript/JavaScript configurations
+        for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+            dap.configurations[language] = {
+                -- Debug single nodejs files
+                {
+                    type = "pwa-node",
+                    request = "launch",
+                    name = "Launch file",
+                    program = "${file}",
+                    cwd = "${workspaceFolder}",
+                },
+                -- Debug nodejs processes (make sure to add --inspect when you run the process)
+                {
+                    type = "pwa-node",
+                    request = "attach",
+                    name = "Attach",
+                    processId = require("dap.utils").pick_process,
+                    cwd = "${workspaceFolder}",
+                },
+                -- Debug web app (client side)
+                {
+                    type = "pwa-chrome",
+                    request = "launch",
+                    name = "Launch Chrome",
+                    url = function()
+                        local url = vim.fn.input("URL: ", "http://localhost:3000")
+                        return url
+                    end,
+                    webRoot = "${workspaceFolder}",
+                    protocol = "inspector",
+                    sourceMaps = true,
+                    userDataDir = false,
+                },
+                -- Launch npm/yarn dev server and attach
+                {
+                    type = "pwa-node",
+                    request = "launch",
+                    name = "Launch via npm/yarn",
+                    runtimeExecutable = function()
+                        return get_package_manager()
+                    end,
+                    runtimeArgs = function()
+                        local pm = get_package_manager()
+                        if pm == "yarn" then
+                            return { "dev" }
+                        else
+                            return { "run", "dev" }
+                        end
+                    end,
+                    rootPath = "${workspaceFolder}",
+                    cwd = "${workspaceFolder}",
+                    console = "integratedTerminal",
+                    internalConsoleOptions = "neverOpen",
+                },
+                -- Launch npm/yarn start script
+                {
+                    type = "pwa-node",
+                    request = "launch",
+                    name = "Launch via start script",
+                    runtimeExecutable = function()
+                        return get_package_manager()
+                    end,
+                    runtimeArgs = function()
+                        local pm = get_package_manager()
+                        if pm == "yarn" then
+                            return { "start" }
+                        else
+                            return { "run", "start" }
+                        end
+                    end,
+                    rootPath = "${workspaceFolder}",
+                    cwd = "${workspaceFolder}",
+                    console = "integratedTerminal",
+                    internalConsoleOptions = "neverOpen",
+                },
+                -- Debug Jest tests
+                {
+                    type = "pwa-node",
+                    request = "launch",
+                    name = "Debug Jest Tests",
+                    runtimeExecutable = "node",
+                    runtimeArgs = function()
+                        local pm = get_package_manager()
+                        if pm == "yarn" then
+                            return {
+                                "./node_modules/.bin/jest",
+                                "--runInBand",
+                                "--no-cache",
+                                "--no-coverage",
+                                "--watchAll=false",
+                            }
+                        else
+                            return {
+                                "./node_modules/.bin/jest",
+                                "--runInBand",
+                                "--no-cache",
+                                "--no-coverage",
+                                "--watchAll=false",
+                            }
+                        end
+                    end,
+                    rootPath = "${workspaceFolder}",
+                    cwd = "${workspaceFolder}",
+                    console = "integratedTerminal",
+                    internalConsoleOptions = "neverOpen",
+                },
+            }
+        end
 
         -- UI Listeners
         dap.listeners.before.attach.dapui_config = function()
