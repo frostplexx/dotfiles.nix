@@ -181,13 +181,13 @@ return {
             hipatterns.setup({
                 highlighters = {
                     -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-                    fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-                    hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-                    todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-                    note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+                    fixme    = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+                    hack     = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+                    todo     = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+                    note     = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
                     -- Highlight hex color strings (`#rrggbb`) using that color
-                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                    ex_color = hipatterns.gen_highlighter.hex_color(),
                 },
             })
 
@@ -271,11 +271,43 @@ return {
                 return '' .. icon .. filetype
             end
 
+            -- Custom diagnostics function using mini.icons
+            local function get_diagnostics_with_icons()
+                local counts = vim.diagnostic.count(0)
+                if vim.tbl_isempty(counts) then
+                    return ''
+                end
+
+                local parts = {}
+
+                -- Error
+                if counts[vim.diagnostic.severity.ERROR] then
+                    table.insert(parts, tools.ui.diagnostics.ERROR .. ' ' .. counts[vim.diagnostic.severity.ERROR])
+                end
+
+                -- Warning
+                if counts[vim.diagnostic.severity.WARN] then
+                    table.insert(parts, tools.ui.diagnostics.WARN .. ' ' .. counts[vim.diagnostic.severity.WARN])
+                end
+
+                -- Info
+                if counts[vim.diagnostic.severity.INFO] then
+                    table.insert(parts, tools.ui.diagnostics.INFO .. ' ' .. counts[vim.diagnostic.severity.INFO])
+                end
+
+                -- Hint
+                if counts[vim.diagnostic.severity.HINT] then
+                    table.insert(parts, tools.ui.diagnostics.HINT .. ' ' .. counts[vim.diagnostic.severity.HINT])
+                end
+
+                return table.concat(parts, ' ')
+            end
+
             -- Custom content function for cleaner statusline
             local function statusline_content()
                 local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
                 local git = MiniStatusline.section_git({ trunc_width = 75 })
-                local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+                local diagnostics = get_diagnostics_with_icons()
                 local filename = MiniStatusline.section_filename({ trunc_width = 140 })
                 local location = simple_location()
                 local lsp_status = get_lsp_clients()
