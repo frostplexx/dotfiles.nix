@@ -100,7 +100,7 @@ function M.show()
     
     local width = math.min(80, math.floor(vim.o.columns * 0.9))
     local header = "📦 Loaded Plugins"
-    local help = "[u]pdate [d]elete [r]eload [q]uit"
+    local help = "[u]pdate [U]pdate all [d]elete [r]eload [q]uit"
     local total = string.format("Total: %d plugins loaded", #plugins)
     
     local lines = {
@@ -280,6 +280,12 @@ function M.show()
         end
     end
     
+    local function update_all_plugins()
+        vim.notify("Updating all plugins...", vim.log.levels.INFO)
+        vim.pack.update()
+        vim.notify("All plugins update initiated!", vim.log.levels.INFO)
+    end
+    
     local function delete_plugin()
         local plugin = get_plugin_at_cursor()
         if not plugin then
@@ -337,6 +343,7 @@ function M.show()
     vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf, 'n', 'u', '', { noremap = true, silent = true, callback = update_plugin })
+    vim.api.nvim_buf_set_keymap(buf, 'n', 'U', '', { noremap = true, silent = true, callback = update_all_plugins })
     vim.api.nvim_buf_set_keymap(buf, 'n', 'd', '', { noremap = true, silent = true, callback = delete_plugin })
     vim.api.nvim_buf_set_keymap(buf, 'n', 'r', '', { noremap = true, silent = true, callback = reload_plugins })
     
