@@ -41,3 +41,32 @@ vim.api.nvim_create_user_command("LspInfo", LspInfo, {})
 vim.api.nvim_create_user_command('Todos', function()
     MiniPick.builtin.grep({ pattern = '(TODO|FIXME|HACK|NOTE):' })
 end, { desc = 'Grep TODOs', nargs = 0 })
+
+-- Clean all plugins command
+local function CleanPlugins()
+    local pack_dir = vim.fn.stdpath("data") .. "/site/pack/core/opt"
+    
+    if vim.fn.isdirectory(pack_dir) == 1 then
+        vim.ui.input({
+            prompt = "This will delete all plugins. Are you sure? (yes/no): ",
+        }, function(input)
+            if input == "yes" then
+                print("Cleaning plugins directory: " .. pack_dir)
+                vim.system({ "rm", "-rf", pack_dir }, {}, function(result)
+                    if result.code == 0 then
+                        print("All plugins cleaned successfully!")
+                        print("Restart Neovim to reinstall plugins.")
+                    else
+                        print("Failed to clean plugins: " .. (result.stderr or "unknown error"))
+                    end
+                end)
+            else
+                print("Plugin cleanup cancelled.")
+            end
+        end)
+    else
+        print("Plugin directory not found: " .. pack_dir)
+    end
+end
+
+vim.api.nvim_create_user_command("CleanPlugins", CleanPlugins, { desc = "Clean all Neovim plugins" })

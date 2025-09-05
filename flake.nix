@@ -42,6 +42,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Homebrew Taps
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -57,6 +62,7 @@
   outputs = {nixpkgs, ...} @ inputs: let
     overlays = [
 inputs.nixkit.overlays.default
+      inputs.neovim-nightly-overlay.overlays.default
     ];
 
     mkSystem = import ./lib/mksystem {

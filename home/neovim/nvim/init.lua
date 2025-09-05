@@ -1,81 +1,22 @@
+-- Startup time measurement
+--local startup_start = vim.loop.hrtime()
+
 -- Global variables.
 vim.g.projects_dir = vim.env.HOME .. '/Developer'
 
-
--- [[ Lazy.nvim Plugin Manager ]]
-
--- Install Lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
-end
-vim.opt.rtp = vim.opt.rtp ^ lazypath
-
----@diagnostic disable-next-line: undefined-doc-name
----@type LazySpec
-local plugins = 'plugins'
-
-
--- General Setup
+-- General Setup (load core modules first)
 require 'globals' -- needs to be first
 require 'core'
 require 'config'
 
-
--- initialize lazy.nvim
-require("lazy").setup(plugins, {
-    ui = { border = "rounded", },
-    dev = {
-        path = "~/.local/share/nvim/nix",
-        fallback = false,
-    },
-    defaults = {
-        lazy = true,
-        version = nil,
-    },
-    change_detection = {
-        notify = false,
-        enabled = false,
-    },
-    rocks = { enabled = false },
-    checker = {
-        enabled = false,
-        notify = false,
-    },
-    performance = {
-        cache = {
-            enabled = true,
-        },
-        reset_packpath = true, -- Reset packpath for better performance
-        rtp = {
-            reset = true,      -- reset the runtime path to $VIMRUNTIME and your config directory
-            -- disable some rtp plugins
-            disabled_plugins = {
-                "gzip",
-                "matchit",
-                "matchparen",
-                "netrwPlugin",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zipPlugin",
-                "rplugin", -- Disable remote plugins
-                "syntax",  -- Disable vim syntax (use treesitter)
-            },
-        },
-    },
-    profiling = {
-        loader = false,
-        require = false,
-    },
-})
-
+-- Load UI after plugins
 require 'ui'
+
+-- Set colorscheme
 vim.cmd.colorscheme("catppuccin-mocha")
+
+-- Display startup time
+--vim.schedule(function()
+--    local startup_time = (vim.loop.hrtime() - startup_start) / 1e6 -- Convert to milliseconds
+--    vim.notify(string.format("Neovim started in %.2fms", startup_time), vim.log.levels.INFO)
+--end)
