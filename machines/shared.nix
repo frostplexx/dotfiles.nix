@@ -17,7 +17,7 @@
 
     # CLI utilities
     ffmpeg
-    # imagemagick
+    imagemagick
     nmap
     pandoc
     ripgrep
