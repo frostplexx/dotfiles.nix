@@ -3,19 +3,6 @@ return {
         src = "https://github.com/echasnovski/mini.nvim",
         name = "mini.nvim",
         lazy = false,
-        -- Keymaps (preserved from original keys table)
-        keys = {
-            { "<leader>d",       function() MiniBufremove.delete() end,                                desc = "Delete Buffer",     remap = true, silent = true },
-            { "<leader><space>", function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",         remap = true, silent = true },
-            { "<leader>fg",      function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",         remap = true, silent = true },
-            { "<leader>ss",      function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols", remap = true, silent = true },
-            { "<leader>tr",      function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",       remap = true, silent = true },
-            { "<leader>gi",      function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",         remap = true, silent = true },
-            { "<leader>bf",      function() MiniPick.builtin.buffers() end,                            desc = "Buffers",           remap = true, silent = true },
-            { "<leader>ch",      function() MiniExtra.pickers.history() end,                           desc = "Command History",   remap = true, silent = true },
-            { "<leader>mk",      function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",           remap = true, silent = true },
-            { "<leader>ms",      function() MiniExtra.pickers.marks() end,                             desc = "Marks",             remap = true, silent = true }
-        },
         config = function()
             require('mini.surround').setup()
             require('mini.bufremove').setup()
@@ -181,13 +168,13 @@ return {
             hipatterns.setup({
                 highlighters = {
                     -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-                    fixme    = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-                    hack     = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-                    todo     = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-                    note     = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+                    fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+                    hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+                    todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+                    note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
                     -- Highlight hex color strings (`#rrggbb`) using that color
-                    ex_color = hipatterns.gen_highlighter.hex_color(),
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
                 },
             })
 
@@ -332,6 +319,19 @@ return {
                 set_vim_settings = false, -- Keep your existing statusline settings
             })
         end,
+        -- Keymaps (preserved from original keys table)
+        keys = {
+            { "<leader>d",       function() MiniBufremove.delete() end,                                desc = "Delete Buffer",     remap = true, silent = true },
+            { "<leader><space>", function() MiniPick.registry.fffiles() end,                           desc = "FFF Files",         remap = true, silent = true },
+            { "<leader>fg",      function() MiniPick.builtin.grep_live() end,                          desc = "Live Grep",         remap = true, silent = true },
+            { "<leader>ss",      function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "Workspace Symbols", remap = true, silent = true },
+            { "<leader>tr",      function() MiniExtra.pickers.diagnostic() end,                        desc = "Diagnostics",       remap = true, silent = true },
+            { "<leader>gi",      function() MiniExtra.pickers.git_hunks() end,                         desc = "Git Hunks",         remap = true, silent = true },
+            { "<leader>bf",      function() MiniPick.builtin.buffers() end,                            desc = "Buffers",           remap = true, silent = true },
+            { "<leader>ch",      function() MiniExtra.pickers.history() end,                           desc = "Command History",   remap = true, silent = true },
+            { "<leader>mk",      function() MiniExtra.pickers.keymaps() end,                           desc = "Keymaps",           remap = true, silent = true },
+            { "<leader>ms",      function() MiniExtra.pickers.marks() end,                             desc = "Marks",             remap = true, silent = true }
+        },
     },
     {
         src = "https://github.com/dmtrKovalenko/fff.nvim",
