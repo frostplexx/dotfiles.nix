@@ -4,10 +4,6 @@ return {
         name = "friendly-snippets",
     },
     {
-        src = "https://github.com/onsails/lspkind.nvim",
-        name = "lspkind.nvim",
-    },
-    {
         src = "https://github.com/saghen/blink.cmp",
         name = "blink.cmp",
         version = '1.*',

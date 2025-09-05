@@ -70,3 +70,10 @@ local function CleanPlugins()
 end
 
 vim.api.nvim_create_user_command("CleanPlugins", CleanPlugins, { desc = "Clean all Neovim plugins" })
+
+-- Pack command that uses the dedicated pack_manager module
+local function PackInfo()
+    require('core.pack_manager').show()
+end
+
+vim.api.nvim_create_user_command("Pack", PackInfo, { desc = "Show loaded Neovim plugins in a floating window" })
