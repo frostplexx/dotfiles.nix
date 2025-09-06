@@ -17,9 +17,7 @@
     };
     mac-app-util.url = "github:hraban/mac-app-util";
 
-    # Declaratively manage homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
 
     nixcord = {
       url = "github:kaylorben/nixcord";
@@ -61,7 +59,7 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
     overlays = [
-inputs.nixkit.overlays.default
+      inputs.nixkit.overlays.default
       inputs.neovim-nightly-overlay.overlays.default
     ];
 
