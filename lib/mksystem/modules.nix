@@ -79,7 +79,6 @@ in
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
             # Stupid module fails when not on darwin
-            # inputs.mac-app-util.homeManagerModules.default
           ];
         # Per-user Home Manager configuration
         users.${user} = mkHomeConfig {
