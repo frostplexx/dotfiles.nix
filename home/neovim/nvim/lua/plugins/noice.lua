@@ -1,5 +1,6 @@
 return {
     src = "https://github.com/folke/noice.nvim",
+    defer = true,
     dependencies = {
         {
             src = "https://github.com/MunifTanjim/nui.nvim",

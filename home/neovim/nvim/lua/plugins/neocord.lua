@@ -1,6 +1,7 @@
 return {
 	src = "https://github.com/vyfor/cord.nvim",
 	name = "cord.nvim",
+	defer = true,
 	-- data = { build = ":Cord update" },
 	config = function()
 		local errors = {}
