@@ -22,7 +22,6 @@ return {
                 },
             },
         })
-        
         -- Keymaps
         vim.keymap.set("n", "<leader>cp", ":CopilotChat <cr>", { desc = "Open Copilot Chat", silent = true })
     end,

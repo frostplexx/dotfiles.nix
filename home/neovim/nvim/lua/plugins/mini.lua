@@ -323,18 +323,28 @@ return {
             use_icons = vim.g.have_nerd_font or false,
             set_vim_settings = false, -- Keep your existing statusline settings
         })
-        
+
         -- Keymaps
-        vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end, { desc = "Delete Buffer", remap = true, silent = true })
-        vim.keymap.set("n", "<leader><space>", function() MiniPick.registry.fffiles() end, { desc = "FFF Files", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>fg", function() MiniPick.builtin.grep_live() end, { desc = "Live Grep", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ss", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, { desc = "Workspace Symbols", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>tr", function() MiniExtra.pickers.diagnostic() end, { desc = "Diagnostics", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>gi", function() MiniExtra.pickers.git_hunks() end, { desc = "Git Hunks", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>bf", function() MiniPick.builtin.buffers() end, { desc = "Buffers", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ch", function() MiniExtra.pickers.history() end, { desc = "Command History", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>mk", function() MiniExtra.pickers.keymaps() end, { desc = "Keymaps", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ms", function() MiniExtra.pickers.marks() end, { desc = "Marks", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end,
+            { desc = "Delete Buffer", remap = true, silent = true })
+        vim.keymap.set("n", "<leader><space>", function() MiniPick.registry.fffiles() end,
+            { desc = "FFF Files", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>fg", function() MiniPick.builtin.grep_live() end,
+            { desc = "Live Grep", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>ss", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
+            { desc = "Workspace Symbols", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>tr", function() MiniExtra.pickers.diagnostic() end,
+            { desc = "Diagnostics", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>gi", function() MiniExtra.pickers.git_hunks() end,
+            { desc = "Git Hunks", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>bf", function() MiniPick.builtin.buffers() end,
+            { desc = "Buffers", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>ch", function() MiniExtra.pickers.history() end,
+            { desc = "Command History", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>mk", function() MiniExtra.pickers.keymaps() end,
+            { desc = "Keymaps", remap = true, silent = true })
+        vim.keymap.set("n", "<leader>ms", function() MiniExtra.pickers.marks() end,
+            { desc = "Marks", remap = true, silent = true })
     end,
 
 }

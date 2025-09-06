@@ -2,9 +2,7 @@ return {
     src = "https://github.com/kdheepak/lazygit.nvim",
     defer = true,
     dependencies = {
-        {
-            src = "https://github.com/nvim-lua/plenary.nvim",
-        }
+        { src = "https://github.com/nvim-lua/plenary.nvim" }
     },
     config = function()
         -- Keymaps

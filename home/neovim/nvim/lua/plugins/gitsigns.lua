@@ -3,7 +3,6 @@ return {
     defer = true,
     config = function()
         require("gitsigns").setup()
-
         -- Keymaps
         vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk_inline<cr>", { desc = "Git Preview changes" })
         vim.keymap.set("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<cr>",

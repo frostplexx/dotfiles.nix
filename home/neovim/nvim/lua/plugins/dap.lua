@@ -24,6 +24,7 @@ return {
             virt_text_pos = "eol",
         })
 
+        -- TODO: Fix this
         -- Setup CodeLLDB adapter using nix-shell
         dap.adapters.codelldb = {
             type = 'server',

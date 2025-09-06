@@ -15,13 +15,10 @@ vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename)
 vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
 vim.keymap.set('n', 'ca', vim.lsp.buf.code_action)
 
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format file" })
+
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
--- Move selected lines with shift+j or shift+k
--- Replaced by mini.move
--- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines with shift+j", silent = true })
--- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines with shift+k", silent = true })
 
 -- Duplicate a line and comment out the first line
 vim.keymap.set('n', 'yc', function() vim.api.nvim_feedkeys('yygccp', 'm', false) end,
@@ -31,31 +28,20 @@ vim.keymap.set('n', 'yc', function() vim.api.nvim_feedkeys('yygccp', 'm', false)
 vim.keymap.set("n", "<c-u>", "<c-u>zz", { desc = "scroll up half a screen" })
 vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "scroll down half a screen" })
 
--- move to the next search result and center the screen
-vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })
-
--- move to the previous search result and center the screen
-vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) -- Fixed duplicate 'n' mapping
-
--- delete selected text in normal and visual mode without affecting the system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without affecting clipboard" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })     -- move to the next search result and center the screen
+vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) -- move to the previous search result and center the screen
 
 -- search and replace in the whole file with confirmation, case-insensitive, and whole-word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gi<left><left><left>]],
     { desc = "search and replace in file" })
 
 
--- vim.keymap.set('n', "<leader>bf",
---     function() Snacks.picker.buffers({ layout = { preset = "vscode", preview = "main" } }) end,
---     { noremap = true, silent = true })
-
-
 vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
 vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })
 
 -- Tabs
-vim.keymap.set('n', "<leader>t", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
-vim.keymap.set('n', "<leader>x", ":tabclose<cr>", { desc = "Close Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>tn", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
+vim.keymap.set('n', "<leader>td", ":tabclose<cr>", { desc = "Close Tab", noremap = true, silent = true })
 vim.keymap.set('n', "<leader>j", ":tabprevious<cr>", { desc = "Prev Tab", noremap = true, silent = true })
 vim.keymap.set('n', "<leader>k", ":tabnext<cr>", { desc = "Next Tab", noremap = true, silent = true })
 
