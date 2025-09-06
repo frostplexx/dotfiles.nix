@@ -1,22 +1,22 @@
--- Startup time measurement
---local startup_start = vim.loop.hrtime()
+vim.loader.enable()
 
--- Global variables.
-vim.g.projects_dir = vim.env.HOME .. '/Developer'
 
--- General Setup (load core modules first)
-require 'globals' -- needs to be first
-require 'core'
-require 'config'
+local unpack_path = vim.fn.stdpath("data") .. "/site/pack/managers/start/unpack"
 
--- Load UI after plugins
-require 'ui'
+if not vim.uv.fs_stat(unpack_path) then
+    vim.fn.system({
+        'git',
+        'clone',
+        "--filter=blob:none",
+        'https://github.com/mezdelex/unpack',
+        unpack_path
+    })
+end
 
--- Set colorscheme
-vim.cmd.colorscheme("catppuccin-mocha")
-
--- Display startup time
---vim.schedule(function()
---    local startup_time = (vim.loop.hrtime() - startup_start) / 1e6 -- Convert to milliseconds
---    vim.notify(string.format("Neovim started in %.2fms", startup_time), vim.log.levels.INFO)
---end)
+require("globals")
+require("core.autocmds")
+require("core.keymaps")
+require("core.options")
+require("ui")
+require("core.lsp")
+require("unpack").setup()
