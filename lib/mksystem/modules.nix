@@ -36,6 +36,18 @@ in
     ({pkgs, ...}: import ../../modules {inherit pkgs;})
     # Trust the root user and the system user for Nix operations
     {nix.settings.trusted-users = ["root" user];}
+    # Custom system applications build for copying apps instead of linking
+    ({ config, ... }: {
+      system.build.applications = pkgs.lib.mkForce (
+        pkgs.buildEnv {
+          name = "system-applications";
+          pathsToLink = "/Applications";
+          paths =
+            config.environment.systemPackages
+            ++ (pkgs.lib.concatMap (x: x.home.packages) (pkgs.lib.attrsets.attrValues config.home-manager.users));
+        }
+      );
+    })
     # Home Manager configuration for user environments
     home-manager.home-manager
     {
@@ -58,10 +70,15 @@ in
             inputs.nixkit.homeModules.default
             inputs.sops-nix.homeManagerModules.sops
             inputs.spicetify-nix.homeManagerModules.spicetify
+            (
+              { config, pkgs, ... }:
+              {
+                targets.darwin.linkApps.enable = false;
+              }
+            )
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
             # Stupid module fails when not on darwin
-            inputs.mac-app-util.homeManagerModules.default
           ];
         # Per-user Home Manager configuration
         users.${user} = mkHomeConfig {

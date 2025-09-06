@@ -18,6 +18,7 @@ in {
 
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -30,12 +31,9 @@ in {
       nodejs
       tree-sitter
       coreutils
-      mermaid-cli # mermaid rendering
-      # tectonic # latex rendering
-      ghostscript # pdf rendering
       luajitPackages.tiktoken_core
-      lynx
-vscode-js-debug
+      # lynx
+      vscode-js-debug
     ];
 
     plugins = [

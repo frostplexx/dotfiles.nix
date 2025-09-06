@@ -31,13 +31,12 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
           installation_mode = "force_installed";
         };
-        "jid1-ZAdIEUB7XOzOJw@jetpack" = {
-          # Duck Duck Go
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/duckduckgo-for-firefox/latest.xpi";
-          installation_mode = "force_installed";
-        };
         "sponsorBlocker@ajay.app" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "addon@darkreader.org" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
           installation_mode = "force_installed";
         };
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
@@ -53,12 +52,6 @@
 
         "containerise@kinte.sh" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/containerise/latest.xpi";
-          installation_mode = "force_installed";
-        };
-
-        "jid1-TSgSxBhncsPBWQ@jetpack" = {
-          # h264ify
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/h264ify/latest.xpi";
           installation_mode = "force_installed";
         };
       };

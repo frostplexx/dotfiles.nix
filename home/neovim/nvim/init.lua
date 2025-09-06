@@ -1,81 +1,22 @@
--- Global variables.
-vim.g.projects_dir = vim.env.HOME .. '/Developer'
+vim.loader.enable()
 
 
--- [[ Lazy.nvim Plugin Manager ]]
+local unpack_path = vim.fn.stdpath("data") .. "/site/pack/managers/start/unpack"
 
--- Install Lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(unpack_path) then
     vim.fn.system({
-        "git",
-        "clone",
+        'git',
+        'clone',
         "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
+        'https://github.com/mezdelex/unpack',
+        unpack_path
     })
 end
-vim.opt.rtp = vim.opt.rtp ^ lazypath
 
----@diagnostic disable-next-line: undefined-doc-name
----@type LazySpec
-local plugins = 'plugins'
-
-
--- General Setup
-require 'globals' -- needs to be first
-require 'core'
-require 'config'
-
-
--- initialize lazy.nvim
-require("lazy").setup(plugins, {
-    ui = { border = "rounded", },
-    dev = {
-        path = "~/.local/share/nvim/nix",
-        fallback = false,
-    },
-    defaults = {
-        lazy = true,
-        version = nil,
-    },
-    change_detection = {
-        notify = false,
-        enabled = false,
-    },
-    rocks = { enabled = false },
-    checker = {
-        enabled = false,
-        notify = false,
-    },
-    performance = {
-        cache = {
-            enabled = true,
-        },
-        reset_packpath = true, -- Reset packpath for better performance
-        rtp = {
-            reset = true,      -- reset the runtime path to $VIMRUNTIME and your config directory
-            -- disable some rtp plugins
-            disabled_plugins = {
-                "gzip",
-                "matchit",
-                "matchparen",
-                "netrwPlugin",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zipPlugin",
-                "rplugin", -- Disable remote plugins
-                "syntax",  -- Disable vim syntax (use treesitter)
-            },
-        },
-    },
-    profiling = {
-        loader = false,
-        require = false,
-    },
-})
-
-require 'ui'
-vim.cmd.colorscheme("catppuccin-mocha")
+require("globals")
+require("core.autocmds")
+require("core.keymaps")
+require("core.options")
+require("ui")
+require("core.lsp")
+require("unpack").setup()

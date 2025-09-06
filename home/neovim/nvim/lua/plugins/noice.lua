@@ -1,11 +1,12 @@
 return {
-    "folke/noice.nvim",
-    enabled = true,
-    event = "VeryLazy",
+    src = "https://github.com/folke/noice.nvim",
+    defer = true,
     dependencies = {
-        "MunifTanjim/nui.nvim",
+        {
+            src = "https://github.com/MunifTanjim/nui.nvim",
+        }
     },
-    config = function(_, _)
+    config = function()
         require("noice").setup({
             lsp = {
                 -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -27,8 +28,9 @@ return {
                 enabled = true,
             },
         })
-    end,
-    keys = {
-        { '<leader>n', ":NoiceHistory<cr>", desc = "Show Notification History", remap = true, silent = true },
-    }
+
+        -- Keymaps
+        vim.keymap.set("n", "<leader>n", ":NoiceHistory<cr>",
+            { desc = "Show Notification History", remap = true, silent = true })
+    end
 }

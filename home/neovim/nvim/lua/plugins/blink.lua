@@ -1,15 +1,15 @@
 return {
-    {
-        "saghen/blink.cmp",
-        lazy = true,
-        enabled = true,
-        event = "InsertEnter",
-        version = '*',
-        dependencies = {
-            "rafamadriz/friendly-snippets",
-            "onsails/lspkind.nvim"
-        },
-        opts = {
+    src = "https://github.com/saghen/blink.cmp",
+    defer = true,
+    dependencies = {
+        {
+            src = "https://github.com/rafamadriz/friendly-snippets",
+        }
+    },
+    version = vim.version.range('1.*'),
+    -- Configuration function
+    config = function()
+        require("blink.cmp").setup({
             keymap = { preset = 'super-tab' },
             completion = {
                 ghost_text = { enabled = true, },
@@ -20,19 +20,22 @@ return {
                         components = {
                             kind_icon = {
                                 text = function(ctx)
-                                    local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    local kind_icon, _, _ = require('mini.icons')
+                                        .get('lsp', ctx.kind)
                                     return kind_icon
                                 end,
                                 -- (optional) use highlights from mini.icons
                                 highlight = function(ctx)
-                                    local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    local _, hl, _ = require('mini.icons').get('lsp',
+                                        ctx.kind)
                                     return hl
                                 end,
                             },
                             kind = {
                                 -- (optional) use highlights from mini.icons
                                 highlight = function(ctx)
-                                    local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    local _, hl, _ = require('mini.icons').get('lsp',
+                                        ctx.kind)
                                     return hl
                                 end,
                             }
@@ -42,7 +45,7 @@ return {
                 documentation = {
                     window = {
                         border = 'rounded',
-                        auto_show = true,
+                        --auto_show = true,
                     },
                 },
             },
@@ -53,8 +56,6 @@ return {
                 enabled = true,
                 window = { border = 'rounded' }
             },
-
-        },
-        opts_extend = { "sources.default" }
-    },
+        })
+    end,
 }

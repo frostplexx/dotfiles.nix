@@ -166,6 +166,28 @@ dropped as a file inside `./overlays/` which will then get automatically loaded.
 You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;`
 to the configuration that should load its overlays from the folder
 
+## NeoVim
+
+### Package management
+
+The neovim config uses the built in package manager with a "unpack" (https://github.com/mezdelex/unpack) around it.
+
+You can add plugins by adding them to a file inside `lua/plugins/`. Plugin definitions follow the following specification:
+
+```lua
+---@class UnPack.Spec : vim.pack.Spec
+---@field config? fun()
+---@field defer? boolean
+---@field dependencies? UnPack.Spec[]
+```
+
+For more info about the vim.pack.Spec you can check out https://neovim.io/doc/user/pack.html#vim.pack
+
+<!-- ### :Pack -->
+<!---->
+<!-- In addition to declarative package management the config also provides the `:Pack` command which will show a UI for easy uninstalling and updating of -->
+<!-- plugins -->
+
 ## References
 
 Other dotfiles and flakes:

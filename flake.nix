@@ -2,7 +2,7 @@
   description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
 
  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -15,11 +15,8 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mac-app-util.url = "github:hraban/mac-app-util";
 
-    # Declaratively manage homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
 
     nixcord = {
       url = "github:kaylorben/nixcord";
@@ -42,6 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Homebrew Taps
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -56,7 +58,8 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
     overlays = [
-inputs.nixkit.overlays.default
+      inputs.nixkit.overlays.default
+      inputs.neovim-nightly-overlay.overlays.default
     ];
 
     mkSystem = import ./lib/mksystem {

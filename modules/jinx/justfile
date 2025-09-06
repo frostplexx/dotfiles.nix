@@ -24,6 +24,7 @@ import "./update/update.just"
 import "./maintain/maintain.just"
 import "./rollback/rollback.just"
 import "./misc/misc.just"
+import "./edit-nvim/edit-nvim.just"
 
 [private]
 lint:
