@@ -166,6 +166,59 @@ dropped as a file inside `./overlays/` which will then get automatically loaded.
 You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;`
 to the configuration that should load its overlays from the folder
 
+## NeoVim
+
+### Package management
+
+The neovim config uses the built in package manager with a thing wrapper (defined in `lua/core/pack.lua`) around it that ports some lazy.nvim features.
+
+You can add plugins by adding them to a file inside `lua/plugins/`. Plugin definitions follow the following specification:
+
+```lua
+{
+      src = "https://github.com/author/plugin.git",
+      name = "plugin-name", -- optional, auto-extracted
+      priority = 1000,      -- optional, higher = loads first
+      lazy = false,         -- optional, true by default
+      config = function(opts) end, -- optional setup function
+      opts = {},           -- optional config options
+      keys = {             -- optional keymaps
+          { "<leader>f", ":SomeCommand<cr>", desc = "Description" }
+      }
+}
+```
+
+### LazyKeySpec
+
+
+The keys property can be a string or string[] for simple normal-mode mappings, or it can be a LazyKeysSpec table with the following key-value pairs:
+
+- [1]: (string) lhs (required)
+- [2]: (string|fun()) rhs (optional)
+- mode: (string|string[]) mode (optional, defaults to "n")
+- ft: (string|string[]) filetype for buffer-local keymaps (optional)
+- any other option valid for vim.keymap.set
+
+Key mappings will load the plugin the first time they get executed.
+
+When [2] is nil, then the real mapping has to be created by the config() function.
+
+```lua
+-- Example for neo-tree.nvim
+{
+  "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
+    },
+    opts = {},
+}
+```
+
+### :Pack
+
+In addition to declarative package management the config also provides the `:Pack` command which will show a UI for easy uninstalling and updating of
+plugins
+
 ## References
 
 Other dotfiles and flakes:

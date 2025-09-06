@@ -29,10 +29,10 @@ return {
                 port = "${port}",
                 executable = {
                     command = 'nix-shell',
-                    args = {'-p', 'lldb', '--command', 'lldb-vscode'},
+                    args = { '-p', 'lldb', '--run', 'lldb-vscode' },
                 }
             }
-
         end
     },
 }
+
