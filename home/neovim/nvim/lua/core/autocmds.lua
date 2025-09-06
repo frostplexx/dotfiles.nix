@@ -32,3 +32,16 @@ autocmd('TextYankPost', {
         vim.hl.on_yank { higroup = 'Visual', priority = 250 }
     end,
 })
+
+autocmd("PackChanged", {
+    callback = function(args)
+        local kind = args.data.kind ---@type string
+
+        if kind == "install" or kind == "update" then
+            local spec = args.data.spec ---@type UnPack.Spec
+
+            commands.build({ spec })
+        end
+    end,
+    group = group,
+})

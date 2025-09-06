@@ -170,54 +170,23 @@ to the configuration that should load its overlays from the folder
 
 ### Package management
 
-The neovim config uses the built in package manager with a thing wrapper (defined in `lua/core/pack.lua`) around it that ports some lazy.nvim features.
+The neovim config uses the built in package manager with a "unpack" (https://github.com/mezdelex/unpack) around it.
 
 You can add plugins by adding them to a file inside `lua/plugins/`. Plugin definitions follow the following specification:
 
 ```lua
-{
-      src = "https://github.com/author/plugin.git",
-      name = "plugin-name", -- optional, auto-extracted
-      priority = 1000,      -- optional, higher = loads first
-      lazy = false,         -- optional, true by default
-      config = function(opts) end, -- optional setup function
-      opts = {},           -- optional config options
-      keys = {             -- optional keymaps
-          { "<leader>f", ":SomeCommand<cr>", desc = "Description" }
-      }
-}
+---@class UnPack.Spec : vim.pack.Spec
+---@field config? fun()
+---@field defer? boolean
+---@field dependencies? UnPack.Spec[]
 ```
 
-### LazyKeySpec
+For more info about the vim.pack.Spec you can check out https://neovim.io/doc/user/pack.html#vim.pack
 
-
-The keys property can be a string or string[] for simple normal-mode mappings, or it can be a LazyKeysSpec table with the following key-value pairs:
-
-- [1]: (string) lhs (required)
-- [2]: (string|fun()) rhs (optional)
-- mode: (string|string[]) mode (optional, defaults to "n")
-- ft: (string|string[]) filetype for buffer-local keymaps (optional)
-- any other option valid for vim.keymap.set
-
-Key mappings will load the plugin the first time they get executed.
-
-When [2] is nil, then the real mapping has to be created by the config() function.
-
-```lua
--- Example for neo-tree.nvim
-{
-  "nvim-neo-tree/neo-tree.nvim",
-    keys = {
-      { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
-    },
-    opts = {},
-}
-```
-
-### :Pack
-
-In addition to declarative package management the config also provides the `:Pack` command which will show a UI for easy uninstalling and updating of
-plugins
+<!-- ### :Pack -->
+<!---->
+<!-- In addition to declarative package management the config also provides the `:Pack` command which will show a UI for easy uninstalling and updating of -->
+<!-- plugins -->
 
 ## References
 
