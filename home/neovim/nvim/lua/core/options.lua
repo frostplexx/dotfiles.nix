@@ -22,8 +22,8 @@ vim.opt.showmode = false
 vim.opt.wildignore:append { '.DS_Store' }
 
 -- Status line.
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
+-- vim.opt.cmdheight = 0
+-- vim.opt.laststatus = 3
 
 vim.opt.textwidth = 160
 vim.opt.colorcolumn = "0"

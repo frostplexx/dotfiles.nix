@@ -28,6 +28,8 @@ return {
         })
 
         -- picker
+        local picker_width = 80
+        local picker_height = 35
         require('mini.pick').setup({
             mappings = {
                 choose_marked = '<C-q>',
@@ -36,10 +38,10 @@ return {
                 config = function()
                     return {
                         anchor = 'NW',
-                        col = math.floor((vim.o.columns - 80) / 2),
-                        row = math.floor((vim.o.lines - 10) / 2),
-                        width = 80,
-                        height = 35,
+                        col = math.floor((vim.o.columns - picker_width) / 2),
+                        row = vim.o.lines - (picker_height + 3), -- i got to 3 by trial and error
+                        width = picker_width,
+                        height = picker_height,
                         relative = 'editor',
                     }
                 end,
@@ -49,6 +51,10 @@ return {
                 use_cache = true,
             }
         })
+
+        -- set mini.pick as ui.select.
+        vim.ui.select = MiniPick.ui_select
+
         ---@class FFFItem
         ---@field name string
         ---@field path string
@@ -166,6 +172,7 @@ return {
         end
 
         MiniPick.registry.fffiles = run
+
 
 
         -- hipatterns
@@ -316,9 +323,24 @@ return {
             })
         end
 
+        local function statusline_content_inactive()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
+            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+            local git = MiniStatusline.section_git({ trunc_width = 75 })
+            local diagnostics = get_diagnostics_with_icons()
+            return MiniStatusline.combine_groups({
+                { hl = mode_hl,                 strings = { mode } },
+                { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+                '%<', -- Mark general truncate point
+                { hl = '',                       strings = { filename } },
+                '%=', -- End left alignment
+            })
+        end
+
         require('mini.statusline').setup({
             content = {
                 active = statusline_content,
+                inactive = statusline_content_inactive
             },
             use_icons = vim.g.have_nerd_font or false,
             set_vim_settings = false, -- Keep your existing statusline settings
