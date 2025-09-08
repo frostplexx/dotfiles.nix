@@ -1,7 +1,7 @@
 
 -- Pack command that uses the dedicated pack_manager module
 local function PackInfo()
-    require('ui.pack_manager').show()
+    require('ui.pack_ui').show()
 end
 
 
