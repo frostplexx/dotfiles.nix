@@ -7,8 +7,7 @@
 }: {
   imports = [
     ../shared.nix # Base configuration
-    ./apps.nix # Lyra-specific apps
-    ./aerospace.nix
+    ./apps.nix # macbook-pro-m1 specific apps
     # ./custom_icons.nix
     # ./smb_automount.nix
   ];
