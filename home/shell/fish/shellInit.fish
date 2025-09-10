@@ -7,7 +7,7 @@ end
 set -U fish_greeting
 
 # Manpager
-set -U MANPAGER "nvim +Man!"
+set -x MANPAGER "nvim +Man!"
 
 # Vi mode.
 set -g fish_key_bindings fish_vi_key_bindings

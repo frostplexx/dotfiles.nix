@@ -56,6 +56,12 @@
     inputs.determinate.packages.${system}.default
   ];
 
+  documentation = {
+    # dev.enable = true;
+    doc.enable = true;
+    info.enable = true;
+  };
+
   # Base fonts
   fonts.packages = with pkgs; [
     open-sans
