@@ -65,6 +65,7 @@ in {
       smart-filter = "${yazi-plugins}/smart-filter.yazi";
       git = "${yazi-plugins}/git.yazi";
       jump-to-char = "${yazi-plugins}/jump-to-char.yazi";
+      no-status = "${yazi-plugins}/no-status.yazi";
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
@@ -78,6 +79,7 @@ in {
 
     initLua = ''
       require("git"):setup()
+      require("no-status"):setup()
       require("starship"):setup({
           -- Hide flags (such as filter, find and search). This is recommended for starship themes which
           -- are intended to go across the entire width of the terminal.

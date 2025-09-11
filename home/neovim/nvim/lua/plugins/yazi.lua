@@ -2,7 +2,7 @@ return {
     src = "https://github.com/mikavilpas/yazi.nvim",
     defer = true,
     dependencies = {
-        { src = "https://github.com/nvim-lua/plenary.nvim"}
+        { src = "https://github.com/nvim-lua/plenary.nvim" },
     },
     config = function()
         -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
@@ -14,7 +14,6 @@ return {
         })
         -- Keymaps
         vim.keymap.set("n", "<leader>e", "<cmd>Yazi toggle<cr>",
-        	{ desc = "Open the file manager in nvim's working directory" })
-
+            { desc = "Open the file manager in nvim's working directory" })
     end
 }
