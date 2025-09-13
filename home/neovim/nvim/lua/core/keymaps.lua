@@ -17,7 +17,8 @@ vim.keymap.set('n', 'ca', vim.lsp.buf.code_action)
 
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format file" })
 
-vim.keymap.set('v', '<leader>s', 'y:%s/<C-r>"//gc<Left><Left><Left>', { desc = 'Search and replace selected text across file' })
+vim.keymap.set('v', '<leader>s', 'y:%s/<C-r>"//gc<Left><Left><Left>',
+    { desc = 'Search and replace selected text across file' })
 
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -82,3 +83,11 @@ local function toggle_bool()
 end
 
 vim.keymap.set('n', 'yt', toggle_bool, { desc = 'Toggle boolean value' })
+
+vim.keymap.set('n', 'td', function()
+    vim.cmd('vimgrep /FIXME\\|TODO/ **/*')
+    vim.cmd('copen')
+end, {
+    silent = true,
+    desc = "Search for FIXME and TODO comments"
+})
