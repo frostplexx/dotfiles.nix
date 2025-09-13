@@ -34,9 +34,12 @@ vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "scroll down half a screen" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })     -- move to the next search result and center the screen
 vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) -- move to the previous search result and center the screen
 
-vim.keymap.set('n', "<Tab>", ":bnext<cr>", { noremap = true, silent = true })
-vim.keymap.set('n', "<S-Tab>", ":bprev<cr>", { noremap = true, silent = true })
 
+vim.keymap.set('n', "<C-1>", "'A", {desc = "Select Mark A"})
+vim.keymap.set('n', "<C-2>", "'B", {desc = "Select Mark B"})
+vim.keymap.set('n', "<C-3>", "'C", {desc = "Select Mark C"})
+vim.keymap.set('n', "<C-4>", "'D", {desc = "Select Mark D"})
+vim.keymap.set('n', "<C-5>", "'E", {desc = "Select Mark E"})
 -- Tabs
 vim.keymap.set('n', "<leader>tn", ":tabnew<cr>", { desc = "New Tab", noremap = true, silent = true })
 vim.keymap.set('n', "<leader>td", ":tabclose<cr>", { desc = "Close Tab", noremap = true, silent = true })

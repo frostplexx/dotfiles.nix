@@ -11,3 +11,12 @@ autocmd('TextYankPost', {
         vim.hl.on_yank { higroup = 'Visual', priority = 250 }
     end,
 })
+
+
+autocmd('BufWinEnter', {
+    group = augroup('frostplexx/marks', {clear = true}),
+    desc = 'Show marks in signcolumn',
+    callback = function (args)
+        require("ui.marks").BufWinEnterHandler(args)
+    end
+})
