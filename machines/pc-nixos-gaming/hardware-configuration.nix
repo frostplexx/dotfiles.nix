@@ -2,93 +2,93 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
+    config,
+    lib,
+    pkgs,
+    modulesPath,
+    ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
-
-  boot = {
-    initrd.availableKernelModules = [
-      "nvme"
-      "xhci_pci"
-      "ahci"
-      "usb_storage"
-      "usbhid"
-      "sd_mod"
-      "nvidia"
-      "nvidia_modeset"
-      "nvidia_uvm"
-      "nvidia_drm"
+    imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
     ];
-    initrd.kernelModules = [];
-    kernelPackages = pkgs.linuxPackages_zen;
-    kernelModules = ["kvm-amd"];
-    extraModulePackages = [];
-    kernelParams = [
-      "acpi_enforce_resources=lax"
-      "amd_iommu=on"
-      "kvm.enable_virt_at_load=0"
-      "iommu=pt"
-      # Hardware optimizations
-      "zswap.enabled=1"
-      # Memory management
-      "default_hugepagesz=2M"
-      "hugepagesz=2M"
-      "hugepages=1024"
-      "transparent_hugepage=always"
-      "nvidia-drm.modeset=1"
+
+    boot = {
+        initrd.availableKernelModules = [
+            "nvme"
+            "xhci_pci"
+            "ahci"
+            "usb_storage"
+            "usbhid"
+            "sd_mod"
+            "nvidia"
+            "nvidia_modeset"
+            "nvidia_uvm"
+            "nvidia_drm"
+        ];
+        initrd.kernelModules = [];
+        kernelPackages = pkgs.linuxPackages_zen;
+        kernelModules = ["kvm-amd"];
+        extraModulePackages = [];
+        kernelParams = [
+            "acpi_enforce_resources=lax"
+            "amd_iommu=on"
+            "kvm.enable_virt_at_load=0"
+            "iommu=pt"
+            # Hardware optimizations
+            "zswap.enabled=1"
+            # Memory management
+            "default_hugepagesz=2M"
+            "hugepagesz=2M"
+            "hugepages=1024"
+            "transparent_hugepage=always"
+            "nvidia-drm.modeset=1"
+        ];
+    };
+
+    fileSystems."/" = {
+        device = "/dev/disk/by-uuid/5974b2d7-61d3-4a1b-852d-63672dd404ae";
+        fsType = "ext4";
+    };
+
+    fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/5ADD-E585";
+        fsType = "vfat";
+        options = ["fmask=0077" "dmask=0077"];
+    };
+
+    swapDevices = [
+        {device = "/dev/disk/by-uuid/b259b6e6-e7aa-4f4a-a293-0fe955ca8ee5";}
     ];
-  };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/5974b2d7-61d3-4a1b-852d-63672dd404ae";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/5ADD-E585";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
-  };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/b259b6e6-e7aa-4f4a-a293-0fe955ca8ee5";}
-  ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking = {
-    useDHCP = lib.mkDefault true;
-    interfaces."enp4s0".wakeOnLan.enable = true;
-  };
-  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware = {
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    xone.enable = true;
-    graphics = {
-      enable = true;
+    # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+    # (the default) this is the recommended approach. When using systemd-networkd it's
+    # still possible to use this option, but it's recommended to use it in conjunction
+    # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+    networking = {
+        useDHCP = lib.mkDefault true;
+        interfaces."enp4s0".wakeOnLan.enable = true;
     };
+    # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
-    bluetooth = {
-      enable = true; # enables support for Bluetooth
-      powerOnBoot = true; # powers up the default Bluetooth controller on boot
-    };
+    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    hardware = {
+        cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+        xone.enable = true;
+        graphics = {
+            enable = true;
+        };
 
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+        bluetooth = {
+            enable = true; # enables support for Bluetooth
+            powerOnBoot = true; # powers up the default Bluetooth controller on boot
+        };
+
+        nvidia = {
+            modesetting.enable = true;
+            powerManagement.enable = true;
+            open = false;
+            nvidiaSettings = true;
+            package = config.boot.kernelPackages.nvidiaPackages.latest;
+        };
     };
-  };
 }

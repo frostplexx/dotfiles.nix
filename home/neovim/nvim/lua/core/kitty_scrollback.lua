@@ -10,6 +10,19 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
     local term_buf = vim.api.nvim_create_buf(true, false)
     local term_io = vim.api.nvim_open_term(term_buf, {})
 
+    vim.pack.add({ "https://github.com/catppuccin/nvim" })
+    require("catppuccin").setup({
+        flavour = "mocha",
+        transparent_background = true,
+        float = {
+            transparent = true,     -- enable transparent floating windows
+            solid = false,          -- use solid styling for floating windows, see |winborder|
+        },
+        show_end_of_buffer = false,
+        term_colors = true,
+    })
+    vim.cmd.colorscheme("catppuccin-mocha")
+
     vim.api.nvim_buf_set_keymap(term_buf, 'n', 'q', '<cmd>q<CR>', {})
 
     local group = vim.api.nvim_create_augroup('mariasolos/kitty_scrollback', {})
