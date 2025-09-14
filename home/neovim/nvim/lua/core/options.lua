@@ -76,5 +76,17 @@ vim.filetype.add({
     pattern = {
         [".*/templates/.*%.yaml"] = "helm",
         [".*%.base"] = "yaml",
-    }
+        ["%.env%.[%w_.-]+"] = "conf",
+    },
+    filename = {
+        [".env"] = "conf",
+        ["tsconfig.json"] = "jsonc",
+        [".yamlfmt"] = "yaml",
+    },
+    extension = {
+        conf = "conf",
+        env = "conf",
+        tiltfile = "tiltfile",
+        Tiltfile = "tiltfile",
+    },
 })
