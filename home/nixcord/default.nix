@@ -83,6 +83,10 @@ in {
                 voiceChatDoubleClick.enable = true;
                 webScreenShareFixes.enable = true;
                 whoReacted.enable = true;
+                appleMusicRichPresence = {
+                  enable = false;
+                  activityType = "listening";
+                };
             };
         };
     };
