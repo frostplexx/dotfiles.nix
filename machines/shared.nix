@@ -65,6 +65,7 @@
     fonts.packages = with pkgs; [
         open-sans
         inter
+        jetbrains-mono
         # Maple Mono (Ligature TTF hinted)
         maple-mono.truetype-autohint
         # Maple Mono NF (Ligature hinted)
