@@ -57,20 +57,6 @@
         # Better cat
         bat = {
             enable = true;
-            # config = {
-            #     theme = "catppuccin-mocha";
-            # };
-            # themes = {
-            #     catppuccin-mocha = {
-            #         src = pkgs.fetchFromGitHub {
-            #             owner = "catppuccin";
-            #             repo = "bat"; # Bat uses sublime syntax for its themes
-            #             rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
-            #             sha256 = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
-            #         };
-            #         file = "themes/Catppuccin Mocha.tmTheme";
-            #     };
-            # };
         };
 
         # Better find
@@ -102,12 +88,6 @@
             defaultOptions = [
                 "--height 40%"
                 "--layout=reverse"
-                # Catppuccin colors: https://github.com/catppuccin/fzf
-                "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8"
-                "--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc"
-                "--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-                "--color=selected-bg:#45475a"
-                "--color=border:#313244,label:#cdd6f4"
             ];
         };
     };

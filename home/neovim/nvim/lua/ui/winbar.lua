@@ -4,11 +4,7 @@ local folder_icon = tools.ui.kind_icons.Folder
 local highlights_setup = false
 local function setup_highlights()
     if highlights_setup then return end
-    -- local mocha = require("catppuccin.palettes").get_palette "mocha"
-    -- vim.api.nvim_set_hl(0, "WinbarSeparator", { fg = mocha.green, bold = true })
-    -- vim.api.nvim_set_hl(0, "WinBarDir", { fg = mocha.mauve, italic = true })
-    -- vim.api.nvim_set_hl(0, "Winbar", { fg = mocha.subtext0 })
-    -- highlights_setup = true
+    highlights_setup = true
 end
 
 local M = {}

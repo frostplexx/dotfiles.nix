@@ -31,7 +31,7 @@ in
         # Apply Nixpkgs configuration globally
         {nixpkgs.config = nixpkgsConfig;}
         # Import the machine-specific configuration, passing all relevant arguments
-        ({modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit modulesPath;}))
+        ({config, lib, modulesPath, ...}: import machineConfig (machineConfigArgs // {inherit config lib modulesPath;}))
         # Import any additional modules (e.g., jinx)
         ({pkgs, ...}: import ../../modules {inherit pkgs;})
         # Trust the root user and the system user for Nix operations
@@ -51,7 +51,6 @@ in
         # Home Manager configuration for user environments
         home-manager.home-manager
         {
-            nixpkgs.config = nixpkgsConfig;
             # Set the state version for Home Manager (Darwin and Linux differ)
             system.stateVersion =
                 if isDarwin
@@ -66,7 +65,7 @@ in
                 # Shared Home Manager modules for all users
                 sharedModules =
                     [
-                        inputs.stylix.homeModules.stylix
+                        # inputs.stylix.homeModules.stylix
                         inputs.nixcord.homeModules.nixcord
                         inputs.nixkit.homeModules.default
                         inputs.sops-nix.homeManagerModules.sops

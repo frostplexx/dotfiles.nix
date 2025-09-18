@@ -117,7 +117,6 @@
                 "nixcord"
                 "shell"
                 "ssh"
-                "stylix"
             ];
         };
 

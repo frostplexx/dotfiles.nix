@@ -9,6 +9,8 @@ return {
         }
     },
     config = function()
+
+        require("ui.colors")
         require('mini.surround').setup()
         require('mini.bufremove').setup()
         require('mini.ai').setup()
@@ -332,7 +334,7 @@ return {
                 { hl = mode_hl,                 strings = { mode } },
                 { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
                 '%<', -- Mark general truncate point
-                { hl = '',                       strings = { filename } },
+                { hl = '', strings = { filename } },
                 '%=', -- End left alignment
             })
         end
@@ -345,6 +347,8 @@ return {
             use_icons = vim.g.have_nerd_font or false,
             set_vim_settings = false, -- Keep your existing statusline settings
         })
+
+
 
         -- Keymaps
         vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end,

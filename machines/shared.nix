@@ -71,4 +71,20 @@
         # Maple Mono NF (Ligature hinted)
         maple-mono.NF
     ];
+
+
+    stylix = {
+        enable = true;
+        autoEnable = true;
+        # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+        # base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+        # image = "${assets}/wallpapers/wallpaper.png";
+        fonts = {
+            monospace = {
+                package = pkgs.maple-mono.NF;
+                name = "Maple Mono NF";
+            };
+        };
+    };
 }

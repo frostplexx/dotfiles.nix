@@ -63,7 +63,6 @@ in {
                 sendTimestamps.enable = true;
                 shikiCodeblocks = {
                     enable = true;
-                    # theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
                 };
                 translate.enable = true;
                 typingIndicator.enable = true;

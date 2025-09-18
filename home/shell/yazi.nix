@@ -34,10 +34,6 @@ in {
                 show_hidden = true;
                 show_symlink = true;
             };
-            flavor = {
-                dark = "catppuccin-mocha";
-            };
-
             tasks = {
                 micro_workers = 5;
                 macro_workers = 10;
@@ -72,9 +68,6 @@ in {
                 rev = "a63550b2f91f0553cc545fd8081a03810bc41bc0";
                 hash = "sha256-PYeR6fiWDbUMpJbTFSkM57FzmCbsB4W4IXXe25wLncg=";
             };
-        };
-        flavors = {
-            catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
         };
 
         initLua = ''

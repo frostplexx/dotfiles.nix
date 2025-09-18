@@ -4,5 +4,6 @@
     imports = [
         # NixKit NixOS modules
         inputs.nixkit.nixosModules.default
+        inputs.stylix.nixosModules.stylix
     ];
 }

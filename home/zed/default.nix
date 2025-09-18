@@ -1,7 +1,7 @@
 _: {
     programs.zed-editor = {
         enable = true;
-        extensions = ["swift" "nix" "xy-zed" "catppuccin" "docker compose" "catppuccin icons"];
+        extensions = ["swift" "nix" "xy-zed" "docker compose"];
         userSettings = {
             features = {
                 copilot = false;
@@ -16,12 +16,6 @@ _: {
             buffer_font_family = "Maple Mono NF";
             ui_font_family = "Maple Mono";
             tab_size = 4;
-            theme = {
-                mode = "system";
-                light = "Catppuccin Mocha";
-                dark = "Catpuccin Mocha";
-            };
-            icon_theme = "Catppuccin Mocha";
             terminal = {
                 font_family = "Maple Mono NF";
                 toolbar = {

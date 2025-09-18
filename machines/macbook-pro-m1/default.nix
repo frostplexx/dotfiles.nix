@@ -3,6 +3,8 @@
     pkgs,
     user,
     assets,
+    config,
+    lib,
     ...
 }: {
     imports = [
@@ -11,6 +13,9 @@
         # ./custom_icons.nix
         # ./smb_automount.nix
     ];
+
+    # Disable stylix at system level, we only use it for home-manager
+
 
     services.lazykeys = {
         enable = true;
@@ -89,8 +94,52 @@
 
         # Post-activation scripts
         activationScripts = {
-            postActivation = {
-                text = builtins.readFile ./activations.sh;
+            postActivation = let
+                # Convert hex color to Apple's 0-1 RGBA format
+                hexToAppleRGBA = hex: let
+                    # Remove # if present
+                    cleanHex = lib.removePrefix "#" hex;
+                    # Extract RGB components
+                    r = lib.fromHexString (builtins.substring 0 2 cleanHex);
+                    g = lib.fromHexString (builtins.substring 2 2 cleanHex);
+                    b = lib.fromHexString (builtins.substring 4 2 cleanHex);
+                    # Convert to 0-1 range
+                    rNorm = r / 255.0;
+                    gNorm = g / 255.0;
+                    bNorm = b / 255.0;
+                in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
+
+                # Get highlight color from stylix or use fallback
+                highlightColor = config.lib.stylix.colors.base0D;
+                appleHighlightColor = hexToAppleRGBA highlightColor;
+            in {
+                text = ''
+                    echo "Running activate settings..."
+
+                    # Run defaults commands as the user, not root
+                    sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
+                    sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
+
+                    # Disable transparent menubar
+                    sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
+                    # Other for custom color or nothing
+                    sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
+                    # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors
+                    # sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearLight
+                    sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme RegularDark
+                    # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
+                    # Color is rgba value divided by 256 so its between 0 and 1
+                    sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "${appleHighlightColor}"
+                    # Set highlight color
+                    sudo -u ${user} defaults write "Apple Global Domain" AppleHighlightColor -string "${appleHighlightColor} Other"
+
+                    # No idea what it does
+                    sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
+
+                    killall Finder;
+                    killall Dock;
+
+                '';
             };
         };
 

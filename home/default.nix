@@ -1,4 +1,4 @@
-{user, ...}: {
+{user, pkgs, assets, ...}: {
     home = {
         username = user;
         stateVersion = "23.11";
@@ -16,6 +16,16 @@
     # home.activation.fetchAgeKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
     #     ${fetchAgeKey}/bin/fetch-age-key
     # '';
+
+    stylix = {
+      enable = true;
+      autoEnable = true;
+      targets = {
+        fish.enable = true;
+        neovim.enable = false;
+        yazi.enable = true;
+      };
+    };
 
     programs = {
         home-manager.enable = true; # Let Home Manager manage itself
