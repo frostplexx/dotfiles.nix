@@ -15,6 +15,8 @@
     };
     treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in {
+
+
     programs.neovim = {
         enable = true;
         package = pkgs.neovim;
@@ -33,10 +35,6 @@ in {
             luajitPackages.tiktoken_core
             # lynx
             vscode-js-debug
-        ];
-
-        plugins = [
-            # treeSitterWithAllGrammars
         ];
     };
 

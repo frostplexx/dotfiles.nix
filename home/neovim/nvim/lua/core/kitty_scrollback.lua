@@ -21,7 +21,6 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
         show_end_of_buffer = false,
         term_colors = true,
     })
-    vim.cmd.colorscheme("catppuccin-mocha")
 
     vim.api.nvim_buf_set_keymap(term_buf, 'n', 'q', '<cmd>q<CR>', {})
 

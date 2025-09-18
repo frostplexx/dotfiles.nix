@@ -10,7 +10,6 @@
     #   inactive_color = "0xff7f849c";
     # };
 
-
     xdg.configFile = {
         "borders/bordersrc" = {
             source = ./bordersrc;

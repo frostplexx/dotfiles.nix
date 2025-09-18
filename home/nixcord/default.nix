@@ -4,14 +4,6 @@
     user,
     ...
 }: let
-    themeFile = "catppuccin-mocha.theme.css";
-    themeUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
-
-    # Define theme path based on operating system
-    themePath =
-        if pkgs.stdenv.isDarwin
-        then "/Users/${user}/Library/Application Support/vesktop/themes/${themeFile}"
-        else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 in {
     programs.nixcord = {
         enable = true;
@@ -23,14 +15,12 @@ in {
             package = pkgs.vesktop;
         };
         config = {
-            useQuickCss = true;
             enableReactDevtools = true;
             disableMinSize = true;
             frameless =
                 if pkgs.stdenv.isDarwin
                 then true
                 else false;
-            enabledThemes = [themeFile];
             plugins = {
                 alwaysAnimate.enable = true;
                 betterFolders = {
@@ -84,8 +74,8 @@ in {
                 webScreenShareFixes.enable = true;
                 whoReacted.enable = true;
                 appleMusicRichPresence = {
-                  enable = false;
-                  activityType = "listening";
+                    enable = false;
+                    activityType = "listening";
                 };
             };
         };
@@ -93,14 +83,6 @@ in {
 
     # Download theme file
     home.file = {
-        ${themePath} = {
-            source = builtins.fetchurl {
-                url = themeUrl;
-                sha256 = "1w921c6zg5xvkf52x642psnqpaannbd28cc37dfzasbplw7ghl2x";
-            };
-            force = true;
-        };
-
         # Settings configuration
         "${config.programs.nixcord.vesktop.configDir}/settings.json" = {
             text = builtins.toJSON {
@@ -115,15 +97,6 @@ in {
                     then true
                     else false;
             };
-            force = true;
-        };
-        # Quick CSS configuration
-        "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
-            text = ''
-                .titleBar_a934d8 {
-                  display: none !important;
-                }
-            '';
             force = true;
         };
     };

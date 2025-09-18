@@ -1,4 +1,5 @@
 {
+    lib,
     pkgs,
     config,
     ...
@@ -22,7 +23,8 @@
             # Window
             window_padding_width = "2 2";
             draw_minimal_borders = "yes";
-            background_opacity = "0.9";
+            # Force override stlylix
+            background_opacity = lib.mkForce "0.9";
             background_blur = "25";
             remember_window_size = "yes";
             initial_window_width = 1280;

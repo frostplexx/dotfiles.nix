@@ -24,6 +24,11 @@
 
         spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
+        stylix = {
+            url = "github:nix-community/stylix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         nixkit = {
             url = "github:frostplexx/nixkit";
             # or for local development:
@@ -112,6 +117,7 @@
                 "nixcord"
                 "shell"
                 "ssh"
+                "stylix"
             ];
         };
 

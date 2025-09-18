@@ -11,6 +11,7 @@
         inputs.lazykeys.darwinModules.default
         # NixKit Darwin modules
         inputs.nixkit.darwinModules.default
+        inputs.stylix.darwinModules.stylix
     ];
     nix-homebrew = {
         enable = true; # Enable Homebrew management via Nix

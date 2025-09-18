@@ -66,6 +66,7 @@ in
                 # Shared Home Manager modules for all users
                 sharedModules =
                     [
+                        inputs.stylix.homeModules.stylix
                         inputs.nixcord.homeModules.nixcord
                         inputs.nixkit.homeModules.default
                         inputs.sops-nix.homeManagerModules.sops
