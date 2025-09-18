@@ -110,7 +110,7 @@
                 in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
 
                 # Get highlight color from stylix or use fallback
-                highlightColor = config.lib.stylix.colors.base0D;
+                highlightColor = config.lib.stylix.colors.base05;
                 appleHighlightColor = hexToAppleRGBA highlightColor;
             in {
                 text = ''
