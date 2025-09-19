@@ -14,16 +14,16 @@ autocmd('TextYankPost', {
 
 
 autocmd('BufWinEnter', {
-    group = augroup('frostplexx/marks', {clear = true}),
+    group = augroup('frostplexx/marks', { clear = true }),
     desc = 'Show marks in signcolumn',
-    callback = function (args)
+    callback = function(args)
         require("ui.marks").BufWinEnterHandler(args)
     end
 })
 
 
 autocmd('VimEnter', {
-    group = augroup('frostplexx/enter', {clear = true}),
+    group = augroup('frostplexx/enter', { clear = true }),
     desc = 'Open last used file',
     callback = function()
         -- Only restore if no files were opened and we're in the starting buffer
