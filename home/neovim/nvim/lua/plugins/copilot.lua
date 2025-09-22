@@ -3,10 +3,8 @@ return {
     name         = "CopilotChat.nvim",
     defer        = true,
     dependencies = {
-        { src = "https://github.com/zbirenbaum/copilot.lua", },
-        { src = "https://github.com/nvim-lua/plenary.nvim", }
+        { src = "https://github.com/nvim-lua/plenary.nvim", },
     },
-    -- Keymaps (preserved from original keys table)
     data         = { build = "make tiktoken" },
     config       = function()
         require("CopilotChat").setup({

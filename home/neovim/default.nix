@@ -31,7 +31,7 @@ in {
             tree-sitter
             coreutils
             luajitPackages.tiktoken_core
-            # lynx
+            lynx
             vscode-js-debug
         ];
 

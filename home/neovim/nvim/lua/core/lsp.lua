@@ -1,6 +1,40 @@
 -- Set up autocommands to attach to lsp
 local lsp_dir = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h") .. '/../../lsp'
 
+-- Prettier-supported filetypes
+local prettier_filetypes = {
+  "javascript", "javascriptreact", "javascript.jsx",
+  "typescript", "typescriptreact", "typescript.tsx",
+  "css", "scss", "less", "html", "json", "yaml", "markdown",
+  "vue", "graphql"
+}
+
+-- Custom formatting function with prettier fallback
+local function format_with_prettier_fallback()
+  local filetype = vim.bo.filetype
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+  -- Check if prettier is available for this filetype
+  local prettier_available = false
+  for _, client in ipairs(clients) do
+    if client.name == "prettier" and vim.tbl_contains(prettier_filetypes, filetype) then
+      prettier_available = true
+      break
+    end
+  end
+
+  if prettier_available then
+    -- Use prettier
+    vim.lsp.buf.format({ name = "prettier" })
+  else
+    -- Fall back to other LSP formatters
+    vim.lsp.buf.format()
+  end
+end
+
+-- Override the default format function
+vim.lsp.buf.format = format_with_prettier_fallback
+
 -- Load LSPs dynamically from the lsp directory
 for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
     local lsp_name = file:match("(.+)%.lua$")
