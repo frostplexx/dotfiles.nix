@@ -15,7 +15,7 @@ local function read_dictionary(file_path)
     if dictionary_cache[file_path] then
         return dictionary_cache[file_path]
     end
-
+    
     local words = {}
     local file = io.open(file_path, "r")
     if file then
@@ -27,8 +27,7 @@ local function read_dictionary(file_path)
         end
         file:close()
         dictionary_cache[file_path] = words
-        vim.notify(string.format("Loaded %d words from %s", #words, vim.fn.fnamemodify(file_path, ":t")),
-            vim.log.levels.INFO)
+        vim.notify(string.format("Loaded %d words from %s", #words, vim.fn.fnamemodify(file_path, ":t")), vim.log.levels.INFO)
     else
         vim.notify("Dictionary file not found: " .. file_path, vim.log.levels.DEBUG)
     end
@@ -39,35 +38,35 @@ end
 local function get_dictionaries()
     local config_dir = get_config_dir()
     local ltex_dir = config_dir .. "/ltex"
-
+    
     -- Try multiple possible locations for dictionaries
     local possible_paths = {
-        config_dir .. "/../ltex", -- Current location
+        config_dir .. "/../ltex",  -- Current location
         ltex_dir,
         vim.fn.expand("~/.local/share/ltex"),
         vim.fn.expand("~/.config/ltex"),
     }
-
+    
     local dictionaries = {}
-
+    
     for _, base_path in ipairs(possible_paths) do
         local en_us_path = base_path .. "/ltex.dictionary.en-US.txt"
         local de_de_path = base_path .. "/ltex.dictionary.de-DE.txt"
-
+        
         if vim.fn.filereadable(en_us_path) == 1 then
             dictionaries["en-US"] = read_dictionary(en_us_path)
         end
-
+        
         if vim.fn.filereadable(de_de_path) == 1 then
             dictionaries["de-DE"] = read_dictionary(de_de_path)
         end
-
+        
         -- If we found at least one dictionary, use this path
         if next(dictionaries) then
             break
         end
     end
-
+    
     return dictionaries
 end
 
@@ -78,7 +77,7 @@ M.config = {
     check_frequency = "edit", -- "edit" or "save"
     enabled_filetypes = {
         "text",
-        "markdown",
+        "markdown", 
         "latex",
         "tex",
         "gitcommit",
@@ -120,7 +119,7 @@ return {
             client.config.settings.ltex.dictionary = dictionaries
             client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
         end
-
+        
         -- Set up keymaps for quick access
         local opts = { buffer = bufnr, silent = true }
         vim.keymap.set('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -128,9 +127,9 @@ return {
     end,
     settings = {
         ltex = {
-            enabled = {
-                "bibtex", "context", "context.tex", "html",
-                "latex", "markdown", "org", "restructuredtext", "rsweave"
+            enabled = { 
+                "bibtex", "context", "context.tex", "html", 
+                "latex", "markdown", "org", "restructuredtext", "rsweave" 
             },
             language = M.config.default_language,
             dictionary = {}, -- Will be populated lazily

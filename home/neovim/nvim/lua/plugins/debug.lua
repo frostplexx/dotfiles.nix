@@ -16,24 +16,24 @@ return {
         },
     },
     config = function()
-        local dap, dapui = require("dap"), require("dapui")
+        -- TODO: Fix this
+        -- local dap, dapui = require("dap"), require("dapui")
 
         -- Basic UI setup
-        dapui.setup()
-        require("nvim-dap-virtual-text").setup({
-            virt_text_pos = "eol",
-        })
+        -- dapui.setup()
+        -- require("nvim-dap-virtual-text").setup({
+        --     virt_text_pos = "eol",
+        -- })
 
-        -- TODO: Fix this
         -- Setup CodeLLDB adapter using nix-shell
-        dap.adapters.codelldb = {
-            type = 'server',
-            port = "${port}",
-            executable = {
-                command = 'nix-shell',
-                args = { '-p', 'lldb', '--run', 'lldb-vscode' },
-            }
-        }
+        -- dap.adapters.codelldb = {
+        --     type = 'server',
+        --     port = "${port}",
+        --     executable = {
+        --         command = 'nix-shell',
+        --         args = { '-p', 'lldb', '--run', 'lldb-vscode' },
+        --     }
+        -- }
 
         -- { "<leader>dc", "<cmd>DapContinue<CR>",                                       desc = "Debug Continue" },
         -- { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>",              desc = "Debug Toggle Breakpoint" },

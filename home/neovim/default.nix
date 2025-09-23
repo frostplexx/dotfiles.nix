@@ -1,18 +1,13 @@
 # programs/editor/default.nix
 {
-    inputs,
     pkgs,
-    lib,
     ...
 }: let
-    # Filter out lazy-lock.json from the source directory
-    nvimConfigFiltered = lib.cleanSourceWith {
-        src = ./nvim;
-        filter = path: _type: let
-            baseName = baseNameOf path;
-        in
-            baseName != "lazy-lock.json";
-    };
+
+
+    # Can be either nvim or nvim-mini
+    nvim_config = ./nvim;
+
     treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in {
     programs.neovim = {
@@ -44,7 +39,7 @@ in {
     xdg.configFile = {
         # Copy the filtered nvim configuration directory
         "nvim" = {
-            source = nvimConfigFiltered;
+            source = nvim_config;
             recursive = true;
         };
     };

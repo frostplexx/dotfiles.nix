@@ -226,7 +226,7 @@ return {
 
         -- statusline
         -- Helper function to get LSP clients
-        local function get_lsp_clients()
+        local function get_tools()
             local clients = {}
             local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
 
@@ -240,7 +240,10 @@ return {
                 return ''
             end
 
-            return '[' .. table.concat(clients, ',') .. ']'
+            local ft = vim.bo.filetype
+            local linters = require 'lint'.linters_by_ft[ft] or {}
+
+            return '[ ' .. table.concat(clients, ',') .. '  ' .. table.concat(linters, ',') .. ']'
         end
 
         -- Custom location function showing only line and percentage
@@ -302,21 +305,32 @@ return {
             return table.concat(parts, ' ')
         end
 
+
+        local function get_macro_recording()
+            local recording_register = vim.fn.reg_recording()
+            if recording_register ~= '' then
+                return '● REC[' .. recording_register .. ']'
+            end
+            return ''
+        end
+
         -- Custom content function for cleaner statusline
         local function statusline_content()
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
             local git = MiniStatusline.section_git({ trunc_width = 75 })
             local diagnostics = get_diagnostics_with_icons()
+            local macro_recording = get_macro_recording()
             local filename = MiniStatusline.section_filename({ trunc_width = 140 })
             local location = simple_location()
-            local lsp_status = get_lsp_clients()
+            local lsp_status = get_tools()
             local filetype = get_filetype_with_icon()
 
             return MiniStatusline.combine_groups({
                 { hl = mode_hl,                 strings = { mode } },
                 { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+                { hl = 'DiagnosticError',       strings = { macro_recording } },
                 '%<', -- Mark general truncate point
-                { hl = '',                       strings = { filename } },
+                -- { hl = '',                       strings = { filename } },
                 '%=', -- End left alignment
                 { hl = 'MiniStatuslineFileinfo', strings = { lsp_status, filetype } },
                 { hl = mode_hl,                  strings = { location } },
@@ -332,7 +346,7 @@ return {
                 { hl = mode_hl,                 strings = { mode } },
                 { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
                 '%<', -- Mark general truncate point
-                { hl = '',                       strings = { filename } },
+                { hl = '', strings = { filename } },
                 '%=', -- End left alignment
             })
         end
