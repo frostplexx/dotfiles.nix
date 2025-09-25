@@ -75,7 +75,7 @@
             user = "daniel";
             # Home manager modules you want to include as defined in ./home
             hm-modules = [
-                "firefox"
+                "zen"
                 "git"
                 "i3"
                 "kitty"
@@ -105,7 +105,7 @@
             # Home manager modules you want to include as defined in ./home
             hm-modules = [
                 "aerospace"
-                "firefox"
+                "zen"
                 "git"
                 "kitty"
                 "neovim"

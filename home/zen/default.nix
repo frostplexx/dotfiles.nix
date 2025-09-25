@@ -8,10 +8,37 @@
         then "/Applications/Zen.app/Contents/Resources/distribution"
         else "/etc/zen/policies";
 
-    policyJsonPathFirefox =
+    zenProfilesPath =
         if pkgs.stdenv.isDarwin
-        then "/Applications/Firefox.app/Contents/Resources/distribution"
-        else "/etc/firefox/policies";
+        then "$HOME/Library/Application Support/zen/Profiles"
+        else "$HOME/.zen";
+
+    # Catppuccin theme configuration
+    catppuccinPalette = "Mocha";
+    catppuccinAccent = "Mauve";
+
+    # Fetch the Catppuccin Zen Browser theme repository
+    catppuccinZenTheme = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "zen-browser";
+        rev = "main";
+        sha256 = "sha256-IXrxdgPRw1RSzKJcJuvHrevrrQn6f4HgfYqxFO0QdjI=";
+    };
+
+    # Extract theme files for the specified palette/accent
+    themeFiles = pkgs.runCommand "catppuccin-zen-theme-${catppuccinPalette}-${catppuccinAccent}" {} ''
+        mkdir -p $out
+        theme_dir="${catppuccinZenTheme}/themes/${catppuccinPalette}/${catppuccinAccent}"
+
+        if [ -d "$theme_dir" ]; then
+            cp -r "$theme_dir"/* $out/
+        else
+            echo "Theme ${catppuccinPalette}/${catppuccinAccent} not found!"
+            echo "Available themes:"
+            find ${catppuccinZenTheme}/themes -name "*.css" | head -10
+            exit 1
+        fi
+    '';
 
     policyJson = {
         policies = {
@@ -41,8 +68,7 @@
                 };
                 "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
                     # Vimium
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-                    installation_mode = "force_installed";
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi"; installation_mode = "force_installed";
                 };
                 "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
                     # Refined GitHub
@@ -129,6 +155,12 @@
                     Status = "locked";
                 };
 
+
+                "toolkit.legacyUserProfileCustomizations.stylesheets" =  {
+                  Value = true;
+                  Status = "locked";
+                };
+
                 # Some of these dont work because firefox stupid :(
                 # Policies: Unable to set preference zen.glance.activation-method. Preference not allowed for stability reasons.
                 # Policies: Unable to set preference zen.theme.accent-color. Preference not allowed for stability reasons.
@@ -167,11 +199,57 @@
     };
 in {
     # Create the policy directory and file using Home Manager activation
-    home.activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    home = {
+    activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''
         mkdir -p ${policyJsonPathZen}
         echo '${builtins.toJSON policyJson}' > ${policyJsonPathZen}/policies.json
-
-        mkdir -p ${policyJsonPathFirefox}
-        echo '${builtins.toJSON policyJson}' > ${policyJsonPathFirefox}/policies.json
     '';
+
+    # Install Catppuccin theme files directly using Home Manager
+    file = let
+        profileGlob = if pkgs.stdenv.isDarwin
+            then "Library/Application Support/zen/Profiles/*default*/chrome"
+            else ".zen/*default*/chrome";
+    in {
+        # Install userChrome.css to all profiles
+        "${profileGlob}/userChrome.css" = {
+            source = "${themeFiles}/userChrome.css";
+            recursive = false;
+        };
+
+        # Install userContent.css if it exists
+        "${profileGlob}/userContent.css" = lib.mkIf (builtins.pathExists "${themeFiles}/userContent.css") {
+            source = "${themeFiles}/userContent.css";
+            recursive = false;
+        };
+    };
+
+    # Alternative: Create a more precise profile installation
+    activation.zenBrowserThemeInstall = lib.hm.dag.entryAfter ["linkGeneration"] ''
+        echo "Installing Catppuccin ${catppuccinPalette}/${catppuccinAccent} theme for Zen Browser..."
+
+        # Find all Zen profiles and install theme
+        if [ -d "${zenProfilesPath}" ]; then
+            find "${zenProfilesPath}" -maxdepth 1 -type d \( -name "*default*" -o -name "*Default*" \) 2>/dev/null | while read -r profile; do
+                if [ -n "$profile" ] && [ -d "$profile" ]; then
+                    chrome_dir="$profile/chrome"
+                    mkdir -p "$chrome_dir"
+
+                    # Copy theme files
+                    cp "${themeFiles}/userChrome.css" "$chrome_dir/" 2>/dev/null || true
+
+                    cp "${themeFiles}/zen-logo.svg" "$chrome_dir/" 2>/dev/null || true
+
+                    if [ -f "${themeFiles}/userContent.css" ]; then
+                        cp "${themeFiles}/userContent.css" "$chrome_dir/" 2>/dev/null || true
+                    fi
+
+                    echo "Theme installed for profile: $(basename "$profile")"
+                fi
+            done
+        else
+            echo "Zen Browser profiles directory not found. Theme will be installed when profiles are created."
+        fi
+    '';
+  };
 }
