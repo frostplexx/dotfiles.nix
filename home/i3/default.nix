@@ -179,11 +179,11 @@
             # Colors based on your jankyborders theme
             colors = {
                 focused = {
-                    border = "#cba6f7";
-                    background = "#cba6f7";
+                    border = "#${config.accent_color}";
+                    background = "#${config.accent_color}";
                     text = "#ffffff";
-                    indicator = "#cba6f7";
-                    childBorder = "#cba6f7";
+                    indicator = "#${config.accent_color}";
+                    childBorder = "#${config.accent_color}";
                 };
                 unfocused = {
                     border = "#7f849c";
@@ -218,7 +218,7 @@
 
                         # Workspace colors
                         focusedWorkspace = {
-                            border = "#cba6f7";
+                            border = "#${config.accent_color}";
                             background = "#1e1e2e";
                             text = "#cdd6f4";
                         };
@@ -265,7 +265,7 @@
         theme = {
             name = "Catppuccin-Mocha-Standard-Mauve-Dark";
             package = pkgs.catppuccin-gtk.override {
-                accents = ["mauve"];
+                accents = ["mauve"]; # TODO: Make this dynamic based on accent_color
                 variant = "mocha";
             };
         };
@@ -287,8 +287,8 @@
 
     # Cursor theme to match your overall aesthetic
     home.pointerCursor = {
-        name = "Catppuccin-Mocha-Mauve-Cursors";
-        package = pkgs.catppuccin-cursors.mochaMauve;
+        name = "Catppuccin-Mocha-Mauve-Cursors"; # TODO: Make this dynamic based on accent_color
+        package = pkgs.catppuccin-cursors.mochaMauve; # TODO: Make this dynamic based on accent_color
         size = 24;
         gtk.enable = true;
         x11.enable = true;

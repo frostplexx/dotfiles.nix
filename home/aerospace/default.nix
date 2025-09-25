@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
     # TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix
     # jankyborders = {
     #   enable = true;
@@ -13,8 +13,21 @@
 
     xdg.configFile = {
         "borders/bordersrc" = {
-            source = ./bordersrc;
-            recursive = true;
+            text = ''
+                #!/bin/bash
+
+                options=(
+                  style=round
+                  width=4.0
+                  hidpi=on
+                  active_color="0xff${config.accent_color}"
+                  inactive_color="0xff7f849c"
+                    # order=above
+                )
+
+                borders "''${options[@]}"
+            '';
+            executable = true;
         };
     };
 

@@ -13,6 +13,7 @@
     hm-modules,
     assets,
     mkHomeConfig,
+    accent_color,
 }: let
     # Determine if we are building for Darwin (macOS)
     inherit (pkgs.stdenv) isDarwin;
@@ -74,9 +75,18 @@ in
                             {
                                 config,
                                 pkgs,
+                                lib,
                                 ...
                             }: {
-                                targets.darwin.linkApps.enable = false;
+                                options.accent_color = lib.mkOption {
+                                    type = lib.types.str;
+                                    default = if accent_color != null then accent_color else "cba6f7";
+                                    description = "Global accent color (hex without #)";
+                                };
+                                config = {
+                                    targets.darwin.linkApps.enable = false;
+                                    accent_color = if accent_color != null then accent_color else "cba6f7";
+                                };
                             }
                         )
                     ]
@@ -97,6 +107,17 @@ in
                 currentSystemName = name;
                 currentSystemUser = user;
                 inherit user system inputs assets;
+            };
+        }
+        # Add accent_color option and configuration
+        {
+            options.accent_color = pkgs.lib.mkOption {
+                type = pkgs.lib.types.str;
+                default = "cba6f7";
+                description = "Global accent color (hex without #)";
+            };
+            config = pkgs.lib.mkIf (accent_color != null) {
+                accent_color = accent_color;
             };
         }
         # Import Darwin or Linux specific modules as appropriate

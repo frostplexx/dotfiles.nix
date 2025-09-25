@@ -12,7 +12,7 @@
         # Settings
         settings = {
             # Colors
-            url_color = "#4dc6ff";
+            url_color = "#${config.accent_color}";
 
             # Environment
             term = "xterm-256color";
@@ -66,7 +66,7 @@
             tab_title_template = "{index} {tab.active_exe.split('/')[-1] if tab.active_exe not in ('-fish', 'kitten') else ''} {title.split('/')[-1] if '/' in title else title}{tab.last_focused_progress_percent}";
             active_tab_font_style = "bold";
             inactive_tab_font_style = "normal";
-            active_tab_background = "#8aadf4";
+            active_tab_background = "#${config.accent_color}";
 
             # Remote control
             allow_remote_control = "yes";

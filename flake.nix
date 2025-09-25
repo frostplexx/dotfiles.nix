@@ -113,6 +113,8 @@
                 "shell"
                 "ssh"
             ];
+            # Set your global accent color here (hex without #)
+            accent_color = "cba6f7"; # mauve (default)
         };
 
         # Set a formatter for both the system architectures im using
