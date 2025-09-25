@@ -73,8 +73,6 @@ in
                         inputs.spicetify-nix.homeManagerModules.spicetify
                         (
                             {
-                                config,
-                                pkgs,
                                 lib,
                                 ...
                             }: {
@@ -117,7 +115,7 @@ in
                 description = "Global accent color (hex without #)";
             };
             config = pkgs.lib.mkIf (accent_color != null) {
-                accent_color = accent_color;
+                inherit accent_color;
             };
         }
         # Import Darwin or Linux specific modules as appropriate

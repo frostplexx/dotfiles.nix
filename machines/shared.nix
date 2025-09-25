@@ -2,8 +2,6 @@
 pkgs,
 system,
 inputs,
-lib,
-config,
 ...
 }: {
     # Basic system packages

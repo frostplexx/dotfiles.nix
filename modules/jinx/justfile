@@ -29,6 +29,6 @@ import "./edit-nvim/edit-nvim.just"
 [private]
 lint:
     @nix fmt . 2> /dev/null
-    @NIX_CONFIG="{{NIX_CONFIG}}" nix run nixpkgs#statix -- check .
-    @NIX_CONFIG="{{NIX_CONFIG}}" nix run nixpkgs#deadnix -- -eq .
+    @nix run nixpkgs#statix -- check {{DOTFILES_FOLDER}}
+    @nix run nixpkgs#deadnix -- -eq {{DOTFILES_FOLDER}}
 
