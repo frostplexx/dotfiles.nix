@@ -117,14 +117,18 @@
 
                     # Disable transparent menubar
                     sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
+
                     # Other for custom color or nothing
                     sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
+
                     # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors
-                    # sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme ClearLight
-                    sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme RegularDark
+                    sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme
+                    RegularDark
+
                     # Affects Icons, Folders and widgets. Needs to have AppleIconAppearanceTintColor set to Other
                     # Color is rgba value divided by 256 so its between 0 and 1
                     sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "${appleHighlightColor}"
+
                     # Set highlight color
                     sudo -u ${user} defaults write "Apple Global Domain" AppleHighlightColor -string "${appleHighlightColor} Other"
 

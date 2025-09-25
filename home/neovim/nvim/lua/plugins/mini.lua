@@ -314,13 +314,21 @@ return {
             return ''
         end
 
+
+        local function get_modified_indicator()
+            if vim.bo.modified then
+                return '[+]'
+            end
+            return ''
+        end
+
         -- Custom content function for cleaner statusline
         local function statusline_content()
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
             local git = MiniStatusline.section_git({ trunc_width = 75 })
             local diagnostics = get_diagnostics_with_icons()
             local macro_recording = get_macro_recording()
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+            local modified = get_modified_indicator()
             local location = simple_location()
             local lsp_status = get_tools()
             local filetype = get_filetype_with_icon()
@@ -328,7 +336,7 @@ return {
             return MiniStatusline.combine_groups({
                 { hl = mode_hl,                 strings = { mode } },
                 { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
-                { hl = 'DiagnosticError',       strings = { macro_recording } },
+                { hl = 'DiagnosticError',       strings = { modified, macro_recording } },
                 '%<', -- Mark general truncate point
                 -- { hl = '',                       strings = { filename } },
                 '%=', -- End left alignment
