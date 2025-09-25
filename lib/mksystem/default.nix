@@ -22,7 +22,7 @@
     machineConfig = ../../machines/${name};
 
     # Merge all relevant arguments for the machine config.
-    machineConfigArgs = {inherit system user pkgs inputs assets;} // args;
+    machineConfigArgs = {inherit system user pkgs inputs assets; inherit (inputs.nixpkgs) lib;} // args;
 
     # Function to build the Home Manager configuration for a user.
     mkHomeConfig = args: import ./home-config.nix args;
