@@ -21,7 +21,7 @@
     catppuccinZenTheme = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "zen-browser";
-        rev = "main";
+        rev = "c4fc0b4a9276b8ccf1130e31a04a8c8685afd662";
         sha256 = "sha256-IXrxdgPRw1RSzKJcJuvHrevrrQn6f4HgfYqxFO0QdjI=";
     };
 
