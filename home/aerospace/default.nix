@@ -281,6 +281,10 @@ in {
                     "if".window-title-regex-substring = "Music";
                     run = "move-node-to-workspace 5";
                 }
+                {
+                    "if".app-id = "com.google.Chrome";
+                    run = "move-node-to-workspace 7";
+                }
                 # Order matters here!
                 # Callbacks are run in order and the firt match counts
                 {
