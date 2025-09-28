@@ -1,4 +1,9 @@
-{pkgs, config, ...}: {
+{pkgs, config, ...}:
+let
+  music_player = "Music";
+  terminal = "kitty";
+  browser = "Zen";
+in {
     # TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix
     # jankyborders = {
     #   enable = true;
@@ -103,13 +108,14 @@
                 ctrl-alt-cmd-f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
                 cmd-m = "macos-native-minimize";
-                # cmd-enter = "exec-and-forget open -a kitty";
-                # cmd-enter = "exec-and-forget open -a Ghostty";
 
                 ctrl-alt-cmd-enter = "exec-and-forget /etc/profiles/per-user/daniel/bin/kitten quick-access-terminal";
 
+                ctrl-alt-cmd-m = "exec-and-forget open -a ${music_player}";
+                ctrl-alt-cmd-b = "exec-and-forget open -a ${browser}";
+                ctrl-alt-cmd-shift-enter = "exec-and-forget open -a ${terminal}";
+
                 ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../shell/fish/switch-audio.fish}'";
-                ctrl-alt-cmd-m = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group spotify-player spotify_player'";
                 ctrl-alt-cmd-right = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} next'";
                 ctrl-alt-cmd-left = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} previous'";
                 ctrl-alt-cmd-up = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} play'";

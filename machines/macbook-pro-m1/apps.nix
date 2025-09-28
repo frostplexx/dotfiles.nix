@@ -1,8 +1,7 @@
 # Lyra-specific applications
 {
     pkgs,
-    config,
-    ...
+    config, ...
 }: {
     # MacOS-specific packages
     environment.systemPackages = with pkgs; [
@@ -48,6 +47,8 @@
             "Testflight" = 899247664;
             "Tailscale" = 1475387142;
             "System Color Picker" = 1545870783;
+            "Numbers" = 409203825;
+            "Keynote" = 409183694;
         };
         # This doesn't work, taps are defined in flake.nix and then mksystem.nix
         # taps = [];
