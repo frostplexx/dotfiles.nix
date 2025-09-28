@@ -21,8 +21,8 @@
     catppuccinZenTheme = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "zen-browser";
-        rev = "c4fc0b4a9276b8ccf1130e31a04a8c8685afd662";
-        sha256 = "sha256-IXrxdgPRw1RSzKJcJuvHrevrrQn6f4HgfYqxFO0QdjI=";
+        rev = "c855685442c6040c4dda9c8d3ddc7b708de1cbaa";
+        sha256 = "sha256-5A57Lyctq497SSph7B+ucuEyF1gGVTsuI3zuBItGfg4=";
     };
 
     # Extract theme files for the specified palette/accent
