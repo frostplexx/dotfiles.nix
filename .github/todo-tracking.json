@@ -1,9 +1,9 @@
 {
   "todos": {
-    "home/aerospace/default.nix:2:TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix": {
-      "issueNumber": 418,
+    "home/aerospace/default.nix:7:TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix": {
+      "issueNumber": 434,
       "file": "home/aerospace/default.nix",
-      "line": 2,
+      "line": 7,
       "text": "TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix"
     }
   }
