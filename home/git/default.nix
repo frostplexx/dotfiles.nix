@@ -3,6 +3,9 @@
     pkgs,
     ...
 }: {
+    imports = [
+        ./ai-commit.nix
+    ];
     home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
         rm -f ~/.gitconfig
     '';

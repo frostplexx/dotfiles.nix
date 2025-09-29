@@ -29,6 +29,9 @@
                 j = "jinx";
                 nixs = "nix shell nixpkgs#";
                 nixr = "nix run nixpkgs#";
+                ghi = "gh issue";
+                ghp = "gh pr";
+                ghb = "gh browse";
             };
 
             shellInit = builtins.readFile ./shellInit.fish;
