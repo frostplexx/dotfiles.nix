@@ -2,6 +2,13 @@
   pkgs,
   ...
 }: let
+  python-with-packages = pkgs.python3.withPackages (ps: with ps; [
+    transformers
+    torch
+    huggingface-hub
+    tokenizers
+  ]);
+
   ai-commit-generator = pkgs.stdenv.mkDerivation {
     pname = "ai-commit-generator";
     version = "1.0.0";
@@ -9,7 +16,7 @@
     src = pkgs.writeTextFile {
       name = "generate_commit_message.py";
       text = ''
-#!/usr/bin/env python3
+#!${python-with-packages}/bin/python3
 """
 Git commit message generator using AI models.
 """
@@ -254,16 +261,7 @@ if __name__ == "__main__":
       '';
     };
 
-    nativeBuildInputs = with pkgs; [
-      python3
-    ];
-
-    propagatedBuildInputs = with pkgs.python3Packages; [
-      transformers
-      torch
-      huggingface-hub
-      tokenizers
-    ];
+    buildInputs = [ python-with-packages ];
 
     dontUnpack = true;
     dontBuild = true;
