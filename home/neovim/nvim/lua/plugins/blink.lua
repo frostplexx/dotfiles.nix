@@ -4,6 +4,7 @@ return {
     dependencies = {
         {
             src = "https://github.com/rafamadriz/friendly-snippets",
+            defer = true,
         }
     },
     version = vim.version.range('1.*'),

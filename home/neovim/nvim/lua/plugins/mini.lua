@@ -16,6 +16,13 @@ return {
         require('mini.icons').setup()
         require('mini.extra').setup()
 
+        require('mini.diff').setup({
+            view = {
+                style = "sign",
+                signs = { add = '┃', change = '┃', delete = '┃' },
+            }
+        })
+
         -- move
         require('mini.move').setup({
             -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
@@ -369,6 +376,8 @@ return {
         })
 
         -- Keymaps
+        vim.keymap.set("n", "<leader>go", function() MiniDiff.toggle_overlay() end,
+            { desc = "Toggle Diff Overlay", remap = true, silent = true })
         vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end,
             { desc = "Delete Buffer", remap = true, silent = true })
         vim.keymap.set("n", "<leader><space>", function() MiniPick.registry.fffiles() end,

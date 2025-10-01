@@ -5,9 +5,6 @@ return {
         { src = "https://github.com/nvim-lua/plenary.nvim" },
     },
     config = function()
-        -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-        -- Block netrw plugin load
-        vim.g.loaded_netrwPlugin = 1
         require("yazi").setup({
             open_for_directories = true,
             yazi_floating_window_border = 'rounded',
