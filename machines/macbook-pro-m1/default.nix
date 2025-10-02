@@ -134,6 +134,8 @@
                     # No idea what it does
                     sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
 
+                    sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
+
                     killall Finder;
                     killall Dock;
 
