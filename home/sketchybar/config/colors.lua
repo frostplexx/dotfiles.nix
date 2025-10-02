@@ -1,71 +1,97 @@
-local theme = require "theme"
-
 local M = {}
 
 local with_alpha = function(color, alpha)
   if alpha > 1.0 or alpha < 0.0 then
     return color
   end
-  return (color & 0x00ffffff) | (math.floor(alpha * 255.0) << 24)
+  return (color & 0x00FFFFFF) | (math.floor(alpha * 255.0) << 24)
 end
 
 local transparent = 0x00000000
 
+local catppuccin = {
+  rosewater = 0xFFF5E0DC,
+  flamingo = 0xFFF2CDCD,
+  pink = 0xFFF5C2E7,
+  mauve = 0xFFCBA6F7,
+  red = 0xFFF38BA8,
+  maroon = 0xFFEBA0AC,
+  peach = 0xFFFAB387,
+  yellow = 0xFFF9E2AF,
+  green = 0xFFA6E3A1,
+  teal = 0xFF94E2D5,
+  sky = 0xFF89DCEB,
+  sapphire = 0xFF74C7EC,
+  blue = 0xFF89B4FA,
+  lavender = 0xFFB4BEFE,
+  text = 0xFFCDD6F4,
+  subtext1 = 0xFFBAC2DE,
+  subtext0 = 0xFFA6ADC8,
+  overlay2 = 0xFF9399B2,
+  overlay1 = 0xFF7F849C,
+  overlay0 = 0xFF6C7086,
+  surface2 = 0xFF585B70,
+  surface1 = 0xFF45475A,
+  surface0 = 0xFF313244,
+  base = 0xFF1E1E2E,
+  mantle = 0xFF181825,
+  crust = 0xFF11111B,
+}
+
 M.sections = {
+  -- Core Components
   bar = {
-    bg = with_alpha(theme.crust, 0.7),
-    transparent = transparent,
-    border = transparent,
+    bg = with_alpha(catppuccin.base, 0.7),
+    border = catppuccin.crust,
   },
   item = {
-    bg = theme.base,
-    border = theme.crust,
-    text = theme.text,
+    bg = catppuccin.surface0,
+    border = catppuccin.crust,
+    text = catppuccin.text,
   },
-  apple = theme.blue,
+  popup = {
+    bg = with_alpha(catppuccin.base, 0.7),
+    border = catppuccin.crust,
+  },
+
+  -- Items
+  apple = catppuccin.flamingo,
+  media = { label = catppuccin.text },
+  calendar = { label = catppuccin.text },
   spaces = {
     icon = {
-      color = theme.muted,
-      highlight = theme.text,
+      color = catppuccin.subtext0,
+      highlight = catppuccin.yellow,
     },
     label = {
-      color = theme.text,
-      highlight = theme.blue,
+      color = catppuccin.subtext0,
+      highlight = catppuccin.yellow,
     },
-    indicator = theme.blue,
-  },
-  media = {
-    label = theme.muted,
-    highlight = theme.blue,
+    indicator = catppuccin.mauve,
   },
   widgets = {
     battery = {
-      low = theme.red,
-      mid = theme.yellow,
-      high = theme.green,
+      low = catppuccin.red,
+      mid = catppuccin.yellow,
+      high = catppuccin.green,
     },
-    wifi = { icon = theme.blue },
+    wifi = {
+      icon = catppuccin.text,
+    },
     volume = {
-      icon = theme.purple,
+      icon = catppuccin.blue,
       popup = {
-        item = theme.muted,
-        highlight = theme.text,
+        item = catppuccin.text,
+        highlight = catppuccin.subtext0,
+        bg = with_alpha(catppuccin.base, 0.7),
       },
       slider = {
-        highlight = theme.blue,
-        bg = theme.crust,
-        border = theme.mantle,
+        highlight = catppuccin.text,
+        bg = with_alpha(catppuccin.base, 0.7),
+        border = catppuccin.surface0,
       },
     },
-    messages = { icon = theme.red },
-  },
-  calendar = {
-    label = theme.muted,
-  },
-  popup = {
-    bg = theme.base,
-    border = theme.blue,
-    text = theme.text,
+    messages = { icon = catppuccin.flamingo },
   },
 }
 

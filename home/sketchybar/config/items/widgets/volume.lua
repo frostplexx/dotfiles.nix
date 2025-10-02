@@ -1,7 +1,7 @@
 local colors = require("colors").sections.widgets.volume
 local icons = require "icons"
 
-local popup_width = 300
+local popup_width = 250
 
 local volume_icon = sbar.add("item", "widgets.volume", {
   position = "right",
@@ -14,7 +14,7 @@ local volume_icon = sbar.add("item", "widgets.volume", {
     align = "center",
     y_offset = 2,
   },
-  padding_right = 12,
+  padding_right = 8,
 })
 
 local volume_slider = sbar.add("slider", popup_width, {
@@ -93,11 +93,11 @@ local function volume_toggle_details(env)
             label = { string = device, color = color },
             background = { drawing = false },
             click_script = 'SwitchAudioSource -s "'
-                .. device
-                .. '" && sketchybar --set /volume.device\\.*/ label.color='
-                .. colors.popup.item
-                .. " --set $NAME label.color="
-                .. colors.popup.highlight,
+              .. device
+              .. '" && sketchybar --set /volume.device\\.*/ label.color='
+              .. colors.popup.item
+              .. " --set $NAME label.color="
+              .. colors.popup.highlight,
           })
           counter = counter + 1
         end

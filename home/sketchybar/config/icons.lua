@@ -1,10 +1,10 @@
 local settings = require "settings"
 
 local icons = {
-  nerdfont = {
+  sf_symbols = {
     plus = "􀅼",
     loading = "􀖇",
-    apple = "",
+    apple = "􀣺", --󱚞
     gear = "􀍟",
     cpu = "󰒆",
     clipboard = "􀉄",
@@ -12,8 +12,8 @@ local icons = {
     calendar = "􀐫",
     message = "􁋬",
     separators = {
-      left = "",
-      right = "",
+      left = "􀄪",
+      right = "􀄫",
     },
     space_indicator = {
       on = "󰄯",
@@ -51,7 +51,7 @@ local icons = {
     media = {
       back = "􀊊",
       forward = "􀊌",
-      play_pause = "",
+      play_pause = "􀊈",
     },
     ramicons = {
       swap = "󰁄",

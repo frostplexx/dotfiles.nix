@@ -1,4 +1,4 @@
-local settings = require "settings"
+local settings = require("settings")
 
 local menu_watcher = sbar.add("item", {
   drawing = false,
@@ -19,7 +19,7 @@ for i = 1, max_items, 1 do
     background = { drawing = false },
     label = {
       font = {
-        style = settings.font.style_map[i == 1 and "Medium" or "Italic"],
+        style = settings.font.style_map[i == 1 and "Heavy" or "Semibold"],
       },
       padding_left = 6,
       padding_right = 6,

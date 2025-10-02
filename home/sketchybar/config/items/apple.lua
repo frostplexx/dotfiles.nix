@@ -1,9 +1,9 @@
 local colors = require("colors").sections
-local icons = require "icons"
+local icons = require("icons")
 
 local apple = sbar.add("item", {
   icon = {
-    font = { size = 20 },
+    font = { size = 16 },
     string = icons.apple,
     padding_right = 15,
     padding_left = 15,

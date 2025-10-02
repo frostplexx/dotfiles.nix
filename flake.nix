@@ -117,11 +117,11 @@
                 "neovim"
                 "nixcord"
                 "shell"
-                # "sketchybar"
+                "sketchybar"
                 "ssh"
             ];
             # Set your global accent color here (hex without #)
-            accent_color = "cba6f7"; # mauve (default)
+            accent_color = "cba6f7"; # mauve
         };
 
         # Set a formatter for both the system architectures im using
