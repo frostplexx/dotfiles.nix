@@ -11,10 +11,11 @@
     nixpkgsConfig = {
         allowUnfree = true; # Allow unfree packages (e.g., proprietary software)
         allowUnsupportedSystem = false; # Disallow unsupported systems
-        allowBroken = true; # Allow broken packages (use with caution)
+        allowBroken = false; # Allow broken packages (use with caution)
         allowInsecure = true; # Allow insecure packages (use with caution)
+        doCheckByDefault = false;
         packageOverrides = pkgs: {
-            electron = pkgs.electron_37; # electron is ancient, so override it with electron_37 which is the newest version
+            electron = pkgs.electron_38; # electron is ancient, so override it with electron_37 which is the newest version
         };
     };
 
