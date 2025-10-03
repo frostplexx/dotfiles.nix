@@ -7,18 +7,19 @@
       lua
       jq
       sbarlua
+      aerospace
+      nowplaying-cli
+      switchaudio-osx
     ];
+    service = {
+      enable = true;
+      errorLogFile = /tmp/sketchyerr;
+      outLogFile = /tmp/sketchylog;
+    };
     config = {
         source = ./config;
         recursive = true;
     };
   };
 
-
-  home.file = {
-    ".local/share/sketchybar_lua/sketchybar.so" = {
-        source = "${pkgs.sbarlua}/lib/lua/5.4/sketchybar.so";
-        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
-      };
-  };
 }
