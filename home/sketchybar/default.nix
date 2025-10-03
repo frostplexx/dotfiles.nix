@@ -2,7 +2,6 @@
 {
   programs.sketchybar = {
     enable = true;
-    configType = "lua";
     extraPackages = with pkgs; [
       lua
       jq
@@ -20,10 +19,44 @@
     };
     luaPackage = pkgs.lua5_4;
     sbarLuaPackage = pkgs.sbarlua;
-    config = {
-        source = ./config;
-        recursive = true;
-    };
   };
+     home.file = {
+      ".config/sketchybar" = {
+        source = ./config/.;
+        recursive = true;
+        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      };
+      ".local/share/sketchybar_lua/sketchybar.so" = {
+        source = "${pkgs.sbarlua}/lib/lua/5.4/sketchybar.so";
+        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      };
+      ".config/sketchybar/sketchybarrc" = {
+        text = ''
+          #!/usr/bin/env ${pkgs.lua54Packages.lua}/bin/lua
+          -- This is only needed once to install the sketchybar module
+          -- (or for an update of the module)
 
+          -- Add the sketchybar module to the package cpath (the module could be
+          -- installed into the default search path then this would not be needed)
+          package.cpath = package.cpath .. ";/Users/" .. os.getenv("USER") .. "/.local/share/sketchybar_lua/?.so"
+
+          -- Require the sketchybar module
+          sbar = require("sketchybar")
+
+          -- Bundle the entire initial configuration into a single message to sketchybar
+          -- This improves startup times drastically, try removing both the begin and end
+          -- config calls to see the difference -- yeah..
+          sbar.begin_config()
+          require("init")
+          sbar.hotload(true)
+          sbar.end_config()
+
+          -- Run the event loop of the sketchybar module (without this there will be no
+          -- callback functions executed in the lua module)
+          sbar.event_loop()
+        '';
+        executable = true;
+        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      };
+    };
 }

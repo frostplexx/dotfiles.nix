@@ -1,23 +1,72 @@
-return {
-  black = 0xff181926,
-  white = 0xffcad3f5,
-  red = 0xffed8796,
-  green = 0xffa6da95,
-  blue = 0xff8aadf4,
-  yellow = 0xffeed49f,
-  orange = 0xfff5a97f,
-  magenta = 0xffc6a0f6,
-  grey = 0xff939ab7,
-  transparent = 0x00000000,
+local theme = require "theme"
 
+local M = {}
+
+local with_alpha = function(color, alpha)
+  if alpha > 1.0 or alpha < 0.0 then
+    return color
+  end
+  return (color & 0x00ffffff) | (math.floor(alpha * 255.0) << 24)
+end
+
+local transparent = 0x00000000
+
+M.sections = {
   bar = {
-    bg = 0xd01e1e2e,
-    border = 0xff494d64,
+    bg = with_alpha(theme.crust, 0.7),
+    transparent = transparent,
+    border = transparent,
+  },
+  item = {
+    bg = theme.base,
+    border = theme.crust,
+    text = theme.text,
+  },
+  apple = theme.blue,
+  spaces = {
+    icon = {
+      color = theme.muted,
+      highlight = theme.text,
+    },
+    label = {
+      color = theme.text,
+      highlight = theme.blue,
+    },
+    indicator = theme.blue,
+  },
+  media = {
+    label = theme.muted,
+    highlight = theme.blue,
+  },
+  widgets = {
+    battery = {
+      low = theme.red,
+      mid = theme.yellow,
+      high = theme.green,
+    },
+    wifi = { icon = theme.blue },
+    volume = {
+      icon = theme.purple,
+      popup = {
+        item = theme.muted,
+        highlight = theme.text,
+      },
+      slider = {
+        highlight = theme.blue,
+        bg = theme.crust,
+        border = theme.mantle,
+      },
+    },
+    messages = { icon = theme.red },
+  },
+  calendar = {
+    label = theme.muted,
   },
   popup = {
-    bg = 0xff1e1e2e,
-    border = 0xffcad3f5
+    bg = theme.base,
+    border = theme.blue,
+    text = theme.text,
   },
-  bg1 = 0x803c3e4f,
-  bg2 = 0xff494d64,
 }
+
+return M

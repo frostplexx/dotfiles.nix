@@ -1,69 +1,150 @@
-local colors = require("colors")
+local colors = require("colors").sections.spaces
+local icons = require "icons"
+local icon_map = require "helpers.icon_map"
 
-local function mouse_click(env)
-  if env.BUTTON == "right" then
-    sbar.exec("yabai -m space --destroy " .. env.SID)
-  else
-    sbar.exec("yabai -m space --focus " .. env.SID)
+sbar.exec("aerospace list-workspaces --all", function(spaces)
+  for space_name in spaces:gmatch "[^\r\n]+" do
+    local space = sbar.add("item", "space." .. space_name, {
+      icon = {
+        string = space_name .. " " .. icons.separators.right,
+        color = colors.icon.color,
+        highlight_color = colors.label.highlight,
+        y_offset = 1,
+        padding_left = 8,
+        padding_right = 4,
+      },
+      label = {
+        font = "sketchybar-app-font:Regular:13.0",
+        string = "space",
+        color = colors.label.color,
+        highlight_color = colors.label.highlight,
+        y_offset = 0,
+        padding_right = 12,
+      },
+      click_script = "aerospace workspace " .. space_name,
+      padding_left = space_name == "1" and 0 or 4,
+    })
+
+    space:subscribe("aerospace_workspace_changed", function(env)
+      local selected = env.FOCUSED_WORKSPACE == space_name
+      space:set {
+        icon = { highlight = selected },
+        label = { highlight = selected },
+      }
+
+      if selected then
+        sbar.animate("tanh", 8, function()
+          space:set {
+            background = {
+              shadow = {
+                distance = 0,
+              },
+            },
+            y_offset = -4,
+            padding_left = 8,
+            padding_right = 0,
+          }
+          space:set {
+            background = {
+              shadow = {
+                distance = 4,
+              },
+            },
+            y_offset = 0,
+            padding_left = 4,
+            padding_right = 4,
+          }
+        end)
+      end
+    end)
+
+    space:subscribe("space_windows_change", function()
+      sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
+        local no_app = true
+        local icon_line = ""
+        for app in windows:gmatch "[^\r\n]+" do
+          no_app = false
+          local lookup = icon_map[app]
+          local icon = ((lookup == nil) and icon_map["default"] or lookup)
+          icon_line = icon_line .. " " .. icon
+        end
+        sbar.animate("tanh", 10, function()
+          space:set { label = no_app and " " or icon_line }
+        end)
+      end)
+    end)
+
+    space:subscribe("mouse.clicked", function()
+      sbar.animate("tanh", 8, function()
+        space:set {
+          background = {
+            shadow = {
+              distance = 0,
+            },
+          },
+          y_offset = -4,
+          padding_left = 8,
+          padding_right = 0,
+        }
+        space:set {
+          background = {
+            shadow = {
+              distance = 4,
+            },
+          },
+          y_offset = 0,
+          padding_left = 4,
+          padding_right = 4,
+        }
+      end)
+    end)
   end
-end
+end)
 
-local function space_selection(env)
-  local color = env.SELECTED == "true" and colors.white or colors.bg2
-
-  sbar.set(env.NAME, {
-    icon = { highlight = env.SELECTED, },
-    label = { highlight = env.SELECTED, },
-    background = { border_color = color }
-  })
-end
-
-local spaces = {}
-for i = 1, 10, 1 do
-  local space = sbar.add("space", {
-    associated_space = i,
-    icon = {
-      string = i,
-      padding_left = 10,
-      padding_right = 10,
-      color = colors.white,
-      highlight_color = colors.red,
-    },
-    padding_left = 2,
-    padding_right = 2,
-    label = {
-      padding_right = 20,
-      color = colors.grey,
-      highlight_color = colors.white,
-      font = "sketchybar-app-font:Regular:16.0",
-      y_offset = -1,
-      drawing = false,
-    },
-  })
-
-  spaces[i] = space.name
-  space:subscribe("space_change", space_selection)
-  space:subscribe("mouse.clicked", mouse_click)
-end
-
-sbar.add("bracket", spaces, {
-  background = { color = colors.bg1, border_color = colors.bg2 }
-})
-
-local space_creator = sbar.add("item", {
-  padding_left=10,
-  padding_right=8,
+local spaces_indicator = sbar.add("item", {
   icon = {
-    string = "􀆊",
-    font = {
-      style = "Heavy",
-      size = 16.0,
-    },
+    padding_left = 8,
+    padding_right = 9,
+    string = icons.switch.on,
+    color = colors.indicator,
   },
-  label = { drawing = false },
-  associated_display = "active",
+  label = {
+    width = 0,
+    padding_left = 0,
+    padding_right = 8,
+  },
+  padding_right = 8,
 })
 
-space_creator:subscribe("mouse.clicked", function(_)
-  sbar.exec("yabai -m space --create")
+spaces_indicator:subscribe("swap_menus_and_spaces", function()
+  local currently_on = spaces_indicator:query().icon.value == icons.switch.on
+  spaces_indicator:set {
+    icon = currently_on and icons.switch.off or icons.switch.on,
+  }
+end)
+
+spaces_indicator:subscribe("mouse.clicked", function()
+  sbar.animate("tanh", 8, function()
+    spaces_indicator:set {
+      background = {
+        shadow = {
+          distance = 0,
+        },
+      },
+      y_offset = -4,
+      padding_left = 8,
+      padding_right = 4,
+    }
+    spaces_indicator:set {
+      background = {
+        shadow = {
+          distance = 4,
+        },
+      },
+      y_offset = 0,
+      padding_left = 4,
+      padding_right = 8,
+    }
+  end)
+  sbar.trigger "swap_menus_and_spaces"
 end)

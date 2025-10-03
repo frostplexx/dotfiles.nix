@@ -1,8 +1,9 @@
-require("items.apple")
-require("items.spaces")
-require("items.front_app")
-require("items.calendar")
-require("items.uname")
-require("items.volume")
-require("items.battery")
-require("items.media")
+--left
+require "items.apple"
+require "items.spaces"
+require "items.menus"
+
+--right (reverse order)
+require "items.calendar"
+require "items.widgets"
+require "items.media"
