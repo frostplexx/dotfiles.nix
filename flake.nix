@@ -58,6 +58,11 @@
             url = "github:FelixKratz/homebrew-formulae";
             flake = false;
         };
+
+        swipeaerospace = {
+            url = "github:MediosZ/homebrew-tap";
+            flake = false;
+        };
     };
 
     outputs = {nixpkgs, ...} @ inputs: let

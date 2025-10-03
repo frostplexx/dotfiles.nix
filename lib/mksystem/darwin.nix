@@ -23,6 +23,7 @@
             "homebrew/homebrew-core" = homebrew-core;
             "homebrew/homebrew-cask" = homebrew-cask;
             "FelixKratz/homebrew-formulae" = jankyborders;
+            "mediosz/homebrew-tap" = swipeaerospace;
         };
     };
 }

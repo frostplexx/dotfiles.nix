@@ -3,33 +3,7 @@ let
   music_player = "Music";
   terminal = "kitty";
   browser = "Zen";
-
-  aerospace-swipe = pkgs.stdenv.mkDerivation rec {
-    pname = "aerospace-swipe";
-    version = "main";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "acsandmann";
-      repo = "aerospace-swipe";
-      rev = "1845e0e99c4c4bb34453253189a437a698ddbdc8";
-      sha256 = "sha256-ZLaE/CuUgpWXrmV0cKLI8L9R92REECxWcpOwofMDMx4=";
-    };
-
-    nativeBuildInputs = with pkgs; [ gnumake ];
-
-    buildPhase = ''
-      make build
-    '';
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp aerospace-swipe $out/bin/
-    '';
-  };
 in {
-    # Install aerospace-swipe
-    home.packages = [ aerospace-swipe ];
-
     # TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix
     # jankyborders = {
     #   enable = true;
@@ -59,30 +33,6 @@ in {
                 borders "''${options[@]}"
             '';
             executable = true;
-        };
-
-        "aerospace-swipe/config.json" = {
-            text = ''
-                {
-                  "haptic": false,
-                  "natural_swipe": false,
-                  "wrap_around": true,
-                  "skip_empty": true,
-                  "fingers": 3
-                }
-            '';
-        };
-    };
-
-    # Launch daemon for aerospace-swipe
-    launchd.agents.aerospace-swipe = {
-        enable = true;
-        config = {
-            ProgramArguments = [ "${aerospace-swipe}/bin/aerospace-swipe" ];
-            KeepAlive = true;
-            RunAtLoad = true;
-            StandardErrorPath = "/tmp/aerospace-swipe.err";
-            StandardOutPath = "/tmp/aerospace-swipe.out";
         };
     };
 

@@ -63,6 +63,7 @@
             }
         ];
         casks = [
+            "mediosz/tap/swipeaerospace"
             "altserver"
             "chromium"
             "firefox"
