@@ -2,8 +2,7 @@
     description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
 
     inputs = {
-        nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-        # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
         home-manager = {
             url = "github:nix-community/home-manager/master";
@@ -117,7 +116,7 @@
                 "neovim"
                 "nixcord"
                 "shell"
-                # "sketchybar"
+                "sketchybar"
                 "ssh"
             ];
             # Set your global accent color here (hex without #)
