@@ -117,7 +117,7 @@
                 "neovim"
                 "nixcord"
                 "shell"
-                "sketchybar"
+                # "sketchybar"
                 "ssh"
             ];
             # Set your global accent color here (hex without #)

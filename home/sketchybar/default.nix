@@ -16,6 +16,8 @@
       errorLogFile = /tmp/sketchyerr;
       outLogFile = /tmp/sketchylog;
     };
+    luaPackage = pkgs.lua5_4;
+    sbarLuaPackage = pkgs.sbarlua;
     config = {
         source = ./config;
         recursive = true;
