@@ -91,10 +91,23 @@ in {
                 outer = {
                     left = 5;
                     bottom = 5;
-                    top = 5;
+                    # top = 5;
+                    top = 27;
                     right = 5;
                 };
             };
+
+
+        exec-on-workspace-change = [
+          "/bin/zsh"
+          "-c"
+          "${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+        ];
+
+        on-focus-changed = [
+          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger space_windows_change"
+          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
+        ];
 
             # 'main' binding mode declaration
             # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

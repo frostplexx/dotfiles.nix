@@ -2,15 +2,15 @@ local settings = require "settings"
 
 local icons = {
   nerdfont = {
-    plus = "􀅼",
+    plus = "",
     loading = "􀖇",
-    apple = "",
-    gear = "􀍟",
+    apple = "",
+    gear = "",
     cpu = "󰒆",
-    clipboard = "􀉄",
-    music = "􀑪",
-    calendar = "􀐫",
-    message = "􁋬",
+    clipboard = "",
+    music = "",
+    calendar = "",
+    message = "",
     separators = {
       left = "",
       right = "",
@@ -21,23 +21,23 @@ local icons = {
     },
 
     switch = {
-      on = "􁏮",
-      off = "􁏯",
+      on = "󰔡",
+      off = "󰨙",
     },
     volume = {
-      _100 = "􀊨",
-      _66 = "􀊦",
-      _33 = "􀊤",
-      _10 = "􀊠",
-      _0 = "􀊢",
+      _100 = "",
+      _66 = "",
+      _33 = "",
+      _10 = "",
+      _0 = "",
     },
     battery = {
-      _100 = "􀛨",
-      _75 = "􀺸",
-      _50 = "􀺶",
-      _25 = "􀛩",
-      _0 = "􀛪",
-      charging = "􀢋",
+      _100 = "",
+      _75 = "",
+      _50 = "",
+      _25 = "",
+      _0 = "",
+      charging = "",
     },
     wifi = {
       upload = "􀄨",
@@ -49,8 +49,8 @@ local icons = {
       test = "",
     },
     media = {
-      back = "􀊊",
-      forward = "􀊌",
+      back = "",
+      forward = "",
       play_pause = "",
     },
     ramicons = {

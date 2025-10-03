@@ -8,7 +8,7 @@ sbar.default {
     font = {
       family = settings.font.text,
       style = settings.font.style_map["Regular"],
-      size = 14.0,
+      size = 12.0,
     },
     color = colors.item.text,
     padding_left = settings.paddings,
@@ -19,20 +19,20 @@ sbar.default {
     font = {
       family = settings.font.text,
       style = settings.font.style_map["Italic"],
-      size = 14.0,
+      size = 12.0,
     },
     color = colors.item.text,
     padding_left = settings.paddings,
     padding_right = settings.paddings,
   },
   background = {
-    height = 26,
+    height = 18,
     corner_radius = 8,
     color = colors.item.bg,
     border_color = colors.item.border,
     border_width = 2,
     shadow = {
-      drawing = true,
+      drawing = false,
       angle = 45,
       distance = 4,
       color = colors.item.border,
@@ -45,7 +45,7 @@ sbar.default {
       border_width = 2,
       corner_radius = 8,
       shadow = {
-        drawing = true,
+        drawing = false,
         angle = 45,
         distance = 4,
         color = colors.popup.border,
