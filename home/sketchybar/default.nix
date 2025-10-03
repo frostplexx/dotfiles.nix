@@ -10,6 +10,8 @@
       aerospace
       nowplaying-cli
       switchaudio-osx
+      bash
+      gnumake
     ];
     service = {
       enable = true;
