@@ -3,10 +3,10 @@ local icons = require "icons"
 
 local apple = sbar.add("item", {
   icon = {
-    font = { size = 20 },
+    font = { size = 14 },
     string = icons.apple,
-    padding_right = 15,
-    padding_left = 15,
+    padding_right = 4,
+    padding_left = 4,
     color = colors.apple,
   },
   label = { drawing = false },
@@ -21,16 +21,11 @@ apple:subscribe("mouse.clicked", function()
           distance = 0,
         },
       },
-      y_offset = -4,
+      y_offset = -0,
       padding_left = 8,
       padding_right = 0,
     }
     apple:set {
-      background = {
-        shadow = {
-          distance = 4,
-        },
-      },
       y_offset = 0,
       padding_left = 4,
       padding_right = 4,

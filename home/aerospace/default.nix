@@ -154,10 +154,10 @@ in {
                 ctrl-alt-cmd-4 = "workspace 4";
                 ctrl-alt-cmd-5 = "workspace 5";
                 ctrl-alt-cmd-6 = "workspace 6";
-                ctrl-alt-cmd-7 = "workspace 7";
-                ctrl-alt-cmd-8 = "workspace 8";
-                ctrl-alt-cmd-9 = "workspace 9";
-                ctrl-alt-cmd-0 = "workspace 10";
+                # ctrl-alt-cmd-7 = "workspace 7";
+                # ctrl-alt-cmd-8 = "workspace 8";
+                # ctrl-alt-cmd-9 = "workspace 9";
+                # ctrl-alt-cmd-0 = "workspace 10";
 
                 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
                 ctrl-alt-shift-cmd-1 = ["move-node-to-workspace 1" "workspace 1"];
@@ -166,9 +166,9 @@ in {
                 ctrl-alt-shift-cmd-4 = ["move-node-to-workspace 4" "workspace 4"];
                 ctrl-alt-shift-cmd-5 = ["move-node-to-workspace 5" "workspace 5"];
                 ctrl-alt-shift-cmd-6 = ["move-node-to-workspace 6" "workspace 6"];
-                ctrl-alt-shift-cmd-7 = ["move-node-to-workspace 7" "workspace 7"];
-                ctrl-alt-shift-cmd-8 = ["move-node-to-workspace 8" "workspace 8"];
-                ctrl-alt-shift-cmd-9 = ["move-node-to-workspace 9" "workspace 9"];
+                # ctrl-alt-shift-cmd-7 = ["move-node-to-workspace 7" "workspace 7"];
+                # ctrl-alt-shift-cmd-8 = ["move-node-to-workspace 8" "workspace 8"];
+                # ctrl-alt-shift-cmd-9 = ["move-node-to-workspace 9" "workspace 9"];
 
                 # See: https://nikitabobko.github.io/AeroSpace/commands#move
                 ctrl-alt-shift-cmd-h = "move left";
@@ -296,7 +296,7 @@ in {
                 }
                 {
                     "if".app-id = "com.google.Chrome";
-                    run = "move-node-to-workspace 7";
+                    run = "move-node-to-workspace 6";
                 }
                 # Order matters here!
                 # Callbacks are run in order and the firt match counts

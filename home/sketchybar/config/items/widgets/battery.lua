@@ -6,27 +6,9 @@ local battery = sbar.add("item", "widgets.battery", {
   icon = {},
   label = { drawing = false },
   background = { drawing = false },
-  padding_left = 12,
-  padding_right = 4,
+  padding_left = 8,
+  padding_right = 8,
   update_freq = 180,
-  popup = { align = "center", y_offset = 4 },
-})
-
-local remaining_time = sbar.add("item", {
-  padding_right = 10,
-  position = "popup." .. battery.name,
-  icon = {
-    padding_left = 10,
-    string = "Time remaining:",
-    width = 100,
-    align = "left",
-  },
-  label = {
-    string = "??:??h",
-    width = 100,
-    align = "right",
-  },
-  background = { drawing = false },
 })
 
 battery:subscribe({ "routine", "power_source_change", "system_woke" }, function()
@@ -72,14 +54,5 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
 end)
 
 battery:subscribe("mouse.clicked", function()
-  local drawing = battery:query().popup.drawing
-  battery:set { popup = { drawing = "toggle" } }
-
-  if drawing == "off" then
-    sbar.exec("pmset -g batt", function(batt_info)
-      local found, _, remaining = batt_info:find " (%d+:%d+) remaining"
-      local label = found and remaining .. "h" or "NA"
-      remaining_time:set { label = label }
-    end)
-  end
+  sbar.exec "open /System/Library/PreferencePanes/Battery.prefpane"
 end)

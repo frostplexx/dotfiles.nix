@@ -3,7 +3,7 @@ local colors = require("colors").sections.bar
 -- Equivalent to the --bar domain
 sbar.bar {
   topmost = "window",
-  height = 20,
+  height = 22,
   color = colors.bg,
   padding_right = 4,
   padding_left = 4,

@@ -70,5 +70,8 @@ inputs,
       maple-mono.truetype-autohint
       # Maple Mono NF (Ligature hinted)
       maple-mono.NF
+
+      # Ligature-based symbol font and a mapping function for sketchtybar
+      sketchybar-app-font
     ];
 }
