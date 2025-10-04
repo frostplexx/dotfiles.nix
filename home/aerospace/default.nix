@@ -11,8 +11,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "acsandmann";
       repo = "aerospace-swipe";
-      rev = "main";
-      sha256 = "sha256-07ik0grs3c4kf9b2q424ckvm3gzhr2i70x35msbrb0ll5gy89dk4=";
+      rev = "1845e0e99c4c4bb34453253189a437a698ddbdc8";
+      sha256 = "sha256-ZLaE/CuUgpWXrmV0cKLI8L9R92REECxWcpOwofMDMx4=";
     };
 
     nativeBuildInputs = with pkgs; [ gnumake ];
