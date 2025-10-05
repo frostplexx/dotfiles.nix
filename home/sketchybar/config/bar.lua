@@ -8,7 +8,7 @@ sbar.bar {
   padding_right = 4,
   padding_left = 4,
   margin = 5,
-  corner_radius = 25,
+  corner_radius = 5,
   y_offset = 2,
   border_color = colors.border,
   border_width = 0,

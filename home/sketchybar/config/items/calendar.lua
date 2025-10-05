@@ -19,33 +19,8 @@ local cal = sbar.add("item", {
   padding_left = 10,
   position = "right",
   update_freq = 30,
-  click_script = "open -a 'Calendar'",
+  click_script = "$CONFIG_DIR/helpers/notification_center/notification_center",
 })
-
--- cal:subscribe("mouse.clicked", function()
---   sbar.animate("tanh", 8, function()
---     cal:set {
---       background = {
---         shadow = {
---           distance = 0,
---         },
---       },
---       y_offset = -4,
---       padding_left = 14,
---       padding_right = 0,
---     }
---     cal:set {
---       background = {
---         shadow = {
---           distance = 4,
---         },
---       },
---       y_offset = 0,
---       padding_left = 10,
---       padding_right = 4,
---     }
---   end)
--- end)
 
 -- english date
 cal:subscribe({ "forced", "routine", "system_woke" }, function(env)

@@ -128,9 +128,9 @@ in {
                 ctrl-alt-cmd-b = "exec-and-forget open -a ${browser}";
                 ctrl-alt-cmd-shift-enter = "exec-and-forget open -a ${terminal}";
 
-                # ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../shell/fish/switch-audio.fish}'";
+                ctrl-alt-cmd-o = "exec-and-forget ${pkgs.fish}/bin/fish -c 'kitten quick-access-terminal --instance-group switch-audio ${../shell/fish/switch-audio.fish}'";
 
-                cltr-alt-cmd-o = "exec-and-forget /bin/zsh -c ${pkgs.sketchybar}/bin/sketchybar --trigger switch_audio";
+                # cltr-alt-cmd-o = "exec-and-forget /bin/zsh -c ${pkgs.sketchybar}/bin/sketchybar --trigger switch_audio";
                 ctrl-alt-cmd-right = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} next'";
                 ctrl-alt-cmd-left = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} previous'";
                 ctrl-alt-cmd-up = "exec-and-forget ${pkgs.fish}/bin/fish -c '${./music.fish} play'";
