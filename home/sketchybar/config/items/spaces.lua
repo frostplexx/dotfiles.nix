@@ -21,11 +21,11 @@ sbar.exec("aerospace list-workspaces --all", function(spaces_output)
                 string = space_name,
 
                 -- Horizontal padding around the number (adjust for spacing between workspaces)
-                padding_left = 4, -- Space before the number
+                padding_left = 4,  -- Space before the number
                 padding_right = 4, -- Space after the number
 
                 -- Colors from theme - inactive and active states
-                color = colors.icon.color,       -- Default/inactive color
+                color = colors.icon.color,               -- Default/inactive color
                 highlight_color = colors.icon.highlight, -- Active workspace color
 
                 -- Font settings for the workspace number
@@ -35,27 +35,28 @@ sbar.exec("aerospace list-workspaces --all", function(spaces_output)
             },
 
             -- Padding around the entire space item
-            padding_left = 2, -- Space before the entire item
+            padding_left = 2,  -- Space before the entire item
             padding_right = 2, -- Space after the entire item
 
             -- Background and border configuration for each workspace item
             background = {
                 color = require("colors").sections.item.bg, -- Background color from theme
                 -- border_color = colors.label.color,  -- Border color from theme
-                border_width = 1,                   -- Border thickness (1px)
-                corner_radius = 4,                  -- Rounded corners (adjust for more/less rounding)
+                -- highlight_color = colors.icon.highlight,   -- Active workspace color
+                border_width = 1,  -- Border thickness (1px)
+                corner_radius = 4, -- Rounded corners (adjust for more/less rounding)
             },
 
             -- Label configuration - shows app icons for windows in this workspace
             label = {
                 font = "sketchybar-app-font:Regular:11.0", -- App icon font
-                string = "space",                  -- Default text (will be replaced with app icons)
-                color = colors.label.color,        -- App icon color
-                highlight_color = colors.label.highlight, -- App icon highlight color
-                y_offset = -1,                     -- Vertical positioning adjustment
-                padding_right = 12,                -- Space after the app icons
-                padding_left = -1,                 -- Space after the app icons
-                drawing = false,                   -- Initially hidden, shown when workspace has apps
+                string = "space",                          -- Default text (will be replaced with app icons)
+                color = colors.icon.color,                 -- Default/inactive color
+                highlight_color = colors.icon.highlight,   -- Active workspace color
+                y_offset = -1,                             -- Vertical positioning adjustment
+                padding_right = 12,                        -- Space after the app icons
+                padding_left = -1,                         -- Space after the app icons
+                drawing = false,                           -- Initially hidden, shown when workspace has apps
             },
         })
 
@@ -70,6 +71,9 @@ sbar.exec("aerospace list-workspaces --all", function(spaces_output)
                 icon = {
                     highlight = selected -- Enable highlight color if selected
                 },
+                label = {
+                    highlight = selected,
+                }
             }
         end)
 
@@ -87,6 +91,12 @@ sbar.exec("aerospace list-workspaces --all", function(spaces_output)
                     has_apps = true
                     -- Look up the app icon from the icon map
                     local lookup = icon_map[app]
+
+                    -- FIXME: Custom override for Vesktop as thats not in the font
+                    if app == "Vesktop" then
+                        lookup = icon_map["Discord"]
+                    end
+
                     -- Use the found icon or default icon if app not in map
                     local icon = ((lookup == nil) and icon_map["default"] or lookup)
                     -- Add icon to the line with space separator
@@ -97,7 +107,7 @@ sbar.exec("aerospace list-workspaces --all", function(spaces_output)
                 space:set {
                     label = {
                         string = has_apps and icon_line or "", -- Show icons or empty string
-                        drawing = has_apps,        -- Only draw label if there are apps
+                        drawing = has_apps,                    -- Only draw label if there are apps
                     }
                 }
             end)

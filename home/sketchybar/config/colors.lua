@@ -22,11 +22,11 @@ M.sections = {
     border = theme.crust,
     text = theme.text,
   },
-  apple = theme.blue,
+  apple = theme.purple,
   spaces = {
     icon = {
       color = theme.muted,
-      highlight = theme.text,
+      highlight = theme.blue,
     },
     label = {
       color = theme.text,
