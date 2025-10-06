@@ -1,40 +1,43 @@
-{pkgs, config, ...}:
-let
-  music_player = "Music";
-  terminal = "kitty";
-  browser = "Zen";
+{
+    pkgs,
+    config,
+    ...
+}: let
+    music_player = "Music";
+    terminal = "kitty";
+    browser = "Zen";
 in {
-    # TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix
-    # jankyborders = {
-    #   enable = true;
-    #   style = "round";
-    #   width = 3.0;
-    #   hidpi = true;
-    #   order = "above";
-    #   active_color = "0xffcba6f7";
-    #   inactive_color = "0xff7f849c";
-    # };
-
-
-    xdg.configFile = {
-        "borders/bordersrc" = {
-            text = ''
-                #!/bin/bash
-
-                options=(
-                  style=round
-                  width=4.0
-                  hidpi=on
-                  active_color="0xff${config.accent_color}"
-                  inactive_color="0xff7f849c"
-                    # order=above
-                )
-
-                borders "''${options[@]}"
-            '';
-            executable = true;
+    services.jankyborders = {
+        enable = true;
+        settings = {
+            style = "round";
+            width = 3.0;
+            hidpi = true;
+            order = "above";
+            active_color = "0xff${config.accent_color}";
+            inactive_color = "0xff7f849c";
         };
     };
+
+    # xdg.configFile = {
+    #     "borders/bordersrc" = {
+    #         text = ''
+    #             #!/bin/bash
+    #
+    #             options=(
+    #               style=round
+    #               width=4.0
+    #               hidpi=on
+    #               active_color="0xff${config.accent_color}"
+    #               inactive_color="0xff7f849c"
+    #                 # order=above
+    #             )
+    #
+    #             borders "''${options[@]}"
+    #         '';
+    #         executable = true;
+    #     };
+    # };
 
     programs.aerospace = {
         launchd.enable = true;
@@ -97,17 +100,22 @@ in {
                 };
             };
 
+            exec-on-workspace-change = [
+                "/bin/zsh"
+                "-c"
+                "${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+            ];
 
-        exec-on-workspace-change = [
-          "/bin/zsh"
-          "-c"
-          "${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
-        ];
+            after-startup-command = [
+                "/bin/zsh"
+                "-c"
+                "${pkgs.sketchybar}/bin/sketchybar --reload"
+            ];
 
-        on-focus-changed = [
-          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger space_windows_change"
-          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
-        ];
+            on-focus-changed = [
+                "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger space_windows_change"
+                "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
+            ];
 
             # 'main' binding mode declaration
             # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

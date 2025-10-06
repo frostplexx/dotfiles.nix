@@ -1,13 +1,7 @@
 # programs/editor/default.nix
-{
-    pkgs,
-    ...
-}: let
-
-
+{pkgs, ...}: let
     # Can be either nvim or nvim-mini
     nvim_config = ./nvim;
-
     # treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in {
     programs.neovim = {

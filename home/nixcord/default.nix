@@ -86,8 +86,8 @@ in {
                 webScreenShareFixes.enable = true;
                 whoReacted.enable = true;
                 appleMusicRichPresence = {
-                  enable = false;
-                  activityType = "listening";
+                    enable = false;
+                    activityType = "listening";
                 };
             };
         };

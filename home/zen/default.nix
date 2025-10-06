@@ -68,7 +68,8 @@
                 };
                 "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
                     # Vimium
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi"; installation_mode = "force_installed";
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+                    installation_mode = "force_installed";
                 };
                 "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
                     # Refined GitHub
@@ -155,10 +156,9 @@
                     Status = "locked";
                 };
 
-
-                "toolkit.legacyUserProfileCustomizations.stylesheets" =  {
-                  Value = true;
-                  Status = "locked";
+                "toolkit.legacyUserProfileCustomizations.stylesheets" = {
+                    Value = true;
+                    Status = "locked";
                 };
 
                 # Some of these dont work because firefox stupid :(
@@ -200,56 +200,57 @@
 in {
     # Create the policy directory and file using Home Manager activation
     home = {
-    activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        mkdir -p ${policyJsonPathZen}
-        echo '${builtins.toJSON policyJson}' > ${policyJsonPathZen}/policies.json
-    '';
+        activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''
+            mkdir -p ${policyJsonPathZen}
+            echo '${builtins.toJSON policyJson}' > ${policyJsonPathZen}/policies.json
+        '';
 
-    # Install Catppuccin theme files directly using Home Manager
-    file = let
-        profileGlob = if pkgs.stdenv.isDarwin
-            then "Library/Application Support/zen/Profiles/*default*/chrome"
-            else ".zen/*default*/chrome";
-    in {
-        # Install userChrome.css to all profiles
-        "${profileGlob}/userChrome.css" = {
-            source = "${themeFiles}/userChrome.css";
-            recursive = false;
+        # Install Catppuccin theme files directly using Home Manager
+        file = let
+            profileGlob =
+                if pkgs.stdenv.isDarwin
+                then "Library/Application Support/zen/Profiles/*default*/chrome"
+                else ".zen/*default*/chrome";
+        in {
+            # Install userChrome.css to all profiles
+            "${profileGlob}/userChrome.css" = {
+                source = "${themeFiles}/userChrome.css";
+                recursive = false;
+            };
+
+            # Install userContent.css if it exists
+            "${profileGlob}/userContent.css" = lib.mkIf (builtins.pathExists "${themeFiles}/userContent.css") {
+                source = "${themeFiles}/userContent.css";
+                recursive = false;
+            };
         };
 
-        # Install userContent.css if it exists
-        "${profileGlob}/userContent.css" = lib.mkIf (builtins.pathExists "${themeFiles}/userContent.css") {
-            source = "${themeFiles}/userContent.css";
-            recursive = false;
-        };
-    };
+        # Alternative: Create a more precise profile installation
+        activation.zenBrowserThemeInstall = lib.hm.dag.entryAfter ["linkGeneration"] ''
+            echo "Installing Catppuccin ${catppuccinPalette}/${catppuccinAccent} theme for Zen Browser..."
 
-    # Alternative: Create a more precise profile installation
-    activation.zenBrowserThemeInstall = lib.hm.dag.entryAfter ["linkGeneration"] ''
-        echo "Installing Catppuccin ${catppuccinPalette}/${catppuccinAccent} theme for Zen Browser..."
+            # Find all Zen profiles and install theme
+            if [ -d "${zenProfilesPath}" ]; then
+                find "${zenProfilesPath}" -maxdepth 1 -type d \( -name "*default*" -o -name "*Default*" \) 2>/dev/null | while read -r profile; do
+                    if [ -n "$profile" ] && [ -d "$profile" ]; then
+                        chrome_dir="$profile/chrome"
+                        mkdir -p "$chrome_dir"
 
-        # Find all Zen profiles and install theme
-        if [ -d "${zenProfilesPath}" ]; then
-            find "${zenProfilesPath}" -maxdepth 1 -type d \( -name "*default*" -o -name "*Default*" \) 2>/dev/null | while read -r profile; do
-                if [ -n "$profile" ] && [ -d "$profile" ]; then
-                    chrome_dir="$profile/chrome"
-                    mkdir -p "$chrome_dir"
+                        # Copy theme files
+                        cp "${themeFiles}/userChrome.css" "$chrome_dir/" 2>/dev/null || true
 
-                    # Copy theme files
-                    cp "${themeFiles}/userChrome.css" "$chrome_dir/" 2>/dev/null || true
+                        cp "${themeFiles}/zen-logo.svg" "$chrome_dir/" 2>/dev/null || true
 
-                    cp "${themeFiles}/zen-logo.svg" "$chrome_dir/" 2>/dev/null || true
+                        if [ -f "${themeFiles}/userContent.css" ]; then
+                            cp "${themeFiles}/userContent.css" "$chrome_dir/" 2>/dev/null || true
+                        fi
 
-                    if [ -f "${themeFiles}/userContent.css" ]; then
-                        cp "${themeFiles}/userContent.css" "$chrome_dir/" 2>/dev/null || true
+                        echo "Theme installed for profile: $(basename "$profile")"
                     fi
-
-                    echo "Theme installed for profile: $(basename "$profile")"
-                fi
-            done
-        else
-            echo "Zen Browser profiles directory not found. Theme will be installed when profiles are created."
-        fi
-    '';
-  };
+                done
+            else
+                echo "Zen Browser profiles directory not found. Theme will be installed when profiles are created."
+            fi
+        '';
+    };
 }

@@ -1,7 +1,8 @@
 # Lyra-specific applications
 {
     pkgs,
-    config, ...
+    config,
+    ...
 }: {
     # MacOS-specific packages
     environment.systemPackages = with pkgs; [

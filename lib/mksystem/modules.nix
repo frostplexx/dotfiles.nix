@@ -72,18 +72,21 @@ in
                         inputs.sops-nix.homeManagerModules.sops
                         inputs.spicetify-nix.homeManagerModules.spicetify
                         (
-                            {
-                                lib,
-                                ...
-                            }: {
+                            {lib, ...}: {
                                 options.accent_color = lib.mkOption {
                                     type = lib.types.str;
-                                    default = if accent_color != null then accent_color else "cba6f7";
+                                    default =
+                                        if accent_color != null
+                                        then accent_color
+                                        else "cba6f7";
                                     description = "Global accent color (hex without #)";
                                 };
                                 config = {
                                     targets.darwin.linkApps.enable = false;
-                                    accent_color = if accent_color != null then accent_color else "cba6f7";
+                                    accent_color =
+                                        if accent_color != null
+                                        then accent_color
+                                        else "cba6f7";
                                 };
                             }
                         )
