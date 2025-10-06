@@ -56,11 +56,11 @@
         taps = builtins.attrNames config.nix-homebrew.taps;
         brews = [
             "displayplacer"
-            {
-                name = "borders";
-                args = ["tip"];
-                restart_service = "changed";
-            }
+            # {
+            #     name = "borders";
+            #     args = ["tip"];
+            #     restart_service = "changed";
+            # }
         ];
         casks = [
             "mediosz/tap/swipeaerospace"
