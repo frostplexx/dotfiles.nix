@@ -1,15 +1,9 @@
 {
   "todos": {
-    "home/aerospace/default.nix:7:TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix": {
-      "issueNumber": 460,
-      "file": "home/aerospace/default.nix",
-      "line": 7,
-      "text": "TODO: re-enable as soon as it gets updated in nixos and remove it from apps.nix"
-    },
-    "machines/macbook-pro-m1/apps.nix:77:TODO: Move to nix once available": {
-      "issueNumber": 461,
+    "machines/macbook-pro-m1/apps.nix:78:TODO: Move to nix once available": {
+      "issueNumber": 478,
       "file": "machines/macbook-pro-m1/apps.nix",
-      "line": 77,
+      "line": 78,
       "text": "TODO: Move to nix once available"
     }
   }
