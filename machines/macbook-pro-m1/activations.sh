@@ -5,8 +5,8 @@ echo "running activate settings..."
 defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
 defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
 
-# Disable transparent menubar
-defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
+# Enable transparent menubar
+defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
 # Other for custom color or nothing
 defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
 # can be either TintedDark, TintedLight, RegularLight, RegularDark, ClearDark, ClearLight or empty for automatic colors

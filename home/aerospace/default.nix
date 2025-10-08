@@ -19,25 +19,12 @@ in {
     };
   };
 
-  # xdg.configFile = {
-  #     "borders/bordersrc" = {
-  #         text = ''
-  #             #!/bin/bash
-  #
-  #             options=(
-  #               style=round
-  #               width=4.0
-  #               hidpi=on
-  #               active_color="0xff${config.accent_color}"
-  #               inactive_color="0xff7f849c"
-  #                 # order=above
-  #             )
-  #
-  #             borders "''${options[@]}"
-  #         '';
-  #         executable = true;
-  #     };
-  # };
+  programs.aerospace-swipe = {
+    enable = true;
+    haptic = false;
+    natural_swipe = true;
+    fingers = 3;
+  };
 
   programs.aerospace = {
     launchd.enable = true;
@@ -94,8 +81,8 @@ in {
         outer = {
           left = 5;
           bottom = 5;
-          # top = 5;
-          top = 27;
+          top = 5;
+          # top = 27;
           right = 5;
         };
       };

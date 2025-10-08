@@ -7,12 +7,11 @@
   # MacOS-specific packages
   environment.systemPackages = with pkgs; [
     # GUI Applications
-    jetbrains.idea-ultimate
-    jetbrains.pycharm-professional
+    # jetbrains.idea-ultimate
+    # jetbrains.pycharm-professional
     # ollama
     keka
     utm
-    aerospace
     mas
     switchaudio-osx
     whisky
@@ -57,11 +56,6 @@
     taps = builtins.attrNames config.nix-homebrew.taps;
     brews = [
       "displayplacer"
-      # {
-      #     name = "borders";
-      #     args = ["tip"];
-      #     restart_service = "changed";
-      # }
     ];
     casks = [
       "mediosz/tap/swipeaerospace"

@@ -27,7 +27,7 @@
     nixkit = {
       url = "github:frostplexx/nixkit";
       # or for local development:
-      # url = "path:/Users/daniel/Developer/nixkit";
+      # url = "path:/Users/daniel/Developer/github.com/frostplexx/nixkit";
     };
 
     lazykeys = {
@@ -121,7 +121,7 @@
         "neovim"
         "nixcord"
         "shell"
-        "sketchybar"
+        # "sketchybar"
         "ssh"
       ];
       # Set your global accent color here (hex without #)

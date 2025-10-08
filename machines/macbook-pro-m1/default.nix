@@ -173,7 +173,7 @@
 
         # Interface preferences
         AppleShowAllExtensions = true;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
         AppleICUForce24HourTime = true;
         NSAutomaticCapitalizationEnabled = false;
 
