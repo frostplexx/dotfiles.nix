@@ -82,6 +82,13 @@
     knownUsers = [user];
   };
 
+  power = {
+    sleep = {
+      computer = 5;
+      display = 1;
+    };
+  };
+
   # System defaults and preferences
   system = {
     primaryUser = user;
@@ -157,6 +164,11 @@
       ".GlobalPreferences"."com.apple.mouse.scaling" = 0.875;
 
       hitoolbox.AppleFnUsageType = "Do Nothing";
+
+      screensaver = {
+        askForPassword = true;
+        askForPasswordDelay = 5;
+      };
 
       # Global system preferences
       NSGlobalDomain = {
