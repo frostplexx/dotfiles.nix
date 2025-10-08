@@ -198,6 +198,11 @@
     };
   };
 in {
+  programs.default-browser = {
+    enable = true;
+    browser = "zen"; # Or any other browser name
+  };
+
   # Create the policy directory and file using Home Manager activation
   home = {
     activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''

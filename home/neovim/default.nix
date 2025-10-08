@@ -21,7 +21,7 @@ in {
       coreutils
       luajitPackages.tiktoken_core
       lynx
-      vscode-js-debug
+      # vscode-js-debug
     ];
 
     plugins = [

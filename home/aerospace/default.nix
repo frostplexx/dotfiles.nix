@@ -13,7 +13,7 @@ in {
       style = "round";
       width = 3.0;
       hidpi = true;
-      order = "above";
+      # order = "above";
       active_color = "0xff${config.accent_color}";
       inactive_color = "0xff7f849c";
     };
@@ -251,6 +251,10 @@ in {
         }
         {
           "if".app-id = "com.hnc.Discord";
+          run = "move-node-to-workspace 4";
+        }
+        {
+          "if".app-id = "com.apple.mail";
           run = "move-node-to-workspace 4";
         }
         {
