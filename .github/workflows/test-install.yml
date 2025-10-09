@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set hostname
+        run: sudo scutil --set HostName macbook-pro-m1
+
       - name: Install jq
         run: brew install jq
 
