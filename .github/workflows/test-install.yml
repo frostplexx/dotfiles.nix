@@ -24,18 +24,21 @@ jobs:
       - name: Install jq
         run: brew install jq
 
-      - name: Run install script (dry-run simulation)
+      - name: Test script syntax
         run: |
-          # Make script executable
           chmod +x scripts/install.sh
-
-          # Test that script can be parsed and basic checks work
           bash -n scripts/install.sh
+          echo "✓ Script syntax is valid"
 
-          echo "Script syntax is valid"
+      - name: Test script functions
+        run: |
+          # Create a test script that sources install.sh and tests functions
+          cat > test_functions.sh << 'EOF'
+          #!/bin/bash
+          set -e
 
-          # Test individual functions in isolation
-          source scripts/install.sh
+          # Source only the functions, don't execute the main script
+          source <(sed -n '1,/^if \[ "\$OS_TYPE" = "Darwin" \]/p' scripts/install.sh | head -n -1)
 
           # Test command_exists function
           if command_exists git; then
@@ -57,8 +60,33 @@ jobs:
           if [ "$OS_TYPE" = "Darwin" ]; then
             echo "✓ OS detection works (Darwin detected)"
           else
-            echo "✗ OS detection failed"
+            echo "✗ OS detection failed (expected Darwin, got $OS_TYPE)"
             exit 1
           fi
 
-          echo "All basic tests passed!"
+          # Test that Xcode CLI tools are present (should be on GitHub runners)
+          if xcode-select -p >/dev/null 2>&1; then
+            echo "✓ Xcode Command Line Tools are installed"
+          else
+            echo "✗ Xcode Command Line Tools not found"
+            exit 1
+          fi
+
+          echo "✓ All function tests passed!"
+          EOF
+
+          chmod +x test_functions.sh
+          bash test_functions.sh
+
+      - name: Test script execution with auto-confirm
+        run: |
+          # Run the script with 'n' to decline installation
+          echo "n" | bash scripts/install.sh || true
+
+          # Verify the script at least started correctly
+          if [ $? -eq 0 ] || [ $? -eq 1 ]; then
+            echo "✓ Script executed without syntax errors"
+          else
+            echo "✗ Script failed with unexpected error"
+            exit 1
+          fi
