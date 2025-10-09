@@ -32,13 +32,14 @@ jobs:
 
       - name: Test script functions
         run: |
-          # Create a test script that sources install.sh and tests functions
+          # Create a test script that sources only functions from install.sh
           cat > test_functions.sh << 'EOF'
           #!/bin/bash
           set -e
 
-          # Source only the functions, don't execute the main script
-          source <(sed -n '1,/^if \[ "\$OS_TYPE" = "Darwin" \]/p' scripts/install.sh | head -n -1)
+          # Extract just the functions from install.sh (before the main if block at line 240)
+          head -n 239 scripts/install.sh > functions_only.sh
+          source functions_only.sh
 
           # Test command_exists function
           if command_exists git; then
