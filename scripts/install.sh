@@ -67,6 +67,29 @@ check_tools() {
     return 0;
 }
 
+
+# Function to create nix configuration file
+create_nix_config() {
+    print_status "Creating nix configuration file..."
+    
+    # Create nix directory if it doesn't exist
+    sudo mkdir -p /etc/nix
+    
+    # Create the nix.conf file with required settings
+    sudo tee /etc/nix/nix.conf > /dev/null << 'EOF'
+experimental-features = nix-command flakes parallel-eval
+lazy-trees = true
+warn-dirty = false
+substituters = https://nix-community.cachix.org https://cache.nixos.org
+trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+eval-cores = 0
+auto-optimise-store = true
+max-jobs = auto
+EOF
+    
+    print_success "Nix configuration file created at /etc/nix/nix.conf"
+}
+
 # Installs git, curl and command line utilities
 install_tools() {
     if [ "$OS_TYPE" = "Darwin" ]; then
@@ -116,6 +139,9 @@ install_nix(){
         else
             echo -e "${WARN} Nix already installed"
         fi
+
+        print_status "Making sure ~/.local is owned by user"
+        sudo chown -R "$USER" ~/.local
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
         print_error "Couldnt find nix on NixOS...this is a big problem, arborting"
     fi
@@ -240,7 +266,8 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     if [ $tools_installed -ne 0 ]; then install_tools ; fi
     if [ $nix_installed -ne 0 ]; then install_nix ; fi
     if [ $flake_exists -ne 0 ]; then install_flake ; fi
-
+    
+    create_nix_config
     deploy_flake
 
 

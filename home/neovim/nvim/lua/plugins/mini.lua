@@ -59,6 +59,7 @@ return {
             }
         })
 
+        -- TODO: update this once fff supports better stuff
         -- set mini.pick as ui.select.
         vim.ui.select = MiniPick.ui_select
 
@@ -223,6 +224,7 @@ return {
         starter.setup({
             items = {
                 starter.sections.builtin_actions(),
+                { name = "Open Last File", action = "'0", section = "Builtin actions" }
             },
             content_hooks = {
                 starter.gen_hook.aligning('center', 'center'),

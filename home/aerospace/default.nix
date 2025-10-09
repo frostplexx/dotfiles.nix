@@ -81,7 +81,8 @@ in {
         outer = {
           left = 5;
           bottom = 5;
-          top = 5;
+          # top = 5;
+          top = 0;
           # top = 27;
           right = 5;
         };
@@ -295,7 +296,7 @@ in {
         }
         {
           "if".app-id = "com.google.Chrome";
-          run = "move-node-to-workspace 6";
+          run = "layout floating";
         }
         # Order matters here!
         # Callbacks are run in order and the firt match counts
