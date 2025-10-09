@@ -1,0 +1,64 @@
+name: "Test Install Script"
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - 'scripts/install.sh'
+      - '.github/workflows/test-install.yml'
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - 'scripts/install.sh'
+      - '.github/workflows/test-install.yml'
+
+jobs:
+  test-install-macos:
+    name: Test install.sh on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install jq
+        run: brew install jq
+
+      - name: Run install script (dry-run simulation)
+        run: |
+          # Make script executable
+          chmod +x scripts/install.sh
+
+          # Test that script can be parsed and basic checks work
+          bash -n scripts/install.sh
+
+          echo "Script syntax is valid"
+
+          # Test individual functions in isolation
+          source scripts/install.sh
+
+          # Test command_exists function
+          if command_exists git; then
+            echo "✓ command_exists works for git"
+          else
+            echo "✗ command_exists failed for git"
+            exit 1
+          fi
+
+          # Test check_tools function
+          if check_tools; then
+            echo "✓ check_tools passed"
+          else
+            echo "✗ check_tools failed"
+            exit 1
+          fi
+
+          # Test OS detection
+          if [ "$OS_TYPE" = "Darwin" ]; then
+            echo "✓ OS detection works (Darwin detected)"
+          else
+            echo "✗ OS detection failed"
+            exit 1
+          fi
+
+          echo "All basic tests passed!"
