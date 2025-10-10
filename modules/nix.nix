@@ -4,21 +4,17 @@
   inputs,
   ...
 }: {
-  environment.etc."nix/nix.custom.conf" = {
-    text = ''
-      experimental-features = nix-command flakes parallel-eval
-      lazy-trees = true
-      warn-dirty = false
-      substituters = https://nix-community.cachix.org https://cache.nixos.org
-      trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-      eval-cores = 0 # Evaluate across all cores
+  environment.etc."nix/nix.custom.conf".text = ''
+    experimental-features = nix-command flakes parallel-eval
+    lazy-trees = true
+    warn-dirty = false
+    substituters = https://nix-community.cachix.org https://cache.nixos.org
+    trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+    eval-cores = 0 # Evaluate across all cores
 
-      auto-optimise-store = true
-      max-jobs = auto
-    '';
-    mode = "0644";
-    force = true;
-  };
+    auto-optimise-store = true
+    max-jobs = auto
+  '';
 
   # Determinate uses its own daemon to manage the Nix installation that
   # conflicts with nix-darwin’s native Nix management.

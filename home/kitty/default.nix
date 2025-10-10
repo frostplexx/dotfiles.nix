@@ -86,6 +86,12 @@
       scrollback_pager = "nvim -u NONE -R -M -c 'lua require(\"core.kitty_scrollback\")(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)' -";
     };
 
+    quickAccessTerminalConfig = {
+      start_as_hidden = true;
+      hide_on_focus_loss = false;
+      background_opacity = 0.85;
+    };
+
     shellIntegration = {
       mode = "no-cursor";
       enableFishIntegration = true;
