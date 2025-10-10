@@ -118,12 +118,11 @@
         text = ''
           echo "Running activate settings..."
 
-          # Run defaults commands as the user, not root
           sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
           sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
 
           # Disable transparent menubar
-          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
+          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
 
           # Other for custom color or nothing
           sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
