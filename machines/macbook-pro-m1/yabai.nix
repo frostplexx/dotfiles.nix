@@ -1,15 +1,15 @@
-{pkgs, ...}: {
+{config, ...}: {
   services = {
-    # jankyborders = {
-    #   enable = true;
-    #   settings = {
-    #     style = "round";
-    #     width = 3.0;
-    #     hidpi = true;
-    #     active_color = "0xff${config.accent_color}";
-    #     inactive_color = "0xff7f849c";
-    #   };
-    # };
+    jankyborders = {
+      enable = true;
+      settings = {
+        style = "round";
+        width = 3.0;
+        hidpi = true;
+        active_color = "0xff${config.accent_color}";
+        inactive_color = "0xff7f849c";
+      };
+    };
 
     yabai = {
       enable = true;
@@ -83,13 +83,6 @@
         yabai -m rule --add app="^Google Chrome$" manage=off
 
         # Signals for sketchybar integration
-        # yabai -m signal --add event=space_changed action="${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=\$YABAI_SPACE_ID"
-        # yabai -m signal --add event=window_focused action="${pkgs.sketchybar}/bin/sketchybar --trigger space_windows_change"
-        # yabai -m signal --add event=window_focused action="${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
-        # yabai -m signal --add event=application_front_switched action="${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
-
-        # Reload sketchybar on startup
-        # ${pkgs.sketchybar}/bin/sketchybar --reload
         sudo yabai --load-sa
       '';
     };
