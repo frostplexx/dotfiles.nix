@@ -4,22 +4,38 @@
   user,
   ...
 }: let
+  # === Modify this if you want to use vesktop ===
+  useVesktop = false;
+
   themeFile = "catppuccin-mocha.theme.css";
   themeUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
 
-  # Define theme path based on operating system
-  themePath =
+  vekstopPath =
     if pkgs.stdenv.isDarwin
     then "/Users/${user}/Library/Application Support/vesktop/themes/${themeFile}"
     else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
+
+  discordPath =
+    if pkgs.stdenv.isDarwin
+    then "/Users/${user}/Library/Application Support/Vencord/themes/${themeFile}"
+    else "${config.xdg.configHome}/Vencord/themes/${themeFile}";
+
+  # Define theme path based on operating system
+  themePath =
+    if useVesktop
+    then vekstopPath
+    else discordPath;
 in {
   programs.nixcord = {
     enable = true;
     discord = {
-      enable = false;
+      enable =
+        if useVesktop
+        then false
+        else true;
     };
     vesktop = {
-      enable = true;
+      enable = useVesktop;
       package = pkgs.vesktop;
     };
     config = {
@@ -117,15 +133,6 @@ in {
           then true
           else false;
       };
-      force = true;
-    };
-    # Quick CSS configuration
-    "${config.programs.nixcord.vesktop.configDir}/settings/quickCss.css" = {
-      text = ''
-        .titleBar_a934d8 {
-          display: none !important;
-        }
-      '';
       force = true;
     };
   };
