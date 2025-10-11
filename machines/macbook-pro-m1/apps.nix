@@ -60,6 +60,7 @@
     casks = [
       "mediosz/tap/swipeaerospace"
       "altserver"
+      "discord@ptb"
       "chromium"
       "firefox"
       "cleanshot"
