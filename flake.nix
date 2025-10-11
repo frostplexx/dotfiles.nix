@@ -122,6 +122,7 @@
         "nixcord"
         "shell"
         # "sketchybar"
+        "skhd"
         "ssh"
       ];
       # Set your global accent color here (hex without #)

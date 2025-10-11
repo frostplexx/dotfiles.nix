@@ -1,6 +1,12 @@
 
 [macos]
 [group('󰲽 utility')]
+[doc('Restarts yabai, skhd and lazykeys')]
+restart_wm:
+    @sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd
+
+[macos]
+[group('󰲽 utility')]
 [doc('Sets the current screen to HiDPI mode')]
 set_screen_hidpi:
     @"{{DOTFILES_FOLDER}}/modules/jinx/misc/highres_display.sh"
