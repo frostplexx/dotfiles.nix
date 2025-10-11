@@ -8,6 +8,7 @@
   imports = [
     ../shared.nix # Base configuration
     ./apps.nix # macbook-pro-m1 specific apps
+    ./yabai.nix
     # ./custom_icons.nix
     # ./smb_automount.nix
   ];

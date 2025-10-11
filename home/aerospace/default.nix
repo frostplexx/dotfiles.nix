@@ -189,6 +189,7 @@ in {
         esc = ["mode main"];
         r = ["reload-config" "mode main"];
 
+        backspace = ["close-all-windows-but-current" "mode main"];
         alt-shift-h = ["join-with left" "mode main"];
         alt-shift-j = ["join-with down" "mode main"];
         alt-shift-k = ["join-with up" "mode main"];
