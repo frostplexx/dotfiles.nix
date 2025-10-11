@@ -2,13 +2,11 @@
   services = {
     jankyborders = {
       enable = true;
-      settings = {
-        style = "round";
-        width = 3.0;
-        hidpi = true;
-        active_color = "0xff${config.accent_color}";
-        inactive_color = "0xff7f849c";
-      };
+      style = "round";
+      width = 3.0;
+      hidpi = true;
+      active_color = "0xff${config.accent_color}";
+      inactive_color = "0xff7f849c";
     };
 
     yabai = {
