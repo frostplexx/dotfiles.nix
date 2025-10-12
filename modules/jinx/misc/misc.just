@@ -3,7 +3,9 @@
 [group('󰲽 utility')]
 [doc('Restarts yabai, skhd and lazykeys')]
 restart_wm:
-    @sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd
+    @sudo yabai --load-sa 
+    @sudo pkill -9 lazykeys 
+    @sudo pkill -9 skhd
 
 [macos]
 [group('󰲽 utility')]
