@@ -3,7 +3,6 @@
 [doc('Upgrade flake inputs and deploy')]
 upgrade: lint
     @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
-    @jinx r
     @cd {{DOTFILES_FOLDER}}; git add .
     @git commit -m "chore: update flake inputs"
 

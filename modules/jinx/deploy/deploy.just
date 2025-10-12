@@ -15,7 +15,6 @@ deploy host="$(hostname)": lint
     else \
         nh {{nix_cmd}} switch -H {{host}} {{DOTFILES_FOLDER}}; \
     fi
-    @jinx r
 
 
 
