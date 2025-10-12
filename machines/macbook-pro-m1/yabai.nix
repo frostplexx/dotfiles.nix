@@ -18,17 +18,22 @@
 
         # Focus
         focus_follows_mouse = "off";
-        mouse_follows_focus = "off";
+        mouse_follows_focus = "on";
 
         # Window placement
         window_placement = "second_child";
-        auto_balance = "off";
+        auto_balance = "on";
+
+        split_ratio = 0.5;
+        window_animation_duration = 0.5;
+        window_animation_easing = "ease_out_quint";
 
         # Opacity
-        window_opacity = "off";
+        window_opacity = "on";
         window_shadow = "float";
         active_window_opacity = 1.0;
-        normal_window_opacity = 0.9;
+        normal_window_opacity = 0.8;
+        window_opacity_duration = 0.2;
 
         # Gaps (matching aerospace config)
         top_padding = 0;
@@ -39,10 +44,17 @@
       };
 
       extraConfig = ''
+        sudo yabai --load-sa
+        yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
         # Window rules (matching aerospace on-window-detected)
 
-        # Picture-in-Picture windows should float
+        # Floating Rules
         yabai -m rule --add app="^Zen Browser$" title="Picture-in-Picture" manage=off
+        yabai -m rule --add app="^(LuLu|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Kitty|Alfred|Activity Monitor)$" manage=off
+        yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+        yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+        yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 
         # Browser apps -> Space 1
         yabai -m rule --add app="^Firefox$" space=1
@@ -80,8 +92,6 @@
         yabai -m rule --add app="^Simulator$" manage=off
         yabai -m rule --add app="^Google Chrome$" manage=off
 
-        # Signals for sketchybar integration
-        sudo yabai --load-sa
       '';
     };
   };
