@@ -56,10 +56,12 @@
         yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 
         # Browser apps -> Space 1
+        yabai -m space 1 --label Browser
         yabai -m rule --add app="^Firefox$" space=1
         yabai -m rule --add app="^Zen Browser$" space=1
 
         # Development apps -> Space 2
+        yabai -m space 2 --label Development
         yabai -m rule --add app="^IntelliJ IDEA$" space=2
         yabai -m rule --add app="^WezTerm$" space=2
         yabai -m rule --add app="^Ghostty$" space=2
@@ -68,20 +70,26 @@
         yabai -m rule --add app="^kitty$" title="kittyfloat" manage=off
 
         # Productivity apps -> Space 3
+        yabai -m space 3 --label Productivity
         yabai -m rule --add app="^GoodNotes$" space=3
         yabai -m rule --add app="^Obsidian$" space=3
         yabai -m rule --add app="^Things$" space=3
 
         # Communication apps -> Space 4
+        yabai -m space 4 --label Communication
         yabai -m rule --add app="^Vesktop$" space=4
         yabai -m rule --add app="^zoom.us$" space=4
         yabai -m rule --add app="^Discord$" space=4
         yabai -m rule --add app="^Mail$" space=4
 
         # Music -> Space 5
+        yabai -m space 5 --label Music
         yabai -m rule --add app="^Spotify$" space=5
         yabai -m rule --add app="^Music$" space=5
         yabai -m rule --add title="MiniPlayer" manage=off
+
+
+        yabai -m space 6 --label Other
 
         # Floating apps
         yabai -m rule --add app="^Finder$" manage=off

@@ -13,7 +13,7 @@ return {
                 "latex",
                 "markdown_inline",
                 "markdown",
-                "css", "html", "javascript", "latex", "norg", "scss", "svelte", "tsx", "typst", "vue",
+                "css", "html", "javascript", "latex", "norg", "scss", "svelte", "tsx", "typescript", "typst", "vue",
                 "regex", "lua",
                 "diff",
                 "bash"
