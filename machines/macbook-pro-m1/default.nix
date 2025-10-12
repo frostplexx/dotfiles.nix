@@ -86,7 +86,7 @@
   power = {
     sleep = {
       computer = 5;
-      display = 1;
+      display = 10;
     };
   };
 
@@ -123,7 +123,7 @@
           sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
 
           # Disable transparent menubar
-          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
+          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
 
           # Other for custom color or nothing
           sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
@@ -185,7 +185,7 @@
 
         # Interface preferences
         AppleShowAllExtensions = true;
-        _HIHideMenuBar = false;
+        _HIHideMenuBar = true;
         AppleICUForce24HourTime = true;
         NSAutomaticCapitalizationEnabled = false;
 

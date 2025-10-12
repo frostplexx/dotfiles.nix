@@ -25,18 +25,18 @@
         auto_balance = "on";
 
         split_ratio = 0.5;
-        window_animation_duration = 0.5;
+        window_animation_duration = 0.1;
         window_animation_easing = "ease_out_quint";
 
         # Opacity
-        window_opacity = "on";
+        window_opacity = "off";
         window_shadow = "float";
         active_window_opacity = 1.0;
-        normal_window_opacity = 0.8;
-        window_opacity_duration = 0.2;
+        normal_window_opacity = 0.9;
+        window_opacity_duration = 0.1;
 
         # Gaps (matching aerospace config)
-        top_padding = 0;
+        top_padding = 5;
         bottom_padding = 5;
         left_padding = 5;
         right_padding = 5;
@@ -44,7 +44,6 @@
       };
 
       extraConfig = ''
-        sudo yabai --load-sa
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd"
 
         # Window rules (matching aerospace on-window-detected)
