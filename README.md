@@ -69,12 +69,12 @@ To take full advantage of yabai you need to disable system integrity protection 
     # Requires Filesystem Protections and Debugging Restrictions to be disabled (workaround because --without debug does not work)
     # (printed warning can be safely ignored)
     csrutil disable --with kext --with dtrace --with nvram --with basesystem
-```
+    ```
 5. Reboot
 6. For Apple Silicon; enable non-Apple-signed arm64e binaries ```bash
 # Open a terminal and run the below command, then reboot
 sudo nvram boot-args=-arm64e_preview_abi
-```
+    ```
 7. You can verify that System Integrity Protection is turned off by running csrutil status, which returns System Integrity Protection status: disabled. if it is turned off (it may show unknown for newer versions of macOS when disabling SIP partially).
 
 If you ever want to re–enable System Integrity Protection after uninstalling yabai; repeat the steps above, but run csrutil enable instead at step 4.
