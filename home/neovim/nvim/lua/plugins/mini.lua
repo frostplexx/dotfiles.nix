@@ -5,7 +5,6 @@ return {
         {
             src = "https://github.com/dmtrKovalenko/fff.nvim",
             name = "fff.nvim",
-            data = { build = "nix run .#release" },
         }
     },
     config = function()
@@ -59,9 +58,18 @@ return {
             }
         })
 
-        -- TODO: update this once fff supports better stuff
         -- set mini.pick as ui.select.
         vim.ui.select = MiniPick.ui_select
+
+
+        -- TODO: update this once fff supports better stuff
+        nvim.create_autocmd('PackChanged', {
+            callback = function(event)
+                if event.data.updated then
+                    require('fff.download').download_or_build_binary()
+                end
+            end,
+        })
 
         ---@class FFFItem
         ---@field name string

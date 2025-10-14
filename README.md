@@ -35,6 +35,51 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 - A Computer running macOS or NixOS
 
+### Disable SIP (Optional)
+
+To take full advantage of yabai you need to disable system integrity protection on macOS. To do this follow these steps (taken from the yabai wiki), or alternatively use aerospace by modifying the config.
+
+1. Turn off your device
+2. **Intel (apple docs):** 
+    Hold down command ⌘R while booting your device.
+   **Apple Silicon (apple docs):**
+    Press and hold the power button on your Mac until “Loading startup options” appears.
+    Click Options, then click Continue.
+3. In the menu bar, choose Utilities, then Terminal
+4. ```bash
+    #
+    # APPLE SILICON
+    #
+    
+    # If you're on Apple Silicon macOS 13.x.x OR newer
+    # Requires Filesystem Protections, Debugging Restrictions and NVRAM Protection to be disabled
+    # (printed warning can be safely ignored)
+    csrutil enable --without fs --without debug --without nvram
+    
+    # If you're on Apple Silicon macOS 12.x.x
+    # Requires Filesystem Protections, Debugging Restrictions and NVRAM Protection to be disabled
+    # (printed warning can be safely ignored)
+    csrutil disable --with kext --with dtrace --with basesystem
+    
+    #
+    # INTEL
+    #
+    
+    # If you're on Intel macOS 11.x.x OR newer
+    # Requires Filesystem Protections and Debugging Restrictions to be disabled (workaround because --without debug does not work)
+    # (printed warning can be safely ignored)
+    csrutil disable --with kext --with dtrace --with nvram --with basesystem
+```
+5. Reboot
+6. For Apple Silicon; enable non-Apple-signed arm64e binaries ```bash
+# Open a terminal and run the below command, then reboot
+sudo nvram boot-args=-arm64e_preview_abi
+```
+7. You can verify that System Integrity Protection is turned off by running csrutil status, which returns System Integrity Protection status: disabled. if it is turned off (it may show unknown for newer versions of macOS when disabling SIP partially).
+
+If you ever want to re–enable System Integrity Protection after uninstalling yabai; repeat the steps above, but run csrutil enable instead at step 4.
+Please note that System Integrity Protection will be re–enabled during device repairs or analysis at any Apple Retail Store or Apple Authorized Service Provider. You will have to repeat this step after getting your device back.
+
 ### Installation
 
 #### Automatic
