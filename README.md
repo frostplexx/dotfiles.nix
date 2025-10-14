@@ -33,7 +33,8 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 ### Prerequisites
 
-- A Computer running macOS or NixOS
+- A Computer running the latest macOS or NixOS
+- An internet connection
 
 ### Disable SIP (Optional)
 
