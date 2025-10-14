@@ -71,7 +71,8 @@ To take full advantage of yabai you need to disable system integrity protection 
     csrutil disable --with kext --with dtrace --with nvram --with basesystem
     ```
 5. Reboot
-6. For Apple Silicon; enable non-Apple-signed arm64e binaries ```bash
+6. For Apple Silicon; enable non-Apple-signed arm64e binaries
+```bash
 # Open a terminal and run the below command, then reboot
 sudo nvram boot-args=-arm64e_preview_abi
     ```
