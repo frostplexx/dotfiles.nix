@@ -2,7 +2,7 @@
 {pkgs, ...}: let
   # Can be either nvim or nvim-mini
   nvim_config = ./nvim;
-  # treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
+  treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
 in {
   programs.neovim = {
     enable = true;
@@ -58,9 +58,9 @@ in {
 
     # Treesitter is configured as a locally developed module in lazy.nvim
     # we hardcode a symlink here so that we can refer to it in our lazy config
-    # ".local/share/nvim/nix/nvim-treesitter/" = {
-    #     recursive = true;
-    #     source = treeSitterWithAllGrammars;
-    # };
+    ".local/share/nvim/nix/nvim-treesitter/" = {
+      recursive = true;
+      source = treeSitterWithAllGrammars;
+    };
   };
 }
