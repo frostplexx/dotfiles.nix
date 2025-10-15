@@ -63,7 +63,7 @@ return {
 
 
         -- TODO: update this once fff supports better stuff
-        nvim.create_autocmd('PackChanged', {
+        vim.api.nvim_create_autocmd('PackChanged', {
             callback = function(event)
                 if event.data.updated then
                     require('fff.download').download_or_build_binary()
