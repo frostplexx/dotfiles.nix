@@ -18,7 +18,7 @@
 
         # Focus
         focus_follows_mouse = "off";
-        mouse_follows_focus = "on";
+        mouse_follows_focus = "off";
 
         # Window placement
         window_placement = "second_child";
