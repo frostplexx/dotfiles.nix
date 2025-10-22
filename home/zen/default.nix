@@ -3,6 +3,15 @@
   lib,
   ...
 }: let
+  #===========================================================================
+  # CONFIGURATION
+  #===========================================================================
+  # Theme configuration
+  enableCustomTheme = false;
+  catppuccinPalette = "Mocha";
+  catppuccinAccent = "Mauve";
+
+  # Platform-specific paths
   policyJsonPathZen =
     if pkgs.stdenv.isDarwin
     then "/Applications/Zen.app/Contents/Resources/distribution"
@@ -13,11 +22,90 @@
     then "$HOME/Library/Application Support/zen/Profiles"
     else "$HOME/.zen";
 
-  # Catppuccin theme configuration
-  catppuccinPalette = "Mocha";
-  catppuccinAccent = "Mauve";
+  #===========================================================================
+  # EXTENSIONS
+  #===========================================================================
 
-  # Fetch the Catppuccin Zen Browser theme repository
+  extensions = {
+    "uBlock0@raymondhill.net" = {
+      name = "uBlock Origin";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+    };
+    "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
+      name = "1Password";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+    };
+    "clipper@obsidian.md" = {
+      name = "Obsidian Web Clipper";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    "sponsorBlocker@ajay.app" = {
+      name = "SponsorBlock";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    "addon@darkreader.org" = {
+      name = "Dark Reader";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+      name = "Vimium";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
+      name = "Refined GitHub";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    "containerise@kinte.sh" = {
+      name = "Containerise";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/containerise/latest.xpi";
+      installation_mode = "force_installed";
+    };
+  };
+
+  #===========================================================================
+  # PREFERENCES
+  #===========================================================================
+
+  # Preferences that go into user.js (unrestricted, works for Zen-specific prefs)
+  userPreferences = {
+    # Zen-specific preferences
+    "zen.glance.activation-method" = "shift";
+    "zen.theme.gradient.show-custom-colors" = true;
+    "zen.welcome-screen.seen" = true;
+    "zen.theme.accent-color" = "#BE89FF";
+    "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
+    "zen.workspaces.continue-where-left-off" = true;
+    "zen.workspaces.force-container-workspace" = true;
+    "zen.view.compact.should-enable-at-startup" = true;
+    "zen.view.compact.enable-at-startup" = true;
+
+    # General preferences
+    "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
+    "browser.tabs.warnOnClose" = true;
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = enableCustomTheme;
+  };
+
+  # Preferences that go into policies.json (for locked/managed preferences)
+  policyPreferences = {
+    "browser.uiCustomization.state" = {
+      Value = ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","addon_darkreader_org-browser-action","containerise_kinte_sh-browser-action","clipper_obsidian_md-browser-action","_a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad_-browser-action","_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","customizableui-special-spring1","vertical-spacer","urlbar-container","customizableui-special-spring2","unified-extensions-button"],"TabsToolbar":["tabbrowser-tabs"],"vertical-tabs":[],"PersonalToolbar":["personal-bookmarks"],"zen-sidebar-top-buttons":["zen-toggle-compact-mode"],"zen-sidebar-foot-buttons":["downloads-button","zen-workspaces-button","zen-create-new-button"]},"seen":["developer-button","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","addon_darkreader_org-browser-action","containerise_kinte_sh-browser-action","clipper_obsidian_md-browser-action","_a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad_-browser-action","sponsorblocker_ajay_app-browser-action","ublock0_raymondhill_net-browser-action","_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"],"dirtyAreaCache":["nav-bar","vertical-tabs","zen-sidebar-foot-buttons","unified-extensions-area","TabsToolbar","PersonalToolbar","zen-sidebar-top-buttons"],"currentVersion":23,"newElementCount":2}'';
+      Status = "locked";
+    };
+  };
+
+  #===========================================================================
+  # THEME FILES
+  #===========================================================================
+
   catppuccinZenTheme = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "zen-browser";
@@ -25,7 +113,6 @@
     sha256 = "sha256-5A57Lyctq497SSph7B+ucuEyF1gGVTsuI3zuBItGfg4=";
   };
 
-  # Extract theme files for the specified palette/accent
   themeFiles = pkgs.runCommand "catppuccin-zen-theme-${catppuccinPalette}-${catppuccinAccent}" {} ''
     mkdir -p $out
     theme_dir="${catppuccinZenTheme}/themes/${catppuccinPalette}/${catppuccinAccent}"
@@ -40,60 +127,55 @@
     fi
   '';
 
+  #===========================================================================
+  # HELPERS
+  #===========================================================================
+
+  # Convert a preference value to user.js format
+  prefToUserJs = name: value: let
+    valueStr =
+      if builtins.isBool value
+      then
+        (
+          if value
+          then "true"
+          else "false"
+        )
+      else if builtins.isInt value
+      then builtins.toString value
+      else if builtins.isString value
+      then ''"${value}"''
+      else builtins.toJSON value;
+  in ''user_pref("${name}", ${valueStr});'';
+
+  # Generate user.js content from preferences
+  userJsContent = let
+    prefLines = lib.mapAttrsToList prefToUserJs userPreferences;
+  in
+    ''
+      // User preferences for Zen Browser
+      // Generated by Nix configuration
+
+    ''
+    + lib.concatStringsSep "\n" prefLines;
+
+  # Build policy.json structure
   policyJson = {
     policies = {
-      ExtensionSettings = {
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          installation_mode = "force_installed";
-          private_browsing = true;
-        };
-        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
-          # 1Password
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
-          installation_mode = "force_installed";
-          private_browsing = true;
-        };
-        "clipper@obsidian.md" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "sponsorBlocker@ajay.app" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "addon@darkreader.org" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-          # Vimium
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
-          # Refined GitHub
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}/latest.xpi";
-          installation_mode = "force_installed";
-        };
+      # Extension management
+      ExtensionSettings = lib.mapAttrs (_id: ext:
+        builtins.removeAttrs ext ["name"])
+      extensions;
 
-        "containerise@kinte.sh" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/containerise/latest.xpi";
-          installation_mode = "force_installed";
-        };
-      };
+      # Search engines
       SearchEngines = {
         Default = "DuckDuckGo";
         PreventInstalls = false;
-        Remove = [
-          "Bing"
-          "Ecosia"
-          "Google"
-          "Wikipedia (en)"
-        ];
+        Remove = ["Bing" "Ecosia" "Google" "Wikipedia (en)"];
       };
       SearchSuggestEnabled = true;
 
+      # Disable features
       DisableBuiltinPDFViewer = true;
       DisableFirefoxStudies = true;
       DisableFirefoxAccounts = false;
@@ -109,9 +191,13 @@
       DisablePasswordReveal = true;
       DontCheckDefaultBrowser = true;
 
+      # Privacy settings
       OfferToSaveLogins = false;
       AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
+      PasswordManagerEnabled = false;
+
+      # Tracking protection
       EnableTrackingProtection = {
         Value = true;
         Locked = true;
@@ -119,12 +205,8 @@
         Fingerprinting = true;
         EmailTracking = true;
       };
-      DefaultDownloadDirectory = "$HOME/Downloads";
-      OverrideFirstRunPage = "";
-      OverridePostUpdatePage = "";
-      ExtensionUpdate = false;
-      SearchBar = "unified";
 
+      # Firefox Suggest
       FirefoxSuggest = {
         WebSuggestions = false;
         SponsoredSuggestions = false;
@@ -132,130 +214,72 @@
         Locked = true;
       };
 
+      # Downloads and handlers
+      DefaultDownloadDirectory = "$HOME/Downloads";
+      PromptForDownloadLocation = false;
       Handlers = {
         mimeTypes."application/pdf".action = "saveToDisk";
       };
-      PasswordManagerEnabled = false;
-      PromptForDownloadLocation = false;
 
+      # First run
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      ExtensionUpdate = false;
+      SearchBar = "unified";
+
+      # Cleanup on shutdown
       SanitizeOnShutdown = {
         Cache = true;
         Cookies = false;
         Downloads = false;
         FormData = true;
-        History = false;
+        History = enableCustomTheme;
         Sessions = false;
         SiteSettings = false;
         OfflineApps = true;
         Locked = true;
       };
 
-      Preferences = {
-        "browser.tabs.warnOnClose" = {
-          Value = true;
-          Status = "locked";
-        };
-
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = {
-          Value = true;
-          Status = "locked";
-        };
-
-        # Some of these dont work because firefox stupid :(
-        # Policies: Unable to set preference zen.glance.activation-method. Preference not allowed for stability reasons.
-        # Policies: Unable to set preference zen.theme.accent-color. Preference not allowed for stability reasons.
-        # ...
-        "zen.glance.activation-method" = {
-          Value = "shift";
-          Status = "locked";
-        };
-
-        "zen.theme.gradient.show-custom-colors" = {
-          Value = true;
-          Status = "locked";
-        };
-
-        "zen.welcome-screen.seen" = {
-          Value = true;
-          Status = "locked";
-        };
-
-        "zen.theme.accent-color" = {
-          Value = "#BE89FF";
-          Status = "locked";
-        };
-
-        "zen.view.compact.should-enable-at-startup" = {
-          Value = true;
-          Status = "locked";
-        };
-
-        "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-      };
+      # Preferences (managed via policies)
+      Preferences = policyPreferences;
     };
   };
+
+  # Import activation scripts
+  activationScripts = import ./activation.nix {
+    inherit lib;
+    inherit policyJsonPathZen zenProfilesPath policyJson userJsContent;
+    inherit enableCustomTheme catppuccinPalette catppuccinAccent themeFiles;
+  };
+  #===========================================================================
+  # MODULE OUTPUT
+  #===========================================================================
 in {
   programs.default-browser = {
     enable = true;
-    browser = "zen"; # Or any other browser name
+    browser = "zen";
   };
 
-  # Create the policy directory and file using Home Manager activation
   home = {
-    activation.zenBrowserPolicy = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p ${policyJsonPathZen}
-      echo '${builtins.toJSON policyJson}' > ${policyJsonPathZen}/policies.json
-    '';
-
-    # Install Catppuccin theme files directly using Home Manager
-    file = let
+    # Install theme files using Home Manager (only if enabled)
+    file = lib.mkIf enableCustomTheme (let
       profileGlob =
         if pkgs.stdenv.isDarwin
         then "Library/Application Support/zen/Profiles/*default*/chrome"
         else ".zen/*default*/chrome";
     in {
-      # Install userChrome.css to all profiles
       "${profileGlob}/userChrome.css" = {
         source = "${themeFiles}/userChrome.css";
         recursive = false;
       };
 
-      # Install userContent.css if it exists
       "${profileGlob}/userContent.css" = lib.mkIf (builtins.pathExists "${themeFiles}/userContent.css") {
         source = "${themeFiles}/userContent.css";
         recursive = false;
       };
-    };
+    });
 
-    # Alternative: Create a more precise profile installation
-    activation.zenBrowserThemeInstall = lib.hm.dag.entryAfter ["linkGeneration"] ''
-      echo "Installing Catppuccin ${catppuccinPalette}/${catppuccinAccent} theme for Zen Browser..."
-
-      # Find all Zen profiles and install theme
-      if [ -d "${zenProfilesPath}" ]; then
-          find "${zenProfilesPath}" -maxdepth 1 -type d \( -name "*default*" -o -name "*Default*" \) 2>/dev/null | while read -r profile; do
-              if [ -n "$profile" ] && [ -d "$profile" ]; then
-                  chrome_dir="$profile/chrome"
-                  mkdir -p "$chrome_dir"
-
-                  # Copy theme files
-                  cp "${themeFiles}/userChrome.css" "$chrome_dir/" 2>/dev/null || true
-
-                  cp "${themeFiles}/zen-logo.svg" "$chrome_dir/" 2>/dev/null || true
-
-                  if [ -f "${themeFiles}/userContent.css" ]; then
-                      cp "${themeFiles}/userContent.css" "$chrome_dir/" 2>/dev/null || true
-                  fi
-
-                  echo "Theme installed for profile: $(basename "$profile")"
-              fi
-          done
-      else
-          echo "Zen Browser profiles directory not found. Theme will be installed when profiles are created."
-      fi
-    '';
+    # Activation scripts
+    activation = activationScripts;
   };
 }

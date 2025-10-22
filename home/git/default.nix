@@ -86,8 +86,10 @@
     delta = {
       enable = true;
       enableGitIntegration = true;
+
       options = {
         features = "side-by-side";
+        theme = "Catppuccin Mocha";
       };
     };
   };
