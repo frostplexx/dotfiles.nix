@@ -250,7 +250,7 @@
           "/Applications/Things3.app"
           # "/Applications/Ghostty.app/"
           # "/Applications/kitty.app/"
-          "/Applications/Safari.app"
+          # "/Applications/Safari.app"
           "/Applications/Zen.app"
           # "/Applications/Firefox.app"
           # "/Applications/Safari.app"

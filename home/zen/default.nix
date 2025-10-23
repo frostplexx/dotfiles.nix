@@ -257,7 +257,7 @@
 in {
   programs.default-browser = {
     enable = true;
-    browser = "Safari";
+    browser = "zen";
   };
 
   home = {
