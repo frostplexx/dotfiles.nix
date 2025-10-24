@@ -58,11 +58,6 @@
       url = "github:FelixKratz/homebrew-formulae";
       flake = false;
     };
-
-    swipeaerospace = {
-      url = "github:MediosZ/homebrew-tap";
-      flake = false;
-    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -109,7 +104,7 @@
       ];
     };
 
-    darwinConfigurations.macbook-pro-m1 = mkSystem "macbook-pro-m1" {
+    darwinConfigurations.macbook-m4-pro = mkSystem "macbook-m4-pro" {
       system = "aarch64-darwin";
       user = "daniel";
       # Home manager modules you want to include as defined in ./home

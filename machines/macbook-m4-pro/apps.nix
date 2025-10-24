@@ -59,7 +59,6 @@
       "displayplacer"
     ];
     casks = [
-      "mediosz/tap/swipeaerospace"
       "altserver"
       "discord@ptb"
       "chromium"
@@ -69,7 +68,6 @@
       "orbstack"
       "zoom"
       "zen"
-      "VirtualBuddy"
       "1password"
       # TODO: Move to nix once available
       "font-sf-pro"

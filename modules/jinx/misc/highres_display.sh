@@ -4,7 +4,7 @@
 set -e
 
 # Define the display ID and target resolution
-DISPLAY_ID="78F355ED-6E7E-6318-0857-D6964E3302DB"
+DISPLAY_ID="1634D053-DD54-4B01-BFD7-C1E1FF4C626A"
 TARGET_RES="res:2560x1080 hz:144 color_depth:8 scaling:on"
 
 echo "Checking display configuration..."

@@ -25,8 +25,8 @@
         auto_balance = "on";
 
         split_ratio = 0.5;
-        window_animation_duration = 0.1;
-        window_animation_easing = "ease_out_quint";
+        # window_animation_duration = 0.1;
+        # window_animation_easing = "ease_out_quint";
 
         # Opacity
         window_opacity = "off";

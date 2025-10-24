@@ -7,7 +7,7 @@
 }: {
   imports = [
     ../shared.nix # Base configuration
-    ./apps.nix # macbook-pro-m1 specific apps
+    ./apps.nix # macbook-m4-pro specific apps
     ./yabai.nix
     # ./custom_icons.nix
     # ./smb_automount.nix
@@ -45,8 +45,8 @@
 
   # Basic system configuration
   networking = {
-    hostName = "macbook-pro-m1";
-    computerName = "macbook-pro-m1";
+    hostName = "macbook-m4-pro";
+    computerName = "macbook-m4-pro";
     dns = [
       "9.9.9.10"
     ];
@@ -122,8 +122,8 @@
           sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
           sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
 
-          # Disable transparent menubar
-          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool true
+          # Enable transparent menubar
+          sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
 
           # Other for custom color or nothing
           sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
@@ -151,7 +151,7 @@
     };
 
     defaults = {
-      smb.NetBIOSName = "macbook-pro-m1";
+      smb.NetBIOSName = "macbook-m4-pro";
       # Menu bar clock settings
       menuExtraClock = {
         Show24Hour = true;
@@ -185,7 +185,8 @@
 
         # Interface preferences
         AppleShowAllExtensions = true;
-        _HIHideMenuBar = true;
+        # Auto hide menubar
+        _HIHideMenuBar = false;
         AppleICUForce24HourTime = true;
         NSAutomaticCapitalizationEnabled = false;
 
