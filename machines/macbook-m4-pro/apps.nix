@@ -60,7 +60,7 @@
     ];
     casks = [
       "altserver"
-      "discord@ptb"
+      # "discord@ptb"
       "chromium"
       "firefox"
       "cleanshot"
