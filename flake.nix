@@ -116,6 +116,7 @@
         "neovim"
         "nixcord"
         "shell"
+        "spotify"
         # "sketchybar"
         "skhd"
         "ssh"
