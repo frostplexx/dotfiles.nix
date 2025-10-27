@@ -12,9 +12,17 @@ local function setup_highlights()
         vim.api.nvim_set_hl(0, "WinbarSeparator", { fg = mocha.green, bold = true })
         vim.api.nvim_set_hl(0, "WinBarDir", { fg = mocha.mauve, italic = true })
         vim.api.nvim_set_hl(0, "Winbar", { fg = mocha.subtext0 })
+
+        -- Dimmed highlights for inactive windows
+        vim.api.nvim_set_hl(0, "WinbarSeparatorNC", { fg = mocha.surface2, bold = false })
+        vim.api.nvim_set_hl(0, "WinBarDirNC", { fg = mocha.surface2, italic = true })
+        vim.api.nvim_set_hl(0, "WinbarNC", { fg = mocha.surface1 })
     end
     highlights_setup = true
 end
+
+-- Cache for winbar content per buffer
+local winbar_cache = {}
 
 -- LSP SymbolKind mapping to icons from globals
 -- See: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
@@ -82,9 +90,36 @@ local function find_symbol_path(symbol_list, line, char, path)
     return false
 end
 
+-- Helper function to dim winbar highlights
+local function dim_winbar(content)
+    if not content or content == "" then
+        return content
+    end
+
+    -- Replace active highlights with dimmed versions
+    content = content:gsub("%%#WinbarSeparator#", "%%#WinbarSeparatorNC#")
+    content = content:gsub("%%#WinBarDir#", "%%#WinBarDirNC#")
+    content = content:gsub("%%#Winbar#", "%%#WinbarNC#")
+    content = content:gsub("%%#Normal#", "%%#WinbarNC#")
+
+    -- Dim other highlight groups
+    local hl_groups = {
+        "File", "Module", "Structure", "Keyword", "Class", "Method",
+        "Property", "Field", "Function", "Enum", "Type", "None",
+        "Constant", "String", "Number", "Boolean", "Array", "Struct",
+        "Conditional"
+    }
+
+    for _, hl in ipairs(hl_groups) do
+        content = content:gsub("%%#" .. hl .. "#", "%%#WinbarNC#")
+    end
+
+    return content
+end
+
 local function lsp_callback(err, symbols, ctx, config)
     if err or not symbols then
-        vim.o.winbar = ""
+        winbar_cache[ctx.bufnr] = ""
         return
     end
 
@@ -95,7 +130,8 @@ local function lsp_callback(err, symbols, ctx, config)
 
     local file_path = vim.fn.bufname(ctx.bufnr)
     if not file_path or file_path == "" then
-        vim.o.winbar = "[No Name]"
+        winbar_cache[ctx.bufnr] = "[No Name]"
+        vim.api.nvim_set_option_value('winbar', "[No Name]", { win = winnr })
         return
     end
 
@@ -164,8 +200,10 @@ local function lsp_callback(err, symbols, ctx, config)
     local breadcrumb_string = table.concat(breadcrumbs, "%#WinbarSeparator#%#Normal# ")
 
     if breadcrumb_string ~= "" then
+        winbar_cache[ctx.bufnr] = breadcrumb_string
         vim.api.nvim_set_option_value('winbar', breadcrumb_string, { win = winnr })
     else
+        winbar_cache[ctx.bufnr] = " "
         vim.api.nvim_set_option_value('winbar', " ", { win = winnr })
     end
 end
@@ -213,7 +251,30 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
     group = breadcrumbs_augroup,
     callback = function()
-        vim.o.winbar = ""
+        local winnr = vim.api.nvim_get_current_win()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local cached = winbar_cache[bufnr]
+
+        if cached and cached ~= "" then
+            -- Dim the cached winbar content for inactive window
+            local dimmed = dim_winbar(cached)
+            vim.api.nvim_set_option_value('winbar', dimmed, { win = winnr })
+        end
     end,
-    desc = "Clear breadcrumbs when leaving window.",
+    desc = "Dim breadcrumbs when leaving window.",
+})
+
+vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
+    group = breadcrumbs_augroup,
+    callback = function()
+        local winnr = vim.api.nvim_get_current_win()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local cached = winbar_cache[bufnr]
+
+        -- Restore full-color winbar when entering window
+        if cached and cached ~= "" then
+            vim.api.nvim_set_option_value('winbar', cached, { win = winnr })
+        end
+    end,
+    desc = "Restore breadcrumbs when entering window.",
 })
