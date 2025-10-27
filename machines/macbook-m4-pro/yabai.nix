@@ -4,7 +4,7 @@
       enable = true;
       style = "round";
       width = 3.0;
-      hidpi = true;
+      hidpi = false;
       active_color = "0xff${config.accent_color}";
       inactive_color = "0xff7f849c";
     };
