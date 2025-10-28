@@ -1,7 +1,7 @@
 {config, ...}: {
   services = {
     jankyborders = {
-      enable = true;
+      enable = false;
       style = "round";
       width = 3.0;
       hidpi = false;
@@ -10,7 +10,7 @@
     };
 
     yabai = {
-      enable = true;
+      enable = false;
       enableScriptingAddition = true;
       config = {
         # Layout

@@ -60,8 +60,8 @@
     ];
     casks = [
       "altserver"
-      # "discord@ptb"
       "chromium"
+      "ghostty@tip"
       "firefox"
       "cleanshot"
       "mac-mouse-fix"

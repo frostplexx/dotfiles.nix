@@ -118,6 +118,7 @@
         "shell"
         "spotify"
         # "sketchybar"
+        "ghostty"
         "skhd"
         "ssh"
       ];

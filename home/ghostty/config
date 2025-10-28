@@ -4,7 +4,7 @@
 font-family = "Maple Mono"
 
 # ==== Themeing ====
-theme = catppuccin-mocha
+theme = "Catppuccin Mocha"
 background-opacity = 0.9
 # A value of 20 is reasonable for a good looking blur. Higher values will cause strange
 # rendering issues as well as performance issues.
@@ -58,6 +58,5 @@ keybind = super+shift+i=inspector:toggle
 
 keybind = global:ctrl+alt+cmd+enter=toggle_quick_terminal
 
-keybind = cmd+t=new_window
 keybind = ctrl+shift+x=write_scrollback_file:open
 # keybind = ctrl+shift+e=hint:link:link-url:open_browser
