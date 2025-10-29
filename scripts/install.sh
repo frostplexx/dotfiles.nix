@@ -57,6 +57,7 @@ check_tools() {
     if ! command -v git > /dev/null; then return 1; fi # check for git
     if ! command -v curl > /dev/null; then return 1; fi # check for curl
     if ! command -v jq > /dev/null; then return 1; fi # this exists on mac always
+    if ! command -v sops > /dev/null; then return 1; fi # check for sops
 
     if [ "$OS_TYPE" = "Darwin" ]; then
         if ! xcode-select --install 2>&1 | grep -q "already installed"; then
@@ -93,12 +94,12 @@ EOF
 # Installs git, curl and command line utilities
 install_tools() {
     if [ "$OS_TYPE" = "Darwin" ]; then
-        
+
         # install command line tools on macos because it contains git
         if ! xcode-select -p >/dev/null 2>&1; then
             print_status "Installing Xcode Command Line Tools..."
             xcode-select --install
-        
+
             print_status "Waiting for Xcode Command Line Tools installation to complete..."
             until xcode-select -p >/dev/null 2>&1; do
                 sleep 5
@@ -108,13 +109,25 @@ install_tools() {
         else
             print_success "Xcode Command Line Tools already installed."
         fi
+
+        # Install sops on macOS
+        if ! command -v sops > /dev/null; then
+            print_status "Installing SOPS..."
+            if command -v brew > /dev/null; then
+                brew install sops
+            else
+                print_warning "Homebrew not found. Please install SOPS manually: https://github.com/getsops/sops"
+            fi
+        fi
     elif [ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release; then
-        print_status "Installig Git..."
+        print_status "Installing Git..."
         nix-env -i git > /dev/null
-        print_status "Installig cURL..."
+        print_status "Installing cURL..."
         nix-env -i curl > /dev/null
-        print_status "Installig jq..."
+        print_status "Installing jq..."
         nix-env -i jq > /dev/null
+        print_status "Installing SOPS..."
+        nix-env -i sops > /dev/null
     fi
 }
 
@@ -153,6 +166,50 @@ check_flake(){
     fi
 
     return 1
+}
+
+check_sops() {
+    if [ -f "$HOME/.config/sops/age/keys.txt" ] && command -v sops > /dev/null; then
+        return 0
+    fi
+    return 1
+}
+
+setup_sops() {
+    print_status "Setting up SOPS for encrypted secrets..."
+
+    # Create sops directory
+    mkdir -p "$HOME/.config/sops/age"
+
+    # Check if 1Password CLI is available
+    if command -v op > /dev/null; then
+        print_status "1Password CLI detected. Attempting to retrieve age key..."
+        if op read "op://Personal/dotfiles-age/Private Key" > "$HOME/.config/sops/age/keys.txt" 2>/dev/null; then
+            print_success "Age key retrieved from 1Password"
+        else
+            print_warning "Failed to retrieve age key from 1Password. Please ensure you're logged in and have access to 'Personal/dotfiles-age/Private Key'"
+            return 1
+        fi
+    else
+        print_warning "1Password CLI not found. Please manually copy your age private key to ~/.config/sops/age/keys.txt"
+        print_status "You can generate a new age key with: age-keygen -o ~/.config/sops/age/keys.txt"
+        print_status "Or retrieve it from 1Password manually"
+        read -p "Press Enter when you've set up your age key..." < /dev/tty
+    fi
+
+    # Test decryption
+    if command -v sops > /dev/null && [ -f "$HOME/.config/sops/age/keys.txt" ]; then
+        if sops --decrypt "$DEST_DIR/secrets/git.yaml" > /dev/null 2>&1; then
+            print_success "SOPS decryption test successful"
+            return 0
+        else
+            print_error "SOPS decryption test failed. Please check your age key."
+            return 1
+        fi
+    else
+        print_warning "SOPS not available or age key not found. Secrets will not be accessible."
+        return 1
+    fi
 }
 
 install_flake(){
@@ -247,13 +304,15 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     check_tools; tools_installed=$?
     check_nix; nix_installed=$?
     check_flake; flake_exists=$?
-    
+    check_sops; sops_configured=$?
+
     echo -e "${YELLOW}This script will help you set up nix for ${OS_TYPE}. It will:"
     echo -e "${YELLOW}"
     # Check exit codes (0 = success, 1 = failure)
     if [ $tools_installed -ne 0 ]; then echo -e "• Install required tools like git, curl and jq"; fi
     if [ $nix_installed -ne 0 ]; then echo -e "• Install determinate nix"; fi
     if [ $flake_exists -ne 0 ]; then echo -e "• Clone the flake"; fi
+    if [ $sops_configured -ne 0 ]; then echo -e "• Set up SOPS for encrypted secrets"; fi
     echo -e "• Deploy the flake"
     echo -e "${RESET}"
 
@@ -266,7 +325,8 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     if [ $tools_installed -ne 0 ]; then install_tools ; fi
     if [ $nix_installed -ne 0 ]; then install_nix ; fi
     if [ $flake_exists -ne 0 ]; then install_flake ; fi
-    
+    if [ $sops_configured -ne 0 ]; then setup_sops ; fi
+
     create_nix_config
     deploy_flake
 

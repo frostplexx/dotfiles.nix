@@ -5,3 +5,10 @@ old/
 *-switch.log
 *-test.log
 .idea
+
+# Secrets - only encrypted files should be committed
+secrets/**/*.yaml.dec
+secrets/**/*.json.dec
+secrets/**/*_unencrypted
+*.key
+!*.pub

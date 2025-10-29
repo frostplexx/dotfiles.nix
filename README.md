@@ -35,6 +35,53 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 - A Computer running the latest macOS or NixOS
 - An internet connection
+- Age key for decrypting secrets (stored in 1Password as "dotfiles-age" or your own age key)
+
+### Secrets Management
+
+This configuration uses [sops-nix](https://github.com/Mic92/sops-nix) to manage encrypted secrets. Personal information like git user details are stored encrypted in the `secrets/` directory.
+
+**Age Key Setup:**
+- The age key is stored in 1Password under "Personal/dotfiles-age/Private Key"
+- Alternatively, you can generate your own age key with `age-keygen -o ~/.config/sops/age/keys.txt`
+- The key file should be placed at `~/.config/sops/age/keys.txt`
+
+**Age Key Backup:**
+To prevent losing access to your encrypted secrets, you should backup your age key in multiple locations:
+
+1. **1Password** (already configured)
+2. **Encrypted cloud backup** - Create an additional encrypted backup:
+   ```bash
+   # Create an encrypted backup of your age key
+   openssl enc -aes-256-cbc -salt -in ~/.config/sops/age/keys.txt -out ~/age-key-backup.enc -k "$(openssl rand -base64 32)"
+
+   # Store the encrypted file and password separately in cloud storage
+   # Upload age-key-backup.enc to Google Drive/Dropbox/etc.
+   # Store the encryption password in a separate secure location (different password manager, printed on paper, etc.)
+   ```
+
+3. **Recovery script** - Use the included backup script:
+   ```bash
+   # Create backup
+   ./scripts/backup-age-key.sh
+
+   # Restore from backup
+   ./scripts/restore-age-key.sh
+   ```
+
+**Emergency Recovery:**
+If you lose access to all your devices and need to recover:
+1. Get your encrypted backup file from cloud storage
+2. Get your backup password from your secure secondary location
+3. On a new device, run: `./scripts/restore-age-key.sh`
+4. Follow the prompts to restore your age key
+5. Reinstall your dotfiles: `git clone <repo> && <installation steps>`
+
+**Security Notes:**
+- Never store the backup password and encrypted file together
+- Use different storage services for each component
+- Consider using a hardware security key for additional protection
+- Regularly test your backup restoration process
 
 ### Disable SIP (Optional)
 
@@ -88,7 +135,28 @@ Please note that System Integrity Protection will be re–enabled during device 
 
 ```bash
 # Run in a terminal:
+# This will install Nix, clone the repository, set up SOPS secrets, and deploy the system
 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
+```
+
+#### Manual
+
+Clone this repo into your home directory and `cd` into it.
+```bash
+git clone https://github.com/frostplexx/dotfiles.nix.git ~/
+cd ~/dotfiles.nix
+
+# Set up SOPS for encrypted secrets
+# Option 1: If using 1Password (recommended)
+# Make sure 1Password CLI is installed and you're logged in
+op read "op://Personal/dotfiles-age/Private Key" > ~/.config/sops/age/keys.txt
+
+# Option 2: If you have your own age key
+# Copy your age private key to ~/.config/sops/age/keys.txt
+
+# Test decryption
+sops --decrypt secrets/git.yaml
+
 ```
 
 #### Manual
@@ -112,6 +180,9 @@ Run `nixos-rebuild switch --flake <path/to/flake>#<config-name>` to deploy the s
 - [ ] Reboot the computer or log out and back in for all the changes to take effect.
 - [ ] Log into 1Password and 1Password-cli
 - [ ] Enable SSH Agent and CLI integration in 1Password settings
+- [ ] Verify sops secrets are accessible: `cat ~/.config/sops/age/keys.txt` (should contain your age private key)
+- [ ] Test sops decryption: `sops --decrypt ~/dotfiles.nix/secrets/git.yaml` (should show decrypted content)
+- [ ] Create age key backup: `~/dotfiles.nix/scripts/backup-age-key.sh` (store password and file separately)
 - [ ] Run `determinate-nixd login`
 - [ ] Run `jinx generate_ssh_host` to generate the hosts file from 1Password entries for easy access.
 - [ ] (On macOS) Run `jinx set_screen_hidpi` to set your external screen to HiDPI mode

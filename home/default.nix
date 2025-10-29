@@ -1,4 +1,8 @@
-{user, ...}: {
+{
+  user,
+  config,
+  ...
+}: {
   home = {
     username = user;
     stateVersion = "23.11";
@@ -8,14 +12,10 @@
     };
   };
 
-  # sops = {
-  #     age.keyFile = keyPath;
-  #     age.generateKey = false;
-  # };
-  #
-  # home.activation.fetchAgeKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #     ${fetchAgeKey}/bin/fetch-age-key
-  # '';
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    defaultSopsFile = ../secrets/git.yaml;
+  };
 
   programs = {
     home-manager.enable = true; # Let Home Manager manage itself
