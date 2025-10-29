@@ -117,7 +117,6 @@
         "nixcord"
         "shell"
         "spotify"
-        # "sketchybar"
         "ghostty"
         "skhd"
         "ssh"

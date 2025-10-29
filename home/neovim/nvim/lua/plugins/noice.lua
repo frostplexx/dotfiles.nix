@@ -30,7 +30,7 @@ return {
         })
 
         -- Keymaps
-        vim.keymap.set("n", "<leader>n", ":NoiceHistory<cr>",
-            { desc = "Show Notification History", remap = true, silent = true })
+        -- vim.keymap.set("n", "<leader>n", ":NoiceHistory<cr>",
+        --     { desc = "Show Notification History", remap = true, silent = true })
     end
 }

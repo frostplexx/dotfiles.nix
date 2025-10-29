@@ -17,7 +17,6 @@
     whisky
     wtfis
     hexfiend
-    claude-code
     skimpdf
   ];
 
@@ -61,8 +60,8 @@
     casks = [
       "altserver"
       "chromium"
-      "ghostty@tip"
       "firefox"
+      "ghostty@tip"
       "cleanshot"
       "mac-mouse-fix"
       "orbstack"
