@@ -37,7 +37,7 @@ in {
         model = "anthropic/claude-sonnet-4-5";
         small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
-        disabled_providers = ["xai"];
+        disabled_providers = ["xAI"];
         permission = {
           webfetch = "allow";
         };
