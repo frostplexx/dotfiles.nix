@@ -3,9 +3,24 @@ return {
     defer = true,
     dependencies = {},
     config = function()
-        ---@type opencode.Opts
+        -- TODO: Wait for mini.nvim to implement terminal
+        -- @type opencode.Opts
         -- vim.g.opencode_opts = {
-            -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
+        --     ---@type opencode.Provider
+        --     provider = {
+        --         toggle = function(self)
+        --             -- Called by `require("opencode").toggle()`
+        --         end,
+        --         start = function(self)
+        --             -- Called when sending a prompt or command to `opencode` but no process was found.
+        --             -- `opencode.nvim` will poll for a couple seconds waiting for one to appear.
+        --         end,
+        --         show = function(self)
+        --             -- Called when a prompt or command is sent to `opencode`,
+        --             -- *and* this provider's `toggle` or `start` has previously been called
+        --             -- (so as to not interfere when `opencode` was started externally).
+        --         end
+        --     }
         -- }
 
         -- Required for `opts.auto_reload`.
@@ -14,6 +29,7 @@ return {
         -- Recommended/example keymaps.
         vim.keymap.set({ "n", "x" }, "<C-a>", function() require("opencode").ask("@this: ", { submit = true }) end,
             { desc = "Ask opencode" })
+
         vim.keymap.set({ "n", "x" }, "<C-x>", function() require("opencode").select() end,
             { desc = "Execute opencode action…" })
 

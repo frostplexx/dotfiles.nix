@@ -124,6 +124,8 @@
       "alt+l" = "kitten relative_resize.py right 3";
 
       "ctrl+shift+x" = "show_scrollback";
+
+      "shift+enter" = "send_text normal,application \\n";
     };
 
     # Extra configuration to ensure catpuccin theme is included
