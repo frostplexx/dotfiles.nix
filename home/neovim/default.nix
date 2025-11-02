@@ -54,6 +54,11 @@ in {
           };
         };
         defaults = {
+          layout = {
+            issues = {
+              creator.width = 20;
+            };
+          };
           view = "issues";
         };
       };
