@@ -1,7 +1,6 @@
 return {
     src = "https://github.com/NickvanDyke/opencode.nvim.git",
     defer = true,
-    dependencies = {},
     config = function()
         -- TODO: Wait for mini.nvim to implement terminal
         -- @type opencode.Opts
