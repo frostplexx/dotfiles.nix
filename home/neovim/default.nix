@@ -33,6 +33,9 @@ in {
       enable = true;
       settings = {
         theme = {
+          ui = {
+            table.compact = true;
+          };
           colors = {
             text = {
               primary = "#cdd6f4";
