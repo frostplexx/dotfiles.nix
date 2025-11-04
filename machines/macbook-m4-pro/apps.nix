@@ -42,10 +42,10 @@
       "Things" = 904280696;
       "eduVPN" = 1317704208;
       "Goodnotes" = 1444383602;
-      "WhatsApp" = 310633997;
-      "Windows App" = 1295203466;
+      # "WhatsApp" = 310633997;
+      # "Windows App" = 1295203466;
       "Testflight" = 899247664;
-      "Tailscale" = 1475387142;
+      # "Tailscale" = 1475387142;
       "System Color Picker" = 1545870783;
       "Numbers" = 409203825;
       "Keynote" = 409183694;
@@ -59,6 +59,7 @@
     ];
     casks = [
       "altserver"
+      "tailscale-app"
       "chromium"
       "firefox"
       "ghostty@tip"

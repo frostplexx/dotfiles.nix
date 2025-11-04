@@ -12,7 +12,6 @@ return {
             dockerfile = { name = "hadolint" },
             fish = { name = "fish" },
             go = { name = "golangcilint", pkg = "golangci-lint" },
-            graphql = { name = "graphql_schema_linter", pkg = "gqlint" },
             handlebars = { name = "htmlhint" },
             html = { name = "htmlhint" },
             javascript = { name = "eslint" },
