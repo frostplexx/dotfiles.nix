@@ -141,10 +141,6 @@
           # No idea what it does
           sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
 
-          # Cursor colors
-          # sudo -u ${user} defaults write com.apple.universalaccess cursorFill -dict red "0.08351295441389084" green "0.08582841604948044" blue "0.1409732699394226" alpha "1"
-          # sudo -u ${user} defaults write com.apple.universalaccess cursorOutline -dict red "0.840082585811615" green "0.8728173971176147" blue "0.9660101532936096" alpha "1"
-
           sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
 
           killall Finder;
