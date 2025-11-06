@@ -18,6 +18,7 @@
     wtfis
     hexfiend
     skimpdf
+    macpm
   ];
 
   # Homebrew configuration
@@ -31,12 +32,12 @@
     };
     masApps = {
       # Safari extensions
-      "1Password for Safari" = 1569813296;
-      "SponsorBlock for Safari" = 1573461917;
+      # "1Password for Safari" = 1569813296;
+      # "SponsorBlock for Safari" = 1573461917;
       # "Raycast Companion" = 6738274497;
-      "Noir" = 1592917505;
-      "uBlock Origin Lite" = 6745342698;
-      "Obsidian Web Clipper for Safari" = 6720708363;
+      # "Noir" = 1592917505;
+      # "uBlock Origin Lite" = 6745342698;
+      # "Obsidian Web Clipper for Safari" = 6720708363;
 
       # "Xcode" = 497799835;
       "Things" = 904280696;

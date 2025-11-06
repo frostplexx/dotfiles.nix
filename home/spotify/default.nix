@@ -9,18 +9,14 @@ in {
     enable = true;
     spotifyLaunchFlags = "--disable-update-restarts";
     enabledExtensions = with spicePkgs.extensions; [
-      adblockify
       hidePodcasts
-      shuffle # shuffle+ (special characters are sanitized out of extension names)
       betterGenres
       lastfm
       listPlaylistsWithSong
-      wikify
-      history
+      popupLyrics
     ];
-    enabledCustomApps = with spicePkgs.apps; [
-      ncsVisualizer
-    ];
+    # enabledCustomApps = with spicePkgs.apps; [
+    # ];
     theme = spicePkgs.themes.comfy;
     colorScheme = "catppuccin-mocha";
   };
