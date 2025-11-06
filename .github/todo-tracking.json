@@ -1,9 +1,9 @@
 {
   "todos": {
-    "machines/macbook-m4-pro/apps.nix:72:TODO: Move to nix once available": {
-      "issueNumber": 566,
+    "machines/macbook-m4-pro/apps.nix:73:TODO: Move to nix once available": {
+      "issueNumber": 567,
       "file": "machines/macbook-m4-pro/apps.nix",
-      "line": 72,
+      "line": 73,
       "text": "TODO: Move to nix once available"
     }
   }
