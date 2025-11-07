@@ -69,6 +69,7 @@
       "orbstack"
       "zoom"
       "zen"
+      "affinity"
       "1password"
       # TODO: Move to nix once available
       "font-sf-pro"
