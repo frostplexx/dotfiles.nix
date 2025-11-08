@@ -5,13 +5,14 @@ return {
         {
             src = "https://github.com/dmtrKovalenko/fff.nvim",
             name = "fff.nvim",
+            data = { build = 'nix run .#release', },
         }
     },
     config = function()
         require('mini.surround').setup()
         require('mini.bufremove').setup()
         require('mini.ai').setup()
-        require('mini.cursorword').setup()
+        -- require('mini.cursorword').setup()
         require('mini.icons').setup()
         require('mini.extra').setup()
 
