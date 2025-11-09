@@ -27,9 +27,16 @@
   #===========================================================================
 
   extensions = {
-    "uBlock0@raymondhill.net" = {
-      name = "uBlock Origin";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+    # "uBlock0@raymondhill.net" = {
+    #   name = "uBlock Origin";
+    #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+    #   installation_mode = "force_installed";
+    #   private_browsing = true;
+    # };
+
+    "adnauseam@rednoise.org" = {
+      name = "AdNauseam";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/adnauseam/latest.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
     };
@@ -198,12 +205,14 @@
       PasswordManagerEnabled = false;
 
       # Tracking protection
+      # Needs to be disabled for AdNauseam to work
+      # Stuff will still be blocked
       EnableTrackingProtection = {
-        Value = true;
+        Value = false;
         Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-        EmailTracking = true;
+        Cryptomining = false;
+        Fingerprinting = false;
+        EmailTracking = false;
       };
 
       # Firefox Suggest
