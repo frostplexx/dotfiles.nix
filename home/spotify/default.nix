@@ -13,7 +13,7 @@ in {
       betterGenres
       lastfm
       listPlaylistsWithSong
-      popupLyrics
+      # popupLyrics
     ];
     # enabledCustomApps = with spicePkgs.apps; [
     # ];
