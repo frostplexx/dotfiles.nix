@@ -11,6 +11,7 @@
     # jetbrains.pycharm-professional
     # ollama
     keka
+    iina
     utm
     mas
     switchaudio-osx
