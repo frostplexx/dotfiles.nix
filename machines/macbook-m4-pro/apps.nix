@@ -20,6 +20,7 @@
     hexfiend
     skimpdf
     macpm
+    ollama
   ];
 
   # Homebrew configuration
