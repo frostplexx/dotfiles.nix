@@ -27,19 +27,19 @@
   #===========================================================================
 
   extensions = {
-    # "uBlock0@raymondhill.net" = {
-    #   name = "uBlock Origin";
-    #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-    #   installation_mode = "force_installed";
-    #   private_browsing = true;
-    # };
-
-    "adnauseam@rednoise.org" = {
-      name = "AdNauseam";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/adnauseam/latest.xpi";
+    "uBlock0@raymondhill.net" = {
+      name = "uBlock Origin";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
     };
+
+    # "adnauseam@rednoise.org" = {
+    #   name = "AdNauseam";
+    #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/adnauseam/latest.xpi";
+    #   installation_mode = "force_installed";
+    #   private_browsing = true;
+    # };
     "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
       name = "1Password";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
