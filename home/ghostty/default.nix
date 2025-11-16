@@ -5,4 +5,11 @@ _: {
       recursive = true;
     };
   };
+  programs.zellij = {
+    enable = false;
+    enableFishIntegration = true;
+    settings = {
+      theme = "catppuccin-macchiato";
+    };
+  };
 }

@@ -1,414 +1,404 @@
-return {
-    src = "https://github.com/echasnovski/mini.nvim",
-    defer = false,
-    dependencies = {
-        {
-            src = "https://github.com/dmtrKovalenko/fff.nvim",
-            name = "fff.nvim",
-            data = { build = 'nix run .#release', },
-        }
+vim.pack.add({
+    { src = "https://github.com/echasnovski/mini.nvim" },
+    {
+        src = "https://github.com/dmtrKovalenko/fff.nvim",
+        name = "fff.nvim",
+        data = { build = 'nix run .#release', },
+    }
+})
+require('mini.surround').setup()
+require('mini.bufremove').setup()
+require('mini.ai').setup()
+-- require('mini.cursorword').setup()
+require('mini.icons').setup()
+require('mini.extra').setup()
+
+require('mini.diff').setup({
+    view = {
+        style = "sign",
+        signs = { add = '┃', change = '┃', delete = '┃' },
+    }
+})
+
+-- move
+require('mini.move').setup({
+    -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+    mappings = {
+        left = '<S-h>',
+        right = '<S-l>',
+        down = '<S-j>',
+        up = '<S-k>',
     },
-    config = function()
-        require('mini.surround').setup()
-        require('mini.bufremove').setup()
-        require('mini.ai').setup()
-        -- require('mini.cursorword').setup()
-        require('mini.icons').setup()
-        require('mini.extra').setup()
+})
 
-        require('mini.diff').setup({
-            view = {
-                style = "sign",
-                signs = { add = '┃', change = '┃', delete = '┃' },
+-- picker
+local picker_width = 80
+local picker_height = 35
+require('mini.pick').setup({
+    mappings = {
+        choose_marked = '<C-q>',
+    },
+    window = {
+        config = function()
+            return {
+                anchor = 'NW',
+                col = math.floor((vim.o.columns - picker_width) / 2),
+                row = vim.o.lines - (picker_height + 3),         -- i got to 3 by trial and error
+                width = picker_width,
+                height = picker_height,
+                relative = 'editor',
             }
-        })
+        end,
+        prompt_prefix = " ",
+    },
+    options = {
+        use_cache = true,
+    }
+})
 
-        -- move
-        require('mini.move').setup({
-            -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-            mappings = {
-                left = '<S-h>',
-                right = '<S-l>',
-                down = '<S-j>',
-                up = '<S-k>',
-            },
-        })
-
-        -- picker
-        local picker_width = 80
-        local picker_height = 35
-        require('mini.pick').setup({
-            mappings = {
-                choose_marked = '<C-q>',
-            },
-            window = {
-                config = function()
-                    return {
-                        anchor = 'NW',
-                        col = math.floor((vim.o.columns - picker_width) / 2),
-                        row = vim.o.lines - (picker_height + 3), -- i got to 3 by trial and error
-                        width = picker_width,
-                        height = picker_height,
-                        relative = 'editor',
-                    }
-                end,
-                prompt_prefix = " ",
-            },
-            options = {
-                use_cache = true,
-            }
-        })
-
-        -- set mini.pick as ui.select.
-        vim.ui.select = MiniPick.ui_select
+-- set mini.pick as ui.select.
+vim.ui.select = MiniPick.ui_select
 
 
-        -- TODO: update this once fff supports better stuff
-        vim.api.nvim_create_autocmd('PackChanged', {
-            callback = function(event)
-                if event.data.updated then
-                    require('fff.download').download_or_build_binary()
-                end
+-- TODO: update this once fff supports better stuff
+tools.on_pack_changed("fff.nvim", function(ev)
+    vim.system({ 'nix run .#release' }, { cwd = ev.data.path })
+end)
+
+---@class FFFItem
+---@field name string
+---@field path string
+---@field relative_path string
+---@field size number
+---@field modified number
+---@field total_frecency_score number
+---@field modification_frecency_score number
+---@field access_frecency_score number
+---@field git_status string
+
+---@class PickerItem
+---@field text string
+---@field path string
+---@field score number
+
+---@class FFFPickerState
+---@field current_file_cache string
+local state = {}
+
+local ns_id = vim.api.nvim_create_namespace 'MiniPick FFFiles Picker'
+
+---@param query string|nil
+---@return PickerItem[]
+local function find(query)
+    local file_picker = require 'fff.file_picker'
+
+    query = query or ''
+    ---@type FFFItem[]
+    local fff_result = file_picker.search_files(query, 100, 4, state.current_file_cache, false)
+
+    local items = {}
+    for _, fff_item in ipairs(fff_result) do
+        local item = {
+            text = fff_item.relative_path,
+            path = fff_item.path,
+            score = fff_item.total_frecency_score,
+        }
+        table.insert(items, item)
+    end
+
+    return items
+end
+
+---@param items PickerItem[]
+local function show(buf_id, items)
+    local icon_data = {}
+
+    -- Show items
+    local items_to_show = {}
+    for i, item in ipairs(items) do
+        local icon, hl, _ = MiniIcons.get('file', item.text)
+        icon_data[i] = { icon = icon, hl = hl }
+
+        items_to_show[i] = string.format('%s %s', icon, item.text)
+    end
+    vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, items_to_show)
+
+    vim.api.nvim_buf_clear_namespace(buf_id, ns_id, 0, -1)
+
+    local icon_extmark_opts = { hl_mode = 'combine', priority = 200 }
+    for i, item in ipairs(items) do
+        -- Highlight Icons
+        icon_extmark_opts.hl_group = icon_data[i].hl
+        icon_extmark_opts.end_row, icon_extmark_opts.end_col = i - 1, 1
+        vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, 0, icon_extmark_opts)
+
+        -- Highlight score
+        local col = #items_to_show[i] - #tostring(item.score) - 3
+        icon_extmark_opts.hl_group = 'FFFileScore'
+        icon_extmark_opts.end_row, icon_extmark_opts.end_col = i - 1, #items_to_show[i]
+        vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, col, icon_extmark_opts)
+    end
+end
+
+local function run()
+    -- Setup fff.nvim
+    local file_picker = require 'fff.file_picker'
+    if not file_picker.is_initialized() then
+        local setup_success = file_picker.setup()
+        if not setup_success then
+            vim.notify('Could not setup fff.nvim', vim.log.levels.ERROR)
+            return
+        end
+    end
+
+    -- Cache current file to deprioritize in fff.nvim
+    if not state.current_file_cache then
+        local current_buf = vim.api.nvim_get_current_buf()
+        if current_buf and vim.api.nvim_buf_is_valid(current_buf) then
+            local current_file = vim.api.nvim_buf_get_name(current_buf)
+            if current_file ~= '' and vim.fn.filereadable(current_file) == 1 then
+                local relative_path = vim.fs.relpath(vim.uv.cwd(), current_file)
+                state.current_file_cache = relative_path
+            else
+                state.current_file_cache = nil
+            end
+        end
+    end
+
+    -- Start picker
+    MiniPick.start {
+        source = {
+            name = 'FFFiles',
+            items = find,
+            match = function(_, _, query)
+                local items = find(table.concat(query))
+                MiniPick.set_picker_items(items, { do_match = false })
             end,
-        })
+            show = show,
+        },
+    }
 
-        ---@class FFFItem
-        ---@field name string
-        ---@field path string
-        ---@field relative_path string
-        ---@field size number
-        ---@field modified number
-        ---@field total_frecency_score number
-        ---@field modification_frecency_score number
-        ---@field access_frecency_score number
-        ---@field git_status string
+    state.current_file_cache = nil         -- Reset cache
+end
 
-        ---@class PickerItem
-        ---@field text string
-        ---@field path string
-        ---@field score number
+MiniPick.registry.fffiles = run
 
-        ---@class FFFPickerState
-        ---@field current_file_cache string
-        local state = {}
 
-        local ns_id = vim.api.nvim_create_namespace 'MiniPick FFFiles Picker'
 
-        ---@param query string|nil
-        ---@return PickerItem[]
-        local function find(query)
-            local file_picker = require 'fff.file_picker'
+-- hipatterns
+local hipatterns = require('mini.hipatterns')
+hipatterns.setup({
+    highlighters = {
+        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+        fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+        hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+        todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+        note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
-            query = query or ''
-            ---@type FFFItem[]
-            local fff_result = file_picker.search_files(query, 100, 4, state.current_file_cache, false)
+        -- Highlight hex color strings (`#rrggbb`) using that color
+        hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+})
 
-            local items = {}
-            for _, fff_item in ipairs(fff_result) do
-                local item = {
-                    text = fff_item.relative_path,
-                    path = fff_item.path,
-                    score = fff_item.total_frecency_score,
-                }
-                table.insert(items, item)
-            end
+-- notifier
+-- require('mini.notify').setup({
+--     content = {
+--         -- Show more recent notifications first
+--         sort = function(notif_arr)
+--             table.sort(
+--                 notif_arr,
+--                 function(a, b) return a.ts_update > b.ts_update end
+--             )
+--             return notif_arr
+--         end,
+--     },
+--     lsp_progress = {
+--         enable = false,
+--     },
+--     window = {
+--         winblend = 0
+--     }
+-- })
+-- vim.notify = require('mini.notify').make_notify()
 
-            return items
+-- starter
+local starter = require('mini.starter')
+starter.setup({
+    items = {
+        starter.sections.builtin_actions(),
+        { name = "Open Last File", action = "'0", section = "Builtin actions" }
+    },
+    content_hooks = {
+        starter.gen_hook.aligning('center', 'center'),
+    },
+    footer = "",
+    silent = true,
+})
+
+-- statusline
+-- Helper function to get LSP clients
+local function get_tools()
+    local clients = {}
+    local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(buf_clients) do
+        if client.name ~= 'null-ls' and client.name ~= 'copilot' then
+            table.insert(clients, client.name)
         end
+    end
 
-        ---@param items PickerItem[]
-        local function show(buf_id, items)
-            local icon_data = {}
+    if #clients == 0 then
+        return ''
+    end
 
-            -- Show items
-            local items_to_show = {}
-            for i, item in ipairs(items) do
-                local icon, hl, _ = MiniIcons.get('file', item.text)
-                icon_data[i] = { icon = icon, hl = hl }
+    local ft = vim.bo.filetype
+    local linters = require 'lint'.linters_by_ft[ft] or {}
 
-                items_to_show[i] = string.format('%s %s', icon, item.text)
-            end
-            vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, items_to_show)
+    return '[ ' .. table.concat(clients, ',') .. '  ' .. table.concat(linters, ',') .. ']'
+end
 
-            vim.api.nvim_buf_clear_namespace(buf_id, ns_id, 0, -1)
+-- Custom location function showing only line and percentage
+local function simple_location()
+    local line = vim.fn.line('.')
+    local total_lines = vim.fn.line('$')
+    local percentage = math.floor((line / total_lines) * 100)
+    return string.format(' %d:%d%%', line, percentage)
+end
 
-            local icon_extmark_opts = { hl_mode = 'combine', priority = 200 }
-            for i, item in ipairs(items) do
-                -- Highlight Icons
-                icon_extmark_opts.hl_group = icon_data[i].hl
-                icon_extmark_opts.end_row, icon_extmark_opts.end_col = i - 1, 1
-                vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, 0, icon_extmark_opts)
+local function get_filetype_with_icon()
+    local filetype = vim.bo.filetype
+    if filetype == '' then
+        return ''
+    end
 
-                -- Highlight score
-                local col = #items_to_show[i] - #tostring(item.score) - 3
-                icon_extmark_opts.hl_group = 'FFFileScore'
-                icon_extmark_opts.end_row, icon_extmark_opts.end_col = i - 1, #items_to_show[i]
-                vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, col, icon_extmark_opts)
-            end
+    -- Get icon from mini.icons
+    local icon = ''
+    local has_mini_icons, mini_icons = pcall(require, 'mini.icons')
+    if has_mini_icons then
+        local file_icon = mini_icons.get('filetype', filetype)
+        if file_icon then
+            icon = file_icon .. ' '
         end
+    end
 
-        local function run()
-            -- Setup fff.nvim
-            local file_picker = require 'fff.file_picker'
-            if not file_picker.is_initialized() then
-                local setup_success = file_picker.setup()
-                if not setup_success then
-                    vim.notify('Could not setup fff.nvim', vim.log.levels.ERROR)
-                    return
-                end
-            end
+    return '' .. icon .. filetype
+end
 
-            -- Cache current file to deprioritize in fff.nvim
-            if not state.current_file_cache then
-                local current_buf = vim.api.nvim_get_current_buf()
-                if current_buf and vim.api.nvim_buf_is_valid(current_buf) then
-                    local current_file = vim.api.nvim_buf_get_name(current_buf)
-                    if current_file ~= '' and vim.fn.filereadable(current_file) == 1 then
-                        local relative_path = vim.fs.relpath(vim.uv.cwd(), current_file)
-                        state.current_file_cache = relative_path
-                    else
-                        state.current_file_cache = nil
-                    end
-                end
-            end
+-- Custom diagnostics function using mini.icons
+local function get_diagnostics_with_icons()
+    local counts = vim.diagnostic.count(0)
+    if vim.tbl_isempty(counts) then
+        return ''
+    end
 
-            -- Start picker
-            MiniPick.start {
-                source = {
-                    name = 'FFFiles',
-                    items = find,
-                    match = function(_, _, query)
-                        local items = find(table.concat(query))
-                        MiniPick.set_picker_items(items, { do_match = false })
-                    end,
-                    show = show,
-                },
-            }
+    local parts = {}
 
-            state.current_file_cache = nil -- Reset cache
-        end
+    -- Error
+    if counts[vim.diagnostic.severity.ERROR] then
+        table.insert(parts, tools.ui.diagnostics.ERROR .. ' ' .. counts[vim.diagnostic.severity.ERROR])
+    end
 
-        MiniPick.registry.fffiles = run
+    -- Warning
+    if counts[vim.diagnostic.severity.WARN] then
+        table.insert(parts, tools.ui.diagnostics.WARN .. ' ' .. counts[vim.diagnostic.severity.WARN])
+    end
+
+    -- Info
+    if counts[vim.diagnostic.severity.INFO] then
+        table.insert(parts, tools.ui.diagnostics.INFO .. ' ' .. counts[vim.diagnostic.severity.INFO])
+    end
+
+    -- Hint
+    if counts[vim.diagnostic.severity.HINT] then
+        table.insert(parts, tools.ui.diagnostics.HINT .. ' ' .. counts[vim.diagnostic.severity.HINT])
+    end
+
+    return table.concat(parts, ' ')
+end
 
 
-
-        -- hipatterns
-        local hipatterns = require('mini.hipatterns')
-        hipatterns.setup({
-            highlighters = {
-                -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-                fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-                hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-                todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-                note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
-                -- Highlight hex color strings (`#rrggbb`) using that color
-                hex_color = hipatterns.gen_highlighter.hex_color(),
-            },
-        })
-
-        -- notifier
-        -- require('mini.notify').setup({
-        --     content = {
-        --         -- Show more recent notifications first
-        --         sort = function(notif_arr)
-        --             table.sort(
-        --                 notif_arr,
-        --                 function(a, b) return a.ts_update > b.ts_update end
-        --             )
-        --             return notif_arr
-        --         end,
-        --     },
-        --     lsp_progress = {
-        --         enable = false,
-        --     },
-        --     window = {
-        --         winblend = 0
-        --     }
-        -- })
-        -- vim.notify = require('mini.notify').make_notify()
-
-        -- starter
-        local starter = require('mini.starter')
-        starter.setup({
-            items = {
-                starter.sections.builtin_actions(),
-                { name = "Open Last File", action = "'0", section = "Builtin actions" }
-            },
-            content_hooks = {
-                starter.gen_hook.aligning('center', 'center'),
-            },
-            footer = "",
-            silent = true,
-        })
-
-        -- statusline
-        -- Helper function to get LSP clients
-        local function get_tools()
-            local clients = {}
-            local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
-
-            for _, client in ipairs(buf_clients) do
-                if client.name ~= 'null-ls' and client.name ~= 'copilot' then
-                    table.insert(clients, client.name)
-                end
-            end
-
-            if #clients == 0 then
-                return ''
-            end
-
-            local ft = vim.bo.filetype
-            local linters = require 'lint'.linters_by_ft[ft] or {}
-
-            return '[ ' .. table.concat(clients, ',') .. '  ' .. table.concat(linters, ',') .. ']'
-        end
-
-        -- Custom location function showing only line and percentage
-        local function simple_location()
-            local line = vim.fn.line('.')
-            local total_lines = vim.fn.line('$')
-            local percentage = math.floor((line / total_lines) * 100)
-            return string.format(' %d:%d%%', line, percentage)
-        end
-
-        local function get_filetype_with_icon()
-            local filetype = vim.bo.filetype
-            if filetype == '' then
-                return ''
-            end
-
-            -- Get icon from mini.icons
-            local icon = ''
-            local has_mini_icons, mini_icons = pcall(require, 'mini.icons')
-            if has_mini_icons then
-                local file_icon = mini_icons.get('filetype', filetype)
-                if file_icon then
-                    icon = file_icon .. ' '
-                end
-            end
-
-            return '' .. icon .. filetype
-        end
-
-        -- Custom diagnostics function using mini.icons
-        local function get_diagnostics_with_icons()
-            local counts = vim.diagnostic.count(0)
-            if vim.tbl_isempty(counts) then
-                return ''
-            end
-
-            local parts = {}
-
-            -- Error
-            if counts[vim.diagnostic.severity.ERROR] then
-                table.insert(parts, tools.ui.diagnostics.ERROR .. ' ' .. counts[vim.diagnostic.severity.ERROR])
-            end
-
-            -- Warning
-            if counts[vim.diagnostic.severity.WARN] then
-                table.insert(parts, tools.ui.diagnostics.WARN .. ' ' .. counts[vim.diagnostic.severity.WARN])
-            end
-
-            -- Info
-            if counts[vim.diagnostic.severity.INFO] then
-                table.insert(parts, tools.ui.diagnostics.INFO .. ' ' .. counts[vim.diagnostic.severity.INFO])
-            end
-
-            -- Hint
-            if counts[vim.diagnostic.severity.HINT] then
-                table.insert(parts, tools.ui.diagnostics.HINT .. ' ' .. counts[vim.diagnostic.severity.HINT])
-            end
-
-            return table.concat(parts, ' ')
-        end
+local function get_macro_recording()
+    local recording_register = vim.fn.reg_recording()
+    if recording_register ~= '' then
+        return '● REC[' .. recording_register .. ']'
+    end
+    return ''
+end
 
 
-        local function get_macro_recording()
-            local recording_register = vim.fn.reg_recording()
-            if recording_register ~= '' then
-                return '● REC[' .. recording_register .. ']'
-            end
-            return ''
-        end
+local function get_modified_indicator()
+    if vim.bo.modified then
+        return '[+]'
+    end
+    return ''
+end
 
+-- Custom content function for cleaner statusline
+local function statusline_content()
+    local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
+    local git = MiniStatusline.section_git({ trunc_width = 75 })
+    local diagnostics = get_diagnostics_with_icons()
+    local macro_recording = get_macro_recording()
+    local modified = get_modified_indicator()
+    local location = simple_location()
+    local lsp_status = get_tools()
+    local filetype = get_filetype_with_icon()
 
-        local function get_modified_indicator()
-            if vim.bo.modified then
-                return '[+]'
-            end
-            return ''
-        end
+    return MiniStatusline.combine_groups({
+        { hl = mode_hl,                 strings = { mode } },
+        { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+        { hl = 'DiagnosticError',       strings = { modified, macro_recording } },
+        '%<',         -- Mark general truncate point
+        -- { hl = '',                       strings = { filename } },
+        '%=',         -- End left alignment
+        { hl = 'MiniStatuslineFileinfo', strings = { lsp_status, filetype } },
+        { hl = mode_hl,                  strings = { location } },
+    })
+end
 
-        -- Custom content function for cleaner statusline
-        local function statusline_content()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
-            local git = MiniStatusline.section_git({ trunc_width = 75 })
-            local diagnostics = get_diagnostics_with_icons()
-            local macro_recording = get_macro_recording()
-            local modified = get_modified_indicator()
-            local location = simple_location()
-            local lsp_status = get_tools()
-            local filetype = get_filetype_with_icon()
+local function statusline_content_inactive()
+    local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
+    local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+    local git = MiniStatusline.section_git({ trunc_width = 75 })
+    local diagnostics = get_diagnostics_with_icons()
+    return MiniStatusline.combine_groups({
+        { hl = mode_hl,                 strings = { mode } },
+        { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+        '%<',         -- Mark general truncate point
+        { hl = '', strings = { filename } },
+        '%=',         -- End left alignment
+    })
+end
 
-            return MiniStatusline.combine_groups({
-                { hl = mode_hl,                 strings = { mode } },
-                { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
-                { hl = 'DiagnosticError',       strings = { modified, macro_recording } },
-                '%<', -- Mark general truncate point
-                -- { hl = '',                       strings = { filename } },
-                '%=', -- End left alignment
-                { hl = 'MiniStatuslineFileinfo', strings = { lsp_status, filetype } },
-                { hl = mode_hl,                  strings = { location } },
-            })
-        end
+require('mini.statusline').setup({
+    content = {
+        active = statusline_content,
+        inactive = statusline_content_inactive
+    },
+    use_icons = vim.g.have_nerd_font or false,
+    set_vim_settings = false,         -- Keep your existing statusline settings
+})
 
-        local function statusline_content_inactive()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 999999999 })
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local git = MiniStatusline.section_git({ trunc_width = 75 })
-            local diagnostics = get_diagnostics_with_icons()
-            return MiniStatusline.combine_groups({
-                { hl = mode_hl,                 strings = { mode } },
-                { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
-                '%<', -- Mark general truncate point
-                { hl = '', strings = { filename } },
-                '%=', -- End left alignment
-            })
-        end
-
-        require('mini.statusline').setup({
-            content = {
-                active = statusline_content,
-                inactive = statusline_content_inactive
-            },
-            use_icons = vim.g.have_nerd_font or false,
-            set_vim_settings = false, -- Keep your existing statusline settings
-        })
-
-        -- Keymaps
-        vim.keymap.set("n", "<leader>go", function() MiniDiff.toggle_overlay() end,
-            { desc = "Toggle Diff Overlay", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end,
-            { desc = "Delete Buffer", remap = true, silent = true })
-        vim.keymap.set("n", "<leader><space>", function() MiniPick.registry.fffiles() end,
-            { desc = "FFF Files", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>fg", function() MiniPick.builtin.grep_live() end,
-            { desc = "Live Grep", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ss", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
-            { desc = "Workspace Symbols", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>tr", function() MiniExtra.pickers.diagnostic() end,
-            { desc = "Diagnostics", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>gi", function() MiniExtra.pickers.git_hunks() end,
-            { desc = "Git Hunks", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>bf", function() MiniPick.builtin.buffers() end,
-            { desc = "Buffers", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ch", function() MiniExtra.pickers.history() end,
-            { desc = "Command History", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>mk", function() MiniExtra.pickers.keymaps() end,
-            { desc = "Keymaps", remap = true, silent = true })
-        vim.keymap.set("n", "<leader>ms", function() MiniExtra.pickers.marks() end,
-            { desc = "Marks", remap = true, silent = true })
-    end,
-
-}
+-- Keymaps
+vim.keymap.set("n", "<leader>go", function() MiniDiff.toggle_overlay() end,
+    { desc = "Toggle Diff Overlay", remap = true, silent = true })
+vim.keymap.set("n", "<leader>d", function() MiniBufremove.delete() end,
+    { desc = "Delete Buffer", remap = true, silent = true })
+vim.keymap.set("n", "<leader><space>", function() MiniPick.registry.fffiles() end,
+    { desc = "FFF Files", remap = true, silent = true })
+vim.keymap.set("n", "<leader>fg", function() MiniPick.builtin.grep_live() end,
+    { desc = "Live Grep", remap = true, silent = true })
+vim.keymap.set("n", "<leader>ss", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
+    { desc = "Workspace Symbols", remap = true, silent = true })
+vim.keymap.set("n", "<leader>tr", function() MiniExtra.pickers.diagnostic() end,
+    { desc = "Diagnostics", remap = true, silent = true })
+vim.keymap.set("n", "<leader>gi", function() MiniExtra.pickers.git_hunks() end,
+    { desc = "Git Hunks", remap = true, silent = true })
+vim.keymap.set("n", "<leader>bf", function() MiniPick.builtin.buffers() end,
+    { desc = "Buffers", remap = true, silent = true })
+vim.keymap.set("n", "<leader>ch", function() MiniExtra.pickers.history() end,
+    { desc = "Command History", remap = true, silent = true })
+vim.keymap.set("n", "<leader>mk", function() MiniExtra.pickers.keymaps() end,
+    { desc = "Keymaps", remap = true, silent = true })
+vim.keymap.set("n", "<leader>ms", function() MiniExtra.pickers.marks() end,
+    { desc = "Marks", remap = true, silent = true })

@@ -1,18 +1,5 @@
 vim.loader.enable()
 
-
-local unpack_path = vim.fn.stdpath("data") .. "/site/pack/managers/start/unpack"
-
-if not vim.uv.fs_stat(unpack_path) then
-    vim.fn.system({
-        'git',
-        'clone',
-        "--filter=blob:none",
-        'https://github.com/mezdelex/unpack',
-        unpack_path
-    })
-end
-
 require("globals")
 require("core.autocmds")
 require("core.keymaps")
@@ -20,4 +7,4 @@ require("core.options")
 require("ui")
 require("core.lsp")
 require("core.commands")
-require("unpack").setup()
+require("plugins").load()
