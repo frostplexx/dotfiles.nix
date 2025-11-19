@@ -9,7 +9,6 @@
     # GUI Applications
     # jetbrains.idea-ultimate
     # jetbrains.pycharm-professional
-    # ollama
     keka
     iina
     utm
@@ -20,7 +19,6 @@
     hexfiend
     skimpdf
     macpm
-    ollama
   ];
 
   # Homebrew configuration
@@ -64,8 +62,7 @@
       "altserver"
       "tailscale-app"
       "chromium"
-      "firefox"
-      "ghostty@tip"
+      "ollama-app"
       "cleanshot"
       "mac-mouse-fix"
       "orbstack"
@@ -74,8 +71,8 @@
       "affinity"
       "1password"
       # TODO: Move to nix once available
-      "font-sf-pro"
-      "font-sf-mono"
+      # "font-sf-pro"
+      # "font-sf-mono"
       "sf-symbols"
     ];
   };

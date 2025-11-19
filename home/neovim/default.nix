@@ -71,8 +71,8 @@ in {
       settings = {
         theme = "catppuccin";
         autoshare = false;
-        model = "anthropic/claude-sonnet-4-5";
-        small_model = "anthropic/claude-haiku-4-5";
+        model = "github/claude-sonnet-4-5";
+        small_model = "github/claude-haiku-4-5";
         autoupdate = false;
         disabled_providers = ["xAI"];
         permission = {
