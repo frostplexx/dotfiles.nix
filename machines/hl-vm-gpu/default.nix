@@ -38,7 +38,7 @@
 
     powerManagement = {
         enable = true;
-        cpuFreqGovernor = "perfomance";
+        cpuFreqGovernor = "performance";
     };
 
     environment.pathsToLink = ["/libexec"];
@@ -129,14 +129,22 @@
             daniel = {
                 isNormalUser = true;
                 description = "Daniel";
-                extraGroups = ["networkmanager" "wheel" "vboxusers"];
+                extraGroups = ["networkmanager" "wheel" "vboxusers" "libvirtd" "kvm"];
             };
         };
     };
 
+    # Looking Glass for low-latency VM display
+    systemd.tmpfiles.rules = [
+        "f /dev/shm/looking-glass 0660 daniel kvm -"
+    ];
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment = {
+        systemPackages = with pkgs; [
+            looking-glass-client
+        ];
         variables = {
             FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
             QT_ENABLE_HIGHDPI_SCALING = "1";
