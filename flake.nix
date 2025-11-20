@@ -99,7 +99,11 @@
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
         "git"
+        "kitty"
         "neovim"
+        "neovim"
+        "nixcord"
+        "spotify"
         "ssh"
       ];
     };
@@ -109,7 +113,6 @@
       user = "daniel";
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
-        # "aerospace"
         "zen"
         "git"
         "kitty"
@@ -118,7 +121,6 @@
         "shell"
         "spotify"
         "ghostty"
-        "skhd"
         "ssh"
       ];
       # Set your global accent color here (hex without #)
