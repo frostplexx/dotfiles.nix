@@ -17,7 +17,9 @@ in {
     ];
     # enabledCustomApps = with spicePkgs.apps; [
     # ];
-    theme = spicePkgs.themes.comfy;
-    colorScheme = "catppuccin-mocha";
+    # theme = spicePkgs.themes.comfy;
+    theme = spicePkgs.themes.catppuccin;
+    # colorScheme = "catppuccin-mocha";
+    colorScheme = "mocha";
   };
 }

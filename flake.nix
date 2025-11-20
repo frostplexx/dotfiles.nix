@@ -93,7 +93,7 @@
       ];
     };
 
-    nixosConfigurations.pc-nixos-gaming = mkSystem "pc-nixos-gaming" {
+    nixosConfigurations.hl-vm-gpu = mkSystem "hl-vm-gpu" {
       system = "x86_64-linux";
       user = "daniel";
       # Home manager modules you want to include as defined in ./home

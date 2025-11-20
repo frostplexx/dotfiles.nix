@@ -256,7 +256,7 @@
           # "/Applications/Firefox.app"
           # "/Applications/Safari.app"
           # "${pkgs.kitty}/Applications/kitty.app"
-          "/Applications/Nix\\ Apps/Obsidian.app"
+          "/Applications/Nix Apps/Obsidian.app"
         ];
       };
 
