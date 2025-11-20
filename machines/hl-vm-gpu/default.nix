@@ -42,35 +42,8 @@
     };
 
     environment.pathsToLink = ["/libexec"];
-    virtualisation.virtualbox = {
-        host = {
-            enable = true;
-            enableExtensionPack = true;
-            # enableKvm = true;
-        };
-        guest = {
-            enable = true;
-            dragAndDrop = true;
-        };
-    };
 
     services = {
-        keyd = {
-            enable = true;
-            keyboards = {
-                default = {
-                    ids = ["*"];
-                    settings = {
-                        main = {
-                            capslock = "overload(capslock_layer, esc)";
-                        };
-                        "capslock_layer:C-A-M" = {
-                        };
-                    };
-                };
-            };
-        };
-
         # For git secrets and shit
         # gnome.gnome-keyring.enable = true;
 
