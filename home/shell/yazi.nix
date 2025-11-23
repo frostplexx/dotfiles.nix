@@ -9,8 +9,8 @@
   yazi-flavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
-    rev = "f6b425a6d57af39c10ddfd94790759f4d7612332";
-    hash = "sha256-bavHcmeGZ49nNeM+0DSdKvxZDPVm3e6eaNmfmwfCid0=";
+    rev = "ba2777491c48063413920f43efc267479a0e8de5";
+    hash = "sha256-bynoDEuRLyVqTOty8Ul2vxy8YKaKHcWHAhKvYlwkKo4=";
   };
 in {
   # Terminal file manager
