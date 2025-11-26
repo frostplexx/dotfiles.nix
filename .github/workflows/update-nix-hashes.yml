@@ -10,7 +10,7 @@ jobs:
       contents: write # Required for pushing changes
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21 # or 'latest'
       - name: Set up Nix environment
