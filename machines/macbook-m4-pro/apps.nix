@@ -19,6 +19,7 @@
     hexfiend
     skimpdf
     macpm
+    moonlight-qt
   ];
 
   # Homebrew configuration

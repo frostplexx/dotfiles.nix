@@ -65,7 +65,7 @@ in {
         betterUploadButton.enable = true;
         biggerStreamPreview.enable = true;
         fakeProfileThemes.enable = true;
-        clearURLs.enable = true;
+        # clearUrLs.enable = true;
         crashHandler.enable = true;
         experiments = {
           enable = true;
@@ -101,10 +101,6 @@ in {
         voiceChatDoubleClick.enable = true;
         webScreenShareFixes.enable = true;
         whoReacted.enable = true;
-        appleMusicRichPresence = {
-          enable = false;
-          activityType = "listening";
-        };
       };
     };
   };

@@ -1,5 +1,5 @@
 {
-  description = "Unified configuration for NixOS gaming PC and MacBook Pro M1";
+  description = "Unified configuration for NixOS gaming PC and MacBook Pro M4";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -75,24 +75,6 @@
       inherit overlays nixpkgs inputs;
     };
   in {
-    nixosConfigurations.pc-nixos = mkSystem "pc-nixos" {
-      system = "x86_64-linux";
-      user = "daniel";
-      # Home manager modules you want to include as defined in ./home
-      hm-modules = [
-        "zen"
-        "git"
-        "i3"
-        "kitty"
-        "neovim"
-        "nixcord"
-        "shell"
-        "ssh"
-        "zed"
-        "spotify"
-      ];
-    };
-
     nixosConfigurations.hl-vm-gpu = mkSystem "hl-vm-gpu" {
       system = "x86_64-linux";
       user = "daniel";
