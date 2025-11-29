@@ -1,3 +1,15 @@
+function compress_to_webp
+    if test (count $argv) -ne 1
+        echo (set_color red)"Usage: compress_to_webp <input>"(set_color normal)
+        return 1
+    end
+
+    set input_file $argv[1]
+    set output_file (string replace -r '\.png$' '' $input_file)
+    magick $input_file -quality 50 $output_file--WebP.webp
+end
+
+
 function project_selector
     set selected (ghq list | fzf --height 40% --border \
         --preview 'eza -la --git --color=always ~/Developer/{}' \
@@ -93,57 +105,5 @@ function fkill
         end
     else
         echo " No process selected."
-    end
-end
-
-
-function fog --description "Bring jobs to foreground with interactive selection"
-    # If no arguments provided, show interactive job selector
-    if test (count $argv) -eq 0
-        # Get list of jobs
-        set -l job_list (jobs)
-        
-        # Check if there are any jobs
-        if test (count $job_list) -eq 0
-            echo "No suspended jobs"
-            return 1
-        end
-        
-        # Display jobs with numbers
-        echo "Suspended jobs:"
-        for i in (seq (count $job_list))
-            echo "  $i) $job_list[$i]"
-        end
-        
-        # Get user selection
-        echo -n "Select job number (1-"(count $job_list)"): "
-        read -l selection
-        
-        # Validate selection
-        if test -z "$selection"
-            echo "No selection made"
-            return 1
-        end
-        
-        if not string match -qr '^\d+$' "$selection"
-            echo "Invalid selection: must be a number"
-            return 1
-        end
-        
-        if test $selection -lt 1 -o $selection -gt (count $job_list)
-            echo "Invalid selection: must be between 1 and "(count $job_list)
-            return 1
-        end
-        
-        # Extract job ID from the selected job line
-        set -l selected_job $job_list[$selection]
-        set -l job_id (string replace -r '^Job\s+(\d+).*' '$1' $selected_job)
-        
-        # Bring the selected job to foreground
-        echo "Bringing job $job_id to foreground..."
-        command fg %$job_id
-    else
-        # If arguments provided, pass them to Fish's builtin fg
-        builtin fg $argv
     end
 end

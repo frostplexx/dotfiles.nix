@@ -19,7 +19,6 @@ in {
     # ];
     # theme = spicePkgs.themes.comfy;
     theme = spicePkgs.themes.catppuccin;
-    # colorScheme = "catppuccin-mocha";
     colorScheme = "mocha";
   };
 }
