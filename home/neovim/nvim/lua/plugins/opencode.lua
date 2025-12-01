@@ -1,23 +1,15 @@
-vim.pack.add({{ src = "https://github.com/NickvanDyke/opencode.nvim.git" }})
+vim.pack.add({ { src = "https://github.com/NickvanDyke/opencode.nvim.git" } })
 -- TODO: Wait for mini.nvim to implement terminal
 -- @type opencode.Opts
--- vim.g.opencode_opts = {
---     ---@type opencode.Provider
---     provider = {
---         toggle = function(self)
---             -- Called by `require("opencode").toggle()`
---         end,
---         start = function(self)
---             -- Called when sending a prompt or command to `opencode` but no process was found.
---             -- `opencode.nvim` will poll for a couple seconds waiting for one to appear.
---         end,
---         show = function(self)
---             -- Called when a prompt or command is sent to `opencode`,
---             -- *and* this provider's `toggle` or `start` has previously been called
---             -- (so as to not interfere when `opencode` was started externally).
---         end
---     }
--- }
+vim.g.opencode_opts = {
+    ---@type opencode.Provider
+    provider = {
+        enabled = "kitty",
+        kitty = {
+           location = "vsplit",
+        }
+    }
+}
 
 -- Required for `opts.auto_reload`.
 vim.o.autoread = true

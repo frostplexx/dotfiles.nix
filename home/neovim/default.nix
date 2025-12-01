@@ -22,6 +22,7 @@ in {
         coreutils
         luajitPackages.tiktoken_core
         lynx
+        opencode
         # vscode-js-debug
       ];
 

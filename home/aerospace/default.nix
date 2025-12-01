@@ -19,12 +19,12 @@ in {
     };
   };
 
-  # programs.aerospace-swipe = {
-  #   enable = true;
-  #   haptic = false;
-  #   natural_swipe = true;
-  #   fingers = 3;
-  # };
+  programs.aerospace-swipe = {
+    enable = true;
+    haptic = false;
+    natural_swipe = true;
+    fingers = 3;
+  };
 
   programs.aerospace = {
     launchd.enable = true;
