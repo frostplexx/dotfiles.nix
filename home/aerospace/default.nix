@@ -19,17 +19,17 @@ in {
     };
   };
 
-  programs.aerospace-swipe = {
-    enable = true;
-    haptic = false;
-    natural_swipe = true;
-    fingers = 3;
-  };
+  # programs.aerospace-swipe = {
+  #   enable = true;
+  #   haptic = false;
+  #   natural_swipe = true;
+  #   fingers = 3;
+  # };
 
   programs.aerospace = {
     launchd.enable = true;
     enable = true;
-    userSettings = {
+    settings = {
       # Start AeroSpace at login
       # You dont need this when running it using nix-darwin.services start-at-login = true;
 
