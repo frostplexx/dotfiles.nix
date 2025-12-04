@@ -69,8 +69,8 @@ in {
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
-        rev = "d7056e37c853048a39b1fb9243d8654e60311d79";
-        hash = "sha256-zlyJrBBUTeeGB69pMel+QWU/ivbUfzBJhGJy+yoHoaE=";
+        rev = "eca186171c5f2011ce62712f95f699308251c749";
+        hash = "sha256-xcz2+zepICZ3ji0Hm0SSUBSaEpabWUrIdG7JmxUl/ts=";
       };
     };
     flavors = {
