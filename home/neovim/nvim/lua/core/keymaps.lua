@@ -5,7 +5,6 @@ vim.g.maplocalleader = "\\"
 vim.keymap.set("n", "U", "<c-r>", { desc = "redo", noremap = false })
 
 -- Key mappings for LSP actions
-vim.keymap.set("n", "<leader>D", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
@@ -14,6 +13,7 @@ vim.keymap.set("n", "<leader>r", vim.lsp.buf.references)
 vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename)
 vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>D", vim.diagnostic.open_float)
 
 -- Jump to next/previous diagnostic
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
@@ -39,8 +39,10 @@ end, { desc = "Duplicate a line and comment out the first line", silent = true }
 vim.keymap.set("n", "<c-u>", "<c-u>zz", { desc = "scroll up half a screen" })
 vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "scroll down half a screen" })
 
-vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" }) -- move to the next search result and center the screen
-vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) -- move to the previous search result and center the screen
+-- move to the next search result and center the screen
+vim.keymap.set("n", "n", "nzzzv", { desc = "move to next search result" })
+-- move to the previous search result and center the screen
+vim.keymap.set("n", "N", "Nzzzv", { desc = "move to previous search result" }) 
 
 vim.keymap.set("n", "<C-1>", "'A", { desc = "Select Mark A" })
 vim.keymap.set("n", "<C-2>", "'B", { desc = "Select Mark B" })

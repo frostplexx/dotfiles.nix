@@ -36,7 +36,8 @@ in
     # Import any additional modules (e.g., jinx)
     ({pkgs, ...}: import ../../modules {inherit pkgs;})
     # Trust the root user and the system user for Nix operations
-    {nix.settings.trusted-users = ["root" user];}
+    # On Darwin with Determinate, this is handled via determinate-nix.customSettings
+    ({lib, ...}: lib.mkIf (!isDarwin) {nix.settings.trusted-users = ["root" user];})
     # Custom system applications build for copying apps instead of linking
     ({config, ...}: {
       system.build.applications = pkgs.lib.mkForce (
@@ -92,7 +93,8 @@ in
             )
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
-            # Stupid module fails when not on darwin
+            # Disable nix management in home-manager on Darwin (handled by Determinate)
+            {nix.enable = false;}
           ];
         # Per-user Home Manager configuration
         users.${user} = mkHomeConfig {

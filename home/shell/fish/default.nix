@@ -43,7 +43,7 @@
     "fish/themes/Catppuccin Mocha.theme" = {
       text = builtins.readFile (pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
-        sha256 = "kdA9Vh23nz9FW2rfOys9JVmj9rtr7n8lZUPK8cf7pGE=";
+        sha256 = "sha256-8Ny82/W2yDWdtcKGxl6EO1jXgGJF2R6GbX2khTZs+78=";
       });
     };
   };
