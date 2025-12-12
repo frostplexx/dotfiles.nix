@@ -89,10 +89,10 @@ in {
         quickMention.enable = true;
         readAllNotificationsButton.enable = true;
         sendTimestamps.enable = true;
-        shikiCodeblocks = {
-          enable = true;
-          theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/ecd9fb1b4a38381df95048c19cf9b8bdcbb1ec09/packages/tm-themes/themes/catppuccin-macchiato.json";
-        };
+        # shikiCodeblocks = {
+        #   enable = true;
+        #   theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/ecd9fb1b4a38381df95048c19cf9b8bdcbb1ec09/packages/tm-themes/themes/catppuccin-macchiato.json";
+        # };
         translate.enable = true;
         typingIndicator.enable = true;
         typingTweaks.enable = true;

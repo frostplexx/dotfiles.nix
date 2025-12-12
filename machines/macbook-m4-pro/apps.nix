@@ -71,6 +71,7 @@
       "zen"
       "affinity"
       "1password"
+      "mullvad-vpn"
       # TODO: Move to nix once available
       # "font-sf-pro"
       # "font-sf-mono"
