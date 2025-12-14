@@ -39,12 +39,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # ==== Neovim ====
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Homebrew Taps
+    # Required, nvf works best and only directly supports flakes
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      # You can override the input nixpkgs to follow your system's
+      # instance of nixpkgs. This is safe to do as nvf does not depend
+      # on a binary cache.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ========================
+
+    # ==== Homebrew Taps ====
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -58,6 +70,7 @@
       url = "github:FelixKratz/homebrew-formulae";
       flake = false;
     };
+    # ========================
   };
 
   outputs = {nixpkgs, ...} @ inputs: let

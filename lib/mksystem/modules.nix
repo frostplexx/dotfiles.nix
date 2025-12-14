@@ -68,6 +68,7 @@ in
         # Shared Home Manager modules for all users
         sharedModules =
           [
+            inputs.nvf.homeManagerModules.default
             inputs.nixcord.homeModules.nixcord
             inputs.nixkit.homeModules.default
             inputs.sops-nix.homeManagerModules.sops

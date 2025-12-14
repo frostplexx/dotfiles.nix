@@ -1,205 +1,337 @@
-# programs/editor/default.nix
-{pkgs, ...}: let
-  # Can be either nvim or nvim-mini
-  nvim_config = ./nvim;
-  treeSitterWithAllGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (_plugins: pkgs.tree-sitter.allGrammars);
-in {
-  programs = {
-    neovim = {
-      enable = true;
-      package = pkgs.neovim;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      withNodeJs = true;
+{lib, ...}: {
+  programs.nvf = {
+    enable = true;
+    settings = {
+      vim = {
+        lazy.enable = false;
+        viAlias = true;
+        vimAlias = true;
 
-      extraPackages = with pkgs; [
-        ripgrep
-        fd
-        git
-        nodejs
-        tree-sitter
-        coreutils
-        luajitPackages.tiktoken_core
-        lynx
-        opencode
-        # vscode-js-debug
-      ];
-
-      plugins = [
-        # treeSitterWithAllGrammars
-      ];
-    };
-    gh-dash = {
-      enable = true;
-      settings = {
-        theme = {
-          ui = {
-            table.compact = true;
-          };
-          colors = {
-            text = {
-              primary = "#cdd6f4";
-              secondary = "#89b4fa";
-              inverted = "#11111b";
-              faint = "#bac2de";
-              warning = "#f9e2af";
-              success = "#a6e3a1";
-              error = "#f38ba8";
-            };
-            background = {
-              selected = "#313244";
-            };
-            border = {
-              primary = "#89b4fa";
-              secondary = "#45474a";
-              faint = "#313244";
-            };
-          };
-        };
-        defaults = {
-          layout = {
-            issues = {
-              creator.width = 20;
-            };
-          };
-          view = "issues";
-        };
-      };
-    };
-    opencode = {
-      enable = true;
-      settings = {
-        theme = "catppuccin";
-        autoshare = false;
-        model = "github/claude-sonnet-4-5";
-        small_model = "github/claude-haiku-4-5";
-        autoupdate = false;
-        disabled_providers = ["xAI"];
-        permission = {
-          webfetch = "allow";
+        options = {
+          clipboard = "unnamedplus";
+          tabstop = 4;
+          softtabstop = 4;
+          shiftwidth = 4;
+          expandtab = true;
+          smartindent = true;
+          fileencoding = "utf-8";
+          wrap = false;
+          swapfile = false;
+          backup = false;
+          undofile = true;
         };
 
-        # LSP Configuration
         lsp = {
-          # Custom LSP servers (opencode has built-in support for most, but we ensure they use nix)
-          gopls = {
-            command = ["nix-shell" "--pure" "-p" "gopls" "--run" "gopls"];
-            extensions = [".go"];
-          };
-          ts_ls = {
-            command = ["nix-shell" "-p" "typescript-language-server" "--run" "typescript-language-server --stdio"];
-            extensions = [".ts"];
-          };
-          lua_ls = {
-            command = ["nix-shell" "-p" "lua-language-server" "--run" "lua-language-server"];
-            extensions = [".lua"];
-          };
-          fish = {
-            command = ["nix-shell" "-p" "fish-lsp" "--run" "fish-lsp start"];
-            extensions = [".fish"];
-          };
-          nixd = {
-            command = ["nixd"];
-            extensions = [".nix"];
+          enable = true;
+        };
+
+        assistant = {
+          copilot = {
+            enable = true;
+            cmp.enable = true;
           };
         };
 
-        # Formatter Configuration
-        formatter = {
-          # JavaScript/TypeScript/JSON/YAML/CSS/HTML/Markdown
-          prettier = {
-            command = ["nix" "run" "--impure" "nixpkgs#nodePackages.prettier" "--" "--write" "$FILE"];
-            extensions = [".js" ".ts" ".jsx" ".tsx" ".json" ".json5" ".jsonc" ".yaml" ".yml" ".css" ".scss" ".less" ".html" ".md" ".mdx" ".graphql" ".vue"];
-          };
+        languages = {
+          enableTreesitter = true;
+          nix.enable = true;
+          ts.enable = true;
+          rust.enable = true;
+          python.enable = true;
+        };
 
-          # Nix
-          alejandra = {
-            command = ["nix" "run" "--impure" "nixpkgs#alejandra" "--" "$FILE"];
-            extensions = [".nix"];
-          };
+        statusline.lualine.enable = true;
 
-          # Lua
-          stylua = {
-            command = ["nix" "run" "--impure" "nixpkgs#stylua" "--" "-" "$FILE"];
-            extensions = [".lua"];
-          };
+        theme = {
+          enable = true;
+          name = "catppuccin";
+          style = "mocha";
+          transparent = true;
+        };
 
-          # Go
-          gofumpt = {
-            command = ["nix" "run" "--impure" "nixpkgs#gofumpt" "--" "-w" "$FILE"];
-            extensions = [".go"];
+        autocomplete.blink-cmp = {
+          enable = true;
+          setupOpts = {
+            keymap.preset = "super-tab";
+            completion = {
+              ghost_text.enabled = true;
+              menu.border = "rounded";
+            };
           };
+          friendly-snippets.enable = true;
+        };
 
-          # Python
-          black = {
-            command = ["nix" "run" "--impure" "nixpkgs#python3Packages.black" "--" "$FILE"];
-            extensions = [".py"];
+        presence.neocord = {
+          enable = true;
+        };
+
+        ui = {
+          noice.enable = true;
+          borders = {
+            enable = true;
+            globalStyle = "rounded";
           };
-
-          # Rust
-          rustfmt = {
-            command = ["nix" "run" "--impure" "nixpkgs#rustfmt" "--" "$FILE"];
-            extensions = [".rs"];
+          breadcrumbs = {
+            enable = false;
           };
+        };
 
-          # Shell
-          shfmt = {
-            command = ["nix" "run" "--impure" "nixpkgs#shfmt" "--" "-w" "$FILE"];
-            extensions = [".sh" ".bash"];
+        git = {
+          gitsigns.enable = true;
+        };
+
+        diagnostics = {
+          enable = true;
+          nvim-lint.enable = true;
+          config = {
+            signs.text = lib.generators.mkLuaInline ''
+              {
+                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                [vim.diagnostic.severity.INFO] = " ",
+                [vim.diagnostic.severity.HINT] = " ",
+              }
+            '';
+            virtual_text = {
+              prefix = "";
+              spacing = 2;
+              source = "if_many";
+              format = lib.generators.mkLuaInline ''
+                function(diagnostic)
+                  return diagnostic.message
+                end
+              '';
+            };
           };
+        };
 
-          # Terraform
-          terraform_fmt = {
-            command = ["nix" "run" "--impure" "nixpkgs#terraform" "--" "fmt" "-"];
-            extensions = [".tf" ".tfvars"];
-            environment = {
-              NIXPKGS_ALLOW_UNFREE = "1";
+        utility = {
+          snacks-nvim.enable = true;
+          smart-splits.enable = true;
+          yazi-nvim = {
+            enable = true;
+            setupOpts = {
+              open_for_directories = true;
+              yazi_floating_window_border = "rounded";
+            };
+            mappings.yaziToggle = "<leader>e";
+          };
+        };
+
+        mini = {
+          ai.enable = true;
+          bufremove.enable = true;
+          icons.enable = true;
+          extra.enable = true;
+
+          pick = {
+            enable = true;
+            setupOpts = {
+              mappings = {
+                choose_marked = "<C-q>";
+              };
+              window = {
+                config = lib.generators.mkLuaInline ''
+                  function()
+                    local picker_width = 80
+                    local picker_height = 35
+                    return {
+                      anchor = 'NW',
+                      col = math.floor((vim.o.columns - picker_width) / 2),
+                      row = vim.o.lines - (picker_height + 3),
+                      width = picker_width,
+                      height = picker_height,
+                      relative = 'editor',
+                    }
+                  end
+                '';
+                prompt_prefix = " ";
+              };
+              options = {
+                use_cache = true;
+              };
             };
           };
 
-          # Fish
-          fish_indent = {
-            command = ["nix" "run" "--impure" "nixpkgs#fish" "--" "fish_indent"];
-            extensions = [".fish"];
+          diff = {
+            enable = true;
+            setupOpts = {
+              view = {
+                style = "sign";
+                signs = {
+                  add = "┃";
+                  change = "┃";
+                  delete = "┃";
+                };
+              };
+            };
           };
+
+          move = {
+            enable = true;
+            setupOpts = {
+              mappings = {
+                left = "<S-h>";
+                right = "<S-l>";
+                down = "<S-j>";
+                up = "<S-k>";
+              };
+            };
+          };
+
+          hipatterns = {
+            enable = true;
+            setupOpts = {
+              highlighters = {
+                fixme = {
+                  pattern = "%f[%w]()FIXME()%f[%W]";
+                  group = "MiniHipatternsFixme";
+                };
+                hack = {
+                  pattern = "%f[%w]()HACK()%f[%W]";
+                  group = "MiniHipatternsHack";
+                };
+                todo = {
+                  pattern = "%f[%w]()TODO()%f[%W]";
+                  group = "MiniHipatternsTodo";
+                };
+                note = {
+                  pattern = "%f[%w]()NOTE()%f[%W]";
+                  group = "MiniHipatternsNote";
+                };
+              };
+            };
+          };
+          align.enable = true;
         };
+
+        keymaps = [
+          {
+            key = "<leader>go";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniDiff.toggle_overlay() end";
+          }
+          {
+            key = "<leader>d";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniBufremove.delete() end";
+          }
+          {
+            key = "<leader>f";
+            mode = "n";
+            silent = true;
+            noremap = false;
+            lua = true;
+            action = "function() MiniPick.builtin.files() end";
+          }
+          {
+            key = "<leader>gf";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniPick.builtin.grep_live() end";
+          }
+          {
+            key = "<leader>ss";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniExtra.pickers.lsp({ scope = 'workspace_symbol' }) end";
+          }
+          {
+            key = "<leader>tr";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniExtra.pickers.diagnostic() end";
+          }
+          {
+            key = "<leader>bf";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniPick.builtin.buffers() end";
+          }
+          {
+            key = "<leader>mk";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniExtra.pickers.keymaps() end";
+          }
+          {
+            key = "<leader>ms";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() MiniExtra.pickers.marks() end";
+          }
+          {
+            key = "yc";
+            mode = "n";
+            noremap = false;
+            lua = true;
+            silent = true;
+            action = "function() vim.api.nvim_feedkeys('yygccp', 'm', false) end";
+            desc = "Duplicate a line and comment out the first line";
+          }
+          {
+            key = "<Esc>";
+            mode = "n";
+            silent = true;
+            action = "<cmd>nohlsearch<CR>";
+          }
+
+          {
+            key = "<c-u>";
+            mode = "n";
+            silent = true;
+            action = "<c-u>zz";
+            desc = "scroll up half a screen";
+          }
+          {
+            key = "<c-d>";
+            mode = "n";
+            silent = true;
+            action = "<c-d>zz";
+            desc = "scroll down half a screen";
+          }
+          {
+            key = "<leader>s";
+            mode = "v";
+            silent = true;
+            action = "y:%s/<C-r>/\"//gc<Left><Left><Left>";
+            desc = "Search and replace selected text across file";
+          }
+          {
+            key = "<leader>n";
+            mode = "n";
+            silent = true;
+            action = ":NoiceHistory<cr>";
+            desc = "Search and replace selected text across file";
+          }
+          {
+            key = "<leader>gg";
+            mode = "n";
+            silent = true;
+            lua = true;
+            action = "function() Snacks.lazygit() end";
+            desc = "Open Lazygit";
+          }
+        ];
       };
-    };
-  };
-
-  # Copy your Neovim configuration
-  xdg.configFile = {
-    # Copy the filtered nvim configuration directory
-    "nvim" = {
-      source = nvim_config;
-      recursive = true;
-    };
-  };
-
-  home.file = {
-    # Copy LTeX configuration files
-    # "ltex.hiddenFalsePositives.en-US.txt".text = builtins.readFile ./ltex/ltex.dictionary.en-US.txt;
-    # "ltex.dictionary.en-US.txt".text = builtins.readFile ./ltex/ltex.hiddenFalsePositives.en-US.txt;
-
-    # Copy vimrc and ideavimrc
-    ".vimrc".text = builtins.readFile ./vimrc;
-    ".ideavimrc".text = builtins.readFile ./ideavimrc;
-
-    # Ensure the .local/share/nvim directory exists with correct permissions
-    ".local/share/nvim/.keep" = {
-      text = "";
-      onChange = ''
-        mkdir -p $HOME/.local/share/nvim
-        chmod 755 $HOME/.local/share/nvim
-      '';
-    };
-
-    # Treesitter is configured as a locally developed module in lazy.nvim
-    # we hardcode a symlink here so that we can refer to it in our lazy config
-    ".local/share/nvim/nix/nvim-treesitter/" = {
-      recursive = true;
-      source = treeSitterWithAllGrammars;
     };
   };
 }
