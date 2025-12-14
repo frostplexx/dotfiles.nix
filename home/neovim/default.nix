@@ -61,8 +61,9 @@
           friendly-snippets.enable = true;
         };
 
+        # FIXME: Find a better plugin that isnt slow as balls
         presence.neocord = {
-          enable = true;
+          enable = false;
         };
 
         ui = {
