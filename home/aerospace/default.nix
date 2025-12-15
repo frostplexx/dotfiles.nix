@@ -296,7 +296,7 @@ in {
           run = "move-node-to-workspace 5";
         }
         {
-          "if".app-id = "com.google.Chrome";
+          "if".app-id = "com.google.chrome.for.testing";
           run = "layout floating";
         }
         # Order matters here!

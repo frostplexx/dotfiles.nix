@@ -27,6 +27,8 @@
 
         lsp = {
           enable = true;
+          inlayHints.enable = true;
+          # lspSignature.enable = true; doesn't work with blink-cmp
         };
 
         assistant = {
@@ -63,6 +65,7 @@
           enable = true;
           setupOpts = {
             keymap.preset = "super-tab";
+            signature.enabled = true;
             completion = {
               ghost_text.enabled = true;
               menu.border = "rounded";
