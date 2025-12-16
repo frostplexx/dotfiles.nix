@@ -110,7 +110,6 @@
       hm-modules = [
         "aerospace"
         "zen"
-        "zed"
         "git"
         "kitty"
         "neovim"

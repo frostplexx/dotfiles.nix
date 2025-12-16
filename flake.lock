@@ -352,11 +352,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1765435293,
-        "narHash": "sha256-HRp4g6qBCb8vpJ17s2FacMRXRszM73uBiR56aILMELA=",
+        "lastModified": 1765720983,
+        "narHash": "sha256-tWtukpABmux6EC/FuCJEgA1kmRjcRPtED44N+GGPq+4=",
         "owner": "feel-co",
         "repo": "ndg",
-        "rev": "65bf834b332d5f8b28d95ea14c7974be7c272971",
+        "rev": "f399ace8bb8e1f705dd8942b24d207aa4d75c936",
         "type": "github"
       },
       "original": {
@@ -647,11 +647,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1765636188,
-        "narHash": "sha256-DLoZvbcqHYcOXD7vOMlm2ZZ2KFlYbmowc23TWiivEKo=",
+        "lastModified": 1765855091,
+        "narHash": "sha256-k7+BQDCAEZrKIhZf1mR79jCjvinTQDlXaROKJF4ZaiY=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "0eeb3f2b6c2364308203c42fb26678dcb78fee86",
+        "rev": "b750c9075bd88b85692b19c3a6b77015086f3f88",
         "type": "github"
       },
       "original": {
