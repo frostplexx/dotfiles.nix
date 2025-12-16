@@ -3,22 +3,23 @@
   pkgs,
   ...
 }: let
-  langaugesConfig = import ./languages.nix {};
+  langaugesConfig = import ./languages.nix {inherit pkgs;};
   keymapsConfig = import ./keymap.nix {};
   optionsConfig = import ./options.nix {};
+  customPluginsConfig = import ./customPlugins.nix {inherit pkgs lib;};
   # autocmdsConfig = import ./autocmds.nix {inherit lib;};
 in {
   programs.nvf = {
     enable = true;
     settings = {
       vim = {
-        lazy.enable = false;
         viAlias = true;
         vimAlias = true;
 
         lsp = {
           enable = true;
           inlayHints.enable = true;
+          harper-ls.enable = true; # Grammar Checker
           # lspSignature.enable = true; doesn't work with blink-cmp
         };
 
@@ -29,9 +30,17 @@ in {
           };
         };
 
+        debugger = {
+          nvim-dap = {
+            enable = true;
+            ui.enable = true;
+          };
+        };
+
         inherit (optionsConfig) options;
         inherit (langaugesConfig) languages;
         inherit (keymapsConfig) keymaps;
+        inherit (customPluginsConfig) lazy;
         # inherit (autocmdsConfig) autocmds;
 
         treesitter = {
@@ -41,7 +50,10 @@ in {
           grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
         };
 
-        statusline.lualine.enable = true;
+        statusline.lualine = {
+          enable = true;
+          theme = "catppuccin";
+        };
 
         theme = {
           enable = true;
@@ -60,13 +72,10 @@ in {
               menu.border = "rounded";
             };
           };
-          friendly-snippets.enable = true;
+          # friendly-snippets.enable = true; Use LuaSnip instead because its better
         };
 
-        # FIXME: Find a better plugin that isnt slow as balls
-        presence.neocord = {
-          enable = false;
-        };
+        snippets.luasnip.enable = true;
 
         ui = {
           noice.enable = true;
@@ -76,11 +85,13 @@ in {
           };
           breadcrumbs = {
             enable = false;
+            navbuddy.enable = false;
           };
         };
 
         git = {
           gitsigns.enable = true;
+          gitsigns.codeActions.enable = false; # throws an annoying debug message
         };
 
         diagnostics = {

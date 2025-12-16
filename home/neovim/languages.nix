@@ -25,5 +25,24 @@ _: {
     };
     clang.enable = true;
     python.enable = true;
+    bash.enable = true;
+    just.enable = true;
+    json.enable = true;
+    yaml.enable = true;
+    lua.enable = true;
+
+    html.enable = true;
+
+    #TODO: find a way to get custom languages working in nvf
+    # fish = {
+    #   format = {
+    #     enable = true;
+    #     cmd = "${pkgs.fish}/bin/fish_indent";
+    #   };
+    #   lsp = {
+    #     enable = true;
+    #     package = pkgs.fish-lsp;
+    #   };
+    # };
   };
 }
