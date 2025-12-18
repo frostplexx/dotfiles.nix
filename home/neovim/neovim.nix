@@ -19,12 +19,22 @@ in {
         extraPackages = with pkgs; [
           texlab
           fish-lsp
+          skim # Needed for latex
         ];
 
         lsp = {
           enable = true;
+          lspkind.enable = true;
           inlayHints.enable = true;
-          harper-ls.enable = true; # Grammar Checker
+          # Grammar Checker
+          harper-ls = {
+            enable = true;
+          };
+
+          mappings = {
+            codeAction = "<leader>ca";
+          };
+
           # lspSignature.enable = true; doesn't work with blink-cmp
 
           # Manually Add LSP for languages that aren't supported yet
