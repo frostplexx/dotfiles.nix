@@ -122,10 +122,6 @@ in {
           setupOpts = {
             keymap.preset = "super-tab";
             signature.enabled = true;
-            completion = {
-              ghost_text.enabled = true;
-              menu.border = "rounded";
-            };
           };
           # friendly-snippets.enable = true; Use LuaSnip instead because its better
         };
@@ -137,6 +133,10 @@ in {
           borders = {
             enable = true;
             globalStyle = "rounded";
+            plugins = {
+              lsp-signature.enable = true;
+              nvim-cmp.enable = true;
+            };
           };
           breadcrumbs = {
             enable = false;
