@@ -20,6 +20,7 @@
     skimpdf
     macpm
     moonlight-qt
+    lmstudio
   ];
 
   # Homebrew configuration
@@ -63,7 +64,6 @@
       "altserver"
       "tailscale-app"
       "chromium"
-      "ollama-app"
       "cleanshot"
       "mac-mouse-fix"
       "orbstack"

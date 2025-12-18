@@ -16,11 +16,48 @@ in {
         viAlias = true;
         vimAlias = true;
 
+        extraPackages = with pkgs; [
+          texlab
+          fish-lsp
+        ];
+
         lsp = {
           enable = true;
           inlayHints.enable = true;
           harper-ls.enable = true; # Grammar Checker
           # lspSignature.enable = true; doesn't work with blink-cmp
+
+          # Manually Add LSP for languages that aren't supported yet
+          servers = {
+            texlab = {
+              cmd = [(lib.getExe pkgs.texlab)];
+              filetypes = [
+                "tex"
+                "latex"
+                "bib"
+              ];
+              root_markers = [
+                ".git"
+                "src"
+                ".ltex"
+                ".texlabroot"
+                "Tectonic.toml"
+                "main.tex"
+                "*.tex"
+              ];
+            };
+            fish-lsp = {
+              cmd = [
+                (lib.getExe pkgs.fish-lsp)
+                "start"
+              ];
+              filetypes = ["fish"];
+              root_markers = [
+                ".git"
+                "src"
+              ];
+            };
+          };
         };
 
         assistant = {
