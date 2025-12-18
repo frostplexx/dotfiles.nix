@@ -19,7 +19,7 @@ in {
         extraPackages = with pkgs; [
           texlab
           fish-lsp
-          skim # Needed for latex
+          skim # Needed for LaTeX
         ];
 
         lsp = {
@@ -33,6 +33,14 @@ in {
 
           mappings = {
             codeAction = "<leader>ca";
+            openDiagnosticFloat = "<leader>cd";
+            renameSymbol = "<leader>cr";
+            goToDefinition = "<leader>gd";
+            goToDeclaration = "<leader>gD";
+            hover = "K";
+            nextDiagnostic = "]d";
+            previousDiagnostic = "[d";
+            signatureHelp = "<C-h>";
           };
 
           # lspSignature.enable = true; doesn't work with blink-cmp
