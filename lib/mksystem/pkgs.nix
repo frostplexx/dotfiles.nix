@@ -11,7 +11,7 @@
   nixpkgsConfig = {
     allowUnfree = true; # Allow unfree packages (e.g., proprietary software)
     allowUnsupportedSystem = false; # Disallow unsupported systems
-    allowBroken = false; # Allow broken packages (use with caution)
+    allowBroken = true; # Allow broken packages (use with caution)
     allowInsecure = true; # Allow insecure packages (use with caution)
     doCheckByDefault = false;
     packageOverrides = pkgs: {

@@ -5,7 +5,7 @@
   ...
 }: let
   # === Modify this if you want to use vesktop ===
-  useVesktop = false;
+  useVesktop = true;
 
   themeFile = "catppuccin-mocha.theme.css";
   themeUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
