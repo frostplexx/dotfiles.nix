@@ -67,8 +67,8 @@
           br = "branch";
           co = "checkout";
           st = "status";
-          ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
-          ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
+          ls = "log --graph --oneline --decorate";
+          ll = "log -p --stat";
           cm = "commit -m";
           ca = "commit -am";
           dc = "diff --cached";
