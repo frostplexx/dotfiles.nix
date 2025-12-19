@@ -5,6 +5,12 @@
       "file": "machines/macbook-m4-pro/apps.nix",
       "line": 75,
       "text": "TODO: Move to nix once available"
+    },
+    "home/neovim/languages.nix:36:TODO: find a way to get custom languages working in nvf": {
+      "issueNumber": 631,
+      "file": "home/neovim/languages.nix",
+      "line": 36,
+      "text": "TODO: find a way to get custom languages working in nvf"
     }
   }
 }
