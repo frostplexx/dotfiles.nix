@@ -95,7 +95,7 @@
     primaryUser = user;
     startup.chime = false;
 
-    # Post-activation scripts
+    # Post-activation-scripts
     activationScripts = {
       postActivation = let
         # Convert hex color to Apple's 0-1 RGBA format
@@ -116,6 +116,7 @@
         highlightColor = "#cba6f7";
         appleHighlightColor = hexToAppleRGBA highlightColor;
       in {
+        enable = true;
         text = ''
           echo "Running activate settings..."
 
