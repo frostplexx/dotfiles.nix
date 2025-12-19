@@ -40,7 +40,7 @@ in {
             hover = "K";
             nextDiagnostic = "]d";
             previousDiagnostic = "[d";
-            signatureHelp = "<C-h>";
+            # signatureHelp = "<C-h>";
           };
 
           # lspSignature.enable = true; doesn't work with blink-cmp
