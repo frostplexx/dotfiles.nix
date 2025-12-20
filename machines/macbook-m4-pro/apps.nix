@@ -21,6 +21,7 @@
     macpm
     moonlight-qt
     lmstudio
+    discord-ptb
   ];
 
   # Homebrew configuration
