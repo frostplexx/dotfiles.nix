@@ -316,7 +316,7 @@ in {
               open_for_directories = true;
               yazi_floating_window_border = "rounded";
             };
-            mappings.yaziToggle = "<leader>e";
+            mappings.openYazi = "<leader>e";
           };
         };
 

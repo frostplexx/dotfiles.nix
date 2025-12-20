@@ -2,8 +2,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "";
-    hash = "";
+    rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
+    hash = "sha256-BgyCg5eNiG4vd6ptXxPWcDgXxxCJEFp/nST0zmImhTY=";
   };
 
   yazi-flavors = pkgs.fetchFromGitHub {
@@ -14,7 +14,7 @@
   };
 in {
   # Terminal file manager
-  programs. yazi = {
+  programs.yazi = {
     enable = true;
     enableFishIntegration = true;
     shellWrapperName = "y";
