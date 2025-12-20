@@ -11,7 +11,7 @@ NVIM_CONFIG_TARGET := env_var('HOME') + "/.config/nvim-new"
 [group(' nvim')]
 [doc('Tools for editing the neovim config without having to redeploy nix')]
 edit-nvim action="help" *args="":
-    #!/usr/bin/env bash
+    #!/usr/bin/env fish
     set -euo pipefail
 
     case "{{action}}" in

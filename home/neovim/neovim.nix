@@ -79,9 +79,139 @@ in {
         };
 
         assistant = {
-          copilot = {
+          copilot.enable = true;
+          avante-nvim = {
             enable = true;
-            cmp.enable = true;
+            setupOpts = {
+              provider = "copilot";
+              hints.enabled = false;
+              behaviour = {
+                auto_apply_diff_after_generation = false;
+              };
+              windows = {
+                width = 45;
+                sidebar_header.enabled = false;
+                spinner = {
+                  editing = [
+                    "⡀"
+                    "⠄"
+                    "⠂"
+                    "⠁"
+                    "⠈"
+                    "⠐"
+                    "⠠"
+                    "⢀"
+                    "⣀"
+                    "⢄"
+                    "⢂"
+                    "⢁"
+                    "⢈"
+                    "⢐"
+                    "⢠"
+                    "⣠"
+                    "⢤"
+                    "⢢"
+                    "⢡"
+                    "⢨"
+                    "⢰"
+                    "⣰"
+                    "⢴"
+                    "⢲"
+                    "⢱"
+                    "⢸"
+                    "⣸"
+                    "⢼"
+                    "⢺"
+                    "⢹"
+                    "⣹"
+                    "⢽"
+                    "⢻"
+                    "⣻"
+                    "⢿"
+                    "⣿"
+                  ];
+                  generating = [
+                    "⡀"
+                    "⠄"
+                    "⠂"
+                    "⠁"
+                    "⠈"
+                    "⠐"
+                    "⠠"
+                    "⢀"
+                    "⣀"
+                    "⢄"
+                    "⢂"
+                    "⢁"
+                    "⢈"
+                    "⢐"
+                    "⢠"
+                    "⣠"
+                    "⢤"
+                    "⢢"
+                    "⢡"
+                    "⢨"
+                    "⢰"
+                    "⣰"
+                    "⢴"
+                    "⢲"
+                    "⢱"
+                    "⢸"
+                    "⣸"
+                    "⢼"
+                    "⢺"
+                    "⢹"
+                    "⣹"
+                    "⢽"
+                    "⢻"
+                    "⣻"
+                    "⢿"
+                    "⣿"
+                  ];
+                  thinking = [
+                    "⡀"
+                    "⠄"
+                    "⠂"
+                    "⠁"
+                    "⠈"
+                    "⠐"
+                    "⠠"
+                    "⢀"
+                    "⣀"
+                    "⢄"
+                    "⢂"
+                    "⢁"
+                    "⢈"
+                    "⢐"
+                    "⢠"
+                    "⣠"
+                    "⢤"
+                    "⢢"
+                    "⢡"
+                    "⢨"
+                    "⢰"
+                    "⣰"
+                    "⢴"
+                    "⢲"
+                    "⢱"
+                    "⢸"
+                    "⣸"
+                    "⢼"
+                    "⢺"
+                    "⢹"
+                    "⣹"
+                    "⢽"
+                    "⢻"
+                    "⣻"
+                    "⢿"
+                    "⣿"
+                  ];
+                };
+              };
+              # TODO: enable when I'm in the mood
+              # auto_suggestions_provider = "gemini";
+              # behaviour.auto_suggestions = false;
+            };
           };
         };
 

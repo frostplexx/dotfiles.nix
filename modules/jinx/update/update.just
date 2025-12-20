@@ -11,7 +11,7 @@ upgrade: lint
 [doc('Update every fetchFromGithub with its newest commit and hash')]
 update-refs:
     @echo -e "Updating refs..."
-    @"{{DOTFILES_FOLDER}}/modules/jinx/update/update-flake-revs.sh" {{DOTFILES_FOLDER}}
+    @"{{DOTFILES_FOLDER}}/modules/jinx/update/update-flake-revs.fish" {{DOTFILES_FOLDER}}
 
 [group('󱄅 nix')]
 [doc('list the changes from the updated inputs')]
