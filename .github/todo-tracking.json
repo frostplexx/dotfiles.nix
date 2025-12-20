@@ -11,6 +11,12 @@
       "file": "machines/macbook-m4-pro/apps.nix",
       "line": 76,
       "text": "TODO: Move to nix once available"
+    },
+    "home/neovim/neovim.nix:211:TODO: enable when I'm in the mood": {
+      "issueNumber": 634,
+      "file": "home/neovim/neovim.nix",
+      "line": 211,
+      "text": "TODO: enable when I'm in the mood"
     }
   }
 }
