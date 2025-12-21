@@ -1,11 +1,4 @@
 {pkgs, ...}: let
-  yazi-plugins = pkgs.fetchFromGitHub {
-    owner = "yazi-rs";
-    repo = "plugins";
-    rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
-    hash = "sha256-BgyCg5eNiG4vd6ptXxPWcDgXxxCJEFp/nST0zmImhTY=";
-  };
-
   yazi-flavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
@@ -43,29 +36,9 @@ in {
         macro_workers = 10;
         bizarre_retry = 5;
       };
-
-      plugin = {
-        prepend_fetchers = [
-          {
-            id = "git";
-            name = "*";
-            run = "git";
-          }
-          {
-            id = "git";
-            name = "*/";
-            run = "git";
-          }
-        ];
-      };
     };
 
     plugins = {
-      chmod = "${yazi-plugins}/chmod.yazi";
-      smart-filter = "${yazi-plugins}/smart-filter.yazi";
-      git = "${yazi-plugins}/git.yazi";
-      jump-to-char = "${yazi-plugins}/jump-to-char.yazi";
-      no-status = "${yazi-plugins}/no-status.yazi";
       starship = pkgs.fetchFromGitHub {
         owner = "Rolv-Apneseth";
         repo = "starship.yazi";
@@ -78,8 +51,6 @@ in {
     };
 
     initLua = ''
-      require("git"):setup()
-      require("no-status"):setup()
       require("starship"):setup({
           -- Hide flags (such as filter, find and search). This is recommended for starship themes which
           -- are intended to go across the entire width of the terminal.

@@ -83,10 +83,12 @@ in {
           avante-nvim = {
             enable = true;
             setupOpts = {
+              mode = "legacy";
               provider = "copilot";
               hints.enabled = false;
               behaviour = {
                 auto_apply_diff_after_generation = false;
+                enable_fastapply = false;
               };
               windows = {
                 width = 45;
