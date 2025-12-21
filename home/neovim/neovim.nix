@@ -2,15 +2,18 @@
   lib,
   pkgs,
   ...
-}: let
-  langaugesConfig = import ./languages.nix {inherit pkgs;};
-  keymapsConfig = import ./keymap.nix {};
-  optionsConfig = import ./options.nix {};
-  customPluginsConfig = import ./customPlugins.nix {inherit pkgs lib;};
+}:
+let
+  langaugesConfig = import ./languages.nix { inherit pkgs; };
+  keymapsConfig = import ./keymap.nix { };
+  optionsConfig = import ./options.nix { };
+  customPluginsConfig = import ./customPlugins.nix { inherit pkgs lib; };
   # autocmdsConfig = import ./autocmds.nix {inherit lib;};
-in {
+in
+{
   programs.nvf = {
     enable = true;
+    enableManpages = true;
     settings = {
       vim = {
         viAlias = true;
@@ -48,7 +51,7 @@ in {
           # Manually Add LSP for languages that aren't supported yet
           servers = {
             texlab = {
-              cmd = [(lib.getExe pkgs.texlab)];
+              cmd = [ (lib.getExe pkgs.texlab) ];
               filetypes = [
                 "tex"
                 "latex"
@@ -69,7 +72,7 @@ in {
                 (lib.getExe pkgs.fish-lsp)
                 "start"
               ];
-              filetypes = ["fish"];
+              filetypes = [ "fish" ];
               root_markers = [
                 ".git"
                 "src"
@@ -83,15 +86,15 @@ in {
           avante-nvim = {
             enable = true;
             setupOpts = {
+              input = {
+                provider = "native";
+                provider_opts = { };
+              };
               mode = "legacy";
               provider = "copilot";
               hints.enabled = false;
-              behaviour = {
-                auto_apply_diff_after_generation = false;
-                enable_fastapply = false;
-              };
               windows = {
-                width = 45;
+                width = 40;
                 sidebar_header.enabled = false;
                 spinner = {
                   editing = [
@@ -310,7 +313,6 @@ in {
         };
 
         utility = {
-          snacks-nvim.enable = true;
           smart-splits.enable = true;
           yazi-nvim = {
             enable = true;
