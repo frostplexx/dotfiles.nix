@@ -12,10 +12,10 @@
       "line": 76,
       "text": "TODO: Move to nix once available"
     },
-    "home/neovim/neovim.nix:211:TODO: enable when I'm in the mood": {
-      "issueNumber": 634,
+    "home/neovim/neovim.nix:216:TODO: enable when I'm in the mood": {
+      "issueNumber": 639,
       "file": "home/neovim/neovim.nix",
-      "line": 211,
+      "line": 216,
       "text": "TODO: enable when I'm in the mood"
     }
   }
