@@ -2,15 +2,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-  langaugesConfig = import ./languages.nix { inherit pkgs; };
-  keymapsConfig = import ./keymap.nix { };
-  optionsConfig = import ./options.nix { };
-  customPluginsConfig = import ./customPlugins.nix { inherit pkgs lib; };
+}: let
+  langaugesConfig = import ./languages.nix {inherit pkgs;};
+  keymapsConfig = import ./keymap.nix {};
+  optionsConfig = import ./options.nix {};
+  customPluginsConfig = import ./customPlugins.nix {inherit pkgs lib;};
   # autocmdsConfig = import ./autocmds.nix {inherit lib;};
-in
-{
+in {
   programs.nvf = {
     enable = true;
     enableManpages = true;
@@ -24,6 +22,13 @@ in
           fish-lsp
           skim # Needed for LaTeX
         ];
+
+        terminal.toggleterm = {
+          enable = true;
+          lazygit = {
+            enable = true;
+          };
+        };
 
         lsp = {
           enable = true;
@@ -51,7 +56,7 @@ in
           # Manually Add LSP for languages that aren't supported yet
           servers = {
             texlab = {
-              cmd = [ (lib.getExe pkgs.texlab) ];
+              cmd = [(lib.getExe pkgs.texlab)];
               filetypes = [
                 "tex"
                 "latex"
@@ -72,7 +77,7 @@ in
                 (lib.getExe pkgs.fish-lsp)
                 "start"
               ];
-              filetypes = [ "fish" ];
+              filetypes = ["fish"];
               root_markers = [
                 ".git"
                 "src"
@@ -88,8 +93,9 @@ in
             setupOpts = {
               input = {
                 provider = "native";
-                provider_opts = { };
+                provider_opts = {};
               };
+              providers.copilot.model = "oswe-vscode-prime";
               mode = "legacy";
               provider = "copilot";
               hints.enabled = false;
