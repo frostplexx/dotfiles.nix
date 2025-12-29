@@ -121,13 +121,6 @@ _: {
       desc = "Scroll down half page and center";
     }
     {
-      key = "<leader>s";
-      mode = "v";
-      silent = true;
-      action = ''y:%s/<C-r>"//gc<Left><Left><Left>'';
-      desc = "Search and replace selected text across file";
-    }
-    {
       key = "<leader>n";
       mode = "n";
       silent = true;

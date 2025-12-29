@@ -433,6 +433,15 @@ in {
           };
           align.enable = true;
         };
+
+        luaConfigRC.my-config = ''
+          vim.keymap.set(
+          	"v",
+          	"<leader>s",
+          	'y:%s/<C-r>"//gc<Left><Left><Left>',
+          	{ desc = "Search and replace selected text across file" }
+          )
+        '';
       };
     };
   };
