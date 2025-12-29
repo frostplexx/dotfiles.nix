@@ -6,16 +6,10 @@
       "line": 36,
       "text": "TODO: find a way to get custom languages working in nvf"
     },
-    "machines/macbook-m4-pro/apps.nix:76:TODO: Move to nix once available": {
-      "issueNumber": 633,
-      "file": "machines/macbook-m4-pro/apps.nix",
-      "line": 76,
-      "text": "TODO: Move to nix once available"
-    },
-    "home/neovim/neovim.nix:216:TODO: enable when I'm in the mood": {
-      "issueNumber": 639,
+    "home/neovim/neovim.nix:222:TODO: enable when I'm in the mood": {
+      "issueNumber": 646,
       "file": "home/neovim/neovim.nix",
-      "line": 216,
+      "line": 222,
       "text": "TODO: enable when I'm in the mood"
     }
   }
