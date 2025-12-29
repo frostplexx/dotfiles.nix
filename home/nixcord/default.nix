@@ -83,7 +83,6 @@ in {
         noDevtoolsWarning.enable = true;
         noF1.enable = true;
         permissionsViewer.enable = true;
-        pinDMs.enable = true;
         plainFolderIcon.enable = true;
         summaries.enable = true;
         quickMention.enable = true;

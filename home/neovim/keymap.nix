@@ -124,7 +124,7 @@ _: {
       key = "<leader>s";
       mode = "v";
       silent = true;
-      action = "y:%s/<C-r>/\"//gc<Left><Left><Left>";
+      action = ''y:%s/<C-r>"//gc<Left><Left><Left>'';
       desc = "Search and replace selected text across file";
     }
     {
