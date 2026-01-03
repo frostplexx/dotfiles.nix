@@ -22,6 +22,7 @@
     moonlight-qt
     lmstudio
     discord-ptb
+    vscode
   ];
 
   # Homebrew configuration

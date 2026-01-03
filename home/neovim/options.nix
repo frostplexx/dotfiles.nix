@@ -11,5 +11,6 @@ _: {
     swapfile = false;
     backup = false;
     undofile = true;
+    textwidth = 120;
   };
 }

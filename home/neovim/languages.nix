@@ -15,7 +15,7 @@ _: {
     rust = {
       enable = true;
       extensions.crates-nvim.enable = true;
-      lsp.enable = true;
+      # lsp.enable = true;
       dap.enable = true;
       format.enable = true;
     };

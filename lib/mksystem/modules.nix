@@ -14,6 +14,7 @@
   assets,
   mkHomeConfig,
   accent_color,
+  transparent_terminal,
 }: let
   # Determine if we are building for Darwin (macOS)
   inherit (pkgs.stdenv) isDarwin;
@@ -37,19 +38,31 @@ in
     ({pkgs, ...}: import ../../modules {inherit pkgs;})
     # Trust the root user and the system user for Nix operations
     # On Darwin with Determinate, this is handled via determinate-nix.customSettings
-    ({lib, ...}: lib.mkIf (!isDarwin) {nix.settings.trusted-users = ["root" user];})
-    # Custom system applications build for copying apps instead of linking
-    ({config, ...}: {
-      system.build.applications = pkgs.lib.mkForce (
-        pkgs.buildEnv {
-          name = "system-applications";
-          pathsToLink = ["/Applications"];
-          paths =
-            config.environment.systemPackages
-            ++ (pkgs.lib.concatMap (x: x.home.packages) (pkgs.lib.attrsets.attrValues config.home-manager.users));
+    (
+      {lib, ...}:
+        lib.mkIf (!isDarwin) {
+          nix.settings.trusted-users = [
+            "root"
+            user
+          ];
         }
-      );
-    })
+    )
+    # Custom system applications build for copying apps instead of linking
+    (
+      {config, ...}: {
+        system.build.applications = pkgs.lib.mkForce (
+          pkgs.buildEnv {
+            name = "system-applications";
+            pathsToLink = ["/Applications"];
+            paths =
+              config.environment.systemPackages
+              ++ (pkgs.lib.concatMap (x: x.home.packages) (
+                pkgs.lib.attrsets.attrValues config.home-manager.users
+              ));
+          }
+        );
+      }
+    )
     # Home Manager configuration for user environments
     home-manager.home-manager
     {
@@ -83,12 +96,26 @@ in
                     else "cba6f7";
                   description = "Global accent color (hex without #)";
                 };
+
+                options.transparent_terminal = lib.mkOption {
+                  type = lib.types.bool;
+                  default =
+                    if transparent_terminal != null
+                    then transparent_terminal
+                    else true;
+                  description = "Use transparency in terminal or have it opaque";
+                };
+
                 config = {
                   targets.darwin.linkApps.enable = false;
                   accent_color =
                     if accent_color != null
                     then accent_color
                     else "cba6f7";
+                  transparent_terminal =
+                    if transparent_terminal != null
+                    then transparent_terminal
+                    else true;
                 };
               }
             )
@@ -110,7 +137,12 @@ in
         currentSystem = system;
         currentSystemName = name;
         currentSystemUser = user;
-        inherit user system inputs assets;
+        inherit
+          user
+          system
+          inputs
+          assets
+          ;
       };
     }
     # Add accent_color option and configuration

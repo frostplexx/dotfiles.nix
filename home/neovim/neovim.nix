@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }: let
   langaugesConfig = import ./languages.nix {inherit pkgs;};
@@ -16,6 +17,17 @@ in {
       vim = {
         viAlias = true;
         vimAlias = true;
+        globals.editorconfig = true;
+
+        # Override nvim-treesitter to use master branch (old API) instead of main branch
+        pluginOverrides.nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.overrideAttrs (_old: {
+          src = pkgs.fetchFromGitHub {
+            owner = "nvim-treesitter";
+            repo = "nvim-treesitter";
+            rev = "master";
+            hash = "sha256-CVs9FTdg3oKtRjz2YqwkMr0W5qYLGfVyxyhE3qnGYbI=";
+          };
+        });
 
         extraPackages = with pkgs; [
           texlab
@@ -243,7 +255,22 @@ in {
           enable = true;
           addDefaultGrammars = true;
           autotagHtml = true;
-          grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+          #grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            bash
+            fish
+            html
+            json
+            just
+            lua
+            markdown
+            nix
+            python
+            rust
+            latex
+            typescript
+            yaml
+          ];
         };
 
         statusline.lualine = {
@@ -255,7 +282,7 @@ in {
           enable = true;
           name = "catppuccin";
           style = "mocha";
-          transparent = true;
+          transparent = config.transparent_terminal;
         };
 
         autocomplete.blink-cmp = {

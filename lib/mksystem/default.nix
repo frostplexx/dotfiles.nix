@@ -10,6 +10,7 @@
   user,
   hm-modules ? [],
   accent_color ? null,
+  transparent_terminal ? false,
 }: let
   # Load the Nixpkgs package set and configuration.
   pkgsConfig = import ./pkgs.nix {inherit inputs system overlays;};
@@ -35,7 +36,21 @@
 
   # Assemble the full list of system modules.
   modules = import ./modules.nix {
-    inherit inputs pkgs nixpkgsConfig system user name machineConfig machineConfigArgs hm-modules assets mkHomeConfig accent_color;
+    inherit
+      inputs
+      pkgs
+      nixpkgsConfig
+      system
+      user
+      name
+      machineConfig
+      machineConfigArgs
+      hm-modules
+      assets
+      mkHomeConfig
+      accent_color
+      transparent_terminal
+      ;
   };
 
   # Determine if we are building for Darwin (macOS).
