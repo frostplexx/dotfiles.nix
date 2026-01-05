@@ -66,7 +66,6 @@
       "altserver"
       "tailscale-app"
       "chromium"
-      "helium-browser"
       "cleanshot"
       "mac-mouse-fix"
       "orbstack"

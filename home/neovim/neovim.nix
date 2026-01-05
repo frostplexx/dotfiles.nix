@@ -256,7 +256,7 @@ in {
           addDefaultGrammars = true;
           autotagHtml = true;
           #grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          grammars = with pkgs.vimPlugins.nvim-treesitter.withPlugins; [
             bash
             fish
             html
