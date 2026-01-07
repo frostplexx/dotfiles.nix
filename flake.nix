@@ -54,6 +54,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tidaLuna.url = "path:/Users/daniel/Developer/github.com/frostplexx/TidaLuna";
+
     # ========================
 
     # ==== Homebrew Taps ====
