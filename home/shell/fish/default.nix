@@ -45,7 +45,7 @@
       text = builtins.readFile (
         pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
-          sha256 = "sha256-8Ny82/W2yDWdtcKGxl6EO1jXgGJF2R6GbX2khTZs+78=";
+          sha256 = "sha256-RAj93cAYcZxs28TrN90c2rfFpQ0sR2VfhC1HazVrpPw=";
         }
       );
     };
