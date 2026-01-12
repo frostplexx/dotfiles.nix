@@ -63,7 +63,6 @@
       "displayplacer"
     ];
     casks = [
-      "altserver"
       "tailscale-app"
       "chromium"
       "cleanshot"
