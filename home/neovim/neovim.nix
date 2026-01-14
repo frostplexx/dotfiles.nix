@@ -67,23 +67,6 @@ in {
 
           # Manually Add LSP for languages that aren't supported yet
           servers = {
-            # texlab = {
-            #   cmd = [(lib.getExe pkgs.texlab)];
-            #   filetypes = [
-            #     "tex"
-            #     "latex"
-            #     "bib"
-            #   ];
-            #   root_markers = [
-            #     ".git"
-            #     "src"
-            #     ".ltex"
-            #     ".texlabroot"
-            #     "Tectonic.toml"
-            #     "main.tex"
-            #     "*.tex"
-            #   ];
-            # };
             fish-lsp = {
               cmd = [
                 (lib.getExe pkgs.fish-lsp)
