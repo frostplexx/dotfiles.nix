@@ -6,10 +6,10 @@
       "line": 36,
       "text": "TODO: find a way to get custom languages working in nvf"
     },
-    "home/neovim/neovim.nix:234:TODO: enable when I'm in the mood": {
-      "issueNumber": 682,
+    "home/neovim/neovim.nix:217:TODO: enable when I'm in the mood": {
+      "issueNumber": 683,
       "file": "home/neovim/neovim.nix",
-      "line": 234,
+      "line": 217,
       "text": "TODO: enable when I'm in the mood"
     }
   }
