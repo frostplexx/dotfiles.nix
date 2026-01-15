@@ -50,7 +50,6 @@
     bvi
 
     inputs.determinate.packages.${system}.default
-    inputs.tidaLuna.packages.${system}.default
   ];
 
   documentation = {
