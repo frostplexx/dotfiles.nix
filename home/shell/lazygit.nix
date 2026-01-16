@@ -20,10 +20,7 @@ _: {
           prompts = [
             {
               command = ''
-                opencode run --model "github-copilot/gemini-3-flash-preview" "Generate a conventional commit
-                                    title from the following git diff: $(git diff HEAD). ONLY RETRUN THE COMMIT TITLE
-                                    AND NOTHING ELSE and prefix it with COMMIT:" | grep "COMMIT:" | sed 's/COMMIT: //g'
-              '';
+                /bin/bash -c "git diff HEAD | opencode run --model 'github-copilot/gemini-3-flash-preview' 'Generate a conventional commit title from the following git diff:' {}" '';
               key = "title";
               type = "menuFromCommand";
               title = "AI Commit Message:";
@@ -55,7 +52,7 @@ _: {
             title = "Which PR do you want to chekout?";
             key = "PullRequestNumber";
             command = ''
-              gh pr list --json number,title,headRefName,updatedAt --temaplte '{{`{{range .}}{{printf "#%v: %s - %s (%s)" .number .title .headRefName (timeago .updatedAt)}}{{end}}`}}'
+              gh pr list --json number,title,headRefName,updatedAt
             '';
             filter = "#(?P<number>[0-9]+): (?P<title>.+) - (?P<ref_name>[^ ]+).*";
             valueFormat = "{{.number}}";
@@ -66,9 +63,5 @@ _: {
         }
       ];
     };
-  };
-
-  programs.lazydocker = {
-    enable = true;
   };
 }
