@@ -109,15 +109,16 @@
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
         "aerospace"
-        "zen"
+        "ghostty"
         "git"
         "kitty"
         "neovim"
         "nixcord"
         "shell"
         "spotify"
-        "ghostty"
         "ssh"
+        "zed"
+        "zen"
       ];
       # Set your global accent color here (hex without #)
       accent_color = "cba6f7"; # mauve

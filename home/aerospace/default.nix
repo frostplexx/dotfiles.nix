@@ -18,7 +18,6 @@ in {
       inactive_color = "0xff7f849c";
     };
   };
-
   # programs.aerospace-swipe = {
   #   enable = true;
   #   haptic = false;
