@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./neovim.nix
-    # ./opencode.nix
+    ./opencode.nix
   ];
 
   home.file = {

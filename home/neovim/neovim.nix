@@ -19,16 +19,6 @@ in {
         vimAlias = true;
         globals.editorconfig = true;
 
-        # Override nvim-treesitter to use master branch (old API) instead of main branch
-        # pluginOverrides.nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.overrideAttrs (_old: {
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "nvim-treesitter";
-        #     repo = "nvim-treesitter";
-        #     rev = "master";
-        #     hash = "sha256-CVs9FTdg3oKtRjz2YqwkMr0W5qYLGfVyxyhE3qnGYbI=";
-        #   };
-        # });
-
         extraPackages = with pkgs; [
           # texlab
           fish-lsp
@@ -82,7 +72,20 @@ in {
         };
 
         assistant = {
-          copilot.enable = true;
+          copilot = {
+            enable = true;
+            cmp.enable = true;
+            mappings.suggestion = {
+              accept = "<C-CR>";
+            };
+            setupOpts = {
+              suggestion = {
+                enabled = true;
+                auto_trigger = true;
+              };
+            };
+          };
+
           avante-nvim = {
             enable = true;
             setupOpts = {
