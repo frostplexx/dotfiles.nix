@@ -19,11 +19,11 @@ _: {
           loadingText = "Generating commit messages...";
           prompts = [
             {
-              # command = ''/bin/bash -c "git diff HEAD | opencode run --model 'github-copilot/gemini-3-flash-preview' 'Generate a conventional commit title from the following git diff:' {}" '';
+              # command = ''/bin/bash -c "git diff HEAD | opencode run --model 'github-copilot/github-copilot/gpt-4.1' 'Generate a conventional commit title from the following git diff:' {}" '';
               key = "title";
               type = "input";
-              suggestions.command = ''/bin/bash -c "git diff HEAD | opencode run --model 'github-copilot/gemini-3-flash-preview' 'Generate a conventional commit title from the following git diff:' {}" '';
-              title = "AI Commit Message:";
+              suggestions.command = ''/bin/bash -c "git diff HEAD | opencode run --model 'github-copilot/gpt-4.1' 'Generate a set of conventional commit titles from the following git diff, separated by new lines! Do not return anything except the commits:' {}" '';
+              title = "Commit Message:";
             }
           ];
         }
