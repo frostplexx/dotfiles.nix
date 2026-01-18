@@ -14,7 +14,7 @@
         g = "lazygit";
         c = "clear";
         q = "exit";
-        s = "ssh";
+        s = "kitten ssh";
         p = "project_selector";
         cat = "bat";
         tree = "eza --icons --git --header --tree";
