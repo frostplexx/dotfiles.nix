@@ -28,6 +28,7 @@
         transfer = "kitten transfer --direction=receive";
         ns = "jinx search";
         j = "jinx";
+        chex = "chmod +x";
         nixs = "nix shell nixpkgs#";
         nixr = "nix run nixpkgs#";
         ghi = "gh issue";
