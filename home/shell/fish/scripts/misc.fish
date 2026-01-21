@@ -1,3 +1,12 @@
+function open-man-page
+    set -l token (commandline -t)
+    if test -n "$token"
+        man $token &
+        commandline -f repaint
+    end
+end
+
+
 function compress_to_webp
     if test (count $argv) -ne 1
         echo (set_color red)"Usage: compress_to_webp <input>"(set_color normal)

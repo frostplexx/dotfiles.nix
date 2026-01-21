@@ -2,181 +2,181 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
-    imports = [
-        # Include the results of the hardware scan.
-        ./hardware-configuration.nix
-        ../shared.nix
-        ./apps.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../shared.nix
+    ./apps.nix
+  ];
 
-    # Bootloader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "pc-nixos"; # Define your hostname.
+  networking.hostName = "pc-nixos"; # Define your hostname.
 
-    # Enable networking
-    networking.networkmanager.enable = true;
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-    # Set your time zone.
-    time.timeZone = "Europe/Rome";
+  # Set your time zone.
+  time.timeZone = "Europe/Rome";
 
-    # Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
 
-    i18n.extraLocaleSettings = {
-        LC_ADDRESS = "de_DE.UTF-8";
-        LC_IDENTIFICATION = "de_DE.UTF-8";
-        LC_MEASUREMENT = "de_DE.UTF-8";
-        LC_MONETARY = "de_DE.UTF-8";
-        LC_NAME = "de_DE.UTF-8";
-        LC_NUMERIC = "de_DE.UTF-8";
-        LC_PAPER = "de_DE.UTF-8";
-        LC_TELEPHONE = "de_DE.UTF-8";
-        LC_TIME = "de_DE.UTF-8";
-    };
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
 
-    powerManagement = {
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+  };
+
+  environment.pathsToLink = ["/libexec"];
+
+  services = {
+    # For git secrets and shit
+    # gnome.gnome-keyring.enable = true;
+
+    xserver = {
+      enable = true;
+
+      # Configure mouse settings to disable acceleration
+      libinput = {
         enable = true;
-        cpuFreqGovernor = "performance";
+        mouse = {
+          accelProfile = "flat";
+          accelSpeed = "0";
+          middleEmulation = false;
+        };
+      };
+
+      videoDrivers = ["nvidia"];
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
     };
 
-    environment.pathsToLink = ["/libexec"];
-
-    services = {
-        # For git secrets and shit
-        # gnome.gnome-keyring.enable = true;
-
-        xserver = {
-            enable = true;
-
-            # Configure mouse settings to disable acceleration
-            libinput = {
-                enable = true;
-                mouse = {
-                    accelProfile = "flat";
-                    accelSpeed = "0";
-                    middleEmulation = false;
-                };
-            };
-
-            videoDrivers = ["nvidia"];
-            xkb = {
-                layout = "us";
-                variant = "";
-            };
-        };
-
-        displayManager = {
-            sddm.enable = true;
-            autoLogin = {
-                enable = true;
-                user = "daniel";
-            };
-        };
-
-        desktopManager.plasma6.enable = true;
+    displayManager = {
+      sddm.enable = true;
+      autoLogin = {
+        enable = true;
+        user = "daniel";
+      };
     };
 
-    # Systemd service overrides for TTY2 auto-login
-    systemd.services."getty@tty2" = {
-        overrideStrategy = "asDropin";
-        serviceConfig = {
-            ExecStart = [
-                "" # Clear existing ExecStar
-                "${pkgs.util-linux}/bin/agetty --autologin daniel --noclear %i $TERM"
-            ];
-            Type = "idle";
-            Restart = "always";
-            RestartSec = "5";
-        };
-        after = ["graphical-session.target"];
-        wants = ["graphical-session.target"];
-    };
+    desktopManager.plasma6.enable = true;
+  };
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    programs.fish.enable = true;
+  # Systemd service overrides for TTY2 auto-login
+  systemd.services."getty@tty2" = {
+    overrideStrategy = "asDropin";
+    serviceConfig = {
+      ExecStart = [
+        "" # Clear existing ExecStar
+        "${pkgs.util-linux}/bin/agetty --autologin daniel --noclear %i $TERM"
+      ];
+      Type = "idle";
+      Restart = "always";
+      RestartSec = "5";
+    };
+    after = ["graphical-session.target"];
+    wants = ["graphical-session.target"];
+  };
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.fish.enable = true;
+  users = {
+    defaultUserShell = pkgs.fish;
     users = {
-        defaultUserShell = pkgs.fish;
-        users = {
-            daniel = {
-                isNormalUser = true;
-                description = "Daniel";
-                extraGroups = ["networkmanager" "wheel" "vboxusers" "libvirtd" "kvm"];
-            };
-        };
+      daniel = {
+        isNormalUser = true;
+        description = "Daniel";
+        extraGroups = ["networkmanager" "wheel" "vboxusers" "libvirtd" "kvm"];
+      };
     };
+  };
 
-    # Looking Glass for low-latency VM display
-    systemd.tmpfiles.rules = [
-        "f /dev/shm/looking-glass 0660 daniel kvm -"
+  # Looking Glass for low-latency VM display
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0660 daniel kvm -"
+  ];
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment = {
+    systemPackages = with pkgs; [
+      looking-glass-client
     ];
+    variables = {
+      FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+      QT_ENABLE_HIGHDPI_SCALING = "1";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "0.9";
+    };
+  };
 
-    # List packages installed in system profile. To search, run:
-    # $ nix search wget
-    environment = {
-        systemPackages = with pkgs; [
-            looking-glass-client
-        ];
-        variables = {
-            FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
-            QT_ENABLE_HIGHDPI_SCALING = "1";
-            QT_AUTO_SCREEN_SCALE_FACTOR = "0.9";
-        };
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+  services = {
+    # Enable the OpenSSH daemon.
+    openssh.enable = true;
+    # Enable automatic login for the user.
+    getty = {
+      autologinUser = "daniel";
+      # Only auto-login on tty2, leave others as normal login
+      extraArgs = ["--noclear"];
+      # Override just tty2 to have auto-login
     };
 
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    # List services that you want to enable:
-    services = {
-        # Enable the OpenSSH daemon.
-        openssh.enable = true;
-        # Enable automatic login for the user.
-        getty = {
-            autologinUser = "daniel";
-            # Only auto-login on tty2, leave others as normal login
-            extraArgs = ["--noclear"];
-            # Override just tty2 to have auto-login
-        };
-
-        # Audio
-        pipewire = {
-            enable = true;
-            alsa = {
-                enable = true;
-                support32Bit = true;
-            };
-            pulse.enable = true;
-        };
-
-        # Other services
-        printing.enable = true;
-    };
-
-    programs.nh = {
+    # Audio
+    pipewire = {
+      enable = true;
+      alsa = {
         enable = true;
-        clean.enable = true;
-        clean.extraArgs = "--keep-since 4d --keep 3";
-        flake = "/home/daniel/dotfiles.nix/";
+        support32Bit = true;
+      };
+      pulse.enable = true;
     };
 
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
+    # Other services
+    printing.enable = true;
+  };
 
-    # This value determines the NixOS release from which the default
-    # settings for stateful data, like file locations and database versions
-    # on your system were taken. It‘s perfectly fine and recommended to leave
-    # this value at the release version of the first install of this system.
-    # Before changing this value read the documentation for this option
-    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "24.05"; # Did you read the comment?
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/daniel/dotfiles.nix/";
+  };
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
 }

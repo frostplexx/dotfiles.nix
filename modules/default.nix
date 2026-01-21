@@ -1,6 +1,6 @@
 _: {
-    imports = [
-        ./jinx
-        ./nix.nix
-    ];
+  imports = [
+    ./jinx
+    ./nix.nix
+  ];
 }
