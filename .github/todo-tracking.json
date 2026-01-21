@@ -1,11 +1,5 @@
 {
   "todos": {
-    "home/neovim/languages.nix:36:TODO: find a way to get custom languages working in nvf": {
-      "issueNumber": 631,
-      "file": "home/neovim/languages.nix",
-      "line": 36,
-      "text": "TODO: find a way to get custom languages working in nvf"
-    },
     "home/neovim/neovim.nix:220:TODO: enable when I'm in the mood": {
       "issueNumber": 684,
       "file": "home/neovim/neovim.nix",
