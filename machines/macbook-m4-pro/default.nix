@@ -3,6 +3,7 @@
   pkgs,
   user,
   lib,
+  defaults,
   ...
 }: {
   imports = [
@@ -56,7 +57,7 @@
       "Thunderbolt Ethernet"
     ];
   };
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = defaults.system.timeZone;
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;

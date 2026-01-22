@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  defaults,
   ...
 }: {
   home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
@@ -12,8 +13,8 @@
       lfs.enable = true;
       settings = {
         user = {
-          name = "daniel";
-          email = "daniel.inama02@gmail.com";
+          inherit (defaults.personalInfo) name;
+          email = "62436912+frostplexx@users.noreply.github.com";
         };
         init.defaultBranch = "main";
         push.autoSetupRemote = true;

@@ -16,7 +16,7 @@
   pkgsConfig = import ./pkgs.nix {inherit inputs system overlays;};
   inherit (pkgsConfig) pkgs;
   inherit (pkgsConfig) nixpkgsConfig;
-
+  defaults = import ../defaults.nix;
   # Fetch remote assets (e.g., wallpapers).
   assets = import ./assets.nix {inherit pkgs;};
 
@@ -26,7 +26,7 @@
   # Merge all relevant arguments for the machine config.
   machineConfigArgs =
     {
-      inherit system user pkgs inputs assets;
+      inherit system user pkgs inputs assets defaults;
       inherit (inputs.nixpkgs) lib;
     }
     // args;
@@ -50,6 +50,7 @@
       mkHomeConfig
       accent_color
       transparent_terminal
+      defaults
       ;
   };
 

@@ -15,6 +15,7 @@
   mkHomeConfig,
   accent_color,
   transparent_terminal,
+  defaults,
 }: let
   # Determine if we are building for Darwin (macOS)
   inherit (pkgs.stdenv) isDarwin;
@@ -54,14 +55,14 @@ in
       # Set the state version for Home Manager (Darwin and Linux differ)
       system.stateVersion =
         if isDarwin
-        then 6
-        else "24.05";
+        then defaults.system.darwinVersion
+        else defaults.system.nixOSVersion;
       home-manager = {
         useGlobalPkgs = true; # Use the global pkgs set
         useUserPackages = true; # Allow user packages
         backupFileExtension = "backup"; # Backup extension for file collisions
         # Pass extra arguments to all Home Manager modules
-        extraSpecialArgs = {inherit inputs system assets;};
+        extraSpecialArgs = {inherit inputs system assets defaults;};
         # Shared Home Manager modules for all users
         sharedModules =
           [
@@ -126,6 +127,7 @@ in
           user
           system
           inputs
+          defaults
           assets
           ;
       };

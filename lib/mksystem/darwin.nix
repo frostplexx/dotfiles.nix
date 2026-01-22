@@ -15,8 +15,8 @@
     inputs.determinate.darwinModules.default
   ];
 
-  determinate-nix.customSettings = {
-    experimental-features = "nix-command flakes parallel-eval";
+  determinateNix.customSettings = {
+    experimental-features = "nix-command flakes parallel-eval impure-derivations";
     lazy-trees = true;
     warn-dirty = false;
     substituters = "https://nix-community.cachix.org https://cache.nixos.org";
