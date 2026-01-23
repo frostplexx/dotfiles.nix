@@ -11,9 +11,9 @@ in {
     enable = true;
     settings = {
       style = "round";
-      width = 3.0;
-      hidpi = true;
-      order = "above";
+      width = 5.0;
+      hidpi = false;
+      # order = "above";
       active_color = "0xff${config.accent_color}";
       inactive_color = "0xff7f849c";
     };

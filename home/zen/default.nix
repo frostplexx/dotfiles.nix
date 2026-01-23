@@ -88,7 +88,7 @@
     "zen.glance.activation-method" = "shift";
     "zen.theme.gradient.show-custom-colors" = true;
     "zen.welcome-screen.seen" = true;
-    "zen.theme.accent-color" = "#BE89FF";
+    "zen.theme.accent-color" = "#cba6f7";
     "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
     "zen.workspaces.continue-where-left-off" = true;
     "zen.workspaces.force-container-workspace" = true;
