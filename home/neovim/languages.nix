@@ -19,10 +19,10 @@ _: {
       dap.enable = true;
       format.enable = true;
     };
-    markdown = {
-      enable = true;
-      extensions.render-markdown-nvim.enable = true;
-    };
+    # markdown = {
+    #   enable = true;
+    #   extensions.render-markdown-nvim.enable = true;
+    # };
     clang.enable = true;
     python.enable = true;
     bash.enable = true;
