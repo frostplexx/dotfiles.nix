@@ -5,6 +5,12 @@
       "file": "home/neovim/neovim.nix",
       "line": 220,
       "text": "TODO: enable when I'm in the mood"
+    },
+    "lib/defaults.nix:25:TODO: implement": {
+      "issueNumber": 690,
+      "file": "lib/defaults.nix",
+      "line": 25,
+      "text": "TODO: implement"
     }
   }
 }
