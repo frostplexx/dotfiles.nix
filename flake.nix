@@ -112,7 +112,7 @@
         "shell"
         "spotify"
         "ssh"
-        "zed"
+        # "zed"
         "zen"
       ];
       # Set your global accent color here (hex without #)
