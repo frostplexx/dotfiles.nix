@@ -448,6 +448,7 @@ in {
         };
 
         luaConfigRC.my-config = ''
+
           vim.keymap.set(
           	"v",
           	"<leader>s",

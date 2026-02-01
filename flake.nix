@@ -65,6 +65,7 @@
       url = "github:FelixKratz/homebrew-formulae";
       flake = false;
     };
+
     # ========================
   };
 
@@ -103,7 +104,7 @@
       user = "daniel";
       # Home manager modules you want to include as defined in ./home
       hm-modules = [
-        "aerospace"
+        # "aerospace"
         "ghostty"
         "git"
         "kitty"
@@ -113,6 +114,7 @@
         "spotify"
         "ssh"
         # "zed"
+        "skhd"
         "zen"
       ];
       # Set your global accent color here (hex without #)

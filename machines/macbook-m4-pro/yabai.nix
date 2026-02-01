@@ -1,16 +1,16 @@
 {config, ...}: {
   services = {
     jankyborders = {
-      enable = false;
+      enable = true;
       style = "round";
-      width = 3.0;
+      width = 5.0;
       hidpi = false;
       active_color = "0xff${config.accent_color}";
       inactive_color = "0xff7f849c";
     };
 
     yabai = {
-      enable = false;
+      enable = true;
       enableScriptingAddition = true;
       config = {
         # Layout

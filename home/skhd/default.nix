@@ -1,6 +1,6 @@
 _: {
   services.skhd = {
-    enable = false;
+    enable = true;
     config = ''
       # Layout modes
       ctrl + alt + cmd - t : yabai -m space --layout bsp

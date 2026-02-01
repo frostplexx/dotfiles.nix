@@ -62,7 +62,14 @@ in
         useUserPackages = true; # Allow user packages
         backupFileExtension = "backup"; # Backup extension for file collisions
         # Pass extra arguments to all Home Manager modules
-        extraSpecialArgs = {inherit inputs system assets defaults;};
+        extraSpecialArgs = {
+          inherit
+            inputs
+            system
+            assets
+            defaults
+            ;
+        };
         # Shared Home Manager modules for all users
         sharedModules =
           [
