@@ -6,10 +6,16 @@
       "line": 25,
       "text": "TODO: implement"
     },
-    "home/neovim/neovim.nix:218:TODO: enable when I'm in the mood": {
-      "issueNumber": 691,
+    "flake.nix:43:TODO: switch to official when its fixed": {
+      "issueNumber": 692,
+      "file": "flake.nix",
+      "line": 43,
+      "text": "TODO: switch to official when its fixed"
+    },
+    "home/neovim/neovim.nix:219:TODO: enable when I'm in the mood": {
+      "issueNumber": 693,
       "file": "home/neovim/neovim.nix",
-      "line": 218,
+      "line": 219,
       "text": "TODO: enable when I'm in the mood"
     }
   }
