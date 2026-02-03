@@ -2,6 +2,7 @@
 
 set -l MAX_SPACES 6
 
+
 # get number of spaces (jq returns an array; count returns number of items)
 set -l SPACES_CNT (yabai -m query --spaces | jq '.[].index' | wc -l | tr -d ' ')
 
@@ -12,6 +13,8 @@ set -l NR_SPACES_TO_ADD (math "$MAX_SPACES - $SPACES_CNT")
 if test $NR_SPACES_TO_ADD -le 0
     echo "No spaces to add"
     exit 0
+else 
+    sudo yabai --load-sa
 end
 
 for i in (seq $NR_SPACES_TO_ADD)

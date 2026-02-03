@@ -155,6 +155,8 @@
           sudo -u ${user} defaults write com.apple.Dock contents-immutable -bool true
           sudo -u ${user} defaults write com.apple.dock size-immutable -bool yes
 
+
+
           killall Finder;
           killall Dock;
 
