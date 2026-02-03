@@ -9,7 +9,7 @@
   imports = [
     ../shared.nix # Base configuration
     ./apps.nix # macbook-m4-pro specific apps
-    ./yabai.nix
+    ./yabai
     # ./custom_icons.nix
     # ./smb_automount.nix
   ];
@@ -60,7 +60,10 @@
   time.timeZone = defaults.system.timeZone;
 
   # Security settings
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    watchIdAuth = true;
+  };
 
   # You can enable the fish shell and manage fish configuration and plugins with Home Manager, but to enable vendor fish completions provided by Nixpkgs you
   # will also want to enable the fish shell in /etc/nixos/configuration.nix:

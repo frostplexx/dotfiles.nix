@@ -1,4 +1,8 @@
 {config, ...}: {
+  imports = [./yabai-indicator.nix];
+
+  programs.yabaiIndicator.enable = true;
+
   services = {
     jankyborders = {
       enable = true;
@@ -46,10 +50,9 @@
       extraConfig = ''
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd"
 
-        # Window rules (matching aerospace on-window-detected)
-
         # Floating Rules
-        yabai -m rule --add app="^Zen Browser$" title="Picture-in-Picture" manage=off
+        yabai -m rule --add title="^Picture( ?-?)in( ?-?)Picture|PiP$" manage=off mouse_follows_focus=off
+        yabai -m rule --add subrole="^AXSystemDialog$" manage=off mouse_follows_focus=off
         yabai -m rule --add app="^(LuLu|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Kitty|Alfred|Activity Monitor)$" manage=off
         yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
         yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
@@ -58,7 +61,7 @@
         # Browser apps -> Space 1
         yabai -m space 1 --label Browser
         yabai -m rule --add app="^Firefox$" space=1
-        yabai -m rule --add app="^Zen Browser$" space=1
+        yabai -m rule --add app="^Zen$" space=1
 
         # Development apps -> Space 2
         yabai -m space 2 --label Development
@@ -92,8 +95,8 @@
         yabai -m space 6 --label Other
 
         # Floating apps
-        yabai -m rule --add app="^Finder$" manage=off
-        yabai -m rule --add app="^1Password$" manage=off
+        yabai -m rule --add app="^Finder$" manage=off sticky=on
+        yabai -m rule --add app="^1Password$" manage=off sticky=on
         yabai -m rule --add app="^CleanShot X$" manage=off
         yabai -m rule --add app="^Keka$" manage=off
         yabai -m rule --add app="^Simulator$" manage=off

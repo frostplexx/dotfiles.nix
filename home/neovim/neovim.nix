@@ -20,9 +20,7 @@ in {
         globals.editorconfig = true;
 
         extraPackages = with pkgs; [
-          # texlab
           fish-lsp
-          skim # Needed for LaTeX
         ];
 
         terminal.toggleterm = {
