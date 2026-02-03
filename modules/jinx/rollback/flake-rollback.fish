@@ -265,7 +265,6 @@ function parse_selection
 
     # Extract node key (hash) from brackets
     set -l node_name (string replace -r '.*\[(\w+)\].*' '$1' $selection)
-    echo $node_name
 
     echo "$input_name|$node_name"
 end
@@ -274,9 +273,7 @@ end
 function revert_inputs
     set -l flake_dir $argv[1]
     set -l target_lock $argv[2]
-    set -e argv[1]
-    set -e argv[1]
-    set -l selected_inputs $argv
+    set -l selected_inputs $argv[3..-1]
 
     if test (count $selected_inputs) -eq 0
         echo "No inputs selected for reversion"
