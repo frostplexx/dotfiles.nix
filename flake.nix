@@ -40,7 +40,8 @@
 
     # ==== Neovim ====
     neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      #TODO: switch to official when its fixed
+      url = "github:Prince213/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -72,7 +73,6 @@
   outputs = {nixpkgs, ...} @ inputs: let
     overlays = [
       inputs.nixkit.overlays.default
-      inputs.neovim-nightly-overlay.overlays.default
       (_final: prev: {
         kitty = prev.kitty.overrideAttrs (_oldAttrs: {
           doCheck = false;

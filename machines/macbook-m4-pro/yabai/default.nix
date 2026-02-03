@@ -102,6 +102,8 @@
         yabai -m rule --add app="^Simulator$" manage=off
         yabai -m rule --add app="^Google Chrome$" manage=off
 
+        ./${./spaces.fish}
+
       '';
     };
   };
