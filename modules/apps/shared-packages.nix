@@ -1,11 +1,7 @@
 {inputs, ...}: {
     # Shared packages for both Darwin and NixOS
     # This module adds packages to both darwin and nixos configurations
-    flake.modules.darwin.shared-packages = {
-        pkgs,
-        system,
-        ...
-    }: {
+    flake.modules.darwin.shared-packages = {pkgs, ...}: {
         environment.systemPackages = with pkgs; [
             # Development tools
             gnumake
@@ -50,7 +46,7 @@
             _1password-cli
             bvi
 
-            inputs.determinate.packages.${system}.default
+            inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
 
         documentation = {
@@ -68,11 +64,7 @@
         ];
     };
 
-    flake.modules.nixos.shared-packages = {
-        pkgs,
-        system,
-        ...
-    }: {
+    flake.modules.nixos.shared-packages = {pkgs, ...}: {
         environment.systemPackages = with pkgs; [
             # Development tools
             gnumake
@@ -117,7 +109,7 @@
             _1password-cli
             bvi
 
-            inputs.determinate.packages.${system}.default
+            inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
 
         documentation = {

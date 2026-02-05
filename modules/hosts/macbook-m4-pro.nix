@@ -311,7 +311,7 @@ in {
             skimpdf
             macpm
             moonlight-qt
-            lmstudio
+            # lmstudio
             discord-ptb
             vscode
         ];
