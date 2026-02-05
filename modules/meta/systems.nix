@@ -77,7 +77,7 @@ in {
                                 ++ collectModules config.flake.modules.homeManager;
                             extraSpecialArgs = {
                                 inherit inputs;
-                                defaults = config.flake.defaults;
+                                inherit (config.flake) defaults;
                             };
                         };
                     }
@@ -85,7 +85,7 @@ in {
                 ++ collectModules config.flake.modules.darwin;
             specialArgs = {
                 inherit inputs;
-                defaults = config.flake.defaults;
+                inherit (config.flake) defaults;
             };
         };
 
@@ -122,7 +122,7 @@ in {
                                 ++ collectModules config.flake.modules.homeManager;
                             extraSpecialArgs = {
                                 inherit inputs;
-                                defaults = config.flake.defaults;
+                                inherit (config.flake) defaults;
                             };
                         };
                     }
@@ -130,7 +130,7 @@ in {
                 ++ collectModules config.flake.modules.nixos;
             specialArgs = {
                 inherit inputs;
-                defaults = config.flake.defaults;
+                inherit (config.flake) defaults;
             };
         };
     };

@@ -1,4 +1,4 @@
-{...}: {
+_: {
     # Define the systems for per-system outputs
     systems = [
         "x86_64-linux"

@@ -1,9 +1,7 @@
 _: let
   accent_color = "cba6f7";
 in {
-  flake.modules.darwin.yabai = {
-    ...
-  }: {
+  flake.modules.darwin.yabai = _: {
     services = {
       jankyborders = {
         enable = true;

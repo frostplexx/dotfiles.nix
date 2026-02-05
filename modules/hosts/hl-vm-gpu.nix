@@ -7,7 +7,7 @@
         modulesPath,
         ...
     }: let
-        user = defaults.user;
+        inherit (defaults) user;
     in {
         imports = [
             (modulesPath + "/installer/scan/not-detected.nix")
@@ -156,7 +156,7 @@
                 sddm.enable = true;
                 autoLogin = {
                     enable = true;
-                    user = user;
+                    inherit user;
                 };
             };
             desktopManager.plasma6.enable = true;
@@ -334,7 +334,7 @@
         };
 
         # Home Manager
-        home-manager.users.${user} = {...}: {
+        home-manager.users.${user} = _: {
             home = {
                 stateVersion = "23.11";
                 username = user;

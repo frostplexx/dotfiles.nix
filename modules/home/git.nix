@@ -15,9 +15,9 @@ _: {
                 lfs.enable = true;
                 settings = {
                     user = {
-                        name = defaults.personalInfo.name;
-                        email = defaults.personalInfo.email;
-                        signingKey = defaults.personalInfo.signingKey;
+                        inherit (defaults.personalInfo) name;
+                        inherit (defaults.personalInfo) email;
+                        inherit (defaults.personalInfo) signingKey;
                     };
                     init.defaultBranch = "main";
                     push.autoSetupRemote = true;

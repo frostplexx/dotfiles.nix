@@ -9,7 +9,7 @@
         defaults,
         ...
     }: let
-        user = defaults.user;
+        inherit (defaults) user;
     in {
         system.stateVersion = 6;
 
@@ -308,7 +308,7 @@
         ];
 
         # Home Manager
-        home-manager.users.${user} = {...}: {
+        home-manager.users.${user} = _: {
             home = {
                 stateVersion = "23.11";
                 username = user;
