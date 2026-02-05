@@ -52,7 +52,7 @@
       };
 
       extraConfig = ''
-        # yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd"
+        yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa && pkill -9 lazykeys && pkill -9 skhd"
 
         # Floating Rules
         yabai -m rule --add title="^Picture( ?-?)in( ?-?)Picture|PiP$" manage=off mouse_follows_focus=off
