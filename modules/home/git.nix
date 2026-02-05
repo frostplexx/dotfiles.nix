@@ -1,13 +1,8 @@
-{...}: let
-    defaults = {
-        personalInfo = {
-            name = "Daniel";
-        };
-    };
-in {
+_: {
     flake.modules.homeManager.git = {
         pkgs,
         lib,
+        defaults,
         ...
     }: {
         home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
@@ -20,8 +15,9 @@ in {
                 lfs.enable = true;
                 settings = {
                     user = {
-                        inherit (defaults.personalInfo) name;
-                        email = "62436912+frostplexx@users.noreply.github.com";
+                        name = defaults.personalInfo.name;
+                        email = defaults.personalInfo.email;
+                        signingKey = defaults.personalInfo.signingKey;
                     };
                     init.defaultBranch = "main";
                     push.autoSetupRemote = true;
@@ -36,7 +32,6 @@ in {
                         then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
                         else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
                     commit.gpgsign = true;
-                    user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
                     credential.helper =
                         if pkgs.stdenv.isDarwin
                         then "osxkeychain"

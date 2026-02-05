@@ -1,20 +1,14 @@
-{inputs, ...}: let
-    user = "daniel";
-    defaults = {
-        system = {
-            nixOSVersion = "25.11";
-            timeZone = "Europe/Berlin";
-            locale = "en_US.UTF-8";
-        };
-    };
-in {
+{inputs, ...}: {
     flake.modules.nixos.hl-vm-gpu = {
         pkgs,
         lib,
         config,
+        defaults,
         modulesPath,
         ...
-    }: {
+    }: let
+        user = defaults.user;
+    in {
         imports = [
             (modulesPath + "/installer/scan/not-detected.nix")
         ];
@@ -66,7 +60,10 @@ in {
         fileSystems."/boot" = {
             device = "/dev/disk/by-uuid/5ADD-E585";
             fsType = "vfat";
-            options = ["fmask=0077" "dmask=0077"];
+            options = [
+                "fmask=0077"
+                "dmask=0077"
+            ];
         };
 
         swapDevices = [
@@ -93,8 +90,11 @@ in {
             nixPath = ["nixpkgs=${inputs.nixpkgs}"];
             settings = {
                 extra-platforms = ["aarch64-darwin"];
-                extra-trusted-users = ["daniel"];
-                trusted-users = ["root" user];
+                extra-trusted-users = [user];
+                trusted-users = [
+                    "root"
+                    user
+                ];
                 max-jobs = 8;
                 sandbox = true;
                 substituters = [
@@ -156,13 +156,13 @@ in {
                 sddm.enable = true;
                 autoLogin = {
                     enable = true;
-                    user = "daniel";
+                    user = user;
                 };
             };
             desktopManager.plasma6.enable = true;
             openssh.enable = true;
             getty = {
-                autologinUser = "daniel";
+                autologinUser = user;
                 extraArgs = ["--noclear"];
             };
             pipewire = {
@@ -189,7 +189,7 @@ in {
             serviceConfig = {
                 ExecStart = [
                     ""
-                    "${pkgs.util-linux}/bin/agetty --autologin daniel --noclear %i $TERM"
+                    "${pkgs.util-linux}/bin/agetty --autologin ${user} --noclear %i $TERM"
                 ];
                 Type = "idle";
                 Restart = "always";
@@ -201,16 +201,16 @@ in {
 
         # Looking Glass
         systemd.tmpfiles.rules = [
-            "f /dev/shm/looking-glass 0660 daniel kvm -"
+            "f /dev/shm/looking-glass 0660 ${user} kvm -"
         ];
 
         # User configuration
         programs.fish.enable = true;
         users = {
             defaultUserShell = pkgs.fish;
-            users.daniel = {
+            users.${user} = {
                 isNormalUser = true;
-                description = "Daniel";
+                description = defaults.personalInfo.name;
                 extraGroups = [
                     "networkmanager"
                     "wheel"
@@ -249,7 +249,7 @@ in {
                 enable = true;
                 clean.enable = true;
                 clean.extraArgs = "--keep-since 4d --keep 3";
-                flake = "/home/daniel/dotfiles.nix/";
+                flake = "/home/${user}/${defaults.paths.flake}/";
             };
             # Gamescope and Steam disabled temporarily due to 32-bit support issues in nixpkgs-unstable
             # gamescope = {
@@ -264,7 +264,7 @@ in {
             # };
             _1password-gui = {
                 enable = true;
-                polkitPolicyOwners = ["daniel"];
+                polkitPolicyOwners = [user];
             };
             thunar = {
                 enable = true;
@@ -334,13 +334,15 @@ in {
         };
 
         # Home Manager
-        home-manager.users.${user} = {pkgs, ...}: {
-            home.stateVersion = "23.11";
-            home.username = user;
-            home.homeDirectory = "/home/${user}";
-            home.sessionVariables = {
-                NH_FLAKE = "$HOME/dotfiles.nix";
-                EDITOR = "nvim";
+        home-manager.users.${user} = {...}: {
+            home = {
+                stateVersion = "23.11";
+                username = user;
+                homeDirectory = "/home/${user}";
+                sessionVariables = {
+                    NH_FLAKE = "$HOME/${defaults.paths.flake}";
+                    EDITOR = "nvim";
+                };
             };
             programs.home-manager.enable = true;
         };

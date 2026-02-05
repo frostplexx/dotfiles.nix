@@ -2,25 +2,16 @@
     inputs,
     lib,
     ...
-}: let
-    user = "daniel";
-    defaults = {
-        system = {
-            darwinVersion = 6;
-            timeZone = "Europe/Berlin";
-            locale = "en_US.UTF-8";
-        };
-        personalInfo = {
-            name = "Daniel";
-        };
-    };
-in {
+}: {
     flake.modules.darwin.macbook-m4-pro = {
         pkgs,
         config,
+        defaults,
         ...
-    }: {
-        system.stateVersion = defaults.system.darwinVersion;
+    }: let
+        user = defaults.user;
+    in {
+        system.stateVersion = 6;
 
         # Determinate Nix settings
         determinateNix.customSettings = {
@@ -317,13 +308,15 @@ in {
         ];
 
         # Home Manager
-        home-manager.users.${user} = {pkgs, ...}: {
-            home.stateVersion = "23.11";
-            home.username = user;
-            home.homeDirectory = "/Users/${user}";
-            home.sessionVariables = {
-                NH_FLAKE = "$HOME/dotfiles.nix";
-                EDITOR = "nvim";
+        home-manager.users.${user} = {...}: {
+            home = {
+                stateVersion = "23.11";
+                username = user;
+                homeDirectory = "/Users/${user}";
+                sessionVariables = {
+                    NH_FLAKE = "$HOME/${defaults.paths.flake}";
+                    EDITOR = "nvim";
+                };
             };
             programs.home-manager.enable = true;
         };
