@@ -3,13 +3,48 @@ _: {
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    accent_color = "cba6f7";
+  in {
     services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
       config = ''
+
+         # Modes
+        :: launch @
+        :: tiling @ : borders active_color=0xff8aadf4
+        :: default : borders active_color=0xff${accent_color}
+        :: resize : borders active_color=0xffed8796
+
+        ctrl + alt + cmd - d ; launch
+        ctrl + alt + cmd - t ; tiling
+        ctrl + alt + cmd - r ; resize
+
+        # Launch apps
+        launch < d : open -a Discord & skhd -k 'escape'
+        launch < m : open -a Spotify & skhd -k 'escape'
+        launch < t : open -a kitty & skhd -k 'escape'
+        launch < b : open -a Zen & skhd -k 'escape'
+
+
         # Layout modes
-        ctrl + alt + cmd - t : yabai -m space --layout bsp
-        ctrl + alt + cmd - s : yabai -m space --layout stack
+        tiling < t : yabai -m space --layout bsp  & skhd -k 'escape'
+        tiling < s : yabai -m space --layout stack & skhd -k 'escape'
+        tiling < f : yabai -m space --layout float & skhd -k 'escape'
+        # tiling < z : yabai -m window --toggle float & yabai -m window --resize abs:960:540 & yabai -m window --move abs:960:540 & skhd -k 'escape'
+
+        # Resize modes
+        resize < h : yabai -m window --resize left:-20:0
+        resize < j : yabai -m window --resize bottom:0:20
+        resize < k : yabai -m window --resize top:0:-20
+        resize < l : yabai -m window --resize right:20:0
+
+
+        # Return to default mode
+        launch < escape ; default
+        tiling < escape ; default
+        resize < escape ; default
+
 
         # Fullscreen
         ctrl + alt + cmd - space : yabai -m window --toggle zoom-fullscreen
@@ -20,11 +55,6 @@ _: {
         # Minimize
         cmd - m : yabai -m window --minimize
 
-        # Launch applications
-        ctrl + alt + cmd - return : open -a kitty
-        ctrl + alt + cmd - m : open -a Music
-        ctrl + alt + cmd - b : open -a Zen
-        ctrl + alt + cmd + shift - return : open -a kitty
 
         # Focus windows (hjkl)
         ctrl + alt + cmd - h : yabai -m window --focus west
@@ -65,9 +95,6 @@ _: {
 
         # Move workspace to next display
         alt + shift - tab : yabai -m space --display next || yabai -m space --display first
-
-        # Reload yabai
-        ctrl + alt + cmd - r : launchctl kickstart -k "gui/$UID/org.nixos.yabai"
       '';
     };
   };
