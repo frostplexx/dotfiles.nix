@@ -30,7 +30,8 @@ _: {
         # Layout modes
         tiling < t : yabai -m space --layout bsp  & skhd -k 'escape'
         tiling < s : yabai -m space --layout stack & skhd -k 'escape'
-        tiling < f : yabai -m space --layout float & skhd -k 'escape'
+        tiling < f : yabai -m window --toggle float & skhd -k 'escape'
+        tiling < cmd - f : yabai -m space --layout float & skhd -k 'escape'
         # tiling < z : yabai -m window --toggle float & yabai -m window --resize abs:960:540 & yabai -m window --move abs:960:540 & skhd -k 'escape'
 
         # Resize modes
@@ -49,8 +50,6 @@ _: {
         # Fullscreen
         ctrl + alt + cmd - space : yabai -m window --toggle zoom-fullscreen
 
-        # Toggle floating
-        ctrl + alt + cmd - f : yabai -m window --toggle float
 
         # Minimize
         cmd - m : yabai -m window --minimize
