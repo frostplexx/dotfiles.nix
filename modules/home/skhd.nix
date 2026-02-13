@@ -15,6 +15,7 @@ _: {
         :: tiling @ : borders active_color=0xff8aadf4
         :: default : borders active_color=0xff${accent_color}
         :: resize : borders active_color=0xffed8796
+        :: music : borders active_color=0xffa6e3a1
 
         ctrl + alt + cmd - d ; launch
         ctrl + alt + cmd - t ; tiling
@@ -25,6 +26,12 @@ _: {
         launch < m : open -a Spotify & skhd -k 'escape'
         launch < t : open -a kitty & skhd -k 'escape'
         launch < b : open -a Zen & skhd -k 'escape'
+
+
+        # Volume control for spotify
+        # music < ] : osascript -e 'tell application "Spotify" set currentvol to get sound volume set sound volume to currentvol + 10 end tell' & skhd -k 'escape'
+        # music < ] : osascript -e ' tell application "Spotify" set currentvol to get sound volume set sound volume to currentvol - 10 end tell' & skhd -k 'escape'
+
 
 
         # Layout modes
@@ -45,6 +52,7 @@ _: {
         launch < escape ; default
         tiling < escape ; default
         resize < escape ; default
+        music < escape ; default
 
 
         # Fullscreen

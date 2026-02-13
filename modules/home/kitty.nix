@@ -49,6 +49,8 @@ _: {
         inactive_tab_font_style = "normal";
         active_tab_background = "#${accent_color}";
         allow_remote_control = "yes";
+        startup_session = "${config.xdg.configHome}/kitty/saved-session.kitty";
+        watcher = "${config.xdg.configHome}/kitty/watcher.py";
         listen_on = "unix:/tmp/mykitty";
         font_family = "Maple Mono";
         disable_ligatures = "cursor";
@@ -113,6 +115,36 @@ _: {
     };
 
     xdg.configFile = {
+      # Watcher for auto-saving sessions
+      "kitty/watcher.py".text = ''
+        from typing import Any
+        import os
+
+
+        from kitty.boss import Boss
+        from kitty.session import default_save_as_session_opts, save_as_session_part2
+        from kitty.window import Window
+
+        _CONFIG_HOME = os.getenv("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
+
+        SESSION = os.path.join(_CONFIG_HOME, "kitty/saved-session.kitty")
+
+
+        def _save_as_session(boss: Boss, window: Window, data: dict[str, Any]) -> None:
+            opts = default_save_as_session_opts()
+            opts.save_only = True
+            opts.use_foreground_process = True
+            save_as_session_part2(boss, opts, SESSION)
+
+
+        def on_focus_change(boss: Boss, window: Window, data: dict[str, Any])-> None:
+            _save_as_session(boss, window, data)
+
+
+        def on_title_change(boss: Boss, window: Window, data: dict[str, Any])-> None:
+            _save_as_session(boss, window, data)
+      '';
+
       "kitty/themes/mocha.conf".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
         hash = "sha256-kvzdAcM+ZCQ/u6S7avS4iHd2lDKwv/6GLPiN6A6QlSQ=";
