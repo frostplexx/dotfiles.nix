@@ -1,20 +1,8 @@
 {
   "todos": {
-    "lib/defaults.nix:25:TODO: implement": {
-      "issueNumber": 690,
-      "file": "lib/defaults.nix",
-      "line": 25,
-      "text": "TODO: implement"
-    },
-    "flake.nix:43:TODO: switch to official when its fixed": {
-      "issueNumber": 692,
-      "file": "flake.nix",
-      "line": 43,
-      "text": "TODO: switch to official when its fixed"
-    },
-    "home/neovim/neovim.nix:219:TODO: enable when I'm in the mood": {
-      "issueNumber": 693,
-      "file": "home/neovim/neovim.nix",
+    "modules/home/neovim/_neovim.nix:219:TODO: enable when I'm in the mood": {
+      "issueNumber": 696,
+      "file": "modules/home/neovim/_neovim.nix",
       "line": 219,
       "text": "TODO: enable when I'm in the mood"
     }
