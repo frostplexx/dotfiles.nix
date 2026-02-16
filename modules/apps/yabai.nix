@@ -76,6 +76,7 @@ in {
           yabai -m space 5 --label Music
           yabai -m rule --add app="^Spotify$" space=5
           yabai -m rule --add app="^Music$" space=5
+          yabai -m rule --add app="^TIDAL$" space=5
           yabai -m rule --add title="MiniPlayer" manage=off
 
           yabai -m space 6 --label Other

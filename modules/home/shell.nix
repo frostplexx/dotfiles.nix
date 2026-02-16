@@ -40,6 +40,7 @@ _: {
           tree = "eza --icons --git --header --tree";
           vimdiff = "nvim -d";
           cd = "z";
+          nurl = "nix run nixpkgs#nurl --";
           avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
         };
 

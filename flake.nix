@@ -28,6 +28,9 @@
 
     lazykeys.url = "github:frostplexx/lazykeys";
 
+    # tidaLuna.url = "github:frostplexx/TidaLuna/master";
+    tidaLuna.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna";
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +62,5 @@
     };
   };
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;}
-    (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 }

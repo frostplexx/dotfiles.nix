@@ -44,6 +44,7 @@
       obsidian
       _1password-cli
       bvi
+      inputs.tidaLuna.packages.${system}.default
 
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
