@@ -269,11 +269,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1771313187,
-        "narHash": "sha256-RF3Jx1nAyD94Jufz90qblm/KYe15LatnnjbOQKTHs1U=",
+        "lastModified": 1771330613,
+        "narHash": "sha256-3efIBOCo9ekN9RPax2069bL7PhRNsy9G9gaDMRhC78s=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "3f0fda390d44101a1792b96cba02014569ced3ce",
+        "rev": "c4958fdc41fd51bd796834a793f9eccd8a1c9716",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1771312699,
-        "narHash": "sha256-FTbzApUo095tqEHn0b0+fBszbZLbj7dUcPit8R3RIQc=",
+        "lastModified": 1771331518,
+        "narHash": "sha256-D+QwHqH9K+b294W4sG5mGGxMBNU6SratdrgSgn7sOy4=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "9aae24112446dee878eff78fc2a0d57b68c5d46d",
+        "rev": "dc90a58b4fa436493d4773f09e129f660e8278f3",
         "type": "github"
       },
       "original": {
@@ -699,11 +699,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1771274219,
-        "narHash": "sha256-n7CZAK+mTko+y3SSwvFt49AD1RNLY2KcHypcoly8HVc=",
+        "lastModified": 1771331465,
+        "narHash": "sha256-lTWc6reKRLQfhh4uRsBWGbdwcHt5fQpOxt6jueHZ20c=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "99bf160aaef28d47f1818deffe662ce1c4d6e6a1",
+        "rev": "0c650e0801aebbfc2817c11140c90768c178b13b",
         "type": "github"
       },
       "original": {
@@ -808,17 +808,17 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1771056893,
+        "lastModified": 1771330138,
         "narHash": "sha256-VAY5YvSRDggaytversL4+J2i8BzRiqfQ20+Wn2K20o0=",
-        "ref": "refs/heads/master",
-        "rev": "c554438f208c672867223b5f57490d4ab9ca31fd",
-        "revCount": 500,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
+        "rev": "db78b1e09817c205d2ad18feecaffe1c6d1a108e",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
+        "type": "github"
       }
     }
   },
