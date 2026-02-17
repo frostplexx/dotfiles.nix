@@ -23,7 +23,7 @@ _: {
 
         # Launch apps
         launch < d : open -a Discord & skhd -k 'escape'
-        launch < m : open -a Spotify & skhd -k 'escape'
+        launch < m : open -a TIDAL & skhd -k 'escape'
         launch < t : open -a kitty & skhd -k 'escape'
         launch < b : open -a Zen & skhd -k 'escape'
 
