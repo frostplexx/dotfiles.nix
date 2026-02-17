@@ -127,37 +127,22 @@ Run `jinx` to get a list of possible commands. You can also chain them e.g. `jin
 
 ### Add a New Host
 
-1. Create a folder in `./machines` wit the name of the machine. That folder should contain the following
-    - `configuration.nix` for system configuration
-    - `hardware-configuration.nix` (optional) for hardware configs
-    - `apps.nix` (optional) for specific apps that only that host should have
-2. Add you config to `flake.nix`:
-```nix
-# ...
-# or darwinConfigurations
-darwinConfigurations.<hostname> = mkSystem "<foldername>" {
-  system = "aarch64-darwin";
-  user = "<username>";
-  # Home manager modules you want to include as defined in ./home
-  hm-modules = [
-    # ... List of modules found in ./home
-  ];
-};
-# ...
-```
+1. Create a nix file in `modules/machines` with the name of the machine.
+2. Add you config to `modules/meta/systems.nix`:
+
 ### Add New Programs
 
-If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `machines/shared.nix`.
-Else add them to your appropriate host config `machines/<hostname>/apps.nix`
+If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `modules/apps/shared-packages.nix`.
+Else add them to your appropriate host config `modules/machines/<hostname>.nix`
 
 ### Home Manager
 
-Home Manager dot files are saved in `./home`.
+Home Manager dot files are saved in `modules/home`.
 To add a new module you need to:
 
-1. Create a folder with a `default.nix` inside `./home/`
-2. Configure what you want to configure
-4. Append the folder name to `hm-modules` in your `flake.nix` (see [[#Adding a New Host]])
+1. Create a nix file e.g. `neoovim.nix` inside `modules/home/`
+2. Configure what you want to configure using flake parts
+4. The config will automatically be picked up and applied on the rebuild
 
 ### Homebrew
 
@@ -201,40 +186,6 @@ The exact GitHub `<user>/<repo>` should almost always work.
 
 Except this one quirk homebrew can be used like normal. It is however strongly preferred to add apps using `nix-darwin` because I'm using the
 cleanup mode "zap" which will automatically uninstall any non-declaratively defined package.
-
-### Modules
-
-Modules should be added to the `imports` array in `./lib/mksystem/darwin.nix` or in `./lib/mksystem/linux.nix`.
-Home Manager modules should be added to `./lib/mksystem/modules.nix` inside sharedModules.
-
-### Overlays
-
-Overlays can either be added to the overlays array inside `flake.nix` or
-dropped as a file inside `./overlays/` which will then get automatically loaded.
-You'll need to add `nixpkgs.overlays = import ../../lib/overlays.nix;`
-to the configuration that should load its overlays from the folder
-
-## NeoVim
-
-### Package management
-
-The neovim config uses the built in package manager with a "unpack" (https://github.com/mezdelex/unpack) around it.
-
-You can add plugins by adding them to a file inside `lua/plugins/`. Plugin definitions follow the following specification:
-
-```lua
----@class UnPack.Spec : vim.pack.Spec
----@field config? fun()
----@field defer? boolean
----@field dependencies? UnPack.Spec[]
-```
-
-For more info about the vim.pack.Spec you can check out https://neovim.io/doc/user/pack.html#vim.pack
-
-<!-- ### :Pack -->
-<!---->
-<!-- In addition to declarative package management the config also provides the `:Pack` command which will show a UI for easy uninstalling and updating of -->
-<!-- plugins -->
 
 ## References
 
