@@ -1,6 +1,6 @@
 <p align="center">
     <img src="https://nixos.wiki/images/thumb/2/20/Home-nixos-logo.png/414px-Home-nixos-logo.png" width=200/>
-    <h1 align="center"><code>Nix System Configurations</code></h1>
+    <h1 align="center"><code>Nix Dotfiles</code></h1>
     <div style="display: grid;" align="center">
     <img src="https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg" height=20/>
     <img src="https://img.shields.io/github/repo-size/frostplexx/dotfiles.nix" height=20/>
