@@ -16,7 +16,7 @@ This repository is home to the nix code that builds my systems:
 1. NixOS Desktops: NixOS with home-manager, KDE plasma, steam, etc.
 2. macOS Laptops: nix-darwin with home-manager, share the same home-manager configuration with NixOS Desktops.
 
-See [./machines](./machines) for details of each host.<br>
+See [modules/hosts](./modules/hosts) for details of each host.<br>
 Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/dotfiles-assets.nix/tree/main/wallpapers](https://github.com/frostplexx/dotfiles-assets.nix/tree/main/wallpapers)
 
 ---
@@ -127,13 +127,13 @@ Run `jinx` to get a list of possible commands. You can also chain them e.g. `jin
 
 ### Add a New Host
 
-1. Create a nix file in `modules/machines` with the name of the machine.
+1. Create a nix file in `modules/hosts` with the name of the machine.
 2. Add you config to `modules/meta/systems.nix`:
 
 ### Add New Programs
 
 If the programs are shared across all configs e.g. neovim, git, FFmpeg then add them to `modules/apps/shared-packages.nix`.
-Else add them to your appropriate host config `modules/machines/<hostname>.nix`
+Else add them to your appropriate host config `modules/hosts/<hostname>.nix`
 
 ### Home Manager
 
