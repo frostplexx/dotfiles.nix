@@ -90,48 +90,48 @@ in {
     };
 
     # NixOS configuration for hl-vm-gpu
-    nixosConfigurations.hl-vm-gpu = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules =
-        [
-          # Core modules
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixkit.nixosModules.default
-          inputs.determinate.nixosModules.default
-
-          # Nixpkgs configuration
-          {
-            nixpkgs.config = nixpkgsConfig;
-            nixpkgs.overlays = overlays;
-          }
-
-          # Home Manager shared modules
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              sharedModules =
-                [
-                  inputs.nvf.homeManagerModules.default
-                  inputs.nixcord.homeModules.nixcord
-                  inputs.nixkit.homeModules.default
-                  inputs.sops-nix.homeManagerModules.sops
-                  inputs.spicetify-nix.homeManagerModules.spicetify
-                ]
-                ++ collectModules config.flake.modules.homeManager;
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit (config.flake) defaults;
-              };
-            };
-          }
-        ]
-        ++ collectModules config.flake.modules.nixos;
-      specialArgs = {
-        inherit inputs;
-        inherit (config.flake) defaults;
-      };
-    };
+    # nixosConfigurations.hl-vm-gpu = inputs.nixpkgs.lib.nixosSystem {
+    #   system = "x86_64-linux";
+    #   modules =
+    #     [
+    #       # Core modules
+    #       inputs.home-manager.nixosModules.home-manager
+    #       inputs.nixkit.nixosModules.default
+    #       inputs.determinate.nixosModules.default
+    #
+    #       # Nixpkgs configuration
+    #       {
+    #         nixpkgs.config = nixpkgsConfig;
+    #         nixpkgs.overlays = overlays;
+    #       }
+    #
+    #       # Home Manager shared modules
+    #       {
+    #         home-manager = {
+    #           useGlobalPkgs = true;
+    #           useUserPackages = true;
+    #           backupFileExtension = "backup";
+    #           sharedModules =
+    #             [
+    #               inputs.nvf.homeManagerModules.default
+    #               inputs.nixcord.homeModules.nixcord
+    #               inputs.nixkit.homeModules.default
+    #               inputs.sops-nix.homeManagerModules.sops
+    #               inputs.spicetify-nix.homeManagerModules.spicetify
+    #             ]
+    #             ++ collectModules config.flake.modules.homeManager;
+    #           extraSpecialArgs = {
+    #             inherit inputs;
+    #             inherit (config.flake) defaults;
+    #           };
+    #         };
+    #       }
+    #     ]
+    #     ++ collectModules config.flake.modules.nixos;
+    #   specialArgs = {
+    #     inherit inputs;
+    #     inherit (config.flake) defaults;
+    #   };
+    # };
   };
 }
