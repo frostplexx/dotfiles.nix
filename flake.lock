@@ -269,11 +269,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1771330613,
-        "narHash": "sha256-3efIBOCo9ekN9RPax2069bL7PhRNsy9G9gaDMRhC78s=",
+        "lastModified": 1771401016,
+        "narHash": "sha256-Iw5EHhzRdblhQRcMYRscq3ZNVIt5nNYdwXwkLM7A8u0=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "c4958fdc41fd51bd796834a793f9eccd8a1c9716",
+        "rev": "93db6cf45402bd1d05738e770e7f357b16992552",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1771331518,
-        "narHash": "sha256-D+QwHqH9K+b294W4sG5mGGxMBNU6SratdrgSgn7sOy4=",
+        "lastModified": 1771397763,
+        "narHash": "sha256-2WLKPdQ2eli/gUS3TBXera/eYDX4TXg7ARecdxaLSTI=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "dc90a58b4fa436493d4773f09e129f660e8278f3",
+        "rev": "d0ba7cfcbc886413de58f9f5b65e9dc1838fcd13",
         "type": "github"
       },
       "original": {
@@ -447,11 +447,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770922915,
-        "narHash": "sha256-6J/JoK9iL7sHvKJcGW2KId2agaKv1OGypsa7kN+ZBD4=",
+        "lastModified": 1771371916,
+        "narHash": "sha256-G14VTfmzzRYxAhtEBNanQgCNA++Cv0/9iV4h/lkqX9U=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "6c5a56295d2a24e43bcd8af838def1b9a95746b2",
+        "rev": "aff4c008cec17d6a6760949df641ca0ea9179cac",
         "type": "github"
       },
       "original": {
@@ -486,11 +486,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1770971055,
-        "narHash": "sha256-XYFbDiNsfUKduV0DgV8UYSRey9t9vz/A4ppmzwBW+vQ=",
+        "lastModified": 1771375681,
+        "narHash": "sha256-qDDw0ruBZ1kt63j4uVP5Xrd1OxGKIYrSFnig0z6ozSw=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "77e0320dd37093da79e4f146659c66bb7ae692cc",
+        "rev": "d030dbb48ab020092681a39c878c1d48a553ffc1",
         "type": "github"
       },
       "original": {
@@ -808,17 +808,17 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1771330138,
-        "narHash": "sha256-VAY5YvSRDggaytversL4+J2i8BzRiqfQ20+Wn2K20o0=",
-        "owner": "Inrixia",
-        "repo": "TidaLuna",
-        "rev": "db78b1e09817c205d2ad18feecaffe1c6d1a108e",
-        "type": "github"
+        "lastModified": 1771347566,
+        "narHash": "sha256-TCuK5wN7irM6uWq3ASmQ5Lyjembno0mp8lZHaYZAz7w=",
+        "ref": "refs/heads/flake",
+        "rev": "25b8aa98d9fd48f9d07d5969237cf5c04901857e",
+        "revCount": 506,
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
       },
       "original": {
-        "owner": "Inrixia",
-        "repo": "TidaLuna",
-        "type": "github"
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
       }
     }
   },
