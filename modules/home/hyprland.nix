@@ -23,7 +23,7 @@ _: {
 
         bind = [
           # keybindings
-          "$mod, Enter, exec, kitty"
+          "$mod, Return, exec, kitty"
           "$mod, d, exec, rofi -show drun"
         ];
 
