@@ -9,7 +9,7 @@
       man-pages
       man-pages-posix
       uv
-      # python315
+      python3
 
       # CLI utilities
       ffmpeg

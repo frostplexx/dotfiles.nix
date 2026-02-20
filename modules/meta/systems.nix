@@ -11,7 +11,7 @@
   nixpkgsConfig = {
     allowUnfree = true;
     allowBroken = false;
-    allowUnsupportedSystem = true;
+    allowUnsupportedSystem = false;
   };
 
   # Overlays
