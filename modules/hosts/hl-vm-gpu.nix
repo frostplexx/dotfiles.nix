@@ -265,6 +265,7 @@
         users.${user} = {
           isNormalUser = true;
           description = defaults.personalInfo.name;
+          initialPassword = "nixos";
           extraGroups = [
             "networkmanager"
             "wheel"
