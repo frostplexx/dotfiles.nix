@@ -147,7 +147,7 @@ _: {
 
       "kitty/themes/mocha.conf".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
-        hash = "sha256-kvzdAcM+ZCQ/u6S7avS4iHd2lDKwv/6GLPiN6A6QlSQ=";
+        hash = "sha256-cWrJfNVCuuT/NbU8qYCq5PAB4MS8WcT74AMBm+IO+c0=";
       };
     };
   };
