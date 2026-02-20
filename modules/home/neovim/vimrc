@@ -95,7 +95,7 @@ inoremap <C-l> <Esc><C-w>l
 
 " Filetype-specific Settings
 autocmd FileType c,cpp setlocal cindent
-autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+"autocmd FileType python setlocal shiftwidth=4 softtabstop=4
 autocmd FileType yaml setlocal shiftwidth=2 expandtab
 autocmd FileType markdown setlocal wrap
 
