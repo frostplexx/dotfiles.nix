@@ -214,7 +214,6 @@
             inherit user;
           };
         };
-        desktopManager.plasma6.enable = true;
         openssh.enable = true;
         getty = {
           autologinUser = user;
