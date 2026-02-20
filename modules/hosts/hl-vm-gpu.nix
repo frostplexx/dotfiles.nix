@@ -191,14 +191,14 @@
       # Services
       services = {
         gvfs.enable = true;
-        xserver = {
-          enable = true;
-          videoDrivers = [ "nvidia" ];
-          xkb = {
-            layout = "us";
-            variant = "";
-          };
-        };
+        # xserver = {
+        #   enable = true;
+        #   videoDrivers = [ "nvidia" ];
+        #   xkb = {
+        #     layout = "us";
+        #     variant = "";
+        #   };
+        # };
         libinput = {
           enable = true;
           mouse = {
@@ -207,18 +207,18 @@
             middleEmulation = false;
           };
         };
-        displayManager = {
-          sddm.enable = true;
-          autoLogin = {
-            enable = true;
-            inherit user;
-          };
-        };
+        # displayManager = {
+        #   sddm.enable = true;
+        #   autoLogin = {
+        #     enable = true;
+        #     inherit user;
+        #   };
+        # };
         openssh.enable = true;
-        getty = {
-          autologinUser = user;
-          extraArgs = [ "--noclear" ];
-        };
+        # getty = {
+        #   autologinUser = user;
+        #   extraArgs = [ "--noclear" ];
+        # };
         pipewire = {
           enable = true;
           alsa = {
@@ -238,20 +238,20 @@
       };
 
       # TTY2 auto-login
-      systemd.services."getty@tty2" = {
-        overrideStrategy = "asDropin";
-        serviceConfig = {
-          ExecStart = [
-            ""
-            "${pkgs.util-linux}/bin/agetty --autologin ${user} --noclear %i $TERM"
-          ];
-          Type = "idle";
-          Restart = "always";
-          RestartSec = "5";
-        };
-        after = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-      };
+      # systemd.services."getty@tty2" = {
+      #   overrideStrategy = "asDropin";
+      #   serviceConfig = {
+      #     ExecStart = [
+      #       ""
+      #       "${pkgs.util-linux}/bin/agetty --autologin ${user} --noclear %i $TERM"
+      #     ];
+      #     Type = "idle";
+      #     Restart = "always";
+      #     RestartSec = "5";
+      #   };
+      #   after = [ "graphical-session.target" ];
+      #   wants = [ "graphical-session.target" ];
+      # };
 
       # Looking Glass
       systemd.tmpfiles.rules = [
@@ -268,10 +268,8 @@
           initialPassword = "nixos";
           extraGroups = [
             "networkmanager"
+            "root"
             "wheel"
-            "vboxusers"
-            "libvirtd"
-            "kvm"
           ];
         };
       };
