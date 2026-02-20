@@ -186,7 +186,11 @@
         cpuFreqGovernor = "performance";
       };
 
-      environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" "/libexec"];
+      environment.pathsToLink = [
+        "/share/applications"
+        "/share/xdg-desktop-portal"
+        "/libexec"
+      ];
 
       # Services
       services = {
@@ -207,18 +211,18 @@
             middleEmulation = false;
           };
         };
-        # displayManager = {
-        #   sddm.enable = true;
-        #   autoLogin = {
-        #     enable = true;
-        #     inherit user;
-        #   };
-        # };
+        displayManager = {
+          ly.enable = true;
+          # autoLogin = {
+          #   enable = true;
+          #   inherit user;
+          # };
+        };
         openssh.enable = true;
-        # getty = {
-        #   autologinUser = user;
-        #   extraArgs = [ "--noclear" ];
-        # };
+        getty = {
+          autologinUser = user;
+          extraArgs = [ "--noclear" ];
+        };
         pipewire = {
           enable = true;
           alsa = {
@@ -236,22 +240,6 @@
           openFirewall = true;
         };
       };
-
-      # TTY2 auto-login
-      # systemd.services."getty@tty2" = {
-      #   overrideStrategy = "asDropin";
-      #   serviceConfig = {
-      #     ExecStart = [
-      #       ""
-      #       "${pkgs.util-linux}/bin/agetty --autologin ${user} --noclear %i $TERM"
-      #     ];
-      #     Type = "idle";
-      #     Restart = "always";
-      #     RestartSec = "5";
-      #   };
-      #   after = [ "graphical-session.target" ];
-      #   wants = [ "graphical-session.target" ];
-      # };
 
       # Looking Glass
       systemd.tmpfiles.rules = [
@@ -298,6 +286,9 @@
 
       # Programs
       programs = {
+        hyprland = {
+          enable = true;
+        };
         # nh = {
         #     enable = true;
         #     clean.enable = true;
