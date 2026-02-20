@@ -25,7 +25,6 @@ _: {
           # keybindings
           "$mod, Enter, exec, kitty"
           "$mod, d, exec, rofi -show drun"
-          "$mod, Shift, q, killwindow"
         ];
 
         bindm = [
