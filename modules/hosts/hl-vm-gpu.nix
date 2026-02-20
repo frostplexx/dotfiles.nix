@@ -186,7 +186,7 @@
         cpuFreqGovernor = "performance";
       };
 
-      environment.pathsToLink = [ "/libexec" ];
+      environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" "/libexec"];
 
       # Services
       services = {
