@@ -1,77 +1,20 @@
-{ inputs, ... }:
-{
-  flake.modules.nixos.hl-vm-gpu =
-    {
-      pkgs,
-      lib,
-      config,
-      defaults,
-      modulesPath,
-      ...
-    }:
-    let
-      inherit (defaults) user;
-    in
-    {
-      imports = [
-        (modulesPath + "/installer/scan/not-detected.nix")
-      ];
-
-      system.stateVersion = "25.11";
-
-      # Boot configuration
-      boot = {
-        loader = {
-          systemd-boot.enable = true;
-          efi.canTouchEfiVariables = true;
-        };
-        initrd.availableKernelModules = [
-          "nvme"
-          "xhci_pci"
-          "ahci"
-          "usb_storage"
-          "usbhid"
-          "sd_mod"
-          "nvidia"
-          "nvidia_modeset"
-          "nvidia_uvm"
-          "nvidia_drm"
-        ];
-        initrd.kernelModules = [ ];
-        kernelPackages = pkgs.linuxPackages_zen;
-        kernelModules = [ "kvm-amd" ];
-        extraModulePackages = [ ];
-        kernelParams = [
-          "acpi_enforce_resources=lax"
-          "amd_iommu=on"
-          "kvm.enable_virt_at_load=0"
-          "iommu=pt"
-          "zswap.enabled=1"
-          "default_hugepagesz=2M"
-          "hugepagesz=2M"
-          "hugepages=1024"
-          "transparent_hugepage=always"
-          "nvidia-drm.modeset=1"
-        ];
-      };
-
-      # Filesystems
-      fileSystems."/" = {
-        device = "/dev/disk/by-uuid/6298dcb3-400c-482e-8953-0225707d0417";
-        fsType = "ext4";
-      };
-
-      fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/1CBC-F49C";
-        fsType = "vfat";
-        options = [
-          "fmask=0077"
-          "dmask=0077"
+{inputs, ...}: {
+    flake.modules.nixos.hl-vm-gpu = {
+        pkgs,
+        lib,
+        config,
+        defaults,
+        modulesPath,
+        ...
+    }: let
+        inherit (defaults) user;
+    in {
+        imports = [
+            (modulesPath + "/installer/scan/not-detected.nix")
+            inputs.disko.nixosModules.disko
         ];
 
-      swapDevices = [
-        { device = "/dev/disk/by-uuid/2e1d22bf-0ee5-40d8-9251-d3ce90458e92"; }
-      ];
+        system.stateVersion = "25.11";
 
         # Boot configuration
         boot = {
@@ -456,3 +399,4 @@
         };
     };
 }
+
