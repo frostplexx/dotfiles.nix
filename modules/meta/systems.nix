@@ -89,8 +89,8 @@ in
       };
     };
 
-    # NixOS configuration for hl-vm-gpu
-    nixosConfigurations.hl-vm-gpu = inputs.nixpkgs.lib.nixosSystem {
+    # NixOS configuration for tiramisu
+    nixosConfigurations.tiramisu = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         # Core modules
