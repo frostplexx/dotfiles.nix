@@ -33,7 +33,7 @@
             initrd.kernelModules = [];
             kernelPackages = pkgs.linuxPackages_latest;
             kernelModules = ["kvm-amd"];
-            extraModulePackages = config.boot.kernelPackages.nvidiaPackages.stable;
+            extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.stable ];
             kernelParams = [
                 "acpi_enforce_resources=lax"
                 "amd_iommu=on"
