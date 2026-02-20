@@ -20,12 +20,12 @@ _: {
           source = ./hyprland/rofi;
           recursive = true;
         };
-        "swaync" = {
-          source = ./hyprland/swaync;
-          recursive = true;
-        };
+        # "swaync" = {
+        #   source = ./hyprland/swaync;
+        #   recursive = true;
+        # };
         "waybar" = {
-          source = ./hyprland/swaync;
+          source = ./hyprland/waybar;
           recursive = true;
         };
         "wlogout" = {
@@ -45,9 +45,9 @@ _: {
         waybar.enable = true;
       };
 
-      services.swaync = lib.mkIf pkgs.stdenv.isLinux {
-        enable = true;
-      };
+      # services.swaync = lib.mkIf pkgs.stdenv.isLinux {
+      #   enable = true;
+      # };
 
       wayland.windowManager.hyprland = lib.mkIf pkgs.stdenv.isLinux {
 

@@ -72,7 +72,7 @@ in {
 
         assistant = {
           copilot = {
-            enable = true;
+            enable = false;
             cmp.enable = true;
             mappings.suggestion = {
               accept = "<C-CR>";
@@ -86,7 +86,7 @@ in {
           };
 
           avante-nvim = {
-            enable = true;
+            enable = false;
             setupOpts = {
               input = {
                 provider = "native";
