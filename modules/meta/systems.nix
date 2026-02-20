@@ -3,15 +3,24 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   # Helper to collect all modules from an attrset
-  collectModules = attrs: lib.attrValues (lib.filterAttrs (_n: v: v != {}) attrs);
+  collectModules = attrs: lib.attrValues (lib.filterAttrs (_n: v: v != { }) attrs);
 
   # Shared nixpkgs config
   nixpkgsConfig = {
     allowUnfree = true;
     allowBroken = false;
     allowUnsupportedSystem = false;
+    packageOverrides = pkgs: {
+      # Override pypy to only build for supported platforms
+      pypy = pkgs.pypy.overrideAttrs (old: {
+        meta = old.meta or { } // {
+          platforms = pkgs.lib.platforms.x86_64;
+        };
+      });
+    };
   };
 
   # Overlays
@@ -23,7 +32,8 @@
       });
     })
   ];
-in {
+in
+{
   imports = [
     inputs.flake-parts.flakeModules.modules
   ];
@@ -31,58 +41,56 @@ in {
   # Declare the module options using flake-parts-modules
   flake = {
     modules = {
-      darwin = {};
-      nixos = {};
-      homeManager = {};
+      darwin = { };
+      nixos = { };
+      homeManager = { };
     };
 
     # Darwin configuration for macbook-m4-pro
     darwinConfigurations.macbook-m4-pro = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      modules =
-        [
-          # Core modules
-          inputs.home-manager.darwinModules.home-manager
-          inputs.nix-homebrew.darwinModules.nix-homebrew
-          inputs.lazykeys.darwinModules.default
-          inputs.nixkit.darwinModules.default
-          inputs.determinate.darwinModules.default
+      modules = [
+        # Core modules
+        inputs.home-manager.darwinModules.home-manager
+        inputs.nix-homebrew.darwinModules.nix-homebrew
+        inputs.lazykeys.darwinModules.default
+        inputs.nixkit.darwinModules.default
+        inputs.determinate.darwinModules.default
 
-          # Nixpkgs configuration
-          {
-            nixpkgs.config = nixpkgsConfig;
-            nixpkgs.overlays = overlays;
-          }
+        # Nixpkgs configuration
+        {
+          nixpkgs.config = nixpkgsConfig;
+          nixpkgs.overlays = overlays;
+        }
 
-          # Home Manager shared modules
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              sharedModules =
-                [
-                  inputs.nvf.homeManagerModules.default
-                  inputs.nixcord.homeModules.nixcord
-                  inputs.nixkit.homeModules.default
-                  inputs.sops-nix.homeManagerModules.sops
-                  inputs.spicetify-nix.homeManagerModules.spicetify
-                  {
-                    # Disable nix management in home-manager on Darwin (handled by Determinate)
-                    nix.enable = false;
-                    targets.darwin.linkApps.enable = false;
-                    targets.darwin.copyApps.enable = true;
-                  }
-                ]
-                ++ collectModules config.flake.modules.homeManager;
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit (config.flake) defaults;
-              };
+        # Home Manager shared modules
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            backupFileExtension = "backup";
+            sharedModules = [
+              inputs.nvf.homeManagerModules.default
+              inputs.nixcord.homeModules.nixcord
+              inputs.nixkit.homeModules.default
+              inputs.sops-nix.homeManagerModules.sops
+              inputs.spicetify-nix.homeManagerModules.spicetify
+              {
+                # Disable nix management in home-manager on Darwin (handled by Determinate)
+                nix.enable = false;
+                targets.darwin.linkApps.enable = false;
+                targets.darwin.copyApps.enable = true;
+              }
+            ]
+            ++ collectModules config.flake.modules.homeManager;
+            extraSpecialArgs = {
+              inherit inputs;
+              inherit (config.flake) defaults;
             };
-          }
-        ]
-        ++ collectModules config.flake.modules.darwin;
+          };
+        }
+      ]
+      ++ collectModules config.flake.modules.darwin;
       specialArgs = {
         inherit inputs;
         inherit (config.flake) defaults;
@@ -92,42 +100,40 @@ in {
     # NixOS configuration for hl-vm-gpu
     nixosConfigurations.hl-vm-gpu = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules =
-        [
-          # Core modules
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixkit.nixosModules.default
-          inputs.determinate.nixosModules.default
+      modules = [
+        # Core modules
+        inputs.home-manager.nixosModules.home-manager
+        inputs.nixkit.nixosModules.default
+        inputs.determinate.nixosModules.default
 
-          # Nixpkgs configuration
-          {
-            nixpkgs.config = nixpkgsConfig;
-            nixpkgs.overlays = overlays;
-          }
+        # Nixpkgs configuration
+        {
+          nixpkgs.config = nixpkgsConfig;
+          nixpkgs.overlays = overlays;
+        }
 
-          # Home Manager shared modules
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              sharedModules =
-                [
-                  inputs.nvf.homeManagerModules.default
-                  inputs.nixcord.homeModules.nixcord
-                  inputs.nixkit.homeModules.default
-                  inputs.sops-nix.homeManagerModules.sops
-                  inputs.spicetify-nix.homeManagerModules.spicetify
-                ]
-                ++ collectModules config.flake.modules.homeManager;
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit (config.flake) defaults;
-              };
+        # Home Manager shared modules
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            backupFileExtension = "backup";
+            sharedModules = [
+              inputs.nvf.homeManagerModules.default
+              inputs.nixcord.homeModules.nixcord
+              inputs.nixkit.homeModules.default
+              inputs.sops-nix.homeManagerModules.sops
+              inputs.spicetify-nix.homeManagerModules.spicetify
+            ]
+            ++ collectModules config.flake.modules.homeManager;
+            extraSpecialArgs = {
+              inherit inputs;
+              inherit (config.flake) defaults;
             };
-          }
-        ]
-        ++ collectModules config.flake.modules.nixos;
+          };
+        }
+      ]
+      ++ collectModules config.flake.modules.nixos;
       specialArgs = {
         inherit inputs;
         inherit (config.flake) defaults;
