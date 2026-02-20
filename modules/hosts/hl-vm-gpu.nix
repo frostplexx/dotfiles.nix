@@ -56,7 +56,7 @@
             disk = {
                 main = {
                     type = "disk";
-                    device = "/dev/disk/by-uuid/5974b2d7-61d3-4a1b-852d-63672dd404ae";
+                    device = "/dev/nvme0n1";
                     content = {
                         type = "gpt";
                         partitions = {
@@ -64,7 +64,7 @@
                                 priority = 1;
                                 name = "ESP";
                                 start = "1M";
-                                end = "1G";
+                                end = "512M";
                                 type = "EF00";
                                 content = {
                                     type = "filesystem";
@@ -74,7 +74,7 @@
                                 };
                             };
                             swap = {
-                                size = "16G";
+                                size = "35G";
                                 type = "8200";
                                 content = {
                                     type = "swap";
