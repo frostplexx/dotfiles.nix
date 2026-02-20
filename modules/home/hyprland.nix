@@ -102,12 +102,12 @@ _: {
 
           bindl = [
             # Resize mode bindings
-            "submap:resize, h, resizeactive, -20 0"
-            "submap:resize, j, resizeactive, 0 20"
-            "submap:resize, k, resizeactive, 0 -20"
-            "submap:resize, l, resizeactive, 20 0"
-            "submap:resize, escape, submap, reset"
-            "submap:resize, Return, submap, reset"
+            # "submap:resize, h, resizeactive, -20 0"
+            # "submap:resize, j, resizeactive, 0 20"
+            # "submap:resize, k, resizeactive, 0 -20"
+            # "submap:resize, l, resizeactive, 20 0"
+            # "submap:resize, escape, submap, reset"
+            # "submap:resize, Return, submap, reset"
           ];
 
           bindm = [
@@ -150,6 +150,21 @@ _: {
             "6, persistent:true, monitor:DP-1"
           ];
         };
+
+        extraConfig = ''
+          env = NIXOS_OZONE_WL, 1
+          env = NIXPKGS_ALLOW_UNFREE, 1
+          env = XDG_CURRENT_DESKTOP, Hyprland
+          env = XDG_SESSION_TYPE, wayland
+          env = XDG_SESSION_DESKTOP, Hyprland
+          env = GDK_BACKEND, wayland
+          env = CLUTTER_BACKEND, wayland
+          env = QT_QPA_PLATFORM, wayland
+          env = QT_WAYLAND_DISABLE_WINDOWDECORATION, 1
+          env = QT_AUTO_SCREEN_SCALE_FACTOR, 1
+          env = WLR_NO_HARDWARE_CURSORS,1
+          env = MOZ_ENABLE_WAYLAND, 1
+        '';
       };
     };
 }
