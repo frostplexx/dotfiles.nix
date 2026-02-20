@@ -139,17 +139,17 @@ _: {
           };
 
           # # Python
-          black = {
-            command = [
-              "nix"
-              "run"
-              "--impure"
-              "nixpkgs#python3Packages.black"
-              "--"
-              "$FILE"
-            ];
-            extensions = [".py"];
-          };
+          # black = {
+          #   command = [
+          #     "nix"
+          #     "run"
+          #     "--impure"
+          #     "nixpkgs#python3Packages.black"
+          #     "--"
+          #     "$FILE"
+          #   ];
+          #   extensions = [".py"];
+          # };
 
           # Rust
           rustfmt = {

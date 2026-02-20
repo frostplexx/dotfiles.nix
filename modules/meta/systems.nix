@@ -13,14 +13,6 @@ let
     allowUnfree = true;
     allowBroken = false;
     allowUnsupportedSystem = false;
-    packageOverrides = pkgs: {
-      # Override pypy to only build for supported platforms
-      pypy = pkgs.pypy.overrideAttrs (old: {
-        meta = old.meta or { } // {
-          platforms = pkgs.lib.platforms.x86_64;
-        };
-      });
-    };
   };
 
   # Overlays
