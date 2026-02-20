@@ -19,10 +19,23 @@ _: {
         # Whether to enable hyprland-session.target on hyprland startup
         systemd.enable = true;
         settings = {
-          # Hyprland configuration options
-          # For example:
-          # theme = "catppuccin";
-          # autoupdate = false;
+          "$mod" = "SUPER";
+
+          monitor = "DP-1, 2560x1080@144, 0x0, 1";
+
+          bind = [
+            # keybindings
+            "$mod, Return, exec kitty"
+            "$mod, d, exec rofi -show drun"
+            "$mod, Shift, q, killwindow"
+          ];
+
+          bindm = [
+            # mouse movements
+            "$mod, mouse:272, movewindow"
+            "$mod, mouse:273, resizewindow"
+            "$mod ALT, mouse:272, resizewindow"
+          ];
         };
       };
     };
