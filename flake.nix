@@ -31,6 +31,8 @@
     tidaLuna.url = "github:Inrixia/TidaLuna";
     # tidaLuna.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna";
 
+  hyprland.url = "github:hyprwm/Hyprland";
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
