@@ -13,7 +13,7 @@
             (modulesPath + "/installer/scan/not-detected.nix")
         ];
 
-        system.stateVersion = "24.05";
+        system.stateVersion = "25.11";
 
         # Boot configuration
         boot = {
@@ -248,12 +248,12 @@
 
         # Programs
         programs = {
-            nh = {
-                enable = true;
-                clean.enable = true;
-                clean.extraArgs = "--keep-since 4d --keep 3";
-                flake = "/home/${user}/${defaults.paths.flake}/";
-            };
+            # nh = {
+            #     enable = true;
+            #     clean.enable = true;
+            #     clean.extraArgs = "--keep-since 4d --keep 3";
+            #     flake = "/home/${user}/${defaults.paths.flake}/";
+            # };
             # Gamescope and Steam disabled temporarily due to 32-bit support issues in nixpkgs-unstable
             # gamescope = {
             #     enable = true;
@@ -265,59 +265,59 @@
             #     dedicatedServer.openFirewall = true;
             #     localNetworkGameTransfers.openFirewall = true;
             # };
-            _1password-gui = {
-                enable = true;
-                polkitPolicyOwners = [user];
-            };
-            thunar = {
-                enable = true;
-                plugins = with pkgs.xfce; [
-                    thunar-archive-plugin
-                    thunar-volman
-                ];
-            };
+            # _1password-gui = {
+            #     enable = true;
+            #     polkitPolicyOwners = [user];
+            # };
+            # thunar = {
+            #     enable = true;
+            #     plugins = with pkgs.xfce; [
+            #         thunar-archive-plugin
+            #         thunar-volman
+            #     ];
+            # };
         };
 
         # Environment
         environment = {
             systemPackages = with pkgs; [
-                looking-glass-client
-                steam
-                steam-run
-                lutris
-                gamemode
-                gamescope
-                kbd
-                mangohud
-                prismlauncher
-                solaar
-                linuxKernel.packages.linux_zen.xone
-                ckan
-                openrgb-with-all-plugins
-                _1password-gui
-                papirus-icon-theme
-                simplescreenrecorder
-                kdePackages.filelight
-                vlc
-                xclip
-                cifs-utils
-                xorg.xrandr
-                xorg.xinput
-                picom
-                xfce.thunar
-                xfce.tumbler
-                xfce.thunar-archive-plugin
-                xfce.thunar-volman
-                ffmpegthumbnailer
-                gvfs
-                flameshot
-                polkit
-                catppuccin-gtk
-                catppuccin-cursors
-                feh
-                networkmanager
-                imlib2
-                libsecret
+                # looking-glass-client
+                # steam
+                # steam-run
+                # lutris
+                # gamemode
+                # gamescope
+                # kbd
+                # mangohud
+                # prismlauncher
+                # solaar
+                # linuxKernel.packages.linux_zen.xone
+                # ckan
+                # openrgb-with-all-plugins
+                # _1password-gui
+                # papirus-icon-theme
+                # simplescreenrecorder
+                # kdePackages.filelight
+                # vlc
+                # xclip
+                # cifs-utils
+                # xorg.xrandr
+                # xorg.xinput
+                # picom
+                # xfce.thunar
+                # xfce.tumbler
+                # xfce.thunar-archive-plugin
+                # xfce.thunar-volman
+                # ffmpegthumbnailer
+                # gvfs
+                # flameshot
+                # polkit
+                # catppuccin-gtk
+                # catppuccin-cursors
+                # feh
+                # networkmanager
+                # imlib2
+                # libsecret
             ];
             variables = {
                 FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
