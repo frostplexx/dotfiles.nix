@@ -1,8 +1,13 @@
 _: {
   flake.modules.homeManager.hyprland =
-    { inputs, pkgs, ... }:
     {
-      wayland.windowManager.hyprland = {
+      inputs,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      wayland.windowManager.hyprland = lib.mkIf pkgs.stdenv.isLinux {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         portalPackage =
