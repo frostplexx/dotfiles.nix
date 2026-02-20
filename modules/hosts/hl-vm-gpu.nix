@@ -286,15 +286,15 @@
         };
         steam = {
           enable = true;
-          remotePlay.openFirewall = true;
-          dedicatedServer.openFirewall = true;
-          localNetworkGameTransfers.openFirewall = true;
+          # remotePlay.openFirewall = true;
+          # dedicatedServer.openFirewall = true;
+          # localNetworkGameTransfers.openFirewall = true;
         };
 
-        _1password-gui = {
-          enable = true;
-          polkitPolicyOwners = [ user ];
-        };
+        # _1password-gui = {
+        #   enable = true;
+        #   polkitPolicyOwners = [ user ];
+        # };
       };
 
       # Environment
