@@ -22,6 +22,12 @@ _: {
 
           monitor = "DP-1, 2560x1080@144, 0x0, 1";
 
+          input = {
+            follow_mouse = 1;
+            sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+            accel_profile = "flat";
+          };
+
           general = {
             gaps_in = 5;
             gaps_out = 5;
@@ -42,6 +48,66 @@ _: {
             # keybindings
             "$mod, Return, exec, kitty"
             "$mod, d, exec, rofi -show drun"
+
+            # Launch apps
+            "SUPER CTRL ALT, d, exec, discord"
+            "SUPER CTRL ALT, m, exec, tidal"
+            "SUPER CTRL ALT, t, exec, kitty"
+            "SUPER CTRL ALT, b, exec, zen"
+
+            # Focus windows (hjkl)
+            "SUPER CTRL ALT, h, movefocus, l"
+            "SUPER CTRL ALT, j, movefocus, d"
+            "SUPER CTRL ALT, k, movefocus, u"
+            "SUPER CTRL ALT, l, movefocus, r"
+
+            # Fullscreen
+            "SUPER CTRL ALT, space, fullscreen"
+
+            # Minimize
+            "SUPER, m, minimize"
+
+            # Switch to workspace
+            "SUPER CTRL ALT, 1, workspace, 1"
+            "SUPER CTRL ALT, 2, workspace, 2"
+            "SUPER CTRL ALT, 3, workspace, 3"
+            "SUPER CTRL ALT, 4, workspace, 4"
+            "SUPER CTRL ALT, 5, workspace, 5"
+            "SUPER CTRL ALT, 6, workspace, 6"
+
+            # Move window to workspace and follow
+            "SUPER CTRL ALT SHIFT, 1, movetoworkspace, 1"
+            "SUPER CTRL ALT SHIFT, 2, movetoworkspace, 2"
+            "SUPER CTRL ALT SHIFT, 3, movetoworkspace, 3"
+            "SUPER CTRL ALT SHIFT, 4, movetoworkspace, 4"
+            "SUPER CTRL ALT SHIFT, 5, movetoworkspace, 5"
+            "SUPER CTRL ALT SHIFT, 6, movetoworkspace, 6"
+
+            # Move windows (swap)
+            "SUPER CTRL ALT SHIFT, h, movewindow, l"
+            "SUPER CTRL ALT SHIFT, j, movewindow, d"
+            "SUPER CTRL ALT SHIFT, k, movewindow, u"
+            "SUPER CTRL ALT SHIFT, l, movewindow, r"
+
+            # Toggle float
+            "SUPER CTRL ALT, f, togglefloating"
+
+            # Focus back and forth
+            "ALT, tab, cyclenext"
+            "ALT SHIFT, tab, cyclenext, prev"
+
+            # Enter resize mode
+            "SUPER CTRL ALT, r, submap, resize"
+          ];
+
+          bindl = [
+            # Resize mode bindings
+            "submap:resize, h, resizeactive, -20 0"
+            "submap:resize, j, resizeactive, 0 20"
+            "submap:resize, k, resizeactive, 0 -20"
+            "submap:resize, l, resizeactive, 20 0"
+            "submap:resize, escape, submap, reset"
+            "submap:resize, Return, submap, reset"
           ];
 
           bindm = [
