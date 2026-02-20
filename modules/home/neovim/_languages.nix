@@ -24,7 +24,7 @@ _: {
     #   extensions.render-markdown-nvim.enable = true;
     # };
     clang.enable = true;
-    python.enable = true;
+    # python.enable = true;
     bash.enable = true;
     just.enable = true;
     json.enable = true;
