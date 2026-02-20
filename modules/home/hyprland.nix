@@ -32,7 +32,6 @@ _: {
             gaps_in = 5;
             gaps_out = 5;
             border_size = 5;
-            "decoration.rounding" = 10;
             layout = "dwindle";
           };
 
@@ -63,7 +62,7 @@ _: {
             "SUPER CTRL ALT, space, fullscreen"
 
             # Minimize
-            "SUPER, m, minimize"
+            # "SUPER, m, minimize"
 
             # Switch to workspace
             "SUPER CTRL ALT, 1, workspace, 1"
@@ -115,29 +114,29 @@ _: {
             "$mod ALT, mouse:272, resizewindow"
           ];
 
-          windowrulev2 = [
-            # Floating rules
-            "title:^(Picture(-| )in(-| )Picture|PiP)$, floating, oncreatedr:1"
-            "subrole:^AXSystemDialog$, floating, oncreatedr:1"
-            "title:^kittyfloat$, floating, oncreatedr:1"
-            "title:^MiniPlayer$, floating, oncreatedr:1"
-
-            # Browser apps -> Workspace 1
-            "app:^Firefox$, workspace: 1"
-            "app:^Zen$, workspace: 1"
-
-            # Development apps -> Workspace 2
-            "app:^(IntelliJ IDEA|WezTerm|Ghostty|Termius|kitty)$, workspace: 2"
-
-            # Productivity apps -> Workspace 3
-            "app:^(GoodNotes|Obsidian|Things)$, workspace: 3"
-
-            # Communication apps -> Workspace 4
-            "app:^(Vesktop|zoom.us|Discord|Mail)$, workspace: 4"
-
-            # Music -> Workspace 5
-            "app:^(Spotify|Music|TIDAL)$, workspace: 5"
-          ];
+          # windowrulev2 = [
+          #   # Floating rules
+          #   "title:^(Picture(-| )in(-| )Picture|PiP)$, floating, oncreatedr:1"
+          #   "subrole:^AXSystemDialog$, floating, oncreatedr:1"
+          #   "title:^kittyfloat$, floating, oncreatedr:1"
+          #   "title:^MiniPlayer$, floating, oncreatedr:1"
+          #
+          #   # Browser apps -> Workspace 1
+          #   "app:^Firefox$, workspace: 1"
+          #   "app:^Zen$, workspace: 1"
+          #
+          #   # Development apps -> Workspace 2
+          #   "app:^(IntelliJ IDEA|WezTerm|Ghostty|Termius|kitty)$, workspace: 2"
+          #
+          #   # Productivity apps -> Workspace 3
+          #   "app:^(GoodNotes|Obsidian|Things)$, workspace: 3"
+          #
+          #   # Communication apps -> Workspace 4
+          #   "app:^(Vesktop|zoom.us|Discord|Mail)$, workspace: 4"
+          #
+          #   # Music -> Workspace 5
+          #   "app:^(Spotify|Music|TIDAL)$, workspace: 5"
+          # ];
 
           workspace = [
             "1, persistent:true, monitor:DP-1, default:true"
