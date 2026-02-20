@@ -40,8 +40,6 @@ _: {
             active_opacity = 1.0;
             inactive_opacity = 0.9;
             fullscreen_opacity = 1.0;
-            "col.active_border" = "rgba(${accent_color}ff) rgba(cba6f7ff) 45deg";
-            "col.inactive_border" = "rgba(7f849cff)";
           };
 
           bind = [
