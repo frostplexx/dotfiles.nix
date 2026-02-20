@@ -2,7 +2,7 @@ _: {
   flake.modules.homeManager.ghostty = {pkgs, ...}: {
     programs = {
       ghostty = {
-        enable = true;
+        enable = false;
         enableFishIntegration = true;
         installBatSyntax = true;
         installVimSyntax = true;
