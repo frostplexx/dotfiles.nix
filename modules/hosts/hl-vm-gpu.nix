@@ -39,7 +39,7 @@
           "nvidia_drm"
         ];
         initrd.kernelModules = [ ];
-        kernelPackages = pkgs.linuxPackages_zen;
+        kernelPackages = pkgs.linuxPackages_latest;
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
         kernelParams = [
