@@ -138,18 +138,18 @@ _: {
             extensions = [".go"];
           };
 
-          # Python
-          black = {
-            command = [
-              "nix"
-              "run"
-              "--impure"
-              "nixpkgs#python3Packages.black"
-              "--"
-              "$FILE"
-            ];
-            extensions = [".py"];
-          };
+          # # Python
+          # black = {
+          #   command = [
+          #     "nix"
+          #     "run"
+          #     "--impure"
+          #     "nixpkgs#python3Packages.black"
+          #     "--"
+          #     "$FILE"
+          #   ];
+          #   extensions = [".py"];
+          # };
 
           # Rust
           rustfmt = {
