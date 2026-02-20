@@ -43,6 +43,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nixos-anywhere = {
+            url = "github:nix-community/nixos-anywhere";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         # ==== Neovim ====
         neovim-nightly-overlay = {
             url = "github:Prince213/neovim-nightly-overlay";
