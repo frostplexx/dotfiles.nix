@@ -33,7 +33,7 @@
             initrd.kernelModules = [];
             kernelPackages = pkgs.linuxPackages_latest;
             kernelModules = ["kvm-amd"];
-            extraModulePackages = [config.boot.kernelPackages.nvidiaPackages.stable];
+            extraModulePackages = [];
             kernelParams = [
                 "acpi_enforce_resources=lax"
                 "amd_iommu=on"
@@ -210,6 +210,7 @@
                 # };
             };
             openssh.enable = true;
+            desktopManager.plasma6.enable = true;
             getty = {
                 autologinUser = user;
                 extraArgs = ["--noclear"];
@@ -277,9 +278,6 @@
 
         # Programs
         programs = {
-            hyprland = {
-                enable = true;
-            };
             _1password-gui = {
                 enable = true;
                 polkitPolicyOwners = [user];

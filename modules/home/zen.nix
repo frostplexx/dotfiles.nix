@@ -272,12 +272,12 @@ _: {
         # MODULE OUTPUT
         #===========================================================================
     in {
-        programs.default-browser = {
+        programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
             enable = true;
             browser = "zen";
         };
 
-        home = {
+        home = lib.mkIf pkgs.stdenv.isDarwin {
             # Install theme files using Home Manager (only if enabled)
             file = lib.mkIf enableCustomTheme (
                 let

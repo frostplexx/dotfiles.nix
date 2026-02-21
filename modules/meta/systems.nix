@@ -118,7 +118,6 @@ in {
                                     inputs.nixkit.homeModules.default
                                     inputs.sops-nix.homeManagerModules.sops
                                     inputs.spicetify-nix.homeManagerModules.spicetify
-                                    inputs.caelestia-shell.homeManagerModules.default
                                 ]
                                 ++ collectModules config.flake.modules.homeManager;
                             extraSpecialArgs = {
