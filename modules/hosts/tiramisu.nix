@@ -22,29 +22,7 @@
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
-      initrd.availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "ahci"
-        "usb_storage"
-        "usbhid"
-        "sd_mod"
-      ];
-      initrd.kernelModules = [];
-      kernelPackages = pkgs.linuxPackages_latest;
-      kernelModules = ["kvm-amd"];
-      extraModulePackages = [];
-      kernelParams = [
-        "acpi_enforce_resources=lax"
-        "amd_iommu=on"
-        "kvm.enable_virt_at_load=0"
-        "iommu=pt"
-        "zswap.enabled=1"
-        "default_hugepagesz=2M"
-        "hugepagesz=2M"
-        "hugepages=1024"
-        "transparent_hugepage=always"
-      ];
+      kernelPackages = pkgs.linuxPackages_zen;
     };
 
     disko.devices = {
@@ -185,42 +163,20 @@
 
     # Services
     services = {
-      gvfs.enable = true;
-      # xserver = {
-      #   enable = true;
-      #   videoDrivers = [ "nvidia" ];
-      #   xkb = {
-      #     layout = "us";
-      #     variant = "";
-      #   };
-      # };
-      libinput = {
-        enable = true;
-        mouse = {
-          accelProfile = "flat";
-          accelSpeed = "0";
-          middleEmulation = false;
-        };
-      };
+      # gvfs.enable = true;
       displayManager = {
         ly.enable = true;
-        # autoLogin = {
-        #   enable = true;
-        #   inherit user;
-        # };
+        autoLogin = {
+          enable = true;
+          inherit user;
+        };
       };
       openssh.enable = true;
       desktopManager.plasma6.enable = true;
-      getty = {
-        autologinUser = user;
-        extraArgs = ["--noclear"];
-      };
       pipewire = {
         enable = true;
         alsa = {
           enable = true;
-          # 32-bit support disabled due to nixpkgs-unstable issue
-          # support32Bit = true;
         };
         pulse.enable = true;
       };
@@ -232,11 +188,6 @@
         openFirewall = true;
       };
     };
-
-    # Looking Glass
-    systemd.tmpfiles.rules = [
-      "f /dev/shm/looking-glass 0660 ${user} kvm -"
-    ];
 
     # User configuration
     programs.fish.enable = true;
@@ -260,8 +211,6 @@
       xone.enable = true;
       graphics = {
         enable = true;
-        # 32-bit support disabled due to nixpkgs-unstable issue
-        # enable32Bit = true;
       };
       bluetooth = {
         enable = true;
@@ -270,7 +219,7 @@
       nvidia = {
         modesetting.enable = true;
         powerManagement.enable = true;
-        open = false;
+        open = true; # This is correct and important for continued support
         nvidiaSettings = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
@@ -282,12 +231,17 @@
         enable = true;
         polkitPolicyOwners = [user];
       };
+      steam = {
+        enable = true;
+        remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+        localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+      };
     };
 
     # Environment
     environment = {
       systemPackages = with pkgs; [
-        steam
         firefox
       ];
       variables = {
