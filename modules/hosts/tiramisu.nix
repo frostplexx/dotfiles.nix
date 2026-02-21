@@ -14,7 +14,7 @@
       inputs.disko.nixosModules.disko
     ];
 
-    system.stateVersion = "25.11";
+    system.stateVersion = "24.05";
 
     # Boot configuration
     boot = {
@@ -99,11 +99,6 @@
       interfaces."enp4s0".wakeOnLan.enable = true;
     };
 
-    nixpkgs = {
-      hostPlatform = lib.mkDefault "x86_64-linux";
-      buildPlatform = lib.mkDefault "x86_64-linux";
-    };
-
     # Nix settings
     nix = {
       channel.enable = false;
@@ -111,25 +106,14 @@
         experimental-features = nix-command flakes
         warn-dirty = false
       '';
-      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       settings = {
-        extra-platforms = ["x86_64-linux"];
-        extra-trusted-users = [user];
-        trusted-users = [
-          "root"
-          user
-        ];
-        max-jobs = 8;
-        sandbox = true;
         substituters = [
-          # "https://cache.nixos.org/"
-          # "https://nix-community.cachix.org"
-          # "https://ojsef39.cachix.org"
+          "https://cache.nixos.org/"
+          "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
-          # "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          # "ojsef39.cachix.org-1:Pe8zOhPVMt4fa/2HYlquHkTnGX3EH7lC9xMyCA2zM3Y="
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
       };
     };
@@ -149,15 +133,9 @@
       LC_TIME = "de_DE.UTF-8";
     };
 
-    # Power management
-    powerManagement = {
-      enable = true;
-      cpuFreqGovernor = "performance";
-    };
-
     environment.pathsToLink = [
-      "/share/applications"
-      "/share/xdg-desktop-portal"
+      #"/share/applications"
+      #"/share/xdg-desktop-portal"
       "/libexec"
     ];
 
@@ -166,10 +144,10 @@
       # gvfs.enable = true;
       displayManager = {
         ly.enable = true;
-        autoLogin = {
-          enable = true;
-          inherit user;
-        };
+        # autoLogin = {
+        #   enable = true;
+        #   inherit user;
+        # };
       };
       openssh.enable = true;
       desktopManager.plasma6.enable = true;
