@@ -22,7 +22,6 @@
         doCheck = false;
       });
     })
-    inputs.nix-cachyos-kernel.overlays.pinned
   ];
 in {
   imports = [

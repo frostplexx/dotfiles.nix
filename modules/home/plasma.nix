@@ -4,9 +4,139 @@ _: {
     lib,
     ...
   }: {
+    # XDG
+    xdg.portal = lib.mkIf pkgs.stdenv.isLinux {
+      enable = true;
+      configPackages = [pkgs.kdePackages.xdg-desktop-portal-kde];
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+    };
+
     programs = lib.mkIf pkgs.stdenv.isLinux {
       plasma = {
         enable = true;
+
+        workspace = {
+          lookAndFeel = "org.kde.breezedark.desktop";
+          iconTheme = "Papirus-Dark";
+          wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/DarkestHour/contents/images/2560x1500.png";
+        };
+
+        panels = [
+          # Windows-like panel at the bottom
+          {
+            location = "bottom";
+            height = 50;
+            lengthMode = "fit";
+            widgets = [
+              # We can configure the widgets by adding the name and config
+              # attributes. For example to add the the kickoff widget and set the
+              # icon to "nix-snowflake-white" use the below configuration. This will
+              # add the "icon" key to the "General" group for the widget in
+              # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
+              # {
+              #   name = "org.kde.plasma.kickoff";
+              #   config = {
+              #     General = {
+              #       icon = "nix-snowflake-white";
+              #       alphaSort = true;
+              #     };
+              #   };
+              # }
+              # Or you can configure the widgets by adding the widget-specific options for it.
+              # See modules/widgets for supported widgets and options for these widgets.
+              # For example:
+              {
+                kickoff = {
+                  sortAlphabetically = true;
+                  icon = "nix-snowflake-white";
+                };
+              }
+              # Adding configuration to the widgets can also for example be used to
+              # pin apps to the task-manager, which this example illustrates by
+              # pinning dolphin and konsole to the task-manager by default with widget-specific options.
+              {
+                iconTasks = {
+                  launchers = [
+                    "applications:firefox.desktop"
+                    "applications:vesktop.desktop"
+                    "applications:steam.desktop"
+                    "applications:kitty.desktop"
+                  ];
+                };
+              }
+            ];
+            hiding = "autohide";
+          }
+          # Application name, Global menu and Song information and playback controls at the top
+          {
+            location = "top";
+            height = 26;
+            widgets = [
+              {
+                pager = {
+                  general = {
+                    showWindowOutlines = true;
+                    showApplicationIconsOnWindowOutlines = true;
+                  };
+                };
+              }
+              # If no configuration is needed, specifying only the name of the
+              # widget will add them with the default configuration.
+              {
+                panelSpacer = {};
+              }
+              {
+                plasmusicToolbar = {
+                  panelIcon = {
+                    albumCover = {
+                      useAsIcon = false;
+                      radius = 8;
+                    };
+                    icon = "view-media-track";
+                  };
+                  playbackSource = "auto";
+                  musicControls.showPlaybackControls = true;
+                  songText = {
+                    displayInSeparateLines = true;
+                    maximumWidth = 640;
+                    scrolling = {
+                      behavior = "alwaysScroll";
+                      speed = 3;
+                    };
+                  };
+                };
+              }
+              {
+                panelSpacer = {};
+              }
+              {
+                systemTray.items = {
+                  # We explicitly show bluetooth and battery
+                  shown = [
+                    "org.kde.plasma.networkmanagement"
+                    "org.kde.plasma.volume"
+                  ];
+                  # And explicitly hide networkmanagement and volume
+                  hidden = [
+                    "org.kde.plasma.battery"
+                    "org.kde.plasma.bluetooth"
+                  ];
+                };
+              }
+
+              {
+                digitalClock = {
+                  date.enable = false;
+                  calendar.firstDayOfWeek = "monday";
+                  time.format = "24h";
+                };
+              }
+            ];
+          }
+        ];
+
         shortcuts = {
           ActivityManager.switch-to-activity-c8fdbd68-9043-4ff9-aa47-6e03e576a621 = [];
           "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";
@@ -19,12 +149,18 @@ _: {
             increase_microphone_volume = "Microphone Volume Up";
             increase_volume = "Volume Up";
             increase_volume_small = "Shift+Volume Up";
-            mic_mute = ["Microphone Mute" "Meta+Volume Mute"];
+            mic_mute = [
+              "Microphone Mute"
+              "Meta+Volume Mute"
+            ];
             mute = "Volume Mute";
           };
           ksmserver = {
             "Halt Without Confirmation" = [];
-            "Lock Session" = ["Screensaver" "Meta+Ctrl+Alt+L"];
+            "Lock Session" = [
+              "Screensaver"
+              "Meta+Ctrl+Alt+L"
+            ];
             "Log Out" = "Ctrl+Alt+Del";
             "Log Out Without Confirmation" = [];
             LogOut = [];
@@ -39,7 +175,10 @@ _: {
             "Decrease Opacity" = [];
             "Edit Tiles" = "Meta+T";
             Expose = "Meta+\\";
-            ExposeAll = ["Ctrl+F10" "Launch (C)"];
+            ExposeAll = [
+              "Ctrl+F10"
+              "Launch (C)"
+            ];
             ExposeClass = "Ctrl+F7";
             ExposeClassCurrentDesktop = [];
             "Grid View" = "Meta+G";
@@ -121,12 +260,24 @@ _: {
             "Switch to Screen to the Right" = [];
             "Toggle Night Color" = [];
             "Toggle Window Raise/Lower" = [];
-            "Walk Through Windows" = ["Meta+Tab" "Alt+Tab"];
-            "Walk Through Windows (Reverse)" = ["Meta+Shift+Tab" "Alt+Shift+Tab"];
+            "Walk Through Windows" = [
+              "Meta+Tab"
+              "Alt+Tab"
+            ];
+            "Walk Through Windows (Reverse)" = [
+              "Meta+Shift+Tab"
+              "Alt+Shift+Tab"
+            ];
             "Walk Through Windows Alternative" = [];
             "Walk Through Windows Alternative (Reverse)" = [];
-            "Walk Through Windows of Current Application" = ["Meta+`" "Alt+`"];
-            "Walk Through Windows of Current Application (Reverse)" = ["Meta+~" "Alt+~"];
+            "Walk Through Windows of Current Application" = [
+              "Meta+`"
+              "Alt+`"
+            ];
+            "Walk Through Windows of Current Application (Reverse)" = [
+              "Meta+~"
+              "Alt+~"
+            ];
             "Walk Through Windows of Current Application Alternative" = [];
             "Walk Through Windows of Current Application Alternative (Reverse)" = [];
             "Window Above Other Windows" = [];
@@ -207,7 +358,10 @@ _: {
             "Window to Screen 7" = [];
             disableInputCapture = "Meta+Shift+Esc";
             view_actual_size = "Meta+0";
-            view_zoom_in = ["Meta++" "Meta+="];
+            view_zoom_in = [
+              "Meta++"
+              "Meta+="
+            ];
             view_zoom_out = "Meta+-";
           };
           mediacontrol = {
@@ -233,11 +387,17 @@ _: {
             Sleep = "Sleep";
             "Toggle Keyboard Backlight" = "Keyboard Light On/Off";
             "Turn Off Screen" = [];
-            powerProfile = ["Battery" "Meta+B"];
+            powerProfile = [
+              "Battery"
+              "Meta+B"
+            ];
           };
           plasmashell = {
             "Slideshow Wallpaper Next Image" = [];
-            "activate application launcher" = ["Meta" "Alt+F1"];
+            "activate application launcher" = [
+              "Meta"
+              "Alt+F1"
+            ];
             "activate task manager entry 1" = "Meta+1";
             "activate task manager entry 10" = [];
             "activate task manager entry 2" = "Meta+2";
@@ -305,6 +465,8 @@ _: {
           };
           kcminputrc = {
             "Libinput/1133/16531/Logitech PRO X".PointerAccelerationProfile = 1;
+            "Libinput/1133/50503/Logitech USB Receiver".Enabled = true;
+            "Libinput/1133/50503/Logitech USB Receiver".PointerAccelerationProfile = 1;
             Mouse.cursorTheme = "breeze_cursors";
           };
           kded5rc.Module-device_automounter.autoload = false;

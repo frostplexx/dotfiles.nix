@@ -31,7 +31,10 @@ _: {
             if pkgs.stdenv.isDarwin
             then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
             else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-          commit.gpgsign = true;
+          commit.gpgsign =
+            if pkgs.stdenv.isDarwin
+            then true
+            else false;
           credential.helper =
             if pkgs.stdenv.isDarwin
             then "osxkeychain"

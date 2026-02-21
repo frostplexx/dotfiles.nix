@@ -65,7 +65,10 @@ _: {
 
           assistant = {
             copilot = {
-              enable = true;
+              enable =
+                if pkgs.stdenv.isDarwin
+                then true
+                else false;
               cmp.enable = true;
               mappings.suggestion.accept = "<C-CR>";
               setupOpts = {
@@ -77,7 +80,10 @@ _: {
             };
 
             avante-nvim = {
-              enable = true;
+              enable =
+                if pkgs.stdenv.isDarwin
+                then true
+                else false;
               setupOpts = {
                 input = {
                   provider = "native";

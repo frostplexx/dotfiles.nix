@@ -22,7 +22,7 @@
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+      kernelPackages = pkgs.linuxPackages_zen;
     };
 
     disko.devices = {
@@ -86,11 +86,6 @@
       };
     };
 
-    # Let disko handle fileSystems
-    # Manual fileSystems disabled - handled by disko
-    # fileSystems = lib.mkForce {};
-    # swapDevices = lib.mkForce [];
-
     # Networking
     networking = {
       hostName = "tiramisu";
@@ -134,8 +129,6 @@
     };
 
     environment.pathsToLink = [
-      #"/share/applications"
-      #"/share/xdg-desktop-portal"
       "/libexec"
     ];
 
@@ -205,15 +198,16 @@
 
     # Programs
     programs = {
-      _1password-gui = {
-        enable = true;
-        polkitPolicyOwners = [user];
-      };
+      # _1password-gui = {
+      #   enable = true;
+      #   polkitPolicyOwners = [user];
+      # };
       steam = {
         enable = true;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
         localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+        protontricks.enable = true;
       };
     };
 
@@ -221,6 +215,7 @@
     environment = {
       systemPackages = with pkgs; [
         firefox
+        papirus-icon-theme
       ];
       variables = {
         # FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
