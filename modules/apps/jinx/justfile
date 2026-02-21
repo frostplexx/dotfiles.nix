@@ -3,7 +3,6 @@
 alias d := deploy
 alias u := upgrade
 alias e := edit
-alias r := restart_wm
 
 # macOS need nh darwin switch and NixOS needs nh os switch
 nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi`
