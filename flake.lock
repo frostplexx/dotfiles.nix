@@ -329,6 +329,27 @@
         "type": "github"
       }
     },
+    "home-manager-stable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-nixos-25-11"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770260404,
+        "narHash": "sha256-3iVX1+7YUIt23hBx1WZsUllhbmP2EnXrV8tCRbLxHc8=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "0d782ee42c86b196acff08acfbf41bb7d13eed5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-25.11",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "homebrew-cask": {
       "flake": false,
       "locked": {
@@ -883,10 +904,10 @@
     "plasma-manager": {
       "inputs": {
         "home-manager": [
-          "home-manager"
+          "home-manager-stable"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-nixos-25-11"
         ]
       },
       "locked": {
@@ -909,6 +930,7 @@
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
+        "home-manager-stable": "home-manager-stable",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "import-tree": "import-tree",
