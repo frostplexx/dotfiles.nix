@@ -135,7 +135,7 @@
       '';
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       settings = {
-        extra-platforms = ["aarch64-darwin"];
+        extra-platforms = ["x86_64-linux"];
         extra-trusted-users = [user];
         trusted-users = [
           "root"
