@@ -1,9 +1,9 @@
 {
   "todos": {
-    "modules/home/neovim/_neovim.nix:219:TODO: enable when I'm in the mood": {
-      "issueNumber": 696,
+    "modules/home/neovim/_neovim.nix:218:TODO: enable when I'm in the mood": {
+      "issueNumber": 701,
       "file": "modules/home/neovim/_neovim.nix",
-      "line": 219,
+      "line": 218,
       "text": "TODO: enable when I'm in the mood"
     }
   }
