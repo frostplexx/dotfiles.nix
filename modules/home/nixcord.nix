@@ -5,7 +5,7 @@ _: {
     ...
   }: let
     user = "daniel";
-    useVesktop = true;
+    useVesktop = false;
     themeFile = "catppuccin-mocha.theme.css";
     themeUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
 

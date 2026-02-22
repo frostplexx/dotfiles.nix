@@ -67,7 +67,6 @@ in {
                   inputs.nixkit.homeModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
-                  inputs.plasma-manager.homeModules.plasma-manager
                   {
                     # Disable nix management in home-manager on Darwin (handled by Determinate)
                     nix.enable = false;

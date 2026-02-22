@@ -289,7 +289,6 @@
       ];
     };
 
-
     documentation = {
       doc.enable = true;
       info.enable = true;
