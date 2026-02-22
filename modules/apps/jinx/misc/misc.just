@@ -3,21 +3,21 @@
 [group('󰲽 utility')]
 [doc('Restarts yabai, skhd and lazykeys')]
 restart_wm:
-    @sudo yabai --load-sa 
-    @pkill -9 lazykeys 
+    @pkill -9 yabai 
     @pkill -9 skhd
+    @pkill -9 lazykeys 
 
 [macos]
 [group('󰲽 utility')]
 [doc('Sets the current screen to HiDPI mode')]
 set_screen_hidpi:
-    @"{{DOTFILES_FOLDER}}/modules/jinx/misc/highres_display.sh"
+    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/highres_display.fish"
 
 [group('󰲽 utility')]
 [doc('Generates an SSH config file from hosts inside 1Password')]
 [working-directory("./")]
 generate_ssh_hosts:
-    @"{{DOTFILES_FOLDER}}/modules/jinx/misc/ssh.fish"
+    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/ssh.fish"
 
 [macos]
 [group('󰲽 utility')]

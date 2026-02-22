@@ -1,7 +1,7 @@
 
 [group('󱄅 nix')]
-[doc('Upgrade flake inputs and deploy')]
-upgrade: lint
+[doc('Update flake inputs and deploy')]
+update: lint
     @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
     @cd {{DOTFILES_FOLDER}}; git add .
     @git commit -m "chore: update flake inputs"
