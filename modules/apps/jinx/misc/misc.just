@@ -25,6 +25,16 @@ edit:
     @cd "{{DOTFILES_FOLDER}}"; nvim "{{DOTFILES_FOLDER}}"
 
 
+[group('󰲽 utility')]
+[doc('Show dotfiles and nix info')]
+info:
+    @echo -e "\033[0;32mSystem Information:\033[0m\n"
+    @echo -e "\033[0;33mOS:\033[0m $(uname -s) $(uname -r)"
+    @echo -e -n "\033[0;33mNix Version:\033[0m $(nix --version)\n" 
+    @echo -e "\033[0;33mNix Darwin:\033[0m $(darwin-version)"
+    @echo -e "\033[0;33mDotfiles:\033[0m $(echo {{DOTFILES_FOLDER}})"
+
+
 
 
 [macos]
