@@ -19,12 +19,6 @@ set_screen_hidpi:
 generate_ssh_hosts:
     @"{{DOTFILES_FOLDER}}/modules/jinx/misc/ssh.fish"
 
-[group('󰲽 utility')]
-[doc('Edit the system config')]
-edit:
-    @cd "{{DOTFILES_FOLDER}}"; nvim "{{DOTFILES_FOLDER}}"
-
-
 [macos]
 [group('󰲽 utility')]
 [doc('Clear DNS Cache')]
