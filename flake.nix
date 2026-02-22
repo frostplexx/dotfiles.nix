@@ -3,9 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-nixos-25-11 = {
-      url = "github:nixos/nixpkgs/nixos-25.11";
-    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
@@ -19,10 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager-stable = {
-      url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-nixos-25-11";
-    };
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
@@ -41,28 +35,6 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-anywhere = {
-      url = "github:nix-community/nixos-anywhere";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs-nixos-25-11";
-      inputs.home-manager.follows = "home-manager-stable";
-    };
-
-    # ==== Neovim ====
-    neovim-nightly-overlay = {
-      url = "github:Prince213/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -289,22 +289,72 @@
       ];
     };
 
+
+    documentation = {
+      doc.enable = true;
+      info.enable = true;
+    };
+
+    fonts.packages = with pkgs; [
+      open-sans
+      inter
+      jetbrains-mono
+      maple-mono.truetype-autohint
+      maple-mono.NF
+      sketchybar-app-font
+    ];
+
     # System packages
     environment.systemPackages = with pkgs; [
-      keka
+      _1password-cli
+      alejandra
+      bvi
+      curl
+      deadnix
+      discord-ptb
+      entr
+      ffmpeg
+      gcc
+      gh
+      ghq
+      gnumake
+      gnupg
+      hexfiend
       iina
-      utm
+      imagemagick
+      inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.tidaLuna.packages.${system}.default
+      jq
+      just
+      keka
+      macpm
+      magic-wormhole-rs
+      man-pages
+      man-pages-posix
       mas
+      moonlight-qt
+      netcat
+      nh
+      nix-output-monitor
+      nix-tree
+      nmap
+      nvd
+      obsidian
+      pandoc
+      ripgrep
+      skimpdf
+      sops
+      sshpass
+      statix
       switchaudio-osx
+      termshark
+      unp
+      utm
+      uv
+      vscode
+      wget
       whisky
       wtfis
-      hexfiend
-      skimpdf
-      macpm
-      moonlight-qt
-      # lmstudio
-      discord-ptb
-      vscode
     ];
 
     # Home Manager
