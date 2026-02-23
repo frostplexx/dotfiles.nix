@@ -71,6 +71,7 @@ in {
           yabai -m rule --add app="^zoom.us$" space=4
           yabai -m rule --add app="^Discord$" space=4
           yabai -m rule --add app="^Mail$" space=4
+          yabai -m rule --add app="^Slack$" space=4
 
           # Music -> Space 5
           yabai -m space 5 --label Music
