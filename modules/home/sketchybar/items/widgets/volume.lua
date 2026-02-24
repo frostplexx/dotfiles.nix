@@ -32,6 +32,8 @@ end)
 volume_icon:subscribe("mouse.clicked", function(env)
   if env.BUTTON == "right" then
     sbar.exec "open /System/Library/PreferencePanes/Sound.prefpane"
+  else
+    sbar.exec "open x-apple.systempreferences:com.apple.controlcenter"
   end
 end)
 

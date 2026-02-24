@@ -23,6 +23,10 @@ wifi:subscribe({ "wifi_change", "system_woke" }, function(env)
   end)
 end)
 
-wifi:subscribe("mouse.clicked", function()
-  sbar.exec "open /System/Library/PreferencePanes/Network.prefpane"
+wifi:subscribe("mouse.clicked", function(env)
+  if env.BUTTON == "right" then
+    sbar.exec "open /System/Library/PreferencePanes/Network.prefpane"
+  else
+    sbar.exec "open x-apple.systempreferences:com.apple.controlcenter"
+  end
 end)

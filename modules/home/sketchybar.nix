@@ -1,6 +1,15 @@
-_: {
-  flake.modules.homeManager.sketchybar = {pkgs, ...}: {
-    programs.sketchybar = {
+_: let
+  enableBar = false;
+in {
+  flake.modules.homeManager.sketchybar = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    #TODO
+    # https://github.com/FelixKratz/SketchyBar/discussions/461
+
+    programs.sketchybar = lib.mkIf enableBar {
       enable = true;
       extraPackages = with pkgs; [
         lua
@@ -19,7 +28,7 @@ _: {
       luaPackage = pkgs.lua5_4;
       sbarLuaPackage = pkgs.sbarlua;
     };
-    home.file = {
+    home.file = lib.mkIf enableBar {
       ".config/sketchybar" = {
         source = ./sketchybar/.;
         recursive = true;
