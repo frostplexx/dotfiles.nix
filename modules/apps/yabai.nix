@@ -32,6 +32,7 @@ in {
           left_padding = 5;
           right_padding = 5;
           window_gap = 5;
+          external_bar = "all:22:0:0";
         };
 
         extraConfig = ''
