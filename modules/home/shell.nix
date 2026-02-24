@@ -66,6 +66,11 @@ _: {
         enableFishIntegration = true;
       };
 
+      tealdeer = {
+        enable = true;
+        enableAutoUpdates = true;
+      };
+
       # Better ls
       eza = {
         enable = true;
