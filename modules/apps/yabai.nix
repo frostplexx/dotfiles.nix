@@ -22,8 +22,8 @@ in {
           window_placement = "second_child";
           auto_balance = "on";
           split_ratio = 0.5;
-          window_opacity = "off";
           window_shadow = "float";
+          window_opacity = "off";
           active_window_opacity = 1.0;
           normal_window_opacity = 0.9;
           window_opacity_duration = 0.1;
@@ -64,6 +64,7 @@ in {
           yabai -m rule --add app="^GoodNotes$" space=3
           yabai -m rule --add app="^Obsidian$" space=3
           yabai -m rule --add app="^Things$" space=3
+          yabai -m rule --add app="^Code$" space=3
 
           # Communication apps -> Space 4
           yabai -m space 4 --label Communication
@@ -89,6 +90,7 @@ in {
           yabai -m rule --add app="^Keka$" manage=off
           yabai -m rule --add app="^Simulator$" manage=off
           yabai -m rule --add app="^Google Chrome$" manage=off
+          yabai -m rule --add app="^OrbStack$" manage=off
         '';
       };
     };
