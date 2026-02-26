@@ -3,7 +3,7 @@
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
   in {
     programs.spicetify = {
-      enable = true;
+      enable = false;
       spotifyLaunchFlags = "--disable-update-restarts";
       enabledExtensions = with spicePkgs.extensions; [
         hidePodcasts
