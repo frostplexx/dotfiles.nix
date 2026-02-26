@@ -8,7 +8,7 @@
     </div>
 </p>
 
-This repository contains my personal system configurations for NixOS and macOS.
+This repository contains my personal system configuration for macOS.
 It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
 
 Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/dotfiles-assets.nix/tree/main/wallpapers](https://github.com/frostplexx/dotfiles-assets.nix/tree/main/wallpapers)
