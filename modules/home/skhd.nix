@@ -76,6 +76,10 @@ _: {
         ctrl + alt + cmd - 4 : yabai -m space --focus 4
         ctrl + alt + cmd - 5 : yabai -m space --focus 5
         ctrl + alt + cmd - 6 : yabai -m space --focus 6
+        ctrl + alt + cmd - 6 : yabai -m space --focus 7
+        ctrl + alt + cmd - 6 : yabai -m space --focus 8
+        ctrl + alt + cmd - 6 : yabai -m space --focus 9
+        ctrl + alt + cmd - 6 : yabai -m space --focus 0
 
         # Move window to workspace and follow
         ctrl + alt + shift + cmd - 1 : yabai -m window --space 1 && yabai -m space --focus 1

@@ -13,7 +13,6 @@ _: {
   in {
     home.file = {
       ".vimrc".source = ./neovim/vimrc;
-      ".ideavimrc".source = ./neovim/ideavimrc;
     };
 
     programs.nvf = {
@@ -58,7 +57,10 @@ _: {
                   "start"
                 ];
                 filetypes = ["fish"];
-                root_markers = [".git" "src"];
+                root_markers = [
+                  ".git"
+                  "src"
+                ];
               };
             };
           };
@@ -190,6 +192,17 @@ _: {
           };
 
           utility = {
+            diffview-nvim = {
+              enable = true;
+              setupOpts = {
+                enhanced_diff_hl.enable = true;
+                merge_tool = {
+                  layout = "diff3_mixed";
+                  disable_diagnostics = true;
+                  winbar_info = true;
+                };
+              };
+            };
             smart-splits.enable = true;
             yazi-nvim = {
               enable = true;
@@ -309,6 +322,25 @@ _: {
               { desc = "Search and replace selected text across file" }
             )
           '';
+
+          augroups = [{name = "MergeTool";}];
+
+          autocmds = [
+            # Open DiffView automatically when entering diff mode.
+            {
+              event = ["OptionSet"];
+              pattern = ["diff"];
+              group = "MergeTool";
+              desc = "Open DiffView when vim.difftool is activated";
+              callback = lib.generators.mkLuaInline ''
+                function()
+                  if vim.o.diff then
+                    require("diffview").open()
+                  end
+                end
+              '';
+            }
+          ];
         };
       };
     };
