@@ -32,5 +32,7 @@ _: {
     lua.enable = true;
 
     html.enable = true;
+
+    latex.enable = true;
   };
 }
