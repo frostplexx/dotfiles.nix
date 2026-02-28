@@ -3,8 +3,7 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   lazy = {
     enable = false;
     plugins = {
@@ -50,7 +49,7 @@
       "cord.nvim" = {
         package = pkgs.vimPlugins.cord-nvim;
         lazy = true;
-        event = [ "LazyFile" ];
+        event = ["LazyFile"];
         setupModule = "cord";
         setupOpts = {
           editor = {
