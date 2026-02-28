@@ -2,13 +2,14 @@ _: {
   flake.modules.homeManager.neovim = {
     pkgs,
     lib,
+    inputs,
     ...
   }: let
     # Helper files prefixed with _ to prevent import-tree from importing them as modules
     langaugesConfig = import ./neovim/_languages.nix {inherit pkgs;};
     keymapsConfig = import ./neovim/_keymap.nix {};
     optionsConfig = import ./neovim/_options.nix {};
-    customPluginsConfig = import ./neovim/_customPlugins.nix {inherit pkgs lib;};
+    customPluginsConfig = import ./neovim/_customPlugins.nix {inherit pkgs lib inputs;};
     transparent_terminal = false;
   in {
     home.file = {
@@ -29,6 +30,7 @@ _: {
 
           extraPackages = with pkgs; [
             fish-lsp
+            rustup
           ];
 
           terminal.toggleterm = {

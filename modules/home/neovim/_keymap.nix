@@ -25,24 +25,24 @@ _: {
       action = "function() MiniBufremove.delete() end";
       desc = "Delete current buffer without closing window";
     }
-    {
-      key = "<leader>ff";
-      mode = "n";
-      silent = true;
-      noremap = false;
-      lua = true;
-      action = "function() MiniPick.builtin.files() end";
-      desc = "Open file picker";
-    }
-    {
-      key = "<leader>fg";
-      mode = "n";
-      noremap = false;
-      lua = true;
-      silent = true;
-      action = "function() MiniPick.builtin.grep_live() end";
-      desc = "Live grep across project";
-    }
+    # {
+    #   key = "<leader>ff";
+    #   mode = "n";
+    #   silent = true;
+    #   noremap = false;
+    #   lua = true;
+    #   action = "function() MiniPick.builtin.files() end";
+    #   desc = "Open file picker";
+    # }
+    # {
+    #   key = "<leader>fg";
+    #   mode = "n";
+    #   noremap = false;
+    #   lua = true;
+    #   silent = true;
+    #   action = "function() MiniPick.builtin.grep_live() end";
+    #   desc = "Live grep across project";
+    # }
     {
       key = "<leader>fb";
       mode = "n";
