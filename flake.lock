@@ -612,22 +612,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_7": {
-      "locked": {
-        "lastModified": 1768875095,
-        "narHash": "sha256-dYP3DjiL7oIiiq3H65tGIXXIT1Waiadmv93JS0sS+8A=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ed142ab1b3a092c4d149245d0c4126a5d7ea00b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -670,8 +654,7 @@
         "nixpkgs": "nixpkgs_5",
         "nvf": "nvf",
         "sops-nix": "sops-nix",
-        "spicetify-nix": "spicetify-nix",
-        "tidaLuna": "tidaLuna"
+        "spicetify-nix": "spicetify-nix"
       }
     },
     "sops-nix": {
@@ -741,24 +724,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "tidaLuna": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_7"
-      },
-      "locked": {
-        "lastModified": 1772264704,
-        "narHash": "sha256-xx6Rwe4epgmaqFtQobx4nC6LziDYezBMM5izkqNWkM4=",
-        "ref": "refs/heads/master",
-        "rev": "2b2fce98548ef78771a12931ae4121151b15ddf1",
-        "revCount": 538,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
       }
     }
   },
