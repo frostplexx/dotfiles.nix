@@ -95,8 +95,8 @@
 
     power = {
       sleep = {
-        computer = 5;
-        display = 10;
+        computer = 10;
+        display = 5;
       };
     };
 
@@ -134,6 +134,10 @@
             sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
             sudo -u ${user} defaults write com.apple.Dock contents-immutable -bool true
             sudo -u ${user} defaults write com.apple.dock size-immutable -bool yes
+
+            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'CleanExit' -string "YES"
+            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'PrefsVersion' -int "100"
+            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'idleTime' -int '180'
 
             killall Finder;
             killall Dock;

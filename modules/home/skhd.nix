@@ -55,6 +55,10 @@ _: {
         music < escape ; default
 
 
+
+        shift + cmd - s : open cleanshot://capture-area
+
+
         # Fullscreen
         ctrl + alt + cmd - space : yabai -m window --toggle zoom-fullscreen
 
