@@ -28,12 +28,6 @@ _: {
         launch < b : open -a Zen & skhd -k 'escape'
 
 
-        # Volume control for spotify
-        # music < ] : osascript -e 'tell application "Spotify" set currentvol to get sound volume set sound volume to currentvol + 10 end tell' & skhd -k 'escape'
-        # music < ] : osascript -e ' tell application "Spotify" set currentvol to get sound volume set sound volume to currentvol - 10 end tell' & skhd -k 'escape'
-
-
-
         # Layout modes
         tiling < t : yabai -m space --layout bsp  & skhd -k 'escape'
         tiling < s : yabai -m space --layout stack & skhd -k 'escape'
@@ -57,6 +51,8 @@ _: {
 
 
         shift + cmd - s : open cleanshot://capture-area
+        ctrl + alt + cmd - e : open -a Finder
+
 
 
         # Fullscreen
