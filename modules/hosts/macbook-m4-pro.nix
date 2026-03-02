@@ -209,7 +209,7 @@
           autohide-time-modifier = 0.4;
           persistent-apps = [
             "/Applications/Things3.app"
-            "/Applications/Zen.app"
+            "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
             "/Applications/Nix Apps/Obsidian.app"
           ];
         };
@@ -285,7 +285,6 @@
         "mac-mouse-fix"
         "orbstack"
         "zoom"
-        "zen"
         "affinity"
         "1password"
         "mullvad-vpn"

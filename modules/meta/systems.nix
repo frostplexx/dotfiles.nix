@@ -65,6 +65,7 @@ in {
                   inputs.nvf.homeManagerModules.default
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
+                  inputs.zen-browser.homeModules.beta
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
                   {
