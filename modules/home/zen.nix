@@ -234,7 +234,7 @@ _: {
 
         search = {
           force = true; # Needed for nix to overwrite search settings on rebuild
-          default = "ddg"; # Aliased to duckduckgo, see other aliases in the link above
+          default = "unduckified"; # Aliased to duckduckgo, see other aliases in the link above
           engines = {
             duckai = {
               name = "DuckAI";
