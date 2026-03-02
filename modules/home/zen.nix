@@ -236,6 +236,36 @@ _: {
           force = true; # Needed for nix to overwrite search settings on rebuild
           default = "ddg"; # Aliased to duckduckgo, see other aliases in the link above
           engines = {
+            duckai = {
+              name = "DuckAI";
+              urls = [
+                {
+                  template = "https://duckduckgo.com/?t=ffab&ia=chat&q=%s";
+                  params = [
+                  ];
+                }
+              ];
+              definedAliases = ["@ai"];
+            };
+
+            unduckified = {
+              name = "Unduckified";
+              urls = [
+                {
+                  template = "https://s.dunkirk.sh?q={searchTerms}";
+                  params = [
+                    {
+                      name = "query";
+                      value = "searchTerms";
+                    }
+                  ];
+                }
+              ];
+
+              # icon = lg";
+              definedAliases = ["@uddg"]; # Keep in mind that aliases defined here only work if they start with "@"
+            };
+
             # My NixOS Option and package search shortcut
             mynixos = {
               name = "My NixOS";
