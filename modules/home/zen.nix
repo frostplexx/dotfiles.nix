@@ -2,11 +2,19 @@ _: {
   flake.modules.homeManager.zen_browser = {
     pkgs,
     lib,
+    config,
+    inputs,
     ...
   }: {
     programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
       browser = "zen";
+    };
+
+    targets.darwin.defaults = lib.mkIf pkgs.stdenv.isDarwin {
+      "app.zen-browser.zen" =
+        {EnterprisePoliciesEnabled = true;}
+        // config.programs.zen-browser.policies;
     };
 
     # https://github.com/0xc000022070/zen-browser-flake
@@ -60,6 +68,16 @@ _: {
       };
     in {
       enable = true;
+      package = lib.mkIf pkgs.stdenv.isDarwin (
+        pkgs.lib.makeOverridable
+        (
+          _:
+            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
+              installPhase = builtins.replaceStrings ["/usr/bin/codesign"] [": "] old.installPhase;
+              dontFixup = true;
+            })
+        ) {}
+      );
 
       profiles."default" = let
         containers = {
@@ -88,6 +106,13 @@ _: {
                   red = 30;
                   green = 30;
                   blue = 27;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 49;
+                  green = 50;
+                  blue = 68;
                   algorithm = "floating";
                   type = "explicit-lightness";
                 }
