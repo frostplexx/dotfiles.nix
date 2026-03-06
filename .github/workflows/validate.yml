@@ -77,6 +77,7 @@ jobs:
               MATRIX_JSON+="\"name\":\"$config\","
               MATRIX_JSON+="\"os\":\"ubuntu-latest\","
               MATRIX_JSON+="\"type\":\"nixos\","
+              MATRIX_JSON+="\"cmd\":\"build\","
               MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
               MATRIX_JSON+="},"
             done
@@ -90,6 +91,7 @@ jobs:
               MATRIX_JSON+="\"name\":\"$config\","
               MATRIX_JSON+="\"os\":\"macos-latest\","
               MATRIX_JSON+="\"type\":\"darwin\","
+              MATRIX_JSON+="\"cmd\":\"darwin\","
               MATRIX_JSON+="\"config\":\"darwinConfigurations.$config.system\""
               MATRIX_JSON+="},"
             done
@@ -123,10 +125,10 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
 
-      - name: Enable Nix Flakes
-        run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+      # - name: Enable Nix Flakes
+      #   run: |
+      #     mkdir -p ~/.config/nix
+      #     echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
       - name: Setup Cachix Auth
         uses: cachix/cachix-action@v16
@@ -143,6 +145,6 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
-          echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
+          echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }}) with command ${{matrix.cmd}}"
           # nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
           nix run nixpkgs#nh -- ${{ matrix.cmd }} build --no-nom -H ${{ matrix.config }}
