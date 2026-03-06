@@ -2,9 +2,10 @@
 [group('󱄅 nix')]
 [doc('Update flake inputs and deploy')]
 update: lint
-    @NIX_CONFIG="{{NIX_CONFIG}}" nh {{nix_cmd}} switch --update
-    @cd {{DOTFILES_FOLDER}}; git add .
-    @git commit -m "chore: update flake inputs"
+    @{{DOTFILES_FOLDER}}/modules/apps/jinx/update/update.fish \
+        --dotfiles {{DOTFILES_FOLDER}} \
+        --nix-config "{{NIX_CONFIG}}" \
+        --nh-cmd {{nix_cmd}}
 
 
 [group('󱄅 nix')]
