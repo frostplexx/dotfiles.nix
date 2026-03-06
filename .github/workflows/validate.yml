@@ -46,9 +46,9 @@ jobs:
         with:
           use-flakehub: false
 
-      - name: Re-authenticate with FlakeHub token
-        run: |
-          echo "${{ secrets.FLAKEHUB_TOKEN }}" | determinate-nixd auth login token --token-file /dev/stdin
+      # - name: Re-authenticate with FlakeHub token
+      #   run: |
+      #     echo "${{ secrets.FLAKEHUB_TOKEN }}" | determinate-nixd auth login token --token-file /dev/stdin
 
       - name: Install Just
         uses: extractions/setup-just@v3
