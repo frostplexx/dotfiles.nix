@@ -1,21 +1,17 @@
 #!/usr/bin/env fish
 
 # ── Colors ──────────────────────────────────────────────────────────
-set -l RED    (set_color red)
-set -l GREEN  (set_color green)
-set -l YELLOW (set_color yellow)
-set -l BLUE   (set_color blue)
-set -l MAGENTA (set_color magenta)
-set -l CYAN   (set_color cyan)
-set -l BOLD   (set_color --bold)
-set -l DIM    (set_color --dim)
-set -l RESET  (set_color normal)
+set -g RED    (set_color red)
+set -g GREEN  (set_color green)
+set -g YELLOW (set_color yellow)
+set -g BLUE   (set_color blue)
+set -g MAGENTA (set_color magenta)
+set -g CYAN   (set_color cyan)
+set -g BOLD   (set_color --bold)
+set -g DIM    (set_color --dim)
+set -g RESET  (set_color normal)
 
 # ── Helpers ─────────────────────────────────────────────────────────
-function info
-    echo "$BLUE$BOLD  $argv$RESET"
-end
-
 function ok
     echo "$GREEN$BOLD  $argv$RESET"
 end
@@ -35,6 +31,35 @@ end
 
 function dim
     echo "$DIM  $argv$RESET"
+end
+
+# ── Spinner ─────────────────────────────────────────────────────────
+function spin_start --argument-names msg
+    set -g SPIN_STOP (mktemp)
+    rm -f $SPIN_STOP
+    set -l escaped_msg (string escape -- $msg)
+    fish -c "
+        set msg $escaped_msg
+        set frames ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏
+        set i 1
+        while not test -f $SPIN_STOP
+            printf \"\\r  \\033[36m%s\\033[0m %s\" \$frames[\$i] \$msg
+            set i (math \"(\$i % 10) + 1\")
+            sleep 0.08
+        end
+    " &
+    set -g SPIN_PID $last_pid
+end
+
+function spin_stop --argument-names symbol color msg
+    touch $SPIN_STOP
+    wait $SPIN_PID 2>/dev/null
+    printf "\r\033[2K  %s%s%s %s" "$color$BOLD" "$symbol" "$RESET" "$msg"
+    rm -f $SPIN_STOP
+end
+
+function spin_done
+    echo
 end
 
 # ── Usage ───────────────────────────────────────────────────────────
@@ -75,72 +100,79 @@ if not test -d "$DOTFILES"
     exit 1
 end
 
-# ── Pull ────────────────────────────────────────────────────────────
-step "Pulling latest changes"
+# ── Pull & analyze ──────────────────────────────────────────────────
+echo
+spin_start "Pulling latest changes..."
 cd "$DOTFILES"
-if git pull --rebase --autostash 2>/dev/null
-    ok "Pulled with rebase"
-else if git pull --no-rebase --autostash 2>/dev/null
-    warn "Pulled with merge (rebase failed)"
+if git pull --rebase --autostash &>/dev/null
+    spin_stop "" "$GREEN" "Pulled with rebase"
+else if git pull --no-rebase --autostash &>/dev/null
+    spin_stop "" "$YELLOW" "Pulled with merge (rebase failed)"
 else
-    warn "Pull failed — continuing with local state"
+    spin_stop "" "$YELLOW" "Pull failed — continuing with local state"
 end
 
-# ── Check diff ──────────────────────────────────────────────────────
-step "Checking for changes in flake.lock"
+# Check diff
+spin_start "Checking for changes in flake.lock..."
+sleep 0.3
 if git diff HEAD~1 --quiet -- flake.lock 2>/dev/null
-    ok "No changes in flake.lock — nothing to do"
+    spin_stop "" "$GREEN" "No changes in flake.lock — nothing to do"
+    spin_done
     exit 0
 end
+spin_stop "" "$BLUE" "Changes detected in flake.lock"
 
-# ── Show what changed ───────────────────────────────────────────────
-step "Changes detected in flake.lock"
-printf "%s%s  %-25s %-12s → %s%s\n" "$CYAN" "$BOLD" INPUT "OLD REV" "NEW REV" "$RESET"
-printf "%s  %-25s %-12s   %s%s\n" "$DIM" "─────────────────────────" "────────────" "────────────" "$RESET"
+# Compute diff with jq
+spin_start "Comparing flake inputs..."
 
-set -l current_input ""
-set -l old_rev ""
-set -l new_rev ""
+set -l diff_output (jq -n \
+    --slurpfile old (git show HEAD~1:flake.lock 2>/dev/null | psub) \
+    --slurpfile new (cat flake.lock | psub) '
+    ($old[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $old_revs |
+    ($new[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $new_revs |
+    ($new_revs | keys[]) as $input |
+    $old_revs[$input] as $old_rev |
+    $new_revs[$input] as $new_rev |
+    select($old_rev and $new_rev and $old_rev != $new_rev) |
+    "\($input) \($old_rev[0:12]) \($new_rev[0:12])"
+' -r)
 
-git diff HEAD~1 -U5 -- flake.lock | while read -l line
-    # Grab input name from context lines like:   "nixpkgs": {
-    if string match -rq '^\s*"([a-zA-Z0-9_-]+)":\s*\{' -- "$line"
-        set current_input (string match -r '^\s*"([a-zA-Z0-9_-]+)":\s*\{' -- "$line")[2]
-        set old_rev ""
-        set new_rev ""
-    end
+set -l change_count (count $diff_output)
 
-    # Old rev (removed line)
-    if string match -rq '^-.*"rev":\s*"([a-f0-9]+)"' -- "$line"
-        set old_rev (string sub -l 12 (string match -r '^-.*"rev":\s*"([a-f0-9]+)"' -- "$line")[2])
-    end
+# Stop spinner and clear the line
+touch $SPIN_STOP
+wait $SPIN_PID 2>/dev/null
+printf "\r\033[2K"
+rm -f $SPIN_STOP
 
-    # New rev (added line)
-    if string match -rq '^\+.*"rev":\s*"([a-f0-9]+)"' -- "$line"
-        set new_rev (string sub -l 12 (string match -r '^\+.*"rev":\s*"([a-f0-9]+)"' -- "$line")[2])
-    end
+# ── Display summary table ──────────────────────────────────────────
+printf "  %s%s  %-23s %-12s    %-12s%s\n" "$CYAN" "$BOLD" INPUT "OLD REV" "NEW REV" "$RESET"
+printf "  %s┌─────────────────────────┬──────────────┬──────────────┐%s\n" "$DIM" "$RESET"
 
-    # Print when we have a complete pair
-    if test -n "$current_input" -a -n "$old_rev" -a -n "$new_rev"
-        printf "  %s%-25s%s %s%-12s%s → %s%s%s\n" \
-            "$YELLOW" "$current_input" "$RESET" \
-            "$RED" "$old_rev" "$RESET" \
-            "$GREEN" "$new_rev" "$RESET"
-        set current_input ""
-        set old_rev ""
-        set new_rev ""
-    end
+for line in $diff_output
+    set -l parts (string split " " $line)
+    set -l input $parts[1]
+    set -l old_rev $parts[2]
+    set -l new_rev $parts[3]
+    printf "  %s│%s %s%-23s%s %s│%s %s%-12s%s %s│%s %s%-12s%s %s│%s\n" \
+        "$DIM" "$RESET" \
+        "$YELLOW$BOLD" "$input" "$RESET" \
+        "$DIM" "$RESET" \
+        "$RED" "$old_rev" "$RESET" \
+        "$DIM" "$RESET" \
+        "$GREEN" "$new_rev" "$RESET" \
+        "$DIM" "$RESET"
 end
 
+printf "  %s└─────────────────────────┴──────────────┴──────────────┘%s\n" "$DIM" "$RESET"
 echo
 
 # ── Deploy ──────────────────────────────────────────────────────────
-step "Deploying with nh $NH_CMD switch"
 if NIX_CONFIG="$NIX_CONFIG" nh $NH_CMD switch
+    echo
     ok "Deploy successful"
 else
+    echo
     err "Deploy failed"
     exit 1
 end
-
-ok "Done!"
