@@ -1,14 +1,16 @@
+#NOTE: looks interesting https://github.com/DeterminateSystems/ci
 name: "Nix Configuration Validation"
 on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - '.github/**'
-      - 'README.md'
   pull_request:
     branches:
       - "main"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   security-check:
@@ -16,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
       - name: GitGuardian scan
-        uses: GitGuardian/ggshield/actions/secret@v1.48.0
+        uses: GitGuardian/ggshield/actions/secret@ca3f7d65b17b7c3dcbec98b870299754adf7ff0e # v1.48.0
         env:
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
@@ -31,16 +33,80 @@ jobs:
   lint:
     name: Statix Lint
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/determinate-nix-action@v3.17.0
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          use-flakehub: false
+
+      - name: Re-authenticate with FlakeHub token
+        run: |
+          echo "${{ secrets.FLAKEHUB_TOKEN }}" | determinate-nixd auth login token --token-file /dev/stdin
+
+      - name: Install Just
+        uses: extractions/setup-just@v3
+        with:
+          just-version: "1.40.0"
+
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
-          nix run nixpkgs#statix -- check .
-          nix run nixpkgs#deadnix -- -eq .
+          if just lint; then
+            echo "success=true" >> $GITHUB_ENV
+          else
+            echo "Lint failed, listing flake.lock for debugging:"
+            cat flake.lock
+            echo "success=false" >> $GITHUB_ENV
+            exit 1
+          fi
 
+  build-linux-packages:
+    # FIX: workaround this: https://github.com/actions/runner-images/issues/13505
+    # by caching the linux package first and then hopefully macos uses the
+    # cached pkg and doesn't need to use nested virtualization
+    # name: Build Linux Packages
+    # needs: [security-check, lint]
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - os: ubuntu-latest
+    #         packages: &linux_packages ".#kubectl-debug"
+    #       - os: "ubuntu-24.04-arm"
+    #         packages:
+    #           - "claude-vm#packages.aarch64-linux.default"
+    #           - *linux_packages
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@v3.17.0
+        with: &nix-extra-conf
+          extra-conf: |
+            extra-experimental-features = nix-command flakes external-builders
+            substituters = https://cache.nixos.org https://ojsef39.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
+            trusted-substituters = https://cache.nixos.org https://ojsef39.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= ojsef39.cachix.org-1:Pe8zOhPVMt4fa/2HYlquHkTnGX3EH7lC9xMyCA2zM3Y= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+      - name: Setup Cachix Auth
+        uses: cachix/cachix-action@v16
+        with:
+          name: frostplexx
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Build packages
+        run: |
+          for pkg in ${{ join(matrix.packages, ' ') }}; do
+            nix build --inputs-from . $pkg
+          done
 
   detect-configs:
     name: Detect Configurations
@@ -106,20 +172,47 @@ jobs:
 
   test-configurations:
     name: Test Nix Configurations
-    needs: [security-check, lint, detect-configs]
+    needs: [security-check, lint, build-linux-packages]
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v21
-      - name: Enable Nix Flakes
+        uses: DeterminateSystems/determinate-nix-action@v3.17.0
+        with: *nix-extra-conf
+
+      # - name: Re-authenticate with FlakeHub token
+      #   run: |
+      #     echo "${{ secrets.FLAKEHUB_TOKEN }}" | determinate-nixd auth login token --token-file /dev/stdin
+
+      - name: Configure Determinate Linux Builder
+        if: matrix.os == 'macos-latest'
         run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-      - name: Build Configuration
+          sudo mkdir -p /etc/determinate
+          echo '{"builder":{"state":"enabled","cpuCount":2,"memoryBytes":4294967296}}' | sudo tee /etc/determinate/config.json
+          sudo launchctl kickstart -k system/systems.determinate.nix-daemon
+          sleep 2
+
+      - name: Install Just
+        uses: extractions/setup-just@v3
+
+      - name: Setup Cachix Auth
+        uses: cachix/cachix-action@v16
+        with:
+          name: frostplexx
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - uses: DeterminateSystems/flake-checker-action@main
+      - run: nix flake check
+
+      - name: Check Configuration
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
-          echo "Building configuration for ${{ matrix.name }} (${{ matrix.type }})"
-          nix build .#${{ matrix.config }} --accept-flake-config --impure --extra-experimental-features flakes --extra-experimental-features nix-command --dry-run
+          nix run nixpkgs#nh -- ${{ matrix.nix_cmd }} build --no-nom -H ${{ matrix.nix_host }} .
