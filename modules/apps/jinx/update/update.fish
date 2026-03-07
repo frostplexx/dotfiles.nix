@@ -102,8 +102,12 @@ end
 
 # ── Pull & analyze ──────────────────────────────────────────────────
 echo
-spin_start "Pulling latest changes..."
 cd "$DOTFILES"
+
+# Save pre-pull HEAD so we can diff against it (not just HEAD~1)
+set -l pre_pull_ref (git rev-parse HEAD)
+
+spin_start "Pulling latest changes..."
 if git pull --rebase --autostash &>/dev/null
     spin_stop "" "$GREEN" "Pulled with rebase"
 else if git pull --no-rebase --autostash &>/dev/null
@@ -112,10 +116,10 @@ else
     spin_stop "" "$YELLOW" "Pull failed — continuing with local state"
 end
 
-# Check diff
+# Check diff against pre-pull state
 spin_start "Checking for changes in flake.lock..."
 sleep 0.3
-if git diff HEAD~1 --quiet -- flake.lock 2>/dev/null
+if git diff $pre_pull_ref --quiet -- flake.lock 2>/dev/null
     spin_stop "" "$GREEN" "No changes in flake.lock — nothing to do"
     spin_done
     exit 0
@@ -126,7 +130,7 @@ spin_stop "" "$BLUE" "Changes detected in flake.lock"
 spin_start "Comparing flake inputs..."
 
 set -l diff_output (jq -n \
-    --slurpfile old (git show HEAD~1:flake.lock 2>/dev/null | psub) \
+    --slurpfile old (git show "$pre_pull_ref":flake.lock 2>/dev/null | psub) \
     --slurpfile new (cat flake.lock | psub) '
     ($old[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $old_revs |
     ($new[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $new_revs |
