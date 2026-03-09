@@ -335,7 +335,7 @@
       hexfiend
       iina
       imagemagick
-      whatsapp-for-mac
+      # whatsapp-for-mac
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # inputs.tidaLuna.packages.${system}.default
