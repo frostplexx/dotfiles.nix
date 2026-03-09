@@ -276,6 +276,16 @@
         upgrade = true;
         cleanup = "zap";
       };
+      masApps = {
+        "Xcode" = 497799835;
+        "Things" = 904280696;
+        "eduVPN" = 1317704208;
+        "Goodnotes" = 1444383602;
+        "System Color Picker" = 1545870783;
+        "Numbers" = 409203825;
+        "Keynote" = 409183694;
+      };
+
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = ["displayplacer"];
       casks = [
@@ -325,7 +335,9 @@
       hexfiend
       iina
       imagemagick
+      whatsapp-for-mac
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
+
       # inputs.tidaLuna.packages.${system}.default
       jq
       just

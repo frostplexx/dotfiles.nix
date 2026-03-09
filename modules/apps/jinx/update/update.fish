@@ -172,6 +172,11 @@ printf "  %s└─────────────────────�
 echo
 
 # ── Deploy ──────────────────────────────────────────────────────────
+
+# Set the environment NH_FLAKE to dotfiles path so nh can find the flake if it doesnt exist
+set -gx NH_FLAKE "$DOTFILES"
+
+
 if NIX_CONFIG="$NIX_CONFIG" nh $NH_CMD switch
     echo
     ok "Deploy successful"

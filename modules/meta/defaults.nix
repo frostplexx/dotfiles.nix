@@ -22,7 +22,7 @@
     };
 
     paths = {
-      flake = "dotfiles.nix";
+      flake = "~/dotfiles.nix";
     };
   };
 }

@@ -1,10 +1,20 @@
 _: {
-  flake.modules.homeManager.shell = {pkgs, ...}: {
+  flake.modules.homeManager.shell = {
+    pkgs,
+    defaults,
+    ...
+  }: {
     home.file = {
       ".hushlogin".text = "";
     };
 
     programs = {
+      nixupdater = {
+        enable = true;
+        flake = "${defaults.paths.flake}";
+        command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
+      };
+
       # Starship prompt
       starship = {
         enable = true;

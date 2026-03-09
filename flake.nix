@@ -34,7 +34,10 @@
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-    nixkit.url = "github:frostplexx/nixkit";
+    nixkit = {
+      # url = "github:frostplexx/nixkit";
+      url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixkit";
+    };
 
     lazykeys.url = "github:frostplexx/lazykeys";
 
