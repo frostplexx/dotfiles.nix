@@ -501,17 +501,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1773045197,
-        "narHash": "sha256-LT0V/f/Wjr9f5wAs++Mtt2K/NzfuWAg6yDhITayoHlY=",
-        "ref": "refs/heads/main",
-        "rev": "07fb8f277e547949fa13ce909373ef7a819ba9d7",
-        "revCount": 97,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/nixkit"
+        "lastModified": 1773051154,
+        "narHash": "sha256-Vt6D5hGkJyKd7G6oQGPJS94056JU94p53njnNCI/BNk=",
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "rev": "d5e1eaae057cee610e39e5d02668d9f5f8e20439",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/nixkit"
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "type": "github"
       }
     },
     "nixpkgs": {
