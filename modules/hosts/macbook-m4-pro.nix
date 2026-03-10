@@ -299,7 +299,7 @@
         "1password"
         "mullvad-vpn"
         "sf-symbols"
-        "tidal"
+        # "tidal"
       ];
     };
 
