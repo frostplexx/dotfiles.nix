@@ -665,6 +665,22 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
+    "nixpkgs_7": {
+      "locked": {
+        "lastModified": 1768875095,
+        "narHash": "sha256-dYP3DjiL7oIiiq3H65tGIXXIT1Waiadmv93JS0sS+8A=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ed142ab1b3a092c4d149245d0c4126a5d7ea00b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -709,6 +725,7 @@
         "nvf": "nvf",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
+        "tidaLuna": "tidaLuna",
         "zen-browser": "zen-browser"
       }
     },
@@ -814,6 +831,24 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tidaLuna": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1773139928,
+        "narHash": "sha256-N6B+pB2VDkHbFn9xCmR0MnTbG/jWQyNj0Ad49JbP2lQ=",
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
+        "rev": "e5ee58c6a79e54aa914d95e774e551ee295f2cc4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
         "type": "github"
       }
     },
