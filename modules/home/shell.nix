@@ -9,6 +9,8 @@ _: {
     };
 
     programs = {
+      nix-index-database.comma.enable = true;
+
       nixupdater = {
         enable = true;
         flake = "${defaults.paths.flake}";
@@ -61,7 +63,6 @@ _: {
           j = "jinx";
           chex = "chmod +x";
           nixs = "nix shell nixpkgs#";
-          nixr = "nix run nixpkgs#";
           ghi = "gh issue";
           ghp = "gh pr";
           ghb = "gh browse";

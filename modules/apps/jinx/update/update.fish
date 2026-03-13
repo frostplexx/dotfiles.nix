@@ -1,15 +1,15 @@
 #!/usr/bin/env fish
 
 # ── Colors ──────────────────────────────────────────────────────────
-set -g RED    (set_color red)
-set -g GREEN  (set_color green)
+set -g RED (set_color red)
+set -g GREEN (set_color green)
 set -g YELLOW (set_color yellow)
-set -g BLUE   (set_color blue)
+set -g BLUE (set_color blue)
 set -g MAGENTA (set_color magenta)
-set -g CYAN   (set_color cyan)
-set -g BOLD   (set_color --bold)
-set -g DIM    (set_color --dim)
-set -g RESET  (set_color normal)
+set -g CYAN (set_color cyan)
+set -g BOLD (set_color --bold)
+set -g DIM (set_color --dim)
+set -g RESET (set_color normal)
 
 # ── Helpers ─────────────────────────────────────────────────────────
 function ok
@@ -77,9 +77,9 @@ end
 # ── Parse args ──────────────────────────────────────────────────────
 set -l DOTFILES ""
 set -l NIX_CONFIG ""
-set -l NH_CMD "os"
+set -l NH_CMD os
 
-argparse 'd/dotfiles=' 'c/nix-config=' 'n/nh-cmd=' 'h/help' -- $argv
+argparse 'd/dotfiles=' 'c/nix-config=' 'n/nh-cmd=' h/help -- $argv
 or begin
     err "Invalid arguments"
     usage
@@ -175,7 +175,6 @@ echo
 
 # Set the environment NH_FLAKE to dotfiles path so nh can find the flake if it doesnt exist
 set -gx NH_FLAKE "$DOTFILES"
-
 
 if NIX_CONFIG="$NIX_CONFIG" nh $NH_CMD switch
     echo

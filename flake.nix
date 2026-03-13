@@ -32,8 +32,6 @@
 
     nixcord.url = "github:kaylorben/nixcord";
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-
     nixkit = {
       url = "github:frostplexx/nixkit";
       # url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixkit";
@@ -47,6 +45,11 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
