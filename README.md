@@ -1,5 +1,7 @@
 <p align="center">
-    <img src="https://nixos.wiki/images/thumb/2/20/Home-nixos-logo.png/414px-Home-nixos-logo.png" width=200/>
+    <a href="http://www.hexley.com/license.html">
+    <img src="https://github.com/user-attachments/assets/3db65c06-1c36-4ddd-bcb9-66beaae39d5d" width=225/>
+    </a>
     <h1 align="center"><code>Nix Dotfiles</code></h1>
     <div style="display: grid;" align="center">
     <img src="https://github.com/frostplexx/dotfiles.nix/actions/workflows/validate.yml/badge.svg" height=20/>
@@ -176,3 +178,8 @@ Other dotfiles and flakes:
 - https://github.com/mitchellh/nixos-config
 - https://github.com/dustinlyons/nixos-config
 - https://github.com/wimpysworld/nix-config
+
+---
+
+“NixOS Logo” by Simon Frankau, Tim Cuthbertson, and Daniel Baker (maintained by the NixOS Marketing Team), from nixos/branding, licensed under CC BY 4.0. <br>
+Hexley DarwinOS Mascot Copyright 2000 by Jon Hooper All Rights Reserved.
