@@ -2,6 +2,14 @@ _: {
   flake.modules.homeManager.opencode = _: {
     programs.opencode = {
       enable = true;
+      skills = let
+        impeccable = builtins.fetchTarball {
+          url = "https://github.com/pbakaus/impeccable/archive/15332dd293986e0a310fa54c103025d21142c3dd.tar.gz";
+          sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
+        };
+        skillsDir = impeccable + "/source/skills";
+      in
+        builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir);
       settings = {
         theme = "catppuccin";
         autoshare = false;
