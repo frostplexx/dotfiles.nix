@@ -20,9 +20,6 @@ _: {
       enable = true;
       enableManpages = true;
       settings = {
-        # Inject the latex language module into the nvf submodule
-        imports = [./neovim/_latex.nix];
-
         vim = {
           viAlias = true;
           vimAlias = true;
@@ -56,6 +53,19 @@ _: {
             };
 
             servers = {
+              sourcekit-lsp = {
+                cmd = [
+                  (lib.getExe pkgs.sourcekit-lsp)
+                ];
+                filetypes = ["swift"];
+                root_markers = [
+                  ".git"
+                  "src"
+                  "Sources"
+                  "sources"
+                ];
+              };
+
               fish-lsp = {
                 cmd = [
                   (lib.getExe pkgs.fish-lsp)
