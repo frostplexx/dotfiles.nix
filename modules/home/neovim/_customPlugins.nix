@@ -8,7 +8,7 @@
     enable = false;
     plugins = {
       "fff.nvim" = {
-        package = inputs.fff-nvim.packages.${pkgs.system}.fff-nvim;
+        package = inputs.fff-nvim.packages.${pkgs.stdenv.hostPlatform.system}.fff-nvim;
         lazy = false;
         setupModule = "fff";
         setupOpts = {

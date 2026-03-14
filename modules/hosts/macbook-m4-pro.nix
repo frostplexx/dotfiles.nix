@@ -116,13 +116,11 @@
             gNorm = g / 255.0;
             bNorm = b / 255.0;
           in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
-          highlightColor = "#cba6f7";
+          highlightColor = "#${defaults.settings.accent_color}";
           appleHighlightColor = hexToAppleRGBA highlightColor;
         in {
           enable = true;
           text = ''
-            echo "Running activate settings..."
-
             sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
             sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
             sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
@@ -138,6 +136,8 @@
             sudo -u ${user} defaults -currentHost write com.apple.screensaver 'CleanExit' -string "YES"
             sudo -u ${user} defaults -currentHost write com.apple.screensaver 'PrefsVersion' -int "100"
             sudo -u ${user} defaults -currentHost write com.apple.screensaver 'idleTime' -int '180'
+
+            sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
 
             killall Finder;
             killall Dock;
@@ -357,7 +357,6 @@
       obsidian
       pandoc
       ripgrep
-      skimpdf
       sops
       sshpass
       statix

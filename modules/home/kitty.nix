@@ -2,23 +2,21 @@ _: {
   flake.modules.homeManager.kitty = {
     pkgs,
     config,
+    defaults,
     ...
-  }: let
-    accent_color = "cba6f7";
-    transparent_terminal = false;
-  in {
+  }: {
     programs.kitty = {
       enable = true;
 
       settings = {
-        url_color = "#${accent_color}";
+        url_color = "#${defaults.settings.accent_color}";
         term = "xterm-256color";
         editor = "nvim";
         shell_integration = "enabled";
         window_padding_width = "2 2";
         draw_minimal_borders = "yes";
         background_opacity =
-          if transparent_terminal
+          if defaults.settings.transparent_terminal
           then "0.9"
           else "1.0";
         background_blur = "25";
@@ -47,7 +45,7 @@ _: {
         tab_title_template = "{index} {tab.active_exe.split('/')[-1] if tab.active_exe not in ('-fish', 'kitten') else ''} {title.split('/')[-1] if '/' in title else title}{tab.last_focused_progress_percent}";
         active_tab_font_style = "bold";
         inactive_tab_font_style = "normal";
-        active_tab_background = "#${accent_color}";
+        active_tab_background = "#${defaults.settings.accent_color}";
         allow_remote_control = "yes";
         listen_on = "unix:/tmp/mykitty";
         font_family = "Maple Mono";

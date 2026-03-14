@@ -15,6 +15,16 @@
       locale = "en_US.UTF-8";
     };
 
+    settings = {
+      wallpaper = builtins.fetchurl {
+        url = "https://media.githubusercontent.com/media/frostplexx/dotfiles-assets.nix/refs/heads/main/wallpapers/wallpaper.jpg";
+        sha256 = "09q9w5x6i625wavj39g25lrnap4ak7m1mp15yyjdrbj2n1pzsi3f";
+      };
+
+      accent_color = "cba6f7";
+      transparent_terminal = false;
+    };
+
     personalInfo = {
       name = "Daniel";
       email = "62436912+frostplexx@users.noreply.github.com";

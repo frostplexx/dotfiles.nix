@@ -1,7 +1,5 @@
-_: let
-  accent_color = "cba6f7";
-in {
-  flake.modules.darwin.yabai = _: {
+_: {
+  flake.modules.darwin.yabai = {defaults, ...}: {
     programs.yabaiIndicator.enable = true;
 
     services = {
@@ -10,7 +8,7 @@ in {
         style = "round";
         width = 5.0;
         hidpi = false;
-        active_color = "0xff${accent_color}";
+        active_color = "0xff${defaults.settings.accent_color}";
         inactive_color = "0xff7f849c";
       };
 

@@ -2,21 +2,21 @@ _: {
   flake.modules.homeManager.nixcord = {
     pkgs,
     config,
+    defaults,
     ...
   }: let
-    user = "daniel";
     useVesktop = true;
     themeFile = "catppuccin-mocha.theme.css";
     themeUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
 
     vekstopPath =
       if pkgs.stdenv.isDarwin
-      then "/Users/${user}/Library/Application Support/vesktop/themes/${themeFile}"
+      then "/Users/${defaults.user}/Library/Application Support/vesktop/themes/${themeFile}"
       else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 
     discordPath =
       if pkgs.stdenv.isDarwin
-      then "/Users/${user}/Library/Application Support/Vencord/themes/${themeFile}"
+      then "/Users/${defaults.user}/Library/Application Support/Vencord/themes/${themeFile}"
       else "${config.xdg.configHome}/Vencord/themes/${themeFile}";
 
     themePath =

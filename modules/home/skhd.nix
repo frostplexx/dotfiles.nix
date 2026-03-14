@@ -2,10 +2,9 @@ _: {
   flake.modules.homeManager.skhd = {
     pkgs,
     lib,
+    defaults,
     ...
-  }: let
-    accent_color = "cba6f7";
-  in {
+  }: {
     services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
       config = ''
@@ -13,7 +12,7 @@ _: {
          # Modes
         :: launch @
         :: tiling @ : borders active_color=0xff8aadf4
-        :: default : borders active_color=0xff${accent_color}
+        :: default : borders active_color=0xff${defaults.settings.accent_color}
         :: resize : borders active_color=0xffed8796
         :: music : borders active_color=0xffa6e3a1
 

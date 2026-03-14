@@ -1,21 +1,13 @@
 _: {
-  flake.modules.homeManager.fastfetch = {
-    pkgs,
-    assets,
-    ...
-  }: {
+  flake.modules.homeManager.fastfetch = {pkgs, ...}: {
     programs.fastfetch = {
       enable = true;
       settings = {
         logo = {
-          source =
-            if pkgs.stdenv.isDarwin
-            then
-              pkgs.fetchurl {
-                url = "https://daiderd.com/nix-darwin/images/nix-darwin.png";
-                hash = "sha256-CeA0LbC3q6HMZuqJ9MHncI5z8GZ/EMAn7ULjiIX0wH4=";
-              }
-            else "${assets}/logos/nixos-logo.png";
+          source = pkgs.fetchurl {
+            url = "https://daiderd.com/nix-darwin/images/nix-darwin.png";
+            hash = "sha256-CeA0LbC3q6HMZuqJ9MHncI5z8GZ/EMAn7ULjiIX0wH4=";
+          };
           type = "kitty-direct";
           width = 33;
           height = 14;
