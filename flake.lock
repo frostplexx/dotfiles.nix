@@ -749,7 +749,7 @@
         "nixpkgs": "nixpkgs_5",
         "nvf": "nvf",
         "sops-nix": "sops-nix",
-        "tidaLuna": "tidaLuna",
+        "tidaluna": "tidaluna",
         "zen-browser": "zen-browser"
       }
     },
@@ -824,22 +824,22 @@
         "type": "github"
       }
     },
-    "tidaLuna": {
+    "tidaluna": {
       "inputs": {
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1773139928,
-        "narHash": "sha256-N6B+pB2VDkHbFn9xCmR0MnTbG/jWQyNj0Ad49JbP2lQ=",
-        "owner": "Inrixia",
-        "repo": "TidaLuna",
-        "rev": "e5ee58c6a79e54aa914d95e774e551ee295f2cc4",
-        "type": "github"
+        "lastModified": 1773569952,
+        "narHash": "sha256-4/7PRJBJuIjmvxrF09CVqip99zlroVAs6b77K8AL0+Q=",
+        "ref": "refs/heads/flake",
+        "rev": "649a7e6d80a987aa32b313030581958c3d9fa9f4",
+        "revCount": 598,
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
       },
       "original": {
-        "owner": "Inrixia",
-        "repo": "TidaLuna",
-        "type": "github"
+        "type": "git",
+        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
       }
     },
     "zen-browser": {

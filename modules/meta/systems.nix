@@ -66,6 +66,7 @@ in {
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
                   inputs.zen-browser.homeModules.beta
+                  inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.nix-index-database.homeModules.default
                   {
