@@ -108,9 +108,9 @@ cd "$DOTFILES"
 set -l pre_pull_ref (git rev-parse HEAD)
 
 spin_start "Pulling latest changes..."
-if git pull --rebase --autostash &>/dev/null
+if git pull --rebase --autostash --ff-only &>/dev/null
     spin_stop "" "$GREEN" "Pulled with rebase"
-else if git pull --no-rebase --autostash &>/dev/null
+else if git pull --no-rebase --autostash --ff-only &>/dev/null
     spin_stop "" "$YELLOW" "Pulled with merge (rebase failed)"
 else
     spin_stop "" "$YELLOW" "Pull failed — continuing with local state"
