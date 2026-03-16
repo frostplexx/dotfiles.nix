@@ -20,17 +20,11 @@ end
 
 
 function project_selector
-    set selected (ghq list | fzf --height 40% --border \
-        --preview 'eza -la --git --color=always ~/Developer/{}' \
-        --preview-window right:50% \
-        --color=16 \
-        --prompt="Project: " \
-        --header="Select a project to open")
+    set selected (repodex jump)
 
     if test -n "$selected"
-        set project_path ~/Developer/$selected
         # Create new Kitty tab and activate direnv before starting neovim
-        cd $project_path
+        cd $selected
         direnv allow
     end
 end

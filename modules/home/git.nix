@@ -46,7 +46,6 @@ _: {
           };
           merge.tool = "nvim";
           mergetool.nvim.cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
-          ghq.root = "~/Developer";
           alias = {
             br = "branch";
             co = "checkout";

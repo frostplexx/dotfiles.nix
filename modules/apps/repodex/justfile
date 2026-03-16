@@ -1,0 +1,46 @@
+#!/usr/bin/env just --justfile
+
+ROOT := "~/Developer"
+
+# Set default recipe
+[private]
+default:
+    @just --list --list-prefix "   " --list-heading $'\033[2mAvailable Commands:\033[0m\n\n'
+
+
+[group("repo management")]
+[doc(" Clone a repo")]
+clone repo:
+    @fish clone.fish {{repo}} {{ROOT}}
+
+[group("repo management")]
+[doc("Delete a repo")]
+delete:
+    @fish delete.fish {{ROOT}}
+
+[group("repo management")]
+[doc(" Fuzzy-find and jump to a repo")]
+jump:
+    @fish jump.fish {{ROOT}}
+
+[group("repo management")]
+[doc(" Open a repo in the browser")]
+open:
+    @fish open.fish {{ROOT}}
+
+
+[group("repo info")]
+[doc(" Show dirty/unpushed status across all repos")]
+status:
+    @fish status.fish {{ROOT}}
+
+[group("repo info")]
+[doc(" Fetch all repos")]
+fetch-all:
+    @fish fetch_all.fish {{ROOT}}
+
+
+[group("system")]
+[doc(" Check all required dependencies are installed")]
+doctor:
+    @fish doctor.fish

@@ -330,7 +330,6 @@
       ffmpeg
       gcc
       gh
-      ghq
       gnumake
       gnupg
       hexfiend
