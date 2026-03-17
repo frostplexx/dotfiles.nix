@@ -5,11 +5,37 @@
   ...
 }: {
   lazy = {
-    enable = false;
+    enable = true;
     plugins = {
+      "CopilotChat.nvim" = {
+        package = pkgs.vimPlugins.CopilotChat-nvim;
+        lazy = true;
+        setupModule = "CopilotChat";
+        event = [
+          {
+            event = "User";
+            pattern = "LazyFile";
+          }
+        ];
+        keys = [
+          {
+            key = "<leader>aa";
+            mode = "n";
+            lua = false;
+            action = ":CopilotChatToggle<cr>";
+          }
+          {
+            key = "<leader>am";
+            mode = "n";
+            lua = false;
+            action = ":CopilotChatModels<cr>";
+          }
+        ];
+      };
+
       "fff.nvim" = {
         package = inputs.fff-nvim.packages.${pkgs.stdenv.hostPlatform.system}.fff-nvim;
-        lazy = false;
+        lazy = true;
         setupModule = "fff";
         setupOpts = {
           prompt = "> ";
@@ -49,7 +75,12 @@
       "cord.nvim" = {
         package = pkgs.vimPlugins.cord-nvim;
         lazy = true;
-        event = ["LazyFile"];
+        event = [
+          {
+            event = "User";
+            pattern = "LazyFile";
+          }
+        ];
         setupModule = "cord";
         setupOpts = {
           editor = {
