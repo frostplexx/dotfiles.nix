@@ -1,14 +1,14 @@
 _: {
-  # Jinx module for Darwin
-  flake.modules.darwin.repodex = {pkgs, ...}: let
-    repodex = pkgs.writeShellApplication {
-      name = "repodex";
-      runtimeInputs = [pkgs.just];
-      text = ''
-        exec just --justfile "$HOME/dotfiles.nix/modules/apps/repodex/justfile" "$@"
-      '';
+    # Jinx module for Darwin
+    flake.modules.darwin.repodex = {pkgs, ...}: let
+        repodex = pkgs.writeShellApplication {
+            name = "repodex";
+            runtimeInputs = [pkgs.just];
+            text = ''
+                exec just --justfile "$HOME/dotfiles.nix/modules/apps/repodex/justfile" "$@"
+            '';
+        };
+    in {
+        environment.systemPackages = [repodex];
     };
-  in {
-    environment.systemPackages = [repodex];
-  };
 }
