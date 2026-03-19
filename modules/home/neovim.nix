@@ -3,6 +3,7 @@ _: {
     pkgs,
     lib,
     inputs,
+    defaults,
     ...
   }: let
     # Helper files prefixed with _ to prevent import-tree from importing them as modules
@@ -33,6 +34,11 @@ _: {
           terminal.toggleterm = {
             setupOpts = {
               direction = "float";
+              highlights.FloatBorder.guifg = "#${defaults.settings.accent_color}";
+              float_opts = {
+                border = "rounded";
+              };
+              enable_winbar = true;
             };
             mappings.open = "<leader>tt";
             enable = true;
