@@ -139,6 +139,19 @@
 
             sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
 
+
+            # ApplePressAndHold: delete global key so per-app overrides take effect.
+            # If the global key exists (even as true), it shadows all per-app values.
+            sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
+
+            # Apps that should use key repeat instead of the accent popup:
+            sudo -u ${user} defaults write com.jetbrains.intellij    ApplePressAndHoldEnabled -bool false
+            sudo -u ${user} defaults write com.jetbrains.intellij.ce  ApplePressAndHoldEnabled -bool false
+            sudo -u ${user} defaults write com.microsoft.VSCode       ApplePressAndHoldEnabled -bool false
+            sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
+            sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
+
+
             killall Finder;
             killall Dock;
           '';
@@ -166,7 +179,6 @@
           KeyRepeat = 2;
           InitialKeyRepeat = 12;
           AppleKeyboardUIMode = 3;
-          ApplePressAndHoldEnabled = true;
           AppleShowAllExtensions = true;
           _HIHideMenuBar = false;
           AppleICUForce24HourTime = true;
