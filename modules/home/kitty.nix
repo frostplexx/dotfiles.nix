@@ -25,7 +25,7 @@ _: {
         initial_window_height = 800;
         confirm_os_window_close = "1";
         hide_window_decorations = "titlebar-only";
-        enabled_layouts = "splits:split_axis=horizontal";
+        enabled_layouts = "splits:split_axis=horizontal,stack";
         macos_option_as_alt = "both";
         wayland_titlebar_color = "background";
         cursor_shape = "block";
@@ -55,7 +55,14 @@ _: {
           then "12"
           else "9";
         modify_font = "cell_height 100%";
-        scrollback_pager = "nvim -u NONE -R -M -c 'lua require(\"core.kitty_scrollback\")(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)' -";
+        scrollback_pager = ''
+          vim -u NONE -
+            \ -c 'w! /tmp/kitty_scrollback'
+            \ -c "set clipboard=unnamed"
+            \ -c "hi Normal ctermbg=235"
+            \ -c "nnoremap Y y$"
+            \ -c "tnoremap i ZQ"
+        '';
       };
 
       quickAccessTerminalConfig = {
@@ -79,6 +86,7 @@ _: {
         "ctrl+alt+j" = "scroll_line_down";
         "ctrl+alt+u" = "scroll_page_up";
         "ctrl+alt+d" = "scroll_page_down";
+        "ctrl+shift+z" = "combine : toggle_layout stack : scroll_prompt_to_bottom";
         "ctrl+shift+h" = "move_window left";
         "ctrl+shift+j" = "move_window down";
         "ctrl+shift+k" = "move_window up";
@@ -93,6 +101,7 @@ _: {
         "alt+l" = "kitten relative_resize.py right 3";
         "ctrl+shift+x" = "show_scrollback";
         "shift+enter" = "send_text normal,application \\n";
+        "cmd+p" = "kitten repodex.py";
       };
 
       extraConfig = ''
@@ -115,6 +124,48 @@ _: {
         url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
         hash = "sha256-cWrJfNVCuuT/NbU8qYCq5PAB4MS8WcT74AMBm+IO+c0=";
       };
+      "kitty/repodex.py".text = ''
+        import subprocess
+        import sys
+        import os
+        import shutil
+
+
+        def main(args: list[str]) -> str:
+            # Extend PATH with common locations that shells like fish/nix add
+            extra_paths = [
+                os.path.expanduser("~/.nix-profile/bin"),
+                os.path.expanduser("~/.local/bin"),
+                "/run/current-system/sw/bin",
+                "/etc/profiles/per-user/" + os.environ.get("USER", "") + "/bin",
+                "/nix/var/nix/profiles/default/bin",
+                os.path.expanduser("~/.cargo/bin"),
+            ]
+            env = os.environ.copy()
+            env["PATH"] = os.pathsep.join(extra_paths) + os.pathsep + env.get("PATH", "")
+
+            result = subprocess.run(
+                ["repodex", "jump"],
+                stdin=sys.stdin,
+                stderr=sys.stderr,
+                stdout=subprocess.PIPE,
+                text=True,
+                cwd=os.getcwd(),
+                env=env,
+            )
+            return result.stdout.strip() if result.returncode == 0 else ""
+
+
+        from kittens.tui.handler import result_handler
+
+
+        @result_handler(no_ui=False)
+        def handle_result(args: list[str], answer: str, target_window_id: int, boss) -> None:
+            if answer:
+                window = boss.window_id_map.get(target_window_id)
+                if window:
+                    boss.call_remote_control(window, ("send-text", f"cd {answer}\r"))
+      '';
     };
   };
 }
