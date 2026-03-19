@@ -1,3 +1,10 @@
 {
-  "todos": {}
+  "todos": {
+    "modules/hosts/macbook-m4-pro.nix:285:TODO: use new versions": {
+      "issueNumber": 841,
+      "file": "modules/hosts/macbook-m4-pro.nix",
+      "line": 285,
+      "text": "TODO: use new versions"
+    }
+  }
 }
