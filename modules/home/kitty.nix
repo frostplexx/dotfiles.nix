@@ -1,170 +1,170 @@
 _: {
-    flake.modules.homeManager.kitty = {
-        pkgs,
-        config,
-        defaults,
-        ...
-    }: {
-        programs.kitty = {
-            enable = true;
+  flake.modules.homeManager.kitty = {
+    pkgs,
+    config,
+    defaults,
+    ...
+  }: {
+    programs.kitty = {
+      enable = true;
 
-            settings = {
-                url_color = "#${defaults.settings.accent_color}";
-                term = "xterm-256color";
-                editor = "nvim";
-                shell_integration = "enabled";
-                window_padding_width = "2 2";
-                draw_minimal_borders = "yes";
-                background_opacity =
-                    if defaults.settings.transparent_terminal
-                    then "0.9"
-                    else "1.0";
-                background_blur = "25";
-                remember_window_size = "yes";
-                pixel_scroll = "yes";
-                initial_window_width = 1280;
-                initial_window_height = 800;
-                confirm_os_window_close = "1";
-                hide_window_decorations = "titlebar-only";
-                enabled_layouts = "splits:split_axis=horizontal,stack";
-                macos_option_as_alt = "both";
-                wayland_titlebar_color = "background";
-                cursor_shape = "block";
-                cursor_blink_interval = "-1";
-                cursor_stop_blinking_after = "30.0";
-                scrollback_lines = "10000";
-                scrollback_indicator_opacity = "0.5";
-                copy_on_select = "clipboard";
-                strip_trailing_spaces = "smart";
-                undercurl_style = "thin-dense";
-                url_style = "curly";
-                show_hyperlink_targets = "yes";
-                mouse_hide_wait = "1.0";
-                tab_bar_edge = "top";
-                tab_bar_style = "powerline";
-                tab_powerline_style = "slanted";
-                tab_title_template = "{index} {tab.active_exe.split('/')[-1] if tab.active_exe not in ('-fish', 'kitten') else ''} {title.split('/')[-1] if '/' in title else title}{tab.last_focused_progress_percent}";
-                active_tab_font_style = "bold";
-                inactive_tab_font_style = "normal";
-                active_tab_background = "#${defaults.settings.accent_color}";
-                allow_remote_control = "yes";
-                listen_on = "unix:/tmp/mykitty";
-                font_family = "Maple Mono";
-                disable_ligatures = "cursor";
-                font_size =
-                    if pkgs.stdenv.isDarwin
-                    then "12"
-                    else "9";
-                modify_font = "cell_height 100%";
-                scrollback_pager = "less -r";
-            };
+      settings = {
+        url_color = "#${defaults.settings.accent_color}";
+        term = "xterm-256color";
+        editor = "nvim";
+        shell_integration = "enabled";
+        window_padding_width = "2 2";
+        draw_minimal_borders = "yes";
+        background_opacity =
+          if defaults.settings.transparent_terminal
+          then "0.9"
+          else "1.0";
+        background_blur = "25";
+        remember_window_size = "yes";
+        pixel_scroll = "yes";
+        initial_window_width = 1280;
+        initial_window_height = 800;
+        confirm_os_window_close = "1";
+        hide_window_decorations = "titlebar-only";
+        enabled_layouts = "splits:split_axis=horizontal,stack";
+        macos_option_as_alt = "both";
+        wayland_titlebar_color = "background";
+        cursor_shape = "block";
+        cursor_blink_interval = "-1";
+        cursor_stop_blinking_after = "30.0";
+        scrollback_lines = "10000";
+        scrollback_indicator_opacity = "0.5";
+        copy_on_select = "clipboard";
+        strip_trailing_spaces = "smart";
+        undercurl_style = "thin-dense";
+        url_style = "curly";
+        show_hyperlink_targets = "yes";
+        mouse_hide_wait = "1.0";
+        tab_bar_edge = "top";
+        tab_bar_style = "powerline";
+        tab_powerline_style = "slanted";
+        tab_title_template = "{index} {tab.active_exe.split('/')[-1] if tab.active_exe not in ('-fish', 'kitten') else ''} {title.split('/')[-1] if '/' in title else title}{tab.last_focused_progress_percent}";
+        active_tab_font_style = "bold";
+        inactive_tab_font_style = "normal";
+        active_tab_background = "#${defaults.settings.accent_color}";
+        allow_remote_control = "yes";
+        listen_on = "unix:/tmp/mykitty";
+        font_family = "Maple Mono";
+        disable_ligatures = "cursor";
+        font_size =
+          if pkgs.stdenv.isDarwin
+          then "12"
+          else "9";
+        modify_font = "cell_height 100%";
+        scrollback_pager = "less -r";
+      };
 
-            quickAccessTerminalConfig = {
-                start_as_hidden = true;
-                hide_on_focus_loss = false;
-                background_opacity = 0.85;
-            };
+      quickAccessTerminalConfig = {
+        start_as_hidden = true;
+        hide_on_focus_loss = false;
+        background_opacity = 0.85;
+      };
 
-            shellIntegration = {
-                mode = "no-cursor";
-                enableFishIntegration = true;
-            };
+      shellIntegration = {
+        mode = "no-cursor";
+        enableFishIntegration = true;
+      };
 
-            enableGitIntegration = true;
+      enableGitIntegration = true;
 
-            keybindings = {
-                "ctrl+shift+-" = "launch --location=hsplit --cwd=current";
-                "ctrl+shift+=" = "launch --location=vsplit --cwd=current";
-                "f4" = "launch --location=split";
-                "ctrl+alt+k" = "scroll_line_up";
-                "ctrl+alt+j" = "scroll_line_down";
-                "ctrl+alt+u" = "scroll_page_up";
-                "ctrl+alt+d" = "scroll_page_down";
-                "ctrl+shift+z" = "combine : toggle_layout stack : scroll_prompt_to_bottom";
-                "ctrl+shift+h" = "move_window left";
-                "ctrl+shift+j" = "move_window down";
-                "ctrl+shift+k" = "move_window up";
-                "ctrl+shift+l" = "move_window right";
-                "ctrl+j" = "neighboring_window down";
-                "ctrl+k" = "neighboring_window up";
-                "ctrl+h" = "neighboring_window left";
-                "ctrl+l" = "neighboring_window right";
-                "alt+j" = "kitten relative_resize.py down  3";
-                "alt+k" = "kitten relative_resize.py up    3";
-                "alt+h" = "kitten relative_resize.py left  3";
-                "alt+l" = "kitten relative_resize.py right 3";
-                "ctrl+shift+x" = "show_scrollback";
-                "shift+enter" = "send_text normal,application \\n";
-                "cmd+p" = "kitten repodex.py";
-            };
+      keybindings = {
+        "ctrl+shift+-" = "launch --location=hsplit --cwd=current";
+        "ctrl+shift+=" = "launch --location=vsplit --cwd=current";
+        "f4" = "launch --location=split";
+        "ctrl+alt+k" = "scroll_line_up";
+        "ctrl+alt+j" = "scroll_line_down";
+        "ctrl+alt+u" = "scroll_page_up";
+        "ctrl+alt+d" = "scroll_page_down";
+        "ctrl+shift+z" = "combine : toggle_layout stack : scroll_prompt_to_bottom";
+        "ctrl+shift+h" = "move_window left";
+        "ctrl+shift+j" = "move_window down";
+        "ctrl+shift+k" = "move_window up";
+        "ctrl+shift+l" = "move_window right";
+        "ctrl+j" = "neighboring_window down";
+        "ctrl+k" = "neighboring_window up";
+        "ctrl+h" = "neighboring_window left";
+        "ctrl+l" = "neighboring_window right";
+        "alt+j" = "kitten relative_resize.py down  3";
+        "alt+k" = "kitten relative_resize.py up    3";
+        "alt+h" = "kitten relative_resize.py left  3";
+        "alt+l" = "kitten relative_resize.py right 3";
+        "ctrl+shift+x" = "show_scrollback";
+        "shift+enter" = "send_text normal,application \\n";
+        "cmd+p" = "kitten repodex.py";
+      };
 
-            extraConfig = ''
-                include ${config.xdg.configHome}/kitty/themes/mocha.conf
+      extraConfig = ''
+        include ${config.xdg.configHome}/kitty/themes/mocha.conf
 
-                map --when-focus-on var:IS_NVIM ctrl+j
-                map --when-focus-on var:IS_NVIM ctrl+k
-                map --when-focus-on var:IS_NVIM ctrl+h
-                map --when-focus-on var:IS_NVIM ctrl+l
+        map --when-focus-on var:IS_NVIM ctrl+j
+        map --when-focus-on var:IS_NVIM ctrl+k
+        map --when-focus-on var:IS_NVIM ctrl+h
+        map --when-focus-on var:IS_NVIM ctrl+l
 
-                map --when-focus-on var:IS_NVIM alt+j
-                map --when-focus-on var:IS_NVIM alt+k
-                map --when-focus-on var:IS_NVIM alt+h
-                map --when-focus-on var:IS_NVIM alt+l
-            '';
-        };
+        map --when-focus-on var:IS_NVIM alt+j
+        map --when-focus-on var:IS_NVIM alt+k
+        map --when-focus-on var:IS_NVIM alt+h
+        map --when-focus-on var:IS_NVIM alt+l
+      '';
+    };
 
-        xdg.configFile = {
-            "kitty/themes/mocha.conf".source = pkgs.fetchurl {
-                url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
-                hash = "sha256-cWrJfNVCuuT/NbU8qYCq5PAB4MS8WcT74AMBm+IO+c0=";
-            };
+    xdg.configFile = {
+      "kitty/themes/mocha.conf".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
+        hash = "sha256-cWrJfNVCuuT/NbU8qYCq5PAB4MS8WcT74AMBm+IO+c0=";
+      };
 
-            "kitty/repodex.py".text =
-                /*
+      "kitty/repodex.py".text =
+        /*
         python
         */
-                ''
-                    import subprocess
-                    import sys
-                    import os
-                    import shutil
+        ''
+          import subprocess
+          import sys
+          import os
+          import shutil
 
 
-                    def main(args: list[str]) -> str:
-                        # Extend PATH with common locations that shells like fish/nix add
-                        extra_paths = [
-                            os.path.expanduser("~/.nix-profile/bin"),
-                            os.path.expanduser("~/.local/bin"),
-                            "/run/current-system/sw/bin",
-                            "/etc/profiles/per-user/" + os.environ.get("USER", "") + "/bin",
-                            "/nix/var/nix/profiles/default/bin",
-                            os.path.expanduser("~/.cargo/bin"),
-                        ]
-                        env = os.environ.copy()
-                        env["PATH"] = os.pathsep.join(extra_paths) + os.pathsep + env.get("PATH", "")
+          def main(args: list[str]) -> str:
+              # Extend PATH with common locations that shells like fish/nix add
+              extra_paths = [
+                  os.path.expanduser("~/.nix-profile/bin"),
+                  os.path.expanduser("~/.local/bin"),
+                  "/run/current-system/sw/bin",
+                  "/etc/profiles/per-user/" + os.environ.get("USER", "") + "/bin",
+                  "/nix/var/nix/profiles/default/bin",
+                  os.path.expanduser("~/.cargo/bin"),
+              ]
+              env = os.environ.copy()
+              env["PATH"] = os.pathsep.join(extra_paths) + os.pathsep + env.get("PATH", "")
 
-                        result = subprocess.run(
-                            ["repodex", "jump"],
-                            stdin=sys.stdin,
-                            stderr=sys.stderr,
-                            stdout=subprocess.PIPE,
-                            text=True,
-                            cwd=os.getcwd(),
-                            env=env,
-                        )
-                        return result.stdout.strip() if result.returncode == 0 else ""
-
-
-                    from kittens.tui.handler import result_handler
+              result = subprocess.run(
+                  ["repodex", "jump"],
+                  stdin=sys.stdin,
+                  stderr=sys.stderr,
+                  stdout=subprocess.PIPE,
+                  text=True,
+                  cwd=os.getcwd(),
+                  env=env,
+              )
+              return result.stdout.strip() if result.returncode == 0 else ""
 
 
-                    @result_handler(no_ui=False)
-                    def handle_result(args: list[str], answer: str, target_window_id: int, boss) -> None:
-                        if answer:
-                            window = boss.window_id_map.get(target_window_id)
-                            if window:
-                                boss.call_remote_control(window, ("send-text", f"cd {answer}\r"))
-                '';
-        };
+          from kittens.tui.handler import result_handler
+
+
+          @result_handler(no_ui=False)
+          def handle_result(args: list[str], answer: str, target_window_id: int, boss) -> None:
+              if answer:
+                  window = boss.window_id_map.get(target_window_id)
+                  if window:
+                      boss.call_remote_control(window, ("send-text", f"cd {answer}\r"))
+        '';
     };
+  };
 }
