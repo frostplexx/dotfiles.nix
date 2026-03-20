@@ -717,11 +717,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1773863905,
-        "narHash": "sha256-gfTSlftHbUmW3Z++XzquqH/GaAAI/z+Ep/zU03gLMQ4=",
+        "lastModified": 1773970322,
+        "narHash": "sha256-xyO9ZV+cZk+HVmjS6P5Jzwl6ioRCKgeLQSSbUFtPrZk=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "046afc8b3e7a5b0f668ef2dc1b8b904e5b892435",
+        "rev": "8aad181ec9057c56b6fe5d6081a399427e1d1dec",
         "type": "github"
       },
       "original": {
