@@ -69,16 +69,16 @@ _: {
         ctrl + alt + cmd - l : yabai -m window --focus east
 
         # Switch to workspace
-        ctrl + alt + cmd - 1 : yabai -m space --focus 1
-        ctrl + alt + cmd - 2 : yabai -m space --focus 2
-        ctrl + alt + cmd - 3 : yabai -m space --focus 3
-        ctrl + alt + cmd - 4 : yabai -m space --focus 4
-        ctrl + alt + cmd - 5 : yabai -m space --focus 5
-        ctrl + alt + cmd - 6 : yabai -m space --focus 6
-        ctrl + alt + cmd - 7 : yabai -m space --focus 7
-        ctrl + alt + cmd - 8 : yabai -m space --focus 8
-        ctrl + alt + cmd - 9 : yabai -m space --focus 9
-        ctrl + alt + cmd - 0 : yabai -m space --focus 0
+        ctrl + alt + cmd - 1 : yabai -m space --focus 1 || yabai -m window --focus recent
+        ctrl + alt + cmd - 2 : yabai -m space --focus 2 || yabai -m window --focus recent
+        ctrl + alt + cmd - 3 : yabai -m space --focus 3 || yabai -m window --focus recent
+        ctrl + alt + cmd - 4 : yabai -m space --focus 4 || yabai -m window --focus recent
+        ctrl + alt + cmd - 5 : yabai -m space --focus 5 || yabai -m window --focus recent
+        ctrl + alt + cmd - 6 : yabai -m space --focus 6 || yabai -m window --focus recent
+        ctrl + alt + cmd - 7 : yabai -m space --focus 7 || yabai -m window --focus recent
+        ctrl + alt + cmd - 8 : yabai -m space --focus 8 || yabai -m window --focus recent
+        ctrl + alt + cmd - 9 : yabai -m space --focus 9 || yabai -m window --focus recent
+        ctrl + alt + cmd - 0 : yabai -m space --focus 0 || yabai -m window --focus recent
 
         # Move window to workspace and follow
         ctrl + alt + shift + cmd - 1 : yabai -m window --space 1 && yabai -m space --focus 1
