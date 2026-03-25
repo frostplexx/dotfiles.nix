@@ -165,7 +165,7 @@ _: {
             id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
             container = containers.Personal.id;
             workspace = spaces.Default.id;
-            url = "http://homeassistant.local:8123";
+            url = "https://homeassistant.lan";
             isEssential = true;
             position = 103;
           };
