@@ -831,15 +831,16 @@
       "locked": {
         "lastModified": 1774596832,
         "narHash": "sha256-fAKYzL0hOGjSakTIIL4J3PoGeroZV4/IMH94+ZB8bNY=",
-        "ref": "refs/heads/flake",
+        "owner": "frostplexx",
+        "repo": "TidaLuna",
         "rev": "97161b03867c412380df4622908950949bea21ec",
-        "revCount": 592,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/TidaLuna"
+        "owner": "frostplexx",
+        "ref": "flake",
+        "repo": "TidaLuna",
+        "type": "github"
       }
     },
     "zen-browser": {
