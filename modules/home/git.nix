@@ -26,6 +26,7 @@ _: {
             tool = "nvim";
             guitool = "nvim";
           };
+          signing.format = "openpgp";
           gpg.format = "ssh";
           "gpg \"ssh\"".program =
             if pkgs.stdenv.isDarwin

@@ -522,17 +522,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1774518058,
-        "narHash": "sha256-JG/gAG9qQyXaYKn1JlxqpTAbdl4NPU+tpg8uz2jk0so=",
-        "ref": "refs/heads/nixupater-update",
-        "rev": "05580e009ff531c608f09b5eee27d34e50b0d09a",
-        "revCount": 115,
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/nixkit"
+        "lastModified": 1774597571,
+        "narHash": "sha256-QsceoHS25/+ePwv9Q+bupWpAWF+fX1pcWlqfRAuOdlo=",
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "rev": "e9ec7085cf66a4b641769de55f8d31d5e5af8eb8",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Developer/github.com/frostplexx/nixkit"
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -853,11 +853,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774478219,
-        "narHash": "sha256-WyPQoYBde7TSCR45ZgofzBqvVo/MpH3Vkh8YMj9OZC0=",
+        "lastModified": 1774605342,
+        "narHash": "sha256-VEcy7N8TExxCsDem0SUsqJJlTcUm0y4vaSPYCghe5W8=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "2e49c5278af6ef5f1e17e0fd27c2e22b1a7edc38",
+        "rev": "4916e4d7ab444c544c3f36cc9fafe58cdb0f7237",
         "type": "github"
       },
       "original": {
