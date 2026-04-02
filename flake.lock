@@ -99,11 +99,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1774986740,
-        "narHash": "sha256-hU7SlwvA+IBHc+ODreTiXFwNx/rg356ND8GI26RPc9Y=",
+        "lastModified": 1775088417,
+        "narHash": "sha256-pFOmYa6JgGsLefkqgBtS1IvQJ+dVnkyLTXObxrfhZno=",
         "owner": "dmtrKovalenko",
         "repo": "fff.nvim",
-        "rev": "cbf260d082f5111e230ebc621eb0687873afaaa2",
+        "rev": "bb6f32a2ada380711f08bb11ba49e6fab23f191b",
         "type": "github"
       },
       "original": {
