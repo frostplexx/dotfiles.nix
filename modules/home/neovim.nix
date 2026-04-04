@@ -338,22 +338,22 @@ _: {
             icons.enable = true;
             extra.enable = true;
 
-            starter = {
-              enable = true;
-              setupOpts = lib.generators.mkLuaInline ''
-                {
-                    items = {
-                        require("mini.starter").sections.builtin_actions(),
-                        { name = "Open Last File", action = "'0", section = "Builtin actions" }
-                    },
-                    content_hooks = {
-                        require("mini.starter").gen_hook.aligning('center', 'center'),
-                    },
-                    footer = "",
-                    silent = true,
-                }
-              '';
-            };
+            # starter = {
+            #   enable = true;
+            #   setupOpts = lib.generators.mkLuaInline ''
+            #     {
+            #         items = {
+            #             require("mini.starter").sections.builtin_actions(),
+            #             { name = "Open Last File", action = "'0", section = "Builtin actions" }
+            #         },
+            #         content_hooks = {
+            #             require("mini.starter").gen_hook.aligning('center', 'center'),
+            #         },
+            #         footer = "",
+            #         silent = true,
+            #     }
+            #   '';
+            # };
 
             pick = {
               enable = true;
@@ -433,12 +433,15 @@ _: {
           };
 
           luaConfigRC.my-config = ''
-            vim.keymap.set(
-              "v",
-              "<leader>s",
-              'y:%s/<C-r>"//gc<Left><Left><Left>',
-              { desc = "Search and replace selected text across file" }
-            )
+                        vim.keymap.set(
+                          "v",
+                          "<leader>s",
+                          'y:%s/<C-r>"//gc<Left><Left><Left>',
+                          { desc = "Search and replace selected text across file" }
+                        )
+
+            vim.cmd("packadd nvim.undotree")
+            vim.keymap.set("n", "<leader>u", require("undotree").open)
           '';
 
           augroups = [{name = "MergeTool";}];
