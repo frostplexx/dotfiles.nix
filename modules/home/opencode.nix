@@ -1,9 +1,8 @@
 _: {
   flake.modules.homeManager.opencode = _: {
     programs = {
-      claude-code.enable = true;
       opencode = {
-        enable = false;
+        enable = true;
         skills = let
           impeccable = builtins.fetchTarball {
             url = "https://github.com/pbakaus/impeccable/archive/15332dd293986e0a310fa54c103025d21142c3dd.tar.gz";
