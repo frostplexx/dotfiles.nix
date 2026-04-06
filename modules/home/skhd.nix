@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.skhd = {
+  flake.homeManagerModules.skhd = {
     pkgs,
     lib,
     defaults,

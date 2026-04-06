@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  flake.modules.darwin.macbook-m4-pro = {
+  flake.darwinModules.macbook-m4-pro = {
     pkgs,
     config,
     defaults,

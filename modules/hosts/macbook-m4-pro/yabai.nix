@@ -1,5 +1,5 @@
 _: {
-  flake.modules.darwin.yabai = {defaults, ...}: {
+  flake.darwinModules.yabai = {defaults, ...}: {
     programs.yabaiIndicator.enable = true;
 
     services = {

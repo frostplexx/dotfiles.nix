@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.btop = _: {
+  flake.homeManagerModules.btop = _: {
     # Download the btop catppuccin theme
     xdg.configFile = {
       #Btop theme

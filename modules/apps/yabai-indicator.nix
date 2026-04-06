@@ -1,5 +1,5 @@
 _: {
-  flake.modules.darwin.yabai-indicator = {
+  flake.darwinModules.yabai-indicator = {
     pkgs,
     config,
     lib,

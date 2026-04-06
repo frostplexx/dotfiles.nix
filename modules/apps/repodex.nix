@@ -1,6 +1,6 @@
 _: {
   # Jinx module for Darwin
-  flake.modules.darwin.repodex = {pkgs, ...}: let
+  flake.darwinModules.repodex = {pkgs, ...}: let
     repodex = pkgs.writeShellApplication {
       name = "repodex";
       runtimeInputs = [pkgs.just];

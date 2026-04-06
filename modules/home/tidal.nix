@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.tidal = {pkgs, ...}: {
+  flake.homeManagerModules.tidal = {pkgs, ...}: {
     programs.tidaluna = {
       enable = true;
       stores = [

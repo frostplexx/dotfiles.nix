@@ -1,5 +1,5 @@
 {
-  description = "Unified configuration for NixOS gaming PC and MacBook Pro M4";
+  description = "MacBook Pro M4 Configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

@@ -1,8 +1,22 @@
 {lib, ...}: {
-  options.flake.defaults = lib.mkOption {
-    type = lib.types.attrsOf lib.types.anything;
-    default = {};
-    description = "Shared default values passed to all configurations via specialArgs";
+  options.flake = {
+    darwinModules = lib.mkOption {
+      type = lib.types.attrsOf lib.types.unspecified;
+      default = {};
+      description = "Darwin modules to be collected into the configuration";
+    };
+
+    homeManagerModules = lib.mkOption {
+      type = lib.types.attrsOf lib.types.unspecified;
+      default = {};
+      description = "Home Manager modules to be collected into the configuration";
+    };
+
+    defaults = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = {};
+      description = "Shared default values passed to all configurations via specialArgs";
+    };
   };
 
   config.flake.defaults = {

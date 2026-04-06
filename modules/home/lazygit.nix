@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.lazygit = _: {
+  flake.homeManagerModules.lazygit = _: {
     programs.lazygit = {
       enable = true;
       enableFishIntegration = true;
