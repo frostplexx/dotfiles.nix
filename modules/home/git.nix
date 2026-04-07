@@ -43,11 +43,36 @@ _: {
           difftool = {
             prompt = false;
             trustExitCode = true;
-            nvim.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
+            nvim.cmd = ''
+              nvim -d -c "DiffviewOpen "$LOCAL" "$MERGED" "$REMOTE""
+            '';
           };
           merge.tool = "nvim";
-          mergetool.nvim.cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+          mergetool.nvim.cmd = "nvim +DiffviewOpen '$LOCAL' '$MERGED' '$REMOTE'";
           alias = {
+            update = ''
+              !f() { \
+                branch="''${1:-''$(git rev-parse --abbrev-ref HEAD)}"; \
+                if [ -z "$branch" ]; then echo "No branch specified"; return 1; fi; \
+                git fetch --all || return $?; \
+                upstream=$(git for-each-ref --format='%(refname:short)' refs/remotes | fzf --prompt="Select upstream: " --header="$branch"); \
+                if [ -z "$upstream" ]; then echo "No upstream selected"; return 1; fi; \
+                git checkout "$branch" || return $?; \
+                remote=$(echo "$upstream" | cut -d'/' -f1); \
+                git rebase "$upstream" || { \
+                  if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then \
+                    echo "Rebase stopped for conflict resolution. After resolving:"; \
+                    echo "  git add <files> && git rebase --continue"; \
+                    echo "Then push with:"; \
+                    echo "  git push --force-with-lease $remote $branch"; \
+                  else \
+                    echo "Rebase failed; run git rebase --abort if needed"; \
+                  fi; \
+                  return 1; \
+                }; \
+                git push --force-with-lease "$remote" "$branch" || return $?; \
+              }; f
+            '';
             br = "branch";
             co = "checkout";
             st = "status";
@@ -57,10 +82,9 @@ _: {
             ca = "commit -am";
             dc = "diff --cached";
             amend = "commit --amend -m";
-            update = "submodule update --init --recursive";
             foreach = "submodule foreach";
-            dt = "difftool";
-            mt = "mergetool";
+            rc = "rebase --continue";
+            ra = "rebase --abort";
           };
         };
       };
