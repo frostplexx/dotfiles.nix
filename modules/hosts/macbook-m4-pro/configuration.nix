@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  flake.modules.darwin.macbook-m4-pro = {
+  flake.darwinModules.macbook-m4-pro = {
     pkgs,
     config,
     defaults,
@@ -294,9 +294,8 @@
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;
         "System Color Picker" = 1545870783;
-        # TODO: use new versions
-        # "Numbers" = 409203825;
-        # "Keynote" = 409183694;
+        "Numbers" = 361304891;
+        "Keynote" = 361285480;
       };
 
       taps = builtins.attrNames config.nix-homebrew.taps;

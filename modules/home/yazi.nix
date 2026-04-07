@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.yazi = {pkgs, ...}: let
+  flake.homeManagerModules.yazi = {pkgs, ...}: let
     yazi-flavors = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";

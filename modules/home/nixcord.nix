@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.nixcord = {
+  flake.homeManagerModules.nixcord = {
     pkgs,
     config,
     defaults,

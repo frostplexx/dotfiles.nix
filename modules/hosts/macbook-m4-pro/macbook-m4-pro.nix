@@ -1,4 +1,5 @@
 {
+  self,
   inputs,
   lib,
   config,
@@ -13,30 +14,11 @@
     allowBroken = false;
     allowUnsupportedSystem = false;
   };
-
   # Overlays
-  overlays = [
-    inputs.nixkit.overlays.default
-    (_final: prev: {
-      kitty = prev.kitty.overrideAttrs (_oldAttrs: {
-        doCheck = false;
-      });
-    })
-  ];
+  overlays = [];
 in {
-  imports = [
-    inputs.flake-parts.flakeModules.modules
-  ];
-
   # Declare the module options using flake-parts-modules
   flake = {
-    modules = {
-      darwin = {};
-      nixos = {};
-      homeManager = {};
-    };
-
-    # Darwin configuration for macbook-m4-pro
     darwinConfigurations.macbook-m4-pro = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules =
@@ -76,7 +58,7 @@ in {
                     targets.darwin.copyApps.enable = true;
                   }
                 ]
-                ++ collectModules config.flake.modules.homeManager;
+                ++ collectModules self.homeManagerModules;
               extraSpecialArgs = {
                 inherit inputs;
                 inherit (config.flake) defaults;
@@ -84,7 +66,7 @@ in {
             };
           }
         ]
-        ++ collectModules config.flake.modules.darwin;
+        ++ collectModules self.darwinModules;
       specialArgs = {
         inherit inputs;
         inherit (config.flake) defaults;

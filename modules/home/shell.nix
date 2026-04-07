@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.shell = {
+  flake.homeManagerModules.shell = {
     pkgs,
     defaults,
     ...
