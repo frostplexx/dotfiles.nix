@@ -829,11 +829,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1774596832,
-        "narHash": "sha256-fAKYzL0hOGjSakTIIL4J3PoGeroZV4/IMH94+ZB8bNY=",
+        "lastModified": 1775726020,
+        "narHash": "sha256-GwVPiPa6e9dE+OPE2ib28+Xr6MQEu6J+1T/JxR/ab3w=",
         "owner": "frostplexx",
         "repo": "TidaLuna",
-        "rev": "97161b03867c412380df4622908950949bea21ec",
+        "rev": "fdc703305685c03a4ff0e8d3e8a926621149ff44",
         "type": "github"
       },
       "original": {
