@@ -3,10 +3,12 @@ _: {
     pkgs,
     lib,
     defaults,
+    inputs,
     ...
   }: {
     services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
+      package = inputs.nixkit.packages.${pkgs.system}.skhd_zig;
       config = ''
 
          # Modes
@@ -86,7 +88,6 @@ _: {
         ctrl + alt + shift + cmd - 3 : yabai -m window --space 3 && yabai -m space --focus 3
         ctrl + alt + shift + cmd - 4 : yabai -m window --space 4 && yabai -m space --focus 4
         ctrl + alt + shift + cmd - 5 : yabai -m window --space 5 && yabai -m space --focus 5
-        ctrl + alt + shift + cmd - 6 : yabai -m window --space 6 && yabai -m space --focus 6
         ctrl + alt + shift + cmd - 6 : yabai -m window --space 6 && yabai -m space --focus 6
         ctrl + alt + shift + cmd - 7 : yabai -m window --space 7 && yabai -m space --focus 7
         ctrl + alt + shift + cmd - 8 : yabai -m window --space 8 && yabai -m space --focus 8

@@ -15,7 +15,8 @@
     allowUnsupportedSystem = false;
   };
   # Overlays
-  overlays = [];
+  overlays = [
+  ];
 in {
   # Declare the module options using flake-parts-modules
   flake = {
