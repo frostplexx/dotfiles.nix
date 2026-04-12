@@ -294,14 +294,15 @@
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;
         "System Color Picker" = 1545870783;
-        "Numbers" = 361304891;
-        "Keynote" = 361285480;
+        # "Numbers" = 361304891;
+        # "Keynote" = 361285480;
       };
 
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = ["displayplacer"];
       casks = [
         "tailscale-app"
+        "ollama-app"
         "chromium"
         "cleanshot"
         "mac-mouse-fix"
@@ -337,7 +338,6 @@
       curl
       deadnix
       comma
-      discord-ptb
       entr
       ffmpeg
       gcc
