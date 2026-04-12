@@ -1,70 +1,73 @@
 _: {
-  flake.homeManagerModules.ai = _: {
+  flake.homeManagerModules.ai = {pkgs, ...}: let
+    model = "gemma4:26b";
+    ollama = "${pkgs.ollama}/bin/ollama";
+    runnersDir = "${pkgs.ollama}/lib/ollama/runners";
+    ai = pkgs.writeShellApplication {
+      name = "ai";
+      text = ''
+        MODEL="${model}"
+        export OLLAMA_RUNNERS_DIR="${runnersDir}"
+
+        if ! pgrep -x ollama > /dev/null; then
+          ${ollama} serve > /dev/null 2>&1 &
+          OLLAMA_PID=$!
+          trap 'kill "$OLLAMA_PID"' EXIT
+          sleep 1
+        fi
+
+        if ! ${ollama} list | grep -q "^''${MODEL}"; then
+          echo "Pulling model ''${MODEL}..."
+          ${ollama} pull "''${MODEL}"
+        fi
+
+        opencode "$@"
+      '';
+    };
+  in {
+    home.packages = [ai];
+
+    home.sessionVariables = {
+      AI_MODEL = model;
+      OPENCODE_ENABLE_EXA = "1";
+      OLLAMA_RUNNERS_DIR = runnersDir;
+    };
+
     programs = {
       opencode = {
         enable = true;
-        skills = let
-          impeccable = builtins.fetchTarball {
-            url = "https://github.com/pbakaus/impeccable/archive/15332dd293986e0a310fa54c103025d21142c3dd.tar.gz";
-            sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
-          };
-          skillsDir = impeccable + "/source/skills";
-        in
-          builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir);
         settings = {
-          theme = "catppuccin";
-          autoshare = false;
-          model = "github/claude-sonnet-4-5";
-          small_model = "github/claude-haiku-4-5";
+          share = "disabled";
+          model = "ollama:${model}";
+          small_model = "ollama:${model}";
           autoupdate = false;
-          disabled_providers = ["xAI"];
+          enabled_providers = ["ollama"];
           permission = {
             webfetch = "allow";
           };
 
+          provider = {
+            "ollama" = {
+              "models" = {
+                "${model}" = {
+                  "_launch" = true;
+                  "name" = model;
+                };
+              };
+              "name" = "Ollama";
+              "npm" = "@ai-sdk/openai-compatible";
+              "options" = {
+                "baseURL" = "http://127.0.0.1:11434/v1";
+              };
+            };
+          };
+
           # LSP Configuration
+          # TODO: Add more
           lsp = {
-            # Custom LSP servers (opencode has built-in support for most, but we ensure they use nix)
             gopls = {
-              command = [
-                "nix-shell"
-                "--pure"
-                "-p"
-                "gopls"
-                "--run"
-                "gopls"
-              ];
+              command = ["${pkgs.gopls}/bin/gopls"];
               extensions = [".go"];
-            };
-            ts_ls = {
-              command = [
-                "nix-shell"
-                "-p"
-                "typescript-language-server"
-                "--run"
-                "typescript-language-server --stdio"
-              ];
-              extensions = [".ts"];
-            };
-            lua_ls = {
-              command = [
-                "nix-shell"
-                "-p"
-                "lua-language-server"
-                "--run"
-                "lua-language-server"
-              ];
-              extensions = [".lua"];
-            };
-            fish = {
-              command = [
-                "nix-shell"
-                "-p"
-                "fish-lsp"
-                "--run"
-                "fish-lsp start"
-              ];
-              extensions = [".fish"];
             };
             nixd = {
               command = ["nixd"];
@@ -77,11 +80,7 @@ _: {
             # JavaScript/TypeScript/JSON/YAML/CSS/HTML/Markdown
             prettier = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#nodePackages.prettier"
-                "--"
+                "${pkgs.prettier}/bin/prettier"
                 "--write"
                 "$FILE"
               ];
@@ -105,15 +104,22 @@ _: {
                 ".vue"
               ];
             };
+            "markdownlint-cli2" = {
+              command = [
+                "${pkgs.markdownlint-cli2}/bin/markdownlint-cli2"
+                "$FILE"
+              ];
+              extensions = [
+                ".md"
+                ".mdx"
+              ];
+            };
 
             # Nix
+            nixfmt.disabled = true;
             alejandra = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#alejandra"
-                "--"
+                "${pkgs.alejandra}/bin/alejandra"
                 "$FILE"
               ];
               extensions = [".nix"];
@@ -122,11 +128,7 @@ _: {
             # Lua
             stylua = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#stylua"
-                "--"
+                "${pkgs.stylua}/bin/stylua"
                 "-"
                 "$FILE"
               ];
@@ -134,40 +136,38 @@ _: {
             };
 
             # Go
+            gofmt = {
+              disabled = true;
+            };
             gofumpt = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#gofumpt"
-                "--"
+                "${pkgs.gofumpt}/bin/gofumpt"
                 "-w"
                 "$FILE"
               ];
               extensions = [".go"];
             };
+            "goimports-reviser" = {
+              command = [
+                "${pkgs.goimports-reviser}/bin/goimports-reviser"
+                "$FILE"
+              ];
+              extensions = [".go"];
+            };
 
-            # # Python
-            # black = {
-            #   command = [
-            #     "nix"
-            #     "run"
-            #     "--impure"
-            #     "nixpkgs#python3Packages.black"
-            #     "--"
-            #     "$FILE"
-            #   ];
-            #   extensions = [".py"];
-            # };
+            # Python
+            black = {
+              command = [
+                "${pkgs.python3Packages.black}/bin/black"
+                "$FILE"
+              ];
+              extensions = [".py"];
+            };
 
             # Rust
             rustfmt = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#rustfmt"
-                "--"
+                "${pkgs.rustfmt}/bin/rustfmt"
                 "$FILE"
               ];
               extensions = [".rs"];
@@ -176,11 +176,9 @@ _: {
             # Shell
             shfmt = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#shfmt"
-                "--"
+                "${pkgs.shfmt}/bin/shfmt"
+                "-i"
+                "2"
                 "-w"
                 "$FILE"
               ];
@@ -191,39 +189,61 @@ _: {
             };
 
             # Terraform
-            terraform_fmt = {
+            terraform = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#terraform"
-                "--"
+                "${pkgs.opentofu}/bin/tofu"
                 "fmt"
-                "-"
+                "$FILE"
               ];
               extensions = [
                 ".tf"
                 ".tfvars"
               ];
-              environment = {
-                NIXPKGS_ALLOW_UNFREE = "1";
-              };
             };
 
             # Fish
             fish_indent = {
               command = [
-                "nix"
-                "run"
-                "--impure"
-                "nixpkgs#fish"
-                "--"
-                "fish_indent"
+                "${pkgs.fish}/bin/fish_indent"
+                "--write"
+                "$FILE"
               ];
               extensions = [".fish"];
             };
+
+            # Swift
+            swift-format = {
+              command = [
+                "${pkgs.swift-format}/bin/swift-format"
+                "$FILE"
+              ];
+              extensions = [".swift"];
+            };
           };
         };
+        skills = let
+          impeccable = builtins.fetchTarball {
+            url = "https://github.com/pbakaus/impeccable/archive/15332dd293986e0a310fa54c103025d21142c3dd.tar.gz";
+            sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
+          };
+          caveman = builtins.fetchTarball {
+            url = "https://github.com/JuliusBrussee/caveman/archive/refs/heads/main.tar.gz";
+            sha256 = "0vhhrjcjza8yfgfxrvs8v5fhrvk30d5bq5b14ymi28jk3m1y0cw0";
+          };
+          skillsDir = impeccable + "/source/skills";
+          cavemanSkillsDir = caveman + "/skills";
+        in
+          builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir)
+          // builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir);
+        tui.theme = "catppuccin";
+        rules = ''
+          Terse like caveman. Technical substance exact. Only fluff die.
+          Drop: articles, filler (just/really/basically), pleasantries, hedging.
+          Fragments OK. Short synonyms. Code unchanged.
+          Pattern: [thing] [action] [reason]. [next step].
+          ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
+          Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
+        '';
       };
     };
   };
