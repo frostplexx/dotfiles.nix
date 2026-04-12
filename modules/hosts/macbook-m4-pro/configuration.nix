@@ -302,7 +302,6 @@
       brews = ["displayplacer"];
       casks = [
         "tailscale-app"
-        "ollama-app"
         "chromium"
         "cleanshot"
         "mac-mouse-fix"
