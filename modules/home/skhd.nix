@@ -3,10 +3,12 @@ _: {
     pkgs,
     lib,
     defaults,
+    inputs,
     ...
   }: {
     services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
+      package = inputs.nixkit.packages.${pkgs.system}.skhd_zig;
       config = ''
 
          # Modes
