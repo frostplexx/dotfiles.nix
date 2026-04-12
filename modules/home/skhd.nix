@@ -89,7 +89,6 @@ _: {
         ctrl + alt + shift + cmd - 4 : yabai -m window --space 4 && yabai -m space --focus 4
         ctrl + alt + shift + cmd - 5 : yabai -m window --space 5 && yabai -m space --focus 5
         ctrl + alt + shift + cmd - 6 : yabai -m window --space 6 && yabai -m space --focus 6
-        ctrl + alt + shift + cmd - 6 : yabai -m window --space 6 && yabai -m space --focus 6
         ctrl + alt + shift + cmd - 7 : yabai -m window --space 7 && yabai -m space --focus 7
         ctrl + alt + shift + cmd - 8 : yabai -m window --space 8 && yabai -m space --focus 8
         ctrl + alt + shift + cmd - 9 : yabai -m window --space 9 && yabai -m space --focus 9
