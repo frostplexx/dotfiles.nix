@@ -376,7 +376,6 @@
       unp
       utm
       uv
-      # vscode
       wget
       whisky
       wtfis

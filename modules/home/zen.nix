@@ -27,45 +27,45 @@ _: {
         "uBlock0@raymondhill.net" = {
           name = "uBlock Origin";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
           private_browsing = true;
         };
 
         "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
           name = "1Password";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
           private_browsing = true;
         };
         "clipper@obsidian.md" = {
           name = "Obsidian Web Clipper";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
         "sponsorBlocker@ajay.app" = {
           name = "SponsorBlock";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
         "addon@darkreader.org" = {
           name = "Dark Reader";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
           name = "Vimium";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
         "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
           name = "Refined GitHub";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
         "containerise@kinte.sh" = {
           name = "Containerise";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/containerise/latest.xpi";
-          # installation_mode = "force_installed";
+          installation_mode = "normal_installed";
         };
       };
     in {
