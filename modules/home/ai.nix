@@ -142,7 +142,6 @@ _: {
             stylua = {
               command = [
                 "${pkgs.stylua}/bin/stylua"
-                "-"
                 "$FILE"
               ];
               extensions = [".lua"];
