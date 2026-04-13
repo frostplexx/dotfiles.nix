@@ -3,8 +3,8 @@ _: {
     yazi-flavors = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
-      rev = "3001521a0885fc281d0456df5a28394dec850dc6";
-      hash = "sha256-lzts4koNg0l0tMkPku8lpb2X4juBs72NREwzca3UCLs=";
+      rev = "null";
+      hash = "";
     };
   in {
     # Terminal file manager
@@ -43,8 +43,8 @@ _: {
         starship = pkgs.fetchFromGitHub {
           owner = "Rolv-Apneseth";
           repo = "starship.yazi";
-          rev = "eca186171c5f2011ce62712f95f699308251c749";
-          hash = "sha256-xcz2+zepICZ3ji0Hm0SSUBSaEpabWUrIdG7JmxUl/ts=";
+          rev = "null";
+          hash = "";
         };
       };
       flavors = {
