@@ -107,7 +107,7 @@ _: {
             src = pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "bat";
-              rev = "null";
+              rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
               sha256 = "";
             };
             file = "themes/Catppuccin Mocha.tmTheme";
