@@ -83,7 +83,7 @@ _: {
               extensions = [".go"];
             };
             nixd = {
-              command = ["nixd"];
+              command = ["${pkgs.nixd}/bin/nixd"];
               extensions = [".nix"];
             };
           };
