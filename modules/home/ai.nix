@@ -13,7 +13,20 @@ _: {
           ${ollama} serve > /dev/null 2>&1 &
           OLLAMA_PID=$!
           trap 'kill "$OLLAMA_PID"' EXIT
-          sleep 1
+
+          READY=0
+          for _ in $(seq 1 30); do
+            if ${ollama} list > /dev/null 2>&1; then
+              READY=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$READY" -ne 1 ]; then
+            echo "Timed out waiting for ollama to become ready." >&2
+            exit 1
+          fi
         fi
 
         if ! ${ollama} list | grep -q "^''${MODEL}"; then
