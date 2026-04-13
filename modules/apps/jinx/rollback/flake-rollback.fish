@@ -263,8 +263,11 @@ function parse_selection
     # Extract input name (everything before the first space or #)
     set -l input_name (string replace -r '([^#\s]+).*' '$1' $selection)
 
-    # Extract node key (hash) from brackets
+    # Extract node key from brackets — falls back to input_name if no brackets
     set -l node_name (string replace -r '.*\[(\w+)\].*' '$1' $selection)
+    if test "$node_name" = "$selection"
+        set node_name $input_name
+    end
 
     echo "$input_name|$node_name"
 end

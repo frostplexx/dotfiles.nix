@@ -234,13 +234,15 @@ _: {
           };
         };
         skills = let
-          impeccable = builtins.fetchTarball {
+          impeccable = pkgs.fetchzip {
             url = "https://github.com/pbakaus/impeccable/archive/15332dd293986e0a310fa54c103025d21142c3dd.tar.gz";
             sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
+            stripRoot = true;
           };
-          caveman = builtins.fetchTarball {
+          caveman = pkgs.fetchzip {
             url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
             sha256 = "0vhhrjcjza8yfgfxrvs8v5fhrvk30d5bq5b14ymi28jk3m1y0cw0";
+            stripRoot = true;
           };
           skillsDir = impeccable + "/source/skills";
           cavemanSkillsDir = caveman + "/skills";
@@ -248,7 +250,7 @@ _: {
           builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir)
           // builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir);
         tui.theme = "catppuccin";
-        rules = ''
+        context = ''
           Terse like caveman. Technical substance exact. Only fluff die.
           Drop: articles, filler (just/really/basically), pleasantries, hedging.
           Fragments OK. Short synonyms. Code unchanged.
