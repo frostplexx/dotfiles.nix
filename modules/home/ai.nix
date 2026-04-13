@@ -239,7 +239,7 @@ _: {
             sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
           };
           caveman = builtins.fetchTarball {
-            url = "https://github.com/JuliusBrussee/caveman/archive/refs/heads/main.tar.gz";
+            url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
             sha256 = "0vhhrjcjza8yfgfxrvs8v5fhrvk30d5bq5b14ymi28jk3m1y0cw0";
           };
           skillsDir = impeccable + "/source/skills";
