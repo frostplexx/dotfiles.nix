@@ -1,3 +1,10 @@
 {
-  "todos": {}
+  "todos": {
+    "modules/home/ai.nix:79:TODO: Add more": {
+      "issueNumber": 1029,
+      "file": "modules/home/ai.nix",
+      "line": 79,
+      "text": "TODO: Add more"
+    }
+  }
 }
