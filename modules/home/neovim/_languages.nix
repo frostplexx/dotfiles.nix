@@ -33,7 +33,10 @@ _: {
     python.enable = true;
     bash.enable = true;
     just.enable = true;
-    json.enable = true;
+    json = {
+      enable = true;
+      lsp.enable = true;
+    };
     yaml.enable = true;
     lua.enable = true;
 

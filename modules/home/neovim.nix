@@ -337,24 +337,6 @@ _: {
             bufremove.enable = true;
             icons.enable = true;
             extra.enable = true;
-
-            # starter = {
-            #   enable = true;
-            #   setupOpts = lib.generators.mkLuaInline ''
-            #     {
-            #         items = {
-            #             require("mini.starter").sections.builtin_actions(),
-            #             { name = "Open Last File", action = "'0", section = "Builtin actions" }
-            #         },
-            #         content_hooks = {
-            #             require("mini.starter").gen_hook.aligning('center', 'center'),
-            #         },
-            #         footer = "",
-            #         silent = true,
-            #     }
-            #   '';
-            # };
-
             pick = {
               enable = true;
               setupOpts = {
