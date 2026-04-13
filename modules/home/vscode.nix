@@ -1,9 +1,5 @@
 _: {
   flake.homeManagerModules.vscode = {pkgs, ...}: {
-    home.packages = with pkgs; [
-      ltex-ls-plus
-    ];
-
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -16,9 +12,9 @@ _: {
           vscode-extensions.mkhl.direnv
           vscode-extensions.leonardssh.vscord
           vscode-extensions.editorconfig.editorconfig
-          vscode-extensions.github.copilot-chat
+          # vscode-extensions.github.copilot-chat
           vscode-extensions.davidlday.languagetool-linter
-          vscode-extensions.ltex-plus.vscode-ltex-plus
+          vscode-extensions.valentjn.vscode-ltex
           vscode-extensions.james-yu.latex-workshop
           vscode-extensions.tecosaur.latex-utilities
           vscode-extensions.jgclark.vscode-todo-highlight
@@ -35,6 +31,7 @@ _: {
           "security.workspace.trust.untrustedFiles" = "open";
           "editor.fontLigatures" = true;
           # "catppuccin.accentColor" = "blue";
+          "github.copilot.chat.agentDebugLog.enabled" = false;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "workbench.preferredDarkColorTheme" = "Catppuccin Mocha";
           "workbench.colorCustomizations" = {};
