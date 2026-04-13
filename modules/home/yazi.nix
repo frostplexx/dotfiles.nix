@@ -92,6 +92,14 @@ _: {
             desc = "Go to iCloud";
           }
           {
+            on = [
+              "g"
+              "D"
+            ];
+            run = "cd '~/Developer'";
+            desc = "Go to Devloper";
+          }
+          {
             on = "F";
             run = "plugin smart-filter";
             desc = "Toggle smart filter";

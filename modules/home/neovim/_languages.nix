@@ -29,7 +29,11 @@ _: {
       enable = true;
       extensions.render-markdown-nvim.enable = true;
     };
-    clang.enable = true;
+    clang = {
+      enable = true;
+      dap.enable = true;
+      lsp.enable = true;
+    };
     python.enable = true;
     bash.enable = true;
     just.enable = true;
