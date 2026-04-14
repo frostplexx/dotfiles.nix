@@ -241,7 +241,7 @@ _: {
           };
           caveman = pkgs.fetchzip {
             url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
-            sha256 = "0vhhrjcjza8yfgfxrvs8v5fhrvk30d5bq5b14ymi28jk3m1y0cw0";
+            sha256 = "1ad7k3kkky55dmw9jf4flwwh5asgnrwsirp0a3nfgzpxd90cqwx4";
             stripRoot = true;
           };
           skillsDir = impeccable + "/source/skills";
