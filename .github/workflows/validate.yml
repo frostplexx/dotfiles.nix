@@ -40,7 +40,6 @@ jobs:
           nix run nixpkgs#statix -- check .
           nix run nixpkgs#deadnix -- -eq .
 
-
   detect-configs:
     name: Detect Configurations
     runs-on: ubuntu-latest
@@ -54,22 +53,18 @@ jobs:
         id: set-matrix
         shell: bash
         run: |
-          # Use nix eval to get configurations directly from the flake
           echo "Detecting NixOS configurations..."
           NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
 
           echo "Detecting Darwin configurations..."
           DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
 
-          # Debug output
           echo "Detected NixOS configs: $NIXOS_CONFIGS"
           echo "Detected Darwin configs: $DARWIN_CONFIGS"
 
-          # Create a simpler matrix JSON formation approach
           echo "Building matrix JSON..."
           MATRIX_JSON='{"include":['
 
-          # Process NixOS configs
           NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
           if [ "$NIXOS_ARRAY" != "[]" ]; then
             for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
@@ -83,7 +78,6 @@ jobs:
             done
           fi
 
-          # Process Darwin configs
           DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
           if [ "$DARWIN_ARRAY" != "[]" ]; then
             for config in $(echo "$DARWIN_CONFIGS" | jq -r '.[]'); do
@@ -97,12 +91,10 @@ jobs:
             done
           fi
 
-          # Remove trailing comma if it exists
           MATRIX_JSON=${MATRIX_JSON%,}
           MATRIX_JSON+="]}"
 
           echo "Matrix JSON: $MATRIX_JSON"
-
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   test-configurations:
@@ -117,13 +109,12 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v22
-        with: 
+        with:
           extra-conf: |
             extra-experimental-features = nix-command flakes external-builders
             substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
             trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-
 
       - name: Setup Cachix Auth
         uses: cachix/cachix-action@v17
@@ -141,7 +132,7 @@ jobs:
         run: |
           nix run nixpkgs#nh -- ${{ matrix.cmd }} build --no-nom -H ${{ matrix.name }} . 2>&1 | tee build-output.txt
           exit ${PIPESTATUS[0]}
-      
+
       - name: Post build result
         if: always() && github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -174,7 +165,36 @@ jobs:
               issue_number: context.issue.number,
               body,
             });
-      
+
+      - name: Copilot Build Analysis
+        if: always() && github.event_name == 'pull_request' && steps.build.outcome == 'failure'
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
+        run: |
+          npm install -g @github/copilot
+          BUILD_OUTPUT=$(cat build-output.txt)
+          copilot -p "Analyze this NixOS build failure and explain: 1) root cause 2) how to fix it. Be concise. Output markdown to analysis.md.
+
+          Build output:
+          $BUILD_OUTPUT" \
+            --allow-tool=write \
+            --no-ask-user
+
+      - name: Post Copilot Analysis
+        if: always() && github.event_name == 'pull_request' && steps.build.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('analysis.md')) return;
+            const analysis = fs.readFileSync('analysis.md', 'utf8').trim();
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🤖 Copilot Analysis — \`${{ matrix.name }}\`\n\n${analysis}`,
+            });
+
       - name: Fail if build failed
         if: always() && steps.build.outcome == 'failure'
         run: exit 1
