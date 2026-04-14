@@ -165,7 +165,7 @@ _: {
             id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
             container = containers.Personal.id;
             workspace = spaces.Default.id;
-            url = "https://homeassistant.lan";
+            url = "https://has.internal.kuipr.de";
             isEssential = true;
             position = 103;
           };
@@ -365,20 +365,20 @@ _: {
         # First run
         OverrideFirstRunPage = "";
         OverridePostUpdatePage = "";
-        ExtensionUpdate = false;
+        ExtensionUpdate = true;
         SearchBar = "unified";
 
         # Cleanup on shutdown
         SanitizeOnShutdown = {
-          Cache = true;
+          Cache = false;
           Cookies = false;
           Downloads = false;
-          FormData = true;
+          FormData = false;
           History = false;
           Sessions = false;
           SiteSettings = false;
-          OfflineApps = true;
-          Locked = true;
+          OfflineApps = false;
+          Locked = false;
         };
       };
     };
