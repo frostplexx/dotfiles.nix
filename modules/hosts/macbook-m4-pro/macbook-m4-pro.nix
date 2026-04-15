@@ -16,6 +16,12 @@
   };
   # Overlays
   overlays = [
+    # TODO: Remove once vscodium is fixed
+    (_final: prev: {
+      vscodium = prev.vscodium.overrideAttrs (_old: {
+        preFixup = "";
+      });
+    })
   ];
 in {
   # Declare the module options using flake-parts-modules
