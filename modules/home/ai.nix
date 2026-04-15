@@ -54,7 +54,10 @@ _: {
           model = "ollama:${model}";
           small_model = "ollama:${model}";
           autoupdate = false;
-          enabled_providers = ["ollama"];
+          enabled_providers = [
+            "ollama"
+            "anthropic"
+          ];
           permission = {
             webfetch = "allow";
           };

@@ -7,10 +7,10 @@
   lazy = {
     enable = true;
     plugins = {
-      "CopilotChat.nvim" = {
-        package = pkgs.vimPlugins.CopilotChat-nvim;
+      "opencode.nvim" = {
+        package = pkgs.vimPlugins.opencode-nvim;
         lazy = true;
-        setupModule = "CopilotChat";
+        setupModule = "opencode";
         event = [
           {
             event = "User";
@@ -21,14 +21,14 @@
           {
             key = "<leader>aa";
             mode = "n";
-            lua = false;
-            action = ":CopilotChatToggle<cr>";
+            lua = true;
+            action = "function() require('opencode').toggle() end";
           }
           {
-            key = "<leader>am";
+            key = "<leader>ae";
             mode = "n";
-            lua = false;
-            action = ":CopilotChatModels<cr>";
+            lua = true;
+            action = "function() require('opencode').ask('@this: ', { submit = true }) end";
           }
         ];
       };
