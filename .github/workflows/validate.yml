@@ -146,7 +146,9 @@ jobs:
               ? fs.readFileSync('build-output.txt', 'utf8').trim()
               : '(no output)';
             const icon = outcome === 'success' ? '✅' : '❌';
+            const fingerprint = `<!-- build: ${name} (${type}) -->`;
             const body = [
+              fingerprint,
               `## ${icon} Build \`${name}\` (${type}) — ${outcome}`,
               '',
               '<details>',
@@ -159,21 +161,6 @@ jobs:
               '```',
               '</details>',
             ].join('\n');
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body,
-            });
-
-      - name: Copilot Build Analysis
-        if: always() && github.event_name == 'pull_request' && steps.build.outcome == 'failure'
-        env:
-          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
-        run: |
-          npm install -g @github/copilot
-          BUILD_OUTPUT=$(cat build-output.txt)
-          copilot -p "Analyze this NixOS build failure and explain: 1) root cause 2) how to fix it. Be concise. Output markdown to analysis.md.
 
           Build output:
           $BUILD_OUTPUT" \
@@ -192,8 +179,25 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `## 🤖 Copilot Analysis — \`${{ matrix.name }}\`\n\n${analysis}`,
             });
+
+            const existing = comments.find(c => c.body?.includes(fingerprint));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
 
       - name: Fail if build failed
         if: always() && steps.build.outcome == 'failure'
