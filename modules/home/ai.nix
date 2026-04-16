@@ -47,9 +47,11 @@ _: {
     };
 
     programs = {
+      claude-code.enable = true;
       opencode = {
         enable = true;
         settings = {
+          plugin = ["opencode-claude-auth@latest"];
           share = "disabled";
           model = "ollama:${model}";
           small_model = "ollama:${model}";
