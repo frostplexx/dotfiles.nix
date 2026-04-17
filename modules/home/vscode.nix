@@ -6,20 +6,30 @@ _: {
       profiles.default = {
         enableMcpIntegration = true;
         extensions = with pkgs; [
+          # Latex
+          vscode-extensions.davidlday.languagetool-linter
+          vscode-extensions.valentjn.vscode-ltex
+          vscode-extensions.james-yu.latex-workshop
+          vscode-extensions.tecosaur.latex-utilities
+
+          # Jupyter
+          vscode-extensions.ms-toolsai.jupyter
+          vscode-extensions.ms-python.python
+          vscode-extensions.ms-python.pylint
+          vscode-extensions.ms-python.debugpy
+
+          # Other
+          # vscode-extensions.github.copilot-chat
+          vscode-extensions.jgclark.vscode-todo-highlight
+          vscode-extensions.vscodevim.vim
+          vscode-extensions.eamodio.gitlens
           vscode-extensions.alefragnani.project-manager
           vscode-extensions.catppuccin.catppuccin-vsc
           vscode-extensions.catppuccin.catppuccin-vsc-icons
           vscode-extensions.mkhl.direnv
           vscode-extensions.leonardssh.vscord
           vscode-extensions.editorconfig.editorconfig
-          # vscode-extensions.github.copilot-chat
-          vscode-extensions.davidlday.languagetool-linter
-          vscode-extensions.valentjn.vscode-ltex
-          vscode-extensions.james-yu.latex-workshop
-          vscode-extensions.tecosaur.latex-utilities
-          vscode-extensions.jgclark.vscode-todo-highlight
-          vscode-extensions.vscodevim.vim
-          vscode-extensions.eamodio.gitlens
+          vscode-extensions.tomoki1207.pdf
         ];
 
         userSettings = {
