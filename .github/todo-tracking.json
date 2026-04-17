@@ -1,16 +1,16 @@
 {
   "todos": {
-    "modules/home/ai.nix:79:TODO: Add more": {
-      "issueNumber": 1029,
-      "file": "modules/home/ai.nix",
-      "line": 79,
-      "text": "TODO: Add more"
-    },
     "modules/hosts/macbook-m4-pro/macbook-m4-pro.nix:19:TODO: Remove once vscodium is fixed": {
       "issueNumber": 1045,
       "file": "modules/hosts/macbook-m4-pro/macbook-m4-pro.nix",
       "line": 19,
       "text": "TODO: Remove once vscodium is fixed"
+    },
+    "modules/home/ai.nix:84:TODO: Add more": {
+      "issueNumber": 1063,
+      "file": "modules/home/ai.nix",
+      "line": 84,
+      "text": "TODO: Add more"
     }
   }
 }
