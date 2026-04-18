@@ -127,7 +127,7 @@ _: {
           };
 
           statusline.lualine = {
-            enable = true;
+            enable = false;
             theme = "catppuccin";
           };
 
@@ -266,6 +266,18 @@ _: {
             ];
           };
 
+          navigation.harpoon = {
+            enable = true;
+            mappings = {
+              file1 = "<leader>1";
+              file2 = "<leader>2";
+              file3 = "<leader>3";
+              file4 = "<leader>4";
+              listMarks = "<C-e>";
+              markFile = "<leader>a";
+            };
+          };
+
           ui = {
             noice.enable = true;
             borders = {
@@ -292,8 +304,8 @@ _: {
                 {
                   [vim.diagnostic.severity.ERROR] = "󰅚 ",
                   [vim.diagnostic.severity.WARN] = "󰀪 ",
-                  [vim.diagnostic.severity.INFO] = " ",
-                  [vim.diagnostic.severity.HINT] = " ",
+                  [vim.diagnostic.severity.INFO] = " ",
+                  [vim.diagnostic.severity.HINT] = "",
                 }
               '';
               virtual_text = {
@@ -415,15 +427,15 @@ _: {
           };
 
           luaConfigRC.my-config = ''
-                        vim.keymap.set(
-                          "v",
-                          "<leader>s",
-                          'y:%s/<C-r>"//gc<Left><Left><Left>',
-                          { desc = "Search and replace selected text across file" }
-                        )
+            vim.keymap.set(
+              "v",
+              "<leader>s",
+              'y:%s/<C-r>"//gc<Left><Left><Left>',
+              { desc = "Search and replace selected text across file" }
+            )
 
-            vim.cmd("packadd nvim.undotree")
-            vim.keymap.set("n", "<leader>u", require("undotree").open)
+              vim.cmd("packadd nvim.undotree")
+              vim.keymap.set("n", "<leader>u", require("undotree").open)
           '';
 
           augroups = [{name = "MergeTool";}];
