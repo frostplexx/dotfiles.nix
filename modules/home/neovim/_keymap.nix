@@ -2,6 +2,38 @@ _: {
   keymaps = [
     {
       mode = "n";
+      key = "<A-j>";
+      action = "function() require('smart-splits').resize_down() end";
+      noremap = true;
+      lua = true;
+      desc = "resize down";
+    }
+    {
+      mode = "n";
+      key = "<A-l>";
+      action = "function() require('smart-splits').resize_right() end";
+      noremap = true;
+      lua = true;
+      desc = "resize left";
+    }
+    {
+      mode = "n";
+      key = "<A-k>";
+      action = "function() require('smart-splits').resize_up() end";
+      noremap = true;
+      lua = true;
+      desc = "resize up";
+    }
+    {
+      mode = "n";
+      key = "<A-h>";
+      action = "function() require('smart-splits').resize_left() end";
+      noremap = true;
+      lua = true;
+      desc = "resize right";
+    }
+    {
+      mode = "n";
       key = "<C-d>";
       action = "<D-d>zz";
       noremap = false;

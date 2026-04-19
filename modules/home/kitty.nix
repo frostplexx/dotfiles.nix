@@ -116,7 +116,22 @@ _: {
     xdg.configFile = {
       "kitty/themes/mocha.conf".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf";
-        hash = "sha256-cWrJfNVCuuT/NbU8qYCq5PAB4MS8WcT74AMBm+IO+c0=";
+        sha256 = "1kgr1vi9n083w3xw8ndwqkh03w74ma0ajg5m6pzy9fj2smycjski";
+      };
+
+      "kitty/relative_resize.py".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/mrjones2014/smart-splits.nvim/refs/heads/master/kitty/relative_resize.py";
+        hash = "sha256-QEJDLS/iR/u3kxXpdfL131vjHlSZ6agQMiy5GAIa6Zc=";
+      };
+
+      "kitty/split_window.py".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/mrjones2014/smart-splits.nvim/refs/heads/master/kitty/split_window.py";
+        hash = "sha256-ie5ssjnvI71XP0LnCtcJsEsUypYMe2VRiG4yX7fUKOw=";
+      };
+
+      "kitty/neighboring_window.py".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/mrjones2014/smart-splits.nvim/refs/heads/master/kitty/neighboring_window.py";
+        hash = "sha256-kV98/CqQXemj2IKFAsjy8B6K9Dcoma6c1q/F6f3FWhc=";
       };
 
       "kitty/repodex.py".text =

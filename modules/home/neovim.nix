@@ -40,7 +40,6 @@ _: {
               };
               enable_winbar = true;
             };
-            # mappings.open = "<leader>tt";
             enable = true;
             lazygit.enable = true;
           };
@@ -49,7 +48,7 @@ _: {
             enable = true;
             lspkind.enable = true;
             inlayHints.enable = true;
-            harper-ls.enable = true;
+            presets.harper.enable = true;
 
             mappings = {
               codeAction = "<leader>ca";
@@ -124,11 +123,6 @@ _: {
             addDefaultGrammars = true;
             autotagHtml = true;
             grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-          };
-
-          statusline.lualine = {
-            enable = false;
-            theme = "catppuccin";
           };
 
           theme = {
@@ -333,7 +327,9 @@ _: {
                 };
               };
             };
-            smart-splits.enable = true;
+            smart-splits = {
+              enable = true;
+            };
             yazi-nvim = {
               enable = true;
               setupOpts = {
@@ -349,6 +345,7 @@ _: {
             bufremove.enable = true;
             icons.enable = true;
             extra.enable = true;
+            statusline.enable = true;
             pick = {
               enable = true;
               setupOpts = {
