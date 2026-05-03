@@ -24,7 +24,7 @@ _: {
 
         # Launch apps
         launch < d : open -a Discord || open -a Vesktop & skhd -k 'escape'
-        launch < m : open -a TIDAL & skhd -k 'escape'
+        launch < m : open -a Feishin & skhd -k 'escape'
         launch < t : open -a kitty & skhd -k 'escape'
         launch < b : open -a Zen & skhd -k 'escape'
 

@@ -55,7 +55,7 @@
     networking = {
       hostName = "macbook-m4-pro";
       computerName = "macbook-m4-pro";
-      dns = ["9.9.9.10"];
+      dns = ["192.168.0.85" "45.90.28.61" "45.90.30.61"];
       knownNetworkServices = [
         "Wi-Fi"
         "Ethernet Adaptor"
@@ -306,7 +306,7 @@
         "cleanshot"
         "mac-mouse-fix"
         "orbstack"
-        "zoom"
+        # "zoom"
         "affinity"
         "1password"
         "mullvad-vpn"
@@ -348,8 +348,9 @@
       imagemagick
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-      # inputs.tidaLuna.packages.${system}.default
-      # tidal
+      nixd
+
+      feishin
       jq
       just
       keka

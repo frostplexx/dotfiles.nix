@@ -48,6 +48,15 @@ _: {
         #   };
         # }
         {
+          shortURL = "Song Downloader";
+          settingsName = "SongDownloader";
+          settings = {
+            "downloadQuality" = "HI_RES_LOSSLESS";
+            "pathFormat" = "{artist} - {album} - {title}";
+            "useRealMAX" = true;
+          };
+        }
+        {
           shortURL = "DiscordRPC";
           settingsName = "DiscordRPC";
           settings = {

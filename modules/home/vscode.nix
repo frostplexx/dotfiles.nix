@@ -30,6 +30,7 @@ _: {
           vscode-extensions.leonardssh.vscord
           vscode-extensions.editorconfig.editorconfig
           vscode-extensions.tomoki1207.pdf
+          vscode-extensions.bbenoist.nix
         ];
 
         userSettings = {
