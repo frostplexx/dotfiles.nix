@@ -1,8 +1,7 @@
 _: {
   flake.homeManagerModules.vscode = {pkgs, ...}: {
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
-      package = pkgs.vscodium;
       profiles.default = {
         enableMcpIntegration = true;
         extensions = with pkgs; [
