@@ -50,30 +50,38 @@ _: {
           merge.tool = "nvim";
           mergetool.nvim.cmd = "nvim +DiffviewOpen '$LOCAL' '$MERGED' '$REMOTE'";
           alias = {
-            update = ''
-              !f() { \
-                branch="''${1:-''$(git rev-parse --abbrev-ref HEAD)}"; \
-                if [ -z "$branch" ]; then echo "No branch specified"; return 1; fi; \
-                git fetch --all || return $?; \
-                upstream=$(git for-each-ref --format='%(refname:short)' refs/remotes | fzf --prompt="Select upstream: " --header="$branch"); \
-                if [ -z "$upstream" ]; then echo "No upstream selected"; return 1; fi; \
-                git checkout "$branch" || return $?; \
-                remote=$(echo "$upstream" | cut -d'/' -f1); \
-                git rebase "$upstream" || { \
-                  if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then \
-                    echo "Rebase stopped for conflict resolution. After resolving:"; \
-                    echo "  git add <files> && git rebase --continue"; \
-                    echo "Then push with:"; \
-                    echo "  git push --force-with-lease $remote $branch"; \
-                  else \
-                    echo "Rebase failed; run git rebase --abort if needed"; \
-                  fi; \
-                  return 1; \
-                }; \
-                git push --force-with-lease "$remote" "$branch" || return $?; \
-              }; f
-            '';
-            wt = "!f() { git worktree add -b $1 $(git rev-parse --show-toplevel)/../$(basename $(git rev-parse --show-toplevel))-$1;}; f";
+            update =
+              /*
+              bash
+              */
+              ''
+                !f() { \
+                  branch="''${1:-''$(git rev-parse --abbrev-ref HEAD)}"; \
+                  if [ -z "$branch" ]; then echo "No branch specified"; return 1; fi; \
+                  git fetch --all || return $?; \
+                  upstream=$(git for-each-ref --format='%(refname:short)' refs/remotes | fzf --prompt="Select upstream: " --header="$branch"); \
+                  if [ -z "$upstream" ]; then echo "No upstream selected"; return 1; fi; \
+                  git checkout "$branch" || return $?; \
+                  remote=$(echo "$upstream" | cut -d'/' -f1); \
+                  git rebase "$upstream" || { \
+                    if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then \
+                      echo "Rebase stopped for conflict resolution. After resolving:"; \
+                      echo "  git add <files> && git rebase --continue"; \
+                      echo "Then push with:"; \
+                      echo "  git push --force-with-lease $remote $branch"; \
+                    else \
+                      echo "Rebase failed; run git rebase --abort if needed"; \
+                    fi; \
+                    return 1; \
+                  }; \
+                  git push --force-with-lease "$remote" "$branch" || return $?; \
+                }; f
+              '';
+            wt =
+              /*
+              bash
+              */
+              "!f() { git worktree add -b $1 $(git rev-parse --show-toplevel)/../$(basename $(git rev-parse --show-toplevel))-$1;}; f";
             br = "branch";
             co = "checkout";
             st = "status";
@@ -133,14 +141,11 @@ _: {
             ### 2. Create worktree
 
         ```bash
-            wt <branch-name>
+            git wt <branch-name>
         ```
 
-            `wt` is a shell function — must run in a login shell or source the shell config first:
+            `git wt` is a git alias for `git worktree add -b <branch-name> ../<repo>-<branch-name>`
 
-        ```bash
-            bash -i -c 'wt <branch-name>'
-        ```
 
             Verify: check that `../<repo>-<branch>` directory exists after running.
 
@@ -169,7 +174,7 @@ _: {
 
             ## Error handling
 
-            - `wt` not found → tell user to add shell function to `.bashrc`/`.zshrc` and reload
+            - `git wt` not found → tell user to add shell function to `.bashrc`/`.zshrc` and reload
             - Branch already exists → suggest `git worktree list` to find it, or pick different name
             - Dirty working tree warnings → surface to user, don't silently skip
       '';
