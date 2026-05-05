@@ -110,28 +110,28 @@ _: {
           bash
           */
           ''
-            #!/bin/bash
+              #!/bin/bash
 
-            # Catppuccin Mocha Color Palette
-            MAUVE="\033[38;2;203;166;247m"
-            RED="\033[38;2;243;139;168m"
-            PEACH="\033[38;2;250;179;135m"
-            YELLOW="\033[38;2;249;226;175m"
-            GREEN="\033[38;2;166;227;161m"
-            TEAL="\033[38;2;148;226;213m"
-            SKY="\033[38;2;137;220;235m"
-            BLUE="\033[38;2;137;180;250m"
-            LAVENDER="\033[38;2;180;190;254m"
-            TEXT="\033[38;2;205;214;244m"
-            SUBTEXT0="\033[38;2;166;173;200m"
-            OVERLAY2="\033[38;2;147;153;178m"
-            OVERLAY1="\033[38;2;127;132;156m"
-            PINK="\033[38;2;245;194;231m"
-            RESET="\033[0m"
-            BOLD="\033[1m"
+              # Catppuccin Mocha Color Palette
+              MAUVE="\033[38;2;203;166;247m"
+              RED="\033[38;2;243;139;168m"
+              PEACH="\033[38;2;250;179;135m"
+              YELLOW="\033[38;2;249;226;175m"
+              GREEN="\033[38;2;166;227;161m"
+              TEAL="\033[38;2;148;226;213m"
+              SKY="\033[38;2;137;220;235m"
+              BLUE="\033[38;2;137;180;250m"
+              LAVENDER="\033[38;2;180;190;254m"
+              TEXT="\033[38;2;205;214;244m"
+              SUBTEXT0="\033[38;2;166;173;200m"
+              OVERLAY2="\033[38;2;147;153;178m"
+              OVERLAY1="\033[38;2;127;132;156m"
+              PINK="\033[38;2;245;194;231m"
+              RESET="\033[0m"
+              BOLD="\033[1m"
 
-            # Read JSON input
-            input=$(cat)
+              # Read JSON input
+              input=$(cat)
 
             # Extract data from JSON
             model=$(echo "$input" | jq -r '.model.display_name // .model.id')
@@ -141,8 +141,8 @@ _: {
             output_style=$(echo "$input" | jq -r '.output_style.name // empty')
             git_worktree=$(echo "$input" | jq -r '.workspace.git_worktree // empty')
 
-            # Context window info
-            used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+              # Context window info
+              used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
             # Rate limits (Claude.ai subscription)
             five_hour_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
@@ -151,11 +151,11 @@ _: {
             # Extended thinking
             thinking_enabled=$(echo "$input" | jq -r '.thinking.enabled // false')
 
-            # Vim mode
-            vim_mode=$(echo "$input" | jq -r '.vim.mode // empty')
+              # Vim mode
+              vim_mode=$(echo "$input" | jq -r '.vim.mode // empty')
 
-            # Build statusline
-            out=""
+              # Build statusline
+              out=""
 
             # Session name (if set) with bold mauve color
             if [ -n "$session_name" ]; then
@@ -250,14 +250,60 @@ _: {
               out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${vim_color}%s %s''${RESET}" "$vim_icon" "$vim_mode")"
             fi
 
-            # Current directory
-            dir_short=$(basename "$cwd")
-            out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${SUBTEXT0} %s''${RESET}" "$dir_short")"
+            # Context usage with color-coded percentage
+            if [ -n "$used_pct" ]; then
+              pct=$(printf "%.0f" "$used_pct")
 
-            # Time
-            out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${OVERLAY2} %s''${RESET}" "$time")"
+              # Color based on usage
+              if (( $(echo "$used_pct < 50" | bc -l) )); then
+                ctx_color=$GREEN
+              elif (( $(echo "$used_pct < 75" | bc -l) )); then
+                ctx_color=$YELLOW
+              elif (( $(echo "$used_pct < 90" | bc -l) )); then
+                ctx_color=$PEACH
+              else
+                ctx_color=$RED
+              fi
 
-            printf "%b\n" "$out"
+              # Model name in blue
+              out="''${out}$(printf "''${BLUE}󰧑 %s''${RESET}" "$model")"
+
+            # Git worktree indicator
+            if [ -n "$git_worktree" ]; then
+              out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${PEACH} %s''${RESET}" "$git_worktree")"
+            fi
+
+              # Vim mode (if enabled)
+              if [ -n "$vim_mode" ]; then
+                case "$vim_mode" in
+                  "INSERT")
+                    vim_color=$GREEN
+                    vim_icon="󰏫"
+                    ;;
+                  "NORMAL")
+                    vim_color=$BLUE
+                    vim_icon="󰰓"
+                    ;;
+                  "VISUAL"|"VISUAL LINE")
+                    vim_color=$MAUVE
+                    vim_icon="󰈈"
+                    ;;
+                  *)
+                    vim_color=$TEXT
+                    vim_icon="󰰓"
+                    ;;
+                esac
+                out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${vim_color}%s %s''${RESET}" "$vim_icon" "$vim_mode")"
+              fi
+
+              # Current directory
+              dir_short=$(basename "$cwd")
+              out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${SUBTEXT0} %s''${RESET}" "$dir_short")"
+
+              # Time
+              out="''${out}$(printf " ''${OVERLAY1}•''${RESET} ''${OVERLAY2} %s''${RESET}" "$time")"
+
+              printf "%b\n" "$out"
           '';
         executable = true;
       };
