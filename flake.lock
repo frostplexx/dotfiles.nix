@@ -539,11 +539,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1778026575,
-        "narHash": "sha256-zfSYIClc1Rh2Jo6mz7FhBYzdhifJTVJ+1A4leR6SiA0=",
+        "lastModified": 1778058822,
+        "narHash": "sha256-iWK6mx+b9UeIrLCRC3tQMluI9TU093Q/q78/8LW7IHk=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "719911646bb92c6c5f767741cd81b2c4e2e09476",
+        "rev": "a88a9e39026c8456c9cbb130a794a37c358ef07d",
         "type": "github"
       },
       "original": {
