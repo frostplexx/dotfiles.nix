@@ -151,6 +151,9 @@
             sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
             sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
 
+            # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
+            # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
+
 
             killall Finder;
             killall Dock;
@@ -299,7 +302,10 @@
       };
 
       taps = builtins.attrNames config.nix-homebrew.taps;
-      brews = ["displayplacer"];
+      brews = [
+        "displayplacer"
+        "tag"
+      ];
       casks = [
         "tailscale-app"
         "chromium"
