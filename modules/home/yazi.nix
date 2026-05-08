@@ -96,8 +96,8 @@ _: {
               "g"
               "D"
             ];
-            run = "cd '~/Developer'";
-            desc = "Go to Devloper";
+            run = "cd '~/Projects'";
+            desc = "Go to Projects";
           }
           {
             on = "F";

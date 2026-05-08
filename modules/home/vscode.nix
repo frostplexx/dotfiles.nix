@@ -132,7 +132,7 @@ _: {
           "vim.leader" = " ";
           "vim.commandLineModeKeyBindings" = [];
           "projectManager.git.baseFolders" = [
-            "~/Developer"
+            "~/Projects"
           ];
           "extensions.ignoreRecommendations" = true;
           "ltex.additionalRules.languageModel" = "en";
