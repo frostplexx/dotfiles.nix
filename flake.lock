@@ -558,11 +558,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1778004990,
-        "narHash": "sha256-5JbQug71yWbekFgNQdrLcvienHHwvCwPirGWXaFsXeI=",
+        "lastModified": 1778314168,
+        "narHash": "sha256-1j97ZHKu5J0TPPl4qZ5Q08j2eW2Vv58GINpBlEgmwHU=",
         "owner": "frostplexx",
         "repo": "nixkit",
-        "rev": "4b1eeb3671f4f895e3ab3c4b6179135b482c2456",
+        "rev": "fcdb70342c07eb7a9aa7ae4cf7b46b2cd902f563",
         "type": "github"
       },
       "original": {
