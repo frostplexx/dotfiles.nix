@@ -41,8 +41,8 @@
     lazykeys.url = "github:frostplexx/lazykeys";
 
     # tidaluna.url = "github:frostplexx/TidaLuna/flake";
-    # tidaluna.url = "github:Inrixia/TidaLuna";
-    tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
+    tidaluna.url = "github:Inrixia/TidaLuna";
+    # tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
