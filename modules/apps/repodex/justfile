@@ -1,6 +1,6 @@
 #!/usr/bin/env just --justfile
 
-ROOT := "~/Developer"
+ROOT := "~/Projects"
 
 # Set default recipe
 [private]
