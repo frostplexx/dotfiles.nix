@@ -7,32 +7,6 @@
   lazy = {
     enable = true;
     plugins = {
-      "opencode.nvim" = {
-        package = pkgs.vimPlugins.opencode-nvim;
-        lazy = true;
-        setupModule = "opencode";
-        event = [
-          {
-            event = "User";
-            pattern = "LazyFile";
-          }
-        ];
-        keys = [
-          {
-            key = "<leader>aa";
-            mode = "n";
-            lua = true;
-            action = "function() require('opencode').toggle() end";
-          }
-          {
-            key = "<leader>ae";
-            mode = "n";
-            lua = true;
-            action = "function() require('opencode').ask('@this: ', { submit = true }) end";
-          }
-        ];
-      };
-
       "fff.nvim" = {
         package = inputs.fff-nvim.packages.${pkgs.stdenv.hostPlatform.system}.fff-nvim;
         lazy = true;

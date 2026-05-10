@@ -1,3 +1,43 @@
+function connect_ollama 
+    # Check if eduVPN is running and connect if not connected
+    if ! pgrep -x "eduVPN" > /dev/null
+        echo "Starting eduVPN..."
+        # Wait for eduVPN to establish connection (adjust sleep time as needed)
+        open -a "eduVPN"
+    end
+    # Port is on 11434
+    echo "Connecting to Ollama on port 11434..."
+    ssh -N -L 11434:localhost:11434 PLAI_GPU
+end
+
+function llamacode
+    set -l fzf_opts \
+        --height 100% \
+        --layout reverse \
+        --border rounded \
+        --prompt "model> " \
+        --pointer "▶" \
+        --marker "✓" \
+        --info inline \
+        --exact \
+        --preview "ollama show {1}" \
+        --preview-window right:60%:wrap \
+        --bind "ctrl-/:toggle-preview" \
+        --bind "ctrl-j:down,ctrl-k:up" \
+        --color "header:italic:underline,pointer:green,marker:yellow"
+    
+    set -l header (ollama list | head -1)
+    set -l selection (ollama list | tail -n +2 | fzf --header "$header" $fzf_opts)
+    set -l selected_model (string split -f1 ' ' $selection)
+    echo "Selected model: $selected_model"
+    
+    
+    ollama launch claude --model $selected_model -y
+
+end
+
+
+
 function open-man-page
     set -l token (commandline -t)
     if test -n "$token"
