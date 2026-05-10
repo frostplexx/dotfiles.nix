@@ -93,6 +93,7 @@ _: {
         inherit (pkgs.yaziPlugins) starship;
         inherit (pkgs.yaziPlugins) smart-paste;
         inherit (pkgs.yaziPlugins) yatline;
+        inherit (pkgs.yaziPlugins) yatline-catppuccin;
       };
       flavors = {
         catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
