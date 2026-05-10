@@ -50,6 +50,7 @@ _: {
         allow_remote_control = "yes";
         listen_on = "unix:/tmp/mykitty";
         font_family = "Maple Mono";
+        cursor_trail = "2";
         disable_ligatures = "cursor";
         font_size =
           if pkgs.stdenv.isDarwin

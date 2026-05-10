@@ -17,8 +17,36 @@ _: {
           useUasm = pkgs.stdenv.isLinux;
         };
       };
-
+      initLua = ./init.lua;
       settings = {
+        plugin.prepend_fetchers = [
+          {
+            id = "git";
+            url = "*";
+            run = "git";
+            group = "git";
+          }
+          {
+            id = "git";
+            url = "*/";
+            run = "git";
+            group = "git";
+          }
+
+          {
+            id = "mactag";
+            url = "*/";
+            run = "mactag";
+            group = "mactag";
+          }
+          {
+            id = "mactag";
+            url = "*";
+            run = "mactag";
+            group = "mactag";
+          }
+        ];
+
         mgr = {
           sort_by = "natural";
           sort_sensitive = false;
@@ -27,6 +55,26 @@ _: {
           linemode = "mtime";
           show_hidden = true;
           show_symlink = true;
+          layout = [
+            1
+            4
+            3
+          ];
+        };
+        preview = {
+          image_filter = "lanczos3";
+          image_quality = 90;
+          tab_size = 1;
+          max_width = 600;
+          max_height = 900;
+          cache_dir = "";
+          ueberzug_scale = 1;
+          ueberzug_offset = [
+            0
+            0
+            0
+            0
+          ];
         };
         flavor = {
           dark = "catppuccin-mocha";
@@ -40,31 +88,24 @@ _: {
       };
 
       plugins = {
-        starship = pkgs.fetchFromGitHub {
-          owner = "Rolv-Apneseth";
-          repo = "starship.yazi";
-          rev = "a83710153ab5625a64ef98d55e6ddad480a3756f";
-          hash = "sha256-CPRVJVunBLwFLCoj+XfoIIwrrwHxqoElbskCXZgFraw=";
-        };
+        inherit (pkgs.yaziPlugins) git;
+        inherit (pkgs.yaziPlugins) mactag;
+        inherit (pkgs.yaziPlugins) starship;
+        inherit (pkgs.yaziPlugins) smart-paste;
+        inherit (pkgs.yaziPlugins) yatline;
+        inherit (pkgs.yaziPlugins) yatline-catppuccin;
       };
       flavors = {
         catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
       };
 
-      initLua = ''
-        require("starship"):setup({
-            -- Hide flags (such as filter, find and search). This is recommended for starship themes which
-            -- are intended to go across the entire width of the terminal.
-            hide_flags = false, -- Default: false
-            -- Whether to place flags after the starship prompt. False means the flags will be placed before the prompt.
-            flags_after_prompt = true, -- Default: true
-            -- Custom starship configuration file to use
-            config_file = "~/.config/starship_full.toml", -- Default: nil
-        })
-      '';
-
       keymap = {
         mgr.prepend_keymap = [
+          {
+            on = "p";
+            run = "plugin smart-paste";
+            desc = "Smart paste from clipboard";
+          }
           {
             on = "f";
             run = "plugin jump-to-char";
@@ -96,8 +137,8 @@ _: {
               "g"
               "D"
             ];
-            run = "cd '~/Developer'";
-            desc = "Go to Devloper";
+            run = "cd '~/Projects'";
+            desc = "Go to Projects";
           }
           {
             on = "F";
