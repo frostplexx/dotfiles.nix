@@ -26,6 +26,8 @@ set path (string replace -r '\.git$' '' $path)
 
 set dest "$root/$path"
 
+tag --set "Project" $dest
+
 echo -e "\033[34m\033[0m  Cloning \033[1m$url\033[0m"
 echo -e "\033[2m  into $dest\033[0m"
 echo ""

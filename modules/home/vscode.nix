@@ -1,8 +1,7 @@
 _: {
   flake.homeManagerModules.vscode = {pkgs, ...}: {
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
-      package = pkgs.vscodium;
       profiles.default = {
         enableMcpIntegration = true;
         extensions = with pkgs; [
@@ -30,6 +29,7 @@ _: {
           vscode-extensions.leonardssh.vscord
           vscode-extensions.editorconfig.editorconfig
           vscode-extensions.tomoki1207.pdf
+          vscode-extensions.bbenoist.nix
         ];
 
         userSettings = {
@@ -132,7 +132,7 @@ _: {
           "vim.leader" = " ";
           "vim.commandLineModeKeyBindings" = [];
           "projectManager.git.baseFolders" = [
-            "~/Developer"
+            "~/Projects"
           ];
           "extensions.ignoreRecommendations" = true;
           "ltex.additionalRules.languageModel" = "en";
