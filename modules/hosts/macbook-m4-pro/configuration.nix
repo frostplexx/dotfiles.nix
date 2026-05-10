@@ -55,7 +55,7 @@
     networking = {
       hostName = "macbook-m4-pro";
       computerName = "macbook-m4-pro";
-      dns = ["9.9.9.10"];
+      dns = ["192.168.0.85" "45.90.28.61" "45.90.30.61"];
       knownNetworkServices = [
         "Wi-Fi"
         "Ethernet Adaptor"
@@ -150,6 +150,9 @@
             sudo -u ${user} defaults write com.microsoft.VSCode       ApplePressAndHoldEnabled -bool false
             sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
             sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
+
+            # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
+            # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
 
 
             killall Finder;
@@ -299,14 +302,17 @@
       };
 
       taps = builtins.attrNames config.nix-homebrew.taps;
-      brews = ["displayplacer"];
+      brews = [
+        "displayplacer"
+        "tag"
+      ];
       casks = [
         "tailscale-app"
         "chromium"
         "cleanshot"
         "mac-mouse-fix"
         "orbstack"
-        "zoom"
+        # "zoom"
         "affinity"
         "1password"
         "mullvad-vpn"
@@ -348,8 +354,10 @@
       imagemagick
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-      # inputs.tidaLuna.packages.${system}.default
-      # tidal
+      nixd
+
+      feishin
+      inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
       jq
       just
       keka
