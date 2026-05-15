@@ -386,11 +386,11 @@
     "jankyborders": {
       "flake": false,
       "locked": {
-        "lastModified": 1766486515,
-        "narHash": "sha256-YbpzO4TuFD8o7oZwy0uckI14z/UDaimqkipx25GlK6w=",
+        "lastModified": 1778761682,
+        "narHash": "sha256-7yF1zmBtNk5oWdI+4SMbhAa6ZlxvW9jZoCMPUFt9ytU=",
         "owner": "FelixKratz",
         "repo": "homebrew-formulae",
-        "rev": "018a7db2946bfb54dee6be66f962929075173ac7",
+        "rev": "c53e16d323fd427b3d348470dc99dc0bf0477514",
         "type": "github"
       },
       "original": {
