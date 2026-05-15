@@ -4,7 +4,7 @@ _: {
 
     services = {
       jankyborders = {
-        enable = true;
+        enable = defaults.settings.window_manager;
         style = "round";
         width = 5.0;
         hidpi = false;
@@ -13,7 +13,7 @@ _: {
       };
 
       yabai = {
-        enable = true;
+        enable = defaults.settings.window_manager;
         enableScriptingAddition = true;
         config = {
           layout = "bsp";
