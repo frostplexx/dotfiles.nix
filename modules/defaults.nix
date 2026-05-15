@@ -37,6 +37,7 @@
 
       accent_color = "cba6f7";
       transparent_terminal = false;
+      window_manager = true;
     };
 
     personalInfo = {

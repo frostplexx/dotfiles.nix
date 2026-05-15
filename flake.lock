@@ -896,17 +896,17 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1778321300,
+        "lastModified": 1778321706,
         "narHash": "sha256-13bz1CqjGr1CxR3wqpKb1kx4NrgvcsdDri0VSbwf/d4=",
-        "ref": "refs/heads/nixpkgs-tidal",
-        "rev": "740e920140cb8fc3a7e48d492047178be21b3e44",
-        "revCount": 603,
-        "type": "git",
-        "url": "file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna"
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
+        "rev": "af95ee755c31c594d7aabb06b444e23251259ba8",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna"
+        "owner": "Inrixia",
+        "repo": "TidaLuna",
+        "type": "github"
       }
     },
     "zen-browser": {
