@@ -9,7 +9,13 @@ default:
 
 
 [group("repo management")]
-[doc(" Clone a repo")]
+[doc("Create a new project")]
+create name:
+    @fish create.fish {{name}} {{ROOT}}
+
+
+[group("repo management")]
+[doc("Clone a repo")]
 clone repo:
     @fish clone.fish {{repo}} {{ROOT}}
 
