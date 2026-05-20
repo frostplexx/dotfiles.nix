@@ -7,7 +7,7 @@ function connect_ollama
     end
     # Port is on 11434
     echo "Connecting to Ollama on port 11434..."
-    ssh -N -L 11434:localhost:11434 PLAI_GPU
+    ssh -N -L 11434:localhost:11434 GPU_Server_Students
 end
 
 function llamacode

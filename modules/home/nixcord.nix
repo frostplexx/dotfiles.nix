@@ -49,7 +49,6 @@ _: {
           };
           betterGifPicker.enable = true;
           gifPaste.enable = true;
-          petpet.enable = true;
           betterRoleContext.enable = true;
           betterSettings.enable = true;
           betterUploadButton.enable = true;

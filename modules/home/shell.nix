@@ -14,7 +14,7 @@ _: {
       nixupdater = {
         enable = true;
         flake = "${defaults.paths.flake}";
-        interval = 43200;
+        interval = 28800;
         terminal = "kitty-overlay";
         command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
       };

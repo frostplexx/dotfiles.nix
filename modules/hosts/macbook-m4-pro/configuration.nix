@@ -308,16 +308,13 @@
       ];
       casks = [
         "tailscale-app"
-        "chromium"
         "cleanshot"
         "mac-mouse-fix"
         "orbstack"
-        # "zoom"
         "affinity"
         "1password"
         "mullvad-vpn"
         "sf-symbols"
-        # "tidal"
       ];
     };
 
@@ -327,23 +324,17 @@
     };
 
     fonts.packages = with pkgs; [
-      open-sans
-      inter
       jetbrains-mono
-      maple-mono.truetype-autohint
       maple-mono.NF
-      sketchybar-app-font
     ];
 
     # System packages
     environment.systemPackages = with pkgs; [
       _1password-cli
       alejandra
-      bvi
       curl
       deadnix
       comma
-      entr
       ffmpeg
       gcc
       gh
@@ -351,7 +342,6 @@
       gnupg
       hexfiend
       iina
-      imagemagick
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       nixd
@@ -362,7 +352,6 @@
       just
       keka
       macpm
-      magic-wormhole-rs
       man-pages
       man-pages-posix
       mas
@@ -380,13 +369,10 @@
       sshpass
       statix
       switchaudio-osx
-      termshark
-      unp
       utm
-      uv
+      uv # TODO: move this to shell config?
       wget
       whisky
-      wtfis
     ];
 
     # Home Manager
