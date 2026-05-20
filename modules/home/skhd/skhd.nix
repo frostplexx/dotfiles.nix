@@ -1,4 +1,4 @@
-_: {
+skhd_: {
   flake.homeManagerModules.skhd = {
     pkgs,
     lib,
@@ -25,7 +25,7 @@ _: {
         # Launch apps
         launch < d : open -a Discord || open -a Vesktop & skhd -k 'escape'
         launch < m : open -a Feishin & skhd -k 'escape'
-        launch < t : open -a kitty & skhd -k 'escape'
+        launch < t : open -a Ghostty & skhd -k 'escape'
         launch < b : open -a Zen & skhd -k 'escape'
 
 
