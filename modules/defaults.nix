@@ -36,7 +36,7 @@
       };
 
       accent_color = "cba6f7";
-      transparent_terminal = false;
+      transparent_terminal = true;
       window_manager = true;
     };
 

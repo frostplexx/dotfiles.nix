@@ -15,7 +15,7 @@ _: {
         enable = true;
         flake = "${defaults.paths.flake}";
         interval = 28800;
-        terminal = "kitty-overlay";
+        terminal = "ghostty";
         command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
       };
 
@@ -49,6 +49,7 @@ _: {
           c = "clear";
           q = "exit";
           s = "kitten ssh";
+          boo = "ghostty +boo";
           p = "project_selector";
           cat = "bat";
           tree = "eza --icons --git --header --tree";

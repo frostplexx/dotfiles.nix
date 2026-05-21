@@ -13,25 +13,29 @@ _: {
         package = pkgs.ghostty-bin;
         settings = {
           theme = "Catppuccin Mocha";
-          font-family = "Maple Mono NF";
+          font-family = "Maple Mono"; # Nerd Font not needed as ghostty has icons built in
           font-size = 13;
           background-opacity =
             if defaults.settings.transparent_terminal
-            then 0.9
+            then 0.8
             else 1.0;
-          background-blur-radius = 20;
-          unfocused-split-opacity =
-            if defaults.settings.transparent_terminal
-            then 0.9
-            else 1.0;
+          # macos-glass-regular or macos-glass-clear
+          background-blur = "macos-glass-regular";
+
+          unfocused-split-opacity = 0.9;
+          macos-titlebar-proxy-icon = "hidden";
+          notify-on-command-finish = "unfocused";
+          macos-window-buttons = "hidden";
           mouse-hide-while-typing = true;
+          macos-window-shadow = false;
+          shell-integration = "fish";
+          shell-integration-features = true;
           window-decoration = true;
           macos-option-as-alt = true;
-          term = "xterm-256color";
           auto-update = "off";
           macos-titlebar-style = "tabs";
           keybind = [
-            # "global:cmd+s=toggle_quick_terminal"
+            "global:ctrl+alt+cmd+s=toggle_quick_terminal"
             "ctrl+shift+up=resize_split:up,20"
             "ctrl+shift+down=resize_split:down,20"
             "ctrl+shift+left=resize_split:left,20"

@@ -40,6 +40,8 @@ for host in (echo $hosts | jq -c '.[]')
     echo "    HostName $host" >>$ssh_hosts_file
     echo "    User $user" >>$ssh_hosts_file
     echo "    Port $ssh_port" >>$ssh_hosts_file
+    echo "    SetEnv TERM=xterm-256color" >>$ssh_hosts_file
+    echo "    SendEnv COLORTERM TERM_PROGRAM TERM_PROGRAM_VERSION" >>$ssh_hosts_file
     if test -f $public_key_file
         echo "    IdentityFile $public_key_file" >>$ssh_hosts_file
     end

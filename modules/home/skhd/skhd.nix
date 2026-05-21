@@ -1,4 +1,4 @@
-skhd_: {
+_: {
   flake.homeManagerModules.skhd = {
     pkgs,
     lib,

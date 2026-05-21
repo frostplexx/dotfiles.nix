@@ -11,7 +11,6 @@ _: {
     keymapsConfig = import ./neovim/_keymap.nix {};
     optionsConfig = import ./neovim/_options.nix {};
     customPluginsConfig = import ./neovim/_customPlugins.nix {inherit pkgs lib inputs;};
-    transparent_terminal = false;
   in {
     home.file = {
       ".vimrc".source = ./neovim/vimrc;
@@ -129,7 +128,7 @@ _: {
             enable = true;
             name = "catppuccin";
             style = "mocha";
-            transparent = transparent_terminal;
+            transparent = true;
           };
           autocomplete.blink-cmp = {
             enable = true;
