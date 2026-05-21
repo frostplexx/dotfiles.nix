@@ -21,7 +21,7 @@ _: {
             else 1.0;
           # macos-glass-regular or macos-glass-clear
           background-blur = "macos-glass-regular";
-
+          window-save-state = "always";
           unfocused-split-opacity = 0.9;
           macos-titlebar-proxy-icon = "hidden";
           notify-on-command-finish = "unfocused";
