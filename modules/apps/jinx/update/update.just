@@ -1,5 +1,13 @@
 
 [group('󱄅 nix')]
+[doc('Manually merge PRs into the repo')]
+force_merge_updates:
+    @cd {{DOTFILES_FOLDER}} && \
+    {{DOTFILES_FOLDER}}/modules/apps/jinx/update/force_merge_updates.fish
+
+
+
+[group('󱄅 nix')]
 [doc('Update flake inputs and deploy')]
 update: lint
     @{{DOTFILES_FOLDER}}/modules/apps/jinx/update/update.fish \

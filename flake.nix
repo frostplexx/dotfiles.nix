@@ -6,7 +6,7 @@
     # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";

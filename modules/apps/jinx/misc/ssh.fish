@@ -13,6 +13,8 @@ for host in (echo $hosts | jq -c '.[]')
     set -l ssh_port (echo $host | jq -r '.fields[] | select(.label == "port") | .value')
     set -l public_key (echo $host | jq -r '.fields[] | select(.id == "public_key") | .value')
 
+    set -l extra_settings (echo $host | jq -r '.fields[] | select(.section.label == "extra settings") | "\(.label) \(.value)"')
+
     if test -z "$ssh_port"
         set ssh_port 22
     end
@@ -46,5 +48,8 @@ for host in (echo $hosts | jq -c '.[]')
         echo "    IdentityFile $public_key_file" >>$ssh_hosts_file
     end
     echo "    IdentitiesOnly yes" >>$ssh_hosts_file
+    for setting in $extra_settings
+        echo "    $setting" >>$ssh_hosts_file
+    end
     echo "" >>$ssh_hosts_file
 end

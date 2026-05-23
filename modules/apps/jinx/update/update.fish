@@ -100,9 +100,28 @@ if not test -d "$DOTFILES"
     exit 1
 end
 
+# ── Check for failed PRs ────────────────────────────────────────────
+cd "$DOTFILES"
+
+# Check if gh is available
+if command -q gh
+    set -l failed_prs (gh pr list --state open --json number,title,statusCheckRollup --jq '.[] | select(.statusCheckRollup[]? | select(.conclusion == "FAILURE")) | "\(.number)|\(.title)"')
+
+    if test (count $failed_prs) -gt 0
+        echo
+        warn "Open PRs with failed checks:"
+        for pr in $failed_prs
+            set -l parts (string split "|" $pr)
+            set -l pr_number $parts[1]
+            set -l pr_title $parts[2]
+            echo "$RED  • $RESET#$pr_number: $pr_title"
+        end
+        echo
+    end
+end
+
 # ── Pull & analyze ──────────────────────────────────────────────────
 echo
-cd "$DOTFILES"
 
 # Save pre-pull HEAD so we can diff against it (not just HEAD~1)
 set -l pre_pull_ref (git rev-parse HEAD)

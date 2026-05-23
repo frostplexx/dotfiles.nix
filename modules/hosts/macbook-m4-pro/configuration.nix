@@ -55,7 +55,11 @@
     networking = {
       hostName = "macbook-m4-pro";
       computerName = "macbook-m4-pro";
-      dns = ["192.168.0.85" "45.90.28.61" "45.90.30.61"];
+      dns = [
+        "192.168.0.85"
+        "45.90.28.61"
+        "45.90.30.61"
+      ];
       knownNetworkServices = [
         "Wi-Fi"
         "Ethernet Adaptor"
@@ -120,44 +124,52 @@
           appleHighlightColor = hexToAppleRGBA highlightColor;
         in {
           enable = true;
-          text = ''
-            sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
-            sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
-            sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
-            sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
-            sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme RegularDark
-            sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "${appleHighlightColor}"
-            sudo -u ${user} defaults write "Apple Global Domain" AppleHighlightColor -string "${appleHighlightColor} Other"
-            sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
-            sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
-            sudo -u ${user} defaults write com.apple.Dock contents-immutable -bool true
-            sudo -u ${user} defaults write com.apple.dock size-immutable -bool yes
+          text =
+            /*
+            bash
+            */
+            ''
+              sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
+              sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
+              sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
+              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
+              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme RegularDark
+              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "${appleHighlightColor}"
+              sudo -u ${user} defaults write "Apple Global Domain" AppleHighlightColor -string "${appleHighlightColor} Other"
+              sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
+              sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
+              sudo -u ${user} defaults write com.apple.Dock contents-immutable -bool true
+              sudo -u ${user} defaults write com.apple.dock size-immutable -bool yes
 
-            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'CleanExit' -string "YES"
-            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'PrefsVersion' -int "100"
-            sudo -u ${user} defaults -currentHost write com.apple.screensaver 'idleTime' -int '180'
+              sudo -u ${user} defaults write com.apple.AdLib allowIdentifierForAdvertising -bool false
+              sudo -u ${user} defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false
+              sudo -u ${user} defaults write com.apple.AdLib forceLimitAdTracking -bool true
 
-            sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
+              sudo -u ${user} defaults -currentHost write com.apple.screensaver 'CleanExit' -string "YES"
+              sudo -u ${user} defaults -currentHost write com.apple.screensaver 'PrefsVersion' -int "100"
+              sudo -u ${user} defaults -currentHost write com.apple.screensaver 'idleTime' -int '180'
 
-
-            # ApplePressAndHold: delete global key so per-app overrides take effect.
-            # If the global key exists (even as true), it shadows all per-app values.
-            sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
-
-            # Apps that should use key repeat instead of the accent popup:
-            sudo -u ${user} defaults write com.jetbrains.intellij    ApplePressAndHoldEnabled -bool false
-            sudo -u ${user} defaults write com.jetbrains.intellij.ce  ApplePressAndHoldEnabled -bool false
-            sudo -u ${user} defaults write com.microsoft.VSCode       ApplePressAndHoldEnabled -bool false
-            sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
-            sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
-
-            # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
-            # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
+              sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
 
 
-            killall Finder;
-            killall Dock;
-          '';
+              # ApplePressAndHold: delete global key so per-app overrides take effect.
+              # If the global key exists (even as true), it shadows all per-app values.
+              sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
+
+              # Apps that should use key repeat instead of the accent popup:
+              sudo -u ${user} defaults write com.jetbrains.intellij    ApplePressAndHoldEnabled -bool false
+              sudo -u ${user} defaults write com.jetbrains.intellij.ce  ApplePressAndHoldEnabled -bool false
+              sudo -u ${user} defaults write com.microsoft.VSCode       ApplePressAndHoldEnabled -bool false
+              sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
+              sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
+
+              # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
+              # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
+
+
+              killall Finder;
+              killall Dock;
+            '';
         };
       };
 
