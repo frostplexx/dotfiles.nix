@@ -13,7 +13,7 @@ _: {
         package = pkgs.ghostty-bin;
         settings = {
           theme = "Catppuccin Mocha";
-          font-family = "Maple Mono"; # Nerd Font not needed as ghostty has icons built in
+          font-family = "Maple Mono NF";
           font-size = 13;
           background-opacity =
             if defaults.settings.transparent_terminal
