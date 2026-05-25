@@ -49,7 +49,7 @@ _: {
         active_tab_background = "#${defaults.settings.accent_color}";
         allow_remote_control = "yes";
         listen_on = "unix:/tmp/mykitty";
-        font_family = "Maple Mono";
+        font_family = "Maple Mono NF";
         cursor_trail = "2";
         disable_ligatures = "cursor";
         font_size =

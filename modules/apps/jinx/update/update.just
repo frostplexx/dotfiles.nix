@@ -26,7 +26,7 @@ update-refs:
 [group('󱄅 nix')]
 [doc('Update flake inputs')]
 update-inputs: lint
-    @nix flake update --option access-tokens github.com=$(op read op://Personal/GitHub/token)
+    @nix flake update --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
 
 [group('󱄅 nix')]
 [doc('list the changes from the updated inputs')]
