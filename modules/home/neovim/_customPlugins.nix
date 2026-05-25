@@ -7,6 +7,53 @@
   lazy = {
     enable = true;
     plugins = {
+      "claudecode.nvim" = {
+        package = pkgs.vimPlugins.claudecode-nvim;
+        lazy = true;
+        setupModule = "claudecode";
+        setupOpts = {
+          terminal = {
+            split_side = "left"; # "left" or "right"
+            provider = "native";
+          };
+        };
+
+        keys = [
+          {
+            key = "<leader>ac";
+            mode = "n";
+            lua = false;
+            action = "<cmd>ClaudeCode<CR>";
+          }
+          {
+            key = "<leader>af";
+            mode = "n";
+            lua = false;
+            action = "<cmd>ClaudeCodeFocus<CR>";
+          }
+          {
+            key = "<leader>ab";
+            mode = "n";
+            lua = false;
+            action = "<cmd>ClaudeCodeAdd %<cr>";
+          }
+
+          {
+            key = "<leader>aa";
+            mode = "n";
+            lua = false;
+            action = "<cmd>ClaudeCodeDiffAccept<cr>";
+          }
+
+          {
+            key = "<leader>ad";
+            mode = "n";
+            lua = false;
+            action = "<cmd>ClaudeCodeDiffDeny<cr>";
+          }
+        ];
+      };
+
       "fff.nvim" = {
         package = inputs.fff-nvim.packages.${pkgs.stdenv.hostPlatform.system}.fff-nvim;
         lazy = true;
