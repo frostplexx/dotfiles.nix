@@ -1,9 +1,7 @@
 _: {
   flake.darwinModules.yabai = {
     defaults,
-    pkgs,
     lib,
-    inputs,
     ...
   }:
     lib.mkIf defaults.settings.window_manager {
@@ -24,7 +22,7 @@ _: {
           enableScriptingAddition = false;
 
           # Use yabai from nixkit
-          package = inputs.nixkit.packages.${pkgs.stdenv.hostPlatform.system}.yabai;
+          # package = inputs.nixkit.packages.${pkgs.stdenv.hostPlatform.system}.yabai;
           config = {
             layout = "bsp";
             focus_follows_mouse = "off";
