@@ -3,6 +3,7 @@ _: {
     defaults,
     pkgs,
     lib,
+    inputs,
     ...
   }: lib.mkIf defaults.settings.window_manager {
     programs.yabaiIndicator.enable = true;
@@ -17,14 +18,12 @@ _: {
         inactive_color = "0xff7f849c";
       };
 
-      yabai = let
-        customPkgs = import ../../../pkgs {inherit pkgs;};
-      in {
+      yabai = {
         enable = true;
         enableScriptingAddition = false;
 
-        # Use custom yabai 7.1.25 from pkgs folder
-        package = customPkgs.yabai;
+        # Use yabai from nixkit
+        package = inputs.nixkit.packages.${pkgs.stdenv.hostPlatform.system}.yabai;
         config = {
           layout = "bsp";
           focus_follows_mouse = "off";
