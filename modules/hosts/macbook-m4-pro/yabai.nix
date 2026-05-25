@@ -2,15 +2,14 @@ _: {
   flake.darwinModules.yabai = {
     defaults,
     pkgs,
+    lib,
     ...
-  }: let
-    customPkgs = import ../../../pkgs {inherit pkgs;};
-  in {
+  }: lib.mkIf defaults.settings.window_manager {
     programs.yabaiIndicator.enable = true;
 
     services = {
       jankyborders = {
-        enable = defaults.settings.window_manager;
+        enable = true;
         style = "round";
         width = 5.0;
         hidpi = false;
@@ -18,8 +17,10 @@ _: {
         inactive_color = "0xff7f849c";
       };
 
-      yabai = {
-        enable = defaults.settings.window_manager;
+      yabai = let
+        customPkgs = import ../../../pkgs {inherit pkgs;};
+      in {
+        enable = true;
         enableScriptingAddition = false;
 
         # Use custom yabai 7.1.25 from pkgs folder

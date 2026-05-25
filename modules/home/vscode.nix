@@ -13,9 +13,10 @@ _: {
 
           # Jupyter
           vscode-extensions.ms-toolsai.jupyter
-          vscode-extensions.ms-python.python
-          vscode-extensions.ms-python.pylint
-          vscode-extensions.ms-python.debugpy
+          #TODO: Re-enable when its cached
+          # vscode-extensions.ms-python.python
+          # vscode-extensions.ms-python.pylint
+          # vscode-extensions.ms-python.debugpy
 
           # Other
           # vscode-extensions.github.copilot-chat

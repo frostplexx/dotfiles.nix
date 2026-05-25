@@ -1,35 +1,103 @@
 _: {
   keymaps = [
+    # Use same keybinds in terminal mode for split navigation
+    {
+      mode = "t";
+      key = "<C-h>";
+      action = "<C-\\><C-N><C-w>h";
+      lua = false;
+      noremap = true;
+      desc = "Navigate left in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-j>";
+      action = "<C-\\><C-N><C-w>j";
+      lua = false;
+      noremap = true;
+      desc = "Navigate down in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-k>";
+      action = "<C-\\><C-N><C-w>k";
+      lua = false;
+      noremap = true;
+      desc = "Navigate up in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-l>";
+      action = "<C-\\><C-N><C-w>l";
+      lua = false;
+      noremap = true;
+      desc = "Navigate right in terminal mode";
+    }
+
+    {
+      mode = "n";
+      key = "<C-h>";
+      action = "<C-w>h";
+      lua = false;
+      noremap = true;
+      desc = "Navigate left";
+    }
+    {
+      mode = "n";
+      key = "<C-j>";
+      action = "<C-w>j";
+      lua = false;
+      noremap = true;
+      desc = "Navigate down";
+    }
+    {
+      mode = "n";
+      key = "<C-k>";
+      action = "<C-w>k";
+      lua = false;
+      noremap = true;
+      desc = "Navigate up";
+    }
+    {
+      mode = "n";
+      key = "<C-l>";
+      action = "<C-w>l";
+      lua = false;
+      noremap = true;
+      desc = "Navigate right";
+    }
+
+    # Remove smart splits dependency and use built-in window resizing
     {
       mode = "n";
       key = "<A-j>";
-      action = "function() require('smart-splits').resize_down() end";
+      action = "<C-w>+";
       noremap = true;
-      lua = true;
+      lua = false;
       desc = "resize down";
     }
     {
       mode = "n";
       key = "<A-l>";
-      action = "function() require('smart-splits').resize_right() end";
+      action = "<C-w><";
       noremap = true;
-      lua = true;
+      lua = false;
       desc = "resize left";
     }
     {
       mode = "n";
       key = "<A-k>";
-      action = "function() require('smart-splits').resize_up() end";
+      action = "<C-w>-";
       noremap = true;
-      lua = true;
+      lua = false;
       desc = "resize up";
     }
     {
       mode = "n";
       key = "<A-h>";
-      action = "function() require('smart-splits').resize_left() end";
+      action = "<C-w>>";
       noremap = true;
-      lua = true;
+      lua = false;
       desc = "resize right";
     }
     {
