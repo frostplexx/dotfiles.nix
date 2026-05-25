@@ -42,7 +42,7 @@ _: {
             "ctrl+shift+right=resize_split:right,20"
             "ctrl+shift+equal=new_split:right"
             "ctrl+shift+minus=new_split:down"
-
+            "performable:cmd+p=text:p\n"
             "ctrl+shift+enter=new_split:auto"
             "alt+k=goto_split:top"
             "alt+j=goto_split:bottom"

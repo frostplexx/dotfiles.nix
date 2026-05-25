@@ -7,9 +7,13 @@ _: {
       enable = true;
       extraDiagnostics.enable = true;
     };
+    tsx.enable = true;
     typescript = {
       enable = true;
       extensions.ts-error-translator.enable = true;
+      extraDiagnostics.enable = true; # ESLint
+      lsp.enable = true;
+      treesitter.enable = true;
       format.type = "prettierd";
     };
     rust = {

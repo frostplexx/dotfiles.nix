@@ -1,5 +1,39 @@
 _: {
   keymaps = [
+    # Use same keybinds in terminal mode for split navigation
+    {
+      mode = "t";
+      key = "<C-h>";
+      action = "<C-\\><C-N><C-w>h";
+      lua = false;
+      noremap = true;
+      desc = "Navigate left in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-j>";
+      action = "<C-\\><C-N><C-w>j";
+      lua = false;
+      noremap = true;
+      desc = "Navigate down in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-k>";
+      action = "<C-\\><C-N><C-w>k";
+      lua = false;
+      noremap = true;
+      desc = "Navigate up in terminal mode";
+    }
+    {
+      mode = "t";
+      key = "<C-l>";
+      action = "<C-\\><C-N><C-w>l";
+      lua = false;
+      noremap = true;
+      desc = "Navigate right in terminal mode";
+    }
+
     {
       mode = "n";
       key = "<C-h>";
