@@ -4,6 +4,7 @@ _: {
     lib,
     config,
     inputs,
+    defaults,
     ...
   }: {
     programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
@@ -100,27 +101,54 @@ _: {
             icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
             container = containers."Personal".id;
             position = 1000;
-            theme = {
-              type = "gradient";
-              colors = [
-                {
-                  red = 30;
-                  green = 30;
-                  blue = 27;
-                  algorithm = "floating";
-                  type = "explicit-lightness";
-                }
-                {
-                  red = 49;
-                  green = 50;
-                  blue = 68;
-                  algorithm = "floating";
-                  type = "explicit-lightness";
-                }
-              ];
-              opacity = 0.8;
-              texture = 0.1;
-            };
+            theme =
+              {
+                "catppuccin" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 30;
+                      green = 30;
+                      blue = 27;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 49;
+                      green = 50;
+                      blue = 68;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.8;
+                  texture = 0.1;
+                };
+                "rose-pine" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 35;
+                      green = 32;
+                      blue = 54;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 110;
+                      green = 106;
+                      blue = 134;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.8;
+                  texture = 0.1;
+                };
+              }
+                    .${
+                defaults.settings.theme
+              };
           };
           "Uni" = {
             id = "cdd10fab-4fc5-494b-9041-325e5759195b";
