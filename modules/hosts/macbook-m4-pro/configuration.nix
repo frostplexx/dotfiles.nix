@@ -166,6 +166,8 @@
               # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
               # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
 
+              sudo mdutil -i off /
+
 
               killall Finder;
               killall Dock;

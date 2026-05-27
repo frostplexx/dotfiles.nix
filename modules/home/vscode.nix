@@ -19,6 +19,7 @@ _: {
 
           # Other
           # vscode-extensions.github.copilot-chat
+          vscode-extensions.ms-vscode-remote.remote-ssh
           vscode-extensions.jgclark.vscode-todo-highlight
           vscode-extensions.vscodevim.vim
           vscode-extensions.eamodio.gitlens
