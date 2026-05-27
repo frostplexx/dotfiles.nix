@@ -23,5 +23,3 @@ if test -d $HOME/.fish_scripts
     end
 end
 
-# Color theme.
-fish_config theme choose "Catppuccin Mocha"

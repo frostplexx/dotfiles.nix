@@ -39,9 +39,10 @@
       };
 
       accent_color = "cba6f7";
-      transparent_terminal = true;
+      transparent_terminal = false;
       # Disable window manager in CI environments
       window_manager = !isCI;
+      theme = "rose-pine"; # default; valid: "catppuccin" | "rose-pine"
     };
 
     personalInfo = {
