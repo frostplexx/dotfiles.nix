@@ -5694,7 +5694,7 @@
                 "mimeType": "text/plain;charset=utf-8"
               },
               {
-                "content": "\u0001\u0000\u0000\u0000\u0007\u0000\u0000\u0000\u0001file://\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                "content": "",
                 "contentType": "text",
                 "mimeType": "application/vnd.raycast.dynamic/com.apple.WebKit.custom-pasteboard-data"
               }
@@ -5735,7 +5735,7 @@
                 "mimeType": "text/plain;charset=utf-8"
               },
               {
-                "content": "\u0001\u0000\u0000\u0000\u0007\u0000\u0000\u0000\u0001file://\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                "content": "",
                 "contentType": "text",
                 "mimeType": "application/vnd.raycast.dynamic/com.apple.WebKit.custom-pasteboard-data"
               }
@@ -5776,7 +5776,7 @@
                 "mimeType": "text/plain;charset=utf-8"
               },
               {
-                "content": "\u0001\u0000\u0000\u0000\u0007\u0000\u0000\u0000\u0001file://\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                "content": "",
                 "contentType": "text",
                 "mimeType": "application/vnd.raycast.dynamic/com.apple.WebKit.custom-pasteboard-data"
               }

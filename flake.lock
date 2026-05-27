@@ -558,11 +558,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1779871154,
-        "narHash": "sha256-/j86Aru7wE0TlhgJLp3yZJb7C+NMdaFAW9y/H/zeZV8=",
+        "lastModified": 1779871546,
+        "narHash": "sha256-ZLP8uqYyqw+Z96fODYquTaswVI5i9eGb3eWjR9XmKfU=",
         "ref": "refs/heads/main",
-        "rev": "a0cae3c5bed2d219c45cfade36867a4cac90a01f",
-        "revCount": 203,
+        "rev": "f929c649bb3f3c458daa655881ed82bbdca57b9e",
+        "revCount": 205,
         "type": "git",
         "url": "file:///Users/daniel/Projects/github.com/frostplexx/nixkit"
       },
