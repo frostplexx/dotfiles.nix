@@ -210,6 +210,13 @@ _: {
           sha256 = "1a6p5p1h3wk5w6qsvq2lb0dl2nm7y759xyngx7lqrgwdnb7zs1pw";
           stripRoot = true;
         };
+
+        # https://github.com/multica-ai/andrej-karpathy-skills/
+        andrej-karpathy-skills = pkgs.fetchzip {
+          url = "https://github.com/multica-ai/andrej-karpathy-skills/archive/refs/heads/main.zip";
+          sha256 = "sha256-4z/wRdYH7UXRzF8RJU0sw8xbpx0BW/7CBv5sVEC2knY=";
+          stripRoot = true;
+        };
         caveman = pkgs.fetchzip {
           url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
           sha256 = "1ad7k3kkky55dmw9jf4flwwh5asgnrwsirp0a3nfgzpxd90cqwx4";
@@ -223,9 +230,11 @@ _: {
         skillsDir = impeccable + "/source/skills";
         cavemanSkillsDir = caveman + "/skills";
         agentDesktopSkillsDir = agent-desktop-source + "/skills";
+        andrej-karpathy-skillsDir = andrej-karpathy-skills + "/skills";
       in
         builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir)
         // builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir)
+        // builtins.mapAttrs (name: _: andrej-karpathy-skillsDir + "/${name}") (builtins.readDir andrej-karpathy-skillsDir)
         // builtins.mapAttrs (name: _: agentDesktopSkillsDir + "/${name}") (
           builtins.readDir agentDesktopSkillsDir
         );
@@ -240,7 +249,8 @@ _: {
           {
             "catppuccin" = "custom:catppuccin";
             "rose-pine" = "custom:rose-pine";
-          }.${
+          }
+            .${
             defaults.settings.theme
           };
 

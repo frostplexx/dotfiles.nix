@@ -71,7 +71,7 @@ _: {
           ghb = "gh browse";
         };
 
-        shellInit = builtins.readFile ./fish/shellInit.fish;
+        shellInit = builtins.readFile ./shellInit.fish;
         shellInitLast =
           /*
           fish
@@ -182,7 +182,7 @@ _: {
     # Fish scripts
     home.file.".fish_scripts" = {
       recursive = true;
-      source = ./fish/scripts;
+      source = ./scripts;
     };
   };
 }
