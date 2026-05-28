@@ -71,7 +71,22 @@ _: {
           ghb = "gh browse";
         };
 
-        shellInit = builtins.readFile ./fish/shellInit.fish;
+        shellInit = builtins.readFile ./shellInit.fish;
+        shellInitLast =
+          /*
+          fish
+          */
+          ''
+            fish_config theme choose "${
+              {
+                "catppuccin" = "Catppuccin Mocha";
+                "rose-pine" = "Rose Pine";
+              }
+              .${
+                defaults.settings.theme
+              }
+            }"
+          '';
       };
 
       # Better cd
@@ -155,12 +170,19 @@ _: {
           sha256 = "sha256-hLXJH83AkaWcHpikaUGEGZQf5XMlG5rViO0Wb9tOyIw=";
         };
       };
+
+      "fish/themes/Rose Pine.theme" = {
+        source = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/rose-pine/fish/refs/heads/main/themes/Ros%C3%A9%20Pine.theme";
+          sha256 = "sha256-TmOcjWFWzAhY/nYw34lLZ1BYegvep9Mz7qAE7dcKQK4=";
+        };
+      };
     };
 
     # Fish scripts
     home.file.".fish_scripts" = {
       recursive = true;
-      source = ./fish/scripts;
+      source = ./scripts;
     };
   };
 }

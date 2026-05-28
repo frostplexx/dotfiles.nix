@@ -50,7 +50,7 @@ _: {
         music < escape ; default
 
 
-        ctrl + alt + cmd - m : ${./switch_audio.fish}
+        # ctrl + alt + cmd - m : ${./switch_audio.fish}
 
 
         shift + cmd - s : open cleanshot://capture-area

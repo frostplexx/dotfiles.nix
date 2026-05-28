@@ -126,8 +126,22 @@ _: {
 
           theme = {
             enable = true;
-            name = "catppuccin";
-            style = "mocha";
+            name =
+              {
+                "catppuccin" = "catppuccin";
+                "rose-pine" = "rose-pine";
+              }
+                .${
+                defaults.settings.theme
+              };
+            style =
+              {
+                "catppuccin" = "mocha";
+                "rose-pine" = "moon";
+              }
+                .${
+                defaults.settings.theme
+              };
             transparent = true;
           };
           autocomplete.blink-cmp = {
