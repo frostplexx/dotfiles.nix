@@ -361,7 +361,6 @@
       nixd
 
       feishin
-      inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
       jq
       just
       keka

@@ -34,6 +34,11 @@
 
     nixcord.url = "github:kaylorben/nixcord";
 
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixkit = {
       # url = "github:frostplexx/nixkit";
       url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
@@ -41,9 +46,6 @@
 
     lazykeys.url = "github:frostplexx/lazykeys";
 
-    # tidaluna.url = "github:frostplexx/TidaLuna/flake";
-    tidaluna.url = "github:Inrixia/TidaLuna";
-    # tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
