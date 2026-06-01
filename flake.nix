@@ -2,8 +2,8 @@
   description = "MacBook Pro M4 Configuration";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -34,16 +34,17 @@
 
     nixcord.url = "github:kaylorben/nixcord";
 
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixkit = {
-      url = "github:frostplexx/nixkit";
-      # url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixkit";
+      # url = "github:frostplexx/nixkit";
+      url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
     };
 
     lazykeys.url = "github:frostplexx/lazykeys";
-
-    # tidaluna.url = "github:frostplexx/TidaLuna/flake";
-    tidaluna.url = "github:Inrixia/TidaLuna";
-    # tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";

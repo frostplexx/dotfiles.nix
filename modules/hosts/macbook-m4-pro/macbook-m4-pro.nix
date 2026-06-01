@@ -55,8 +55,8 @@ in {
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
                   inputs.zen-browser.homeModules.beta
-                  # inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
+                  inputs.spicetify-nix.homeManagerModules.spicetify
                   inputs.nix-index-database.homeModules.default
                   {
                     # Disable nix management in home-manager on Darwin (handled by Determinate)

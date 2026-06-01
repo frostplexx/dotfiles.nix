@@ -14,12 +14,6 @@ set_screen_hidpi:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/highres_display.fish"
 
 
-[macos]
-[group('󰲽 utility')]
-[doc('Install TidaLuna')]
-install_tidaluna:
-    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/tidaluna.fish"
-
 [group('󰲽 utility')]
 [doc('Generates an SSH config file from hosts inside 1Password')]
 [working-directory("./")]
