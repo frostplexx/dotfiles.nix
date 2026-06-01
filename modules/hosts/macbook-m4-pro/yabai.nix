@@ -104,6 +104,7 @@ _: {
             yabai -m rule --add app="^Keka$" manage=off
             yabai -m rule --add app="^Simulator$" manage=off
             yabai -m rule --add app="^Google Chrome$" manage=off
+            yabai -m rule --add app="^Raycast Beta$" manage=off
             yabai -m rule --add app="^OrbStack$" manage=off
           '';
         };

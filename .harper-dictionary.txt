@@ -1,4 +1,5 @@
 DiffView
+catppuccin
 cmp
 ghostty
 macos

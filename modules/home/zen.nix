@@ -4,6 +4,7 @@ _: {
     lib,
     config,
     inputs,
+    defaults,
     ...
   }: {
     programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
@@ -87,6 +88,11 @@ _: {
             icon = "fingerprint";
             id = 1;
           };
+          Coding = {
+            color = "green";
+            icon = "circle";
+            id = 3;
+          };
           Work = {
             color = "blue";
             icon = "briefcase";
@@ -95,38 +101,120 @@ _: {
         };
 
         spaces = {
-          "Default" = {
-            id = "c6de089c-410d-4206-961d-ab11f988d40a";
+          "Personal" = {
+            id = "840479D4-0B4D-4011-86C2-006D000ADF91";
             icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
-            container = containers."Personal".id;
+            container = containers.Personal.id;
             position = 1000;
-            theme = {
-              type = "gradient";
-              colors = [
-                {
-                  red = 30;
-                  green = 30;
-                  blue = 27;
-                  algorithm = "floating";
-                  type = "explicit-lightness";
-                }
-                {
-                  red = 49;
-                  green = 50;
-                  blue = 68;
-                  algorithm = "floating";
-                  type = "explicit-lightness";
-                }
-              ];
-              opacity = 0.8;
-              texture = 0.1;
-            };
+            theme =
+              {
+                "catppuccin" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 30;
+                      green = 30;
+                      blue = 27;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 49;
+                      green = 50;
+                      blue = 68;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.8;
+                  texture = 0.1;
+                };
+                "rose-pine" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 35;
+                      green = 32;
+                      blue = 54;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 110;
+                      green = 106;
+                      blue = 134;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.8;
+                  texture = 0.1;
+                };
+              }
+                    .${
+                defaults.settings.theme
+              };
+          };
+
+          "Coding" = {
+            id = "c6de089c-410d-4206-961d-ab11f988d40a";
+            icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
+            container = containers."Coding".id;
+            position = 2000;
+            theme =
+              {
+                "catppuccin" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 202;
+                      green = 211;
+                      blue = 245;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 180;
+                      green = 190;
+                      blue = 254;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.5;
+                  texture = 0.5;
+                };
+                "rose-pine" = {
+                  type = "gradient";
+                  colors = [
+                    {
+                      red = 35;
+                      green = 32;
+                      blue = 54;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                    {
+                      red = 110;
+                      green = 106;
+                      blue = 134;
+                      algorithm = "floating";
+                      type = "explicit-lightness";
+                    }
+                  ];
+                  opacity = 0.5;
+                  texture = 0.5;
+                };
+              }
+                    .${
+                defaults.settings.theme
+              };
           };
           "Uni" = {
             id = "cdd10fab-4fc5-494b-9041-325e5759195b";
             icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
             container = containers."Work".id;
-            position = 2000;
+            position = 3000;
             theme = {
               type = "gradient";
               colors = [
@@ -145,31 +233,53 @@ _: {
         };
 
         pins = {
+          # == Coding
           "Github" = {
             id = "9d8a8f91-7e29-4688-ae2e-da4e49d4a179";
-            container = containers.Personal.id;
-            workspace = spaces.Default.id;
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
             url = "https://github.com";
             isEssential = true;
             position = 101;
           };
-          "DuckAI" = {
+          "Claude" = {
+            id = "8af62707-0722-4049-9801-bedced343333";
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
+            url = "https://claude.ai";
+            isEssential = true;
+            position = 102;
+          };
+
+          "Notifications" = {
+            id = "C616A2A9-7971-4B82-BEBB-B354DC9F159A";
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
+            url = "https://github.com/notifications";
+            isEssential = false;
+            position = 103;
+          };
+
+          # == Personal
+          "Dashboard" = {
+            id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
+            container = containers.Personal.id;
+            workspace = spaces."Personal".id;
+            url = "https://home.int.kuipr.de";
+            isEssential = true;
+            position = 101;
+          };
+
+          "DuckAIPersonal" = {
             id = "8af62707-0722-4049-9801-bedced343333";
             container = containers.Personal.id;
-            workspace = spaces.Default.id;
+            workspace = spaces."Personal".id;
             url = "https://duck.ai";
             isEssential = true;
             position = 102;
           };
-          "HomeAssistant" = {
-            id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
-            container = containers.Personal.id;
-            workspace = spaces.Default.id;
-            url = "https://has.internal.kuipr.de";
-            isEssential = true;
-            position = 103;
-          };
 
+          # == Uni
           "Moodle" = {
             id = "d85a9026-1458-4db6-b115-346746bcc692";
             container = containers.Work.id;
@@ -239,7 +349,7 @@ _: {
         ];
         # Fails activation on schema changes to detect potential regressions
         # Find this in about:config or prefs.js of your profile
-        keyboardShortcutsVersion = 18;
+        keyboardShortcutsVersion = 19;
 
         settings = {
           # Zen-specific preferences

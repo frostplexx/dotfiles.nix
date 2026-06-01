@@ -38,10 +38,17 @@
         sha256 = "09q9w5x6i625wavj39g25lrnap4ak7m1mp15yyjdrbj2n1pzsi3f";
       };
 
+      # wallpaper = builtins.fetchurl {
+      #   url = "https://media.githubusercontent.com/media/frostplexx/dotfiles-assets.nix/refs/heads/main/wallpapers/rose-pine.jpg";
+      #   sha256 = "1hillfgaja0ffawsm4jh3lyapgkcmqh5hs5klk4yzcf2b2nfrb6j";
+      # };
+
       accent_color = "cba6f7";
+      # accent_color = "c4a7e7";
       transparent_terminal = true;
       # Disable window manager in CI environments
       window_manager = !isCI;
+      theme = "catppuccin"; # default; valid: "catppuccin" | "rose-pine"
     };
 
     personalInfo = {

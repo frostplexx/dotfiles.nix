@@ -166,7 +166,6 @@
               # sudo -u ${user} /opt/homebrew/bin/tag --set Project ~/dotfiles.nix
               # sudo -u ${user} /opt/homebrew/bin/tag --set University ~/Documents/University/*
 
-
               killall Finder;
               killall Dock;
             '';
@@ -359,7 +358,6 @@
       nixd
 
       feishin
-      inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
       jq
       just
       keka

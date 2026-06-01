@@ -12,7 +12,14 @@ _: {
         installVimSyntax = true;
         package = pkgs.ghostty-bin;
         settings = {
-          theme = "Catppuccin Mocha";
+          theme =
+            {
+              "catppuccin" = "Catppuccin Mocha";
+              "rose-pine" = "Rose Pine Moon";
+            }
+              .${
+              defaults.settings.theme
+            };
           font-family = "Maple Mono NF";
           font-size = 13;
           background-opacity =
@@ -20,7 +27,10 @@ _: {
             then 0.8
             else 1.0;
           # macos-glass-regular or macos-glass-clear
-          background-blur = "macos-glass-regular";
+          background-blur =
+            if defaults.settings.transparent_terminal
+            then "macos-glass-regular"
+            else false;
           window-save-state = "always";
           unfocused-split-opacity = 0.9;
           macos-titlebar-proxy-icon = "hidden";
