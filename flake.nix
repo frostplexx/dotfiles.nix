@@ -2,8 +2,8 @@
   description = "MacBook Pro M4 Configuration";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -45,7 +45,6 @@
     };
 
     lazykeys.url = "github:frostplexx/lazykeys";
-
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
