@@ -5,7 +5,6 @@
 }: {
   flake.darwinModules.macbook-m4-pro = {
     pkgs,
-    config,
     defaults,
     ...
   }: let
@@ -312,7 +311,12 @@
         # "Keynote" = 361285480;
       };
 
-      taps = builtins.attrNames config.nix-homebrew.taps;
+      # taps = builtins.attrNames config.nix-homebrew.taps;
+      taps = [
+        "homebrew/homebrew-core"
+        "homebrew/homebrew-cask"
+        "FelixKratz/homebrew-formulae"
+      ];
       brews = [
         "displayplacer"
         "tag"
