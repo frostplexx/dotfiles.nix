@@ -13,7 +13,7 @@ deploy host="$(hostname)": lint
             nixos-rebuild switch --flake . --verbose --show-trace; \
         fi; \
     else \
-        nh {{nix_cmd}} switch -H {{host}} {{DOTFILES_FOLDER}} --impure; \
+        nh {{nix_cmd}} switch -H {{host}} {{DOTFILES_FOLDER}} --impure -- --option lazy-trees false; \
     fi
 
 

@@ -19,10 +19,7 @@
     };
   };
 
-  config.flake.defaults = let
-    # Detect if running in CI environment
-    isCI = builtins.getEnv "CI" != "" || builtins.getEnv "GITHUB_ACTIONS" != "";
-  in {
+  config.flake.defaults = {
     user = "daniel";
 
     system = {
@@ -47,7 +44,7 @@
       # accent_color = "c4a7e7";
       transparent_terminal = true;
       # Disable window manager in CI environments
-      window_manager = false;
+      window_manager = true;
       theme = "catppuccin"; # default; valid: "catppuccin" | "rose-pine"
     };
 

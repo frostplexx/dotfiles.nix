@@ -30,6 +30,7 @@ _: {
             window_placement = "second_child";
             auto_balance = "on";
             split_ratio = 0.5;
+            skip_window_focus_animation = "on";
             window_shadow = "float";
             window_opacity = "off";
             active_window_opacity = 1.0;

@@ -186,6 +186,7 @@
           askForPasswordDelay = 5;
         };
         NSGlobalDomain = {
+          AppleSpacesSwitchOnActivate = false;
           NSWindowShouldDragOnGesture = true;
           NSAutomaticWindowAnimationsEnabled = true;
           NSWindowResizeTime = 0.001;
@@ -361,6 +362,7 @@
 
       nixd
 
+      zoom-us
       feishin
       jq
       just
