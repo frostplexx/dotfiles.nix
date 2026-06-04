@@ -40,8 +40,8 @@
     };
 
     nixkit = {
-      # url = "github:frostplexx/nixkit";
-      url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
+      url = "github:frostplexx/nixkit";
+      # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
     };
 
     lazykeys.url = "github:frostplexx/lazykeys";
