@@ -7,6 +7,7 @@ _: {
       enable = true;
       extraDiagnostics.enable = true;
     };
+    r.enable = true;
     tsx.enable = true;
     typescript = {
       enable = true;
@@ -34,6 +35,12 @@ _: {
       extensions.render-markdown-nvim.enable = true;
     };
     clang = {
+      enable = true;
+      dap.enable = true;
+      lsp.enable = true;
+    };
+
+    zig = {
       enable = true;
       dap.enable = true;
       lsp.enable = true;

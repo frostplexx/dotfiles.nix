@@ -41,7 +41,7 @@
 
     # LazyKeys configuration
     services.lazykeys = {
-      enable = true;
+      enable = false;
       normalQuickPress = false;
       includeShift = false;
       mode = "custom";
@@ -303,7 +303,7 @@
         cleanup = "zap";
       };
       masApps = {
-        "Xcode" = 497799835;
+        # "Xcode" = 497799835;
         "Things" = 904280696;
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;
@@ -330,7 +330,7 @@
         "affinity"
         "1password"
         "mullvad-vpn"
-        "sf-symbols"
+        # "sf-symbols"
       ];
     };
 

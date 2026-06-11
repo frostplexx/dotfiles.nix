@@ -44,7 +44,7 @@
       # accent_color = "c4a7e7";
       transparent_terminal = true;
       # Disable window manager in CI environments
-      window_manager = true;
+      window_manager = false;
       theme = "catppuccin"; # default; valid: "catppuccin" | "rose-pine"
     };
 

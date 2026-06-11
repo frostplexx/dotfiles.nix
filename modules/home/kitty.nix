@@ -6,7 +6,7 @@ _: {
     ...
   }: {
     programs.kitty = {
-      enable = true;
+      enable = false;
 
       settings = {
         url_color = "#${defaults.settings.accent_color}";
