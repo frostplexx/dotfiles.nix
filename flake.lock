@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1781165323,
-        "narHash": "sha256-zFJWxdsFTghZLEbZY17a1tu40vxsHzDMDrrQlwWBPRE=",
+        "lastModified": 1781192774,
+        "narHash": "sha256-BJsYy3rRifEXS1dlbJZHDqy8bfnwG+4G4wYiYi7jjCI=",
         "owner": "frostplexx",
         "repo": "agate-wm",
-        "rev": "f9f71f3742cfe99312dcc5b862c712edb8dfa822",
+        "rev": "0affd02f71c790c445a3aefe429065faf515a61d",
         "type": "github"
       },
       "original": {
