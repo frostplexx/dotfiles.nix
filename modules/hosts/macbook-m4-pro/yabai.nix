@@ -5,11 +5,13 @@ _: {
     ...
   }:
     lib.mkIf defaults.settings.window_manager {
-      programs.yabaiIndicator.enable = true;
+      # programs.yabaiIndicator.enable = true;
+      programs.yabaiIndicator.enable = false;
 
       services = {
         jankyborders = {
-          enable = true;
+          # enable = true;
+          enable = false;
           style = "round";
           width = 5.0;
           hidpi = false;
@@ -18,7 +20,8 @@ _: {
         };
 
         yabai = {
-          enable = true;
+          # enable = true;
+          enable = false;
           enableScriptingAddition = false;
 
           # Use yabai from nixkit

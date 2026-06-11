@@ -7,7 +7,8 @@ _: {
     ...
   }: {
     services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
-      enable = defaults.settings.window_manager;
+      # enable = defaults.settings.window_manager;
+      enable = false;
       package = inputs.nixkit.packages.${pkgs.system}.skhd_zig;
       config = ''
 

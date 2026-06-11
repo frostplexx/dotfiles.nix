@@ -66,6 +66,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agate.url = "github:frostplexx/agate-wm";
+
     # ==== Homebrew Taps ====
     homebrew-core = {
       url = "github:homebrew/homebrew-core";

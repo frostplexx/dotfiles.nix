@@ -41,7 +41,7 @@
 
     # LazyKeys configuration
     services.lazykeys = {
-      enable = false;
+      enable = true;
       normalQuickPress = false;
       includeShift = false;
       mode = "custom";
