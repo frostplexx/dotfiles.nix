@@ -6,7 +6,205 @@ _: {
     inputs,
     defaults,
     ...
-  }: {
+  }: let
+    containers = {
+      Personal = {
+        color = "purple";
+        icon = "fingerprint";
+        id = 1;
+      };
+      Coding = {
+        color = "green";
+        icon = "circle";
+        id = 3;
+      };
+      Work = {
+        color = "blue";
+        icon = "briefcase";
+        id = 2;
+      };
+    };
+
+    spaces = {
+      "Personal" = {
+        id = "840479D4-0B4D-4011-86C2-006D000ADF91";
+        icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
+        container = containers.Personal.id;
+        position = 1000;
+        theme =
+          {
+            "catppuccin" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 30;
+                  green = 30;
+                  blue = 27;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 49;
+                  green = 50;
+                  blue = 68;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.8;
+              texture = 0.1;
+            };
+            "rose-pine" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 35;
+                  green = 32;
+                  blue = 54;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 110;
+                  green = 106;
+                  blue = 134;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.8;
+              texture = 0.1;
+            };
+          }
+              .${
+            defaults.settings.theme
+          };
+      };
+
+      "Coding" = {
+        id = "c6de089c-410d-4206-961d-ab11f988d40a";
+        icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
+        container = containers."Coding".id;
+        position = 2000;
+        theme =
+          {
+            "catppuccin" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 202;
+                  green = 211;
+                  blue = 245;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 180;
+                  green = 190;
+                  blue = 254;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.5;
+              texture = 0.5;
+            };
+            "rose-pine" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 35;
+                  green = 32;
+                  blue = 54;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 110;
+                  green = 106;
+                  blue = 134;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.5;
+              texture = 0.5;
+            };
+          }
+              .${
+            defaults.settings.theme
+          };
+      };
+
+      "Uni" = {
+        id = "cdd10fab-4fc5-494b-9041-325e5759195b";
+        icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
+        container = containers."Work".id;
+        position = 3000;
+        theme = {
+          type = "gradient";
+          colors = [
+            {
+              red = 166;
+              green = 227;
+              blue = 161;
+              algorithm = "floating";
+              type = "explicit-lightness";
+            }
+          ];
+          opacity = 0.5;
+          texture = 0.5;
+        };
+      };
+    };
+
+    routes = [
+      {
+        id = "3e604daa-8427-409f-8f3d-8e9b7831c7e4";
+        reference = "lmu.de";
+        openIn = "{${spaces.Uni.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "f213dd66-5471-4938-8af2-d424906b0bca";
+        reference = "github.com";
+        openIn = "{${spaces.Coding.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "718621fa-4ca7-480c-a233-0337bfa5ccfe";
+        reference = "uni-muenchen.de";
+        openIn = "{${spaces.Uni.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "7271aa65-742f-47b3-a828-6b8c637d8345";
+        reference = "youtube.com";
+        openIn = "{${spaces.Personal.id}}";
+        matchType = "contains";
+      }
+    ];
+
+    spaceRoutingFile = let
+      jsonFile = pkgs.writeText "zen-space-routing.json" (builtins.toJSON {
+        inherit routes;
+        defaultRouteExternal = "most-recent-space";
+      });
+      script = pkgs.writeText "make-jsonlz4.py" ''
+        import lz4.block, struct, sys
+        with open(sys.argv[1], "rb") as f:
+            data = f.read()
+        compressed = lz4.block.compress(data, store_size=False)
+        with open(sys.argv[2], "wb") as f:
+            f.write(b"mozLz40\x00")
+            f.write(struct.pack("<I", len(data)))
+            f.write(compressed)
+      '';
+    in
+      pkgs.runCommand "zen-space-routing.jsonlz4" {
+        nativeBuildInputs = with pkgs; [python3 python3Packages.lz4];
+      } "python3 ${script} ${jsonFile} $out";
+  in {
     programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
       enable = true;
       browser = "zen";
@@ -18,6 +216,11 @@ _: {
           EnterprisePoliciesEnabled = true;
         }
         // config.programs.zen-browser.policies;
+    };
+
+    home.file."Library/Application Support/Zen/Profiles/${config.programs.zen-browser.profiles."default".path}/zen-space-routing.jsonlz4" = lib.mkIf pkgs.stdenv.isDarwin {
+      source = spaceRoutingFile;
+      force = true;
     };
 
     # https://github.com/0xc000022070/zen-browser-flake
@@ -77,156 +280,6 @@ _: {
       );
 
       profiles."default" = let
-        containers = {
-          Personal = {
-            color = "purple";
-            icon = "fingerprint";
-            id = 1;
-          };
-          Coding = {
-            color = "green";
-            icon = "circle";
-            id = 3;
-          };
-          Work = {
-            color = "blue";
-            icon = "briefcase";
-            id = 2;
-          };
-        };
-
-        spaces = {
-          "Personal" = {
-            id = "840479D4-0B4D-4011-86C2-006D000ADF91";
-            icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
-            container = containers.Personal.id;
-            position = 1000;
-            theme =
-              {
-                "catppuccin" = {
-                  type = "gradient";
-                  colors = [
-                    {
-                      red = 30;
-                      green = 30;
-                      blue = 27;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                    {
-                      red = 49;
-                      green = 50;
-                      blue = 68;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                  ];
-                  opacity = 0.8;
-                  texture = 0.1;
-                };
-                "rose-pine" = {
-                  type = "gradient";
-                  colors = [
-                    {
-                      red = 35;
-                      green = 32;
-                      blue = 54;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                    {
-                      red = 110;
-                      green = 106;
-                      blue = 134;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                  ];
-                  opacity = 0.8;
-                  texture = 0.1;
-                };
-              }
-                    .${
-                defaults.settings.theme
-              };
-          };
-
-          "Coding" = {
-            id = "c6de089c-410d-4206-961d-ab11f988d40a";
-            icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
-            container = containers."Coding".id;
-            position = 2000;
-            theme =
-              {
-                "catppuccin" = {
-                  type = "gradient";
-                  colors = [
-                    {
-                      red = 202;
-                      green = 211;
-                      blue = 245;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                    {
-                      red = 180;
-                      green = 190;
-                      blue = 254;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                  ];
-                  opacity = 0.5;
-                  texture = 0.5;
-                };
-                "rose-pine" = {
-                  type = "gradient";
-                  colors = [
-                    {
-                      red = 35;
-                      green = 32;
-                      blue = 54;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                    {
-                      red = 110;
-                      green = 106;
-                      blue = 134;
-                      algorithm = "floating";
-                      type = "explicit-lightness";
-                    }
-                  ];
-                  opacity = 0.5;
-                  texture = 0.5;
-                };
-              }
-                    .${
-                defaults.settings.theme
-              };
-          };
-          "Uni" = {
-            id = "cdd10fab-4fc5-494b-9041-325e5759195b";
-            icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
-            container = containers."Work".id;
-            position = 3000;
-            theme = {
-              type = "gradient";
-              colors = [
-                {
-                  red = 166;
-                  green = 227;
-                  blue = 161;
-                  algorithm = "floating";
-                  type = "explicit-lightness";
-                }
-              ];
-              opacity = 0.5;
-              texture = 0.5;
-            };
-          };
-        };
-
         pins = {
           # == Coding
           "Github" = {
