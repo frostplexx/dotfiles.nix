@@ -33,7 +33,6 @@ in {
           # Core modules
           inputs.home-manager.darwinModules.home-manager
           inputs.nix-homebrew.darwinModules.nix-homebrew
-          inputs.agate.darwinModules.default
           inputs.lazykeys.darwinModules.default
           inputs.nixkit.darwinModules.default
           inputs.determinate.darwinModules.default
@@ -52,6 +51,7 @@ in {
               backupFileExtension = "backup";
               sharedModules =
                 [
+                  inputs.agate.homeManagerModules.default
                   inputs.nvf.homeManagerModules.default
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default

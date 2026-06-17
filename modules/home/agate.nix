@@ -1,5 +1,5 @@
 _: {
-  flake.darwinModules.agate = {
+  flake.homeManagerModules.agate = {
     defaults,
     lib,
     ...
@@ -18,18 +18,29 @@ _: {
 
             -- Gaps and hyper-key definition.
             agate.config({
-                gaps = 8,              -- space between tiles
-                outer_gaps = 8,        -- inset from the screen edge
+                gaps = 4,              -- space between tiles
+                outer_gaps = 4,        -- inset from the screen edge
                 accordion_padding = 20, -- stacked-window "peek": how far each window fans out
-                -- "hyper" expands to this modifier set in keyspecs below.
-                hyper = { "ctrl", "alt", "cmd" },
+                hyper_key = { enabled = true, keys = {"ctrl","alt","cmd"}, },
+                smart_gaps = true, -- disable gaps when only one tile is visible
             })
+
+
+
+            -- Gestures
+            agate.gesture("3:left", function() agate.focus("right") end)
+            agate.gesture("3:down", function() agate.focus("down") end)
+            agate.gesture("3:up", function() agate.focus("up") end)
+            agate.gesture("3:right", function() agate.focus("left") end)
+
 
             -- Focus movement (i3-style hjkl).
             agate.bind("hyper+h", function() agate.focus("left") end)
             agate.bind("hyper+j", function() agate.focus("down") end)
             agate.bind("hyper+k", function() agate.focus("up") end)
             agate.bind("hyper+l", function() agate.focus("right") end)
+
+            agate.bind("hyper+space", function() agate.zoom_fullscreen() end)
 
             -- Move the focused window to an adjacent slot.
             agate.bind("hyper+shift+h", "move left")
@@ -51,9 +62,8 @@ _: {
             agate.bind("hyper+shift+g", function() agate.join("right", "v_split") end) -- split with right neighbour
 
             -- Resize the focused tile.
-            agate.bind("hyper+minus", function() agate.resize("left", 50) end)
-            agate.bind("hyper+equal", function() agate.resize("right", 50) end)
-
+            agate.bind("hyper+minus", function() agate.resize("smart", -50) end)
+            agate.bind("hyper+equal", function() agate.resize("smart",50) end)
             -- Instant space switching — uses SLSManagedDisplaySetCurrentSpace directly,
             -- not gesture emulation (which fails on macOS 26+).
             agate.bind("hyper+1", function() agate.space(1) end)
@@ -104,10 +114,6 @@ _: {
                 agate.space(9)
             end)
 
-            -- Cycle through spaces.
-            agate.bind("hyper+n", function() agate.space_next() end)
-            agate.bind("hyper+p", function() agate.space_prev() end)
-
             -- Window assignment rules (yabai-style): when a matching window appears, it is
             -- sent to the given space and the view follows it there (`follow = false` to
             -- route it in the background instead). `app`/`title` are POSIX extended regexes
@@ -119,7 +125,7 @@ _: {
             agate.rule({ app = "^Spotify$", space = 5 })
             agate.rule({ app = "^Vesktop$", space = 4 })
 
-            print("agate: development config loaded")
+            print("agate: config loaded")
           '';
       };
     };

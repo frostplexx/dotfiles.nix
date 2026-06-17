@@ -40,13 +40,13 @@
     };
 
     # LazyKeys configuration
-    services.lazykeys = {
-      enable = true;
-      normalQuickPress = false;
-      includeShift = false;
-      mode = "custom";
-      customKey = "escape";
-    };
+    # services.lazykeys = {
+    #   enable = true;
+    #   normalQuickPress = false;
+    #   includeShift = false;
+    #   mode = "custom";
+    #   customKey = "escape";
+    # };
 
     programs.opsops.enable = true;
 
@@ -308,8 +308,8 @@
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;
         "System Color Picker" = 1545870783;
-        # "Numbers" = 361304891;
-        # "Keynote" = 361285480;
+        "Numbers" = 361304891;
+        "Keynote" = 361285480;
       };
 
       # taps = builtins.attrNames config.nix-homebrew.taps;

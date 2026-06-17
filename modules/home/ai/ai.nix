@@ -32,6 +32,7 @@ _: {
     home = {
       packages = [
         agent-desktop
+        pkgs.poppler-utils
       ];
 
       file = {
@@ -227,14 +228,23 @@ _: {
           sha256 = "07lmnb98qab9s2gx7f2437c7xnq0d3lnd4snij6rxn8lb5kfizrn";
           stripRoot = true;
         };
+
+        # obsidian-source = pkgs.fetchzip {
+        #   url = "https://github.com/kepano/obsidian-skills/archive/refs/heads/main.zip";
+        #   sha256 = "sha256-/Kr3cMaN81WXFxgWMNt/QQhEMzuu3e3WJpspqjrnPss=";
+        #   stripRoot = true;
+        # };
+
         skillsDir = impeccable + "/source/skills";
         cavemanSkillsDir = caveman + "/skills";
         agentDesktopSkillsDir = agent-desktop-source + "/skills";
         andrej-karpathy-skillsDir = andrej-karpathy-skills + "/skills";
+        # obsidianSkillsDir = obsidian-source + "/skills";
       in
         builtins.mapAttrs (name: _: skillsDir + "/${name}") (builtins.readDir skillsDir)
         // builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir)
         // builtins.mapAttrs (name: _: andrej-karpathy-skillsDir + "/${name}") (builtins.readDir andrej-karpathy-skillsDir)
+        # // builtins.mapAttrs (name: _: obsidianSkillsDir + "/${name}") (builtins.readDir obsidianSkillsDir)
         // builtins.mapAttrs (name: _: agentDesktopSkillsDir + "/${name}") (
           builtins.readDir agentDesktopSkillsDir
         );
