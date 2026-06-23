@@ -2,18 +2,11 @@ _: {
   flake.homeManagerModules.neovim = {
     pkgs,
     lib,
-    inputs,
     defaults,
     ...
-  }: let
-    # Helper files prefixed with _ to prevent import-tree from importing them as modules
-    langaugesConfig = import ./neovim/_languages.nix {inherit pkgs;};
-    keymapsConfig = import ./neovim/_keymap.nix {};
-    optionsConfig = import ./neovim/_options.nix {};
-    customPluginsConfig = import ./neovim/_customPlugins.nix {inherit pkgs lib inputs;};
-  in {
+  }: {
     home.file = {
-      ".vimrc".source = ./neovim/vimrc;
+      ".vimrc".source = ./vimrc;
     };
 
     programs.nvf = {
@@ -112,10 +105,11 @@ _: {
             };
           };
 
-          inherit (optionsConfig) options;
-          inherit (langaugesConfig) languages;
-          inherit (keymapsConfig) keymaps;
-          inherit (customPluginsConfig) lazy;
+          # Options, keymaps, languages and lazy-loaded plugins are split into
+          # sibling flake-parts modules (./options.nix, ./keymaps.nix,
+          # ./languages.nix, ./plugins/*.nix). nvf's settings submodule
+          # deep-merges them across home-manager modules.
+          lazy.enable = true;
 
           treesitter = {
             enable = true;
@@ -449,6 +443,13 @@ _: {
 
           autocmds = [
             # Open DiffView automatically when entering diff mode.
+            # vim.schedule defers out of the OptionSet autocmd context,
+            # where splits/buffer edits are not allowed (E788).
+            # The "Claude Code" guard prevents diffview from hijacking
+            # claudecode.nvim's own native diff buffers. The reentrancy flag and
+            # get_current_view() check stop diffview from re-triggering itself:
+            # opening it sets 'diff' on its own buffers, which re-fires this
+            # OptionSet autocmd and would otherwise spawn tabs forever.
             {
               event = ["OptionSet"];
               pattern = ["diff"];
@@ -456,9 +457,23 @@ _: {
               desc = "Open DiffView when vim.difftool is activated";
               callback = lib.generators.mkLuaInline ''
                 function()
-                  if vim.o.diff then
-                    require("diffview").open()
-                  end
+                  if not vim.o.diff then return end
+                  if vim.g._diffview_auto_opening then return end
+
+                  local bufname = vim.api.nvim_buf_get_name(0)
+                  if bufname:find("Claude Code", 1, true) then return end
+
+                  -- Already inside a diffview tab: don't open another.
+                  local ok, lib = pcall(require, "diffview.lib")
+                  if ok and lib.get_current_view() then return end
+
+                  vim.g._diffview_auto_opening = true
+                  vim.schedule(function()
+                    pcall(function()
+                      require("diffview").open()
+                    end)
+                    vim.g._diffview_auto_opening = false
+                  end)
                 end
               '';
             }
