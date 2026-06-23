@@ -1,5 +1,5 @@
 _: {
-  flake.homeManagerModules.ai = {
+  flake.homeManagerModules.claude = {
     pkgs,
     defaults,
     ...

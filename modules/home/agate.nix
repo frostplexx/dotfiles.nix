@@ -40,6 +40,14 @@ _: {
             agate.bind("hyper+k", function() agate.focus("up") end)
             agate.bind("hyper+l", function() agate.focus("right") end)
 
+            agate.bind("hyper+comma", function() agate.focus_monitor("left") end)
+            agate.bind("hyper+period", function() agate.focus_monitor("right") end)
+
+
+
+            agate.bind("hyper+shift+comma", function() agate.move_to_monitor("left") end)
+            agate.bind("hyper+shift+period", function() agate.move_to_monitor("right") end)
+
             agate.bind("hyper+space", function() agate.zoom_fullscreen() end)
 
             -- Move the focused window to an adjacent slot.
@@ -118,12 +126,13 @@ _: {
             -- sent to the given space and the view follows it there (`follow = false` to
             -- route it in the background instead). `app`/`title` are POSIX extended regexes
             -- (at least one required). The last matching rule wins.
-            agate.rule({ app = "^Ghostty$", space = 2 })
-            agate.rule({ app = "^Zen$", space = 1 })
+            agate.rule({ app = "^Ghostty$", space = 2, monitor = 1 })
+            agate.rule({ app = "^Zen$", space = 1, monitor = 1 })
             agate.rule({ app = "^Obsidian$", space = 3 })
-            agate.rule({ app = "^Things$", space = 3 })
-            agate.rule({ app = "^Spotify$", space = 5 })
-            agate.rule({ app = "^Vesktop$", space = 4 })
+            agate.rule({ app = "^Things$", space = 1, monitor = 2 })
+            agate.rule({ app = "^Spotify$", space = 3, monitor = 2 })
+            agate.rule({ app = "^Vesktop$", space = 2, monitor = 2 })
+            agate.rule({ app = "^Mail$", space = 2, monitor = 2 })
 
             print("agate: config loaded")
           '';
