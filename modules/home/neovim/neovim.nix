@@ -19,6 +19,7 @@ _: {
           globals.editorconfig = true;
 
           extraPackages = with pkgs; [
+            copilot-language-server
             fish-lsp
             rustup
           ];
@@ -78,6 +79,7 @@ _: {
                   "src"
                 ];
               };
+
             };
           };
 
@@ -88,7 +90,7 @@ _: {
                 then true
                 else false;
 
-              mappings.suggestion.accept = "<C-CR>";
+              mappings.suggestion.accept = "<C-cr>";
               setupOpts = {
                 suggestion = {
                   enabled = true;
@@ -140,6 +142,24 @@ _: {
           };
           autocomplete.blink-cmp = {
             enable = true;
+
+            # nvf builds setupOpts.keymap from these `mappings` (active because
+            # vim.vendoredKeymaps is enabled) and MERGES it with our explicit
+            # setupOpts.keymap below. Since each key is `listOf …`, the module
+            # system *concatenates* the lists with nvf's entries first — so
+            # nvf's default `next = "<Tab>" -> select_next` ran before our
+            # super-tab accept and shadowed it ("just selects the next item").
+            # Null every mapping we define ourselves so our keymap is the single
+            # source of truth; keep `confirm` so <CR> still accepts.
+            mappings = {
+              next = null;
+              previous = null;
+              complete = null;
+              close = null;
+              scrollDocsUp = null;
+              scrollDocsDown = null;
+            };
+
             setupOpts = {
               keymap = {
                 preset = "none";
@@ -152,6 +172,11 @@ _: {
                   "hide"
                   "fallback"
                 ];
+                # super-tab: Tab accepts the (pre)selected completion, or jumps
+                # the snippet if one is active. Sidekick NES is NOT handled here
+                # because NES suggestions are cleared on InsertEnter/TextChangedI
+                # and only live in normal mode — see the normal-mode <Tab> in
+                # plugins/claudecode.nix.
                 "<Tab>" = [
                   (lib.generators.mkLuaInline ''
                     function(cmp)
