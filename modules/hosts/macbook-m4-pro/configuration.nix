@@ -360,8 +360,6 @@
       iina
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-      nixd
-
       zoom-us
       feishin
       jq
@@ -378,7 +376,6 @@
       nix-tree
       nmap
       nvd
-      obsidian
       pandoc
       ripgrep
       sops
