@@ -1,87 +1,87 @@
 {
-  description = "MacBook Pro M4 Configuration";
+    description = "MacBook Pro M4 Configuration";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/master";
-    # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        # nixpkgs.url = "github:nixos/nixpkgs/master";
+        # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:denful/import-tree";
+        flake-parts.url = "github:hercules-ci/flake-parts";
+        import-tree.url = "github:denful/import-tree";
 
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+        nix-darwin = {
+            url = "github:nix-darwin/nix-darwin/master";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        home-manager = {
+            url = "github:nix-community/home-manager/master";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        zen-browser = {
+            url = "github:0xc000022070/zen-browser-flake";
+            inputs = {
+                # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
+                nixpkgs.follows = "nixpkgs";
+                home-manager.follows = "home-manager";
+            };
+        };
+
+        determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
+        nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+        nixcord.url = "github:kaylorben/nixcord";
+
+        spicetify-nix = {
+            url = "github:Gerg-L/spicetify-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        nixkit = {
+            url = "github:frostplexx/nixkit";
+            # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
+        };
+
+        lazykeys.url = "github:frostplexx/lazykeys";
+
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        nix-index-database = {
+            url = "github:nix-community/nix-index-database";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        nvf = {
+            url = "github:NotAShelf/nvf";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        fff-nvim = {
+            url = "github:dmtrKovalenko/fff.nvim";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        agate.url = "github:frostplexx/agate-wm";
+
+        # ==== Homebrew Taps ====
+        homebrew-core = {
+            url = "github:homebrew/homebrew-core";
+            flake = false;
+        };
+        homebrew-cask = {
+            url = "github:homebrew/homebrew-cask";
+            flake = false;
+        };
+        jankyborders = {
+            url = "github:FelixKratz/homebrew-formulae";
+            flake = false;
+        };
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
-    nixcord.url = "github:kaylorben/nixcord";
-
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixkit = {
-      url = "github:frostplexx/nixkit";
-      # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
-    };
-
-    lazykeys.url = "github:frostplexx/lazykeys";
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fff-nvim = {
-      url = "github:dmtrKovalenko/fff.nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agate.url = "github:frostplexx/agate-wm";
-
-    # ==== Homebrew Taps ====
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    jankyborders = {
-      url = "github:FelixKratz/homebrew-formulae";
-      flake = false;
-    };
-  };
-
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+    outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 }
