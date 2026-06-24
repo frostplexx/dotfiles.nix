@@ -101,192 +101,194 @@ _: {
         };
       };
 
-      programs.claude-code = {
-        enable = true;
+      programs = {
+        claude-code = {
+          enable = true;
 
-        # Keep config-file generation (settings.json, themes, skills, statusline)
-        # but do NOT install the CLI into home.packages / PATH. With package = null
-        # the module's `home.packages = mkIf (cfg.package != null) ...` short-circuits,
-        # so `claude` is unavailable in every shell. Neovim still drives the CLI via
-        # claudePackage (cmd) by absolute store path.
-        package = null;
+          # Keep config-file generation (settings.json, themes, skills, statusline)
+          # but do NOT install the CLI into home.packages / PATH. With package = null
+          # the module's `home.packages = mkIf (cfg.package != null) ...` short-circuits,
+          # so `claude` is unavailable in every shell. Neovim still drives the CLI via
+          # claudePackage (cmd) by absolute store path.
+          package = null;
 
-        skills =
-          let
-            # https://github.com/multica-ai/andrej-karpathy-skills/
-            andrej-karpathy-skills = pkgs.fetchzip {
-              url = "https://github.com/multica-ai/andrej-karpathy-skills/archive/refs/heads/main.zip";
-              sha256 = "sha256-4z/wRdYH7UXRzF8RJU0sw8xbpx0BW/7CBv5sVEC2knY=";
-              stripRoot = true;
+          skills =
+            let
+              # https://github.com/multica-ai/andrej-karpathy-skills/
+              andrej-karpathy-skills = pkgs.fetchzip {
+                url = "https://github.com/multica-ai/andrej-karpathy-skills/archive/refs/heads/main.zip";
+                sha256 = "sha256-4z/wRdYH7UXRzF8RJU0sw8xbpx0BW/7CBv5sVEC2knY=";
+                stripRoot = true;
+              };
+              caveman = pkgs.fetchzip {
+                url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
+                sha256 = "1ad7k3kkky55dmw9jf4flwwh5asgnrwsirp0a3nfgzpxd90cqwx4";
+                stripRoot = true;
+              };
+
+              cavemanSkillsDir = caveman + "/skills";
+              andrej-karpathy-skillsDir = andrej-karpathy-skills + "/skills";
+            in
+            builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir)
+            // builtins.mapAttrs (name: _: andrej-karpathy-skillsDir + "/${name}") (
+              builtins.readDir andrej-karpathy-skillsDir
+            );
+
+          settings = {
+            # Enable ANSI colors in output
+            useAnsiColors = true;
+            theme =
+              {
+                "catppuccin" = "custom:catppuccin";
+              }
+              .${defaults.settings.theme};
+
+            # Catppuccin Mocha lualine-style statusline (renders vim.mode
+            # itself, so suppress the built-in -- INSERT -- indicator).
+            statusLine = {
+              type = "command";
+              command = "$HOME/.claude/statusline.sh";
+              padding = 0;
+              hideVimModeIndicator = true;
             };
-            caveman = pkgs.fetchzip {
-              url = "https://github.com/JuliusBrussee/caveman/archive/63e797cd753b301374947a5ed975c21775d962b9.tar.gz";
-              sha256 = "1ad7k3kkky55dmw9jf4flwwh5asgnrwsirp0a3nfgzpxd90cqwx4";
-              stripRoot = true;
-            };
-
-            cavemanSkillsDir = caveman + "/skills";
-            andrej-karpathy-skillsDir = andrej-karpathy-skills + "/skills";
-          in
-          builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir)
-          // builtins.mapAttrs (name: _: andrej-karpathy-skillsDir + "/${name}") (
-            builtins.readDir andrej-karpathy-skillsDir
-          );
-
-        settings = {
-          # Enable ANSI colors in output
-          useAnsiColors = true;
-          theme =
-            {
-              "catppuccin" = "custom:catppuccin";
-            }
-            .${defaults.settings.theme};
-
-          # Catppuccin Mocha lualine-style statusline (renders vim.mode
-          # itself, so suppress the built-in -- INSERT -- indicator).
-          statusLine = {
-            type = "command";
-            command = "$HOME/.claude/statusline.sh";
-            padding = 0;
-            hideVimModeIndicator = true;
           };
         };
-      };
 
-      # Normal-mode <Tab> applies/jumps the active Next Edit Suggestion.
-      # NES suggestions are cleared on InsertEnter/TextChangedI, so they only
-      # ever live in normal mode — this is where Tab needs to accept them
-      # (insert-mode <Tab> is owned by blink.cmp's super-tab). expr + the
-      # "<Tab>" return means a literal Tab is fed only when there is no edit.
-      # sidekick is already loaded by the InsertEnter/BufReadPost events below,
-      # so require() here is always live.
-      programs.nvf.settings.vim.keymaps = [
-        {
-          key = "<Tab>";
-          mode = "n";
-          lua = true;
-          expr = true;
-          silent = true;
-          desc = "Sidekick: jump/apply Next Edit Suggestion";
-          action = ''
-            function()
-              if not require("sidekick").nes_jump_or_apply() then
-                return "<Tab>"
+        # Normal-mode <Tab> applies/jumps the active Next Edit Suggestion.
+        # NES suggestions are cleared on InsertEnter/TextChangedI, so they only
+        # ever live in normal mode — this is where Tab needs to accept them
+        # (insert-mode <Tab> is owned by blink.cmp's super-tab). expr + the
+        # "<Tab>" return means a literal Tab is fed only when there is no edit.
+        # sidekick is already loaded by the InsertEnter/BufReadPost events below,
+        # so require() here is always live.
+        nvf.settings.vim.keymaps = [
+          {
+            key = "<Tab>";
+            mode = "n";
+            lua = true;
+            expr = true;
+            silent = true;
+            desc = "Sidekick: jump/apply Next Edit Suggestion";
+            action = ''
+              function()
+                if not require("sidekick").nes_jump_or_apply() then
+                  return "<Tab>"
+                end
               end
-            end
-          '';
-        }
-      ];
+            '';
+          }
+        ];
 
-      programs.nvf.settings.vim.lazy.plugins."sidekick.nvim" = {
-        package = pkgs.vimPlugins.sidekick-nvim;
-        lazy = true;
-        setupModule = "sidekick";
-        setupOpts = {
-          nes = {
-            enabled = true;
-            debounce = 100;
-            trigger = {
-              events = [
-                "ModeChanged i:n"
-                "TextChanged"
-                "User SidekickNesDone"
-              ];
-            };
-            clear = {
-              events = [ ];
-              esc = true;
-            };
-          };
-          cli = {
-            tools = {
-              claude = {
-                # Drive the exact claude-code CLI configured above, independent
-                # of PATH. Env vars suppress account info / welcome banner
-                # (the two names flip between releases) and prevent the
-                # auto-updater from reinstalling into ~/.local/bin.
-                cmd = [ (lib.getExe claudePackage) ];
-                env = {
-                  IS_DEMO = "1";
-                  CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
-                  DISABLE_AUTOUPDATER = "1";
-                };
+        nvf.settings.vim.lazy.plugins."sidekick.nvim" = {
+          package = pkgs.vimPlugins.sidekick-nvim;
+          lazy = true;
+          setupModule = "sidekick";
+          setupOpts = {
+            nes = {
+              enabled = true;
+              debounce = 100;
+              trigger = {
+                events = [
+                  "ModeChanged i:n"
+                  "TextChanged"
+                  "User SidekickNesDone"
+                ];
+              };
+              clear = {
+                events = [ ];
+                esc = true;
               };
             };
-            win = {
-              layout = "right";
+            cli = {
+              tools = {
+                claude = {
+                  # Drive the exact claude-code CLI configured above, independent
+                  # of PATH. Env vars suppress account info / welcome banner
+                  # (the two names flip between releases) and prevent the
+                  # auto-updater from reinstalling into ~/.local/bin.
+                  cmd = [ (lib.getExe claudePackage) ];
+                  env = {
+                    IS_DEMO = "1";
+                    CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
+                    DISABLE_AUTOUPDATER = "1";
+                  };
+                };
+              };
+              win = {
+                layout = "right";
+              };
             };
           };
+
+          cmd = [ "Sidekick" ];
+
+          # NES auto-suggestions are driven by autocmds registered in
+          # require("sidekick").setup(). Loading only on cmd/keys means those
+          # autocmds never arm during normal editing, so load on InsertEnter
+          # (and when a buffer is read) to set sidekick up before the first
+          # i:n / TextChanged trigger fires.
+          event = [
+            "InsertEnter"
+            "BufReadPost"
+          ];
+
+          keys = [
+            {
+              key = "<leader>ac";
+              mode = "n";
+              lua = true;
+              action = ''function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end'';
+            }
+            {
+              key = "<leader>aa";
+              mode = "n";
+              lua = true;
+              action = ''function() require("sidekick.cli").toggle() end'';
+            }
+            {
+              key = "<leader>as";
+              mode = "n";
+              lua = true;
+              action = ''function() require("sidekick.cli").select() end'';
+            }
+            {
+              key = "<leader>ad";
+              mode = "n";
+              lua = true;
+              action = ''function() require("sidekick.cli").close() end'';
+            }
+            {
+              key = "<leader>ab";
+              mode = "n";
+              lua = true;
+              action = ''function() require("sidekick.cli").send({ msg = "{file}" }) end'';
+            }
+            {
+              key = "<leader>at";
+              mode = [
+                "x"
+                "n"
+              ];
+              lua = true;
+              action = ''function() require("sidekick.cli").send({ msg = "{this}" }) end'';
+            }
+            {
+              key = "<leader>av";
+              mode = "x";
+              lua = true;
+              action = ''function() require("sidekick.cli").send({ msg = "{selection}" }) end'';
+            }
+            {
+              key = "<leader>ap";
+              mode = [
+                "n"
+                "x"
+              ];
+              lua = true;
+              action = ''function() require("sidekick.cli").prompt() end'';
+            }
+          ];
         };
-
-        cmd = [ "Sidekick" ];
-
-        # NES auto-suggestions are driven by autocmds registered in
-        # require("sidekick").setup(). Loading only on cmd/keys means those
-        # autocmds never arm during normal editing, so load on InsertEnter
-        # (and when a buffer is read) to set sidekick up before the first
-        # i:n / TextChanged trigger fires.
-        event = [
-          "InsertEnter"
-          "BufReadPost"
-        ];
-
-        keys = [
-          {
-            key = "<leader>ac";
-            mode = "n";
-            lua = true;
-            action = ''function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end'';
-          }
-          {
-            key = "<leader>aa";
-            mode = "n";
-            lua = true;
-            action = ''function() require("sidekick.cli").toggle() end'';
-          }
-          {
-            key = "<leader>as";
-            mode = "n";
-            lua = true;
-            action = ''function() require("sidekick.cli").select() end'';
-          }
-          {
-            key = "<leader>ad";
-            mode = "n";
-            lua = true;
-            action = ''function() require("sidekick.cli").close() end'';
-          }
-          {
-            key = "<leader>ab";
-            mode = "n";
-            lua = true;
-            action = ''function() require("sidekick.cli").send({ msg = "{file}" }) end'';
-          }
-          {
-            key = "<leader>at";
-            mode = [
-              "x"
-              "n"
-            ];
-            lua = true;
-            action = ''function() require("sidekick.cli").send({ msg = "{this}" }) end'';
-          }
-          {
-            key = "<leader>av";
-            mode = "x";
-            lua = true;
-            action = ''function() require("sidekick.cli").send({ msg = "{selection}" }) end'';
-          }
-          {
-            key = "<leader>ap";
-            mode = [
-              "n"
-              "x"
-            ];
-            lua = true;
-            action = ''function() require("sidekick.cli").prompt() end'';
-          }
-        ];
       };
     };
 }
