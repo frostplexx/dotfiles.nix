@@ -1,188 +1,188 @@
 _: {
-    flake.homeManagerModules.shell = {
-        pkgs,
-        defaults,
-        ...
-    }: {
-        home.file = {
-            ".hushlogin".text = "";
+  flake.homeManagerModules.shell = {
+    pkgs,
+    defaults,
+    ...
+  }: {
+    home.file = {
+      ".hushlogin".text = "";
+    };
+
+    programs = {
+      nix-index-database.comma.enable = true;
+
+      nixupdater = {
+        enable = true;
+        flake = "${defaults.paths.flake}";
+        interval = 28800;
+        terminal = "ghostty";
+        command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
+      };
+
+      # Starship prompt
+      starship = {
+        enable = true;
+        enableFishIntegration = true;
+        enableTransience = true;
+      };
+
+      # Fish shell
+      fish = {
+        enable = true;
+
+        binds = {
+          "alt-h" = {
+            command = ''
+              commandline -f beginning-of-line; set -l cmd (commandline -t); commandline ""; man $cmd; commandline -f repaint
+            '';
+            mode = "insert";
+          };
+          "alt-shift-b" = {
+            command = "fish_commandline_append bat";
+            mode = "insert";
+          };
         };
 
-        programs = {
-            nix-index-database.comma.enable = true;
+        shellAliases = {
+          v = "nvim";
+          g = "lazygit";
+          c = "clear";
+          q = "exit";
+          s = "kitten ssh";
+          boo = "ghostty +boo";
+          p = "project_selector";
+          cat = "bat";
+          tree = "eza --icons --git --header --tree";
+          vimdiff = "nvim -d";
+          cd = "z";
+          nurl = "nix run nixpkgs#nurl --";
+          avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
+        };
 
-            nixupdater = {
-                enable = true;
-                flake = "${defaults.paths.flake}";
-                interval = 28800;
-                terminal = "ghostty";
-                command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
-            };
+        shellAbbrs = {
+          copy = "rsync -avz --partial --progress";
+          transfer = "kitten transfer --direction=receive";
+          ns = "jinx search";
+          j = "jinx";
+          chex = "chmod +x";
+          nixs = "nix shell nixpkgs#";
+          ghi = "gh issue";
+          ghp = "gh pr";
+          ghb = "gh browse";
+        };
 
-            # Starship prompt
-            starship = {
-                enable = true;
-                enableFishIntegration = true;
-                enableTransience = true;
-            };
-
-            # Fish shell
-            fish = {
-                enable = true;
-
-                binds = {
-                    "alt-h" = {
-                        command = ''
-                            commandline -f beginning-of-line; set -l cmd (commandline -t); commandline ""; man $cmd; commandline -f repaint
-                        '';
-                        mode = "insert";
-                    };
-                    "alt-shift-b" = {
-                        command = "fish_commandline_append bat";
-                        mode = "insert";
-                    };
-                };
-
-                shellAliases = {
-                    v = "nvim";
-                    g = "lazygit";
-                    c = "clear";
-                    q = "exit";
-                    s = "kitten ssh";
-                    boo = "ghostty +boo";
-                    p = "project_selector";
-                    cat = "bat";
-                    tree = "eza --icons --git --header --tree";
-                    vimdiff = "nvim -d";
-                    cd = "z";
-                    nurl = "nix run nixpkgs#nurl --";
-                    avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
-                };
-
-                shellAbbrs = {
-                    copy = "rsync -avz --partial --progress";
-                    transfer = "kitten transfer --direction=receive";
-                    ns = "jinx search";
-                    j = "jinx";
-                    chex = "chmod +x";
-                    nixs = "nix shell nixpkgs#";
-                    ghi = "gh issue";
-                    ghp = "gh pr";
-                    ghb = "gh browse";
-                };
-
-                shellInit = builtins.readFile ./shellInit.fish;
-                shellInitLast =
-                    /*
+        shellInit = builtins.readFile ./shellInit.fish;
+        shellInitLast =
+          /*
           fish
           */
-                    ''
-                        fish_config theme choose "${
-                            {
-                                "catppuccin" = "Catppuccin Mocha";
-                                "rose-pine" = "Rose Pine";
-                            }
+          ''
+            fish_config theme choose "${
+              {
+                "catppuccin" = "Catppuccin Mocha";
+                "rose-pine" = "Rose Pine";
+              }
               .${
-                                defaults.settings.theme
-                            }
-                        }"
-                    '';
-            };
+                defaults.settings.theme
+              }
+            }"
+          '';
+      };
 
-            # Better cd
-            zoxide = {
-                enable = true;
-                enableFishIntegration = true;
-            };
+      # Better cd
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+      };
 
-            tealdeer = {
-                enable = true;
-                enableAutoUpdates = true;
-            };
+      tealdeer = {
+        enable = true;
+        enableAutoUpdates = true;
+      };
 
-            # Better ls
-            eza = {
-                enable = true;
-                enableFishIntegration = true;
-                git = true;
-                icons = "auto";
-                colors = "auto";
-                extraOptions = [
-                    "--group-directories-first"
-                    "--header"
-                ];
-            };
+      # Better ls
+      eza = {
+        enable = true;
+        enableFishIntegration = true;
+        git = true;
+        icons = "auto";
+        colors = "auto";
+        extraOptions = [
+          "--group-directories-first"
+          "--header"
+        ];
+      };
 
-            # Better cat
-            bat = {
-                enable = true;
-                config = {
-                    theme = "catppuccin-mocha";
-                };
-                themes = {
-                    catppuccin-mocha = {
-                        src = pkgs.fetchFromGitHub {
-                            owner = "catppuccin";
-                            repo = "bat";
-                            rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
-                            sha256 = "1y5sfi7jfr97z1g6vm2mzbsw59j1jizwlmbadvmx842m0i5ak5ll";
-                        };
-                        file = "themes/Catppuccin Mocha.tmTheme";
-                    };
-                };
-            };
-
-            # Better find
-            fd.enable = true;
-
-            # Better grep
-            ripgrep.enable = true;
-
-            # Direnv
-            direnv = {
-                enable = true;
-                nix-direnv.enable = true;
-                silent = true;
-            };
-
-            # Fuzzy finder
-            fzf = {
-                enable = true;
-                enableFishIntegration = true;
-                defaultCommand = "fd --type f";
-                defaultOptions = [
-                    "--height 40%"
-                    "--layout=reverse"
-                    "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8"
-                    "--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc"
-                    "--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-                    "--color=selected-bg:#45475a"
-                    "--color=border:#313244,label:#cdd6f4"
-                ];
-            };
+      # Better cat
+      bat = {
+        enable = true;
+        config = {
+          theme = "catppuccin-mocha";
         };
-
-        # Fish theme
-        xdg.configFile = {
-            "fish/themes/Catppuccin Mocha.theme" = {
-                source = pkgs.fetchurl {
-                    url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
-                    sha256 = "sha256-hLXJH83AkaWcHpikaUGEGZQf5XMlG5rViO0Wb9tOyIw=";
-                };
+        themes = {
+          catppuccin-mocha = {
+            src = pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "bat";
+              rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
+              sha256 = "1y5sfi7jfr97z1g6vm2mzbsw59j1jizwlmbadvmx842m0i5ak5ll";
             };
-
-            "fish/themes/Rose Pine.theme" = {
-                source = pkgs.fetchurl {
-                    url = "https://raw.githubusercontent.com/rose-pine/fish/refs/heads/main/themes/Ros%C3%A9%20Pine.theme";
-                    sha256 = "sha256-TmOcjWFWzAhY/nYw34lLZ1BYegvep9Mz7qAE7dcKQK4=";
-                };
-            };
+            file = "themes/Catppuccin Mocha.tmTheme";
+          };
         };
+      };
 
-        # Fish scripts
-        home.file.".fish_scripts" = {
-            recursive = true;
-            source = ./scripts;
-        };
+      # Better find
+      fd.enable = true;
+
+      # Better grep
+      ripgrep.enable = true;
+
+      # Direnv
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+        silent = true;
+      };
+
+      # Fuzzy finder
+      fzf = {
+        enable = true;
+        enableFishIntegration = true;
+        defaultCommand = "fd --type f";
+        defaultOptions = [
+          "--height 40%"
+          "--layout=reverse"
+          "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8"
+          "--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc"
+          "--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+          "--color=selected-bg:#45475a"
+          "--color=border:#313244,label:#cdd6f4"
+        ];
+      };
     };
+
+    # Fish theme
+    xdg.configFile = {
+      "fish/themes/Catppuccin Mocha.theme" = {
+        source = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
+          sha256 = "sha256-hLXJH83AkaWcHpikaUGEGZQf5XMlG5rViO0Wb9tOyIw=";
+        };
+      };
+
+      "fish/themes/Rose Pine.theme" = {
+        source = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/rose-pine/fish/refs/heads/main/themes/Ros%C3%A9%20Pine.theme";
+          sha256 = "sha256-TmOcjWFWzAhY/nYw34lLZ1BYegvep9Mz7qAE7dcKQK4=";
+        };
+      };
+    };
+
+    # Fish scripts
+    home.file.".fish_scripts" = {
+      recursive = true;
+      source = ./scripts;
+    };
+  };
 }
