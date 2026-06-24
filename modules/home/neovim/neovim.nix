@@ -287,7 +287,6 @@ _: {
             setupOpts.enable_autosnippets = true;
             providers = [
               "friendly-snippets"
-              "blink-cmp"
             ];
           };
 
