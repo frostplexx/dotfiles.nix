@@ -236,7 +236,7 @@
           persistent-apps = [
             "/Applications/Things3.app"
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
-            "/Applications/Nix Apps/Obsidian.app"
+            "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
           ];
         };
         trackpad.FirstClickThreshold = 0;
