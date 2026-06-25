@@ -1,15 +1,15 @@
 _: {
   flake.homeManagerModules.ghostty = {
-    pkgs,
     defaults,
+    pkgs,
     ...
   }: {
     programs = {
       ghostty = {
         enable = true;
         enableFishIntegration = true;
-        installBatSyntax = true;
-        installVimSyntax = true;
+        # installBatSyntax = true;
+        # installVimSyntax = true;
         package = pkgs.ghostty-bin;
         settings = {
           theme =
