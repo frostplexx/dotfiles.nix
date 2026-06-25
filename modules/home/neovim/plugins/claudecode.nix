@@ -116,11 +116,10 @@ _: {
           };
 
           cavemanSkillsDir = caveman + "/skills";
+          localSkillsDir = ./skills;
         in
           builtins.mapAttrs (name: _: cavemanSkillsDir + "/${name}") (builtins.readDir cavemanSkillsDir)
-          // {
-            "ask-obsidian.md" = ./skills/ask-obsidian.md;
-          };
+          // builtins.mapAttrs (name: _: localSkillsDir + "/${name}") (builtins.readDir localSkillsDir);
 
         context = ''
           You are a collaborative coding companion. Your role is to help me understand, decide, and grow — not to generate complete solutions unilaterally.
