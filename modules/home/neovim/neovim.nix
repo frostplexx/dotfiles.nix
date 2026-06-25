@@ -41,17 +41,20 @@ _: {
             enable = true;
             lspkind.enable = true;
             inlayHints.enable = true;
-            presets.harper.enable = true;
 
             mappings = {
               codeAction = "<leader>ca";
-              openDiagnosticFloat = "<leader>cd";
-              renameSymbol = "<leader>cr";
-              goToDefinition = "<leader>gd";
               goToDeclaration = "<leader>gD";
+              goToDefinition = "<leader>gd";
+              goToType = "<leader>gt";
               hover = "K";
+              listDocumentSymbols = "<leader>ls";
+              listImplementations = "<leader>li";
+              listReferences = "<leader>lr";
               nextDiagnostic = "]d";
+              openDiagnosticFloat = "<leader>cd";
               previousDiagnostic = "[d";
+              renameSymbol = "<leader>cr";
             };
 
             servers = {
@@ -92,8 +95,8 @@ _: {
               mappings.suggestion.accept = "<C-cr>";
               setupOpts = {
                 suggestion = {
-                  enabled = true;
-                  auto_trigger = true;
+                  enabled = false;
+                  auto_trigger = false;
                 };
               };
             };
@@ -320,6 +323,8 @@ _: {
             gitsigns.codeActions.enable = false;
           };
 
+          statusline.lualine.enable = true;
+
           diagnostics = {
             enable = true;
             nvim-lint.enable = true;
@@ -372,7 +377,6 @@ _: {
             bufremove.enable = true;
             icons.enable = true;
             extra.enable = true;
-            statusline.enable = true;
             pick = {
               enable = true;
               setupOpts = {

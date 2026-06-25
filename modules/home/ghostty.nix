@@ -33,6 +33,8 @@ _: {
             else false;
           window-save-state = "always";
           unfocused-split-opacity = 0.9;
+          window-padding-x = 0;
+          window-padding-y = 0;
           macos-titlebar-proxy-icon = "hidden";
           notify-on-command-finish = "unfocused";
           macos-window-buttons = "hidden";
