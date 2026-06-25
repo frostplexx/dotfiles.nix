@@ -81,6 +81,11 @@
       url = "github:FelixKratz/homebrew-formulae";
       flake = false;
     };
+
+    fuse-t = {
+      url = "github:macos-fuse-t/homebrew-cask";
+      flake = false;
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
