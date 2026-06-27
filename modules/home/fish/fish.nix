@@ -9,8 +9,6 @@ _: {
     };
 
     programs = {
-      nix-index-database.comma.enable = true;
-
       nixupdater = {
         enable = true;
         flake = "${defaults.paths.flake}";
@@ -29,7 +27,6 @@ _: {
       # Fish shell
       fish = {
         enable = true;
-
         binds = {
           "alt-h" = {
             command = ''
@@ -60,8 +57,6 @@ _: {
         };
 
         shellAbbrs = {
-          copy = "rsync -avz --partial --progress";
-          transfer = "kitten transfer --direction=receive";
           ns = "jinx search";
           j = "jinx";
           chex = "chmod +x";
@@ -93,11 +88,6 @@ _: {
       zoxide = {
         enable = true;
         enableFishIntegration = true;
-      };
-
-      tealdeer = {
-        enable = true;
-        enableAutoUpdates = true;
       };
 
       # Better ls

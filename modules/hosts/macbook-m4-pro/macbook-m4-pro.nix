@@ -58,7 +58,6 @@ in {
                   inputs.zen-browser.homeModules.beta
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
-                  inputs.nix-index-database.homeModules.default
                   {
                     # Disable nix management in home-manager on Darwin (handled by Determinate)
                     nix.enable = false;

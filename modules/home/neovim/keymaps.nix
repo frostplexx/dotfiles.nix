@@ -241,6 +241,14 @@ _: {
         action = "function() Snacks.lazygit() end";
         desc = "Open Lazygit";
       }
+      {
+        key = "<leader>gq";
+        mode = "n";
+        silent = true;
+        lua = true;
+        action = "function() require('gitsigns').setqflist('all') end";
+        desc = "Git hunks → quickfix (all buffers)";
+      }
     ];
   };
 }
