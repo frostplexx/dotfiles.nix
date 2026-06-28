@@ -238,6 +238,8 @@
             "/Applications/Things3.app"
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
+            "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
+            "/Users/daniel/Applications/Home Manager Apps/Spotify.app"
           ];
         };
         trackpad = {
