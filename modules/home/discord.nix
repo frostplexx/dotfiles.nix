@@ -30,7 +30,7 @@ _: {
       discord.enable = !useVesktop;
       vesktop = {
         enable = useVesktop;
-        package = pkgs.vesktop;
+        package = pkgs.vesktop.override { pnpm_10_29_2 = pkgs.pnpm_10; };
       };
       config = {
         useQuickCss = true;
