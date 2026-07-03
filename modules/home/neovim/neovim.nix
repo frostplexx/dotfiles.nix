@@ -85,23 +85,6 @@ _: {
             };
           };
 
-          assistant = {
-            copilot = {
-              enable =
-                if pkgs.stdenv.isDarwin
-                then true
-                else false;
-
-              mappings.suggestion.accept = "<C-cr>";
-              setupOpts = {
-                suggestion = {
-                  enabled = false;
-                  auto_trigger = false;
-                };
-              };
-            };
-          };
-
           debugger = {
             nvim-dap = {
               enable = true;
