@@ -1,544 +1,544 @@
 _: {
-    flake.homeManagerModules.zen_browser = {
-        pkgs,
-        lib,
-        config,
-        inputs,
-        defaults,
-        ...
-    }: let
-        containers = {
-            Personal = {
-                color = "purple";
-                icon = "fingerprint";
-                id = 1;
-            };
-            Coding = {
-                color = "green";
-                icon = "circle";
-                id = 3;
-            };
-            Work = {
-                color = "blue";
-                icon = "briefcase";
-                id = 2;
-            };
-        };
-
-        spaces = {
-            "Personal" = {
-                id = "840479D4-0B4D-4011-86C2-006D000ADF91";
-                icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
-                container = containers.Personal.id;
-                position = 1000;
-                theme =
-                    {
-                        "catppuccin" = {
-                            type = "gradient";
-                            colors = [
-                                {
-                                    red = 30;
-                                    green = 30;
-                                    blue = 27;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                                {
-                                    red = 49;
-                                    green = 50;
-                                    blue = 68;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                            ];
-                            opacity = 0.8;
-                            texture = 0.1;
-                        };
-                        "rose-pine" = {
-                            type = "gradient";
-                            colors = [
-                                {
-                                    red = 35;
-                                    green = 32;
-                                    blue = 54;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                                {
-                                    red = 110;
-                                    green = 106;
-                                    blue = 134;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                            ];
-                            opacity = 0.8;
-                            texture = 0.1;
-                        };
-                    }
-              .${
-                        defaults.settings.theme
-                    };
-            };
-
-            "Coding" = {
-                id = "c6de089c-410d-4206-961d-ab11f988d40a";
-                icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
-                container = containers."Coding".id;
-                position = 2000;
-                theme =
-                    {
-                        "catppuccin" = {
-                            type = "gradient";
-                            colors = [
-                                {
-                                    red = 202;
-                                    green = 211;
-                                    blue = 245;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                                {
-                                    red = 180;
-                                    green = 190;
-                                    blue = 254;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                            ];
-                            opacity = 0.5;
-                            texture = 0.5;
-                        };
-                        "rose-pine" = {
-                            type = "gradient";
-                            colors = [
-                                {
-                                    red = 35;
-                                    green = 32;
-                                    blue = 54;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                                {
-                                    red = 110;
-                                    green = 106;
-                                    blue = 134;
-                                    algorithm = "floating";
-                                    type = "explicit-lightness";
-                                }
-                            ];
-                            opacity = 0.5;
-                            texture = 0.5;
-                        };
-                    }
-              .${
-                        defaults.settings.theme
-                    };
-            };
-
-            "Uni" = {
-                id = "cdd10fab-4fc5-494b-9041-325e5759195b";
-                icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
-                container = containers."Work".id;
-                position = 3000;
-                theme = {
-                    type = "gradient";
-                    colors = [
-                        {
-                            red = 166;
-                            green = 227;
-                            blue = 161;
-                            algorithm = "floating";
-                            type = "explicit-lightness";
-                        }
-                    ];
-                    opacity = 0.5;
-                    texture = 0.5;
-                };
-            };
-        };
-
-        routes = [
-            {
-                id = "3e604daa-8427-409f-8f3d-8e9b7831c7e4";
-                reference = "lmu.de";
-                openIn = "{${spaces.Uni.id}}";
-                matchType = "contains";
-            }
-            {
-                id = "f213dd66-5471-4938-8af2-d424906b0bca";
-                reference = "github.com";
-                openIn = "{${spaces.Coding.id}}";
-                matchType = "contains";
-            }
-            {
-                id = "718621fa-4ca7-480c-a233-0337bfa5ccfe";
-                reference = "uni-muenchen.de";
-                openIn = "{${spaces.Uni.id}}";
-                matchType = "contains";
-            }
-            {
-                id = "7271aa65-742f-47b3-a828-6b8c637d8345";
-                reference = "youtube.com";
-                openIn = "{${spaces.Personal.id}}";
-                matchType = "contains";
-            }
-        ];
-
-        spaceRoutingFile = let
-            jsonFile = pkgs.writeText "zen-space-routing.json" (builtins.toJSON {
-                inherit routes;
-                defaultRouteExternal = "most-recent-space";
-            });
-            script = pkgs.writeText "make-jsonlz4.py" ''
-                import lz4.block, struct, sys
-                with open(sys.argv[1], "rb") as f:
-                    data = f.read()
-                compressed = lz4.block.compress(data, store_size=False)
-                with open(sys.argv[2], "wb") as f:
-                    f.write(b"mozLz40\x00")
-                    f.write(struct.pack("<I", len(data)))
-                    f.write(compressed)
-            '';
-        in
-            pkgs.runCommand "zen-space-routing.jsonlz4" {
-                nativeBuildInputs = with pkgs; [python3 python3Packages.lz4];
-            } "python3 ${script} ${jsonFile} $out";
-    in {
-        programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
-            enable = true;
-            browser = "zen";
-        };
-
-        targets.darwin.defaults = lib.mkIf pkgs.stdenv.isDarwin {
-            "app.zen-browser.zen" =
-                {
-                    EnterprisePoliciesEnabled = true;
-                }
-                // config.programs.zen-browser.policies;
-        };
-
-        home.file."Library/Application Support/Zen/Profiles/${config.programs.zen-browser.profiles."default".path}/zen-space-routing.jsonlz4" = lib.mkIf pkgs.stdenv.isDarwin {
-            source = spaceRoutingFile;
-            force = true;
-        };
-
-        # https://github.com/0xc000022070/zen-browser-flake
-        programs.zen-browser = let
-            # Use policy.json for installing extensions because its robuster and not dependent on a
-            # third part flake
-            extensions = {
-                "uBlock0@raymondhill.net" = {
-                    name = "uBlock Origin";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-                    installation_mode = "normal_installed";
-                    private_browsing = true;
-                };
-
-                "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
-                    name = "1Password";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
-                    installation_mode = "normal_installed";
-                    private_browsing = true;
-                };
-                "clipper@obsidian.md" = {
-                    name = "Obsidian Web Clipper";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
-                    installation_mode = "normal_installed";
-                };
-                "sponsorBlocker@ajay.app" = {
-                    name = "SponsorBlock";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-                    installation_mode = "normal_installed";
-                };
-                "addon@darkreader.org" = {
-                    name = "Dark Reader";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-                    installation_mode = "normal_installed";
-                };
-                "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-                    name = "Vimium";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-                    installation_mode = "normal_installed";
-                };
-                "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
-                    name = "Refined GitHub";
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}/latest.xpi";
-                    installation_mode = "normal_installed";
-                };
-            };
-        in {
-            enable = true;
-            package = lib.mkIf pkgs.stdenv.isDarwin (
-                pkgs.lib.makeOverridable (
-                    _:
-                        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
-                            installPhase = builtins.replaceStrings ["/usr/bin/codesign"] [": "] old.installPhase;
-                            dontFixup = true;
-                        })
-                ) {}
-            );
-
-            profiles."default" = let
-                pins = {
-                    # == Coding
-                    "Github" = {
-                        id = "9d8a8f91-7e29-4688-ae2e-da4e49d4a179";
-                        container = containers.Coding.id;
-                        workspace = spaces."Coding".id;
-                        url = "https://github.com";
-                        isEssential = true;
-                        position = 101;
-                    };
-                    "Claude" = {
-                        id = "8af62707-0722-4049-9801-bedced343333";
-                        container = containers.Coding.id;
-                        workspace = spaces."Coding".id;
-                        url = "https://claude.ai";
-                        isEssential = true;
-                        position = 102;
-                    };
-
-                    "Notifications" = {
-                        id = "C616A2A9-7971-4B82-BEBB-B354DC9F159A";
-                        container = containers.Coding.id;
-                        workspace = spaces."Coding".id;
-                        url = "https://github.com/notifications";
-                        isEssential = false;
-                        position = 103;
-                    };
-
-                    # == Personal
-                    "Dashboard" = {
-                        id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
-                        container = containers.Personal.id;
-                        workspace = spaces."Personal".id;
-                        url = "https://home.int.kuipr.de";
-                        isEssential = true;
-                        position = 101;
-                    };
-
-                    "DuckAIPersonal" = {
-                        id = "8af62707-0722-4049-9801-bedced343333";
-                        container = containers.Personal.id;
-                        workspace = spaces."Personal".id;
-                        url = "https://duck.ai";
-                        isEssential = true;
-                        position = 102;
-                    };
-
-                    # == Uni
-                    "Moodle" = {
-                        id = "d85a9026-1458-4db6-b115-346746bcc692";
-                        container = containers.Work.id;
-                        workspace = spaces."Uni".id;
-                        url = "http://moodle.lmu.de";
-                        isEssential = true;
-                        position = 101;
-                    };
-
-                    "Raumfinder" = {
-                        id = "FE9211FA-611B-446A-AC44-AB39D12DEE5E";
-                        url = "https://www.lmu.de/raumfinder/index.html#/";
-                        container = containers.Work.id;
-                        workspace = spaces."Uni".id;
-                        isEssential = true;
-                        position = 102;
-                    };
-
-                    "LSF" = {
-                        id = "596738FB-39B4-42E8-9BC2-826E71C06CAB";
-                        url = "https://lsf.verwaltung.uni-muenchen.de";
-                        container = containers.Work.id;
-                        workspace = spaces."Uni".id;
-                        isEssential = true;
-                        position = 103;
-                    };
-                };
-            in {
-                inherit containers spaces pins;
-                spacesForce = true;
-                containersForce = true;
-                pinsForce = false;
-
-                # Get Key IDs using jq -c '.shortcuts[] | {id, key, keycode, action}' ~/Library/Application\ Support/Zen/Profiles/default/zen-keyboard-shortcuts.json | fzf
-                keyboardShortcuts = [
-                    # Change compact mode toggle to Ctrl+Alt+S
-                    {
-                        id = "zen-compact-mode-toggle";
-                        key = "[";
-                        modifiers = {
-                            control = false;
-                            alt = true;
-                        };
-                    }
-                    {
-                        id = "zen-split-view-vertical";
-                        key = "+";
-                        modifiers = {
-                            control = true;
-                            alt = false;
-                        };
-                    }
-
-                    {
-                        id = "zen-split-view-horizontal";
-                        key = "_";
-                        modifiers = {
-                            control = true;
-                            alt = false;
-                        };
-                    }
-                    # Disable the quit shortcut to prevent accidental closes
-                    {
-                        id = "key_quitApplication";
-                        disabled = true;
-                    }
-                ];
-                # Fails activation on schema changes to detect potential regressions
-                # Find this in about:config or prefs.js of your profile
-                keyboardShortcutsVersion = 19;
-
-                settings = {
-                    # Zen-specific preferences
-                    "zen.glance.activation-method" = "shift";
-                    "zen.theme.gradient.show-custom-colors" = true;
-                    "zen.welcome-screen.seen" = true;
-                    "zen.theme.accent-color" = "#cba6f7";
-                    "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
-                    "zen.workspaces.continue-where-left-off" = true;
-                    "zen.workspaces.force-container-workspace" = true;
-                    "zen.view.compact.should-enable-at-startup" = true;
-                    "zen.view.compact.enable-at-startup" = true;
-
-                    # General preferences
-                    "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
-                    "browser.tabs.warnOnClose" = true;
-                };
-
-                search = {
-                    force = true; # Needed for nix to overwrite search settings on rebuild
-                    default = "unduckified"; # Aliased to duckduckgo, see other aliases in the link above
-                    engines = {
-                        duckai = {
-                            name = "DuckAI";
-                            urls = [
-                                {
-                                    template = "https://duckduckgo.com/?t=ffab&ia=chat&q=%s";
-                                    params = [
-                                    ];
-                                }
-                            ];
-                            definedAliases = ["@ai"];
-                        };
-
-                        unduckified = {
-                            name = "Unduckified";
-                            urls = [
-                                {
-                                    template = "https://s.dunkirk.sh?q={searchTerms}";
-                                    params = [
-                                        {
-                                            name = "query";
-                                            value = "searchTerms";
-                                        }
-                                    ];
-                                }
-                            ];
-
-                            # icon = lg";
-                            definedAliases = ["@uddg"]; # Keep in mind that aliases defined here only work if they start with "@"
-                        };
-
-                        # My NixOS Option and package search shortcut
-                        mynixos = {
-                            name = "My NixOS";
-                            urls = [
-                                {
-                                    template = "https://mynixos.com/search?q={searchTerms}";
-                                    params = [
-                                        {
-                                            name = "query";
-                                            value = "searchTerms";
-                                        }
-                                    ];
-                                }
-                            ];
-
-                            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                            definedAliases = ["@nx"]; # Keep in mind that aliases defined here only work if they start with "@"
-                        };
-                    };
-                };
-            };
-
-            policies = {
-                ExtensionSettings = lib.mapAttrs (_id: ext: builtins.removeAttrs ext ["name"]) extensions;
-                # Disable features
-                DisableBuiltinPDFViewer = true;
-                DisableFirefoxStudies = true;
-                DisableFirefoxAccounts = false;
-                DisableFirefoxScreenshots = true;
-                DisableForgetButton = true;
-                DisableMasterPasswordCreation = true;
-                DisableProfileImport = true;
-                DisableProfileRefresh = true;
-                DisableSetDesktopBackground = true;
-                DisplayMenuBar = "default-off";
-                DisableTelemetry = true;
-                DisableFormHistory = true;
-                DisablePasswordReveal = true;
-                DontCheckDefaultBrowser = true;
-
-                # Privacy settings
-                OfferToSaveLogins = false;
-                AutofillAddressEnabled = false;
-                AutofillCreditCardEnabled = false;
-                PasswordManagerEnabled = false;
-
-                # Tracking protection
-                EnableTrackingProtection = {
-                    Value = true;
-                    Locked = true;
-                    Cryptomining = true;
-                    Fingerprinting = true;
-                    EmailTracking = true;
-                };
-
-                # Firefox Suggest
-                FirefoxSuggest = {
-                    WebSuggestions = false;
-                    SponsoredSuggestions = false;
-                    ImproveSuggest = false;
-                    Locked = true;
-                };
-
-                # Downloads and handlers
-                DefaultDownloadDirectory = "$HOME/Downloads";
-                PromptForDownloadLocation = false;
-                Handlers = {
-                    mimeTypes."application/pdf".action = "saveToDisk";
-                };
-
-                # First run
-                OverrideFirstRunPage = "";
-                OverridePostUpdatePage = "";
-                ExtensionUpdate = true;
-                SearchBar = "unified";
-
-                # Cleanup on shutdown
-                SanitizeOnShutdown = {
-                    Cache = false;
-                    Cookies = false;
-                    Downloads = false;
-                    FormData = false;
-                    History = false;
-                    Sessions = false;
-                    SiteSettings = false;
-                    OfflineApps = false;
-                    Locked = false;
-                };
-            };
-        };
+  flake.homeManagerModules.zen_browser = {
+    pkgs,
+    lib,
+    config,
+    inputs,
+    defaults,
+    ...
+  }: let
+    containers = {
+      Personal = {
+        color = "purple";
+        icon = "fingerprint";
+        id = 1;
+      };
+      Coding = {
+        color = "green";
+        icon = "circle";
+        id = 3;
+      };
+      Work = {
+        color = "blue";
+        icon = "briefcase";
+        id = 2;
+      };
     };
+
+    spaces = {
+      "Personal" = {
+        id = "840479D4-0B4D-4011-86C2-006D000ADF91";
+        icon = "chrome://browser/skin/zen-icons/selectable/squares.svg";
+        container = containers.Personal.id;
+        position = 1000;
+        theme =
+          {
+            "catppuccin" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 30;
+                  green = 30;
+                  blue = 27;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 49;
+                  green = 50;
+                  blue = 68;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.8;
+              texture = 0.1;
+            };
+            "rose-pine" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 35;
+                  green = 32;
+                  blue = 54;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 110;
+                  green = 106;
+                  blue = 134;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.8;
+              texture = 0.1;
+            };
+          }
+              .${
+            defaults.settings.theme
+          };
+      };
+
+      "Coding" = {
+        id = "c6de089c-410d-4206-961d-ab11f988d40a";
+        icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
+        container = containers."Coding".id;
+        position = 2000;
+        theme =
+          {
+            "catppuccin" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 202;
+                  green = 211;
+                  blue = 245;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 180;
+                  green = 190;
+                  blue = 254;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.5;
+              texture = 0.5;
+            };
+            "rose-pine" = {
+              type = "gradient";
+              colors = [
+                {
+                  red = 35;
+                  green = 32;
+                  blue = 54;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 110;
+                  green = 106;
+                  blue = 134;
+                  algorithm = "floating";
+                  type = "explicit-lightness";
+                }
+              ];
+              opacity = 0.5;
+              texture = 0.5;
+            };
+          }
+              .${
+            defaults.settings.theme
+          };
+      };
+
+      "Uni" = {
+        id = "cdd10fab-4fc5-494b-9041-325e5759195b";
+        icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
+        container = containers."Work".id;
+        position = 3000;
+        theme = {
+          type = "gradient";
+          colors = [
+            {
+              red = 166;
+              green = 227;
+              blue = 161;
+              algorithm = "floating";
+              type = "explicit-lightness";
+            }
+          ];
+          opacity = 0.5;
+          texture = 0.5;
+        };
+      };
+    };
+
+    routes = [
+      {
+        id = "3e604daa-8427-409f-8f3d-8e9b7831c7e4";
+        reference = "lmu.de";
+        openIn = "{${spaces.Uni.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "f213dd66-5471-4938-8af2-d424906b0bca";
+        reference = "github.com";
+        openIn = "{${spaces.Coding.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "718621fa-4ca7-480c-a233-0337bfa5ccfe";
+        reference = "uni-muenchen.de";
+        openIn = "{${spaces.Uni.id}}";
+        matchType = "contains";
+      }
+      {
+        id = "7271aa65-742f-47b3-a828-6b8c637d8345";
+        reference = "youtube.com";
+        openIn = "{${spaces.Personal.id}}";
+        matchType = "contains";
+      }
+    ];
+
+    spaceRoutingFile = let
+      jsonFile = pkgs.writeText "zen-space-routing.json" (builtins.toJSON {
+        inherit routes;
+        defaultRouteExternal = "most-recent-space";
+      });
+      script = pkgs.writeText "make-jsonlz4.py" ''
+        import lz4.block, struct, sys
+        with open(sys.argv[1], "rb") as f:
+            data = f.read()
+        compressed = lz4.block.compress(data, store_size=False)
+        with open(sys.argv[2], "wb") as f:
+            f.write(b"mozLz40\x00")
+            f.write(struct.pack("<I", len(data)))
+            f.write(compressed)
+      '';
+    in
+      pkgs.runCommand "zen-space-routing.jsonlz4" {
+        nativeBuildInputs = with pkgs; [python3 python3Packages.lz4];
+      } "python3 ${script} ${jsonFile} $out";
+  in {
+    programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
+      enable = true;
+      browser = "zen";
+    };
+
+    targets.darwin.defaults = lib.mkIf pkgs.stdenv.isDarwin {
+      "app.zen-browser.zen" =
+        {
+          EnterprisePoliciesEnabled = true;
+        }
+        // config.programs.zen-browser.policies;
+    };
+
+    home.file."Library/Application Support/Zen/Profiles/${config.programs.zen-browser.profiles."default".path}/zen-space-routing.jsonlz4" = lib.mkIf pkgs.stdenv.isDarwin {
+      source = spaceRoutingFile;
+      force = true;
+    };
+
+    # https://github.com/0xc000022070/zen-browser-flake
+    programs.zen-browser = let
+      # Use policy.json for installing extensions because its robuster and not dependent on a
+      # third part flake
+      extensions = {
+        "uBlock0@raymondhill.net" = {
+          name = "uBlock Origin";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "normal_installed";
+          private_browsing = true;
+        };
+
+        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
+          name = "1Password";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
+          installation_mode = "normal_installed";
+          private_browsing = true;
+        };
+        "clipper@obsidian.md" = {
+          name = "Obsidian Web Clipper";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
+          installation_mode = "normal_installed";
+        };
+        "sponsorBlocker@ajay.app" = {
+          name = "SponsorBlock";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+          installation_mode = "normal_installed";
+        };
+        "addon@darkreader.org" = {
+          name = "Dark Reader";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          installation_mode = "normal_installed";
+        };
+        "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+          name = "Vimium";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+          installation_mode = "normal_installed";
+        };
+        "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
+          name = "Refined GitHub";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}/latest.xpi";
+          installation_mode = "normal_installed";
+        };
+      };
+    in {
+      enable = true;
+      package = lib.mkIf pkgs.stdenv.isDarwin (
+        pkgs.lib.makeOverridable (
+          _:
+            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
+              installPhase = builtins.replaceStrings ["/usr/bin/codesign"] [": "] old.installPhase;
+              dontFixup = true;
+            })
+        ) {}
+      );
+
+      profiles."default" = let
+        pins = {
+          # == Coding
+          "Github" = {
+            id = "9d8a8f91-7e29-4688-ae2e-da4e49d4a179";
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
+            url = "https://github.com";
+            isEssential = true;
+            position = 101;
+          };
+          "Claude" = {
+            id = "8af62707-0722-4049-9801-bedced343333";
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
+            url = "https://claude.ai";
+            isEssential = true;
+            position = 102;
+          };
+
+          "Notifications" = {
+            id = "C616A2A9-7971-4B82-BEBB-B354DC9F159A";
+            container = containers.Coding.id;
+            workspace = spaces."Coding".id;
+            url = "https://github.com/notifications";
+            isEssential = false;
+            position = 103;
+          };
+
+          # == Personal
+          "Dashboard" = {
+            id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
+            container = containers.Personal.id;
+            workspace = spaces."Personal".id;
+            url = "https://home.int.kuipr.de";
+            isEssential = true;
+            position = 101;
+          };
+
+          "DuckAIPersonal" = {
+            id = "8af62707-0722-4049-9801-bedced343333";
+            container = containers.Personal.id;
+            workspace = spaces."Personal".id;
+            url = "https://duck.ai";
+            isEssential = true;
+            position = 102;
+          };
+
+          # == Uni
+          "Moodle" = {
+            id = "d85a9026-1458-4db6-b115-346746bcc692";
+            container = containers.Work.id;
+            workspace = spaces."Uni".id;
+            url = "http://moodle.lmu.de";
+            isEssential = true;
+            position = 101;
+          };
+
+          "Raumfinder" = {
+            id = "FE9211FA-611B-446A-AC44-AB39D12DEE5E";
+            url = "https://www.lmu.de/raumfinder/index.html#/";
+            container = containers.Work.id;
+            workspace = spaces."Uni".id;
+            isEssential = true;
+            position = 102;
+          };
+
+          "LSF" = {
+            id = "596738FB-39B4-42E8-9BC2-826E71C06CAB";
+            url = "https://lsf.verwaltung.uni-muenchen.de";
+            container = containers.Work.id;
+            workspace = spaces."Uni".id;
+            isEssential = true;
+            position = 103;
+          };
+        };
+      in {
+        inherit containers spaces pins;
+        spacesForce = true;
+        containersForce = true;
+        pinsForce = false;
+
+        # Get Key IDs using jq -c '.shortcuts[] | {id, key, keycode, action}' ~/Library/Application\ Support/Zen/Profiles/default/zen-keyboard-shortcuts.json | fzf
+        keyboardShortcuts = [
+          # Change compact mode toggle to Ctrl+Alt+S
+          {
+            id = "zen-compact-mode-toggle";
+            key = "[";
+            modifiers = {
+              control = false;
+              alt = true;
+            };
+          }
+          {
+            id = "zen-split-view-vertical";
+            key = "+";
+            modifiers = {
+              control = true;
+              alt = false;
+            };
+          }
+
+          {
+            id = "zen-split-view-horizontal";
+            key = "_";
+            modifiers = {
+              control = true;
+              alt = false;
+            };
+          }
+          # Disable the quit shortcut to prevent accidental closes
+          {
+            id = "key_quitApplication";
+            disabled = true;
+          }
+        ];
+        # Fails activation on schema changes to detect potential regressions
+        # Find this in about:config or prefs.js of your profile
+        keyboardShortcutsVersion = 19;
+
+        settings = {
+          # Zen-specific preferences
+          "zen.glance.activation-method" = "shift";
+          "zen.theme.gradient.show-custom-colors" = true;
+          "zen.welcome-screen.seen" = true;
+          "zen.theme.accent-color" = "#cba6f7";
+          "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
+          "zen.workspaces.continue-where-left-off" = true;
+          "zen.workspaces.force-container-workspace" = true;
+          "zen.view.compact.should-enable-at-startup" = true;
+          "zen.view.compact.enable-at-startup" = true;
+
+          # General preferences
+          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
+          "browser.tabs.warnOnClose" = true;
+        };
+
+        search = {
+          force = true; # Needed for nix to overwrite search settings on rebuild
+          default = "unduckified"; # Aliased to duckduckgo, see other aliases in the link above
+          engines = {
+            duckai = {
+              name = "DuckAI";
+              urls = [
+                {
+                  template = "https://duckduckgo.com/?t=ffab&ia=chat&q=%s";
+                  params = [
+                  ];
+                }
+              ];
+              definedAliases = ["@ai"];
+            };
+
+            unduckified = {
+              name = "Unduckified";
+              urls = [
+                {
+                  template = "https://s.dunkirk.sh?q={searchTerms}";
+                  params = [
+                    {
+                      name = "query";
+                      value = "searchTerms";
+                    }
+                  ];
+                }
+              ];
+
+              # icon = lg";
+              definedAliases = ["@uddg"]; # Keep in mind that aliases defined here only work if they start with "@"
+            };
+
+            # My NixOS Option and package search shortcut
+            mynixos = {
+              name = "My NixOS";
+              urls = [
+                {
+                  template = "https://mynixos.com/search?q={searchTerms}";
+                  params = [
+                    {
+                      name = "query";
+                      value = "searchTerms";
+                    }
+                  ];
+                }
+              ];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = ["@nx"]; # Keep in mind that aliases defined here only work if they start with "@"
+            };
+          };
+        };
+      };
+
+      policies = {
+        ExtensionSettings = lib.mapAttrs (_id: ext: builtins.removeAttrs ext ["name"]) extensions;
+        # Disable features
+        DisableBuiltinPDFViewer = true;
+        DisableFirefoxStudies = true;
+        DisableFirefoxAccounts = false;
+        DisableFirefoxScreenshots = true;
+        DisableForgetButton = true;
+        DisableMasterPasswordCreation = true;
+        DisableProfileImport = true;
+        DisableProfileRefresh = true;
+        DisableSetDesktopBackground = true;
+        DisplayMenuBar = "default-off";
+        DisableTelemetry = true;
+        DisableFormHistory = true;
+        DisablePasswordReveal = true;
+        DontCheckDefaultBrowser = true;
+
+        # Privacy settings
+        OfferToSaveLogins = false;
+        AutofillAddressEnabled = false;
+        AutofillCreditCardEnabled = false;
+        PasswordManagerEnabled = false;
+
+        # Tracking protection
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+          EmailTracking = true;
+        };
+
+        # Firefox Suggest
+        FirefoxSuggest = {
+          WebSuggestions = false;
+          SponsoredSuggestions = false;
+          ImproveSuggest = false;
+          Locked = true;
+        };
+
+        # Downloads and handlers
+        DefaultDownloadDirectory = "$HOME/Downloads";
+        PromptForDownloadLocation = false;
+        Handlers = {
+          mimeTypes."application/pdf".action = "saveToDisk";
+        };
+
+        # First run
+        OverrideFirstRunPage = "";
+        OverridePostUpdatePage = "";
+        ExtensionUpdate = true;
+        SearchBar = "unified";
+
+        # Cleanup on shutdown
+        SanitizeOnShutdown = {
+          Cache = false;
+          Cookies = false;
+          Downloads = false;
+          FormData = false;
+          History = false;
+          Sessions = false;
+          SiteSettings = false;
+          OfflineApps = false;
+          Locked = false;
+        };
+      };
+    };
+  };
 }

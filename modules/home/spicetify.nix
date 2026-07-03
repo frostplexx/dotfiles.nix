@@ -1,46 +1,46 @@
 _: {
-    flake.homeManagerModules.spicetify = {
-        pkgs,
-        inputs,
-        lib,
-        ...
-    }: let
-        spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-    in {
-        programs.spicetify = {
-            enable = true;
+  flake.homeManagerModules.spicetify = {
+    pkgs,
+    inputs,
+    lib,
+    ...
+  }: let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
+    programs.spicetify = {
+      enable = true;
 
-            # Theme: Catppuccin Macchiato
-            theme = spicePkgs.themes.catppuccin;
-            colorScheme = "macchiato";
+      # Theme: Catppuccin Macchiato
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "macchiato";
 
-            # Extensions
-            enabledExtensions = with spicePkgs.extensions; [
-                betterGenres
-                hidePodcasts
-                history
-                keyboardShortcut
-                songStats
-                wikify
-            ];
+      # Extensions
+      enabledExtensions = with spicePkgs.extensions; [
+        betterGenres
+        hidePodcasts
+        history
+        keyboardShortcut
+        songStats
+        wikify
+      ];
 
-            # Snippets
-            enabledSnippets = with spicePkgs.snippets; [
-                fixDjIcon
-                fixedEpisodesIcon
-            ];
-        };
-
-        # Stop spotify from updating: https://github.com/NixOS/nixpkgs/issues/404502#issuecomment-3304356653
-        home.activation.disableSpotifyUpdates = lib.mkIf pkgs.stdenv.isDarwin (
-            lib.hm.dag.entryAfter ["writeBoundary"] ''
-                SPOTIFY_UPDATE_DIR=~/Library/Application\ Support/Spotify/PersistentCache/Update
-                if ! /usr/bin/stat -f "%Sf" "$SPOTIFY_UPDATE_DIR" 2> /dev/null | grep -q uchg; then
-                  rm -rf "$SPOTIFY_UPDATE_DIR"
-                  mkdir -p "$SPOTIFY_UPDATE_DIR"
-                  /usr/bin/chflags uchg "$SPOTIFY_UPDATE_DIR"
-                fi
-            ''
-        );
+      # Snippets
+      enabledSnippets = with spicePkgs.snippets; [
+        fixDjIcon
+        fixedEpisodesIcon
+      ];
     };
+
+    # Stop spotify from updating: https://github.com/NixOS/nixpkgs/issues/404502#issuecomment-3304356653
+    home.activation.disableSpotifyUpdates = lib.mkIf pkgs.stdenv.isDarwin (
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        SPOTIFY_UPDATE_DIR=~/Library/Application\ Support/Spotify/PersistentCache/Update
+        if ! /usr/bin/stat -f "%Sf" "$SPOTIFY_UPDATE_DIR" 2> /dev/null | grep -q uchg; then
+          rm -rf "$SPOTIFY_UPDATE_DIR"
+          mkdir -p "$SPOTIFY_UPDATE_DIR"
+          /usr/bin/chflags uchg "$SPOTIFY_UPDATE_DIR"
+        fi
+      ''
+    );
+  };
 }
