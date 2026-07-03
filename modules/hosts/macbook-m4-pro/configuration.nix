@@ -328,6 +328,7 @@
       brews = [
         "displayplacer"
         "tag"
+        "opencode"
       ];
       casks = [
         "tailscale-app"
@@ -396,7 +397,6 @@
       wget
       whisky
       poppler-utils
-      nodejs
     ];
 
     # Home Manager

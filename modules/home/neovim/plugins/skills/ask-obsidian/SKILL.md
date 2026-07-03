@@ -1,4 +1,5 @@
 ---
+name: ask-obsidian
 description: Search the ~/Documents/Memex Obsidian vault and answer questions grounded in its notes. Read-only — never writes, moves, or deletes anything in the vault.
 ---
 
