@@ -1,18 +1,18 @@
 _: {
-  flake.homeManagerModules.neovim-options = _: {
-    programs.nvf.settings.vim.options = {
-      clipboard = "unnamedplus";
-      tabstop = 4;
-      softtabstop = 4;
-      shiftwidth = 4;
-      expandtab = true;
-      smartindent = true;
-      fileencoding = "utf-8";
-      wrap = false;
-      swapfile = false;
-      backup = false;
-      undofile = true;
-      textwidth = 120;
+    flake.homeManagerModules.neovim-options = _: {
+        programs.nvf.settings.vim.options = {
+            clipboard = "unnamedplus";
+            tabstop = 4;
+            softtabstop = 4;
+            shiftwidth = 4;
+            expandtab = true;
+            smartindent = true;
+            fileencoding = "utf-8";
+            wrap = false;
+            swapfile = false;
+            backup = false;
+            undofile = true;
+            textwidth = 120;
+        };
     };
-  };
 }
