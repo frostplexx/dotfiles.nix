@@ -3,7 +3,7 @@
 set root $argv[1]
 set expanded_root (eval echo $root)
 
-set selected (/opt/homebrew/bin/tag -f "Project" \
+set selected (fd -t d -p .git --max-depth 3 "$expanded_root" \
     | string replace "$expanded_root/" '' \
     | sort \
     | fzf \
