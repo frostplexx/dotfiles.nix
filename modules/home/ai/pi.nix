@@ -12,6 +12,11 @@ _: {
       path = "${config.home.homeDirectory}/.pi/agent/models.json";
     };
 
+    home.file.".agents/skills" = {
+      source = ./skills;
+      recursive = true;
+    };
+
     programs.pi-coding-agent = {
       enable = true;
       settings = {
