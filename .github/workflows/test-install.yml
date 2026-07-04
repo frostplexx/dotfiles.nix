@@ -40,8 +40,8 @@ jobs:
           #!/bin/bash
           set -e
 
-          # Extract just the functions from install.sh (before the main if block at line 240)
-          head -n 239 scripts/install.sh > functions_only.sh
+          # Extract just the functions from install.sh (before the main if block at line 275)
+          head -n 274 scripts/install.sh > functions_only.sh
           source functions_only.sh
 
           # Test command_exists function
@@ -82,15 +82,16 @@ jobs:
           chmod +x test_functions.sh
           bash test_functions.sh
 
-      - name: Test script execution with auto-confirm
+      - name: Setup SOPS age key from secret
+        if: ${{ secrets.SOPS_AGE_KEY != '' }}
         run: |
-          # Run the script with 'n' to decline installation
-          echo "n" | bash scripts/install.sh || true
+          mkdir -p "$HOME/.config/sops/age"
+          echo "${{ secrets.SOPS_AGE_KEY }}" > "$HOME/.config/sops/age/keys.txt"
+          chmod 600 "$HOME/.config/sops/age/keys.txt"
+          echo "✓ SOPS age key written from secret"
 
-          # Verify the script at least started correctly
-          if [ $? -eq 0 ] || [ $? -eq 1 ]; then
-            echo "✓ Script executed without syntax errors"
-          else
-            echo "✗ Script failed with unexpected error"
-            exit 1
-          fi
+      - name: Test script execution via PTY
+        run: |
+          # Use script(1) to create a PTY so /dev/tty reads work in CI
+          # Pipe 'n' to decline installation (goes through PTY -> /dev/tty)
+          echo "n" | script -q /dev/null bash scripts/install.sh || true

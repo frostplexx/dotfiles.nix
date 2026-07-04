@@ -122,6 +122,14 @@ jobs:
           name: frostplexx
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
+      - name: Setup SOPS age key from secret
+        if: ${{ secrets.SOPS_AGE_KEY != '' }}
+        run: |
+          mkdir -p "$HOME/.config/sops/age"
+          echo "${{ secrets.SOPS_AGE_KEY }}" > "$HOME/.config/sops/age/keys.txt"
+          chmod 600 "$HOME/.config/sops/age/keys.txt"
+          echo "✓ SOPS age key written from secret"
+
       - uses: DeterminateSystems/flake-checker-action@main
       - run: nix flake check
 
