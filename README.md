@@ -33,6 +33,12 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/frostplexx/dotfiles.nix/HEAD/scripts/install.sh)"
 ```
 
+The installer will attempt to pull the SOPS age key from iCloud Keychain automatically.
+If the key hasn't synced yet, you can seed it from an existing machine before running the install:
+```bash
+ssh <existing-machine> 'mkdir -p ~/.config/sops/age && security add-generic-password -a "$USER" -s "sops-age-key" -w < ~/.config/sops/age/keys.txt'
+```
+
 #### Manual
 
 1. Clone this repo into your home directory and `cd` into it.
@@ -54,6 +60,8 @@ cd ~/dotfiles.nix
 - [ ] Run `determinate-nixd login`
 - [ ] Run `gh auth login`
 - [ ] Run `jinx generate_ssh_hosts` to generate the hosts file from 1Password entries for easy access.
+- [ ] Seed the SOPS age key into iCloud Keychain (if not picked up by the installer):
+      `mkdir -p ~/.config/sops/age && security add-generic-password -a "$USER" -s "sops-age-key" -w < ~/.config/sops/age/keys.txt`
 - [ ] (On macOS) Run `jinx set_screen_hidpi` to set your external screen to HiDPI mode
 - [ ] Restore folders from Time Machine
 

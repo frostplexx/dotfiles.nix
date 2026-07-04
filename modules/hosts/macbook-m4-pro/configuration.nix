@@ -328,7 +328,6 @@
       brews = [
         "displayplacer"
         "tag"
-        "opencode"
       ];
       casks = [
         "tailscale-app"

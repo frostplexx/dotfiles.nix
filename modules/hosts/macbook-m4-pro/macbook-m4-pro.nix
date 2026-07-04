@@ -36,6 +36,7 @@ in {
           inputs.lazykeys.darwinModules.default
           inputs.nixkit.darwinModules.default
           inputs.determinate.darwinModules.default
+          inputs.sops-nix.darwinModules.sops
 
           # Nixpkgs configuration
           {

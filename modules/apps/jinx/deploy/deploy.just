@@ -4,6 +4,18 @@
 [positional-arguments]
 deploy host="$(hostname)": lint
     @cd {{DOTFILES_FOLDER}}; git add .
+    @mkdir -p "$HOME/.config/sops/age"
+    @if [ ! -f "$HOME/.config/sops/age/keys.txt" ]; then \
+        if [ "$(uname)" = "Darwin" ] && security find-generic-password -a "$USER" -s "sops-age-key" -w 2>/dev/null; then \
+            security find-generic-password -a "$USER" -s "sops-age-key" -w > "$HOME/.config/sops/age/keys.txt"; \
+            chmod 600 "$HOME/.config/sops/age/keys.txt"; \
+            echo "→ Imported age key from Login Keychain"; \
+        else \
+            echo "⚠  sops age key missing at ~/.config/sops/age/keys.txt"; \
+            echo "   Run: mkdir -p ~/.config/sops/age && security add-generic-password -a \"$USER\" -s \"sops-age-key\" -w < ~/.config/sops/age/keys.txt"; \
+            exit 1; \
+        fi; \
+    fi
     @if [[ $1 == *"--verbose"* || $1 == *"-v"* ]]; then \
         if [[ "$(uname)" == "Darwin" ]]; then \
             echo "Running nix-darwin rebuild switch with verbose output..."; \

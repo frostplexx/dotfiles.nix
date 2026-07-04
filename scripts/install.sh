@@ -69,6 +69,41 @@ check_tools() {
 
 
 # Function to create nix configuration file
+ensure_sops_key() {
+    if [ "$OS_TYPE" != "Darwin" ]; then
+        return 0
+    fi
+
+    local KEY_DIR="$HOME/.config/sops/age"
+    local KEY_FILE="$KEY_DIR/keys.txt"
+
+    mkdir -p "$KEY_DIR"
+
+    if [ -f "$KEY_FILE" ]; then
+        print_success "SOPS age key already exists"
+        return 0
+    fi
+
+    print_status "Fetching SOPS age key from Login Keychain..."
+
+    if security find-generic-password -a "$USER" -s "sops-age-key" -w 2>/dev/null; then
+        security find-generic-password -a "$USER" -s "sops-age-key" -w > "$KEY_FILE"
+        chmod 600 "$KEY_FILE"
+        print_success "SOPS age key imported from iCloud Keychain"
+    else
+        print_warning "SOPS age key not found in Login Keychain."
+        echo
+        echo "  Options:"
+        echo "    1. Wait for iCloud Keychain to sync, then re-run install"
+        echo "    2. Paste the key manually from another machine:"
+        echo "       mkdir -p ~/.config/sops/age && security add-generic-password -a \"$USER\" -s \"sops-age-key\" -w < ~/.config/sops/age/keys.txt"
+        echo
+        read -p "  Press any key to continue (sops secrets won't work without it)..." -n 1 -s < /dev/tty
+        echo
+    fi
+}
+
+
 create_nix_config() {
     print_status "Creating nix configuration file..."
     
@@ -267,6 +302,7 @@ if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /e
     if [ $nix_installed -ne 0 ]; then install_nix ; fi
     if [ $flake_exists -ne 0 ]; then install_flake ; fi
     
+    ensure_sops_key
     create_nix_config
     deploy_flake
 

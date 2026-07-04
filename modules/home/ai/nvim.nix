@@ -5,87 +5,11 @@ _: {
   # (folke/sidekick.nvim) as the editor integration.
   flake.homeManagerModules.neovim-plugin-claudecode = {pkgs, ...}: {
     programs = {
-      opencode = {
-        enable = true;
-        # pkgs.opencode fails to build on darwin (OOM in nix sandbox smoke test).
-        # This stub satisfies HM's lib.versionAtLeast version check (which crashes
-        # on null) without building opencode from nixpkgs. The real binary comes
-        # from homebrew / external install.
-        package = pkgs.runCommandLocal "opencode-stub" {version = "99.0.0";} "mkdir -p $out/bin";
-
-        skills = ./skills;
-        context = ''
-          You are a collaborative coding companion. Your role is to help me understand, decide, and grow — not to generate complete solutions unilaterally.
-
-          Default behavior:
-          - When I describe a problem, ask clarifying questions before writing code unless the task is unambiguously defined.
-          - For non-trivial changes, briefly surface 2-3 approaches with trade-offs and let me choose direction before you start writing.
-          - Write code only when I explicitly ask ("implement this", "go ahead", "write it") or when the scope is already fully agreed.
-          - For small, well-scoped edits (fix this typo, rename this variable), proceed directly.
-
-          Explain your thinking:
-          - Share the "why" behind your suggestions, not just the "what".
-          - When you spot a better pattern, name it and ask if I want to apply it — don't apply it silently.
-          - Surface any assumptions you are making before acting on them.
-
-          Scope discipline:
-          - Match your response scope exactly to the request: a question gets an explanation, not a rewrite.
-          - Do not refactor, add features, or clean surrounding code beyond what was explicitly requested.
-          - If you notice related issues while working, mention them in a sentence; do not fix them uninvited.
-
-          Tone:
-          - Treat me as the decision-maker; you are the advisor.
-          - Keep responses short and direct unless I ask for depth.
-          - Skip trailing summaries of what you just did — I can read the diff.
-
-          Use the following thing as guidance for you responsens:
-          Terse like caveman. Technical substance exact. Only fluff die.
-          Drop: articles, filler (just/really/basically), pleasantries, hedging.
-          Fragments OK. Short synonyms. Code unchanged.
-          Pattern: [thing] [action] [reason]. [next step].
-          ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
-          Code/commits/PRs: normal.
-        '';
-
-        settings = {
-          disabled_providers = [
-            "openai"
-            "gemini"
-            "anthropic"
-          ];
-          provider = {
-            "ollama" = {
-              npm = "@ai-sdk/openai-compatible";
-              name = "Ollama";
-              options = {
-                baseURL = "http://localhost:11434/v1";
-              };
-              models = {
-                "gemma4:31b-cloud" = {
-                  "name" = "gemma4:31b-cloud";
-                };
-              };
-            };
-          };
-        };
-
-        themes = {
-          "catppuccin" = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/catppuccin/opencode/refs/heads/main/themes/mocha/catppuccin-mocha-blue.json";
-            hash = "sha256-slJfD27nLdgJ/cFhtQageqguGrjHoCdQNRNtHRTHfV0=";
-          };
-        };
-
-        tui = {
-          keybinds = {
-            leader = "alt+b";
-          };
-          diff_display = "minimal";
-          theme = "system";
-        };
-      };
-
       nvf.settings.vim = {
+        extraPackages = [
+          pkgs.nodejs # needed for pi coding agent
+        ];
+
         assistant = {
           copilot = {
             enable =
@@ -150,13 +74,8 @@ _: {
             };
             cli = {
               tools = {
-                opencode = {
-                  cmd = ["/opt/homebrew/bin/opencode"];
-                  env = {
-                    IS_DEMO = "1";
-                    OPENCODE_HIDE_ACCOUNT_INFO = "1";
-                    DISABLE_AUTOUPDATER = "1";
-                  };
+                pi = {
+                  cmd = ["pi"];
                 };
               };
               win = {
@@ -182,7 +101,7 @@ _: {
               key = "<leader>aa";
               mode = "n";
               lua = true;
-              action = ''function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end'';
+              action = ''function() require("sidekick.cli").toggle({ name = "pi", focus = true }) end'';
             }
             {
               key = "<leader>ad";
