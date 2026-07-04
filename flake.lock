@@ -435,11 +435,11 @@
     },
     "lazykeys": {
       "locked": {
-        "lastModified": 1775997116,
-        "narHash": "sha256-sXzJ1mEmFmGcmzMJDpORJwVbIcwjaIOVZ1DX8/cYxfk=",
+        "lastModified": 1782977897,
+        "narHash": "sha256-jBMjPKTJFNyzUwSf6OpBVXW3gVNyJnP69bQsgCfq460=",
         "owner": "frostplexx",
         "repo": "lazykeys",
-        "rev": "dd7f87fea5622d217221a98b24588b20eee8b566",
+        "rev": "840f7ab30c157d6b513d98b744e7af300c3bd482",
         "type": "github"
       },
       "original": {
