@@ -16,7 +16,7 @@ _: {
         extraDiagnostics.enable = true; # ESLint
         lsp.enable = true;
         treesitter.enable = true;
-        format.type = [ "prettier" ];
+        format.type = ["prettier"];
       };
       rust = {
         enable = true;
