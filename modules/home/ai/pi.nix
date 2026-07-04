@@ -4,8 +4,6 @@ _: {
       PI_SKIP_VERSION_CHECK = 1;
     };
 
-    # TODO: Write models.json using sops.nix
-
     sops.secrets."pi/models" = {
       sopsFile = ./models.json;
       format = "json";
