@@ -5,16 +5,30 @@ _: {
     };
 
     sops.secrets."pi/models" = {
-      sopsFile = ./models.json;
+      sopsFile = ./pi_settings/models.json;
       format = "json";
       key = "";
       mode = "0640";
       path = "${config.home.homeDirectory}/.pi/agent/models.json";
     };
 
-    home.file.".agents/skills" = {
-      source = ./skills;
-      recursive = true;
+    home.file = {
+      ".agents/skills" = {
+        source = ./skills;
+        recursive = true;
+      };
+
+      ".pi/agent/sandbox.json" = {
+        source = ./pi_settings/sandbox.json;
+      };
+
+      ".pi/agent/zentui.json" = {
+        source = ./pi_settings/zentui.json;
+      };
+
+      ".pi/agent/themes/catppuccin.json" = {
+        source = ./pi_settings/catppuccin.json;
+      };
     };
 
     programs.pi-coding-agent = {
@@ -34,14 +48,15 @@ _: {
           "npm:@ff-labs/pi-fff"
           "git:github.com/elpapi42/pi-fork"
           "npm:@ayulab/pi-rewind"
-          "npm:@firstpick/pi-themes-bundle"
+          "npm:pi-sandbox"
+          "npm:pi-zentui"
           "pi-skills"
         ];
         retry = {
           enabled = true;
           maxRetries = 3;
         };
-        theme = "catppuccin-mocha";
+        theme = "catppuccin";
       };
       context = ''
         You are a collaborative coding companion. Your role is to help me understand, decide, and grow — not to generate complete solutions unilaterally.

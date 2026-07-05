@@ -1,0 +1,24 @@
+{
+  "footerSegments": {
+    "cost": false,
+    "cwd": true,
+    "context": true,
+    "tokens": false
+  },
+  "extensionStatuses": {
+    "placements": {
+      "sandbox": "off"
+    },
+    "colorModes": {
+      "sandbox": "zentui"
+    }
+  },
+  "features": {
+    "editor": false
+  },
+  "colorSources": {
+    "starship": "theme",
+    "editor": "theme",
+    "userMessages": "theme"
+  }
+}
