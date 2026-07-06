@@ -11,13 +11,36 @@ function list_hosts() {
 # connect to a host as a background daemon (multiplexing master)
 # subsequent exec calls reuse this connection via the control socket
 function connect_host() {
-    local host="$1"
-    local user="$2"
+    local raw="$1"
+    local user_or_port="$2"
     local port="$3"
 
-    if [[ -z "$host" ]]; then
+    if [[ -z "$raw" ]]; then
         echo "Error: Host is required."
         exit 1
+    fi
+
+    local user=""
+    local host="$raw"
+
+    # parse user@host[:port] from first arg; second arg becomes port, not user
+    if [[ "$raw" == *@* ]]; then
+        user="${raw%%@*}"
+        host="${raw#*@}"
+        if [[ -n "$user_or_port" ]]; then
+            port="$user_or_port"
+        fi
+    else
+        user="$user_or_port"
+    fi
+
+    # extract port from host:port notation (embedded port only used if no explicit port given)
+    if [[ "$host" == *:* ]]; then
+        local embedded_port="${host##*:}"
+        host="${host%:*}"
+        if [[ -z "$port" ]]; then
+            port="$embedded_port"
+        fi
     fi
 
     if [[ -z "$user" ]]; then
