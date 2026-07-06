@@ -360,6 +360,16 @@ _: {
             bufremove.enable = true;
             icons.enable = true;
             extra.enable = true;
+            indentscope = {
+              enable = true;
+              setupOpts = {
+                symbol = "│";
+                draw = {
+                  delay = 0;
+                  animation = lib.generators.mkLuaInline "require('mini.indentscope').gen_animation.none()";
+                };
+              };
+            };
             pick = {
               enable = true;
               setupOpts = {
@@ -438,6 +448,9 @@ _: {
           };
 
           luaConfigRC.my-config = ''
+
+            vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#585b70" })
+
             vim.keymap.set(
               "v",
               "<leader>s",
