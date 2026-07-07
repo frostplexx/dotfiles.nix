@@ -254,6 +254,101 @@ _: {
         action = "function() require('gitsigns').setqflist('all') end";
         desc = "Git hunks → quickfix (all buffers)";
       }
+
+      # Tab navigation — unimpaired-style bracket mappings
+      {
+        key = "]t";
+        mode = "n";
+        noremap = true;
+        action = "<cmd>tabnext<CR>";
+        desc = "Next tab";
+      }
+      {
+        key = "[t";
+        mode = "n";
+        noremap = true;
+        action = "<cmd>tabprevious<CR>";
+        desc = "Previous tab";
+      }
+
+      # Tab management
+      {
+        key = "<leader>tn";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabnew<CR>";
+        desc = "New tab";
+      }
+      {
+        key = "<leader>tx";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabclose<CR>";
+        desc = "Close current tab";
+      }
+      {
+        key = "<leader>to";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabonly<CR>";
+        desc = "Close other tabs";
+      }
+
+      # Jump to tab by number (browser-style Alt+N)
+      {
+        key = "<A-1>";
+        mode = "n";
+        action = "<cmd>tabnext 1<CR>";
+        desc = "Go to tab 1";
+      }
+      {
+        key = "<A-2>";
+        mode = "n";
+        action = "<cmd>tabnext 2<CR>";
+        desc = "Go to tab 2";
+      }
+      {
+        key = "<A-3>";
+        mode = "n";
+        action = "<cmd>tabnext 3<CR>";
+        desc = "Go to tab 3";
+      }
+      {
+        key = "<A-4>";
+        mode = "n";
+        action = "<cmd>tabnext 4<CR>";
+        desc = "Go to tab 4";
+      }
+      {
+        key = "<A-5>";
+        mode = "n";
+        action = "<cmd>tabnext 5<CR>";
+        desc = "Go to tab 5";
+      }
+      {
+        key = "<A-6>";
+        mode = "n";
+        action = "<cmd>tabnext 6<CR>";
+        desc = "Go to tab 6";
+      }
+      {
+        key = "<A-7>";
+        mode = "n";
+        action = "<cmd>tabnext 7<CR>";
+        desc = "Go to tab 7";
+      }
+      {
+        key = "<A-8>";
+        mode = "n";
+        action = "<cmd>tabnext 8<CR>";
+        desc = "Go to tab 8";
+      }
+      {
+        key = "<A-9>";
+        mode = "n";
+        action = "<cmd>tabnext 9<CR>";
+        desc = "Go to tab 9 (last)";
+      }
     ];
   };
 }

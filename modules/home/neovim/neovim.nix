@@ -18,6 +18,11 @@ _: {
           vimAlias = true;
           globals.editorconfig = true;
 
+          visuals = {
+            nvim-web-devicons.enable = true;
+            rainbow-delimiters.enable = true;
+          };
+
           extraPackages = with pkgs; [
             copilot-language-server
             fish-lsp
