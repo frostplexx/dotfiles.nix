@@ -1,1 +1,0 @@
-/nix/store/qyqdzkkzrgip8i00q9rzmr27gdpra1ij-home-manager-files/.claude/skills/new-feature/SKILL.md
