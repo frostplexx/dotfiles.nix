@@ -24,19 +24,6 @@ _: {
             rustup
           ];
 
-          terminal.toggleterm = {
-            setupOpts = {
-              direction = "float";
-              highlights.FloatBorder.guifg = "#${defaults.settings.accent_color}";
-              float_opts = {
-                border = "rounded";
-              };
-              enable_winbar = true;
-            };
-            enable = true;
-            lazygit.enable = true;
-          };
-
           lsp = {
             enable = true;
             lspkind.enable = true;
@@ -276,18 +263,6 @@ _: {
             ];
           };
 
-          navigation.harpoon = {
-            enable = true;
-            mappings = {
-              file1 = "<leader>1";
-              file2 = "<leader>2";
-              file3 = "<leader>3";
-              file4 = "<leader>4";
-              listMarks = "<C-e>";
-              markFile = "<leader>a";
-            };
-          };
-
           ui = {
             noice.enable = true;
             borders = {
@@ -334,6 +309,42 @@ _: {
           };
 
           utility = {
+            snacks-nvim = {
+              enable = true;
+              setupOpts = {
+                styles = {
+                  float = {
+                    position = "float";
+                    backdrop = 60;
+                    height = 0.9;
+                    width = 0.9;
+                    zindex = 50;
+                    border = true;
+                  };
+                };
+
+                picker = {};
+                gh = {};
+                indent = {
+                  animate.enabled = false;
+                };
+                input = {};
+                lazygit = {};
+                notifier = {};
+                quickfile = {};
+                scope = {};
+                statuscolumn = {
+                  folds.git_hl = true;
+                };
+                words = {};
+                terminal = {
+                  win = {
+                    style = "float";
+                  };
+                };
+              };
+            };
+
             diffview-nvim = {
               enable = true;
               setupOpts = {
@@ -356,58 +367,7 @@ _: {
           };
 
           mini = {
-            ai.enable = true;
-            bufremove.enable = true;
             icons.enable = true;
-            extra.enable = true;
-            indentscope = {
-              enable = true;
-              setupOpts = {
-                symbol = "│";
-                draw = {
-                  delay = 0;
-                  animation = lib.generators.mkLuaInline "require('mini.indentscope').gen_animation.none()";
-                };
-              };
-            };
-            pick = {
-              enable = true;
-              setupOpts = {
-                mappings.choose_marked = "<C-q>";
-                window = {
-                  config = lib.generators.mkLuaInline ''
-                    function()
-                      local picker_width = 80
-                      local picker_height = 35
-                      return {
-                        anchor = 'NW',
-                        col = math.floor((vim.o.columns - picker_width) / 2),
-                        row = vim.o.lines - (picker_height + 3),
-                        width = picker_width,
-                        height = picker_height,
-                        relative = 'editor',
-                      }
-                    end
-                  '';
-                  prompt_prefix = " ";
-                };
-                options.use_cache = true;
-              };
-            };
-
-            diff = {
-              enable = true;
-              setupOpts = {
-                view = {
-                  style = "sign";
-                  signs = {
-                    add = "┃";
-                    change = "┃";
-                    delete = "┃";
-                  };
-                };
-              };
-            };
 
             move = {
               enable = true;
@@ -449,7 +409,8 @@ _: {
 
           luaConfigRC.my-config = ''
 
-            vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#585b70" })
+            vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#585b70" })
+            vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#313244" })
 
             vim.keymap.set(
               "v",
