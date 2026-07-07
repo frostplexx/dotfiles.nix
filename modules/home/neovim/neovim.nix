@@ -372,8 +372,6 @@ _: {
           };
 
           mini = {
-            icons.enable = true;
-
             move = {
               enable = true;
               setupOpts = {
