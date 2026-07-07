@@ -1,6 +1,29 @@
 _: {
   flake.homeManagerModules.neovim-keymaps = _: {
     programs.nvf.settings.vim.keymaps = [
+      {
+        mode = "n";
+        key = "<leader>tt";
+        action = "function() require('snacks').terminal('/usr/bin/env fish') end";
+        desc = "Open terminal in current directory";
+        lua = true;
+      }
+
+      {
+        mode = "n";
+        key = "<leader>gi";
+        action = "function() require('snacks').picker.gh_issue() end";
+        desc = "GitHub Issues (open)";
+        lua = true;
+      }
+      {
+        mode = "n";
+        key = "<leader>gp";
+        action = "function() require('snacks').picker.gh_pr() end";
+        desc = "GitHub Pull Requests (open)";
+        lua = true;
+      }
+
       # Use same keybinds in terminal mode for split navigation
       {
         mode = "t";
@@ -123,30 +146,12 @@ _: {
         desc = "redo";
       }
       {
-        key = "<leader>tt";
-        mode = "n";
-        noremap = true;
-        lua = false;
-        silent = true;
-        action = ":ToggleTerm<CR>";
-        desc = "Toggle terminal";
-      }
-      {
-        key = "<leader>go";
+        key = "<leader>db";
         mode = "n";
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniDiff.toggle_overlay() end";
-        desc = "Toggle MiniDiff overlay";
-      }
-      {
-        key = "<leader>d";
-        mode = "n";
-        noremap = false;
-        lua = true;
-        silent = true;
-        action = "function() MiniBufremove.delete() end";
+        action = "function() require('snacks').bufdelete() end";
         desc = "Delete current buffer without closing window";
       }
       {
@@ -155,7 +160,7 @@ _: {
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniPick.builtin.buffers() end";
+        action = "function() require('snacks').picker.buffers() end";
         desc = "List open buffers";
       }
       {
@@ -164,7 +169,7 @@ _: {
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniExtra.pickers.lsp({ scope = 'workspace_symbol' }) end";
+        action = "function() require('snacks').picker.lsp_workspace_symbols() end";
         desc = "Search LSP workspace symbols";
       }
       {
@@ -173,7 +178,7 @@ _: {
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniExtra.pickers.diagnostic() end";
+        action = "function() require('snacks').picker.diagnostic() end";
         desc = "Open diagnostics picker";
       }
 
@@ -183,7 +188,7 @@ _: {
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniExtra.pickers.keymaps() end";
+        action = "function() require('snacks').picker.keymaps() end";
         desc = "Show registered keymaps";
       }
       {
@@ -192,7 +197,7 @@ _: {
         noremap = false;
         lua = true;
         silent = true;
-        action = "function() MiniExtra.pickers.marks() end";
+        action = "function() require('snacks').picker.marks() end";
         desc = "List marks in current buffer";
       }
       {
@@ -238,7 +243,7 @@ _: {
         mode = "n";
         silent = true;
         lua = true;
-        action = "function() Snacks.lazygit() end";
+        action = "function() require('snacks').lazygit() end";
         desc = "Open Lazygit";
       }
       {
@@ -248,6 +253,101 @@ _: {
         lua = true;
         action = "function() require('gitsigns').setqflist('all') end";
         desc = "Git hunks → quickfix (all buffers)";
+      }
+
+      # Tab navigation — unimpaired-style bracket mappings
+      {
+        key = "]t";
+        mode = "n";
+        noremap = true;
+        action = "<cmd>tabnext<CR>";
+        desc = "Next tab";
+      }
+      {
+        key = "[t";
+        mode = "n";
+        noremap = true;
+        action = "<cmd>tabprevious<CR>";
+        desc = "Previous tab";
+      }
+
+      # Tab management
+      {
+        key = "<leader>tn";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabnew<CR>";
+        desc = "New tab";
+      }
+      {
+        key = "<leader>tx";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabclose<CR>";
+        desc = "Close current tab";
+      }
+      {
+        key = "<leader>to";
+        mode = "n";
+        silent = true;
+        action = "<cmd>tabonly<CR>";
+        desc = "Close other tabs";
+      }
+
+      # Jump to tab by number (browser-style Alt+N)
+      {
+        key = "<A-1>";
+        mode = "n";
+        action = "<cmd>tabnext 1<CR>";
+        desc = "Go to tab 1";
+      }
+      {
+        key = "<A-2>";
+        mode = "n";
+        action = "<cmd>tabnext 2<CR>";
+        desc = "Go to tab 2";
+      }
+      {
+        key = "<A-3>";
+        mode = "n";
+        action = "<cmd>tabnext 3<CR>";
+        desc = "Go to tab 3";
+      }
+      {
+        key = "<A-4>";
+        mode = "n";
+        action = "<cmd>tabnext 4<CR>";
+        desc = "Go to tab 4";
+      }
+      {
+        key = "<A-5>";
+        mode = "n";
+        action = "<cmd>tabnext 5<CR>";
+        desc = "Go to tab 5";
+      }
+      {
+        key = "<A-6>";
+        mode = "n";
+        action = "<cmd>tabnext 6<CR>";
+        desc = "Go to tab 6";
+      }
+      {
+        key = "<A-7>";
+        mode = "n";
+        action = "<cmd>tabnext 7<CR>";
+        desc = "Go to tab 7";
+      }
+      {
+        key = "<A-8>";
+        mode = "n";
+        action = "<cmd>tabnext 8<CR>";
+        desc = "Go to tab 8";
+      }
+      {
+        key = "<A-9>";
+        mode = "n";
+        action = "<cmd>tabnext 9<CR>";
+        desc = "Go to tab 9 (last)";
       }
     ];
   };
