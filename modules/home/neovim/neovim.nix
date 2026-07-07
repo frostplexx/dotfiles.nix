@@ -313,7 +313,7 @@ _: {
               enable = true;
               setupOpts = {
                 styles = {
-                  float = {
+                  term = {
                     position = "float";
                     backdrop = 60;
                     height = 0.9;
@@ -339,7 +339,7 @@ _: {
                 words = {};
                 terminal = {
                   win = {
-                    style = "float";
+                    style = "term";
                   };
                 };
               };
