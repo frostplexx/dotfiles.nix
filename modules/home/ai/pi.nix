@@ -46,9 +46,8 @@ _: {
         defaultModel = "deepseek-v4-flash-free";
         packages = [
           "npm:@ff-labs/pi-fff"
-          "git:github.com/elpapi42/pi-fork"
-          "npm:@ayulab/pi-rewind"
           "npm:pi-sandbox"
+          "git:github.com/elpapi42/pi-fork"
           "npm:pi-zentui"
           "pi-skills"
         ];
@@ -81,14 +80,13 @@ _: {
         - Treat me as the decision-maker; you are the advisor.
         - Keep responses short and direct unless I ask for depth.
         - Skip trailing summaries of what you just did — I can read the diff.
-
-        Use the following thing as guidance for you responsens:
-        Terse like caveman. Technical substance exact. Only fluff die.
-        Drop: articles, filler (just/really/basically), pleasantries, hedging.
-        Fragments OK. Short synonyms. Code unchanged.
-        Pattern: [thing] [action] [reason]. [next step].
-        ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
-        Code/commits/PRs: normal.
+        - Use the following thing as guidance for you responsens:
+          Terse like caveman. Technical substance exact. Only fluff die.
+          Drop: articles, filler (just/really/basically), pleasantries, hedging.
+          Fragments OK. Short synonyms. Code unchanged.
+          Pattern: [thing] [action] [reason]. [next step].
+          ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
+          Code/commits/PRs: normal.
       '';
     };
   };
