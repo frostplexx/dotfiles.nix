@@ -2,6 +2,7 @@ _: {
   flake.homeManagerModules.ghostty = {
     defaults,
     pkgs,
+    inputs,
     ...
   }: {
     programs = {
@@ -10,7 +11,8 @@ _: {
         enableFishIntegration = true;
         # installBatSyntax = true;
         # installVimSyntax = true;
-        package = pkgs.ghostty-bin;
+        # package = pkgs.ghostty-bin;
+        package = inputs.nixkit.packages.${pkgs.system}.ghostty-tip;
         settings = {
           theme =
             {
