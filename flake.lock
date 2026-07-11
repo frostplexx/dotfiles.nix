@@ -118,11 +118,11 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1783539589,
-        "narHash": "sha256-WxCVRqGoGk1xOprm3+0ogsqzlSHV/TEd7WDKMZy7Ofg=",
+        "lastModified": 1783676144,
+        "narHash": "sha256-n5taCjyHODuRXfeVD7t2x13yI1m5n85mCGES/2OmAzA=",
         "owner": "dmtrKovalenko",
         "repo": "fff.nvim",
-        "rev": "1a8ef35ad8eef54dc718b4846c470af6eed85950",
+        "rev": "b4590ca108bdb3501030c971b1ebf65c150bf108",
         "type": "github"
       },
       "original": {
