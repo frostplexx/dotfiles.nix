@@ -368,11 +368,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1783773576,
-        "narHash": "sha256-39XdQyKJz1kkeSk5gL1dTKBd88v41xqTgwzWwDAuLKs=",
+        "lastModified": 1783918352,
+        "narHash": "sha256-TcSE0DpGffmHNphN714JpJgMuMvRc7qkB5eF2QOtNYE=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "2a24c06f50eeac77f0a453dbd7fd80ee6693588b",
+        "rev": "55467bd906460e9699a5a69ca290ca61a21ef29c",
         "type": "github"
       },
       "original": {
@@ -529,17 +529,17 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1783667530,
-        "narHash": "sha256-jHDVNx7yfOPf/XALPaFnFKrGY3w+RcGGpNT1qBgfKQ0=",
-        "ref": "refs/heads/main",
-        "rev": "17e28885e23b3c7607ce32d19c3163d786514cd2",
-        "revCount": 236,
-        "type": "git",
-        "url": "file:///Users/daniel/Projects/github.com/frostplexx/nixkit"
+        "lastModified": 1783832998,
+        "narHash": "sha256-T6UZYWhECWhfEaNczxVALRv8a5WRKyf+1c6Td+8a17c=",
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "rev": "ebcee10e1342b7b9a186ba1427e9de3331681a7b",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/daniel/Projects/github.com/frostplexx/nixkit"
+        "owner": "frostplexx",
+        "repo": "nixkit",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -697,11 +697,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1783224372,
-        "narHash": "sha256-8i/87eeoqiGE4yOTjwSA3Eh/ziJRQEmd/unYU+K27sk=",
+        "lastModified": 1783776592,
+        "narHash": "sha256-UgCQzxeWI75XM8G+hPrPh+MKzEPjG3SpAj7dtqSbksA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+        "rev": "e7a3ca8092b61ff85b6a45bf863ea2b2d6a661b3",
         "type": "github"
       },
       "original": {
