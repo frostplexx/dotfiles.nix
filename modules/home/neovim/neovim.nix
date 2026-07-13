@@ -63,6 +63,14 @@ _: {
                 ];
               };
 
+              rust-analyzer = {
+                lsp.opts = ''
+                  ["rust-analyzer"] = {
+                       files = { excludeDirs = { ".direnv" } }
+                     }
+                '';
+              };
+
               fish-lsp = {
                 cmd = [
                   (lib.getExe pkgs.fish-lsp)
@@ -81,6 +89,23 @@ _: {
             nvim-dap = {
               enable = true;
               ui.enable = true;
+
+              # nvf's `adapters` `oneOf` doesn't dispatch on `type`, so the
+              # codelldb preset's `executable` sub-attr is rejected.
+              # Bypass via `luaInline` — it's the first type `oneOf` checks.
+              adapters.codelldb = let
+                codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+              in
+                lib.mkForce (lib.generators.mkLuaInline ''
+                  {
+                    type = "server",
+                    port = "${"$"}{port}",
+                    executable = {
+                      command = "${codelldb}/bin/codelldb",
+                      args = { "--liblldb", "${codelldb}/share/lldb/lib/liblldb.so", "--port", "${"$"}{port}" },
+                    },
+                  }
+                '');
             };
           };
 
