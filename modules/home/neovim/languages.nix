@@ -22,13 +22,7 @@ _: {
         enable = true;
         lsp = {
           enable = true;
-          opts = ''
-            ["rust-analyzer"] = {
-                 files = { excludeDirs = { ".direnv" } }
-               }
-          '';
         };
-        dap.enable = true;
         format.enable = true;
       };
       markdown = {
