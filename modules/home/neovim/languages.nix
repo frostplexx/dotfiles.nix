@@ -8,7 +8,6 @@ _: {
         enable = true;
         extraDiagnostics.enable = true;
       };
-      r.enable = true;
       tsx.enable = true;
       typescript = {
         enable = true;
