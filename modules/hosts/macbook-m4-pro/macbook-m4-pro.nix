@@ -34,7 +34,7 @@
     (_final: prev: {
       moonlight-qt = prev.moonlight-qt.overrideAttrs (old: {
         MACOSX_DEPLOYMENT_TARGET = "14.0";
-        qmakeFlags = (old.qmakeFlags or []) ++ [ "QMAKE_MACOSX_DEPLOYMENT_TARGET=14.0" ];
+        qmakeFlags = (old.qmakeFlags or []) ++ ["QMAKE_MACOSX_DEPLOYMENT_TARGET=14.0"];
         NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -B${prev.lld}/bin --ld-path=${prev.lld}/bin/ld64.lld";
       });
     })
