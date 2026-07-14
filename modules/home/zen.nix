@@ -290,11 +290,11 @@ _: {
             isEssential = true;
             position = 101;
           };
-          "Claude" = {
+          "MyNixOS" = {
             id = "8af62707-0722-4049-9801-bedced343333";
             container = containers.Coding.id;
             workspace = spaces."Coding".id;
-            url = "https://claude.ai";
+            url = "https://mynixos.com";
             isEssential = true;
             position = 102;
           };
@@ -325,6 +325,15 @@ _: {
             url = "https://reddit.com";
             isEssential = true;
             position = 102;
+          };
+
+          "Hacker News" = {
+            id = "3E1A2F4B-8C6D-4E09-AF12-7B93C5D0E8F1";
+            container = containers.Personal.id;
+            workspace = spaces."Personal".id;
+            url = "https://news.ycombinator.com";
+            isEssential = true;
+            position = 103;
           };
 
           # == Uni
