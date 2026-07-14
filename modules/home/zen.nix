@@ -309,20 +309,20 @@ _: {
           };
 
           # == Personal
-          "Dashboard" = {
-            id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
+          "Home Assistant" = {
+            id = "E75DAF82-F77B-4706-A917-7EFF58DB6CCB";
             container = containers.Personal.id;
             workspace = spaces."Personal".id;
-            url = "https://home.int.kuipr.de";
+            url = "https://has.int.kuipr.de";
             isEssential = true;
             position = 101;
           };
 
-          "DuckAIPersonal" = {
-            id = "8af62707-0722-4049-9801-bedced343333";
+          "Reddit" = {
+            id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
             container = containers.Personal.id;
             workspace = spaces."Personal".id;
-            url = "https://duck.ai";
+            url = "https://reddit.com";
             isEssential = true;
             position = 102;
           };
