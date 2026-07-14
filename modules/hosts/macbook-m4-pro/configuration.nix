@@ -370,7 +370,6 @@
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       zoom-us
-      feishin
       jq
       just
       keka
