@@ -1,9 +1,0 @@
-{
-  "network": {
-    "allowedDomains": [
-      "pastebin.com",
-      "news.ycombinator.com"
-    ],
-    "deniedDomains": []
-  }
-}
