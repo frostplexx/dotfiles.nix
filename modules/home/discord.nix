@@ -60,6 +60,11 @@ _: {
             enable = true;
             toolbarDevMenu = true;
           };
+          lastFmRichPresence = {
+            enable = true;
+            useListeningStatus = true;
+            username = "challengerind";
+          };
           fakeNitro.enable = true;
           favoriteGifSearch.enable = true;
           fixImagesQuality.enable = true;

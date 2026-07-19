@@ -21,7 +21,7 @@ _: {
     home.file =
       builtins.listToAttrs (
         map (name: {
-          name = "Documents/Memex/.claude/skills/${name}";
+          name = "Documents/Memex/.pi/skills/${name}";
           value = {
             source = skillsDir + "/${name}";
             recursive = true;
@@ -29,31 +29,7 @@ _: {
         }) (builtins.attrNames (builtins.readDir skillsDir))
       )
       // {
-        "Documents/Memex/.claude/claude" = {
-          source = "${pkgs.claude-code}/bin/claude";
-          executable = true;
-        };
-        "Documents/Memex/.claude/settings.json".text = builtins.toJSON {
-          "$schema" = "https://json.schemastore.org/claude-code-settings.json";
-          permissions = {
-            allow = [
-              "Bash(obsidian *)"
-              "Bash(pdftotext *)"
-              "Read( **/*.md)"
-            ];
-            deny = [
-              "Read(./.env)"
-              "Read(./.env.*)"
-              "Read(./secrets/**)"
-            ];
-            ask = [];
-          };
-          env = {};
-          enabledPlugins = {
-            "swift-lsp@claude-plugins-official" = true;
-          };
-        };
-        "Documents/Memex/.claude/CLAUDE.md".text =
+        "Documents/Memex/.pi/SYSTEM.md".text =
           /*
           Markdown
           */

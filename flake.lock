@@ -727,6 +727,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_7": {
+      "locked": {
+        "lastModified": 1778580735,
+        "narHash": "sha256-t+8AVV8ExvOmslz2sLIgw/hJBKlyl65rJvxjvvjHgpE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "48d91f2c0ce7b9e589f967d4f685153dd765dcdd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -770,6 +786,7 @@
         "nvf": "nvf",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
+        "tidaluna": "tidaluna",
         "zen-browser": "zen-browser"
       }
     },
@@ -878,6 +895,25 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tidaluna": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1784185011,
+        "narHash": "sha256-FN4u1mfkAATPYhRXH27NjI6DBPTpfbSOybklj8oUCmo=",
+        "owner": "frostplexx",
+        "repo": "TidaLuna",
+        "rev": "084825a01e0f5b59865be5a59e7e0117ae69e344",
+        "type": "github"
+      },
+      "original": {
+        "owner": "frostplexx",
+        "ref": "flake",
+        "repo": "TidaLuna",
         "type": "github"
       }
     },

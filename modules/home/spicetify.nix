@@ -8,7 +8,7 @@ _: {
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   in {
     programs.spicetify = {
-      enable = true;
+      enable = false;
 
       # Theme: Catppuccin Macchiato
       theme = spicePkgs.themes.catppuccin;

@@ -239,7 +239,8 @@
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
-            "/Users/daniel/Applications/Home Manager Apps/Spotify.app"
+            # "/Users/daniel/Applications/Home Manager Apps/Spotify.app"
+            "/Users/daniel/Applications/Home Manager Apps/TIDAL.app"
           ];
         };
         trackpad = {
@@ -359,7 +360,6 @@
       alejandra
       curl
       deadnix
-      comma
       ffmpeg
       gcc
       gh
@@ -368,6 +368,7 @@
       hexfiend
       iina
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
+      # inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
 
       zoom-us
       jq

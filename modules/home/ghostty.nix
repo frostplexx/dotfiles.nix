@@ -46,6 +46,7 @@ _: {
           shell-integration-features = true;
           window-decoration = true;
           macos-option-as-alt = true;
+          custom-shader = "shaders/cursor_warp.glsl";
           auto-update = "off";
           macos-titlebar-style = "tabs";
           keybind = [
