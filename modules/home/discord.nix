@@ -63,6 +63,7 @@ _: {
           lastFmRichPresence = {
             enable = true;
             useListeningStatus = true;
+            showLastFmLogo = false;
             username = "challengerind";
           };
           fakeNitro.enable = true;

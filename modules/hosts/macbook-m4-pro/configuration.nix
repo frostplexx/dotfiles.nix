@@ -151,7 +151,12 @@
 
               sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
 
-
+              # Set default list view settings for new folders
+              sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
+              sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ExtendedListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
+              sudo -u ${user} defaults write com.apple.finder SidebarDevicesSectionDisclosedState -bool true
+              sudo -u ${user} defaults write com.apple.finder SidebarPlacesSectionDisclosedState -bool true
+              sudo -u ${user} defaults write com.apple.finder SidebarShowingiCloudDesktop -bool false
               # ApplePressAndHold: delete global key so per-app overrides take effect.
               # If the global key exists (even as true), it shadows all per-app values.
               sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
@@ -195,6 +200,7 @@
           InitialKeyRepeat = 12;
           AppleKeyboardUIMode = 3;
           AppleShowAllExtensions = true;
+          NSTableViewDefaultSizeMode = 2;
           _HIHideMenuBar = false;
           AppleICUForce24HourTime = true;
           NSAutomaticCapitalizationEnabled = false;
@@ -219,7 +225,10 @@
           FXEnableExtensionChangeWarning = false;
           _FXSortFoldersFirst = true;
           AppleShowAllFiles = true;
+          FXPreferredViewStyle = "Nlsv";
           ShowPathbar = true;
+          ShowStatusBar = true;
+          FXDefaultSearchScope = "CCcf";
         };
         dock = {
           wvous-tl-corner = 1;
@@ -279,9 +288,6 @@
           };
           "com.apple.finder" = {
             ShowExternalHardDrivesOnDesktop = true;
-            ShowHardDrivesOnDesktop = false;
-            ShowMountedServersOnDesktop = true;
-            ShowRemovableMediaOnDesktop = true;
             _FXSortFoldersFirst = true;
             ShowTabView = false;
             FXPreferredViewStyle = "Nlsv";
