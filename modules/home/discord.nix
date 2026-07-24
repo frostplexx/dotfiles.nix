@@ -61,7 +61,7 @@ _: {
             toolbarDevMenu = true;
           };
           lastFmRichPresence = {
-            enable = true;
+            enable = false;
             useListeningStatus = true;
             showLastFmLogo = false;
             username = "challengerind";
