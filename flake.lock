@@ -752,11 +752,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784451742,
-        "narHash": "sha256-HSpyVQ5OTfsF157Clk+v0FUH9HF5JVlJqJWG/3vPYIM=",
+        "lastModified": 1784917177,
+        "narHash": "sha256-BunxD3nKN6oa4LXh9I3rAopolL0bloBtswKBXrm8hEE=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "92e5dc9474aa867be37812c45baa129859df4f75",
+        "rev": "07d5eb208b8f16306b10342b634da7e07e926fa5",
         "type": "github"
       },
       "original": {
