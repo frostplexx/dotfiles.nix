@@ -60,7 +60,7 @@ _: {
             enable = true;
             toolbarDevMenu = true;
           };
-          lastFmRichPresence = {
+          LastFmRichPresence = {
             enable = false;
             useListeningStatus = true;
             showLastFmLogo = false;
