@@ -51,19 +51,12 @@ _: {
           macos-titlebar-style = "tabs";
           keybind = [
             "global:ctrl+alt+cmd+s=toggle_quick_terminal"
-            "ctrl+shift+up=resize_split:up,20"
-            "ctrl+shift+down=resize_split:down,20"
-            "ctrl+shift+left=resize_split:left,20"
-            "ctrl+shift+right=resize_split:right,20"
-            "ctrl+shift+equal=new_split:right"
-            "ctrl+shift+minus=new_split:down"
             "performable:cmd+p=text:p\n"
             "ctrl+shift+enter=new_split:auto"
             "alt+k=goto_split:top"
             "alt+j=goto_split:bottom"
             "alt+h=goto_split:left"
             "alt+l=goto_split:right"
-            "super+shift+i=inspector:toggle"
             "ctrl+shift+x=write_scrollback_file:open"
           ];
         };

@@ -174,14 +174,18 @@ _: {
                   "hide"
                   "fallback"
                 ];
-                # super-tab: Tab accepts the (pre)selected completion, or jumps
-                # the snippet if one is active. Sidekick NES is NOT handled here
-                # because NES suggestions are cleared on InsertEnter/TextChangedI
-                # and only live in normal mode — see the normal-mode <Tab> in
-                # plugins/claudecode.nix.
+                # super-tab: Tab checks for copilot NES first, then accepts
+                # the (pre)selected completion or jumps the snippet.
                 "<Tab>" = [
                   (lib.generators.mkLuaInline ''
                     function(cmp)
+                      if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+                        cmp.hide()
+                        return (
+                          require("copilot-lsp.nes").apply_pending_nes()
+                          and require("copilot-lsp.nes").walk_cursor_end_edit()
+                        )
+                      end
                       if cmp.snippet_active() then return cmp.accept()
                       else return cmp.select_and_accept() end
                     end'')
