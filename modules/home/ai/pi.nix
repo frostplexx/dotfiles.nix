@@ -58,7 +58,6 @@ _: {
         defaultProvider = "zen";
         defaultModel = "deepseek-v4-flash-free";
         packages = [
-          "npm:@ff-labs/pi-fff"
           "npm:pi-sandbox"
           "git:github.com/elpapi42/pi-fork"
           "npm:pi-zentui"
@@ -95,6 +94,16 @@ _: {
         - If you notice related issues while working, mention them in a sentence; do not fix them uninvited.
         - If you need a workaround for a limitation, explain the limitation and ask if I want to proceed with the workaround.
         - If you need a temporary working directory use `/tmp/pi-scratch` and clean it up after.
+
+        Tools:
+          - File searching: use `fd` (via bash). Never use `find`.
+          - Content searching: use `rg`. Version control: `git`.
+          - JSON/YAML: `jq` / `yq`.
+          - Text processing: use read/write tools, not sed/awk/python.
+          - Nix flakes available: use `nix develop`, `nix run` for reproducible environments.
+          - If a tool isn't available, ask before installing.
+
+
 
         Tone:
         - Treat me as the decision-maker; you are the advisor.
