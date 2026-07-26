@@ -60,10 +60,10 @@ _: {
             enable = true;
             toolbarDevMenu = true;
           };
-          lastFmRichPresence = {
-            enable = false;
+          musicRichPresence = {
+            enable = true;
             useListeningStatus = true;
-            showLastFmLogo = false;
+            showLogo = false;
             username = "challengerind";
           };
           fakeNitro.enable = true;
