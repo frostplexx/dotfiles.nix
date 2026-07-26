@@ -97,7 +97,7 @@ _: {
 
         Tools:
           - File searching: use `fd` (via bash). Never use `find`.
-          - Content searching: use `rg`. Version control: `git`.
+          - Content searching: use `rg` (via bash). Version control: `git`.
           - JSON/YAML: `jq` / `yq`.
           - Text processing: use read/write tools, not sed/awk/python.
           - Nix flakes available: use `nix develop`, `nix run` for reproducible environments.

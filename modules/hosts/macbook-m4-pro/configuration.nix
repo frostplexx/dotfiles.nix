@@ -356,7 +356,7 @@
     };
 
     fonts.packages = with pkgs; [
-      jetbrains-mono
+      monocraft
       maple-mono.NF
     ];
 
