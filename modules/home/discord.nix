@@ -61,7 +61,7 @@ _: {
             toolbarDevMenu = true;
           };
           musicRichPresence = {
-            enable = true;
+            enable = false;
             useListeningStatus = true;
             showLogo = false;
             username = "challengerind";
