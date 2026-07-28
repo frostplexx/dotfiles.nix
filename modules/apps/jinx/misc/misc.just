@@ -1,6 +1,12 @@
 
 [macos]
 [group('󰲽 utility')]
+[doc('Finds node_modules and adds them to time machine exclusion list')]
+exclude_node_modules:
+    @find $HOME -type d -maxdepth 3 -name 'node_modules' | xargs -n 1 sudo tmutil addexclusion -p
+
+[macos]
+[group('󰲽 utility')]
 [doc('Restarts yabai, skhd and lazykeys')]
 restart_wm:
     @pkill -9 yabai 
