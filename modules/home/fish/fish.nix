@@ -22,6 +22,18 @@ _: {
         enable = true;
         enableFishIntegration = true;
         enableTransience = true;
+        settings = {
+          command_timeout = 2000;
+
+          # Custom module to display work topic in the prompt
+          custom.work_topic = {
+            command = ''echo "$WORK_TOPIC"'';
+            when = ''[ -n "$WORK_TOPIC" ]'';
+            symbol = "🎯 ";
+            style = "bold purple";
+            format = "[$symbol$output]($style) ";
+          };
+        };
       };
 
       # Fish shell

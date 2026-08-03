@@ -42,8 +42,6 @@ _: {
           macos-window-buttons = "hidden";
           mouse-hide-while-typing = true;
           macos-window-shadow = false;
-          shell-integration = "fish";
-          shell-integration-features = true;
           window-decoration = true;
           macos-option-as-alt = true;
           custom-shader = "shaders/cursor_warp.glsl";
@@ -58,6 +56,7 @@ _: {
             "alt+h=goto_split:left"
             "alt+l=goto_split:right"
             "ctrl+shift+x=write_scrollback_file:open"
+            "global:ctrl+grave_accent=toggle_quick_terminal"
           ];
         };
       };

@@ -453,6 +453,10 @@ _: {
                     }
                   ];
                 }
+                {
+                  type = "application/x-suggestions+json";
+                  template = "https://s.dunkirk.sh/suggest?q={searchTerms}";
+                }
               ];
 
               # icon = lg";

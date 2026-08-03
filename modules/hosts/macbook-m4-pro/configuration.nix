@@ -249,7 +249,8 @@
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
             # "/Users/daniel/Applications/Home Manager Apps/Spotify.app"
-            "/Users/daniel/Applications/Home Manager Apps/TIDAL.app"
+            # "/Users/daniel/Applications/Home Manager Apps/TIDAL.app"
+            "/Applications/TIDAL.app"
           ];
         };
         trackpad = {
@@ -338,6 +339,7 @@
       ];
       casks = [
         "tailscale-app"
+        "tidal"
         "cleanshot"
         "mac-mouse-fix"
         "orbstack"

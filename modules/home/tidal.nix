@@ -1,7 +1,6 @@
 _: {
   flake.homeManagerModules.tidal = {pkgs, ...}: {
     programs.tidaluna = {
-      enable = true;
       stores = [
         "https://github.com/meowarex/TidalLuna-Plugins/releases/download/latest/store.json"
         "https://github.com/Inrixia/luna-plugins/releases/download/dev/store.json"
