@@ -28,6 +28,8 @@ _: {
         enable = true;
         extensions.render-markdown-nvim.enable = true;
       };
+
+      go.enable = true;
       clang = {
         enable = true;
         dap.enable = true;
