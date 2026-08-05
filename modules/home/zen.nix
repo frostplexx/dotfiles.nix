@@ -520,7 +520,7 @@ _: {
 
         # Firefox Suggest
         FirefoxSuggest = {
-          WebSuggestions = false;
+          WebSuggestions = true;
           SponsoredSuggestions = false;
           ImproveSuggest = false;
           Locked = true;
@@ -538,19 +538,6 @@ _: {
         OverridePostUpdatePage = "";
         ExtensionUpdate = true;
         SearchBar = "unified";
-
-        # Cleanup on shutdown
-        SanitizeOnShutdown = {
-          Cache = false;
-          Cookies = false;
-          Downloads = false;
-          FormData = false;
-          History = false;
-          Sessions = false;
-          SiteSettings = false;
-          OfflineApps = false;
-          Locked = false;
-        };
       };
     };
   };
