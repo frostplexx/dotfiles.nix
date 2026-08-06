@@ -67,7 +67,6 @@ _: {
             username = "challengerind";
           };
           fakeNitro.enable = true;
-          favoriteGifSearch.enable = true;
           fixImagesQuality.enable = true;
           favoriteEmojiFirst.enable = true;
           fullSearchContext.enable = true;
