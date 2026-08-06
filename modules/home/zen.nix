@@ -423,6 +423,14 @@ _: {
           # General preferences
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
           "browser.tabs.warnOnClose" = true;
+
+          # Never clear history or site data when Zen closes
+          "privacy.sanitize.sanitizeOnShutdown" = false;
+          "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+          "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = false;
+          "privacy.clearOnShutdown_v2.cache" = false;
+          "privacy.clearOnShutdown_v2.formdata" = false;
+          "privacy.clearOnShutdown_v2.siteSettings" = false;
         };
 
         search = {
