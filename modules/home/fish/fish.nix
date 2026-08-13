@@ -168,7 +168,7 @@ _: {
     xdg.configFile = {
       "fish/themes/Catppuccin Mocha.theme" = {
         source = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme";
+          url = "https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/catppuccin-mocha.theme";
           sha256 = "sha256-hLXJH83AkaWcHpikaUGEGZQf5XMlG5rViO0Wb9tOyIw=";
         };
       };
