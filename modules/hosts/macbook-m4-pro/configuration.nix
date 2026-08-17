@@ -23,6 +23,8 @@
       eval-cores = 0;
       auto-optimise-store = true;
       max-jobs = "auto";
+      # Build x86_64-linux closures on sorbet; this Mac is arm64.
+      builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
     };
 
     # Nix-homebrew configuration
@@ -379,6 +381,8 @@
       # inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
 
       zoom-us
+      feishin
+      secretspec
       jq
       just
       keka

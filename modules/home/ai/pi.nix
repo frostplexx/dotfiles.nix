@@ -34,6 +34,11 @@ _: {
           source = ./pi_settings/sandbox.json;
         };
 
+        ".pi/agent/extensions" = {
+          source = ./extensions;
+          recursive = true;
+        };
+
         ".pi/agent/zentui.json" = {
           source = ./pi_settings/zentui.json;
         };
@@ -56,7 +61,7 @@ _: {
         enableAnalytics = false;
         warnings.anthropicExtraUsage = false;
         defaultProvider = "zen";
-        defaultModel = "deepseek-v4-flash-free";
+        defaultModel = "deepseek-v4-flash";
         packages = [
           "npm:pi-sandbox"
           "git:github.com/elpapi42/pi-fork"

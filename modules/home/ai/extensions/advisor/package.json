@@ -1,0 +1,8 @@
+{
+  "name": "advisor",
+  "dependencies": {
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}
