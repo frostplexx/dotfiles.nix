@@ -424,6 +424,8 @@ _: {
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
           "browser.tabs.warnOnClose" = true;
 
+          "privacy.resistFingerprinting" = true;
+
           # Never clear history or site data when Zen closes
           "privacy.sanitize.sanitizeOnShutdown" = false;
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;

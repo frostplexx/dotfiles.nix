@@ -66,6 +66,8 @@ _: {
           cd = "z";
           nurl = "nix run nixpkgs#nurl --";
           avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
+          compress = "tar -cf";
+          untar = "tar -xf";
         };
 
         shellAbbrs = {

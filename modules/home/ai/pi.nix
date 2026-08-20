@@ -30,9 +30,9 @@ _: {
           recursive = true;
         };
 
-        ".pi/agent/sandbox.json" = {
-          source = ./pi_settings/sandbox.json;
-        };
+        # ".pi/agent/sandbox.json" = {
+        #   source = ./pi_settings/sandbox.json;
+        # };
 
         ".pi/agent/extensions" = {
           source = ./extensions;
@@ -63,7 +63,7 @@ _: {
         defaultProvider = "zen";
         defaultModel = "deepseek-v4-flash";
         packages = [
-          "npm:pi-sandbox"
+          # "npm:pi-sandbox"
           "git:github.com/elpapi42/pi-fork"
           "npm:pi-zentui"
           "pi-skills"
