@@ -72,7 +72,7 @@ jobs:
               MATRIX_JSON+="\"name\":\"$config\","
               MATRIX_JSON+="\"os\":\"ubuntu-latest\","
               MATRIX_JSON+="\"type\":\"nixos\","
-              MATRIX_JSON+="\"cmd\":\"build\","
+              MATRIX_JSON+="\"cmd\":\"os\","
               MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
               MATRIX_JSON+="},"
             done
