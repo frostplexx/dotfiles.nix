@@ -175,7 +175,16 @@ _: {
         secretspec
         poppler-utils
       ];
+
+          plasma6.excludePackages = with pkgs.kdePackages; [
+      plasma-browser-integration
+      konsole
+      elisa
+      qrca
+    ];
     };
+
+
 
     documentation = {
       doc.enable = true;

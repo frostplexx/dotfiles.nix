@@ -26,7 +26,7 @@ _: {
               defaults.settings.theme
             };
           font-family = "Maple Mono NF";
-          font-size = 13;
+          font-size = if pkgs.stdenv.hostPlatform.isDarwin then  13 else 12;
           background-opacity =
             if defaults.settings.transparent_terminal
             then 0.8
