@@ -126,7 +126,7 @@ _: {
         enable = true;
         # Certain features, including CLI integration and system authentication support,
         # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-        polkitPolicyOwners = [ "${user}" ];
+        polkitPolicyOwners = ["${user}"];
       };
     };
 
@@ -183,15 +183,13 @@ _: {
         poppler-utils
       ];
 
-          plasma6.excludePackages = with pkgs.kdePackages; [
-      plasma-browser-integration
-      konsole
-      elisa
-      qrca
-    ];
+      plasma6.excludePackages = with pkgs.kdePackages; [
+        plasma-browser-integration
+        konsole
+        elisa
+        qrca
+      ];
     };
-
-
 
     documentation = {
       doc.enable = true;
