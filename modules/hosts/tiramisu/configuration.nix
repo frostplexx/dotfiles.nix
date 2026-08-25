@@ -124,6 +124,14 @@ _: {
     };
 
     # User configuration
+    # Sops decryption for system-level secrets
+    sops = {
+      age = {
+        keyFile = "/home/${user}/.config/sops/age/keys.txt";
+        sshKeyPaths = [];
+      };
+    };
+
     users.users.${user} = {
       isNormalUser = true;
       description = user;
