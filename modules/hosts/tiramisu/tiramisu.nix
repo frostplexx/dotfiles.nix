@@ -5,18 +5,16 @@
   config,
   ...
 }: let
-  # Helper to collect all modules from an attrset
   collectModules = attrs: lib.attrValues (lib.filterAttrs (_n: v: v != {}) attrs);
 
-  # Shared nixpkgs config
-  nixpkgsConfig = {
+  nixPkgsConfig = {
     allowUnfree = true;
     allowBroken = false;
     allowUnsupportedSystem = false;
   };
-  # Overlays
+
   overlays = [
-    # TODO: Remove once vscodium is fixed
+    inputs.nix-cachyos-kernel.overlays.pinned
     (_final: prev: {
       vscodium = prev.vscodium.overrideAttrs (_old: {
         preFixup = "";
@@ -24,23 +22,21 @@
     })
   ];
 in {
-  # Declare the module options using flake-parts-modules
   flake = {
-    darwinConfigurations.macbook-m4-pro = inputs.nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
+    nixosConfigurations.tiramisu = inputs.nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
       modules =
         [
           # Core modules
-          inputs.home-manager.darwinModules.home-manager
-          inputs.nix-homebrew.darwinModules.nix-homebrew
-          inputs.lazykeys.darwinModules.default
-          inputs.nixkit.darwinModules.default
-          inputs.determinate.darwinModules.default
-          inputs.sops-nix.darwinModules.sops
+          inputs.home-manager.nixosModules.home-manager
+          inputs.nixkit.nixosModules.default
+          inputs.determinate.nixosModules.default
+          inputs.sops-nix.nixosModules.sops
+          inputs.disko.nixosModules.disko
 
           # Nixpkgs configuration
           {
-            nixpkgs.config = nixpkgsConfig;
+            nixpkgs.config = nixPkgsConfig;
             nixpkgs.overlays = overlays;
           }
 
@@ -50,9 +46,12 @@ in {
               useGlobalPkgs = true;
               useUserPackages = true;
               backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit (config.flake) defaults;
+              };
               sharedModules =
                 [
-                  inputs.agate.homeManagerModules.default
                   inputs.nvf.homeManagerModules.default
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
@@ -60,22 +59,12 @@ in {
                   inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
-                  {
-                    # Disable nix management in home-manager on Darwin (handled by Determinate)
-                    nix.enable = false;
-                    targets.darwin.linkApps.enable = false;
-                    targets.darwin.copyApps.enable = true;
-                  }
                 ]
-                ++ collectModules self.homeManagerModules;
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit (config.flake) defaults;
-              };
+                ++ collectModules (lib.filterAttrs (n: _: n != "agate") self.homeManagerModules);
             };
           }
         ]
-        ++ collectModules self.darwinModules;
+        ++ collectModules self.nixOSModules;
       specialArgs = {
         inherit inputs;
         inherit (config.flake) defaults;

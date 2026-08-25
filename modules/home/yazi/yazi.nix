@@ -36,19 +36,6 @@ _: {
             run = "git";
             group = "git";
           }
-
-          {
-            id = "mactag";
-            url = "*/";
-            run = "mactag";
-            group = "mactag";
-          }
-          {
-            id = "mactag";
-            url = "*";
-            run = "mactag";
-            group = "mactag";
-          }
         ];
 
         mgr = {
@@ -100,7 +87,6 @@ _: {
 
       plugins = {
         inherit (pkgs.yaziPlugins) git;
-        inherit (pkgs.yaziPlugins) mactag;
         inherit (pkgs.yaziPlugins) starship;
         inherit (pkgs.yaziPlugins) smart-paste;
         inherit (pkgs.yaziPlugins) yatline;

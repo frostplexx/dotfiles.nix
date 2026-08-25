@@ -6,6 +6,12 @@
       description = "Darwin modules to be collected into the configuration";
     };
 
+    nixOSModules = lib.mkOption {
+      type = lib.types.attrsOf lib.types.unspecified;
+      default = {};
+      description = "NixOS modules to be collected into the configuration";
+    };
+
     homeManagerModules = lib.mkOption {
       type = lib.types.attrsOf lib.types.unspecified;
       default = {};

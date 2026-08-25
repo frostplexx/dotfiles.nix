@@ -12,7 +12,10 @@ _: {
         # installBatSyntax = true;
         # installVimSyntax = true;
         # package = pkgs.ghostty-bin;
-        package = inputs.nixkit.packages.${pkgs.system}.ghostty-tip;
+        package =
+          if pkgs.stdenv.hostPlatform.isDarwin
+          then inputs.nixkit.packages.${pkgs.system}.ghostty-tip
+          else pkgs.ghostty;
         settings = {
           theme =
             {
