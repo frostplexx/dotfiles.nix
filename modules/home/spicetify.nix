@@ -32,7 +32,7 @@ _: {
     };
 
     # Stop spotify from updating: https://github.com/NixOS/nixpkgs/issues/404502#issuecomment-3304356653
-    home.activation.disableSpotifyUpdates = lib.mkIf pkgs.stdenv.isDarwin (
+    home.activation.disableSpotifyUpdates = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       lib.hm.dag.entryAfter ["writeBoundary"] ''
         SPOTIFY_UPDATE_DIR=~/Library/Application\ Support/Spotify/PersistentCache/Update
         if ! /usr/bin/stat -f "%Sf" "$SPOTIFY_UPDATE_DIR" 2> /dev/null | grep -q uchg; then

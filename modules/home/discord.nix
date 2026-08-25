@@ -11,12 +11,12 @@ _: {
     rosePineUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/refs/heads/master/themes/flavors/midnight-rose-pine.theme.css";
 
     vekstopPath =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then "/Users/${defaults.user}/Library/Application Support/vesktop/themes/${themeFile}"
       else "${config.xdg.configHome}/vesktop/themes/${themeFile}";
 
     discordPath =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then "/Users/${defaults.user}/Library/Application Support/Vencord/themes/${themeFile}"
       else "${config.xdg.configHome}/Vencord/themes/${themeFile}";
 
@@ -36,7 +36,7 @@ _: {
         useQuickCss = true;
         enableReactDevtools = true;
         disableMinSize = true;
-        frameless = pkgs.stdenv.isDarwin;
+        frameless = pkgs.stdenv.hostPlatform.isDarwin;
         enabledThemes = [themeFile];
         plugins = {
           alwaysAnimate.enable = true;
@@ -123,7 +123,7 @@ _: {
           enableSplashScreen = false;
           splashTheming = true;
           arRPC = true;
-          customTitleBar = pkgs.stdenv.isDarwin;
+          customTitleBar = pkgs.stdenv.hostPlatform.isDarwin;
         };
         force = true;
       };

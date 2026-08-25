@@ -18,7 +18,7 @@ _: {
       shellWrapperName = "y";
       package = pkgs.yazi.override {
         _7zz = pkgs._7zz.override {
-          useUasm = pkgs.stdenv.isLinux;
+          useUasm = pkgs.stdenv.hostPlatform.isLinux;
         };
       };
       initLua = ./init.lua;

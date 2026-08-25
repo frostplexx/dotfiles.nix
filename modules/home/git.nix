@@ -29,15 +29,15 @@ _: {
           signing.format = "openpgp";
           gpg.format = "ssh";
           "gpg \"ssh\"".program =
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
             else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
           commit.gpgsign =
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then true
             else false;
           credential.helper =
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then "osxkeychain"
             else "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
           difftool = {

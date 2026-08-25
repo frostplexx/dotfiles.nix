@@ -304,10 +304,6 @@ _: {
               globalStyle = "rounded";
               plugins.lsp-signature.enable = true;
             };
-            breadcrumbs = {
-              enable = false;
-              navbuddy.enable = false;
-            };
           };
 
           git = {
@@ -315,7 +311,13 @@ _: {
             gitsigns.codeActions.enable = false;
           };
 
-          statusline.lualine.enable = true;
+          statusline.lualine = {
+            enable = true;
+            integrations.breadcrumbs = {
+              nvim-navic.enable = false;
+              navbuddy.enable = false;
+            };
+          };
 
           diagnostics = {
             enable = true;

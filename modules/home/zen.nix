@@ -205,12 +205,12 @@ _: {
         nativeBuildInputs = with pkgs; [python3 python3Packages.lz4];
       } "python3 ${script} ${jsonFile} $out";
   in {
-    programs.default-browser = lib.mkIf pkgs.stdenv.isDarwin {
+    programs.default-browser = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       enable = true;
       browser = "zen";
     };
 
-    targets.darwin.defaults = lib.mkIf pkgs.stdenv.isDarwin {
+    targets.darwin.defaults = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       "app.zen-browser.zen" =
         {
           EnterprisePoliciesEnabled = true;
@@ -218,7 +218,7 @@ _: {
         // config.programs.zen-browser.policies;
     };
 
-    home.file."Library/Application Support/Zen/Profiles/${config.programs.zen-browser.profiles."default".path}/zen-space-routing.jsonlz4" = lib.mkIf pkgs.stdenv.isDarwin {
+    home.file."Library/Application Support/Zen/Profiles/${config.programs.zen-browser.profiles."default".path}/zen-space-routing.jsonlz4" = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       source = spaceRoutingFile;
       force = true;
     };
@@ -269,7 +269,7 @@ _: {
       };
     in {
       enable = true;
-      package = lib.mkIf pkgs.stdenv.isDarwin (
+      package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
         pkgs.lib.makeOverridable (
           _:
             inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
