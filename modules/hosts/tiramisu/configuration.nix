@@ -36,6 +36,10 @@ _: {
     networking = {
       hostName = "tiramisu";
       networkmanager.enable = true;
+      eth0.wakeOnLan.enable = true;
+      firewall = {
+        allowedUDPPorts = [ 9 ];
+      };
     };
 
     time.timeZone = defaults.system.timeZone;
@@ -47,13 +51,7 @@ _: {
         limine.enable = true;
         efi.canTouchEfiVariables = true;
       };
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v3;
-      kernelParams = [
-        "quiet"
-        "splash"
-        "console=/dev/null"
-      ];
-      plymouth.enable = true;
+      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v3;
     };
 
     disko.devices.disk.main = {
