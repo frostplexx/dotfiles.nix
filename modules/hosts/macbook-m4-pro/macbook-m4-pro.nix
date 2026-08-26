@@ -67,7 +67,9 @@ in {
                     targets.darwin.copyApps.enable = true;
                   }
                 ]
-                ++ collectModules self.homeManagerModules;
+                ++ collectModules (
+                  lib.filterAttrs (n: _: n != "agate") self.homeManagerModules
+                );
               extraSpecialArgs = {
                 inherit inputs;
                 inherit (config.flake) defaults;

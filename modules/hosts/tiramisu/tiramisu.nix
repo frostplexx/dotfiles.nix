@@ -56,7 +56,11 @@ in {
                   inputs.spicetify-nix.homeManagerModules.spicetify
                   inputs.plasma-manager.homeModules.plasma-manager
                 ]
-                ++ collectModules self.homeManagerModules;
+                ++ collectModules (
+                  lib.filterAttrs
+                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"] || lib.hasPrefix "neovim" n))
+                  self.homeManagerModules
+                );
             };
           }
         ]
