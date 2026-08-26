@@ -68,7 +68,9 @@ in {
                   }
                 ]
                 ++ collectModules (
-                  lib.filterAttrs (n: _: n != "agate") self.homeManagerModules
+                  lib.filterAttrs
+                  (n: _: !(builtins.elem n ["plasma"]))
+                  self.homeManagerModules
                 );
               extraSpecialArgs = {
                 inherit inputs;

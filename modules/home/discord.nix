@@ -28,20 +28,9 @@ _: {
     programs.nixcord = {
       enable = true;
       discord.enable = !useVesktop;
-#       vesktop = {
-#         enable = useVesktop;
-#         package = pkgs.vesktop;
-#       };
-legcord = {
-enable = true;
-vencord.enable = true;
- settings = {
-      channel = "stable";
-      tray = "dynamic";
-      minimizeToTray = true;
-      mods = [ "vencord" ];
-      doneSetup = true;
-    };
+      vesktop = {
+        enable = useVesktop;
+        package = pkgs.vesktop;
       };
       config = {
         useQuickCss = true;
