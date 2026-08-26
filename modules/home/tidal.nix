@@ -1,5 +1,5 @@
 _: {
-  flake.homeManagerModules.tidal = {pkgs, ...}: {
+  flake.homeManagerModules.tidal = _: {
     programs.tidaluna = {
       stores = [
         "https://github.com/meowarex/TidalLuna-Plugins/releases/download/latest/store.json"
@@ -8,44 +8,51 @@ _: {
 
       #To list settingsNames and settings:  const idb = await luna.core.ReactiveStore.getStore("@luna/pluginStorage").dump(); console.log(JSON.stringify(idb, null, 2));
       plugins = [
-        # {
-        #   shortURL = "@meowarex/radiant-lyrics";
-        #   settingsName = "RadiantLyrics";
-        #   settings = {
-        #     "lyricsGlowEnabled" = false;
-        #     "trackTitleGlow" = false;
-        #     "hideUIEnabled" = false;
-        #     "playerBarVisible" = false;
-        #     "qualityProgressColor" = false;
-        #     "floatingPlayerBar" = true;
-        #     "playerBarTint" = 10;
-        #     "playerBarTintColor" = "#000000";
-        #     "playerBarTintCustomColors" = [];
-        #     "playerBarRadius" = 8;
-        #     "playerBarSpacing" = 10;
-        #     "CoverEverywhere" = false;
-        #     "performanceMode" = false;
-        #     "spinningArt" = true;
-        #     "textGlow" = 20;
-        #     "backgroundScale" = 15;
-        #     "backgroundRadius" = 25;
-        #     "backgroundContrast" = 120;
-        #     "backgroundBlur" = 80;
-        #     "backgroundBrightness" = 40;
-        #     "spinSpeed" = 45;
-        #     "settingsAffectNowPlaying" = true;
-        #     "stickyLyrics" = false;
-        #     "stickyLyricsIcon" = "sparkle";
-        #     "lyricsStyle" = 2;
-        #     "syllableStyle" = 0;
-        #     "contextAwareLyrics" = true;
-        #     "blurInactive" = true;
-        #     "bubbledLyrics" = true;
-        #     "syllableLogging" = false;
-        #     "lyricsFontSize" = 100;
-        #     "romanizeLyrics" = false;
-        #   };
-        # }
+        {
+          shortURL = "@meowarex/radiant-lyrics";
+          settingsName = "RadiantLyrics";
+          settings = {
+            "lyricsGlowEnabled" = true;
+            "textGlow" = 20;
+            "lyricsStyle" = 2;
+            "lyricsFontSize" = 100;
+            "blurInactive" = true;
+            "contextAwareLyrics" = true;
+            "bubbledLyrics" = true;
+            "romanizeLyrics" = false;
+            "aiSyllables" = false;
+            "syllableStyle" = 0;
+            "syllableLogging" = false;
+            "lyricsOffsetMs" = 0;
+            "hideUIEnabled" = true;
+            "playerBarVisible" = false;
+            "qualityProgressColor" = false;
+            "integratedSeekBar" = false;
+            "floatingPlayerBar" = true;
+            "playerBarRadius" = 15;
+            "playerBarSpacing" = 4;
+            "playerBarBlur" = true;
+            "playerBarBlurAmount" = 15;
+            "playerBarTintEnabled" = true;
+            "playerBarTint" = 5;
+            "playerBarTintColor" = "#000000";
+            "playerBarTintCustomColors" = [ ];
+            "backdropEnabled" = false;
+            "backdropStyle" = 0;
+            "backdropPlaybackReactive" = true;
+            "CoverEverywhere" = true;
+            "performanceMode" = false;
+            "backdropOpacity" = 100;
+            "backdropWarp" = 10;
+            "backdropBlurPasses" = 6;
+            "backdropSpeed" = 175;
+            "backdropContrast" = 125;
+            "backdropSaturation" = 125;
+            "backdropDithering" = 15;
+            "backdropScale" = 100;
+            "backdropDarken" = 8;
+          };
+        }
         {
           shortURL = "Song Downloader";
           settingsName = "SongDownloader";
@@ -56,32 +63,7 @@ _: {
           };
         }
         {
-          shortURL = "DiscordRPC";
-          settingsName = "DiscordRPC";
-          settings = {
-            "displayOnPause" = false;
-            "displayArtistIcon" = true;
-            "displayPlaylistButton" = true;
-            "customStatusText" = "{track} by {artist}";
-          };
-        }
-        {
-          shortURL = "DesktopConnect";
-        }
-        {
           shortURL = "NoBuffer";
-        }
-        {
-          shortURL = "Themer";
-          settingsName = "Themer";
-          settings = {
-            "css" = builtins.readFile (
-              pkgs.fetchurl {
-                url = "https://raw.githubusercontent.com/frostplexx/catppuccin-tidal/refs/heads/main/mocha.css";
-                sha256 = "sha256-eN17wamb5sz3cY2ZfFwS2nYkYaUZTJV11chWhEKVrfU=";
-              }
-            );
-          };
         }
       ];
     };

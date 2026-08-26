@@ -1,5 +1,9 @@
 _: {
-  flake.homeManagerModules.obsidian = {pkgs, ...}: let
+  flake.homeManagerModules.obsidian = {
+    lib,
+    pkgs,
+    ...
+  }: let
     obsidian-skills = pkgs.fetchzip {
       url = "https://github.com/kepano/obsidian-skills/archive/refs/heads/main.zip";
       sha256 = "1jrywwxalacv4vbfvpdf7crl8221gzdk05hq2ybmbwwdqrqggapw";
@@ -18,7 +22,7 @@ _: {
       };
     };
 
-    home.file =
+    home.file = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       builtins.listToAttrs (
         map (name: {
           name = "Documents/Memex/.pi/skills/${name}";
@@ -87,6 +91,7 @@ _: {
             pdftotext -f 1 -l 5 input.pdf output.txt    # only pages 1-5
             ```
           '';
-      };
+      }
+    );
   };
 }

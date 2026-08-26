@@ -55,11 +55,7 @@ in {
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
                 ]
-                ++ collectModules (
-                  lib.filterAttrs
-                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"] || lib.hasPrefix "neovim" n))
-                  self.homeManagerModules
-                );
+                ++ collectModules self.homeManagerModules;
             };
           }
         ]

@@ -2,11 +2,12 @@ _: {
   flake.homeManagerModules.agate = {
     defaults,
     lib,
+    pkgs,
     ...
   }:
     lib.mkIf defaults.settings.window_manager {
       services.agate = {
-        enable = true;
+        enable = if pkgs.stdenv.hostPlatform.isDarwin then true else false;
         config =
           /*
           lua

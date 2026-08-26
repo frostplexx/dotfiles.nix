@@ -31,12 +31,12 @@ _: {
             then 13
             else 11;
           background-opacity =
-            if defaults.settings.transparent_terminal
+            if defaults.settings.transparent_terminal && pkgs.stdenv.hostPlatform.isDarwin
             then 0.8
             else 1.0;
           # macos-glass-regular or macos-glass-clear
           background-blur =
-            if defaults.settings.transparent_terminal
+            if defaults.settings.transparent_terminal && pkgs.stdenv.hostPlatform.isDarwin
             then "macos-glass-regular"
             else false;
           window-save-state = "always";
