@@ -59,10 +59,10 @@ _: {
               {
                 iconTasks = {
                   launchers = [
-                    "applications:firefox.desktop"
+                    "applications:zen.desktop"
                     "applications:vesktop.desktop"
                     "applications:steam.desktop"
-                    "applications:kitty.desktop"
+                    "applications:ghostty.desktop"
                   ];
                 };
               }
