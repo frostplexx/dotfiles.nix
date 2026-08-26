@@ -59,10 +59,10 @@ _: {
               {
                 iconTasks = {
                   launchers = [
-                    "applications:zen.desktop"
+                    "applications:zen-beta.desktop"
                     "applications:vesktop.desktop"
                     "applications:steam.desktop"
-                    "applications:ghostty.desktop"
+                    "applications:com.mitchellh.ghostty.desktop"
                   ];
                 };
               }
@@ -547,21 +547,6 @@ _: {
             "Tiling/ed4d5f96-5f09-42f5-ae0c-08dca270cd79/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             Xwayland.Scale = 1;
             "org.kde.kdecoration2".ButtonsOnLeft = "SF";
-          };
-          kwinrulesrc = {
-            "1" = {
-              Description = "Dolphin";
-              maximizehoriz = true;
-              maximizehorizrule = 3;
-              maximizevert = true;
-              maximizevertrule = 3;
-              noborder = true;
-              noborderrule = 2;
-              types = 1;
-              wmclass = "dolphin";
-              wmclasscomplete = true;
-              wmclassmatch = 2;
-            };
           };
           kwinrulesrc = {
             General.count = 1;
