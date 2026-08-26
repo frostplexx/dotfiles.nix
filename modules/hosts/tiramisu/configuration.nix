@@ -36,7 +36,7 @@ _: {
     networking = {
       hostName = "tiramisu";
       networkmanager.enable = true;
-      eth0.wakeOnLan.enable = true;
+      interfaces.eth0.wakeOnLan.enable = true;
       firewall = {
         allowedUDPPorts = [9];
       };
@@ -102,6 +102,7 @@ _: {
     };
 
     hardware = {
+      bluetooth.enable = true;
       graphics = {
         enable = true;
       };

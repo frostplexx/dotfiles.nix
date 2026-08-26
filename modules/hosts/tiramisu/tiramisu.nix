@@ -54,6 +54,7 @@ in {
                   inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.spicetify-nix.homeManagerModules.spicetify
+                  inputs.plasma-manager.homeModules.plasma-manager
                 ]
                 ++ collectModules self.homeManagerModules;
             };
