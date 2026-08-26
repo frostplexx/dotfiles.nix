@@ -147,7 +147,6 @@ _: {
       shells = [pkgs.fish];
       systemPackages = with pkgs; [
         _1password-cli
-        tidal-hifi
         alejandra
         curl
         deadnix
