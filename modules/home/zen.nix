@@ -3,7 +3,6 @@ _: {
     pkgs,
     lib,
     config,
-    inputs,
     defaults,
     ...
   }: let
@@ -269,15 +268,15 @@ _: {
       };
     in {
       enable = true;
-      package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
-        pkgs.lib.makeOverridable (
-          _:
-            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
-              installPhase = builtins.replaceStrings ["/usr/bin/codesign"] [": "] old.installPhase;
-              dontFixup = true;
-            })
-        ) {}
-      );
+      # package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
+      #   pkgs.lib.makeOverridable (
+      #     _:
+      #       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta-unwrapped.overrideAttrs (old: {
+      #         installPhase = builtins.replaceStrings ["/usr/bin/codesign"] [": "] old.installPhase;
+      #         dontFixup = true;
+      #       })
+      #   ) {}
+      # );
 
       profiles."default" = let
         pins = {
