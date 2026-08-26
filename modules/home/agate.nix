@@ -7,7 +7,10 @@ _: {
   }:
     lib.mkIf defaults.settings.window_manager {
       services.agate = {
-        enable = if pkgs.stdenv.hostPlatform.isDarwin then true else false;
+        enable =
+          if pkgs.stdenv.hostPlatform.isDarwin
+          then true
+          else false;
         config =
           /*
           lua

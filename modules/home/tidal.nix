@@ -36,7 +36,7 @@ _: {
             "playerBarTintEnabled" = true;
             "playerBarTint" = 5;
             "playerBarTintColor" = "#000000";
-            "playerBarTintCustomColors" = [ ];
+            "playerBarTintCustomColors" = [];
             "backdropEnabled" = false;
             "backdropStyle" = 0;
             "backdropPlaybackReactive" = true;

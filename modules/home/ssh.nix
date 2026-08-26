@@ -1,7 +1,10 @@
-{pkgs,...}: {
-  flake.homeManagerModules.ssh = _: {
+_: {
+  flake.homeManagerModules.ssh = {pkgs, ...}: {
     programs.ssh = {
-      enable = if pkgs.stdenv.hostPlatform.isDarwin then true else false;
+      enable =
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then true
+        else false;
       enableDefaultConfig = false;
       settings."*" = {
         forwardAgent = true;

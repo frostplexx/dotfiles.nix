@@ -38,7 +38,7 @@ _: {
       networkmanager.enable = true;
       eth0.wakeOnLan.enable = true;
       firewall = {
-        allowedUDPPorts = [ 9 ];
+        allowedUDPPorts = [9];
       };
     };
 

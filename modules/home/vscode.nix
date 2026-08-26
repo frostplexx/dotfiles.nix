@@ -5,7 +5,10 @@ _: {
     ...
   }: {
     programs.vscodium = {
-      enable = if pkgs.stdenv.hostPlatform.isDarwin then true else false;
+      enable =
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then true
+        else false;
       profiles.default = {
         enableMcpIntegration = false;
         extensions = with pkgs; [
