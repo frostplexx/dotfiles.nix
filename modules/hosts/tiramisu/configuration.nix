@@ -155,30 +155,22 @@ _: {
       shells = [pkgs.fish];
       systemPackages = with pkgs; [
         _1password-cli
+        tidal-hifi
         alejandra
         curl
         deadnix
         ffmpeg
-        gcc
-        gh
-        gnumake
-        gnupg
         jq
         just
-        netcat
         nh
         nix-output-monitor
-        nix-tree
-        nmap
         nvd
         ripgrep
         sops
-        sshpass
         statix
         uv
         wget
-        secretspec
-        poppler-utils
+        vim
       ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
@@ -189,13 +181,13 @@ _: {
       ];
     };
 
-    documentation = {
-      doc.enable = true;
-      info.enable = true;
-    };
+    # Not needed for gaming config
+    # documentation = {
+    #   doc.enable = true;
+    #   info.enable = true;
+    # };
 
     fonts.packages = with pkgs; [
-      monocraft
       maple-mono.NF
     ];
 
@@ -207,7 +199,7 @@ _: {
         homeDirectory = "/home/${user}";
         sessionVariables = {
           NH_FLAKE = "$HOME/${defaults.paths.flake}";
-          EDITOR = "nvim";
+          EDITOR = "vim";
         };
       };
       programs.home-manager.enable = true;

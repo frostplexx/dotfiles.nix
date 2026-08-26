@@ -15,11 +15,6 @@
 
   overlays = [
     inputs.nix-cachyos-kernel.overlays.pinned
-    (_final: prev: {
-      vscodium = prev.vscodium.overrideAttrs (_old: {
-        preFixup = "";
-      });
-    })
   ];
 in {
   flake = {
