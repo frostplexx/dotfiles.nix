@@ -9,14 +9,6 @@ _: {
     };
 
     programs = {
-      nixupdater = {
-        enable = true;
-        flake = "${defaults.paths.flake}";
-        interval = 28800;
-        terminal = "ghostty";
-        command = "fish -c '${defaults.paths.flake}/modules/apps/jinx/update/update.fish --dotfiles ${defaults.paths.flake} --nh-cmd darwin'";
-      };
-
       # Starship prompt
       starship = {
         enable = true;
