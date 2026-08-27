@@ -58,7 +58,7 @@ in {
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"] || lib.hasPrefix "neovim" n))
+                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"]))
                   self.homeManagerModules
                 );
             };
