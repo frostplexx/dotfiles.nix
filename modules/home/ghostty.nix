@@ -29,7 +29,7 @@ _: {
           font-size =
             if pkgs.stdenv.hostPlatform.isDarwin
             then 13
-            else 11;
+            else 10;
           background-opacity =
             if defaults.settings.transparent_terminal && pkgs.stdenv.hostPlatform.isDarwin
             then 0.8

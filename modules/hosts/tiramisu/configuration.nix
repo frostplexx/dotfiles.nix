@@ -104,14 +104,13 @@ _: {
     systemd.user.services.steam = {
       enable = true;
       description = "Open Steam in the background at boot";
+      wantedBy = ["graphical-session.target"];
       serviceConfig = {
         ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
-        wantedBy = ["graphical-session.target"];
         Restart = "on-failure";
         RestartSec = "5s";
       };
     };
-
     hardware = {
       bluetooth.enable = true;
       graphics = {
@@ -157,6 +156,7 @@ _: {
       pathsToLink = ["/share/fish"];
       shells = [pkgs.fish];
       systemPackages = with pkgs; [
+        wl-clipboard
         _1password-cli
         alejandra
         curl
