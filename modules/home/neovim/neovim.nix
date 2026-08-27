@@ -10,10 +10,7 @@ _: {
     };
 
     programs.nvf = {
-      enable =
-        if pkgs.stdenv.hostPlatform.isDarwin
-        then true
-        else false;
+      enable = true;
       enableManpages = true;
       settings = {
         vim = {
