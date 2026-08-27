@@ -5,7 +5,7 @@ _: {
     ...
   }: {
     # XDG
-    xdg.portal = lib.mkIf pkgs.stdenv.isLinux {
+    xdg.portal = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       enable = true;
       configPackages = [pkgs.kdePackages.xdg-desktop-portal-kde];
       extraPortals = with pkgs; [
@@ -13,7 +13,7 @@ _: {
       ];
     };
 
-    programs = lib.mkIf pkgs.stdenv.isLinux {
+    programs = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       plasma = {
         enable = true;
 
