@@ -101,6 +101,17 @@ _: {
       displayManager.plasma-login-manager.enable = true;
     };
 
+    systemd.user.services.steam = {
+      enable = true;
+      description = "Open Steam in the background at boot";
+      serviceConfig = {
+        ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
+        wantedBy = ["graphical-session.target"];
+        Restart = "on-failure";
+        RestartSec = "5s";
+      };
+    };
+
     hardware = {
       bluetooth.enable = true;
       graphics = {
