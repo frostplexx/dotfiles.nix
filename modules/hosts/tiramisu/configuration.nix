@@ -105,8 +105,10 @@ _: {
       enable = true;
       description = "Open Steam in the background at boot";
       wantedBy = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = {
-        ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
+        ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent";
         Restart = "on-failure";
         RestartSec = "5s";
       };
