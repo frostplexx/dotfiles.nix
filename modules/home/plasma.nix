@@ -3,7 +3,12 @@ _: {
     pkgs,
     lib,
     ...
-  }: {
+  } @ args: let
+    # When AeroThemePlasma is enabled, it owns the Plasma shell appearance
+    # (look-and-feel, panels, theme, fonts, KWin decoration). Disable the
+    # conflicting plasma-manager overrides so they do not fight the theme.
+    aeroTheme = args.aeroTheme or false;
+  in {
     # XDG
     xdg.portal = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       enable = true;
@@ -17,13 +22,14 @@ _: {
       plasma = {
         enable = true;
 
-        workspace = {
+        # Owned by AeroThemePlasma when active
+        workspace = lib.mkIf (!aeroTheme) {
           lookAndFeel = "org.kde.breezedark.desktop";
           iconTheme = "Papirus-Dark";
           wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/DarkestHour/contents/images/2560x1500.png";
         };
 
-        panels = [
+        panels = lib.mkIf (!aeroTheme) [
           # Windows-like panel at the bottom
           {
             location = "bottom";
@@ -471,13 +477,13 @@ _: {
           };
           kded5rc.Module-device_automounter.autoload = false;
           kdeglobals = {
-            General = {
+            General = lib.mkIf (!aeroTheme) {
               XftHintStyle = "hintslight";
               XftSubPixel = "none";
               fixed = "Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
               font = "Noto Sans,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
             };
-            Icons.Theme = "Papirus-Dark";
+            Icons.Theme = lib.mkIf (!aeroTheme) "Papirus-Dark";
             KDE.SingleClick = true;
             "KFileDialog Settings" = {
               "Allow Expansion" = false;
@@ -546,14 +552,14 @@ _: {
             "Tiling/db282995-3b69-479b-a342-e608fd9f7157/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             "Tiling/ed4d5f96-5f09-42f5-ae0c-08dca270cd79/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             Xwayland.Scale = 1;
-            "org.kde.kdecoration2".ButtonsOnLeft = "SF";
+            "org.kde.kdecoration2".ButtonsOnLeft = lib.mkIf (!aeroTheme) "SF";
           };
           kwinrulesrc = {
             General.count = 1;
             General.rules = 1;
           };
           plasma-localerc.Formats.LANG = "en_US.UTF-8";
-          plasmarc.Theme.name = "breeze-dark";
+          plasmarc.Theme.name = lib.mkIf (!aeroTheme) "breeze-dark";
           spectaclerc = {
             ImageSave.translatedScreenshotsFolder = "Screenshots";
             VideoSave.translatedScreencastsFolder = "Screencasts";

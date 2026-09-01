@@ -48,7 +48,16 @@ _: {
     boot = {
       initrd.systemd.enable = true;
       loader = {
-        limine.enable = true;
+        limine = {
+          enable = true;
+          style.wallpapers = [
+            (builtins.fetchurl {
+              name = "windows7-wallpaper.jpg";
+              url = "https://static.wikitide.net/windowswallpaperwiki/5/50/Img0_%28Windows_7%29.jpg";
+              sha256 = "18h6y8mmf99g5l24gwbpsfmyg1ib47xkdz1wbcd53aknii3giabf";
+            })
+          ];
+        };
         efi.canTouchEfiVariables = true;
       };
       kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v3;
@@ -98,8 +107,32 @@ _: {
     services = {
       xserver.videoDrivers = ["nvidia"];
       desktopManager.plasma6.enable = true;
-      displayManager.plasma-login-manager.enable = true;
+      # The AeroThemePlasma shell requires SDDM for its login theme
+      displayManager.sddm.enable = true;
+      displayManager.defaultSession = "aerothemeplasma";
     };
+
+    # AeroThemePlasma: Windows 7 themed Plasma shell
+    programs.aeroshell = {
+      enable = true;
+      fonts = {
+        segoe.enable = true;
+        # atn's lucida-console package requires a store file with a hash that
+        # differs from the URL below, so we install the font directly instead.
+        lucida.enable = false;
+      };
+      polkit.enable = true;
+      aerothemeplasma = {
+        enable = true;
+        sddm.enable = true;
+        plymouth.enable = true;
+        plymouth.settings = {
+          BootSlowdown = 0;
+        };
+      };
+    };
+
+    boot.plymouth.enable = true;
 
     systemd.user.services.steam = {
       enable = true;
@@ -193,6 +226,23 @@ _: {
 
     fonts.packages = with pkgs; [
       maple-mono.NF
+      (stdenvNoCC.mkDerivation {
+        pname = "lucida-console";
+        version = "1.60";
+        src = fetchurl {
+          name = "lucon.ttf";
+          # Pinned to the commit that fixes the file
+          url = "https://raw.githubusercontent.com/famesxd/Lucida-Console/15a149da9bde8c5290a551cde1bdb376f19d10af/lucon.ttf";
+          hash = "sha256-bd9k7oltJM+ZCPEVriIKfPoY3ANLxKaOTbaNzVfHFRI=";
+        };
+        dontUnpack = true;
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/share/fonts/truetype
+          cp $src $out/share/fonts/truetype/lucon.ttf
+          runHook postInstall
+        '';
+      })
     ];
 
     # Home Manager
