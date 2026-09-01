@@ -47,6 +47,8 @@ _: {
 
     boot = {
       initrd.systemd.enable = true;
+      # Quiet boot; plymouth already adds "splash" and "loglevel=4"
+      kernelParams = ["quiet"];
       loader = {
         limine = {
           enable = true;

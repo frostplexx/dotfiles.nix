@@ -4,7 +4,9 @@ _: {
     pkgs,
     inputs,
     ...
-  }: {
+  } @ args: let
+    aeroTheme = args.aeroTheme or false;
+  in {
     programs = {
       ghostty = {
         enable = true;
@@ -18,13 +20,16 @@ _: {
           else pkgs.ghostty;
         settings = {
           theme =
-            {
-              "catppuccin" = "Catppuccin Mocha";
-              "rose-pine" = "Rose Pine Moon";
-            }
-              .${
-              defaults.settings.theme
-            };
+            if aeroTheme
+            then "Nocturnal Winter"
+            else
+              {
+                "catppuccin" = "Catppuccin Mocha";
+                "rose-pine" = "Rose Pine Moon";
+              }
+                .${
+                defaults.settings.theme
+              };
           font-family = "Maple Mono NF";
           font-size =
             if pkgs.stdenv.hostPlatform.isDarwin
