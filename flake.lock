@@ -625,11 +625,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1788335325,
-        "narHash": "sha256-2NWWJcDiK70YiJqkAt4r+R3jfbtjIAiuddMWkZwvaZU=",
+        "lastModified": 1788342525,
+        "narHash": "sha256-SvJGIkFwiGqtT4qkr4FsBJd/UQllL2lXqQ3oY97ehac=",
         "owner": "frostplexx",
         "repo": "nixkit",
-        "rev": "066cdfe03d4873ff582c00e09288590cba932b5d",
+        "rev": "4bc0a93b7972af828057d64aac160f4e4386dace",
         "type": "github"
       },
       "original": {
