@@ -411,7 +411,7 @@
     # Home Manager
     home-manager.users.${user} = _: {
       home = {
-        stateVersion = "25.05";
+        stateVersion = "26.05";
         username = user;
         homeDirectory = "/Users/${user}";
         sessionVariables = {

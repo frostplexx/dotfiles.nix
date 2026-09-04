@@ -5,7 +5,8 @@ _: {
     config,
     defaults,
     ...
-  }: let
+  } @ args: let
+    aeroTheme = args.aeroTheme or false;
     containers = {
       Personal = {
         color = "purple";
@@ -267,7 +268,8 @@ _: {
         };
       };
     in {
-      enable = true;
+      # Zen is replaced by Firefox when the Aero setup is active on Linux
+      enable = pkgs.stdenv.hostPlatform.isDarwin || !aeroTheme;
       # package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       #   pkgs.lib.makeOverridable (
       #     _:
