@@ -10,7 +10,7 @@ _: {
 
     # Nix settings (read by Determinate Nixd from /etc/nix/nix.custom.conf)
     nix.settings = {
-      experimental-features = "nix-command flakes parallel-eval impure-derivations";
+      experimental-features = ["nix-command" "flakes" "parallel-eval" "impure-derivations"];
       lazy-trees = true;
       warn-dirty = false;
       substituters = [
