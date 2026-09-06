@@ -63,9 +63,7 @@ _: {
         defaultProvider = "zen";
         defaultModel = "deepseek-v4-flash";
         packages = [
-          # "npm:pi-sandbox"
           "git:github.com/elpapi42/pi-fork"
-          "npm:pi-zentui"
           "pi-skills"
         ];
         retry = {
