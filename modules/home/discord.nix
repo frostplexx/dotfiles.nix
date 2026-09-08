@@ -82,6 +82,7 @@ _: {
           mentionAvatars.enable = true;
           noDevtoolsWarning.enable = true;
           noF1.enable = true;
+          showHiddenThings.enable = true;
           permissionsViewer.enable = true;
           plainFolderIcon.enable = true;
           summaries.enable = true;
