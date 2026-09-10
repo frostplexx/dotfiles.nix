@@ -37,7 +37,6 @@ in {
           inputs.nixkit.darwinModules.default
           inputs.determinate.darwinModules.default
           inputs.sops-nix.darwinModules.sops
-          inputs.lunar
 
           # Nixpkgs configuration
           {
