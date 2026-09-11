@@ -5,10 +5,6 @@ _: {
     defaults,
     ...
   }: {
-    home.file = {
-      ".vimrc".source = ./vimrc;
-    };
-
     programs.nvf = {
       enable = true;
       enableManpages = true;
@@ -40,6 +36,7 @@ _: {
               goToDefinition = "<leader>gd";
               goToType = "<leader>gt";
               hover = "K";
+              signatureHelp = "<leader>lk";
               listDocumentSymbols = "<leader>ls";
               listImplementations = "<leader>li";
               listReferences = "<leader>lr";
@@ -118,7 +115,6 @@ _: {
           treesitter = {
             enable = true;
             addDefaultGrammars = true;
-            autotagHtml = true;
             grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
           };
 
@@ -395,7 +391,7 @@ _: {
             yazi-nvim = {
               enable = true;
               setupOpts = {
-                open_for_directories = true;
+                open_for_directories = false;
                 yazi_floating_window_border = "rounded";
               };
               mappings.openYazi = "<leader>e";
@@ -446,6 +442,8 @@ _: {
             vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#585b70" })
             vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#313244" })
 
+            vim.g.loaded_netrwPlugin = 1
+
             vim.keymap.set(
               "v",
               "<leader>s",
@@ -453,8 +451,10 @@ _: {
               { desc = "Search and replace selected text across file" }
             )
 
+            vim.keymap.set("n", "<leader>u", function()
               vim.cmd("packadd nvim.undotree")
-              vim.keymap.set("n", "<leader>u", require("undotree").open)
+              require("undotree").toggle()
+            end)
           '';
 
           augroups = [{name = "MergeTool";}];

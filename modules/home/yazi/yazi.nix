@@ -7,8 +7,8 @@ _: {
     yazi-flavors = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
-      rev = "06708015bfb53b169d99bb3907829f9175105d57";
-      hash = "sha256-Gm6ThktOLUR+KDs6f3s1WCgrw2TOKQ4tolVvVdCxnCM=";
+      rev = "20b47bfd78880c2674899597fd26bc01b21ff48c";
+      hash = "sha256-NGnfrQdsnQITKCZ0oh6DCxeCR2ozJoPAZetsi3ghHAI=";
     };
   in {
     # Terminal file manager
@@ -88,9 +88,6 @@ _: {
       plugins = {
         inherit (pkgs.yaziPlugins) git;
         inherit (pkgs.yaziPlugins) starship;
-        inherit (pkgs.yaziPlugins) smart-paste;
-        inherit (pkgs.yaziPlugins) yatline;
-        inherit (pkgs.yaziPlugins) yatline-catppuccin;
       };
       flavors = {
         catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
@@ -99,11 +96,6 @@ _: {
 
       keymap = {
         mgr.prepend_keymap = [
-          {
-            on = "p";
-            run = "plugin smart-paste";
-            desc = "Smart paste from clipboard";
-          }
           {
             on = "f";
             run = "plugin jump-to-char";

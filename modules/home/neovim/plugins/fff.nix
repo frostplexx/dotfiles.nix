@@ -17,28 +17,16 @@ _: {
       };
       keys = [
         {
-          key = "<leader>ff";
+          key = "<leader>f";
           mode = "n";
           lua = true;
           action = "function() require('fff').find_files() end";
         }
         {
-          key = "<leader>fg";
+          key = "<leader>F";
           mode = "n";
           lua = true;
           action = "function() require('fff').live_grep() end";
-        }
-        {
-          key = "<leader>fz";
-          mode = "n";
-          lua = true;
-          action = "function() require('fff').live_grep({grep = { modes = { 'fuzzy', 'plain' } }}) end";
-        }
-        {
-          key = "<leader>fc";
-          mode = "n";
-          lua = true;
-          action = ''function() require('fff').live_grep({ query = vim.fn.expand("<cword>") }) end'';
         }
       ];
     };

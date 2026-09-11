@@ -155,7 +155,7 @@ _: {
         desc = "Delete current buffer without closing window";
       }
       {
-        key = "<leader>fb";
+        key = "<leader>b";
         mode = "n";
         noremap = false;
         lua = true;
