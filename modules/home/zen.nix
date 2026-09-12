@@ -4,6 +4,7 @@ _: {
     lib,
     config,
     defaults,
+    inputs,
     ...
   } @ args: let
     aeroTheme = args.aeroTheme or false;
@@ -228,6 +229,13 @@ _: {
       # Use policy.json for installing extensions because its robuster and not dependent on a
       # third part flake
       extensions = {
+        "firefox@vicinae.com" = {
+          name = "Vicinae";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vicinae/latest.xpi";
+          installation_mode = "normal_installed";
+          private_browsing = false;
+        };
+
         "uBlock0@raymondhill.net" = {
           name = "uBlock Origin";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
@@ -274,7 +282,6 @@ _: {
       darwinDefaultsId = "app.zen-browser.zen";
       nativeMessagingHosts = [
         inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default
-
         pkgs._1password-gui
         # ... more
       ];
