@@ -14,6 +14,7 @@
   };
 
   overlays = [
+    inputs.vicinae.overlays.default
     inputs.nix-cachyos-kernel.overlays.pinned
   ];
 in {

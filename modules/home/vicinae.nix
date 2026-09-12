@@ -218,7 +218,7 @@ _: {
         };
       }
       // (
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then {launchd.enable = true;}
         else {systemd.enable = true;}
       );
