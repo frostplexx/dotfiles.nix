@@ -28,6 +28,8 @@ _: {
         };
       };
 
+      man.package = pkgs.man;
+
       # Fish shell
       fish = {
         enable = true;
