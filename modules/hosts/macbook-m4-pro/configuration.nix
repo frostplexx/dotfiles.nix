@@ -51,7 +51,13 @@
     #   customKey = "escape";
     # };
 
-    programs.opsops.enable = true;
+    programs = {
+      opsops.enable = true;
+      _1password.enable = true;
+      _1password-gui = {
+        enable = true;
+      };
+    };
 
     # Networking
     networking = {
@@ -250,7 +256,7 @@
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
-            "/Users/daniel/Applications/Home Manager Apps/TIDAL.app"
+            "/Applications/tidalunar.app"
           ];
         };
         trackpad = {
@@ -344,7 +350,6 @@
         "mac-mouse-fix"
         "orbstack"
         "affinity"
-        "1password"
         "mullvad-vpn"
         "fuse-t"
         "macos-fuse-t/cask/fuse-t-sshfs"

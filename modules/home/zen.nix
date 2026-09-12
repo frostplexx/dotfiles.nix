@@ -271,6 +271,13 @@ _: {
       # Zen is replaced by Firefox when the Aero setup is active on Linux
       enable = pkgs.stdenv.hostPlatform.isDarwin || !aeroTheme;
       setAsDefaultBrowser = true;
+      darwinDefaultsId = "app.zen-browser.zen";
+      nativeMessagingHosts = [
+        inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+        pkgs._1password-gui
+        # ... more
+      ];
       # package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       #   pkgs.lib.makeOverridable (
       #     _:
