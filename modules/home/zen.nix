@@ -280,9 +280,13 @@ _: {
       enable = pkgs.stdenv.hostPlatform.isDarwin || !aeroTheme;
       setAsDefaultBrowser = true;
       darwinDefaultsId = "app.zen-browser.zen";
+      # NOTE: no nativeMessagingHosts entry for 1Password. pkgs._1password-gui
+      # ships only Applications/1Password.app on darwin -- it has no
+      # lib/mozilla/native-messaging-hosts to link. The manifest is installed by
+      # the 1Password app itself into
+      # ~/Library/Application Support/Mozilla/NativeMessagingHosts.
       nativeMessagingHosts = [
         inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default
-        pkgs._1password-gui
         # ... more
       ];
       # package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
@@ -440,7 +444,9 @@ _: {
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
           "browser.tabs.warnOnClose" = true;
 
-          "privacy.resistFingerprinting" = true;
+          # Must stay false: RFP spoofs the user agent/platform, which stalls the
+          # 1Password extension's handshake with the desktop app mid-connect.
+          "privacy.resistFingerprinting" = false;
 
           # Never clear history or site data when Zen closes
           "privacy.sanitize.sanitizeOnShutdown" = false;
