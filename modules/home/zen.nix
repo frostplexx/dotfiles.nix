@@ -205,10 +205,10 @@ _: {
         nativeBuildInputs = with pkgs; [python3 python3Packages.lz4];
       } "python3 ${script} ${jsonFile} $out";
   in {
-    programs.default-browser = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-      enable = true;
-      browser = "zen";
-    };
+    # programs.default-browser = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    #   enable = true;
+    #   browser = "zen";
+    # };
 
     targets.darwin.defaults = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       "app.zen-browser.zen" =
@@ -270,6 +270,7 @@ _: {
     in {
       # Zen is replaced by Firefox when the Aero setup is active on Linux
       enable = pkgs.stdenv.hostPlatform.isDarwin || !aeroTheme;
+      setAsDefaultBrowser = true;
       # package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       #   pkgs.lib.makeOverridable (
       #     _:
