@@ -65,6 +65,8 @@
 
     lazykeys.url = "github:frostplexx/lazykeys";
 
+    vicinae.url = "github:vicinaehq/vicinae";
+
     tidaluna.url = "github:frostplexx/TidaLuna/flake";
     # tidaluna.url = "github:Inrixia/TidaLuna";
     # tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
