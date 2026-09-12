@@ -444,9 +444,7 @@ _: {
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
           "browser.tabs.warnOnClose" = true;
 
-          # Must stay false: RFP spoofs the user agent/platform, which stalls the
-          # 1Password extension's handshake with the desktop app mid-connect.
-          "privacy.resistFingerprinting" = false;
+          "privacy.resistFingerprinting" = true;
 
           # Never clear history or site data when Zen closes
           "privacy.sanitize.sanitizeOnShutdown" = false;
