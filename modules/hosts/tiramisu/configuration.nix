@@ -52,6 +52,7 @@ _: {
       loader = {
         limine = {
           enable = true;
+          maxGenerations = 4;
           style.wallpapers = [
             (builtins.fetchurl {
               name = "windows7-wallpaper.jpg";
