@@ -88,6 +88,9 @@ _: {
             dark = {
               name = "catppuccin-mocha";
             };
+            light = {
+              name = "catppuccin-mocha";
+              };
           };
           telemetry = {
             system_info = false;
