@@ -51,10 +51,10 @@ _: {
           rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
           hash = "sha256-5KRv63RisBJxleZ2xxyqhbYmrnEpr0K33tfKUj4HIks=";
         })
-        (mkRaycastExtension {
+        (mkNativeExtension {
           name = "coffee";
-          rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-          hash = "sha256-VSs9tz8VtHrMmx2KleyxgTRuyQE07xNGC+KOJbYO3Ic=";
+          rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
+          hash = "sha256-qK5It2WpEjAu3wEFFTSA0A8Ca2S5zaqgrTd31XBRRec=";
         })
         (mkRaycastExtension {
           name = "kill-process";
@@ -124,7 +124,7 @@ _: {
           "system" = {
             "enabled" = false;
           };
-          "@ShyAssassin/store.vicinae.vscode-recents" = {
+          "@ShyAssassin/vscode-recents" = {
             preferences = {
               vscodeFlavour = "VSCodium";
               windowPreference = "Default";
@@ -135,14 +135,14 @@ _: {
               };
             };
           };
-          "@benvp/store.raycast.audio-device" = {
+          "@benvp/audio-device" = {
             entrypoints = {
               "set-output-device" = {
                 shortcut = "super+control+alt+O";
               };
             };
           };
-          "@marcjulian/store.raycast.obsidian" = {
+          "@marcjulian/obsidian" = {
             preferences = {
               configFileName = ".obsidian";
               vaultPath = "/Users/daniel/Documents/Memex";
@@ -174,7 +174,7 @@ _: {
               };
             };
           };
-          "@tonka3000/store.raycast.homeassistant" = {
+          "@tonka3000/homeassistant" = {
             preferences = {
               instance = "https://has.int.kuipr.de";
             };
