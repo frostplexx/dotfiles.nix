@@ -1,8 +1,5 @@
 _: {
-  flake.homeManagerModules.vicinae = {
-    pkgs,
-    ...
-  }: let
+  flake.homeManagerModules.vicinae = {pkgs, ...}: let
     # `pkgs.mkRayCastExtension`'s own fetcher uses a sparse checkout written
     # straight into $out, which vanishes mid-build on darwin. Fetching into a
     # temp clone and moving `rootDir` into place (what `rootDir` does) works.
@@ -90,7 +87,7 @@ _: {
             };
             light = {
               name = "catppuccin-mocha";
-              };
+            };
           };
           telemetry = {
             system_info = false;

@@ -211,9 +211,9 @@ _: {
         uv
         wget
         vim
-          prismlauncher
-          lutris
-          unrar
+        prismlauncher
+        lutris
+        unrar
       ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
