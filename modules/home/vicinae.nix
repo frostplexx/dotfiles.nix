@@ -56,10 +56,10 @@ _: {
             rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
             hash = "sha256-qK5It2WpEjAu3wEFFTSA0A8Ca2S5zaqgrTd31XBRRec=";
           })
-          (mkRaycastExtension {
-            name = "kill-process";
-            rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-            hash = "sha256-s5SnabHsEaAWIudgkn92QFwwyFocDzQbduI4TPEvICU=";
+          (mkNativeExtension {
+            name = "process-manager";
+            rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
+            hash = "sha256-Ev5GN0Bss6n91PG64wnSJg3gNcCozpywb0WYOhw9/ZI=";
           })
           (mkRaycastExtension {
             name = "audio-device";
