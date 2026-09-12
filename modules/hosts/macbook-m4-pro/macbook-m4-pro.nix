@@ -16,6 +16,7 @@
   };
   # Overlays
   overlays = [
+    inputs.vicinae.overlays.default
     # TODO: Remove once vscodium is fixed
     (_final: prev: {
       vscodium = prev.vscodium.overrideAttrs (_old: {
@@ -59,6 +60,7 @@ in {
                   inputs.zen-browser.homeModules.beta
                   inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
+                  inputs.vicinae.homeManagerModules.default
                   inputs.spicetify-nix.homeManagerModules.spicetify
                   {
                     # Disable nix management in home-manager on Darwin (handled by Determinate)
