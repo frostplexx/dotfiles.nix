@@ -71,6 +71,11 @@ _: {
             rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
             hash = "sha256-TZY7DjrgpKzQ/RLdC8AdJqkE8QBi5Z7RZTFRWKkFI9o=";
           })
+          (mkNativeExtension {
+            name = "github";
+            rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
+            hash = "sha256-9163X86rG07ItAh0FczfRw0gISwD/cRUGx6pRBJqElM=";
+          })
         ];
         settings = {
           close_on_focus_loss = false;
