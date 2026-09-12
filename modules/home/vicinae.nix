@@ -76,6 +76,11 @@ _: {
             rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
             hash = "sha256-9163X86rG07ItAh0FczfRw0gISwD/cRUGx6pRBJqElM=";
           })
+          (mkRaycastExtension {
+            name = "deepcast";
+            rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
+            hash = "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA=";
+          })
         ];
         settings = {
           close_on_focus_loss = false;
@@ -217,6 +222,107 @@ _: {
                 weather.enabled = false;
                 windows.enabled = false;
                 zones.enabled = false;
+              };
+            };
+
+            "@mooxl/deepcast" = {
+              "entrypoints" = {
+                "arabic" = {
+                  "enabled" = false;
+                };
+                "bulgarian" = {
+                  "enabled" = false;
+                };
+                "chinese" = {
+                  "enabled" = false;
+                };
+                "czech" = {
+                  "enabled" = false;
+                };
+                "danish" = {
+                  "enabled" = false;
+                };
+                "dutch" = {
+                  "enabled" = false;
+                };
+                "englishUK" = {
+                  "enabled" = false;
+                };
+                "englishUS" = {
+                  "enabled" = false;
+                };
+                "estonian" = {
+                  "enabled" = false;
+                };
+                "finnish" = {
+                  "enabled" = false;
+                };
+                "french" = {
+                  "enabled" = false;
+                };
+                "german" = {
+                  "enabled" = false;
+                };
+                "greek" = {
+                  "enabled" = false;
+                };
+                "hungarian" = {
+                  "enabled" = false;
+                };
+                "indonesian" = {
+                  "enabled" = false;
+                };
+                "italian" = {
+                  "enabled" = false;
+                };
+                "japanese" = {
+                  "enabled" = false;
+                };
+                "korean" = {
+                  "enabled" = false;
+                };
+                "latvian" = {
+                  "enabled" = false;
+                };
+                "lithuanian" = {
+                  "enabled" = false;
+                };
+                "norwegian" = {
+                  "enabled" = false;
+                };
+                "polish" = {
+                  "enabled" = false;
+                };
+                "portuguese" = {
+                  "enabled" = false;
+                };
+                "portugueseBrazil" = {
+                  "enabled" = false;
+                };
+                "romanian" = {
+                  "enabled" = false;
+                };
+                "russian" = {
+                  "enabled" = false;
+                };
+                "slovak" = {
+                  "enabled" = false;
+                };
+                "slovenian" = {
+                  "enabled" = false;
+                };
+                "spanish" = {
+                  "enabled" = false;
+                };
+                "swedish" = {
+                  "enabled" = false;
+                };
+                "turkish" = {
+                  "enabled" = false;
+                };
+                "ukrainian" = {
+                  "enabled" = false;
+                };
               };
             };
           };
