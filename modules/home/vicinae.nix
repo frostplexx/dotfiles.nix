@@ -1,7 +1,6 @@
 _: {
   flake.homeManagerModules.vicinae = {
     pkgs,
-    lib,
     ...
   }: let
     # `pkgs.mkRayCastExtension`'s own fetcher uses a sparse checkout written
