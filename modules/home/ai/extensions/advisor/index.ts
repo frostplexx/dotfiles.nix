@@ -65,14 +65,9 @@ export default function(pi: ExtensionAPI) {
     pi.registerCommand("agent", {
         description: "Enable Agent mode",
         handler: async (args, ctx) => {
-            if (!args || args.trim().split(/\s+/).length < 5) {
-                ctx.ui.notify("Need real reason (5+ words).", "error");
-                return;
-            }
-            pi.appendEntry("system", args);
             agentBudget = AGENT_MAX_TASKS;
             ADVISOR_MODE = false;
-            ctx.ui.setStatus("advisor", "Agent: " + args);
+            ctx.ui.setStatus("advisor", "Agent");
         },
     });
 
