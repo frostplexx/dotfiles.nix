@@ -81,6 +81,16 @@ _: {
             rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
             hash = "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA=";
           })
+          (mkNativeExtension {
+            name = "nix";
+            rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
+            hash = "sha256-OPxgKOoUBw9GVshdSF27QJFFaR8fVLGqDljIj8mZHow=";
+          })
+          (mkRaycastExtension {
+            name = "toothpick";
+            rev = "a79448785b1bb8c6ccfa0e53e957b5812efab026";
+            hash = "sha256-A09ZaPJRdi1wECsKPfGFXGFpj1hDGgfzK63pgRraKwY=";
+          })
         ];
         settings = {
           close_on_focus_loss = false;
