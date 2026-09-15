@@ -271,7 +271,9 @@ deploy_flake() {
 
 }
 
-
+# === MAIN ===
+# test-install.yml sources everything above this marker to test the
+# function definitions in isolation; keep it directly above the entry point.
 if [ "$OS_TYPE" = "Darwin" ] || ([ -f /etc/os-release ] && grep -q "ID=nixos" /etc/os-release); then
     echo
     print_header "❄️ Nix Bootstrap Installer ❄️"

@@ -1,15 +1,10 @@
 _: {
   flake.homeManagerModules.yazi = {
     pkgs,
-    defaults,
+    inputs,
     ...
   }: let
-    yazi-flavors = pkgs.fetchFromGitHub {
-      owner = "yazi-rs";
-      repo = "flavors";
-      rev = "20b47bfd78880c2674899597fd26bc01b21ff48c";
-      hash = "sha256-NGnfrQdsnQITKCZ0oh6DCxeCR2ozJoPAZetsi3ghHAI=";
-    };
+    inherit (inputs) yazi-flavors;
   in {
     # Terminal file manager
     programs.yazi = {
@@ -68,14 +63,7 @@ _: {
           ];
         };
         flavor = {
-          dark =
-            {
-              "catppuccin" = "catppuccin-mocha";
-              "rose-pine" = "rose-pine";
-            }
-              .${
-              defaults.settings.theme
-            };
+          dark = "catppuccin-mocha";
         };
 
         tasks = {
@@ -91,7 +79,6 @@ _: {
       };
       flavors = {
         catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
-        rose-pine = "${yazi-flavors}/rose-pine.yazi";
       };
 
       keymap = {

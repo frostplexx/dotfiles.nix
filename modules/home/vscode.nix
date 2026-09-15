@@ -1,9 +1,5 @@
 _: {
-  flake.homeManagerModules.vscode = {
-    pkgs,
-    defaults,
-    ...
-  }: {
+  flake.homeManagerModules.vscode = {pkgs, ...}: {
     programs.vscodium = {
       enable =
         if pkgs.stdenv.hostPlatform.isDarwin
@@ -29,7 +25,6 @@ _: {
           vscode-extensions.ms-vscode-remote.remote-ssh
           vscode-extensions.jgclark.vscode-todo-highlight
           vscode-extensions.vscodevim.vim
-          vscode-extensions.mvllow.rose-pine
           vscode-extensions.alefragnani.project-manager
           vscode-extensions.catppuccin.catppuccin-vsc
           vscode-extensions.catppuccin.catppuccin-vsc-icons
@@ -49,14 +44,7 @@ _: {
           "editor.fontLigatures" = true;
           # "catppuccin.accentColor" = "blue";
           "github.copilot.chat.agentDebugLog.enabled" = false;
-          "workbench.colorTheme" =
-            {
-              "catppuccin" = "Catppuccin Mocha";
-              "rose-pine" = "Rose Pine";
-            }
-              .${
-              defaults.settings.theme
-            };
+          "workbench.colorTheme" = "Catppuccin Mocha";
           "workbench.preferredDarkColorTheme" = "Catppuccin Mocha";
           "workbench.colorCustomizations" = {};
           "git.enableSmartCommit" = true;

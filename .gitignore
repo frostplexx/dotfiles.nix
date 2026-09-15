@@ -5,3 +5,6 @@ old/
 *-switch.log
 *-test.log
 .idea
+tmp/
+functions_only.sh
+test_functions.sh

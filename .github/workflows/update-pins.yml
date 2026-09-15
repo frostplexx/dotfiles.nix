@@ -1,0 +1,60 @@
+name: update-pins
+
+# Renovate already keeps flake.lock fresh, which covers every `flake = false`
+# input. This job covers the pins Renovate cannot compute a hash for: the
+# monorepo subdirectory checkouts in modules/home/vicinae-extensions.json.
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-pins
+  cancel-in-progress: true
+
+jobs:
+  vicinae-extensions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: DeterminateSystems/nix-installer-action@v23
+
+      - name: Bump extension pins
+        id: update
+        run: |
+          nix shell nixpkgs#jq nixpkgs#git --command \
+            ./scripts/vicinae-extensions.sh update | tee summary.txt
+          {
+            echo 'summary<<EOF'
+            cat summary.txt
+            echo EOF
+          } >>"$GITHUB_OUTPUT"
+          rm summary.txt
+
+      - name: Check the config still evaluates
+        run: |
+          nix eval --raw --impure --expr \
+            'builtins.toJSON (builtins.fromJSON (builtins.readFile ./modules/home/vicinae-extensions.json))' \
+            >/dev/null
+          nix flake check --no-build
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/vicinae-extensions
+          title: "chore(deps): update vicinae extension pins"
+          commit-message: "chore(deps): update vicinae extension pins"
+          body: |
+            Regenerated `modules/home/vicinae-extensions.json` via
+            `./scripts/vicinae-extensions.sh update`.
+
+            ```
+            ${{ steps.update.outputs.summary }}
+            ```
+          labels: dependencies
+          delete-branch: true

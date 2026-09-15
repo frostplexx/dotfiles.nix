@@ -2,14 +2,10 @@ _: {
   flake.homeManagerModules.obsidian = {
     lib,
     pkgs,
+    inputs,
     ...
   }: let
-    obsidian-skills = pkgs.fetchzip {
-      url = "https://github.com/kepano/obsidian-skills/archive/refs/heads/main.zip";
-      sha256 = "1jrywwxalacv4vbfvpdf7crl8221gzdk05hq2ybmbwwdqrqggapw";
-      stripRoot = true;
-    };
-    skillsDir = obsidian-skills + "/skills";
+    skillsDir = "${inputs.obsidian-skills}/skills";
   in {
     programs.obsidian = {
       enable = true;
