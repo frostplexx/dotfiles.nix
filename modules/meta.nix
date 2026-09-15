@@ -50,20 +50,13 @@ _: {
       };
     };
 
-    # Checks for CI
+    # Checks for CI. deadcode/linting are deliberately not here — the
+    # standalone "Statix Lint" CI job already runs deadnix/statix once on
+    # Linux; duplicating them as flake checks would just rebuild the same
+    # result on every system in the check matrix.
     checks = {
       formatting = pkgs.runCommand "check-formatting" {} ''
         ${pkgs.alejandra}/bin/alejandra --check ${../.} || exit 1
-        touch $out
-      '';
-
-      deadcode = pkgs.runCommand "check-deadcode" {} ''
-        ${pkgs.deadnix}/bin/deadnix --fail ${../.} || exit 1
-        touch $out
-      '';
-
-      linting = pkgs.runCommand "check-linting" {} ''
-        ${pkgs.statix}/bin/statix check ${../.} || exit 1
         touch $out
       '';
     };
