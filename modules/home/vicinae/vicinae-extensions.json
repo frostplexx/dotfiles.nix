@@ -3,19 +3,19 @@
     "url": "https://github.com/raycast/extensions.git",
     "extensions": {
       "audio-device": {
-        "rev": "47eb39c26ef333e17730a57ede8ac9b0741485b5",
+        "rev": "3062caa45157616006ae726677156594200cc90a",
         "hash": "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28="
       },
       "deepcast": {
-        "rev": "47eb39c26ef333e17730a57ede8ac9b0741485b5",
+        "rev": "3062caa45157616006ae726677156594200cc90a",
         "hash": "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA="
       },
       "homeassistant": {
-        "rev": "47eb39c26ef333e17730a57ede8ac9b0741485b5",
+        "rev": "3062caa45157616006ae726677156594200cc90a",
         "hash": "sha256-5KRv63RisBJxleZ2xxyqhbYmrnEpr0K33tfKUj4HIks="
       },
       "obsidian": {
-        "rev": "47eb39c26ef333e17730a57ede8ac9b0741485b5",
+        "rev": "3062caa45157616006ae726677156594200cc90a",
         "hash": "sha256-7HZ2UEVZxRrkVYNux3+RM4xgXZdbRxEFGL7tkE/L8uc="
       },
       "toothpick": {
