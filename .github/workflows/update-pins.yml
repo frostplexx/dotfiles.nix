@@ -44,7 +44,7 @@ jobs:
             >/dev/null
           nix flake check --no-build
 
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@v8
         with:
           branch: automation/vicinae-extensions
           title: "chore(deps): update vicinae extension pins"
