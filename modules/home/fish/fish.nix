@@ -1,7 +1,7 @@
 _: {
   flake.homeManagerModules.shell = {
     pkgs,
-    defaults,
+    inputs,
     ...
   }: {
     home.file = {
@@ -80,15 +80,7 @@ _: {
           fish
           */
           ''
-            fish_config theme choose "${
-              {
-                "catppuccin" = "Catppuccin Mocha";
-                "rose-pine" = "Rose Pine";
-              }
-              .${
-                defaults.settings.theme
-              }
-            }"
+            fish_config theme choose "Catppuccin Mocha"
           '';
       };
 
@@ -119,12 +111,7 @@ _: {
         };
         themes = {
           catppuccin-mocha = {
-            src = pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "bat";
-              rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
-              sha256 = "1y5sfi7jfr97z1g6vm2mzbsw59j1jizwlmbadvmx842m0i5ak5ll";
-            };
+            src = inputs.catppuccin-bat;
             file = "themes/Catppuccin Mocha.tmTheme";
           };
         };
@@ -163,17 +150,7 @@ _: {
     # Fish theme
     xdg.configFile = {
       "fish/themes/Catppuccin Mocha.theme" = {
-        source = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/catppuccin-mocha.theme";
-          sha256 = "sha256-hLXJH83AkaWcHpikaUGEGZQf5XMlG5rViO0Wb9tOyIw=";
-        };
-      };
-
-      "fish/themes/Rose Pine.theme" = {
-        source = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/rose-pine/fish/refs/heads/main/themes/Ros%C3%A9%20Pine.theme";
-          sha256 = "sha256-TmOcjWFWzAhY/nYw34lLZ1BYegvep9Mz7qAE7dcKQK4=";
-        };
+        source = "${inputs.catppuccin-fish}/themes/catppuccin-mocha.theme";
       };
     };
 

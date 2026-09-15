@@ -2,7 +2,6 @@ _: {
   flake.homeManagerModules.neovim = {
     pkgs,
     lib,
-    defaults,
     ...
   }: {
     programs.nvf = {
@@ -120,22 +119,8 @@ _: {
 
           theme = {
             enable = true;
-            name =
-              {
-                "catppuccin" = "catppuccin";
-                "rose-pine" = "rose-pine";
-              }
-                .${
-                defaults.settings.theme
-              };
-            style =
-              {
-                "catppuccin" = "mocha";
-                "rose-pine" = "moon";
-              }
-                .${
-                defaults.settings.theme
-              };
+            name = "catppuccin";
+            style = "mocha";
             transparent = true;
           };
           autocomplete.blink-cmp = {

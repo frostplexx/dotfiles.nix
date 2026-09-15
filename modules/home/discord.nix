@@ -3,6 +3,7 @@ _: {
     pkgs,
     config,
     defaults,
+    inputs,
     ...
   } @ args: let
     aeroTheme = args.aeroTheme or false;
@@ -12,9 +13,8 @@ _: {
       if aeroTheme
       then skeuoCordFile
       else "catppuccin-mocha.theme.css";
-    catppuccinUrl = "https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css";
-    rosePineUrl = "https://raw.githubusercontent.com/refact0r/midnight-discord/refs/heads/master/themes/flavors/midnight-rose-pine.theme.css";
-    skeuoCordUrl = "https://marda33.github.io/SkeuoCord/SkeuoCord.theme.css";
+    catppuccinTheme = "${inputs.catppuccin-discord}/themes/mocha.theme.css";
+    skeuoCordTheme = "${inputs.skeuocord}/SkeuoCord.theme.css";
 
     vekstopPath =
       if pkgs.stdenv.hostPlatform.isDarwin
@@ -105,26 +105,8 @@ _: {
       ${themePath} = {
         source =
           if aeroTheme
-          then
-            builtins.fetchurl {
-              url = skeuoCordUrl;
-              sha256 = "sha256-DUadp1WgJByPBVZ17VY9Qim7m1vzfv1jA7BSc9sdNFY=";
-            }
-          else
-            {
-              "catppuccin" = builtins.fetchurl {
-                url = catppuccinUrl;
-                sha256 = "1w921c6zg5xvkf52x642psnqpaannbd28cc37dfzasbplw7ghl2x";
-              };
-
-              "rose-pine" = builtins.fetchurl {
-                url = rosePineUrl;
-                sha256 = "10ca7jj8rlwh9v64kdlgz5w1sm72kgm75zikwnwl01azrxzc638j";
-              };
-            }
-            .${
-              defaults.settings.theme
-            };
+          then skeuoCordTheme
+          else catppuccinTheme;
 
         force = true;
       };

@@ -22,14 +22,7 @@ _: {
           theme =
             if aeroTheme
             then "Nocturnal Winter"
-            else
-              {
-                "catppuccin" = "Catppuccin Mocha";
-                "rose-pine" = "Rose Pine Moon";
-              }
-                .${
-                defaults.settings.theme
-              };
+            else "Catppuccin Mocha";
           font-family = "Maple Mono NF";
           font-size =
             if pkgs.stdenv.hostPlatform.isDarwin

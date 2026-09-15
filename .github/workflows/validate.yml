@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/nix-installer-action@v23
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
@@ -97,13 +97,14 @@ jobs:
           echo "Matrix JSON: $MATRIX_JSON"
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
-  test-configurations:
-    name: Test Nix Configurations
-    needs: [security-check, lint, detect-configs]
+  flake-check:
+    name: Flake Check
+    needs: [security-check, lint]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v7
 
@@ -112,9 +113,9 @@ jobs:
         with:
           extra-conf: |
             extra-experimental-features = nix-command flakes external-builders
-            substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
-            trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+            substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io https://attic.xuyh0120.win/lantian
+            trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io https://attic.xuyh0120.win/lantian
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc= cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
 
       - name: Setup Cachix Auth
         uses: cachix/cachix-action@v17
@@ -134,6 +135,41 @@ jobs:
 
       - uses: DeterminateSystems/flake-checker-action@main
       - run: nix flake check
+
+  test-configurations:
+    name: Test Nix Configurations (matrix)
+    needs: [security-check, lint, detect-configs]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          extra-conf: |
+            extra-experimental-features = nix-command flakes external-builders
+            substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io https://attic.xuyh0120.win/lantian
+            trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io https://attic.xuyh0120.win/lantian
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc= cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
+
+      - name: Setup Cachix Auth
+        uses: cachix/cachix-action@v17
+        with:
+          name: frostplexx
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Setup SOPS age key from secret
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        if: env.SOPS_AGE_KEY != ''
+        run: |
+          mkdir -p "$HOME/.config/sops/age"
+          echo "$SOPS_AGE_KEY" > "$HOME/.config/sops/age/keys.txt"
+          chmod 600 "$HOME/.config/sops/age/keys.txt"
+          echo "✓ SOPS age key written from secret"
 
       - name: Build Configuration
         id: build
@@ -199,3 +235,20 @@ jobs:
       - name: Fail if build failed
         if: always() && steps.build.outcome == 'failure'
         run: exit 1
+
+  # test-configurations has a matrix strategy, so GitHub reports each leg
+  # under a name like "Test Nix Configurations (macbook-m4-pro, ...)" —
+  # never the bare "Test Nix Configurations". This job has a fixed name and
+  # gates on every leg, so branch rules can require *it* instead.
+  test-configurations-status:
+    name: Test Nix Configurations
+    needs: [test-configurations]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check matrix result
+        run: |
+          if [ "${{ needs.test-configurations.result }}" != "success" ]; then
+            echo "One or more configurations failed: ${{ needs.test-configurations.result }}"
+            exit 1
+          fi

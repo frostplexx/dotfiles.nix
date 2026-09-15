@@ -4,6 +4,8 @@ _: {
     lib,
     ...
   }: let
+    sources = builtins.fromJSON (builtins.readFile ./vicinae-extensions.json);
+
     # `pkgs.mkRayCastExtension`'s own fetcher uses a sparse checkout written
     # straight into $out, which vanishes mid-build on darwin. Fetching into a
     # temp clone and moving `rootDir` into place (what `rootDir` does) works.
@@ -21,7 +23,7 @@ _: {
     mkRaycastExtension = args:
       pkgs.mkRayCastExtension {
         inherit (args) name;
-        src = fetchExtension "https://github.com/raycast/extensions.git" args;
+        src = fetchExtension sources.raycast.url args;
       };
 
     # Native vicinae extensions from the official store repo.
@@ -30,75 +32,23 @@ _: {
         pname = "vicinae-extension-${args.name}";
         version = "0";
         npmFlags = ["--legacy-peer-deps"];
-        src = fetchExtension "https://github.com/vicinaehq/extensions.git" args;
+        src = fetchExtension sources.vicinae.url args;
       };
+
+    mkAll = mk: repo:
+      lib.pipe sources.${repo}.extensions [
+        (lib.filterAttrs (_: pin: !(pin.darwinOnly or false) || pkgs.stdenv.hostPlatform.isDarwin))
+        (lib.mapAttrsToList (name: pin: mk ({inherit name;} // removeAttrs pin ["pinned" "darwinOnly"])))
+      ];
   in {
     programs.vicinae =
       {
         enable = true;
         enableFirefoxIntegration = true;
-        # run ./scripts/vicinae-extension-snippet.sh [--native] <extension-name>
-        # to get the rev and hash for an extension name
+        # ./scripts/vicinae-extensions.sh add <raycast|vicinae> <name>
         extensions =
-          [
-            (mkRaycastExtension {
-              name = "obsidian";
-              rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-              hash = "sha256-7HZ2UEVZxRrkVYNux3+RM4xgXZdbRxEFGL7tkE/L8uc=";
-            })
-            (mkNativeExtension {
-              name = "vscode-recents";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-TZY7DjrgpKzQ/RLdC8AdJqkE8QBi5Z7RZTFRWKkFI9o=";
-            })
-            (mkRaycastExtension {
-              name = "homeassistant";
-              rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-              hash = "sha256-5KRv63RisBJxleZ2xxyqhbYmrnEpr0K33tfKUj4HIks=";
-            })
-            (mkNativeExtension {
-              name = "coffee";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-qK5It2WpEjAu3wEFFTSA0A8Ca2S5zaqgrTd31XBRRec=";
-            })
-            (mkNativeExtension {
-              name = "process-manager";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-Ev5GN0Bss6n91PG64wnSJg3gNcCozpywb0WYOhw9/ZI=";
-            })
-            (mkRaycastExtension {
-              name = "audio-device";
-              rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-              hash = "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28=";
-            })
-            (mkNativeExtension {
-              name = "vscode-recents";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-TZY7DjrgpKzQ/RLdC8AdJqkE8QBi5Z7RZTFRWKkFI9o=";
-            })
-            (mkNativeExtension {
-              name = "github";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-9163X86rG07ItAh0FczfRw0gISwD/cRUGx6pRBJqElM=";
-            })
-            (mkRaycastExtension {
-              name = "deepcast";
-              rev = "47eb39c26ef333e17730a57ede8ac9b0741485b5";
-              hash = "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA=";
-            })
-            (mkNativeExtension {
-              name = "nix";
-              rev = "ee117bc64f341ed71b4a27e311f343b12a75f43d";
-              hash = "sha256-OPxgKOoUBw9GVshdSF27QJFFaR8fVLGqDljIj8mZHow=";
-            })
-          ]
-          ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-            (mkRaycastExtension {
-              name = "toothpick";
-              rev = "a79448785b1bb8c6ccfa0e53e957b5812efab026";
-              hash = "sha256-A09ZaPJRdi1wECsKPfGFXGFpj1hDGgfzK63pgRraKwY=";
-            })
-          ];
+          mkAll mkRaycastExtension "raycast"
+          ++ mkAll mkNativeExtension "vicinae";
         settings = {
           close_on_focus_loss = false;
           pop_to_root_on_close = true;

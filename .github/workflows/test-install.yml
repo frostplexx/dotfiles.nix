@@ -40,8 +40,8 @@ jobs:
           #!/bin/bash
           set -e
 
-          # Extract just the functions from install.sh (before the main if block at line 275)
-          head -n 274 scripts/install.sh > functions_only.sh
+          # Extract just the functions from install.sh (everything before the "=== MAIN ===" marker)
+          sed '/^# === MAIN ===$/,$d' scripts/install.sh > functions_only.sh
           source functions_only.sh
 
           # Test command_exists function

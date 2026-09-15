@@ -51,7 +51,10 @@
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    nixcord.url = "github:kaylorben/nixcord";
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -61,15 +64,22 @@
     nixkit = {
       url = "github:frostplexx/nixkit";
       # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lazykeys.url = "github:frostplexx/lazykeys";
 
-    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    tidaluna.url = "github:frostplexx/TidaLuna/flake";
-    # tidaluna.url = "github:Inrixia/TidaLuna";
-    # tidaluna.url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
+    tidaluna = {
+      url = "github:frostplexx/TidaLuna/flake";
+      # url = "github:Inrixia/TidaLuna";
+      # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -86,7 +96,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agate.url = "github:frostplexx/agate-wm";
+    agate = {
+      url = "github:frostplexx/agate-wm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # ==== Homebrew Taps ====
     homebrew-core = {
@@ -104,6 +117,36 @@
 
     fuse-t = {
       url = "github:macos-fuse-t/homebrew-cask";
+      flake = false;
+    };
+
+    # ==== Pinned sources ====
+    yazi-flavors = {
+      url = "github:yazi-rs/flavors";
+      flake = false;
+    };
+    catppuccin-bat = {
+      url = "github:catppuccin/bat";
+      flake = false;
+    };
+    catppuccin-fish = {
+      url = "github:catppuccin/fish";
+      flake = false;
+    };
+    catppuccin-btop = {
+      url = "github:catppuccin/btop";
+      flake = false;
+    };
+    catppuccin-discord = {
+      url = "github:catppuccin/discord";
+      flake = false;
+    };
+    skeuocord = {
+      url = "github:marda33/SkeuoCord";
+      flake = false;
+    };
+    obsidian-skills = {
+      url = "github:kepano/obsidian-skills";
       flake = false;
     };
   };

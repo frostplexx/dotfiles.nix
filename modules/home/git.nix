@@ -103,14 +103,7 @@ _: {
         enableGitIntegration = true;
         options = {
           features = "side-by-side";
-          theme =
-            {
-              "catppuccin" = "Catppuccin Mocha";
-              "rose-pine" = "Rose Pine";
-            }
-              .${
-              defaults.settings.theme
-            };
+          theme = "Catppuccin Mocha";
         };
       };
     };
