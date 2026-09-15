@@ -137,7 +137,7 @@ jobs:
       - run: nix flake check
 
   test-configurations:
-    name: Test Nix Configurations
+    name: Test Nix Configurations (matrix)
     needs: [security-check, lint, detect-configs, flake-check]
     runs-on: ${{ matrix.os }}
     strategy:
@@ -235,3 +235,20 @@ jobs:
       - name: Fail if build failed
         if: always() && steps.build.outcome == 'failure'
         run: exit 1
+
+  # test-configurations has a matrix strategy, so GitHub reports each leg
+  # under a name like "Test Nix Configurations (macbook-m4-pro, ...)" —
+  # never the bare "Test Nix Configurations". This job has a fixed name and
+  # gates on every leg, so branch rules can require *it* instead.
+  test-configurations-status:
+    name: Test Nix Configurations
+    needs: [test-configurations]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check matrix result
+        run: |
+          if [ "${{ needs.test-configurations.result }}" != "success" ]; then
+            echo "One or more configurations failed: ${{ needs.test-configurations.result }}"
+            exit 1
+          fi
