@@ -214,6 +214,7 @@ _: {
         prismlauncher
         lutris
         unrar
+        feishin
       ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
