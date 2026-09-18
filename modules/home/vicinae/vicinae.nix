@@ -38,7 +38,18 @@ _: {
     mkAll = mk: repo:
       lib.pipe sources.${repo}.extensions [
         (lib.filterAttrs (_: pin: !(pin.darwinOnly or false) || pkgs.stdenv.hostPlatform.isDarwin))
-        (lib.mapAttrsToList (name: pin: mk ({inherit name;} // removeAttrs pin ["pinned" "darwinOnly"])))
+        (lib.mapAttrsToList (
+          name: pin:
+            mk (
+              {
+                inherit name;
+              }
+              // removeAttrs pin [
+                "pinned"
+                "darwinOnly"
+              ]
+            )
+        ))
       ];
   in {
     programs.vicinae =
@@ -46,9 +57,7 @@ _: {
         enable = true;
         enableFirefoxIntegration = true;
         # ./scripts/vicinae-extensions.sh add <raycast|vicinae> <name>
-        extensions =
-          mkAll mkRaycastExtension "raycast"
-          ++ mkAll mkNativeExtension "vicinae";
+        extensions = mkAll mkRaycastExtension "raycast" ++ mkAll mkNativeExtension "vicinae";
         settings = {
           close_on_focus_loss = false;
           pop_to_root_on_close = true;
@@ -99,6 +108,9 @@ _: {
               "enabled" = false;
             };
             "font" = {
+              "enabled" = false;
+            };
+            "shortcuts" = {
               "enabled" = false;
             };
             "system" = {
