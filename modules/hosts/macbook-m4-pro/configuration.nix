@@ -253,7 +253,8 @@
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
-            "/Applications/tidalunar.app"
+            # "/Applications/tidalunar.app"
+            "/Applications/Nix Apps/Feishin.app"
           ];
         };
         trackpad = {
@@ -363,6 +364,22 @@
       monocraft
       maple-mono.NF
     ];
+
+    # Custom app icons (nixkit). Icons come from dotfiles-assets, which is
+    # git-lfs, so they are fetched pinned to a commit like the wallpaper.
+    environment.customIcons = {
+      enable = true;
+      clearCacheOnActivation = true;
+      icons = [
+        {
+          path = "/Applications/Nix Apps/Feishin.app";
+          icon = builtins.fetchurl {
+            url = "https://media.githubusercontent.com/media/frostplexx/dotfiles-assets.nix/619d817f5b612da8487bb02c5dc3347057362706/darwin-icons/music.icns";
+            sha256 = "sha256-ox91B5qQGP7axqpIi9Nbf8mcA+iFM7dCS6qfN2eNYsw=";
+          };
+        }
+      ];
+    };
 
     # System packages
     environment.systemPackages = with pkgs; [
