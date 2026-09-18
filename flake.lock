@@ -1252,11 +1252,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1789718430,
-        "narHash": "sha256-HyFAW9C37KbI7zRNmVzxySN69kMc0dI9YTqdmtRx6Bc=",
+        "lastModified": 1789726996,
+        "narHash": "sha256-rNMWjqxE/GvY6nwLIMvido8UzUmRO/+Gns1nAdN8EZQ=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "1f80de1a84113417d825f14ad9f93b003aa03738",
+        "rev": "66a28c231fe9ba14470aabbc87c5651818f06953",
         "type": "github"
       },
       "original": {
