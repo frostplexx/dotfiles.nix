@@ -101,6 +101,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+
     # ==== Homebrew Taps ====
     homebrew-core = {
       url = "github:homebrew/homebrew-core";

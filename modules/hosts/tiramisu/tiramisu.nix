@@ -16,6 +16,7 @@
   overlays = [
     inputs.vicinae.overlays.default
     inputs.nix-cachyos-kernel.overlays.pinned
+    inputs.millennium.overlays.default
   ];
 in {
   flake = {
