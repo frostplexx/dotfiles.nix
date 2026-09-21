@@ -18,6 +18,15 @@ _: {
         PI_SKIP_VERSION_CHECK = 1;
       };
 
+      packages = [
+        (pkgs.writeShellScriptBin "pq" ''
+          exec ${config.programs.pi-coding-agent.package}/bin/pi -p \
+            --no-session --no-tools --no-extensions --no-skills \
+            --no-context-files --no-prompt-templates --thinking off \
+            --model inclusionai/ling-3.0-flash-vl:free -- "$@"
+        '')
+      ];
+
       # Update pi extensions on deploy, after writeBoundary to ensure the pi-coding-agent package is installed first
       activation.pi-extensions = lib.hm.dag.entryAfter ["writeBoundary"] ''
         export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
