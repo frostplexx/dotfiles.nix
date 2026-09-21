@@ -10,6 +10,8 @@ _: {
         gui = {
           border = "rounded";
           nerdFontsVersion = 3;
+          # Return straight to lazygit when a terminal command (e.g. pi) exits.
+          promptToReturnFromSubprocess = false;
           theme = {
             activeBorderColor = ["#a6e3a1" "bold"];
             inactiveBorderColor = ["#6c7086"];
