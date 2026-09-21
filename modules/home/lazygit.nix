@@ -26,21 +26,6 @@ _: {
           };
         };
         customCommands = [
-          # AI Commit using opencode
-          {
-            key = "C";
-            command = "git commit -m '{{ .Form.title }}'";
-            context = "files";
-            loadingText = "Generating commit messages...";
-            prompts = [
-              {
-                key = "title";
-                type = "input";
-                suggestions.command = ''/bin/bash -c "fm respond --model pcc 'Generate a set of conventional commit titles from the following git diff, separated by new lines! Do not return anything except the commits: $(git diff HEAD)'" '';
-                title = "Commit Message:";
-              }
-            ];
-          }
           {
             key = "p";
             prompts = [
