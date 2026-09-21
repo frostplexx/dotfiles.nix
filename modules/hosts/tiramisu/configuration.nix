@@ -226,12 +226,6 @@ _: {
       ];
     };
 
-    # Not needed for gaming config
-    # documentation = {
-    #   doc.enable = true;
-    #   info.enable = true;
-    # };
-
     fonts.packages = with pkgs; [
       maple-mono.NF
       (stdenvNoCC.mkDerivation {
