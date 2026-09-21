@@ -44,6 +44,13 @@ _: {
             command = "fish_commandline_append bat";
             mode = "insert";
           };
+          # "What will this do?" — gloss the command line you are about to run.
+          "alt-/" = {
+            command = ''
+              set -l cmd (commandline | string collect); if test -n "$cmd"; echo; set_color brblack; printf %s "$cmd" | pq "One line: what does this shell command do? Name any deletion, overwrite, or network side effect explicitly."; set_color normal; commandline -f repaint; end
+            '';
+            mode = "insert";
+          };
         };
 
         shellAliases = {
