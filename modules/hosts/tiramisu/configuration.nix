@@ -220,6 +220,8 @@ _: {
         lutris
         unrar
         feishin
+        tidal-hifi
+        beammp-launcher
       ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
