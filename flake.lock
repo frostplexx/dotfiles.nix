@@ -1118,11 +1118,11 @@
     "skeuocord": {
       "flake": false,
       "locked": {
-        "lastModified": 1788298233,
-        "narHash": "sha256-Xihkprh1pLmEZcHHVrY/h1iO6+FsKIZqGdMZDqsBxB0=",
+        "lastModified": 1790195083,
+        "narHash": "sha256-bhyomOLSituUliLxrb2PnHwP1KLH5w6LN2PSqqebMVc=",
         "owner": "marda33",
         "repo": "SkeuoCord",
-        "rev": "bff0e713d57aeaaa9d9b4712dff59687c699d47f",
+        "rev": "59f2b7699d6784673da91177876339ce542d6397",
         "type": "github"
       },
       "original": {
