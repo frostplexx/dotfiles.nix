@@ -341,9 +341,6 @@ _: {
                 notifier = {};
                 quickfile = {};
                 scope = {};
-                statuscolumn = {
-                  folds.git_hl = true;
-                };
                 words = {};
                 terminal = {
                   win = {
