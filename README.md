@@ -10,7 +10,7 @@
     </div>
 </p>
 
-This repository contains my personal system configuration for macOS.
+This repository contains my personal system configuration for macOS and NixOS.
 It provides a reproducible setup for macOS and NixOS systems using flakes and declarative configuration.
 
 Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/dotfiles-assets.nix/tree/main/wallpapers](https://github.com/frostplexx/dotfiles-assets.nix/tree/main/wallpapers)
@@ -21,11 +21,14 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 ### Prerequisites
 
-- A Computer running the latest macOS
+- A Computer running the latest macOS or any Linux Distro
 - An internet connection
 
 ### Installation
 
+<details>
+<summary>MacOS</summary>
+    
 #### Automatic
 
 ```bash
@@ -51,6 +54,40 @@ cd ~/dotfiles.nix
 
 2. install determinate nix from https://docs.determinate.systems.
 3. run `sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles.nix#<config-name>` to build and switch to the configuration.
+</details>
+
+<details>
+<summary>Linux/NixOS</summary>
+
+#### Using nixos-anywhere (recommended)
+
+This approach needs two computers: *host* = PC you install from and *target* = PC you install to. 
+Additionally the host PC also needs to have nix or NixOS installed.
+Using nixos-anywhere will completely **overwrite the target PCs OS** and replace it with NixOS!
+Before installing, make sure the following disk UUID is the correct one as it needs to be changed when installing to a new/different PC:
+https://github.com/frostplexx/dotfiles.nix/blob/2345eff47fda054796660a35b1b589c091ab7637/modules/hosts/tiramisu/configuration.nix#L71 
+
+**Instructions**
+
+1. Boot your target PC into Linux or a live Linux ISO
+2. Make sure `sshd` is enabled and ssh access with password is turned on
+4. On your host PC clone this repo and cd into it
+5. Run `SSHPASS="<ssh password>" nix run github:nix-community/nixos-anywhere -- --env-password --flake .<config-name> --target-host <user>@<ip> --build-on remote`. The user used in the command needs sudo access.
+6. After the command finished the target PC should have booted into NixOS with the config correctly applied.
+
+#### Manually
+
+1. Go to https://nixos.org/download/#nix-install-linux and install NixOS on your PC
+2. Enable [flakes](https://wiki.nixos.org/wiki/Flakes#Enabling_flakes_permanently).
+3. Clone this repo into your home directory and `cd` into it.
+
+```bash
+git clone https://github.com/frostplexx/dotfiles.nix.git ~/dotfiles.nix
+cd ~/dotfiles.nix
+```
+4. Deploy the config by running `sudo nixos-rebuild switch --flake .#<config-name>`
+
+</details>
 
 #### Post-install Checklist
 
