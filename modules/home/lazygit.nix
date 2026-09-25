@@ -10,6 +10,8 @@ _: {
         gui = {
           border = "rounded";
           nerdFontsVersion = 3;
+          # Return straight to lazygit when a terminal command (e.g. pi) exits.
+          promptToReturnFromSubprocess = false;
           theme = {
             activeBorderColor = ["#a6e3a1" "bold"];
             inactiveBorderColor = ["#6c7086"];
@@ -26,21 +28,6 @@ _: {
           };
         };
         customCommands = [
-          # AI Commit using opencode
-          {
-            key = "C";
-            command = "git commit -m '{{ .Form.title }}'";
-            context = "files";
-            loadingText = "Generating commit messages...";
-            prompts = [
-              {
-                key = "title";
-                type = "input";
-                suggestions.command = ''/bin/bash -c "fm respond --model pcc 'Generate a set of conventional commit titles from the following git diff, separated by new lines! Do not return anything except the commits: $(git diff HEAD)'" '';
-                title = "Commit Message:";
-              }
-            ];
-          }
           {
             key = "p";
             prompts = [
@@ -54,25 +41,30 @@ _: {
             loadingText = "Checking out PR...";
           }
           {
-            key = "v";
-            context = "localBranches";
-            loadingText = "Checking out GitHub Pull Request...";
-            command = "gh pr checkout {{.Form.PullRequestNumber}}";
+            key = "<c-a>";
+            description = "Split worktree into focused commits with pi";
+            context = "files";
+            output = "terminal";
             prompts = [
               {
-                type = "menuFromCommand";
-                title = "Which PR do you want to chekout?";
-                key = "PullRequestNumber";
-                command = ''
-                  gh pr list --json number,title,headRefName,updatedAt --template '{{`{{range .}}{{printf "#%v: %s - %s (%s)" .number .title .headRefName (timeago .updatedAt)}}{{end}}`}}'
-                '';
-                filter = "#(?P<number>[0-9]+): (?P<title>.+) - (?P<ref_name>[^ ]+).*";
-                valueFormat = "{{.number}}";
-                labelFormat = ''
-                  {{"#" | black | bold}}{{.number | white | bold}} {{.title | yellow | bold}}{{" [" | black | bold}}{{.ref_name | green}}{{"]" | black | bold}}
-                '';
+                type = "confirm";
+                title = "Split worktree with pi";
+                body = "Hand the whole worktree to pi so it can stage and commit the changes as focused, self-contained commits?";
               }
             ];
+            # lazygit runs this through fish, which has no heredocs; a single-quoted
+            # string is fine as long as the prompt contains no ' or \.
+            command = ''
+              pi --no-session 'This git worktree contains a large set of uncommitted changes, potentially spanning many unrelated concerns.
+              Your job is to turn it into a series of small, focused, self-contained commits.
+
+              Steps:
+              1. Run `git status` and `git diff` (and `git diff --cached`) to understand every change, including untracked files.
+              2. Group hunks by logical concern (one feature, fix, refactor, or chore per group). Do not group by file: a single file may belong to several commits.
+              3. For each group, in a sensible order (dependencies first): stage exactly those hunks (`git add -p` / `git apply --cached` with patches), verify with `git diff --cached`, then commit with a conventional-commit message (`type(scope): summary`) plus a short body explaining why.
+              4. Never modify file contents, never use `git add -A` or `git commit -a`, never amend or rewrite existing commits, and never push.
+              5. Finish when `git status` is clean, then print `git log --oneline` for the commits you created.'
+            '';
           }
         ];
       };

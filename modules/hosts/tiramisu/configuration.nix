@@ -167,6 +167,7 @@ _: {
       steam = {
         enable = true;
         extest.enable = true;
+        package = pkgs.millennium-steam;
       };
       _1password.enable = true;
       _1password-gui = {
@@ -214,6 +215,7 @@ _: {
         prismlauncher
         lutris
         unrar
+        feishin
       ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
@@ -223,12 +225,6 @@ _: {
         qrca
       ];
     };
-
-    # Not needed for gaming config
-    # documentation = {
-    #   doc.enable = true;
-    #   info.enable = true;
-    # };
 
     fonts.packages = with pkgs; [
       maple-mono.NF
