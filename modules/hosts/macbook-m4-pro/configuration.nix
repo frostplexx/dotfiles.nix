@@ -254,7 +254,8 @@
             "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
             # "/Applications/tidalunar.app"
-            "/Applications/Nix Apps/Feishin.app"
+            # "/Applications/Nix Apps/Feishin.app"
+            "/Applications/Nix Apps/Tidal.app"
           ];
         };
         trackpad = {

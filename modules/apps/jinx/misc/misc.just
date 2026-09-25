@@ -1,6 +1,13 @@
 
 [macos]
 [group('󰲽 utility')]
+[doc('Install TidaLuna')]
+install_tidaluna:
+    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/tidaluna.sh"
+
+
+[macos]
+[group('󰲽 utility')]
 [doc('Finds node_modules and adds them to time machine exclusion list')]
 exclude_node_modules:
     @find $HOME -type d -maxdepth 3 -name 'node_modules' | xargs -n 1 sudo tmutil addexclusion -p
