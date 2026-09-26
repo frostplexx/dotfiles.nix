@@ -1307,11 +1307,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1790415803,
-        "narHash": "sha256-Uvhzi0rKqn3ed7TWwgvG6xX7vQnir4chGFfw0qyVo5A=",
+        "lastModified": 1790422090,
+        "narHash": "sha256-TPl9ay7vQ+MfIElfY6fHv9EdaKm/n5lfeT+4w7P881E=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "721cb49de4108f78c8cbb976a63d3930f1578906",
+        "rev": "092e83aec0d5fb1b52857d6334fbe003b0e76d1b",
         "type": "github"
       },
       "original": {
