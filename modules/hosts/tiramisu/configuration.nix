@@ -40,6 +40,10 @@ _: {
       firewall = {
         allowedUDPPorts = [9];
       };
+      nameservers = [
+        "94.140.14.49"
+        "94.140.14.59"
+      ];
     };
 
     time.timeZone = defaults.system.timeZone;
