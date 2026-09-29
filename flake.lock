@@ -1323,11 +1323,11 @@
     "yazi-flavors": {
       "flake": false,
       "locked": {
-        "lastModified": 1787401728,
-        "narHash": "sha256-NGnfrQdsnQITKCZ0oh6DCxeCR2ozJoPAZetsi3ghHAI=",
+        "lastModified": 1790695325,
+        "narHash": "sha256-+AOrk+yxREDmWU/wwNipRK6FWgL4/6KOuW0rCIbCdYA=",
         "owner": "yazi-rs",
         "repo": "flavors",
-        "rev": "20b47bfd78880c2674899597fd26bc01b21ff48c",
+        "rev": "354380b8514cb46cf2557f68a71f2dfbfa1b537f",
         "type": "github"
       },
       "original": {
