@@ -251,7 +251,8 @@
           persistent-apps = [
             "/Applications/Things3.app"
             "/Users/daniel/Applications/Home Manager Apps/Zen Browser (Beta).app"
-            "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
+            # "/Users/daniel/Applications/Home Manager Apps/Obsidian.app"
+            "/Applications/Obsidian.app"
             "/Users/daniel/Applications/Home Manager Apps/Ghostty.app"
             # "/Applications/tidalunar.app"
             # "/Applications/Nix Apps/Feishin.app"
