@@ -115,6 +115,11 @@ _: {
       # The AeroThemePlasma shell requires SDDM for its login theme
       displayManager.sddm.enable = true;
       displayManager.defaultSession = "aerothemeplasma";
+      # Boot straight into the desktop (gaming PC, also reached via Sunshine)
+      displayManager.autoLogin = {
+        enable = true;
+        inherit user;
+      };
     };
 
     # AeroThemePlasma: Windows 7 themed Plasma shell
