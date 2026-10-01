@@ -375,42 +375,24 @@
     };
 
     # System packages
+    # System packages: Nix itself, the toolchain, man pages, `mas` (used by
+    # the Homebrew activation) and GUI apps, which land in /Applications/Nix
+    # Apps (the Dock and custom icons point there). User CLI tools live in
+    # home-manager below; `op` comes from programs._1password.
     environment.systemPackages = with pkgs; [
-      _1password-cli
-      alejandra
-      curl
-      deadnix
-      ffmpeg
-      gcc
-      gh
-      gnumake
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
-      # inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
-
-      zoom-us
-      feishin
-      secretspec
-      jq
-      just
-      keka
-      macpm
+      gcc
+      gnumake
       man-pages
       man-pages-posix
       mas
+
+      # GUI apps
+      feishin
+      keka
       moonlight-qt
-      nh
-      nmap
-      pandoc
-      ripgrep
-      sops
-      sshpass
-      statix
-      switchaudio-osx
       utm
-      uv # TODO: move this to shell config?
-      wget
-      poppler-utils
-      tart
+      zoom-us
     ];
 
     # Home Manager
@@ -419,10 +401,26 @@
         stateVersion = "26.05";
         username = user;
         homeDirectory = "/Users/${user}";
-        sessionVariables = {
-          NH_FLAKE = "$HOME/${defaults.paths.flake}";
-          EDITOR = "nvim";
-        };
+        sessionVariables.EDITOR = "nvim";
+
+        # Development and CLI tools (tiramisu is gaming-only and doesn't get these)
+        packages = with pkgs; [
+          curl
+          ffmpeg
+          jq
+          just
+          macpm
+          nmap
+          pandoc
+          poppler-utils # pdftotext, used from the Obsidian vault
+          secretspec
+          sops
+          sshpass
+          switchaudio-osx # used by vicinae's audio-device extension
+          tart
+          uv
+          wget
+        ];
       };
       programs.home-manager.enable = true;
     };

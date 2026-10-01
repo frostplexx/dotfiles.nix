@@ -21,7 +21,7 @@ default:
 import "./deploy/deploy.just"
 import "./update/update.just"
 import "./maintain/maintain.just"
-import "./rollback/rollback.just"
+import "./health/health.just"
 import "./misc/misc.just"
 
 [private]

@@ -96,6 +96,16 @@ _: {
         };
       };
 
+      gh = {
+        enable = true;
+        # Keep git's own credential helper (osxkeychain / libsecret above).
+        gitCredentialHelper.enable = false;
+        settings = {
+          git_protocol = "https";
+          aliases.co = "pr checkout";
+        };
+      };
+
       delta = {
         enable = true;
         enableGitIntegration = true;

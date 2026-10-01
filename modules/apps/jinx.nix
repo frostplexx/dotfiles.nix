@@ -4,7 +4,16 @@ _: let
   module = {pkgs, ...}: let
     jinx = pkgs.writeShellApplication {
       name = "jinx";
-      runtimeInputs = [pkgs.just];
+      # Everything the recipes call that isn't a general user tool, so jinx
+      # works on hosts without a dev setup (tiramisu).
+      runtimeInputs = with pkgs; [
+        just
+        jq
+        nh
+        alejandra
+        statix
+        deadnix
+      ];
       text = ''
         exec just --justfile "$HOME/dotfiles.nix/modules/apps/jinx/justfile" "$@"
       '';
@@ -14,15 +23,14 @@ _: let
       name = "jinx-completion";
       destination = "/share/fish/vendor_completions.d/jinx.fish";
       text = ''
-        # Function to get recipe descriptions
+        # Recipe and alias names with their descriptions, read from just's JSON
+        # dump so group headers in `--list` output never leak into completions.
         function __jinx_recipe_descriptions
           set -l justfile "$HOME/dotfiles.nix/modules/apps/jinx/justfile"
           if test -f "$justfile"
-            ${pkgs.just}/bin/just --justfile "$justfile" --list 2>/dev/null | \
-              string match -r '^\s*(\S+)\s*(.*)$' | \
-              while read -l recipe desc
-                echo "$recipe"(test -n "$desc"; and echo -e "\t$desc")
-              end
+            ${pkgs.just}/bin/just --justfile "$justfile" --dump --dump-format json 2>/dev/null | \
+              ${pkgs.jq}/bin/jq -r '(.recipes[] | select(.private | not) | "\(.name)\t\(.doc // "")"),
+                (.aliases | to_entries[] | "\(.key)\talias for \(.value.target)")'
           end
         end
 

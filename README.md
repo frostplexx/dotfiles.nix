@@ -96,10 +96,10 @@ cd ~/dotfiles.nix
 - [ ] Enable SSH Agent and CLI integration in 1Password settings
 - [ ] Run `determinate-nixd login`
 - [ ] Run `gh auth login`
-- [ ] Run `jinx generate_ssh_hosts` to generate the hosts file from 1Password entries for easy access.
+- [ ] Run `jinx generate-ssh-hosts` to generate the hosts file from 1Password entries for easy access.
 - [ ] Seed the SOPS age key into iCloud Keychain (if not picked up by the installer):
       `mkdir -p ~/.config/sops/age && security add-generic-password -a "$USER" -s "sops-age-key" -w < ~/.config/sops/age/keys.txt`
-- [ ] (On macOS) Run `jinx set_screen_hidpi` to set your external screen to HiDPI mode
+- [ ] (On macOS) Run `jinx set-hidpi` to set your external screen to HiDPI mode
 - [ ] Restore folders from Time Machine
 
 ## Management

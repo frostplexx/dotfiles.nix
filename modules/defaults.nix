@@ -89,7 +89,8 @@
     };
 
     paths = {
-      flake = "~/dotfiles.nix";
+      # Relative to $HOME
+      flake = "dotfiles.nix";
     };
   };
 }

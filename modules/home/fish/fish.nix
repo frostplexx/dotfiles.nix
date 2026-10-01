@@ -168,11 +168,21 @@ _: {
       source =
         if pkgs.stdenv.hostPlatform.isDarwin
         then ./scripts
-        # tmutil (Time Machine) is macOS-only
+        # tiramisu is gaming-only: skip functions that need Mac-only or dev
+        # tools (tmutil, ffmpeg, ollama, sshfs, Tailscale app, UpSnap).
         else
           lib.fileset.toSource {
             root = ./scripts;
-            fileset = lib.fileset.difference ./scripts ./scripts/tm_exclude_node_modules.fish;
+            fileset = lib.fileset.difference ./scripts (lib.fileset.unions [
+              ./scripts/tm_exclude_node_modules.fish
+              ./scripts/compress_mov_to_mp4.fish
+              ./scripts/compress_to_webp.fish
+              ./scripts/connect_ollama.fish
+              ./scripts/llamacode.fish
+              ./scripts/sshm.fish
+              ./scripts/sshu.fish
+              ./scripts/wololo.fish
+            ]);
           };
     };
   };

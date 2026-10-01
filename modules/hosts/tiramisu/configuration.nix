@@ -201,31 +201,12 @@ _: {
       };
     };
 
+    # tiramisu is gaming-only: no system-wide CLI tools. Apps live in
+    # home-manager below; jinx brings what it needs to deploy, and `op`
+    # comes from programs._1password.
     environment = {
       pathsToLink = ["/share/fish"];
       shells = [pkgs.fish];
-      systemPackages = with pkgs; [
-        wl-clipboard
-        _1password-cli
-        alejandra
-        curl
-        deadnix
-        ffmpeg
-        jq
-        just
-        nh
-        ripgrep
-        sops
-        statix
-        uv
-        wget
-        prismlauncher
-        lutris
-        unrar
-        feishin
-        tidal-hifi
-        beammp-launcher
-      ];
 
       plasma6.excludePackages = with pkgs.kdePackages; [
         plasma-browser-integration
@@ -262,10 +243,21 @@ _: {
         stateVersion = defaults.system.nixosVersion;
         username = user;
         homeDirectory = "/home/${user}";
-        sessionVariables = {
-          NH_FLAKE = "$HOME/${defaults.paths.flake}";
-          EDITOR = "nvim";
-        };
+        sessionVariables.EDITOR = "nvim";
+
+        packages = with pkgs; [
+          # Games
+          beammp-launcher
+          lutris
+          prismlauncher
+          unrar # game archives
+
+          # Music
+          feishin
+          tidal-hifi
+
+          wl-clipboard
+        ];
       };
       programs.home-manager.enable = true;
     };
