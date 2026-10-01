@@ -1,8 +1,8 @@
 _: {
-  flake.homeManagerModules.sunshine = {
+  flake.nixOSModules.sunshine = {
     config,
     pkgs,
-    vars,
+    defaults,
     ...
   }: let
     steam-run-url = pkgs.writeShellApplication {
@@ -99,6 +99,6 @@ _: {
 
     # Fix permissions for uinput device, required for mouse/keyboard input
     hardware.uinput.enable = true;
-    users.users.${vars.user.name}.extraGroups = ["uinput"];
+    users.users.${defaults.user}.extraGroups = ["uinput"];
   };
 }
