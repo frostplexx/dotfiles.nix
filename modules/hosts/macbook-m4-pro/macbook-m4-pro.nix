@@ -62,7 +62,7 @@ in {
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["plasma"]))
+                  (n: _: !(builtins.elem n ["plasma" "sunshine"]))
                   self.homeManagerModules
                 );
               extraSpecialArgs = {
