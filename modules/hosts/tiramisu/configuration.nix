@@ -113,12 +113,14 @@ _: {
       xserver.videoDrivers = ["nvidia"];
       desktopManager.plasma6.enable = true;
       # The AeroThemePlasma shell requires SDDM for its login theme
-      displayManager.sddm.enable = true;
-      displayManager.defaultSession = "aerothemeplasma";
-      # Boot straight into the desktop (gaming PC, also reached via Sunshine)
-      displayManager.autoLogin = {
-        enable = true;
-        inherit user;
+      displayManager = {
+        sddm.enable = true;
+        defaultSession = "aerothemeplasma";
+        # Boot straight into the desktop (gaming PC, also reached via Sunshine)
+        autoLogin = {
+          enable = true;
+          inherit user;
+        };
       };
     };
 
