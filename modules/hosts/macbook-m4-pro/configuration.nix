@@ -21,6 +21,23 @@
       bNorm = b / 255.0;
     in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
     appleHighlightColor = hexToAppleRGBA "#${defaults.settings.accent_color}";
+
+    # Dock > Options > "Assign To", ported from agate-wm's docked layout.
+    # Desktops are addressed by position and resolved to Space UUIDs on each
+    # activation (see space-bindings.py), so this survives recreated Spaces.
+    spaceBindings = let
+      on = display: space: {inherit display space;};
+    in {
+      "app.zen-browser.zen" = on "external" 1; # web
+      "com.mitchellh.ghostty" = on "external" 2; # term
+      "md.obsidian" = on "external" 3; # notes
+      "com.culturedcode.ThingsMac" = on "builtin" 1; # tasks
+      "com.apple.mail" = on "builtin" 2; # mail
+      "dev.vencord.vesktop" = on "builtin" 2; # comms
+      "com.spotify.client" = on "builtin" 3; # music
+      "org.jeffvli.feishin" = on "builtin" 3; # music
+      "com.tidal.desktop" = on "builtin" 3; # music
+    };
   in {
     system.stateVersion = defaults.system.darwinVersion;
 
@@ -137,6 +154,9 @@
               # If the global key exists (even as true), it shadows all per-app values.
               # The per-app values live in CustomUserPreferences below.
               sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
+
+              # Restarts the Dock itself when the resolved bindings change.
+              sudo -u ${user} ${pkgs.python3}/bin/python3 ${./space-bindings.py} ${lib.escapeShellArg (builtins.toJSON spaceBindings)} || true
             '';
 
           # Only restart Finder/Dock when the settings they read actually changed,
