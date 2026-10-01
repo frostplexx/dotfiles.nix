@@ -541,37 +541,6 @@
         "type": "github"
       }
     },
-    "jankyborders": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780547371,
-        "narHash": "sha256-QGCVV5N1QC56GQK3ck2YJ6J6/S8SQ6rTElz69y58078=",
-        "owner": "FelixKratz",
-        "repo": "homebrew-formulae",
-        "rev": "70b2071488b61c14f773ce9e1bf6626ee851981a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FelixKratz",
-        "repo": "homebrew-formulae",
-        "type": "github"
-      }
-    },
-    "lazykeys": {
-      "locked": {
-        "lastModified": 1782977897,
-        "narHash": "sha256-jBMjPKTJFNyzUwSf6OpBVXW3gVNyJnP69bQsgCfq460=",
-        "owner": "frostplexx",
-        "repo": "lazykeys",
-        "rev": "840f7ab30c157d6b513d98b744e7af300c3bd482",
-        "type": "github"
-      },
-      "original": {
-        "owner": "frostplexx",
-        "repo": "lazykeys",
-        "type": "github"
-      }
-    },
     "millennium": {
       "inputs": {
         "millennium-src": "millennium-src",
@@ -1073,8 +1042,6 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "import-tree": "import-tree",
-        "jankyborders": "jankyborders",
-        "lazykeys": "lazykeys",
         "millennium": "millennium",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-darwin": "nix-darwin",
@@ -1087,7 +1054,6 @@
         "plasma-manager": "plasma-manager",
         "skeuocord": "skeuocord",
         "sops-nix": "sops-nix",
-        "spicetify-nix": "spicetify-nix",
         "tidaluna": "tidaluna",
         "vicinae": "vicinae",
         "yazi-flavors": "yazi-flavors",
@@ -1173,27 +1139,6 @@
         "type": "github"
       }
     },
-    "spicetify-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1790502898,
-        "narHash": "sha256-eR6P8ZCyYqrdvuOANIOE78t4qqm6wSTBKLP/aW8nwJE=",
-        "owner": "Gerg-L",
-        "repo": "spicetify-nix",
-        "rev": "d508ccfa23820d032589bd65345bf5b6d9ea842f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Gerg-L",
-        "repo": "spicetify-nix",
-        "type": "github"
-      }
-    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -1226,21 +1171,6 @@
       }
     },
     "systems_3": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1304,7 +1234,7 @@
         ],
         "numen": "numen",
         "soulver-cpp": "soulver-cpp",
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1790771562,

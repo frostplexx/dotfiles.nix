@@ -2,7 +2,6 @@ _: {
   flake.homeManagerModules.pi-coding-agent = {
     config,
     pkgs,
-    lib,
     ...
   }: {
     sops.secrets."pi/models" = {
@@ -25,13 +24,17 @@ _: {
             --no-context-files --no-prompt-templates --thinking off \
             --model inclusionai/ling-3.0-flash-vl:free -- "$@"
         '')
-      ];
 
-      # Update pi extensions on deploy, after writeBoundary to ensure the pi-coding-agent package is installed first
-      activation.pi-extensions = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
-        ${config.programs.pi-coding-agent.package}/bin/pi update --extensions
-      '';
+        # Update pi extensions. Run by `jinx update` rather than on every
+        # activation, so deploys don't depend on the network.
+        (pkgs.writeShellApplication {
+          name = "pi-update-extensions";
+          runtimeInputs = [pkgs.nodejs pkgs.git];
+          text = ''
+            exec ${config.programs.pi-coding-agent.package}/bin/pi update --extensions
+          '';
+        })
+      ];
 
       file = {
         ".agents/skills" = {

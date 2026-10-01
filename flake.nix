@@ -56,18 +56,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixkit = {
       url = "github:frostplexx/nixkit";
       # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    lazykeys.url = "github:frostplexx/lazykeys";
 
     vicinae = {
       url = "github:vicinaehq/vicinae";
@@ -112,11 +105,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    jankyborders = {
-      url = "github:FelixKratz/homebrew-formulae";
-      flake = false;
-    };
-
     fuse-t = {
       url = "github:macos-fuse-t/homebrew-cask";
       flake = false;

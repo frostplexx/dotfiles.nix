@@ -43,7 +43,6 @@ _: {
           "security.workspace.trust.untrustedFiles" = "open";
           "editor.fontLigatures" = true;
           # "catppuccin.accentColor" = "blue";
-          "github.copilot.chat.agentDebugLog.enabled" = false;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "workbench.preferredDarkColorTheme" = "Catppuccin Mocha";
           "workbench.colorCustomizations" = {};
@@ -51,13 +50,6 @@ _: {
           "git.autofetch" = true;
           "git.confirmSync" = false;
           "editor.fontFamily" = "Maple Mono NF";
-          "github.copilot.enable" = {
-            "*" = true;
-            plaintext = false;
-            markdown = false;
-            scminput = false;
-          };
-          "github.copilot.nextEditSuggestions.enabled" = true;
           "[bibtex]" = {
             "editor.defaultFormatter" = "James-Yu.latex-workshop";
             "editor.formatOnSave" = true;
@@ -250,33 +242,11 @@ _: {
             {
               before = [
                 "<leader>"
-                "p"
-                "s"
-              ];
-              commands = [
-                "fuzzySearch.activeTextEditor"
-              ];
-            }
-            {
-              before = [
-                "<leader>"
                 "l"
                 "f"
               ];
               commands = [
                 "editor.action.formatDocument"
-              ];
-            }
-          ];
-          "vim.visualModeKeyBindingsNonRecursive" = [
-            {
-              before = [
-                "<leader>"
-                "a"
-                "e"
-              ];
-              commands = [
-                "github.copilot.chat.fix"
               ];
             }
           ];

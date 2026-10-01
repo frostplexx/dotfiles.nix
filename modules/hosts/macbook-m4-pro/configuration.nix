@@ -6,26 +6,32 @@
   flake.darwinModules.macbook-m4-pro = {
     pkgs,
     defaults,
+    config,
     ...
   }: let
     inherit (defaults) user;
+
+    hexToAppleRGBA = hex: let
+      cleanHex = lib.removePrefix "#" hex;
+      r = lib.fromHexString (builtins.substring 0 2 cleanHex);
+      g = lib.fromHexString (builtins.substring 2 2 cleanHex);
+      b = lib.fromHexString (builtins.substring 4 2 cleanHex);
+      rNorm = r / 255.0;
+      gNorm = g / 255.0;
+      bNorm = b / 255.0;
+    in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
+    appleHighlightColor = hexToAppleRGBA "#${defaults.settings.accent_color}";
   in {
-    system.stateVersion = 6;
+    system.stateVersion = defaults.system.darwinVersion;
 
     # Determinate Nix settings
-    determinateNix.customSettings = {
-      experimental-features = "nix-command flakes parallel-eval impure-derivations";
-      lazy-trees = true;
-      warn-dirty = false;
-      substituters = "https://frostplexx.cachix.org https://nix-community.cachix.org https://cache.nixos.org";
-      trusted-public-keys = "frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
-      extra-trusted-users = "root ${user}";
-      eval-cores = 0;
-      auto-optimise-store = true;
-      max-jobs = "auto";
-      # Build x86_64-linux closures on sorbet; this Mac is arm64.
-      builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
-    };
+    determinateNix.customSettings =
+      defaults.nixSettings
+      // {
+        extra-trusted-users = ["root" user];
+        # Build x86_64-linux closures on sorbet; this Mac is arm64.
+        builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
+      };
 
     # Nix-homebrew configuration
     nix-homebrew = {
@@ -37,19 +43,9 @@
       taps = with inputs; {
         "homebrew/homebrew-core" = homebrew-core;
         "homebrew/homebrew-cask" = homebrew-cask;
-        "FelixKratz/homebrew-formulae" = jankyborders;
         "macos-fuse-t/homebrew-cask" = fuse-t;
       };
     };
-
-    # LazyKeys configuration
-    # services.lazykeys = {
-    #   enable = true;
-    #   normalQuickPress = false;
-    #   includeShift = false;
-    #   mode = "custom";
-    #   customKey = "escape";
-    # };
 
     programs = {
       opsops.enable = true;
@@ -70,8 +66,7 @@
       ];
       knownNetworkServices = [
         "Wi-Fi"
-        "Ethernet Adaptor"
-        "Thunderbolt Ethernet"
+        "Thunderbolt Bridge"
       ];
     };
 
@@ -119,39 +114,12 @@
 
       activationScripts = {
         postActivation = let
-          hexToAppleRGBA = hex: let
-            cleanHex = lib.removePrefix "#" hex;
-            r = lib.fromHexString (builtins.substring 0 2 cleanHex);
-            g = lib.fromHexString (builtins.substring 2 2 cleanHex);
-            b = lib.fromHexString (builtins.substring 4 2 cleanHex);
-            rNorm = r / 255.0;
-            gNorm = g / 255.0;
-            bNorm = b / 255.0;
-          in "${builtins.toString rNorm} ${builtins.toString gNorm} ${builtins.toString bNorm} 1.000000";
-          highlightColor = "#${defaults.settings.accent_color}";
-          appleHighlightColor = hexToAppleRGBA highlightColor;
-        in {
-          enable = true;
-          text =
+          script =
             /*
             bash
             */
             ''
-              sudo -u ${user} defaults write "Apple Global Domain" com.apple.mouse.linear -bool true
-              sudo -u ${user} defaults write "Apple Global Domain" "com.apple.mouse.scaling" -string "0.875"
-              sudo -u ${user} defaults write "Apple Global Domain" SLSMenuBarUseBlurredAppearance -bool false
-              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTintColor Other
-              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceTheme RegularDark
-              sudo -u ${user} defaults write "Apple Global Domain" AppleIconAppearanceCustomTintColor -string "${appleHighlightColor}"
-              sudo -u ${user} defaults write "Apple Global Domain" AppleHighlightColor -string "${appleHighlightColor} Other"
-              sudo -u ${user} defaults write "com.apple.Appearance-Settings.extension" AppleOtherHighlightColor -string "${appleHighlightColor}"
               sudo -u ${user} launchctl setenv CHROME_HEADLESS 1
-              sudo -u ${user} defaults write com.apple.Dock contents-immutable -bool true
-              sudo -u ${user} defaults write com.apple.dock size-immutable -bool yes
-
-              sudo -u ${user} defaults write com.apple.AdLib allowIdentifierForAdvertising -bool false
-              sudo -u ${user} defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false
-              sudo -u ${user} defaults write com.apple.AdLib forceLimitAdTracking -bool true
 
               sudo -u ${user} defaults -currentHost write com.apple.screensaver 'CleanExit' -string "YES"
               sudo -u ${user} defaults -currentHost write com.apple.screensaver 'PrefsVersion' -int "100"
@@ -159,26 +127,34 @@
 
               sudo -u ${user} /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "${defaults.settings.wallpaper}"'
 
-              # Set default list view settings for new folders
+              # Set default list view settings for new folders. Uses -dict-add so
+              # the other FK_StandardViewSettings subkeys are left intact, which
+              # CustomUserPreferences (whole-key writes) can't do.
               sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
               sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ExtendedListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
-              sudo -u ${user} defaults write com.apple.finder SidebarDevicesSectionDisclosedState -bool true
-              sudo -u ${user} defaults write com.apple.finder SidebarPlacesSectionDisclosedState -bool true
-              sudo -u ${user} defaults write com.apple.finder SidebarShowingiCloudDesktop -bool false
+
               # ApplePressAndHold: delete global key so per-app overrides take effect.
               # If the global key exists (even as true), it shadows all per-app values.
+              # The per-app values live in CustomUserPreferences below.
               sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
-
-              # Apps that should use key repeat instead of the accent popup:
-              sudo -u ${user} defaults write com.jetbrains.intellij    ApplePressAndHoldEnabled -bool false
-              sudo -u ${user} defaults write com.jetbrains.intellij.ce  ApplePressAndHoldEnabled -bool false
-              sudo -u ${user} defaults write com.microsoft.VSCode       ApplePressAndHoldEnabled -bool false
-              sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
-              sudo -u ${user} defaults write net.kovidgoyal.kitty       ApplePressAndHoldEnabled -bool false
-
-              killall Finder;
-              killall Dock;
             '';
+
+          # Only restart Finder/Dock when the settings they read actually changed,
+          # instead of on every switch.
+          settingsHash = builtins.hashString "sha256" (script
+            + builtins.toJSON {
+              inherit (config.system.defaults) dock finder CustomUserPreferences;
+            });
+          stamp = "/var/db/nix-darwin-defaults.hash";
+        in {
+          enable = true;
+          text = ''
+            ${script}
+            if [ "$(cat ${stamp} 2>/dev/null)" != "${settingsHash}" ]; then
+              killall Finder Dock 2>/dev/null || true
+              echo "${settingsHash}" > ${stamp}
+            fi
+          '';
         };
       };
 
@@ -233,7 +209,7 @@
           FXPreferredViewStyle = "Nlsv";
           ShowPathbar = true;
           ShowStatusBar = true;
-          FXDefaultSearchScope = "CCcf";
+          FXDefaultSearchScope = "SCcf";
         };
         dock = {
           wvous-tl-corner = 1;
@@ -284,9 +260,28 @@
           BatteryShowPercentage = false;
         };
         CustomUserPreferences = {
-          NSGlobalDomain.WebKitDeveloperExtras = true;
+          NSGlobalDomain = {
+            WebKitDeveloperExtras = true;
+            "com.apple.mouse.linear" = true;
+            SLSMenuBarUseBlurredAppearance = false;
+            AppleIconAppearanceTintColor = "Other";
+            AppleIconAppearanceTheme = "RegularDark";
+            AppleIconAppearanceCustomTintColor = appleHighlightColor;
+            AppleHighlightColor = "${appleHighlightColor} Other";
+          };
+          "com.apple.Appearance-Settings.extension".AppleOtherHighlightColor = appleHighlightColor;
+          "com.apple.dock" = {
+            contents-immutable = true;
+            size-immutable = true;
+          };
           "com.apple.commerce".AutoUpdate = true;
-          "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+          "com.apple.AdLib" = {
+            allowIdentifierForAdvertising = false;
+            allowApplePersonalizedAdvertising = false;
+            forceLimitAdTracking = true;
+          };
+          # Use key repeat instead of the accent popup (see postActivation).
+          "com.vscodium".ApplePressAndHoldEnabled = false;
           "com.apple.SoftwareUpdate" = {
             AutomaticCheckEnabled = true;
             ScheduleFrequency = 1;
@@ -295,10 +290,10 @@
           };
           "com.apple.finder" = {
             ShowExternalHardDrivesOnDesktop = true;
-            _FXSortFoldersFirst = true;
             ShowTabView = false;
-            FXPreferredViewStyle = "Nlsv";
-            FXDefaultSearchScope = "SCcf";
+            SidebarDevicesSectionDisclosedState = true;
+            SidebarPlacesSectionDisclosedState = true;
+            SidebarShowingiCloudDesktop = false;
             NewWindowTargetPath = "file:///Users/${user}/Downloads";
           };
           "com.apple.desktopservices" = {
@@ -318,7 +313,9 @@
       enable = true;
       caskArgs.no_quarantine = true;
       onActivation = {
-        autoUpdate = true;
+        # Taps are pinned through nix-homebrew (mutableTaps = false) and bumped
+        # via flake.lock, so `brew update` has nothing to do.
+        autoUpdate = false;
         upgrade = true;
         cleanup = "zap";
       };
@@ -332,13 +329,7 @@
         "Keynote" = 361285480;
       };
 
-      # taps = builtins.attrNames config.nix-homebrew.taps;
-      taps = [
-        "homebrew/homebrew-core"
-        "homebrew/homebrew-cask"
-        "FelixKratz/homebrew-formulae"
-        "macos-fuse-t/homebrew-cask"
-      ];
+      taps = builtins.attrNames config.nix-homebrew.taps;
       brews = [
         "displayplacer"
         "tag"
@@ -393,9 +384,6 @@
       gcc
       gh
       gnumake
-      gnupg
-      hexfiend
-      iina
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
       # inputs.tidaluna.packages.${stdenv.hostPlatform.system}.default
 
@@ -410,12 +398,8 @@
       man-pages-posix
       mas
       moonlight-qt
-      netcat
       nh
-      nix-output-monitor
-      nix-tree
       nmap
-      nvd
       pandoc
       ripgrep
       sops
@@ -425,8 +409,8 @@
       utm
       uv # TODO: move this to shell config?
       wget
-      whisky
       poppler-utils
+      tart
     ];
 
     # Home Manager

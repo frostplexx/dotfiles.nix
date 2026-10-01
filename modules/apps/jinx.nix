@@ -1,6 +1,7 @@
-_: {
-  # Jinx module for Darwin
-  flake.darwinModules.jinx = {pkgs, ...}: let
+_: let
+  # Jinx: nix configuration manager (wraps ./jinx/justfile). Same module for
+  # nix-darwin and NixOS; the justfile picks `nh darwin`/`nh os` itself.
+  module = {pkgs, ...}: let
     jinx = pkgs.writeShellApplication {
       name = "jinx";
       runtimeInputs = [pkgs.just];
@@ -13,14 +14,6 @@ _: {
       name = "jinx-completion";
       destination = "/share/fish/vendor_completions.d/jinx.fish";
       text = ''
-        # Function to get available recipes
-        function __jinx_recipes
-          set -l justfile "$HOME/dotfiles.nix/modules/apps/jinx/justfile"
-          if test -f "$justfile"
-            ${pkgs.just}/bin/just --justfile "$justfile" --summary 2>/dev/null | string split ' '
-          end
-        end
-
         # Function to get recipe descriptions
         function __jinx_recipe_descriptions
           set -l justfile "$HOME/dotfiles.nix/modules/apps/jinx/justfile"
@@ -52,4 +45,7 @@ _: {
       jinxCompletion
     ];
   };
+in {
+  flake.darwinModules.jinx = module;
+  flake.nixOSModules.jinx = module;
 }

@@ -1,6 +1,7 @@
 _: {
   flake.nixOSModules.tiramisu = {
     pkgs,
+    config,
     defaults,
     ...
   }: let
@@ -9,41 +10,38 @@ _: {
     system.stateVersion = defaults.system.nixosVersion;
 
     # Nix settings (read by Determinate Nixd from /etc/nix/nix.custom.conf)
-    nix.settings = {
-      experimental-features = ["nix-command" "flakes" "parallel-eval" "impure-derivations"];
-      lazy-trees = true;
-      warn-dirty = false;
-      substituters = [
-        "https://frostplexx.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
+    nix.settings =
+      defaults.nixSettings
+      // {
         # CachyOS kernel binary cache
-        "https://attic.xuyh0120.win/lantian"
-      ];
-      trusted-public-keys = [
-        "frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      ];
-      trusted-users = ["root" user];
-      eval-cores = 0;
-      auto-optimise-store = true;
-      max-jobs = "auto";
-    };
+        substituters = defaults.nixSettings.substituters ++ ["https://attic.xuyh0120.win/lantian"];
+        trusted-public-keys = defaults.nixSettings.trusted-public-keys ++ ["lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
+        trusted-users = ["root" user];
+      };
 
     # Networking
     networking = {
       hostName = "tiramisu";
       networkmanager.enable = true;
-      interfaces.eth0.wakeOnLan.enable = true;
-      firewall = {
-        allowedUDPPorts = [9];
-      };
       nameservers = [
         "94.140.14.49"
         "94.140.14.59"
       ];
+    };
+
+    # Wake-on-LAN, matched by MAC since the predictable interface name isn't
+    # fixed here. A .link file replaces 99-default.link for this NIC, so the
+    # default naming/MAC policies are repeated to keep the usual enp* name.
+    # Magic packets are handled by the NIC while the PC is off, so no firewall
+    # port is needed.
+    systemd.network.links."50-wol" = {
+      matchConfig.MACAddress = "74:56:3c:30:fc:b7";
+      linkConfig = {
+        NamePolicy = "keep kernel database onboard slot path";
+        AlternativeNamesPolicy = "database onboard slot path";
+        MACAddressPolicy = "persistent";
+        WakeOnLan = "magic";
+      };
     };
 
     time.timeZone = defaults.system.timeZone;
@@ -148,7 +146,7 @@ _: {
       after = ["graphical-session.target"];
       partOf = ["graphical-session.target"];
       serviceConfig = {
-        ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent";
+        ExecStart = "${config.programs.steam.package}/bin/steam -nochatui -nofriendsui -silent";
         Restart = "on-failure";
         RestartSec = "5s";
       };
@@ -165,7 +163,6 @@ _: {
       };
     };
 
-    # Steam
     programs = {
       fish.enable = true;
       steam = {
@@ -178,13 +175,15 @@ _: {
         enable = true;
         # Certain features, including CLI integration and system authentication support,
         # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-        polkitPolicyOwners = ["${user}"];
+        polkitPolicyOwners = [user];
       };
     };
 
     users.users.${user} = {
       isNormalUser = true;
       description = user;
+      # Only used when the user is first created; SSH below is key-only, so
+      # this can't be used to log in remotely.
       initialPassword = "changeme";
       shell = pkgs.fish;
       extraGroups = ["wheel" "networkmanager" "video" "audio"];
@@ -193,7 +192,14 @@ _: {
       ];
     };
 
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
 
     environment = {
       pathsToLink = ["/share/fish"];
@@ -208,14 +214,11 @@ _: {
         jq
         just
         nh
-        nix-output-monitor
-        nvd
         ripgrep
         sops
         statix
         uv
         wget
-        vim
         prismlauncher
         lutris
         unrar
@@ -261,7 +264,7 @@ _: {
         homeDirectory = "/home/${user}";
         sessionVariables = {
           NH_FLAKE = "$HOME/${defaults.paths.flake}";
-          EDITOR = "vim";
+          EDITOR = "nvim";
         };
       };
       programs.home-manager.enable = true;

@@ -126,20 +126,6 @@ _: {
       }
       {
         mode = "n";
-        key = "<C-d>";
-        action = "<D-d>zz";
-        noremap = false;
-        desc = "redo";
-      }
-      {
-        mode = "n";
-        key = "<C-u>";
-        action = "<D-u>zz";
-        noremap = false;
-        desc = "redo";
-      }
-      {
-        mode = "n";
         key = "U";
         action = "<c-r>";
         noremap = false;

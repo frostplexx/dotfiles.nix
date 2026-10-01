@@ -28,7 +28,7 @@ _: {
         text = {
           editing = lib.generators.mkLuaInline ''
               function(opts)
-                local errors = vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.ERROR })
+                local errors = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
                 return string.format('Editing %s - %s errors', opts.filename, #errors)
             end
           '';

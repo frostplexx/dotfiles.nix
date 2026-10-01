@@ -14,6 +14,7 @@ update: lint
         --dotfiles {{DOTFILES_FOLDER}} \
         --nix-config "{{NIX_CONFIG}}" \
         --nh-cmd {{nix_cmd}}
+    @if command -v pi-update-extensions >/dev/null; then pi-update-extensions; fi
 
 
 [group('󱄅 nix')]

@@ -69,7 +69,7 @@ _: {
             "n"
             "x"
           ];
-          desc = "pi: Paste Cursor Location";
+          desc = "pi: Paste Section Location";
         }
         {
           key = "<leader>ap";

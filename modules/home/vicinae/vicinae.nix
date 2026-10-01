@@ -78,15 +78,18 @@ _: {
           telemetry = {
             system_info = false;
           };
-          launcher_window = {
-            rounding = 25;
-            opacity = 0.8;
-            compact_mode = {
-              enabled = true;
+          launcher_window =
+            {
+              rounding = 25;
+              opacity = 0.8;
+              compact_mode = {
+                enabled = true;
+              };
+              floating_status_bar = true;
+            }
+            // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+              material = "liquid_glass";
             };
-            floating_status_bar = true;
-            material = "liquid_glass";
-          };
           providers = {
             "core" = {
               "entrypoints" = {

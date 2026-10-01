@@ -97,14 +97,12 @@ jobs:
           echo "Matrix JSON: $MATRIX_JSON"
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
+  # The only flake check is the alejandra formatting check, which is
+  # platform-independent, so one (cheap) Linux runner covers it.
   flake-check:
     name: Flake Check
     needs: [security-check, lint]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
 
@@ -133,7 +131,7 @@ jobs:
           chmod 600 "$HOME/.config/sops/age/keys.txt"
           echo "✓ SOPS age key written from secret"
 
-      - uses: DeterminateSystems/flake-checker-action@main
+      - uses: DeterminateSystems/flake-checker-action@v14
       - run: nix flake check
 
   test-configurations:

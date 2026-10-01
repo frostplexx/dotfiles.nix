@@ -4,7 +4,8 @@
     "extensions": {
       "audio-device": {
         "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28="
+        "hash": "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28=",
+        "darwinOnly": true
       },
       "deepcast": {
         "rev": "3062caa45157616006ae726677156594200cc90a",
@@ -16,7 +17,8 @@
       },
       "obsidian": {
         "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-7HZ2UEVZxRrkVYNux3+RM4xgXZdbRxEFGL7tkE/L8uc="
+        "hash": "sha256-7HZ2UEVZxRrkVYNux3+RM4xgXZdbRxEFGL7tkE/L8uc=",
+        "darwinOnly": true
       },
       "toothpick": {
         "rev": "a79448785b1bb8c6ccfa0e53e957b5812efab026",
@@ -47,7 +49,8 @@
       },
       "vscode-recents": {
         "rev": "ee117bc64f341ed71b4a27e311f343b12a75f43d",
-        "hash": "sha256-TZY7DjrgpKzQ/RLdC8AdJqkE8QBi5Z7RZTFRWKkFI9o="
+        "hash": "sha256-TZY7DjrgpKzQ/RLdC8AdJqkE8QBi5Z7RZTFRWKkFI9o=",
+        "darwinOnly": true
       }
     }
   }

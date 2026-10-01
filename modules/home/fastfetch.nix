@@ -1,13 +1,21 @@
 _: {
-  flake.homeManagerModules.fastfetch = {pkgs, ...}: {
+  flake.homeManagerModules.fastfetch = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.fastfetch = {
       enable = true;
       settings = {
         logo = {
-          source = pkgs.fetchurl {
-            url = "https://daiderd.com/nix-darwin/images/nix-darwin.png";
-            hash = "sha256-CeA0LbC3q6HMZuqJ9MHncI5z8GZ/EMAn7ULjiIX0wH4=";
-          };
+          source =
+            if pkgs.stdenv.hostPlatform.isDarwin
+            then
+              pkgs.fetchurl {
+                url = "https://daiderd.com/nix-darwin/images/nix-darwin.png";
+                hash = "sha256-CeA0LbC3q6HMZuqJ9MHncI5z8GZ/EMAn7ULjiIX0wH4=";
+              }
+            else "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
           type = "kitty-direct";
           width = 33;
           height = 14;
@@ -69,10 +77,7 @@ _: {
             type = "disk";
             key = "  {#cyan}{icon} Disk";
             format = "{size-used} / {size-total} ({size-percentage})";
-            folders = [
-              "/"
-              "/home"
-            ];
+            folders = ["/"] ++ lib.optional pkgs.stdenv.hostPlatform.isLinux "/home";
           }
 
           {

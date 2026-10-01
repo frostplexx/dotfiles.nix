@@ -16,7 +16,7 @@ _: {
         # package = pkgs.ghostty-bin;
         package =
           if pkgs.stdenv.hostPlatform.isDarwin
-          then inputs.nixkit.packages.${pkgs.system}.ghostty-tip
+          then inputs.nixkit.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-tip
           else pkgs.ghostty;
         settings = {
           theme =

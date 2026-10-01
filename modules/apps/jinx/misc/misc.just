@@ -14,14 +14,6 @@ exclude_node_modules:
 
 [macos]
 [group('󰲽 utility')]
-[doc('Restarts yabai, skhd and lazykeys')]
-restart_wm:
-    @pkill -9 yabai 
-    @pkill -9 skhd
-    @pkill -9 lazykeys 
-
-[macos]
-[group('󰲽 utility')]
 [doc('Sets the current screen to HiDPI mode')]
 set_screen_hidpi:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/highres_display.fish"
@@ -46,7 +38,7 @@ clear_dns:
 info:
     @echo -e "\033[0;33mOS:\033[0m $(uname -s) $(uname -r) ($(uname -m))"
     @echo -e -n "\033[0;33mNix Version:\033[0m $(nix --version)\n" 
-    @echo -e "\033[0;33mNix Darwin:\033[0m $(darwin-version)"
+    @echo -e "\033[0;33mSystem:\033[0m $(darwin-version 2>/dev/null || nixos-version)"
     @echo -e "\033[0;33mDotfiles:\033[0m $(echo {{DOTFILES_FOLDER}})"
 
 [group('󰋖 help')]

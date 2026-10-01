@@ -1,10 +1,5 @@
-# Nothing to do if not inside an interactive shell.
-if not status is-interactive
-    return 0
-end
-
-# Remove the gretting message.
-set -U fish_greeting
+# Remove the greeting message.
+set -g fish_greeting
 
 # Manpager
 set -x MANPAGER "nvim +Man!"
@@ -15,11 +10,3 @@ set fish_vi_force_cursor 1
 set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_replace_one underscore
-
-# Source additional scripts
-if test -d $HOME/.fish_scripts
-    for file in $HOME/.fish_scripts/*.fish
-        source $file &
-    end
-end
-

@@ -22,10 +22,10 @@ deploy host="$(hostname)": lint
             sudo darwin-rebuild switch --flake . --verbose --show-trace; \
         else \
             echo "Running nixos-rebuild switch with verbose output..."; \
-            nixos-rebuild switch --flake . --verbose --show-trace; \
+            sudo nixos-rebuild switch --flake . --verbose --show-trace; \
         fi; \
     else \
-        nh {{nix_cmd}} switch -H {{host}} {{DOTFILES_FOLDER}} --impure -- --option lazy-trees false; \
+        nh {{nix_cmd}} switch -H {{host}} {{DOTFILES_FOLDER}}; \
     fi
 
 
@@ -34,6 +34,8 @@ deploy host="$(hostname)": lint
 [doc('Search for nix packages')]
 search package:
     #!/usr/bin/env fish
+    set -l copy pbcopy
+    command -q pbcopy; or set copy wl-copy
     fzf \
         --phony \
         --multi \
@@ -59,7 +61,7 @@ search package:
           "
         ' \
         --preview-window=wrap \
-        --bind 'enter:execute-silent(echo {+1} | tr " " "\n" | pbcopy)+abort' \
+        --bind "enter:execute-silent(echo {+1} | tr ' ' '\n' | $copy)+abort" \
         --ansi \
         < /dev/null
 

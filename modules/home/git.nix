@@ -26,20 +26,18 @@ _: {
             tool = "nvim";
             guitool = "nvim";
           };
-          signing.format = "openpgp";
-          gpg.format = "ssh";
-          "gpg \"ssh\"".program =
-            if pkgs.stdenv.hostPlatform.isDarwin
-            then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-            else "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-          commit.gpgsign =
-            if pkgs.stdenv.hostPlatform.isDarwin
-            then true
-            else false;
+          # Commits are only signed on macOS, through 1Password's SSH agent.
+          gpg = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+            format = "ssh";
+            ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          };
+          commit.gpgsign = pkgs.stdenv.hostPlatform.isDarwin;
+          # gitFull ships the libsecret helper and is in the binary cache;
+          # overriding pkgs.git with withLibsecret rebuilt git from source.
           credential.helper =
             if pkgs.stdenv.hostPlatform.isDarwin
             then "osxkeychain"
-            else "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
+            else "${pkgs.gitFull}/bin/git-credential-libsecret";
           difftool = {
             prompt = false;
             trustExitCode = true;

@@ -1,6 +1,7 @@
-_: {
-  # Jinx module for Darwin
-  flake.darwinModules.repodex = {pkgs, ...}: let
+_: let
+  # Repodex: project/repo manager (wraps ./repodex/justfile), for both
+  # nix-darwin and NixOS.
+  module = {pkgs, ...}: let
     repodex = pkgs.writeShellApplication {
       name = "repodex";
       runtimeInputs = [pkgs.just];
@@ -11,4 +12,7 @@ _: {
   in {
     environment.systemPackages = [repodex];
   };
+in {
+  flake.darwinModules.repodex = module;
+  flake.nixOSModules.repodex = module;
 }
