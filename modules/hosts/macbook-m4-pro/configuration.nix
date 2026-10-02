@@ -364,6 +364,7 @@
         "mullvad-vpn"
         "fuse-t"
         "macos-fuse-t/cask/fuse-t-sshfs"
+        "macpacker"
         # "sf-symbols"
       ];
     };
@@ -409,7 +410,6 @@
 
       # GUI apps
       feishin
-      keka
       moonlight-qt
       utm
       zoom-us
