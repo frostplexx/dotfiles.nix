@@ -150,6 +150,18 @@
               sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
               sudo -u ${user} defaults write com.apple.finder FK_StandardViewSettings -dict-add ExtendedListViewSettings '{ "columns" = ( { "ascending" = 1; "identifier" = "name"; "visible" = 1; "width" = 300; }, { "ascending" = 0; "identifier" = "dateModified"; "visible" = 1; "width" = 181; }, { "ascending" = 0; "identifier" = "size"; "visible" = 1; "width" = 97; } ); "iconSize" = 16; "showIconPreview" = 0; "sortColumn" = "name"; "textSize" = 12; "useRelativeDates" = 1; }'
 
+              # Window > Arrange shortcuts (⌃⌥⇧⌘ H/L/K/J). -dict-add so other symbolic
+              # hotkeys are kept. parameters = (ascii char, keycode, modifier mask).
+              # XML, not old-style { } syntax, which would store every value as a string.
+              set_hotkey() {
+                sudo -u ${user} defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" "<dict><key>enabled</key><true/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>$2</integer><integer>$3</integer><integer>$4</integer></array></dict></dict>"
+              }
+              set_hotkey 248 104 4 1966080
+              set_hotkey 249 108 37 1966080
+              set_hotkey 250 107 40 1966080
+              set_hotkey 251 106 38 1966080
+              sudo -u ${user} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
               # ApplePressAndHold: delete global key so per-app overrides take effect.
               # If the global key exists (even as true), it shadows all per-app values.
               # The per-app values live in CustomUserPreferences below.
@@ -193,7 +205,7 @@
           askForPasswordDelay = 5;
         };
         NSGlobalDomain = {
-          AppleSpacesSwitchOnActivate = false;
+          AppleSpacesSwitchOnActivate = true;
           NSWindowShouldDragOnGesture = true;
           NSAutomaticWindowAnimationsEnabled = true;
           NSWindowResizeTime = 0.001;
@@ -326,6 +338,13 @@
           };
         };
       };
+    };
+
+    services.lazykeys = {
+      enable = true;
+      normalQuickPress = false; # Quick press behavior
+      includeShift = false; # Hyper key will be Cmd+Ctrl+Alt (without Shift)
+      mode = "hyperkey"; # or "escape" or "custom"
     };
 
     # Homebrew

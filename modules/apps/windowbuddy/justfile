@@ -1,0 +1,5 @@
+build:
+    clang -O2 -Wall -Wextra *.c -o windowbuddy -framework ApplicationServices -framework CoreFoundation -framework AppKit -lobjc
+
+run *args: build
+    ./windowbuddy {{args}}

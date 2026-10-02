@@ -67,6 +67,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lazykeys = {
+      url = "github:frostplexx/lazykeys";
+    };
+
     tidaluna = {
       url = "github:frostplexx/TidaLuna/flake";
       # url = "github:Inrixia/TidaLuna";

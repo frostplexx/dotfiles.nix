@@ -55,7 +55,7 @@ in {
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"]))
+                  (n: _: !(builtins.elem n ["agate" "obsidian" "skhd" "vscode"]))
                   self.homeManagerModules
                 );
             };

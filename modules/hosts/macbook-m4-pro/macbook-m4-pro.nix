@@ -29,6 +29,7 @@ in {
           inputs.nix-homebrew.darwinModules.nix-homebrew
           inputs.nixkit.darwinModules.default
           inputs.determinate.darwinModules.default
+          inputs.lazykeys.darwinModules.default
           inputs.sops-nix.darwinModules.sops
 
           # Nixpkgs configuration
