@@ -371,7 +371,7 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = [
         "displayplacer"
-        "tag"
+        "mole"
       ];
       casks = [
         "tailscale-app"
