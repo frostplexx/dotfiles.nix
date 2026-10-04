@@ -56,7 +56,7 @@ _: {
             "browser.backup.enabled" = true;
             "browser.backup.scheduled.enabled" = true;
             "browser.backup.scheduled.minimum-time-between-backups-seconds" = 86400;
-            "browser.backup.location" = "${config.home.homeDirectory}/Library/Mobile Documents/com~apple~CloudDocs/Documents/03 Resources/Backups/Zen";
+            "browser.backup.location" = "${config.home.homeDirectory}/Library/Mobile Documents/com~apple~CloudDocs/Backups/Zen";
           };
 
         search = {
