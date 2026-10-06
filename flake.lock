@@ -433,11 +433,11 @@
     "fuse-t": {
       "flake": false,
       "locked": {
-        "lastModified": 1780488840,
-        "narHash": "sha256-OOnbHdOhWeuxAPI65FKT7x0lqNBseBAyVv3KSMrdroc=",
+        "lastModified": 1791295075,
+        "narHash": "sha256-3sP+rc7tkEUo7kfn/dCfu3Gk2hp5p6pClxYWSLWvgnM=",
         "owner": "macos-fuse-t",
         "repo": "homebrew-cask",
-        "rev": "940387c1877e390d4cc4e3f5c6f23c82fa32c4b1",
+        "rev": "934c6431d77e505e62f76919fbff93235541e85b",
         "type": "github"
       },
       "original": {
