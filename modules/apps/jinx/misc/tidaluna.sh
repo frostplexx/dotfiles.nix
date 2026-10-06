@@ -58,6 +58,7 @@ fi
 if [[ -d "$TIDAL_PATH/app" && -f "$TIDAL_PATH/original.asar" ]]; then
     echo "TidaLuna installed successfully."
     rm -rf "$TEMP_DIR"
+    open -a TIDAL
 else
     echo "Installation failed. Please check the paths and try again."
     exit 1
