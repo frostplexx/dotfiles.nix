@@ -1,4 +1,15 @@
+keys:
+  # Personal age key (~/.config/sops/age/keys.txt, in 1Password)
+  daniel: &daniel age1j34fef9lh8jpmrgcxzexfx624ydzupffzh2u0h4xduzc6l9pevjq2tklnh
+  # tiramisu host key: age key derived from /etc/ssh/ssh_host_ed25519_key
+  tiramisu: &tiramisu age18g965usuzg2ph945qt4fd7rn0g7sfc93plxklzjs48zza2cnh4csmhs0vd
 creation_rules:
+# Host secrets: encrypted to both the personal key (editing from the Mac via
+# `jinx edit-secret`) and the host key (decryption during activation).
+- path_regex: modules/hosts/tiramisu/secrets\.yaml$
+  age:
+  - *daniel
+  - *tiramisu
 - path_regex: .*
   age: age1j34fef9lh8jpmrgcxzexfx624ydzupffzh2u0h4xduzc6l9pevjq2tklnh
 onepassworditem: op://Personal/dotfiles-age/Private Key

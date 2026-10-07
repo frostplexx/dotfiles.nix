@@ -204,6 +204,29 @@ _: {
       ];
     };
 
+    # Host secrets. The SSH host key doubles as the age decryption key, so
+    # nothing needs to be provisioned on the machine.
+    sops = {
+      age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+      # User passwords are needed before users are created, so this is
+      # decrypted early, to /run/secrets-for-users/power-password.
+      secrets."power-password" = {
+        sopsFile = ./secrets.yaml;
+        neededForUsers = true;
+      };
+    };
+
+    # Password-only SSH account for shutting the PC down remotely; Wake-on-LAN
+    # above is the counterpart for waking it back up. No groups, no authorized
+    # keys, so its only abilities are logging in with the password and
+    # powering off/rebooting via the polkit rule below.
+    users.users.power = {
+      isNormalUser = true;
+      description = "Remote power off";
+      hashedPasswordFile = config.sops.secrets."power-password".path;
+      shell = pkgs.fish;
+    };
+
     services.openssh = {
       enable = true;
       settings = {
@@ -211,6 +234,32 @@ _: {
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
       };
+      # Appended after the settings above, and Match blocks must come last.
+      # Password login stays off globally; only the power user may use it.
+      extraConfig = ''
+        Match User power
+          PasswordAuthentication yes
+      '';
+    };
+
+    # Remote SSH sessions have no seat, so the default polkit policy denies
+    # them power-off. Allow the power user exactly that (and reboot), and
+    # nobody else.
+    security.polkit = {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if (subject.user == "power" &&
+              (action.id == "org.freedesktop.login1.power-off" ||
+               action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+               action.id == "org.freedesktop.login1.power-off-ignore-inhibit" ||
+               action.id == "org.freedesktop.login1.reboot" ||
+               action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+               action.id == "org.freedesktop.login1.reboot-ignore-inhibit")) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
     };
 
     # tiramisu is gaming-only: no system-wide CLI tools. Apps live in
