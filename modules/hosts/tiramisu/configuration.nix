@@ -110,6 +110,11 @@ _: {
     };
 
     services = {
+      glances = {
+          # Default port is 61208
+          enable = true;
+          openFirewall = true;
+      };
       xserver.videoDrivers = ["nvidia"];
       desktopManager.plasma6.enable = true;
       # The AeroThemePlasma shell requires SDDM for its login theme
