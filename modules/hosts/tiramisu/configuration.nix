@@ -218,8 +218,8 @@ _: {
 
     # Password-only SSH account for shutting the PC down remotely; Wake-on-LAN
     # above is the counterpart for waking it back up. No groups, no authorized
-    # keys, so its only abilities are logging in with the password and
-    # powering off/rebooting via the polkit rule below.
+    # keys, so its only abilities are logging in with the password (sshd Match
+    # block + PAM above) and powering off/rebooting via the polkit rule below.
     users.users.power = {
       isNormalUser = true;
       description = "Remote power off";
@@ -230,13 +230,20 @@ _: {
     services.openssh = {
       enable = true;
       settings = {
-        PasswordAuthentication = false;
+        # The sshd PAM stack only gains password checking when this global
+        # setting is true (sshd.nix wires it into
+        # security.pam.services.sshd.unixAuth) — with false, auth is
+        # pam_deny-only and NO password ever works, not even for Match-block
+        # users. The Match blocks below re-disable it for everyone but power.
+        PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
       };
-      # Appended after the settings above, and Match blocks must come last.
-      # Password login stays off globally; only the power user may use it.
+      # Appended after the settings above; Match blocks must come last, and
+      # the last matching one wins.
       extraConfig = ''
+        Match all
+          PasswordAuthentication no
         Match User power
           PasswordAuthentication yes
       '';
