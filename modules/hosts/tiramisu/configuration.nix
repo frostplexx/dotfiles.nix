@@ -240,12 +240,12 @@ _: {
         PermitRootLogin = "no";
       };
       # Appended after the settings above; Match blocks must come last, and
-      # the last matching one wins.
+      # the FIRST matching Match block wins, so power must come first.
       extraConfig = ''
-        Match all
-          PasswordAuthentication no
         Match User power
           PasswordAuthentication yes
+        Match all
+          PasswordAuthentication no
       '';
     };
 
