@@ -10,17 +10,17 @@
       enable = true;
       package = pkgs.skhd_zig;
       config = ''
-        ctrl + alt + cmd - 1 : ${wb} space 7
-        ctrl + alt + cmd - 2 : ${wb} space 8
-        ctrl + alt + cmd - 3 : ${wb} space 9
+        ctrl + alt + cmd - 1 : ${wb} space 4
+        ctrl + alt + cmd - 2 : ${wb} space 5
+        ctrl + alt + cmd - 3 : ${wb} space 6
         ctrl + alt + cmd - 4 : ${wb} space 2
         ctrl + alt + cmd - 5 : ${wb} space 3
         ctrl + alt + cmd - 6 : ${wb} space 1
 
         # move follows the window to its new space
-        ctrl + alt + shift + cmd - 1 : ${wb} move 7
-        ctrl + alt + shift + cmd - 2 : ${wb} move 8
-        ctrl + alt + shift + cmd - 3 : ${wb} move 9
+        ctrl + alt + shift + cmd - 1 : ${wb} move 4
+        ctrl + alt + shift + cmd - 2 : ${wb} move 5
+        ctrl + alt + shift + cmd - 3 : ${wb} move 6
         ctrl + alt + shift + cmd - 4 : ${wb} move 2
         ctrl + alt + shift + cmd - 5 : ${wb} move 3
         ctrl + alt + shift + cmd - 6 : ${wb} move 1
