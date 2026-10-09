@@ -85,7 +85,6 @@ _: {
           showHiddenThings.enable = true;
           permissionsViewer.enable = true;
           plainFolderIcon.enable = true;
-          summaries.enable = true;
           quickMention.enable = true;
           readAllNotificationsButton.enable = true;
           sendTimestamps.enable = true;
