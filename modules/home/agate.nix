@@ -134,7 +134,6 @@ _: {
             agate.rule({ app = "^Zen$", space = 1, monitor = 1 })
             agate.rule({ app = "^Obsidian$", space = 3 })
             agate.rule({ app = "^Things$", space = 1, monitor = 2 })
-            agate.rule({ app = "^Spotify$", space = 3, monitor = 2 })
             agate.rule({ app = "^Vesktop$", space = 2, monitor = 2 })
             agate.rule({ app = "^Mail$", space = 2, monitor = 2 })
 

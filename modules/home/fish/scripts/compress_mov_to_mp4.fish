@@ -65,7 +65,7 @@ function compress_mov_to_mp4
     rm -f ffmpeg2pass-0.log ffmpeg2pass-0.log.mbtree
 
     # Check final file size (macOS compatible)
-    set final_size (stat -f%z "Compressed-$output_file")
+    set final_size (wc -c <"Compressed-$output_file" | string trim)
     set final_size_mb (math "$final_size / 1024 / 1024")
 
     set end_time (date +%s)

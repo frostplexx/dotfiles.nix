@@ -2,7 +2,7 @@ name: update-pins
 
 # Renovate already keeps flake.lock fresh, which covers every `flake = false`
 # input. This job covers the pins Renovate cannot compute a hash for: the
-# monorepo subdirectory checkouts in modules/home/vicinae-extensions.json.
+# monorepo subdirectory checkouts in modules/home/vicinae/vicinae-extensions.json.
 
 on:
   schedule:
@@ -40,7 +40,7 @@ jobs:
       - name: Check the config still evaluates
         run: |
           nix eval --raw --impure --expr \
-            'builtins.toJSON (builtins.fromJSON (builtins.readFile ./modules/home/vicinae-extensions.json))' \
+            'builtins.toJSON (builtins.fromJSON (builtins.readFile ./modules/home/vicinae/vicinae-extensions.json))' \
             >/dev/null
           nix flake check --no-build
 
@@ -50,7 +50,7 @@ jobs:
           title: "chore(deps): update vicinae extension pins"
           commit-message: "chore(deps): update vicinae extension pins"
           body: |
-            Regenerated `modules/home/vicinae-extensions.json` via
+            Regenerated `modules/home/vicinae/vicinae-extensions.json` via
             `./scripts/vicinae-extensions.sh update`.
 
             ```

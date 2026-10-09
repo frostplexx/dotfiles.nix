@@ -9,7 +9,8 @@ set dest "$root/$name"
 
 mkdir -p $dest
 
-tag --set "Project" $dest
+# Finder tag (macOS only)
+command -q tag; and tag --set "Project" $dest
 
 echo -e "\033[34m\033[0m  Created \033[1m$dest\033[0m"
 

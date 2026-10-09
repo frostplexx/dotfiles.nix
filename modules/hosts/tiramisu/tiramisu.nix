@@ -5,13 +5,7 @@
   config,
   ...
 }: let
-  collectModules = attrs: lib.attrValues (lib.filterAttrs (_n: v: v != {}) attrs);
-
-  nixPkgsConfig = {
-    allowUnfree = true;
-    allowBroken = false;
-    allowUnsupportedSystem = false;
-  };
+  inherit (config.flake.lib) collectModules nixpkgsConfig;
 
   overlays = [
     inputs.vicinae.overlays.default
@@ -34,7 +28,7 @@ in {
 
           # Nixpkgs configuration
           {
-            nixpkgs.config = nixPkgsConfig;
+            nixpkgs.config = nixpkgsConfig;
             nixpkgs.overlays = overlays;
           }
 
@@ -57,12 +51,11 @@ in {
                   inputs.zen-browser.homeModules.beta
                   inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
-                  inputs.spicetify-nix.homeManagerModules.spicetify
                   inputs.plasma-manager.homeModules.plasma-manager
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["agate" "obsidian" "vscode"]))
+                  (n: _: !(builtins.elem n ["agate" "obsidian" "skhd" "vscode"]))
                   self.homeManagerModules
                 );
             };

@@ -1,23 +1,21 @@
 
-[group('󰒔 maintain')]
-[doc('Clean and optimize the nix store with nh')]
+[group('󰒔 store')]
+[doc('Delete old generations (keeps 5) and garbage-collect')]
 clean:
     @nh clean all -k 5
-    @nix-collect-garbage -d
-    @nix store gc
 
-[group('󰒔 maintain')]
-[doc('Optimize the nix store')]
-optimize:
+[group('󰒔 store')]
+[doc('Deduplicate the nix store')]
+optimise:
     @nix store optimise -v
 
-[group('󰒔 maintain')]
-[doc('Verify and repair the nix-store')]
+[group('󰒔 store')]
+[doc('Verify and repair the nix store')]
 repair:
     @sudo nix-store --verify --check-contents --repair
 
-[group('󰒔 maintain')]
-[doc('Delete nix fetcher/eval caches for user and root (fixes "object not found - no match for id")')]
+[group('󰒔 store')]
+[doc('Delete nix fetcher and eval caches (fixes "object not found")')]
 clean-cache:
     @echo "Deleting nix caches for $(whoami)..."
     @rm -rf "$HOME"/.cache/nix/tarball-cache "$HOME"/.cache/nix/gitv3 "$HOME"/.cache/nix/fetcher-cache-v*.sqlite* "$HOME"/.cache/nix/eval-cache-v*

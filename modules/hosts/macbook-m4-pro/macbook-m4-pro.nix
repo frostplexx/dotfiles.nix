@@ -5,15 +5,8 @@
   config,
   ...
 }: let
-  # Helper to collect all modules from an attrset
-  collectModules = attrs: lib.attrValues (lib.filterAttrs (_n: v: v != {}) attrs);
+  inherit (config.flake.lib) collectModules nixpkgsConfig;
 
-  # Shared nixpkgs config
-  nixpkgsConfig = {
-    allowUnfree = true;
-    allowBroken = false;
-    allowUnsupportedSystem = false;
-  };
   # Overlays
   overlays = [
     inputs.vicinae.overlays.default
@@ -34,9 +27,9 @@ in {
           # Core modules
           inputs.home-manager.darwinModules.home-manager
           inputs.nix-homebrew.darwinModules.nix-homebrew
-          inputs.lazykeys.darwinModules.default
           inputs.nixkit.darwinModules.default
           inputs.determinate.darwinModules.default
+          inputs.lazykeys.darwinModules.default
           inputs.sops-nix.darwinModules.sops
 
           # Nixpkgs configuration
@@ -61,7 +54,6 @@ in {
                   inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.vicinae.homeManagerModules.default
-                  inputs.spicetify-nix.homeManagerModules.spicetify
                   {
                     # Disable nix management in home-manager on Darwin (handled by Determinate)
                     nix.enable = false;
@@ -71,7 +63,7 @@ in {
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["plasma"]))
+                  (n: _: !(builtins.elem n ["plasma" "sunshine"]))
                   self.homeManagerModules
                 );
               extraSpecialArgs = {

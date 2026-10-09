@@ -21,12 +21,12 @@ default:
 import "./deploy/deploy.just"
 import "./update/update.just"
 import "./maintain/maintain.just"
-import "./rollback/rollback.just"
+import "./health/health.just"
 import "./misc/misc.just"
 
 [private]
 lint:
-    @nix fmt {{DOTFILES_FOLDER}} 2> /dev/null
-    @nix run nixpkgs#statix -- check {{DOTFILES_FOLDER}}
-    @nix run nixpkgs#deadnix -- -eq {{DOTFILES_FOLDER}}
+    @alejandra -q {{DOTFILES_FOLDER}}
+    @statix check {{DOTFILES_FOLDER}}
+    @deadnix -eq {{DOTFILES_FOLDER}}
 

@@ -1,6 +1,7 @@
 _: {
   flake.homeManagerModules.yazi = {
     pkgs,
+    lib,
     inputs,
     ...
   }: let
@@ -74,61 +75,73 @@ _: {
       };
 
       plugins = {
-        inherit (pkgs.yaziPlugins) git;
-        inherit (pkgs.yaziPlugins) starship;
+        inherit
+          (pkgs.yaziPlugins)
+          git
+          starship
+          jump-to-char
+          toggle-pane
+          chmod
+          smart-filter
+          ;
       };
       flavors = {
         catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi";
       };
 
       keymap = {
-        mgr.prepend_keymap = [
-          {
-            on = "f";
-            run = "plugin jump-to-char";
-            desc = "Jump to char";
-          }
-          {
-            on = "T";
-            run = "plugin max-preview";
-            desc = "Maximize or restore the preview pane";
-          }
-          {
-            on = [
-              "c"
-              "h"
-            ];
-            run = "plugin chmod";
-            desc = "Chmod on selected files";
-          }
-          {
-            on = [
-              "g"
-              "i"
-            ];
-            run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
-            desc = "Go to iCloud";
-          }
-          {
-            on = [
-              "g"
-              "D"
-            ];
-            run = "cd '~/Projects'";
-            desc = "Go to Projects";
-          }
-          {
-            on = "F";
-            run = "plugin smart-filter";
-            desc = "Toggle smart filter";
-          }
-          {
-            on = "<C-p>";
-            run = ''
-              shell 'qlmanage -p "$@"' --confirm
-            '';
-          }
-        ];
+        mgr.prepend_keymap =
+          [
+            {
+              on = "f";
+              run = "plugin jump-to-char";
+              desc = "Jump to char";
+            }
+            {
+              on = "T";
+              run = "plugin toggle-pane max-preview";
+              desc = "Maximize or restore the preview pane";
+            }
+            {
+              on = [
+                "c"
+                "h"
+              ];
+              run = "plugin chmod";
+              desc = "Chmod on selected files";
+            }
+            {
+              on = [
+                "g"
+                "D"
+              ];
+              run = "cd '~/Projects'";
+              desc = "Go to Projects";
+            }
+            {
+              on = "F";
+              run = "plugin smart-filter";
+              desc = "Toggle smart filter";
+            }
+          ]
+          # macOS only: iCloud Drive and Quick Look
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+            {
+              on = [
+                "g"
+                "i"
+              ];
+              run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'";
+              desc = "Go to iCloud";
+            }
+            {
+              on = "<C-p>";
+              run = ''
+                shell 'qlmanage -p "$@"' --confirm
+              '';
+              desc = "Quick Look";
+            }
+          ];
       };
     };
   };

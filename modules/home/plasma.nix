@@ -1,14 +1,11 @@
 _: {
+  # AeroThemePlasma owns the Plasma shell appearance (look-and-feel, panels,
+  # theme, fonts, KWin decoration), so only behaviour is configured here.
   flake.homeManagerModules.plasma = {
     pkgs,
     lib,
     ...
-  } @ args: let
-    # When AeroThemePlasma is enabled, it owns the Plasma shell appearance
-    # (look-and-feel, panels, theme, fonts, KWin decoration). Disable the
-    # conflicting plasma-manager overrides so they do not fight the theme.
-    aeroTheme = args.aeroTheme or false;
-  in {
+  }: {
     # XDG
     xdg.portal = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       enable = true;
@@ -22,145 +19,20 @@ _: {
       plasma = {
         enable = true;
 
-        # Owned by AeroThemePlasma when active
-        workspace = lib.mkIf (!aeroTheme) {
-          lookAndFeel = "org.kde.breezedark.desktop";
-          iconTheme = "Papirus-Dark";
-          wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/DarkestHour/contents/images/2560x1500.png";
+        # AeroThemePlasma's Windows cursor. Must be set here: plasma-manager
+        # rewrites kcminputrc on every activation, so a cursor picked in
+        # System Settings is reset at the next deploy.
+        # Size 30 matches what AeroThemePlasma's SDDM login theme uses.
+        workspace.cursor = {
+          theme = "aero-drop";
+          size = 30;
         };
-
-        panels = lib.mkIf (!aeroTheme) [
-          # Windows-like panel at the bottom
-          {
-            location = "bottom";
-            height = 50;
-            lengthMode = "fit";
-            widgets = [
-              # We can configure the widgets by adding the name and config
-              # attributes. For example to add the the kickoff widget and set the
-              # icon to "nix-snowflake-white" use the below configuration. This will
-              # add the "icon" key to the "General" group for the widget in
-              # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
-              # {
-              #   name = "org.kde.plasma.kickoff";
-              #   config = {
-              #     General = {
-              #       icon = "nix-snowflake-white";
-              #       alphaSort = true;
-              #     };
-              #   };
-              # }
-              # Or you can configure the widgets by adding the widget-specific options for it.
-              # See modules/widgets for supported widgets and options for these widgets.
-              # For example:
-              {
-                kickoff = {
-                  sortAlphabetically = true;
-                  icon = "nix-snowflake-white";
-                };
-              }
-              # Adding configuration to the widgets can also for example be used to
-              # pin apps to the task-manager, which this example illustrates by
-              # pinning dolphin and konsole to the task-manager by default with widget-specific options.
-              {
-                iconTasks = {
-                  launchers = [
-                    "applications:zen-beta.desktop"
-                    "applications:vesktop.desktop"
-                    "applications:steam.desktop"
-                    "applications:com.mitchellh.ghostty.desktop"
-                  ];
-                };
-              }
-            ];
-            hiding = "autohide";
-          }
-          # Application name, Global menu and Song information and playback controls at the top
-          {
-            location = "top";
-            height = 26;
-            widgets = [
-              {
-                pager = {
-                  general = {
-                    showWindowOutlines = true;
-                    showApplicationIconsOnWindowOutlines = true;
-                  };
-                };
-              }
-              # If no configuration is needed, specifying only the name of the
-              # widget will add them with the default configuration.
-              {
-                panelSpacer = {};
-              }
-              {
-                plasmusicToolbar = {
-                  panelIcon = {
-                    albumCover = {
-                      useAsIcon = false;
-                      radius = 8;
-                    };
-                    icon = "view-media-track";
-                  };
-                  playbackSource = "auto";
-                  musicControls.showPlaybackControls = true;
-                  songText = {
-                    displayInSeparateLines = true;
-                    maximumWidth = 640;
-                    scrolling = {
-                      behavior = "alwaysScroll";
-                      speed = 3;
-                    };
-                  };
-                };
-              }
-              {
-                panelSpacer = {};
-              }
-              {
-                systemTray.items = {
-                  # We explicitly show bluetooth and battery
-                  shown = [
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.volume"
-                  ];
-                  # And explicitly hide networkmanagement and volume
-                  hidden = [
-                    "org.kde.plasma.battery"
-                    "org.kde.plasma.bluetooth"
-                  ];
-                };
-              }
-
-              {
-                digitalClock = {
-                  date.enable = false;
-                  calendar.firstDayOfWeek = "monday";
-                  time.format = "24h";
-                };
-              }
-            ];
-          }
-        ];
 
         shortcuts = {
           ActivityManager.switch-to-activity-c8fdbd68-9043-4ff9-aa47-6e03e576a621 = [];
           "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";
           "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Meta+Alt+K";
           kaccess."Toggle Screen Reader On and Off" = "Meta+Alt+S";
-          kmix = {
-            decrease_microphone_volume = "Microphone Volume Down";
-            decrease_volume = "Volume Down";
-            decrease_volume_small = "Shift+Volume Down";
-            increase_microphone_volume = "Microphone Volume Up";
-            increase_volume = "Volume Up";
-            increase_volume_small = "Shift+Volume Up";
-            mic_mute = [
-              "Microphone Mute"
-              "Meta+Volume Mute"
-            ];
-            mute = "Volume Mute";
-          };
           ksmserver = {
             "Halt Without Confirmation" = [];
             "Lock Session" = [
@@ -433,12 +305,8 @@ _: {
           };
         };
         configFile = {
-          baloofilerc = {
-            "Basic Settings".Indexing-Enabled = false;
-            General.dbVersion = 2;
-          };
+          baloofilerc."Basic Settings".Indexing-Enabled = false;
           dolphinrc = {
-            General.ViewPropsTimestamp = "2026,2,21,8,42,6.595";
             "KFileDialog Settings"."Places Icons Auto-resize" = false;
             "KFileDialog Settings"."Places Icons Static Size" = 22;
           };
@@ -473,17 +341,9 @@ _: {
             "Libinput/1133/16531/Logitech PRO X".PointerAccelerationProfile = 1;
             "Libinput/1133/50503/Logitech USB Receiver".Enabled = true;
             "Libinput/1133/50503/Logitech USB Receiver".PointerAccelerationProfile = 1;
-            Mouse.cursorTheme = "breeze_cursors";
           };
-          kded5rc.Module-device_automounter.autoload = false;
+          kded6rc.Module-device_automounter.autoload = false;
           kdeglobals = {
-            General = lib.mkIf (!aeroTheme) {
-              XftHintStyle = "hintslight";
-              XftSubPixel = "none";
-              fixed = "Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-              font = "Noto Sans,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-            };
-            Icons.Theme = lib.mkIf (!aeroTheme) "Papirus-Dark";
             KDE.SingleClick = true;
             "KFileDialog Settings" = {
               "Allow Expansion" = false;
@@ -547,25 +407,15 @@ _: {
             "Tiling/abaf705b-b8a8-437b-a0c4-36b8a71d02af/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             "Tiling/b4217e3c-538c-4358-9544-4d755f641f08/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.5},{\"width\":0.5}]}";
             "Tiling/bd19410d-1489-444f-b96a-7476f17e422f/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-            "Tiling/c58fd6ca-2ce7-4e09-bce4-9a47fa20597c/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             "Tiling/d3810d91-c857-4b25-93eb-ef16a4d970f3/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-            "Tiling/db282995-3b69-479b-a342-e608fd9f7157/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             "Tiling/ed4d5f96-5f09-42f5-ae0c-08dca270cd79/497954ef-e222-4657-9fc4-c2d7c3b88aff".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
             Xwayland.Scale = 1;
-            "org.kde.kdecoration2".ButtonsOnLeft = lib.mkIf (!aeroTheme) "SF";
-          };
-          kwinrulesrc = {
-            General.count = 1;
-            General.rules = 1;
           };
           plasma-localerc.Formats.LANG = "en_US.UTF-8";
-          plasmarc.Theme.name = lib.mkIf (!aeroTheme) "breeze-dark";
           spectaclerc = {
             ImageSave.translatedScreenshotsFolder = "Screenshots";
             VideoSave.translatedScreencastsFolder = "Screencasts";
           };
-        };
-        dataFile = {
         };
       };
     };

@@ -1,56 +1,32 @@
 
+[group('󰀵 macos')]
+[doc('Install TidaLuna into TIDAL')]
 [macos]
-[group('󰲽 utility')]
-[doc('Install TidaLuna')]
-install_tidaluna:
+install-tidaluna:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/tidaluna.sh"
 
-
+[group('󰀵 macos')]
+[doc('Exclude node_modules under ~ from Time Machine')]
 [macos]
-[group('󰲽 utility')]
-[doc('Finds node_modules and adds them to time machine exclusion list')]
-exclude_node_modules:
+exclude-node-modules:
     @find $HOME -type d -maxdepth 3 -name 'node_modules' | xargs -n 1 sudo tmutil addexclusion -p
 
+[group('󰀵 macos')]
+[doc('Set the external display to HiDPI mode')]
 [macos]
-[group('󰲽 utility')]
-[doc('Restarts yabai, skhd and lazykeys')]
-restart_wm:
-    @pkill -9 yabai 
-    @pkill -9 skhd
-    @pkill -9 lazykeys 
-
-[macos]
-[group('󰲽 utility')]
-[doc('Sets the current screen to HiDPI mode')]
-set_screen_hidpi:
+set-hidpi:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/highres_display.fish"
 
-
-[group('󰲽 utility')]
-[doc('Generates an SSH config file from hosts inside 1Password')]
-[working-directory("./")]
-generate_ssh_hosts:
-    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/misc/ssh.fish"
-
+[group('󰀵 macos')]
+[doc('Flush the DNS cache')]
 [macos]
-[group('󰲽 utility')]
-[doc('Clear DNS Cache')]
 [confirm]
-clear_dns:
+flush-dns:
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
 
 [group('󰋖 help')]
-[doc('Show dotfiles and nix info')]
-info:
-    @echo -e "\033[0;33mOS:\033[0m $(uname -s) $(uname -r) ($(uname -m))"
-    @echo -e -n "\033[0;33mNix Version:\033[0m $(nix --version)\n" 
-    @echo -e "\033[0;33mNix Darwin:\033[0m $(darwin-version)"
-    @echo -e "\033[0;33mDotfiles:\033[0m $(echo {{DOTFILES_FOLDER}})"
-
-[group('󰋖 help')]
-[doc('Show Help')]
+[doc('Show help for jinx or one command')]
 help command="":
     #!/usr/bin/env bash
     if [ -n "{{command}}" ]; then
@@ -63,13 +39,13 @@ help command="":
             exit 0;
         fi
 
-        printf "\n\033[0;32m$(echo $DATA|jq ".doc")\033[0m\n\n"
+        printf "\n\033[0;32m$(echo $DATA|jq -r ".doc")\033[0m\n\n"
         PARAMS=$(echo $DATA | jq -r '.parameters')
         PARAMS_TEXT=""
         if [ "$PARAMS" != "null" ] && [ "$PARAMS" != "[]" ]; then
             PARAMS_TEXT=" [PARAMS]"
         fi
-        printf "\033[0;33mUsage: \033[0;32mjinx $(echo $DATA|jq ".name") \033[0;36m[OPTIONS] <COMMAND>$PARAMS_TEXT\033[0m\n\n"
+        printf "\033[0;33mUsage: \033[0;32mjinx $(echo $DATA|jq -r ".name") \033[0;36m[OPTIONS] <COMMAND>$PARAMS_TEXT\033[0m\n\n"
         if [ "$PARAMS" != "null" ] && [ "$PARAMS" != "[]" ]; then
             printf "\033[0;33mParameters:\033[0m\n"
             echo $DATA | jq -r '.parameters[] | "  \u001b[36m\(.name)\u001b[0m - \(if .default then "\u001b[32mdefault: \u001b[35m\(.default)\u001b[0m" else "\u001b[31mrequired\u001b[0m" end)"'

@@ -42,4 +42,8 @@ set web_url (string replace -r '^git://' 'https://' $web_url)
 set web_url (string replace -r '\.git$' '' $web_url)
 
 echo -e "\033[34m\033[0m  Opening \033[1m$web_url\033[0m"
-open $web_url
+if command -q xdg-open
+    xdg-open $web_url
+else
+    open $web_url
+end

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Manage the pinned extension sources in modules/home/vicinae-extensions.json.
+# Manage the pinned extension sources in modules/home/vicinae/vicinae-extensions.json.
 #
 #   vicinae-extensions.sh update [<repo>[/<name>]]...
 #   vicinae-extensions.sh add <repo> <name> [rev]
@@ -16,7 +16,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-db="$repo_root/modules/home/vicinae-extensions.json"
+db="$repo_root/modules/home/vicinae/vicinae-extensions.json"
 
 die() {
   echo "error: $*" >&2
@@ -55,7 +55,7 @@ resolve_head() {
 
 # prefetch <url> <name> <rev> -- print the NAR hash of extensions/<name> at <rev>.
 #
-# Must mirror the pkgs.fetchgit invocation in modules/home/vicinae.nix:
+# Must mirror the pkgs.fetchgit invocation in modules/home/vicinae/vicinae.nix:
 # a sparse checkout of extensions/<name>, with rootDir moving that directory
 # into place and .git stripped.
 prefetch() {

@@ -16,7 +16,6 @@ _: {
 
     # https://github.com/0xc000022070/zen-browser-flake
     programs.zen-browser = {
-      # Zen is replaced by Firefox when the Aero setup is active on Linux
       enable = true;
       setAsDefaultBrowser = true;
       darwinDefaultsId = "app.zen-browser.zen";
@@ -25,38 +24,40 @@ _: {
       ];
 
       profiles."default" = {
-        settings = {
-          # Zen-specific preferences
-          "zen.theme.gradient.show-custom-colors" = true;
-          "zen.welcome-screen.seen" = true;
-          "zen.theme.accent-color" = "#cba6f7";
-          "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
-          "zen.workspaces.continue-where-left-off" = true;
-          "zen.workspaces.force-container-workspace" = true;
-          "zen.view.compact.should-enable-at-startup" = true;
-          "zen.view.compact.enable-at-startup" = true;
+        settings =
+          {
+            # Zen-specific preferences
+            "zen.theme.gradient.show-custom-colors" = true;
+            "zen.welcome-screen.seen" = true;
+            "zen.theme.accent-color" = "#cba6f7";
+            "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
+            "zen.workspaces.continue-where-left-off" = true;
+            "zen.workspaces.force-container-workspace" = true;
+            "zen.view.compact.should-enable-at-startup" = true;
+            "zen.view.compact.enable-at-startup" = true;
 
-          # General preferences
-          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
-          "browser.tabs.warnOnClose" = true;
+            # General preferences
+            "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
+            "browser.tabs.warnOnClose" = true;
 
-          "privacy.resistFingerprinting" = true;
+            "privacy.resistFingerprinting" = true;
 
-          # Never clear history or site data when Zen closes
-          "privacy.sanitize.sanitizeOnShutdown" = false;
-          "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
-          "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = false;
-          "privacy.clearOnShutdown_v2.cache" = false;
-          "privacy.clearOnShutdown_v2.formdata" = false;
-          "privacy.clearOnShutdown_v2.siteSettings" = false;
-
-          # Backup
-          "browser.backup.archive.enabled" = true;
-          "browser.backup.enabled" = true;
-          "browser.backup.scheduled.enabled" = true;
-          "browser.backup.scheduled.minimum-time-between-backups-seconds" = 86400;
-          "browser.backup.location" = "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/03 Resources/Backups/Zen";
-        };
+            # Never clear history or site data when Zen closes
+            "privacy.sanitize.sanitizeOnShutdown" = false;
+            "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+            "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = false;
+            "privacy.clearOnShutdown_v2.cache" = false;
+            "privacy.clearOnShutdown_v2.formdata" = false;
+            "privacy.clearOnShutdown_v2.siteSettings" = false;
+          }
+          # Backup into iCloud Drive, which only exists on macOS.
+          // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+            "browser.backup.archive.enabled" = true;
+            "browser.backup.enabled" = true;
+            "browser.backup.scheduled.enabled" = true;
+            "browser.backup.scheduled.minimum-time-between-backups-seconds" = 86400;
+            "browser.backup.location" = "${config.home.homeDirectory}/Library/Mobile Documents/com~apple~CloudDocs/Backups/Zen";
+          };
 
         search = {
           force = true; # Needed for nix to overwrite search settings on rebuild

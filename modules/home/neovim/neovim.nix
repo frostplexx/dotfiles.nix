@@ -91,6 +91,7 @@ _: {
               # Bypass via `luaInline` — it's the first type `oneOf` checks.
               adapters.codelldb = let
                 codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+                liblldb = "liblldb${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}";
               in
                 lib.mkForce (lib.generators.mkLuaInline ''
                   {
@@ -98,7 +99,7 @@ _: {
                     port = "${"$"}{port}",
                     executable = {
                       command = "${codelldb}/bin/codelldb",
-                      args = { "--liblldb", "${codelldb}/share/lldb/lib/liblldb.so", "--port", "${"$"}{port}" },
+                      args = { "--liblldb", "${codelldb}/share/lldb/lib/${liblldb}", "--port", "${"$"}{port}" },
                     },
                   }
                 '');
@@ -111,10 +112,26 @@ _: {
           # deep-merges them across home-manager modules.
           lazy.enable = true;
 
+          # Grammars come from the per-language modules in ./languages.nix
+          # (enableTreesitter) plus nvf's defaults; allGrammars added ~260 MB.
+          # List filetypes here that have no nvf language module.
           treesitter = {
             enable = true;
             addDefaultGrammars = true;
-            grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+            grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              fish
+              swift
+              toml
+              diff
+              gitcommit
+              git_rebase
+              gitignore
+              dockerfile
+              css
+              sql
+              latex
+              regex
+            ];
           };
 
           theme = {

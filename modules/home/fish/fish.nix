@@ -1,6 +1,7 @@
 _: {
   flake.homeManagerModules.shell = {
     pkgs,
+    lib,
     inputs,
     ...
   }: {
@@ -58,7 +59,7 @@ _: {
           g = "lazygit";
           c = "clear";
           q = "exit";
-          s = "kitten ssh";
+          s = "ssh";
           boo = "ghostty +boo";
           p = "project_selector";
           cat = "bat";
@@ -66,7 +67,6 @@ _: {
           vimdiff = "nvim -d";
           cd = "z";
           nurl = "nix run nixpkgs#nurl --";
-          avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
           compress = "tar -cf";
           untar = "tar -xf";
         };
@@ -81,7 +81,7 @@ _: {
           ghb = "gh browse";
         };
 
-        shellInit = builtins.readFile ./shellInit.fish;
+        interactiveShellInit = builtins.readFile ./shellInit.fish;
         shellInitLast =
           /*
           fish
@@ -161,10 +161,29 @@ _: {
       };
     };
 
-    # Fish scripts
-    home.file.".fish_scripts" = {
+    # Fish scripts: one function per file, autoloaded on first call instead
+    # of being sourced on every shell start.
+    xdg.configFile."fish/functions" = {
       recursive = true;
-      source = ./scripts;
+      source =
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then ./scripts
+        # tiramisu is gaming-only: skip functions that need Mac-only or dev
+        # tools (tmutil, ffmpeg, ollama, sshfs, Tailscale app, UpSnap).
+        else
+          lib.fileset.toSource {
+            root = ./scripts;
+            fileset = lib.fileset.difference ./scripts (lib.fileset.unions [
+              ./scripts/tm_exclude_node_modules.fish
+              ./scripts/compress_mov_to_mp4.fish
+              ./scripts/compress_to_webp.fish
+              ./scripts/connect_ollama.fish
+              ./scripts/llamacode.fish
+              ./scripts/sshm.fish
+              ./scripts/sshu.fish
+              ./scripts/wololo.fish
+            ]);
+          };
     };
   };
 }

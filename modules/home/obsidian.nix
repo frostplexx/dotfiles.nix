@@ -9,6 +9,7 @@ _: {
   in {
     programs.obsidian = {
       enable = true;
+      package = null;
       cli.enable = true;
       vaults = {
         "Memex" = {

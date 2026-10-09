@@ -346,7 +346,7 @@ function main
                 set quick_mode 1
             case '-*'
                 echo "$(set_color red) Unknown option: $arg$(set_color normal)"
-                echo "Usage: flake-rollback [OPTIONS] [FLAKE_DIR]"
+                echo "Usage: jinx rollback-inputs  (or: rollback_inputs.fish [OPTIONS] [FLAKE_DIR])"
                 echo ""
                 echo "Options:"
                 echo "  -q, --quick    Quick mode: compare against previous commit (HEAD^)"
