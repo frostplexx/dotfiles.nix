@@ -195,7 +195,7 @@ _: {
                 motions.enabled = false;
                 persons.enabled = false;
                 runService.enabled = false;
-                scripts.enabled = false;
+                scripts.enabled = true;
                 sensors.enabled = false;
                 services.enabled = false;
                 switches.enabled = false;
