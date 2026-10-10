@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789496645,
-        "narHash": "sha256-tdvlymRQ28NyQXSb+HwadcXKB/1UiKQKGdsHvJ1S1Eg=",
+        "lastModified": 1791652808,
+        "narHash": "sha256-FIbdJwfkcbB1ZzzzRxI8kFQTNwiFTCCCfFhg6Fn2rLc=",
         "owner": "nyakase",
         "repo": "aerothemeplasma-nix",
-        "rev": "e651f50a46cf2525cea2fdb76a405f07fbc5e17a",
+        "rev": "69be07ede5ff166d4b2bedc39af0e9fa0b786401",
         "type": "github"
       },
       "original": {
