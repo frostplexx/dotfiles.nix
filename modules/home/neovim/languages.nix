@@ -41,7 +41,8 @@ _: {
         dap.enable = true;
         lsp.enable = true;
       };
-      python.enable = true;
+      # FIXME: Disabled until debugpy is fixed
+      # python.enable = true;
       bash.enable = true;
       just.enable = true;
       json = {

@@ -15,10 +15,10 @@ _: {
           vscode-extensions.tecosaur.latex-utilities
           vscode-extensions.dendron.dendron-paste-image
           # Jupyter
-          vscode-extensions.ms-toolsai.jupyter
-          vscode-extensions.ms-python.python
-          vscode-extensions.ms-python.pylint
-          vscode-extensions.ms-python.debugpy
+          # vscode-extensions.ms-toolsai.jupyter
+          # vscode-extensions.ms-python.python
+          # vscode-extensions.ms-python.pylint
+          # vscode-extensions.ms-python.debugpy
 
           # Other
           # vscode-extensions.github.copilot-chat
