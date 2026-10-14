@@ -9,7 +9,9 @@
 					"id": "ENC[AES256_GCM,data:KD6g3UfKk9BM0vnOUMq12Xc=,iv:No5LTQIjk8XjYB3rfQqqZlGHbUUuz9GxUPjwlsUIn6o=,tag:Zq2JqbTKxwGFBkDBEf1khA==,type:str]"
 				},
 				{
-					"id": "ENC[AES256_GCM,data:5hs4keErbiYYQ37rag==,iv:Z124yq7qIxaD5nLl4dbClBqdO7+JAoJAbB5dtdpkmn0=,tag:LXjTZnkmjwWWi0nqsnt42A==,type:str]"
+					"id": "ENC[AES256_GCM,data:5hs4keErbiYYQ37rag==,iv:Z124yq7qIxaD5nLl4dbClBqdO7+JAoJAbB5dtdpkmn0=,tag:LXjTZnkmjwWWi0nqsnt42A==,type:str]",
+					"reasoning": "ENC[AES256_GCM,data:6WUojQ==,iv:+n0ZlMbco0gXFfo/1iWO3NLup/XtSxB+aIFtLjm3pto=,tag:gWtBiQKMYj2/a4QLP9lUjQ==,type:bool]",
+					"maxTokens": "ENC[AES256_GCM,data:gmj/Biw=,iv:pk1YiLpNztn4mBckWJKuQ0gOet0nBfv9TYA5vmt2khc=,tag:INGSLu2hNsTib4+tue0b4w==,type:int]"
 				}
 			]
 		},
@@ -31,8 +33,8 @@
 				"recipient": "age1j34fef9lh8jpmrgcxzexfx624ydzupffzh2u0h4xduzc6l9pevjq2tklnh"
 			}
 		],
-		"lastmodified": "2026-09-24T06:08:44Z",
-		"mac": "ENC[AES256_GCM,data:Phrh6WUYZD8hBxqvxscCOgMpad5NZirYq0I/D6fVpaXf9dGM4mwTfp0bZtazVDCjVxmIJ8BnNvDwOHaDko6J0A5LeCdFeCEraG9uCPdO0CMMR4WL5+5qEP0RRdjHa0gdjL1F4IMJhWBK7K9pqdBywSGU8FAd83jeoTNBXhlY6Uc=,iv:FJHrILk2BwdjtHGdIMrYjAKCTZa6RZzviQexGDyEE34=,tag:7FWPYPO+iVzVI8G5QGkj1Q==,type:str]",
+		"lastmodified": "2026-10-11T10:48:40Z",
+		"mac": "ENC[AES256_GCM,data:naNXDge8528w9DWnTiplVBovjLqkTmutyqW6075pMwaKBbIQVnQ2z6tu9J+3TWLnUQgdp9KQk7P/r5gfH624UhUiV7NrmtNzGGm2cNIXxV3Jo/1RIZcWPcRwhsPBN+e9N3843tZHeQB167xURwHpxe/RPBHhEFpo6SXTvGmx7Rk=,iv:3hkMkMG8doN+sFlWecvJ1euyX0BIhVRx/ERQ/sVW/p8=,tag:4QM0/0EXTTTwztDwOiXsIg==,type:str]",
 		"unencrypted_suffix": "_unencrypted",
 		"version": "3.13.3"
 	}
