@@ -109,10 +109,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    fuse-t = {
-      url = "github:macos-fuse-t/homebrew-cask";
-      flake = false;
-    };
 
     # ==== Pinned sources ====
     yazi-flavors = {

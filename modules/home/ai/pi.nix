@@ -18,13 +18,6 @@ _: {
       };
 
       packages = [
-        (pkgs.writeShellScriptBin "pq" ''
-          exec ${config.programs.pi-coding-agent.package}/bin/pi -p \
-            --no-session --no-tools --no-extensions --no-skills \
-            --no-context-files --no-prompt-templates --thinking off \
-            --model inclusionai/ling-3.0-flash-vl:free -- "$@"
-        '')
-
         # Update pi extensions. Run by `jinx update` rather than on every
         # activation, so deploys don't depend on the network.
         (pkgs.writeShellApplication {
@@ -42,17 +35,9 @@ _: {
           recursive = true;
         };
 
-        # ".pi/agent/sandbox.json" = {
-        #   source = ./pi_settings/sandbox.json;
-        # };
-
         ".pi/agent/extensions" = {
           source = ./extensions;
           recursive = true;
-        };
-
-        ".pi/agent/zentui.json" = {
-          source = ./pi_settings/zentui.json;
         };
 
         ".pi/agent/themes/catppuccin.json" = {
