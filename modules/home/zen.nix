@@ -67,8 +67,12 @@ _: {
               name = "DuckAI";
               urls = [
                 {
-                  template = "https://duckduckgo.com/?t=ffab&ia=chat&q=%s";
+                  template = "https://duck.ai/?q={searchTerms}&ia=chat&bang=true&hps=1&home=1&prompt=1";
                   params = [
+                    {
+                      name = "query";
+                      value = "searchTerms";
+                    }
                   ];
                 }
               ];

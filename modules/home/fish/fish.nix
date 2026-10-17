@@ -179,8 +179,6 @@ _: {
               ./scripts/compress_to_webp.fish
               ./scripts/connect_ollama.fish
               ./scripts/llamacode.fish
-              ./scripts/sshm.fish
-              ./scripts/sshu.fish
               ./scripts/wololo.fish
             ]);
           };
