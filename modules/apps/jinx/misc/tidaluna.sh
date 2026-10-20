@@ -57,6 +57,11 @@ fi
 # Check if install succeded: You should now have a folder TIDAL\...\resources\app next to original.asar with all the files from luna.zip
 if [[ -d "$TIDAL_PATH/app" && -f "$TIDAL_PATH/original.asar" ]]; then
     echo "TidaLuna installed successfully."
+
+    # Re-sign TIDAL.app to avoid macOS Gatekeeper issues
+    codesign --force --deep --sign - /Applications/TIDAL.app
+
+
     rm -rf "$TEMP_DIR"
     open -a TIDAL
 else

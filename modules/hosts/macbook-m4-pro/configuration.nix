@@ -374,6 +374,7 @@
       ];
       casks = [
         "tailscale-app"
+        "pangolin"
         "tidal"
         "cleanshot"
         "mac-mouse-fix"

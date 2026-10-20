@@ -4,12 +4,14 @@ _: {
     pkgs,
     ...
   }: {
-    sops.secrets."pi/models" = {
-      sopsFile = ./pi_settings/models.json;
-      format = "json";
-      key = "";
-      mode = "0640";
-      path = "${config.home.homeDirectory}/.pi/agent/models.json";
+    sops.secrets = {
+      "pi/models" = {
+        sopsFile = ./pi_settings/models.json;
+        format = "json";
+        key = "";
+        mode = "0640";
+        path = "${config.home.homeDirectory}/.pi/agent/models.json";
+      };
     };
 
     home = {
@@ -22,7 +24,10 @@ _: {
         # activation, so deploys don't depend on the network.
         (pkgs.writeShellApplication {
           name = "pi-update-extensions";
-          runtimeInputs = [pkgs.nodejs pkgs.git];
+          runtimeInputs = [
+            pkgs.nodejs
+            pkgs.git
+          ];
           text = ''
             exec ${config.programs.pi-coding-agent.package}/bin/pi update --extensions
           '';
