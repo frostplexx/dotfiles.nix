@@ -7,7 +7,7 @@
     wb = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.windowbuddy;
   in {
     services.skhd = {
-      enable = true;
+      enable = false;
       package = pkgs.skhd_zig;
       config = ''
         ctrl + alt + cmd - 1 : ${wb} space 4

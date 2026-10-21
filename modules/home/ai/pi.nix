@@ -63,7 +63,7 @@ _: {
         enableAnalytics = false;
         warnings.anthropicExtraUsage = false;
         defaultProvider = "zen";
-        defaultModel = "glm-5.3-flash";
+        defaultModel = "deepseek-v4.1-flash";
         packages = [
           "git:github.com/elpapi42/pi-fork"
           "pi-skills"

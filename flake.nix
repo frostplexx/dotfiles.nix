@@ -49,7 +49,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+      # Track latest Homebrew so the tap (bumped via flake.lock) never runs
+      # ahead of the brew DSL. Pinned taps remain read-only via mutableTaps.
+      inputs.brew-src.url = "github:Homebrew/brew";
+    };
 
     nixcord = {
       url = "github:kaylorben/nixcord";
