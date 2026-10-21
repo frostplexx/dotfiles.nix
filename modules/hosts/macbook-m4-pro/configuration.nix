@@ -377,6 +377,7 @@
         "pangolin"
         "tidal"
         "cleanshot"
+        "utm"
         "mac-mouse-fix"
         "orbstack"
         "affinity"
@@ -412,7 +413,6 @@
       # GUI apps
       feishin
       moonlight-qt
-      utm
       zoom-us
       ghidra
     ];
