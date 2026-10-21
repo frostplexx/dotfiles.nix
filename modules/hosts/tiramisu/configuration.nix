@@ -110,6 +110,11 @@ _: {
     };
 
     services = {
+      xrdp = {
+        enable = true;
+        defaultWindowManager = "startplasma";
+        openFirewall = true;
+      };
       glances = {
         # Default port is 61208
         enable = true;
