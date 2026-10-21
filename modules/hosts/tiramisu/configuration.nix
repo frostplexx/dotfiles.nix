@@ -13,9 +13,6 @@ _: {
     nix.settings =
       defaults.nixSettings
       // {
-        # CachyOS kernel binary cache
-        substituters = defaults.nixSettings.substituters ++ ["https://attic.xuyh0120.win/lantian"];
-        trusted-public-keys = defaults.nixSettings.trusted-public-keys ++ ["lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
         trusted-users = ["root" user];
       };
 
@@ -50,7 +47,18 @@ _: {
     boot = {
       initrd.systemd.enable = true;
       # Quiet boot; plymouth already adds "splash" and "loglevel=4"
-      kernelParams = ["quiet"];
+      kernelParams = [
+        "quiet"
+        # Lockup/NMI watchdogs only cost a periodic timer and log noise
+        "nowatchdog"
+      ];
+      # linux-zen already carries the desktop/gaming tuning (HZ=1000, full
+      # preempt, ZEN_INTERACTIVE, NTSYNC/FUTEX_PI for Proton)
+      kernelPackages = pkgs.linuxPackages_zen;
+      kernel.sysctl = {
+        # A few Steam/Proton titles need a map count above the default cap
+        "vm.max_map_count" = 2147483642;
+      };
       loader = {
         limine = {
           enable = true;
@@ -65,7 +73,6 @@ _: {
         };
         efi.canTouchEfiVariables = true;
       };
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v3;
     };
 
     disko.devices.disk.main = {

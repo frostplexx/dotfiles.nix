@@ -41,9 +41,6 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-    # CachyOS kernel (release branch: latest built by Hydra CI, binary cache hits)
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
