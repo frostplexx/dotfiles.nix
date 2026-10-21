@@ -414,6 +414,7 @@
       moonlight-qt
       utm
       zoom-us
+      ghidra
     ];
 
     # Home Manager
