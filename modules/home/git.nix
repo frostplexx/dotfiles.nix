@@ -13,6 +13,13 @@ _: {
       git = {
         enable = true;
         lfs.enable = true;
+        ignores = [
+          ".DS_Store"
+          ".idea"
+          ".vscode"
+          "node_modules"
+          "vendor"
+        ];
         settings = {
           user = {
             inherit (defaults.personalInfo) name;
