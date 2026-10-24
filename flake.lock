@@ -1191,11 +1191,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1792707299,
-        "narHash": "sha256-ZSUgGMrOpIyEiGotWGvV/Q1i20KLrUiQjcCc2si8IT0=",
+        "lastModified": 1792783948,
+        "narHash": "sha256-qqRNLuPM2krB6c+cGkP5MhFi8I4tKhGEndaSX96i52o=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "9771014d04c5f1a139fb62de2783c83416366242",
+        "rev": "d21f5ae052ef2acb95d8ceee9719f91bd9316edd",
         "type": "github"
       },
       "original": {
