@@ -45,7 +45,6 @@ _: {
     i18n.defaultLocale = defaults.system.locale;
 
     boot = {
-      initrd.systemd.enable = true;
       # Quiet boot; plymouth already adds "splash" and "loglevel=4"
       kernelParams = [
         "quiet"
