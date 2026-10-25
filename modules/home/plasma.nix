@@ -385,7 +385,7 @@ _: {
             KSplash.Theme = "None";
           };
           kwalletrc = {
-            Wallet."Default Wallet" = "Default keyring";
+            Wallet."Default Wallet" = "kdewallet";
             Wallet."First Use" = false;
           };
           kwinrc = {
