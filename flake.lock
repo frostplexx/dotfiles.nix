@@ -671,11 +671,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1793021930,
-        "narHash": "sha256-cBt5t1EAuEPllPznQa5qAAr6UqZoIqIGra2TKbkqY50=",
+        "lastModified": 1793033622,
+        "narHash": "sha256-j0gulrYitFMEGMMWL1bmV4GXDHbhGRoo+fLWwIAEmo8=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "5d9cbc77242752bd5353df2407ee9cd9966fe466",
+        "rev": "9040d773480b837462761b5d06a82dcb328f6272",
         "type": "github"
       },
       "original": {
