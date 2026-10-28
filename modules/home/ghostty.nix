@@ -40,6 +40,7 @@ _: {
           window-save-state = "always";
           unfocused-split-opacity = 0.9;
           notify-on-command-finish-action = "bell,notify";
+          shell-integration-features = "cursor,sudo,title,ssh-env,ssh-terminfo,path";
           bell-features = "system,title";
           adjust-cell-height = "3%";
           window-padding-x = 0;

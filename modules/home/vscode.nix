@@ -1,10 +1,11 @@
 _: {
   flake.homeManagerModules.vscode = {pkgs, ...}: {
     programs.vscodium = {
-      enable =
-        if pkgs.stdenv.hostPlatform.isDarwin
-        then true
-        else false;
+      # enable =
+      #   if pkgs.stdenv.hostPlatform.isDarwin
+      #   then true
+      #   else false;
+      enable = false;
       profiles.default = {
         enableMcpIntegration = false;
         extensions = with pkgs; [
