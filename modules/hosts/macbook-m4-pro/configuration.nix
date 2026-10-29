@@ -373,7 +373,6 @@
         "mole"
       ];
       casks = [
-        "tailscale-app"
         "pangolin"
         "tidal"
         "cleanshot"
@@ -383,7 +382,7 @@
         "affinity"
         "mullvad-vpn"
         "macpacker"
-        # "sf-symbols"
+        "skim"
       ];
     };
 
