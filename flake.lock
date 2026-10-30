@@ -692,11 +692,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793306956,
-        "narHash": "sha256-Us/1pPRZSFapu3Vl4bJtPNFFY5Kn/7569qV25fWzPvc=",
+        "lastModified": 1793350131,
+        "narHash": "sha256-EIAJuF+KM1E4WvmicNsts0i4LCsAc7/aJ3cvsUg0aWM=",
         "owner": "frostplexx",
         "repo": "nixkit",
-        "rev": "d61c01ae78b87ce2d2bd8fc9491327ea88c1dfe9",
+        "rev": "1324338757899575107ded80e0b06d74c6ec6656",
         "type": "github"
       },
       "original": {
