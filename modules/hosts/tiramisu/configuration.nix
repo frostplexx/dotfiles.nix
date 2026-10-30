@@ -116,6 +116,7 @@ _: {
     };
 
     services = {
+      flatpak.enable = true;
       xrdp = {
         enable = true;
         defaultWindowManager = "startplasma";
