@@ -13,24 +13,23 @@ _: {
           vimAlias = true;
           globals.editorconfig = true;
 
+          assistant = {
+            copilot = {
+              enable =
+                if pkgs.stdenv.hostPlatform.isDarwin
+                then true
+                else false;
 
-        assistant = {
-          copilot = {
-            enable =
-              if pkgs.stdenv.hostPlatform.isDarwin
-              then true
-              else false;
-
-            mappings.suggestion.accept = "<C-cr>";
-            setupOpts = {
-              suggestion = {
-                enabled = true;
-                auto_trigger = true;
+              mappings.suggestion.accept = "<C-cr>";
+              setupOpts = {
+                suggestion = {
+                  enabled = true;
+                  auto_trigger = true;
+                };
+                nes.enabled = false;
               };
-              nes.enabled = false;
             };
           };
-        };
 
           visuals = {
             nvim-web-devicons.enable = true;
