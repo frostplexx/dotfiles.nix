@@ -1,19 +1,8 @@
 _: {
   flake.homeManagerModules.neovim-plugin-no-neck-pain = {pkgs, ...}: {
-    # Centers the focused window by padding it with empty scratch windows.
-    #
-    # The obvious no-plugin alternative -- padding the 'statuscolumn' with
-    # spaces -- cannot work here: Neovim refuses to render a statuscolumn wider
-    # than 47 cells (and silently drops it entirely past that, snapping the
-    # buffer hard left). Centering a 120 column buffer needs (width - 120) / 2
-    # of padding, so that approach breaks on any window wider than ~214
-    # columns. This screen is far wider, hence the side windows.
-    #
-    # Registered as a non-lazy plugin on purpose: the plugin enables itself from
-    # a VimEnter autocmd, so its setup has to have run before VimEnter fires.
     programs.nvf.settings.vim.extraPlugins.no-neck-pain = {
       package = pkgs.vimPlugins.no-neck-pain-nvim;
-      setup = ''
+      setup = /* lua */ ''
         require("no-neck-pain").setup({
           -- Resolved once at setup from 'textwidth' (120, set in options.nix).
           -- nvf emits the options DAG before plugin setup, so it is already

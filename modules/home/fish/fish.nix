@@ -18,6 +18,7 @@ _: {
         settings = {
           command_timeout = 2000;
 
+          #TODO: update this to work with rex
           # Custom module to display work topic in the prompt
           custom.work_topic = {
             command = ''echo "$WORK_TOPIC"'';
@@ -69,6 +70,8 @@ _: {
           nurl = "nix run nixpkgs#nurl --";
           compress = "tar -cf";
           untar = "tar -xf";
+          ".." = "echo 'cd ..'; cd ..";
+          wattage = "system_profiler SPPowerDataType | grep Wattage";
         };
 
         shellAbbrs = {
@@ -178,8 +181,6 @@ _: {
               ./scripts/compress_mov_to_mp4.fish
               ./scripts/compress_to_webp.fish
               ./scripts/connect_ollama.fish
-              ./scripts/llamacode.fish
-              ./scripts/wololo.fish
             ]);
           };
     };

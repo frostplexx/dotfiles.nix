@@ -41,16 +41,15 @@
   in {
     system.stateVersion = defaults.system.darwinVersion;
 
-    # Determinate Nix settings
     determinateNix.customSettings =
       defaults.nixSettings
       // {
         extra-trusted-users = ["root" user];
         # Build x86_64-linux closures on sorbet; this Mac is arm64.
+        #FIXME: Not idea if this still works
         builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
       };
 
-    # Nix-homebrew configuration
     nix-homebrew = {
       enable = true;
       enableRosetta = false;
@@ -71,14 +70,13 @@
       };
     };
 
-    # Networking
     networking = {
       hostName = "macbook-m4-pro";
       computerName = "macbook-m4-pro";
       dns = [
         "192.168.0.85"
-        "45.90.28.61"
-        "45.90.30.61"
+        "9.9.9.9"
+        "1.1.1.1"
       ];
       knownNetworkServices = [
         "Wi-Fi"
@@ -269,7 +267,7 @@
         };
         trackpad = {
           FirstClickThreshold = 0;
-          TrackpadFourFingerHorizSwipeGesture = 2; # NOTE: needed for agate wm
+          TrackpadFourFingerHorizSwipeGesture = 2;
         };
         WindowManager = {
           AutoHide = true;
@@ -363,7 +361,6 @@
         "Things" = 904280696;
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;
-        "System Color Picker" = 1545870783;
         "Numbers" = 361304891;
         "Keynote" = 361285480;
       };
@@ -371,7 +368,6 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = [
         "displayplacer"
-        "mole"
       ];
       casks = [
         "pangolin"
@@ -397,11 +393,6 @@
       maple-mono.NF
     ];
 
-    # System packages
-    # System packages: Nix itself, the toolchain, man pages, `mas` (used by
-    # the Homebrew activation) and GUI apps, which land in /Applications/Nix
-    # Apps (the Dock and custom icons point there). User CLI tools live in
-    # home-manager below; `op` comes from programs._1password.
     environment.systemPackages = with pkgs; [
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
       gcc
@@ -439,7 +430,6 @@
           sops
           sshpass
           switchaudio-osx # used by vicinae's audio-device extension
-          tart
           uv
           wget
         ];

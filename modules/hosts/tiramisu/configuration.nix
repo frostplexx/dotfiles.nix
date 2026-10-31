@@ -21,16 +21,13 @@ _: {
       hostName = "tiramisu";
       networkmanager.enable = true;
       nameservers = [
-        "94.140.14.49"
-        "94.140.14.59"
+        "192.168.0.85"
+        "9.9.9.9"
+        "1.1.1.1"
       ];
     };
 
-    # Wake-on-LAN, matched by MAC since the predictable interface name isn't
-    # fixed here. A .link file replaces 99-default.link for this NIC, so the
-    # default naming/MAC policies are repeated to keep the usual enp* name.
-    # Magic packets are handled by the NIC while the PC is off, so no firewall
-    # port is needed.
+    # Wake-on-LAN, matched by MAC
     systemd.network.links."50-wol" = {
       matchConfig.MACAddress = "74:56:3c:30:fc:b7";
       linkConfig = {
@@ -228,10 +225,6 @@ _: {
       };
     };
 
-    # Password-only SSH account for shutting the PC down remotely; Wake-on-LAN
-    # above is the counterpart for waking it back up. No groups, no authorized
-    # keys, so its only abilities are logging in with the password (sshd Match
-    # block + PAM above) and powering off/rebooting via the polkit rule below.
     users.users.power = {
       isNormalUser = true;
       description = "Remote power off";
@@ -242,11 +235,6 @@ _: {
     services.openssh = {
       enable = true;
       settings = {
-        # The sshd PAM stack only gains password checking when this global
-        # setting is true (sshd.nix wires it into
-        # security.pam.services.sshd.unixAuth) — with false, auth is
-        # pam_deny-only and NO password ever works, not even for Match-block
-        # users. The Match blocks below re-disable it for everyone but power.
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
@@ -280,10 +268,6 @@ _: {
         });
       '';
     };
-
-    # tiramisu is gaming-only: no system-wide CLI tools. Apps live in
-    # home-manager below; jinx brings what it needs to deploy, and `op`
-    # comes from programs._1password.
     environment = {
       pathsToLink = ["/share/fish"];
       shells = [pkgs.fish];
@@ -303,7 +287,6 @@ _: {
         version = "1.60";
         src = fetchurl {
           name = "lucon.ttf";
-          # Pinned to the commit that fixes the file
           url = "https://raw.githubusercontent.com/famesxd/Lucida-Console/15a149da9bde8c5290a551cde1bdb376f19d10af/lucon.ttf";
           hash = "sha256-bd9k7oltJM+ZCPEVriIKfPoY3ANLxKaOTbaNzVfHFRI=";
         };
@@ -331,11 +314,7 @@ _: {
           lutris
           prismlauncher
           unrar # game archives
-
-          # Music
-          feishin
           tidal-hifi
-
           wl-clipboard
         ];
       };

@@ -40,11 +40,6 @@ _: {
           recursive = true;
         };
 
-        ".pi/agent/extensions" = {
-          source = ./extensions;
-          recursive = true;
-        };
-
         ".pi/agent/themes/catppuccin.json" = {
           source = ./pi_settings/catppuccin.json;
         };
