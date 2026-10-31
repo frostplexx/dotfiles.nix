@@ -7,6 +7,10 @@
         "hash": "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28=",
         "darwinOnly": true
       },
+      "color-picker": {
+        "rev": "6fdc50aea49cd62e904aeaccfdcebf1aa907881d",
+        "hash": "sha256-q1Vvu8elRAyh78zGuADMgDW6ttZvTtIoEKxxCxEWXyg="
+      },
       "deepcast": {
         "rev": "3062caa45157616006ae726677156594200cc90a",
         "hash": "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA="
