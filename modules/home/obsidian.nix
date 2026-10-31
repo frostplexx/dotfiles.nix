@@ -9,7 +9,10 @@ _: {
   in {
     programs.obsidian = {
       enable = true;
-      package = null;
+      package =
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then null
+        else pkgs.obsidian;
       cli.enable = true;
       vaults = {
         "Memex" = {
