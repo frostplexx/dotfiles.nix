@@ -1,3 +1,8 @@
+This is a list of globally applicable and always enabled rules. These are to be respected at all times and 
+followed to a tee!
+
+# Global Behavioral Standards
+
 - For non-trivial changes, briefly surface 2-3 approaches with trade-offs and let me choose direction before you start writing.
 - When I describe a problem, ask clarifying questions before writing code unless the task is unambiguously defined.
 - For small, well-scoped edits (fix this typo, rename this variable), proceed directly.
@@ -6,6 +11,21 @@
 - Always ground your answers in the context of the codebase, research you did on it and the problem, and your understanding of the task.
 - If you are missing context you can't easily find, ask me for it before proceeding.
 - Keep comments to the bare minimum; only add them for non-obvious code, workarounds etc.
+
+# Global Coding Standards
+
+1. You aren't gonna need it (**YAGNI**): Don't build it until you need it.
+2. Don’t Repeat Yourself (**DRY**): Extract patterns after duplication, not before. 
+3. **Fail Fast**: Explicit errors over silent failures
+4. Keep It Simple Stupid (**KISS**): Write the obvious solution, optimize only
+   if needed. Premature opitmization is the root of all evil
+5. **Delete Aggressively**: Loss of code == fewer bugs.
+6. **Semantic Naming**: Always name variables, parameters, api endpoints with
+   verbose, self-documenting names.
+
+
+# Global Tool Standards
+
 - File searching: use `fd` (via bash). Never use `find`.
 - Content searching: use `rg` (via bash). Version control: `git`.
 - JSON/YAML: `jq` / `yq`.
