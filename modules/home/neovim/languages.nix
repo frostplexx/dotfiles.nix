@@ -8,6 +8,7 @@ _: {
         enable = true;
         extraDiagnostics.enable = true;
       };
+      fish.enable = true;
       tsx.enable = true;
       typescript = {
         enable = true;
@@ -36,13 +37,7 @@ _: {
         lsp.enable = true;
       };
 
-      zig = {
-        enable = true;
-        dap.enable = true;
-        lsp.enable = true;
-      };
-      # FIXME: Disabled until debugpy is fixed
-      # python.enable = true;
+      python.enable = true;
       bash.enable = true;
       just.enable = true;
       json = {

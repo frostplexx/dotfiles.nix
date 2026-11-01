@@ -1,14 +1,14 @@
 _: {
   flake.homeManagerModules.neovim-keymaps = _: {
     programs.nvf.settings.vim.keymaps = [
-      {
-        mode = "n";
-        key = "<leader>tt";
-        action = "function() require('snacks').terminal('/usr/bin/env fish') end";
-        desc = "Open terminal in current directory";
-        lua = true;
-      }
-
+      # {
+      #   mode = "n";
+      #   key = "<leader>tt";
+      #   action = "function() require('snacks').terminal('/usr/bin/env fish') end";
+      #   desc = "Open terminal in current directory";
+      #   lua = true;
+      # }
+      #
       {
         mode = "n";
         key = "<leader>gi";

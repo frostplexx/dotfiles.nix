@@ -36,10 +36,10 @@ _: {
             rainbow-delimiters.enable = true;
           };
 
+          presence.cord-nvim.enable = true;
+
           extraPackages = with pkgs; [
             copilot-language-server
-            fish-lsp
-            rustup
           ];
 
           lsp = {
@@ -62,41 +62,6 @@ _: {
               previousDiagnostic = "[d";
               renameSymbol = "<leader>cr";
             };
-
-            servers = {
-              sourcekit-lsp = {
-                cmd = [
-                  (lib.getExe pkgs.sourcekit-lsp)
-                ];
-                filetypes = ["swift"];
-                root_markers = [
-                  ".git"
-                  "src"
-                  "Sources"
-                  "sources"
-                ];
-              };
-
-              rust-analyzer = {
-                lsp.opts = ''
-                  ["rust-analyzer"] = {
-                       files = { excludeDirs = { ".direnv" } }
-                     }
-                '';
-              };
-
-              fish-lsp = {
-                cmd = [
-                  (lib.getExe pkgs.fish-lsp)
-                  "start"
-                ];
-                filetypes = ["fish"];
-                root_markers = [
-                  ".git"
-                  "src"
-                ];
-              };
-            };
           };
 
           debugger = {
@@ -111,34 +76,27 @@ _: {
                 codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
                 liblldb = "liblldb${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}";
               in
-                lib.mkForce (lib.generators.mkLuaInline ''
-                  {
-                    type = "server",
-                    port = "${"$"}{port}",
-                    executable = {
-                      command = "${codelldb}/bin/codelldb",
-                      args = { "--liblldb", "${codelldb}/share/lldb/lib/${liblldb}", "--port", "${"$"}{port}" },
-                    },
-                  }
-                '');
+                lib.mkForce (
+                  lib.generators.mkLuaInline ''
+                    {
+                      type = "server",
+                      port = "${"$"}{port}",
+                      executable = {
+                        command = "${codelldb}/bin/codelldb",
+                        args = { "--liblldb", "${codelldb}/share/lldb/lib/${liblldb}", "--port", "${"$"}{port}" },
+                      },
+                    }
+                  ''
+                );
             };
           };
 
-          # Options, keymaps, languages and lazy-loaded plugins are split into
-          # sibling flake-parts modules (./options.nix, ./keymaps.nix,
-          # ./languages.nix, ./plugins/*.nix). nvf's settings submodule
-          # deep-merges them across home-manager modules.
           lazy.enable = true;
 
-          # Grammars come from the per-language modules in ./languages.nix
-          # (enableTreesitter) plus nvf's defaults; allGrammars added ~260 MB.
-          # List filetypes here that have no nvf language module.
           treesitter = {
             enable = true;
             addDefaultGrammars = true;
             grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-              fish
-              swift
               toml
               diff
               gitcommit
@@ -147,9 +105,23 @@ _: {
               dockerfile
               css
               sql
-              latex
               regex
             ];
+          };
+
+          options = {
+            clipboard = "unnamedplus";
+            tabstop = 4;
+            softtabstop = 4;
+            shiftwidth = 4;
+            expandtab = true;
+            smartindent = true;
+            fileencoding = "utf-8";
+            wrap = false;
+            swapfile = false;
+            backup = false;
+            undofile = true;
+            textwidth = 120;
           };
 
           theme = {
@@ -160,15 +132,6 @@ _: {
           };
           autocomplete.blink-cmp = {
             enable = true;
-
-            # nvf builds setupOpts.keymap from these `mappings` (active because
-            # vim.vendoredKeymaps is enabled) and MERGES it with our explicit
-            # setupOpts.keymap below. Since each key is `listOf …`, the module
-            # system *concatenates* the lists with nvf's entries first — so
-            # nvf's default `next = "<Tab>" -> select_next` ran before our
-            # super-tab accept and shadowed it ("just selects the next item").
-            # Null every mapping we define ourselves so our keymap is the single
-            # source of truth; keep `confirm` so <CR> still accepts.
             mappings = {
               next = null;
               previous = null;
@@ -446,65 +409,29 @@ _: {
             align.enable = true;
           };
 
-          luaConfigRC.my-config = ''
+          luaConfigRC.my-config =
+            /*
+            lua
+            */
+            ''
 
-            vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#585b70" })
-            vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#313244" })
+              vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#585b70" })
+              vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#313244" })
 
-            vim.g.loaded_netrwPlugin = 1
+              vim.g.loaded_netrwPlugin = 1
 
-            vim.keymap.set(
-              "v",
-              "<leader>s",
-              'y:%s/<C-r>"//gc<Left><Left><Left>',
-              { desc = "Search and replace selected text across file" }
-            )
+              vim.keymap.set(
+                "v",
+                "<leader>s",
+                'y:%s/<C-r>"//gc<Left><Left><Left>',
+                { desc = "Search and replace selected text across file" }
+              )
 
-            vim.keymap.set("n", "<leader>u", function()
-              vim.cmd("packadd nvim.undotree")
-              require("undotree").toggle()
-            end)
-          '';
-
-          augroups = [{name = "MergeTool";}];
-
-          autocmds = [
-            # Open DiffView automatically when entering diff mode.
-            # vim.schedule defers out of the OptionSet autocmd context,
-            # where splits/buffer edits are not allowed (E788).
-            # The "Claude Code" guard prevents diffview from hijacking
-            # claudecode.nvim's own native diff buffers. The reentrancy flag and
-            # get_current_view() check stop diffview from re-triggering itself:
-            # opening it sets 'diff' on its own buffers, which re-fires this
-            # OptionSet autocmd and would otherwise spawn tabs forever.
-            {
-              event = ["OptionSet"];
-              pattern = ["diff"];
-              group = "MergeTool";
-              desc = "Open DiffView when vim.difftool is activated";
-              callback = lib.generators.mkLuaInline ''
-                function()
-                  if not vim.o.diff then return end
-                  if vim.g._diffview_auto_opening then return end
-
-                  local bufname = vim.api.nvim_buf_get_name(0)
-                  if bufname:find("Claude Code", 1, true) then return end
-
-                  -- Already inside a diffview tab: don't open another.
-                  local ok, lib = pcall(require, "diffview.lib")
-                  if ok and lib.get_current_view() then return end
-
-                  vim.g._diffview_auto_opening = true
-                  vim.schedule(function()
-                    pcall(function()
-                      require("diffview").open()
-                    end)
-                    vim.g._diffview_auto_opening = false
-                  end)
-                end
-              '';
-            }
-          ];
+              vim.keymap.set("n", "<leader>u", function()
+                vim.cmd("packadd nvim.undotree")
+                require("undotree").toggle()
+              end)
+            '';
         };
       };
     };
