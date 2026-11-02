@@ -310,7 +310,7 @@ _: {
         packages = with pkgs; [
           # Games
           beammp-launcher
-          lutris
+          lutris-unwrapped
           prismlauncher
           unrar # game archives
           tidal-hifi
