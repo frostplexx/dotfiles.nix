@@ -20,6 +20,11 @@ deploy host="$(hostname)": lint
             exit 1; \
         fi; \
     fi
+    @if ! sudo -n true 2>/dev/null; then \
+        {{STATUS}} blocked auth "sudo password required"; \
+        sudo -v; \
+    fi
+    @{{STATUS}} working "Switching system configuration"
     @if [[ $1 == *"--verbose"* || $1 == *"-v"* ]]; then \
         if [[ "$(uname)" == "Darwin" ]]; then \
             echo "Running nix-darwin rebuild switch with verbose output..."; \
@@ -38,6 +43,7 @@ deploy host="$(hostname)": lint
 [doc('Build the configuration and show the package diff, without switching')]
 build host="$(hostname)":
     @cd {{DOTFILES_FOLDER}} && git add --intent-to-add .
+    @{{STATUS}} working "Building configuration for {{host}}"
     @nh {{nix_cmd}} build --diff always -H {{host}} {{DOTFILES_FOLDER}}
 
 [group('󱄅 system')]
@@ -45,12 +51,18 @@ build host="$(hostname)":
 deploy-remote host="tiramisu" target="Gaming_PC": lint
     @cd {{DOTFILES_FOLDER}} && git add --intent-to-add .
     @# Build on the target itself: the Mac can't build x86_64-linux locally.
+    @{{STATUS}} working "Deploying to {{target}}"
     @nh os switch -H {{host}} --target-host {{target}} --build-host {{target}} {{DOTFILES_FOLDER}}
 
 [group('󱄅 system')]
 [doc('Switch back to the previous system generation')]
 [confirm('Switch back to the previous system generation?')]
 rollback:
+    @if ! sudo -n true 2>/dev/null; then \
+        {{STATUS}} blocked auth "sudo password required"; \
+        sudo -v; \
+    fi
+    @{{STATUS}} working "Switching to previous generation"
     @if [ "$(uname)" = "Darwin" ]; then \
         sudo darwin-rebuild switch --rollback; \
     else \
@@ -84,6 +96,7 @@ search package:
     #!/usr/bin/env fish
     set -l copy pbcopy
     command -q pbcopy; or set copy wl-copy
+    {{STATUS}} blocked question "Select packages"
     fzf \
         --phony \
         --multi \
@@ -118,8 +131,10 @@ search package:
 edit-secret:
     #!/usr/bin/env fish
     cd {{DOTFILES_FOLDER}}
+    {{STATUS}} blocked question "Select secret"
     set -l file (git grep -l -E '"sops": \{|^sops:' | fzf --prompt "secret > " --height 40% --border)
     test -n "$file"; or exit 0
+    {{STATUS}} working "Editing secret"
     SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt sops $file
 
 [group('󱄅 system')]

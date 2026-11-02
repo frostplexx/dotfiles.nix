@@ -9,6 +9,8 @@ nix_cmd := `if [ "$(uname)" = "Darwin" ]; then echo "darwin"; else echo "os"; fi
 NIX_CONFIG := "access-tokens = github.com=$(op read op://Personal/GitHub/token)"
 # Dotfiles storage location
 DOTFILES_FOLDER := "$HOME/dotfiles.nix"
+# Program status protocol (OSC 7501) helper
+STATUS := DOTFILES_FOLDER + "/modules/apps/jinx/lib/status.sh"
 
 # Set default recipe
 [private]

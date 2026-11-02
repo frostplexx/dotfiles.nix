@@ -1,6 +1,10 @@
 #!/usr/bin/env fish
 set -g ssh_hosts_file ~/.ssh/hosts
+set -g STATUS_SCRIPT "$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
+
+$STATUS_SCRIPT blocked auth "1Password authentication"
 set -g hosts (op item list --tags ssh --format json | op item get - --format json | jq -s '.')
+$STATUS_SCRIPT working "Writing SSH hosts"
 
 # Delete the old ssh hosts file 
 if test -f $ssh_hosts_file

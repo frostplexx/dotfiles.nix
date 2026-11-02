@@ -7,6 +7,7 @@ _: let
       # Everything the recipes call that isn't a general user tool, so jinx
       # works on hosts without a dev setup (tiramisu).
       runtimeInputs = with pkgs; [
+        coreutils
         just
         jq
         nh
@@ -15,7 +16,47 @@ _: let
         deadnix
       ];
       text = ''
-        exec just --justfile "$HOME/dotfiles.nix/modules/apps/jinx/justfile" "$@"
+        justfile="$HOME/dotfiles.nix/modules/apps/jinx/justfile"
+        status="$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
+        report=0
+
+        case "''${1:-}" in
+          deploy|d|build|deploy-remote|rollback|search|edit-secret|generate-ssh-hosts|\
+          check|doctor|clean|optimise|repair|install-tidaluna|exclude-node-modules|\
+          set-hidpi|flush-dns|update|u|update-inputs|update-input|changelog|\
+          rollback-inputs|merge-updates)
+            report=1
+            ;;
+        esac
+
+        if [ "$report" -eq 1 ]; then
+          "$status" working "Running jinx $*"
+        fi
+
+        # shellcheck disable=SC2329 # invoked by trap
+        on_signal() {
+          if [ "$report" -eq 1 ]; then
+            "$status" idle "Cancelled jinx $*"
+          fi
+          exit 130
+        }
+        trap on_signal INT TERM HUP
+
+        if just --justfile "$justfile" "$@"; then
+          if [ "$report" -eq 1 ]; then
+            "$status" "done" "Finished jinx $*"
+          fi
+          exit 0
+        else
+          code=$?
+          if [ "$report" -eq 1 ]; then
+            case "$code" in
+              130|143) "$status" idle "Cancelled jinx $*" ;;
+              *) "$status" error "jinx $* failed (exit $code)" ;;
+            esac
+          fi
+          exit "$code"
+        fi
       '';
     };
 

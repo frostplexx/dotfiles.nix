@@ -1,5 +1,10 @@
 #!/usr/bin/env fish
 
+set -g STATUS_SCRIPT "$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
+function report_status --argument-names state msg
+    $STATUS_SCRIPT $state $msg
+end
+
 function flake-diff --description "Compare flake.lock between commits and show GitHub commits" --argument-names flake_dir
 
     # Set default directory to current if not provided
@@ -42,6 +47,7 @@ function flake-diff --description "Compare flake.lock between commits and show G
     end
 
     # Get the previous commit's flake.lock
+    report_status working "Comparing flake.lock"
     set prev_commit (git rev-parse HEAD~1)
     set current_commit (git rev-parse HEAD)
     set temp_dir (mktemp -d)
@@ -121,6 +127,7 @@ function flake-diff --description "Compare flake.lock between commits and show G
     # Function to fetch commits between two revisions
     function fetch_commits --argument-names owner repo old_rev new_rev
         # echo "  Fetching commits from GitHub API..."
+        report_status working "Fetching commits for $owner/$repo"
 
         # Get commits between revisions using GitHub API
         set api_url "https://api.github.com/repos/$owner/$repo/compare/$old_rev...$new_rev"

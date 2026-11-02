@@ -2,16 +2,23 @@
 [group('󰒔 store')]
 [doc('Delete old generations (keeps 5) and garbage-collect')]
 clean:
+    @{{STATUS}} working "Deleting old generations"
     @nh clean all -k 5
 
 [group('󰒔 store')]
 [doc('Deduplicate the nix store')]
 optimise:
+    @{{STATUS}} working "Deduplicating the Nix store"
     @nix store optimise -v
 
 [group('󰒔 store')]
 [doc('Verify and repair the nix store')]
 repair:
+    @if ! sudo -n true 2>/dev/null; then \
+        {{STATUS}} blocked auth "sudo password required"; \
+        sudo -v; \
+    fi
+    @{{STATUS}} working "Repairing the Nix store"
     @sudo nix-store --verify --check-contents --repair
 
 [group('󰒔 store')]

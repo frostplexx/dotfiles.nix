@@ -11,11 +11,13 @@ update: lint
 [group('󰚰 update')]
 [doc('Update all flake inputs locally')]
 update-inputs: lint
+    @{{STATUS}} working "Updating all flake inputs"
     @nix flake update --flake {{DOTFILES_FOLDER}} --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
 
 [group('󰚰 update')]
 [doc('Update a single flake input')]
 update-input name: lint
+    @{{STATUS}} working "Updating flake input {{name}}"
     @nix flake update {{name}} --flake {{DOTFILES_FOLDER}} --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
 
 [group('󰚰 update')]

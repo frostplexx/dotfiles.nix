@@ -9,6 +9,11 @@ install-tidaluna:
 [doc('Exclude node_modules under ~ from Time Machine')]
 [macos]
 exclude-node-modules:
+    @if ! sudo -n true 2>/dev/null; then \
+        {{STATUS}} blocked auth "sudo password required"; \
+        sudo -v; \
+    fi
+    @{{STATUS}} working "Excluding node_modules from Time Machine"
     @find $HOME -type d -maxdepth 3 -name 'node_modules' | xargs -n 1 sudo tmutil addexclusion -p
 
 [group('󰀵 macos')]
@@ -22,6 +27,11 @@ set-hidpi:
 [macos]
 [confirm]
 flush-dns:
+    @if ! sudo -n true 2>/dev/null; then \
+        {{STATUS}} blocked auth "sudo password required"; \
+        sudo -v; \
+    fi
+    @{{STATUS}} working "Flushing DNS cache"
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
 

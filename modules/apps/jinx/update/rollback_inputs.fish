@@ -4,6 +4,8 @@
 # Helps revert specific flake inputs to their previous versions
 # Supports interactive commit selection for rollback to any point in history
 
+set -g STATUS_SCRIPT "$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
+
 # Check prerequisites
 function check_prerequisites
     set -l flake_dir $argv[1]
@@ -52,6 +54,7 @@ function pick_commit
     end
     
     # Use fzf to select a commit
+    $STATUS_SCRIPT blocked question "Select commit to roll back to"
     set -l selected (printf '%s\n' $commits | fzf --ansi \
         --header="󰜘  Select a commit to rollback to (current state will be compared against this)" \
         --prompt="󰜘  Commit: " \
@@ -368,6 +371,7 @@ function main
         echo "$(set_color cyan)󰜘  Quick mode: comparing against previous commit (HEAD^)$(set_color normal)"
         set target_lock (get_previous_lock $flake_dir)
         set target_commit "HEAD^"
+        $STATUS_SCRIPT working "Comparing flake.lock"
     else
         # Interactive mode: let user pick a commit
         set target_commit (pick_commit $flake_dir)
@@ -379,6 +383,7 @@ function main
         
         echo ""
         echo "$(set_color cyan)󰜘  Comparing current flake.lock against commit: $(set_color yellow)$target_commit$(set_color normal)"
+        $STATUS_SCRIPT working "Comparing flake.lock"
         
         set target_lock (get_lock_from_commit $flake_dir $target_commit)
         if test $status -ne 0
@@ -398,6 +403,7 @@ function main
     end
 
     # Use fzf to select inputs to revert
+    $STATUS_SCRIPT blocked question "Select inputs to revert"
     set -l selected_inputs (printf '%s\n' $changed_inputs_output | fzf --ansi --multi \
         --header="󱄅  Select inputs to revert to $target_commit (Tab for multiple, Enter to confirm)" \
         --prompt="󰏗  Input to revert: ")
@@ -416,6 +422,7 @@ function main
     end
     echo ""
 
+    $STATUS_SCRIPT blocked question "Confirm rollback"
     read -P "Are you sure you want to revert these inputs? (y/N): " -n 1 confirm
     echo ""
 
@@ -426,6 +433,7 @@ function main
     end
 
     # Revert the selected inputs
+    $STATUS_SCRIPT working "Reverting flake inputs"
     revert_inputs $flake_dir $target_lock $selected_inputs
     
     # Cleanup

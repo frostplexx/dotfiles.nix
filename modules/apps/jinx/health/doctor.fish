@@ -3,7 +3,10 @@
 # Check that everything `jinx deploy` and `jinx update` rely on is in place.
 
 set -g dotfiles $argv[1]
+set -g status_script "$dotfiles/modules/apps/jinx/lib/status.sh"
 set -g failures 0
+
+$status_script working "Checking jinx prerequisites"
 
 function row --argument-names name ok detail
     printf "  \033[2m%-22s\033[0m" "$name"

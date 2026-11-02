@@ -33,6 +33,14 @@ function dim
     echo "$DIM  $argv$RESET"
 end
 
+function report_status --argument-names state msg progress
+    if test -n "$progress"
+        $STATUS_SCRIPT $state $msg $progress
+    else
+        $STATUS_SCRIPT $state $msg
+    end
+end
+
 # ── Spinner ─────────────────────────────────────────────────────────
 function spin_start --argument-names msg
     set -g SPIN_STOP (mktemp)
@@ -100,8 +108,11 @@ if not test -d "$DOTFILES"
     exit 1
 end
 
+set -g STATUS_SCRIPT "$DOTFILES/modules/apps/jinx/lib/status.sh"
+
 # ── Check for failed PRs ────────────────────────────────────────────
 cd "$DOTFILES"
+report_status working "Checking open pull requests" 5
 
 # Check if gh is available
 if command -q gh
@@ -126,6 +137,7 @@ echo
 # Save pre-pull HEAD so we can diff against it (not just HEAD~1)
 set -l pre_pull_ref (git rev-parse HEAD)
 
+report_status working "Pulling latest changes" 15
 spin_start "Pulling latest changes..."
 if git pull --rebase --autostash --ff-only &>/dev/null
     spin_stop "" "$GREEN" "Pulled with rebase"
@@ -136,6 +148,7 @@ else
 end
 
 # Check diff against pre-pull state
+report_status working "Checking flake.lock" 30
 spin_start "Checking for changes in flake.lock..."
 sleep 0.3
 if git diff $pre_pull_ref --quiet -- flake.lock 2>/dev/null
@@ -146,6 +159,7 @@ end
 spin_stop "" "$BLUE" "Changes detected in flake.lock"
 
 # Compute diff with jq
+report_status working "Comparing flake inputs" 45
 spin_start "Comparing flake inputs..."
 
 set -l diff_output (jq -n \
@@ -195,6 +209,12 @@ echo
 # Set the environment NH_FLAKE to dotfiles path so nh can find the flake if it doesnt exist
 set -gx NH_FLAKE "$DOTFILES"
 
+if not sudo -n true 2>/dev/null
+    $STATUS_SCRIPT blocked auth "sudo password required"
+    sudo -v
+end
+
+report_status working "Building and switching system" 70
 if NIX_CONFIG="$NIX_CONFIG" nh $NH_CMD switch
     echo
     ok "Deploy successful"

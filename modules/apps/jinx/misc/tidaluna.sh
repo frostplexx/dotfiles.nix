@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+STATUS_SCRIPT="$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
+status() { "$STATUS_SCRIPT" "$@"; }
 
 # Exit if not on macOS
 if [[ "$(uname)" != "Darwin" ]]; then
@@ -17,6 +19,8 @@ if [[ ! -d "$TIDAL_PATH" ]]; then
     echo "TIDAL.app not found in /Applications. Please ensure TIDAL is installed."
     exit 1
 fi
+
+status working "Installing TidaLuna"
 
 
 # Rename app.asar to original.asar
@@ -37,6 +41,7 @@ if [[ -d "$TIDAL_PATH/app" ]]; then
 fi
 
 # Download to temp directory
+status working "Downloading TidaLuna"
 curl -L -o "$TEMP_DIR/luna.zip" "$LUNA_RELEASE_URL"
 
 # Unzip tidaluna.zip into TIDAL_PATH/app
@@ -44,6 +49,7 @@ unzip "$TEMP_DIR/luna.zip" -d "$TIDAL_PATH/app"
 
 
 # Check if TIDAL is running and kill it
+status working "Stopping TIDAL"
 if pgrep -x "TIDAL" > /dev/null; then
     echo "TIDAL is running. Attempting to close it..."
     osascript -e 'quit app "TIDAL"'
@@ -59,6 +65,7 @@ if [[ -d "$TIDAL_PATH/app" && -f "$TIDAL_PATH/original.asar" ]]; then
     echo "TidaLuna installed successfully."
 
     # Re-sign TIDAL.app to avoid macOS Gatekeeper issues
+    status working "Signing TIDAL.app"
     codesign --force --deep --sign - /Applications/TIDAL.app
 
 
