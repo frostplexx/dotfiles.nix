@@ -172,7 +172,8 @@
           # instead of on every switch.
           settingsHash = builtins.hashString "sha256" (script
             + builtins.toJSON {
-              inherit (config.system.defaults) dock finder CustomUserPreferences;
+              inherit (config.system.defaults) finder CustomUserPreferences;
+              dock = builtins.removeAttrs config.system.defaults.dock ["expose-group-by-app"];
             });
           stamp = "/var/db/nix-darwin-defaults.hash";
         in {

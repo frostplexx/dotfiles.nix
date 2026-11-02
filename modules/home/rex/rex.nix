@@ -8,7 +8,7 @@ _: {
     # Symlink the config directory to ~/.config/rex
     # Symlink instead of using store because i'm lazy and want to modify stuff on the fly.
     xdg.configFile."rex" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config;
+      source = config.lib.file.mkOutOfStoreSymlink "${./config}";
       recursive = true;
     };
 
