@@ -1,6 +1,10 @@
 _: {
-  flake.homeManagerModules.rex = {config, lib, pkgs, ...}: {
-
+  flake.homeManagerModules.rex = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
     # Symlink the config directory to ~/.config/rex
     # Symlink instead of using store because i'm lazy and want to modify stuff on the fly.
     xdg.configFile."rex" = {
