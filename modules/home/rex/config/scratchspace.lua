@@ -45,10 +45,10 @@ rex.action({
 
 
         local created, err = rex.call("session.create", {
-            label = "scratch: " .. session_name,
+            label = " scratch: " .. session_name,
             initial_windows = {
                 {
-                    window_label = "scratch: " .. session_name,
+                    -- window_label = "scratch: " .. session_name,
                     layout = rex.layout.block({
                         flavor = terminal .. ".shell",
                         options = { cwd = cwd },
