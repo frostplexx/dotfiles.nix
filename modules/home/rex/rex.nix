@@ -21,7 +21,7 @@ _: {
         RexAppUpdateChannel = "snapshot";
 
         "rex.agents.names-sessions" = true;
-        "rex.client.remoteControl" = false;
+        "rex.client.remoteControl" = true; #TODO: fix the sessionizer and disable this
         "rex.developer-mode-enabled" = true;
         "rex.server.automatic-restart-enabled" = true;
         "rex.server.run-mode" = "bundled";

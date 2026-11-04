@@ -1,6 +1,6 @@
-require "floating_term"
-require "jump"
+require "utils/floating_term"
 require "scratchspace"
 require "keybindings"
+require "sessionizer"
 
 
