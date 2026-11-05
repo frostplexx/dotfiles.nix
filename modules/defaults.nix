@@ -71,10 +71,12 @@
       # dotfiles-assets is git-lfs, and fetching it as a flake input
       # (`git+https://...?lfs=1`) fails against GitHub's LFS batch API in CI,
       # so this stays a fetchurl pinned to a commit instead of `refs/heads/main`.
-      wallpaper = builtins.fetchurl {
-        url = "https://media.githubusercontent.com/media/frostplexx/dotfiles-assets.nix/d33b30edc1abc29d41da96dcccc49c49c5afdaaf/wallpapers/wallpaper.jpg";
-        sha256 = "sha256-bkT9b7BCrtyk9yXcGuqZilxlMy3ipSG34kWYaHrhCSc=";
-      };
+      # wallpaper = builtins.fetchurl {
+      #   url = "https://media.githubusercontent.com/media/frostplexx/dotfiles-assets.nix/d33b30edc1abc29d41da96dcccc49c49c5afdaaf/wallpapers/wallpaper.jpg";
+      #   sha256 = "sha256-bkT9b7BCrtyk9yXcGuqZilxlMy3ipSG34kWYaHrhCSc=";
+      # };
+
+      wallpaper = "/Users/daniel/Library/Mobile\ Documents/com\~apple\~CloudDocs/Images/Wallpaper/POKX9v.png";
 
       accent_color = "cba6f7";
       transparent_terminal = true;
