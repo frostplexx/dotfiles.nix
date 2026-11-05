@@ -59,8 +59,10 @@ _: {
         warnings.anthropicExtraUsage = false;
         defaultProvider = "zen";
         defaultModel = "deepseek-v4.1-flash";
+        "spinnerVerbsFile" = ./pi_settings/verbs.json;
         packages = [
           "git:github.com/elpapi42/pi-fork"
+          "npm:@robhowley/pi-spinner-verbs"
           "pi-skills"
         ];
         retry = {
