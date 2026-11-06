@@ -11,8 +11,6 @@ set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_replace_one underscore
 
-op signin # Sign into 1password cli
-
 # Source rex bin dir
 if set -q REX_BIN_DIR
     fish_add_path --path --prepend --move $REX_BIN_DIR
