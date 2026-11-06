@@ -63,6 +63,7 @@ _: {
         packages = [
           "git:github.com/elpapi42/pi-fork"
           "npm:@robhowley/pi-spinner-verbs"
+          "npm:pi-web-access"
           "pi-skills"
         ];
         retry = {
