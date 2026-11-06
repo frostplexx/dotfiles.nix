@@ -163,7 +163,23 @@ _: {
         mode = "n";
         silent = true;
         lua = true;
-        action = "function() require('snacks').lazygit() end";
+        action =
+          /*
+          lua
+          */
+          ''
+            function()
+              -- If we are in rex, call the rex action, else use snacks lazygit
+              -- if REX_SESSION is set, we are in rex
+              if os.getenv("REX_SESSION") then
+                -- execute the rex cli tool and call `rex do lazygit_float`
+                os.execute("rex do lazygit_float")
+                return
+              end
+                -- else use lazygit
+              require('snacks').lazygit()
+            end
+          '';
         desc = "Open Lazygit";
       }
       {
