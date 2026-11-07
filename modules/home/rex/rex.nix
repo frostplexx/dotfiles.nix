@@ -18,7 +18,7 @@ _: {
     targets.darwin.defaults = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       "com.superlogical.rex" = {
         RexAppUpdateAutomation = "install";
-        RexAppUpdateChannel = "snapshot";
+        # RexAppUpdateChannel = "snapshot";
 
         "rex.agents.names-sessions" = true;
         "rex.client.remoteControl" = true; #TODO: fix the sessionizer and disable this
@@ -39,7 +39,7 @@ _: {
         "Workspace.insertPathShowsRecentPaths" = true;
         "Workspace.interfaceStyle" = "blendTheme";
         "Workspace.lightThemeID" = "merino-light";
-        "Workspace.notificationPosition" = "top-right";
+        "Workspace.notificationPosition" = "top-center";
         "Workspace.paneDensity" = "compact";
         "Workspace.shellIconTheme" = "themed";
         "Workspace.showsActivePaneBorder" = true;

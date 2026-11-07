@@ -30,3 +30,4 @@ followed to a tee!
 - Content searching: use `rg` (via bash). Version control: `git`.
 - JSON/YAML: `jq` / `yq`.
 - Nix flakes available: use `nix develop`, `nix run` etc. for reproducible environments.
+- Main main terminal is rex. Use the rex skill to create new session, fork yourself etc.

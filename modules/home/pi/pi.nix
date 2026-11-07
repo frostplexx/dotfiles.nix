@@ -61,7 +61,7 @@ _: {
         defaultModel = "deepseek-v4.1-flash";
         "spinnerVerbsFile" = ./pi_settings/verbs.json;
         packages = [
-          "git:github.com/elpapi42/pi-fork"
+          # "git:github.com/elpapi42/pi-fork"
           "npm:@robhowley/pi-spinner-verbs"
           "npm:pi-web-access"
           "pi-skills"
