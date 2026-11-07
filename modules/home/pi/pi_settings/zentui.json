@@ -1,0 +1,257 @@
+{
+  "components": {
+    "editor": {
+      "enabled": true,
+      "style": "minimalist",
+      "colorSource": "terminal",
+      "borderColorMode": "static",
+      "modelLabel": "name",
+      "viewportIndicators": true,
+      "styles": {
+        "opencode": {
+          "metadataFormat": "$model  $provider(  $thinking)",
+          "completionMenu": "palette"
+        },
+        "opencode-copy-friendly": {
+          "metadataFormat": "$model  $provider(  $thinking)",
+          "completionMenu": "palette"
+        },
+        "accent-rail": {
+          "rail": "▎",
+          "asciiRail": "|",
+          "transparent": false
+        },
+        "minimalist": {
+          "pathDisplay": "compact",
+          "contextFormat": "percent",
+          "contextGauge": false,
+          "showSessionName": false,
+          "showTimer": false,
+          "showCost": false,
+          "showGit": true,
+          "contextThresholds": {
+            "warning": 70,
+            "error": 90
+          }
+        }
+      }
+    },
+    "footer": {
+      "style": "hidden",
+      "colorSource": "theme",
+      "modelLabel": "id",
+      "styles": {
+        "starship": {
+          "format": "",
+          "responsive": true,
+          "compactFormat": "$cwd$wrap(in $session_name)$wrap(on $git_branch) $git_status$wrap$context$wrap_sep$tokens",
+          "compactMaxLines": 2,
+          "separator": "pipe",
+          "contextStyle": "text",
+          "contextThresholds": {
+            "warning": 70,
+            "error": 90
+          },
+          "pathDisplay": {
+            "mode": "basename",
+            "depth": 0
+          },
+          "segments": {
+            "cwd": true,
+            "sessionName": true,
+            "gitBranch": true,
+            "gitStatus": true,
+            "gitCounts": false,
+            "gitCommit": false,
+            "gitMetrics": false,
+            "runtime": true,
+            "modelInfo": false,
+            "context": true,
+            "tokens": true,
+            "cost": true,
+            "sessionDuration": false,
+            "username": false,
+            "time": false,
+            "os": false,
+            "packageVersion": false
+          },
+          "gitBranch": {
+            "maxLength": "full"
+          },
+          "gitCommit": {
+            "hashLength": 7,
+            "onlyDetached": true,
+            "showTag": true
+          },
+          "gitMetrics": {
+            "onlyNonzero": true,
+            "ignoreSubmodules": false
+          },
+          "extensionStatuses": {
+            "defaultPlacement": "right",
+            "placements": {},
+            "colorModes": {}
+          }
+        }
+      }
+    },
+    "userMessages": {
+      "enabled": false,
+      "style": "framed-copy-friendly",
+      "colorSource": "theme",
+      "styles": {
+        "framed": {},
+        "framed-copy-friendly": {},
+        "compact": {},
+        "labeled": {}
+      }
+    },
+    "thinkingSteps": {
+      "enabled": true,
+      "mode": "tree"
+    },
+    "workingLine": {
+      "enabled": true,
+      "turnSummary": false,
+      "spinner": "braille",
+      "spinnerIntervalMs": 100,
+      "animateSpinnerColor": false,
+      "textIntervalMs": 60,
+      "textAnimation": "classic",
+      "colorSource": "terminal",
+      "messages": {
+        "custom": true,
+        "values": [
+          "Occupying the keyboard",
+          "Assessing the box",
+          "Zooming at 3am",
+          "Staring into the void",
+          "Relocating to the sunbeam",
+          "Knocking things off the edge",
+          "Forming a loaf",
+          "Composing a hairball",
+          "Blinking judgmentally",
+          "Retracting toe beans",
+          "Hunting the laser dot",
+          "Scaling the curtains",
+          "Invading a lap",
+          "Negotiating with purrs",
+          "Manipulating for treats",
+          "Chittering at birds",
+          "Transcending on catnip",
+          "Kneading biscuits",
+          "Slow-blinking",
+          "Demanding chin scratches",
+          "Ambushing the feather toy",
+          "Surveilling from the windowsill",
+          "Shredding cardboard",
+          "Flicking my tail",
+          "Ignoring the human",
+          "Evading the vet carrier",
+          "Setting the belly trap",
+          "Counter-surfing",
+          "Commandeering the laptop",
+          "Yowling at 5am",
+          "Bending",
+          "Hypnotoading",
+          "Zoidberging",
+          "Scuttling sideways",
+          "Farnsworthing",
+          "Squinting like Fry",
+          "Kicking like Leela",
+          "Nibbling",
+          "Branniganing",
+          "Sighing like Kif",
+          "Calculoning",
+          "Declaring doom like Morbo",
+          "Conquering Earth like Lrrr",
+          "Poppling",
+          "Dark-mattering",
+          "Thawing out of cryo",
+          "Blernsballing",
+          "Mopping like Scruffy",
+          "Stamping forms like Hermes",
+          "Bureaucratizing",
+          "Limboing",
+          "Velouring",
+          "Engineering with Amy",
+          "Bamming",
+          "Spicing it up like Elzar",
+          "Hedonismbotting",
+          "Fiddling for the Robot Devil",
+          "Building robots for Mom",
+          "Brain-spawning",
+          "Jarring heads",
+          "Bribing Nixon",
+          "Robbing banks with Roberto",
+          "Policing with URL",
+          "What-iffing",
+          "Delivering packages",
+          "Planet-expressing",
+          "Visiting the Near-Death Star",
+          "Waiting like Seymour",
+          "Anthologizing",
+          "Smell-o-scoping",
+          "Whooping",
+          "Burgling",
+          "Rusting",
+          "Saying Ni",
+          "Seeking the Holy Grail",
+          "Spam, spam, spamming",
+          "Silly-walking",
+          "Pining for the fjords",
+          "Clopping coconuts",
+          "Taunting like a Frenchman",
+          "Not expecting the Spanish Inquisition",
+          "Fighting the Black Knight",
+          "Singing the Lumberjack Song",
+          "Catapulting cows",
+          "Teleporting",
+          "Wormholing",
+          "Hyperdriving",
+          "Lightspeeding",
+          "Quantumleaping",
+          "Astrogating",
+          "Planetforming",
+          "Nanoswarming",
+          "Warp-driving",
+          "Lightsabering",
+          "Phasing",
+          "Time-warping",
+          "Hypershifting",
+          "Hopping nebulae",
+          "Blasting photons",
+          "Firing the tractor beam",
+          "Engaging",
+          "Beaming up",
+          "Boldly going",
+          "Mind-melding",
+          "Running a holodeck simulation",
+          "Scanning with the tricorder",
+          "Redshirting",
+          "Assimilating",
+          "Breeding tribbles",
+          "Applying the Vulcan nerve pinch",
+          "Sounding red alert",
+          "Cheating the Kobayashi Maru",
+          "Following the Prime Directive",
+          "Replicating"
+        ]
+      },
+      "segments": {
+        "tool": true,
+        "elapsed": true,
+        "thought": true,
+        "tokens": true
+      }
+    },
+    "selectorBorders": {
+      "enabled": true,
+      "style": "zentui",
+      "colorSource": "terminal"
+    }
+  },
+  "icons": {
+    "mode": "nerd"
+  }
+}

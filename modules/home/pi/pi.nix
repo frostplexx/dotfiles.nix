@@ -43,6 +43,13 @@ _: {
         ".pi/agent/themes/catppuccin.json" = {
           source = ./pi_settings/catppuccin.json;
         };
+        ".pi/agent/sandbox.json" = {
+          source = ./pi_settings/sandbox.json;
+        };
+
+        ".pi/agent/zentui.json" = {
+          source = ./pi_settings/zentui.json;
+        };
       };
     };
 
@@ -59,11 +66,11 @@ _: {
         warnings.anthropicExtraUsage = false;
         defaultProvider = "zen";
         defaultModel = "deepseek-v4.1-flash";
-        "spinnerVerbsFile" = ./pi_settings/verbs.json;
         packages = [
-          "npm:@robhowley/pi-spinner-verbs"
           "npm:pi-web-access"
           "pi-skills"
+          "npm:pi-sandbox"
+          "npm:pi-zentui"
         ];
         retry = {
           enabled = true;
@@ -71,7 +78,7 @@ _: {
         };
         theme = "catppuccin";
       };
-      context = builtins.readFile ./pi_settings/Context.md;
+      appendSystem = builtins.readFile ./pi_settings/Context.md;
     };
   };
 }

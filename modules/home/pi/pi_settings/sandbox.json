@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "enableAccessRequestTool": true,
+  "sandboxUserShell": true,
+  "permissionPromptTimeoutSeconds": 600,
+  "allowBrowserProcess": false,
+  "network": {
+    "allowLocalBinding": true,
+    "allowAllUnixSockets": true,
+    "allowUnauthenticatedSocksProxy": true,
+    "disabled": false,
+    "allowSSHAgentSocket": true,
+    "allowedDomains": [
+      "github.com",
+      "*.github.com",
+      "*.githubusercontent.com",
+      "flakehub.com",
+      "*.flakehub.com",
+      "cache.nixos.org",
+      "channels.nixos.org",
+      "*.cachix.org",
+      "registry.npmjs.org",
+      "*.npmjs.org",
+      "registry.yarnpkg.com",
+      "formulae.brew.sh",
+      "ghcr.io",
+      "kuipr.de",
+      "*.kuipr.de"
+    ],
+    "deniedDomains": []
+  },
+  "filesystem": {
+    "allowRead": [
+      "/"
+    ],
+    "allowWrite": [
+      ".",
+      "/tmp"
+    ],
+    "denyWrite": [
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key"
+    ]
+  }
+}
