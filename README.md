@@ -19,6 +19,7 @@ Wallpapers and other assets are stored in a separate git lfs repo: [frostplexx/d
 
 ## Getting Started
 
+
 ### Prerequisites
 
 - A Computer running the latest macOS or any Linux Distro
