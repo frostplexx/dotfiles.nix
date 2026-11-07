@@ -1,7 +1,7 @@
 
 function gitStatus
     echo "Repositories with unpushed commits:"
-    find . -type d -name '.git' | while read -l gitdir
+    find . -maxdepth 4 -type d -name '.git' | while read -l gitdir
         set -l repo (string replace -r '/?\.git$' '' -- "$gitdir")
         if git -C "$repo" status | string match -q '*is ahead of*'
             echo "$repo"
