@@ -161,7 +161,7 @@ _: {
         "Workspace.sidebarCollapsed" = false;
         "Workspace.sidebarPosition" = "left";
         "Workspace.tabIconTintMode" = "off";
-        "Workspace.tabStyle" = "horizontal";
+        # "Workspace.tabStyle" = "horizontal"; # Don't set tabstyle as I frequently switch between them!
         "Workspace.tabsFillAvailableSpace" = true;
         "Workspace.terminalCopyOnSelect" = false;
         "Workspace.terminalCursorStyle" = "block";

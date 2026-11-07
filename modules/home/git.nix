@@ -4,7 +4,13 @@ _: {
     lib,
     defaults,
     ...
-  }: {
+  }: let
+    gitCredential1Password = pkgs.writeShellScript "git-credential-1password" ''
+      [ "$1" = get ] || exit 0
+      password=$(op read op://Personal/GitHub/token) || exit 1
+      printf 'username=frostplexx\npassword=%s\n' "$password"
+    '';
+  in {
     home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
       rm -f ~/.gitconfig
     '';
@@ -45,6 +51,10 @@ _: {
             if pkgs.stdenv.hostPlatform.isDarwin
             then "osxkeychain"
             else "${pkgs.gitFull}/bin/git-credential-libsecret";
+          # GitHub credentials come from 1Password. The empty helper resets the
+          # list, otherwise the keychain/libsecret helper above is tried first
+          # and wins with a stale token.
+          "credential.https://github.com".helper = ["" "${gitCredential1Password}"];
           difftool = {
             prompt = false;
             trustExitCode = true;

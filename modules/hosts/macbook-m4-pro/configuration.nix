@@ -373,6 +373,7 @@
       casks = [
         "pangolin"
         "tidal"
+        "zed"
         "cleanshot"
         "utm"
         "mac-mouse-fix"
