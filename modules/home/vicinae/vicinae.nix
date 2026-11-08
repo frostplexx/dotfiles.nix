@@ -91,6 +91,31 @@ _: {
               material = "liquid_glass";
             };
           providers = {
+            "ai" = {
+              "enabled" = false;
+            };
+            "dictation" = {
+              "enabled" = false;
+            };
+            "media" = {
+              "entrypoints" = {
+                "volume-0" = {
+                  "enabled" = false;
+                };
+                "volume-100" = {
+                  "enabled" = false;
+                };
+                "volume-25" = {
+                  "enabled" = false;
+                };
+                "volume-50" = {
+                  "enabled" = false;
+                };
+                "volume-75" = {
+                  "enabled" = false;
+                };
+              };
+            };
             "core" = {
               "entrypoints" = {
                 "manage-fallback" = {
