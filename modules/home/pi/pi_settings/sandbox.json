@@ -33,6 +33,24 @@
     "allowRead": [
       "/"
     ],
+    "denyRead": [
+      "/etc/ssh",
+      "/etc/ssl",
+      "/etc/pki",
+      "/etc/ca-certificates",
+      "/etc/ssl/certs",
+      "/etc/ssl/private",
+      "/etc/ssl/certs/ca-certificates.crt",
+      "/usr/local/etc/openssl",
+      "/usr/local/etc/openssl/cert.pem",
+      "/usr/local/etc/openssl/certs",
+      "/usr/local/etc/openssl/private",
+      "/usr/local/etc/openssl/certs/ca-certificates.crt",
+      "~/Music",
+      "~/Pictures",
+      "~/Videos",
+      "~/.ssh"
+    ],
     "allowWrite": [
       ".",
       "/tmp"
