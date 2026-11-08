@@ -57,11 +57,8 @@ _: {
 
         shellAliases = {
           v = "nvim";
-          g = "lazygit";
           c = "clear";
           q = "exit";
-          s = "ssh";
-          boo = "ghostty +boo";
           p = "project_selector";
           cat = "bat";
           tree = "eza --icons --git --header --tree";
