@@ -17,16 +17,6 @@ _: {
         enableTransience = true;
         settings = {
           command_timeout = 2000;
-
-          #TODO: update this to work with rex
-          # Custom module to display work topic in the prompt
-          custom.work_topic = {
-            command = ''echo "$WORK_TOPIC"'';
-            when = ''[ -n "$WORK_TOPIC" ]'';
-            symbol = "🎯 ";
-            style = "bold purple";
-            format = "[$symbol$output]($style) ";
-          };
         };
       };
 
