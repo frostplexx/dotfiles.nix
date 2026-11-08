@@ -123,9 +123,6 @@ _: {
       ''
     );
 
-    # Rex stores its preferences as flat, dotted keys next to app state
-    # (window frames, sync servers, cached routes, recent paths) in one domain.
-    # Only preferences are set here; `defaults import` merges, it does not replace.
     targets.darwin.defaults = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       "com.superlogical.rex" = {
         RexAppUpdateAutomation = "install";

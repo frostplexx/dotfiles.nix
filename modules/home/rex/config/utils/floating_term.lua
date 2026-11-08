@@ -113,3 +113,15 @@ rex.action({
 })
 
 
+rex.action({
+    name = "yazi_float",
+    title = "Yazi",
+    keywords = "yazi file manager float",
+    run = function(ctx)
+        if not close_float("yazi_float") then
+            open_float(ctx, {"yazi"}, "yazi_float")
+        end
+    end
+})
+
+

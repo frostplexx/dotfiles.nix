@@ -23,6 +23,7 @@ rex.bind("cmd+p", "client.palette.toggle")
 
 rex.bind("cmd+g", "lazygit_float")
 rex.bind("cmd+s", "floating_term")
+rex.bind("cmd+y", "yazi_float")
 
 -- Unbind some default keybindings
 rex.unbind("shift+cmd+p", "client.palette.toggle")
