@@ -1207,11 +1207,11 @@
     "yazi-flavors": {
       "flake": false,
       "locked": {
-        "lastModified": 1790697555,
-        "narHash": "sha256-E1OUF1+mT0V3crVxkewG2Y7hRu8fO+0oRl6NlINmw+o=",
+        "lastModified": 1794244702,
+        "narHash": "sha256-lITDt1QvL54u6gbJiGixPyP6lk72f3rkiNPDrUg6G8I=",
         "owner": "yazi-rs",
         "repo": "flavors",
-        "rev": "1183892c904f7f0efdf4473e856ed308b7bea98d",
+        "rev": "38c08d8eb9ea0d28c8c911a249a08f27ba2151ac",
         "type": "github"
       },
       "original": {
