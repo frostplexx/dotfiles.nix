@@ -137,8 +137,9 @@ _: {
         "rex.server.tailnet-enabled" = true;
 
         "Workspace.activePaneBorderOpacity" = 0.5;
-        "Workspace.activePaneBorderTransition" = "move";
-        "Workspace.animationStyle" = "off";
+        "Workspace.activePaneBorderTransition" = "instant";
+        "Workspace.animationStyle" = "snappy";
+        "Workspace.toolbarBehavior" = "onHover";
         "Workspace.appIconVisibility" = "dockOnly";
         "Workspace.appearance" = "dark";
         "Workspace.darkThemeID" = catppuccinMocha.id;
@@ -151,7 +152,8 @@ _: {
         "Workspace.lightUsesExtendedThemePalette" = false;
         "Workspace.notificationPosition" = "top-center";
         "Workspace.paneDensity" = "compact";
-        "Workspace.shellIconTheme" = "themed";
+        "Workspace.shellIconTheme" = "default";
+        "Workspace.tabIconColorMode" = "activeTabs";
         "Workspace.showsActivePaneBorder" = true;
         "Workspace.showsIdleProgramsInActivity" = false;
         "Workspace.showsPaneHeaders" = false;
