@@ -45,7 +45,6 @@ _: {
         frameless = pkgs.stdenv.hostPlatform.isDarwin;
         enabledThemes = [themeFile];
         plugins = {
-          alwaysAnimate.enable = true;
           betterFolders = {
             enable = true;
             sidebar = true;
@@ -89,6 +88,7 @@ _: {
           readAllNotificationsButton.enable = true;
           sendTimestamps.enable = true;
           translate.enable = true;
+          betterSearch.enable = true;
           typingIndicator.enable = true;
           typingTweaks.enable = true;
           validReply.enable = true;
