@@ -382,6 +382,7 @@
         "mullvad-vpn"
         "macpacker"
         "skim"
+        "slack"
       ];
     };
 
