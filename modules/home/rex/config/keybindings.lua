@@ -19,13 +19,14 @@ rex.bind("shift+cmd+d", "pane.split", { direction = "down" })
 rex.bind("cmd+d", "pane.split", { direction = "right" })
 
 
-rex.bind("cmd+p", "client.palette.toggle")
+rex.bind("cmd+shift+p", "client.palette.toggle")
+rex.bind("cmd+p", "client.")
 
 rex.bind("cmd+g", "lazygit_float")
 rex.bind("cmd+s", "floating_term")
 rex.bind("cmd+y", "yazi_float")
 
 -- Unbind some default keybindings
-rex.unbind("shift+cmd+p", "client.palette.toggle")
+rex.unbind("cmd+shift+g") -- the go to directory function kinda sucks so unbind it 
 
 

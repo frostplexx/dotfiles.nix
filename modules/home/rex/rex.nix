@@ -156,11 +156,11 @@ _: {
         "Workspace.tabIconColorMode" = "activeTabs";
         "Workspace.showsActivePaneBorder" = true;
         "Workspace.showsIdleProgramsInActivity" = false;
-        "Workspace.showsPaneHeaders" = false;
+        "Workspace.paneHeaderVisibility" = "onHover";
         "Workspace.sidebarCollapsed" = false;
         "Workspace.sidebarPosition" = "left";
         "Workspace.tabIconTintMode" = "off";
-        # "Workspace.tabStyle" = "horizontal"; # Don't set tabstyle as I frequently switch between them!
+        "Workspace.tabStyle" = "horizontal";
         "Workspace.tabsFillAvailableSpace" = true;
         "Workspace.terminalCopyOnSelect" = false;
         "Workspace.terminalCursorStyle" = "block";
