@@ -2,7 +2,7 @@ _: {
   flake.homeManagerModules.neovim-languages = _: {
     programs.nvf.settings.vim.languages = {
       enableTreesitter = true;
-      enableDAP = true;
+      enableDAP = false;
 
       nix = {
         enable = true;
@@ -31,11 +31,7 @@ _: {
       };
 
       go.enable = true;
-      clang = {
-        enable = true;
-        dap.enable = true;
-        lsp.enable = true;
-      };
+      clang.enable = true;
 
       python.enable = true;
       bash.enable = true;
