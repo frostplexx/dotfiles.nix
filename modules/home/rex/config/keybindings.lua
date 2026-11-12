@@ -20,7 +20,6 @@ rex.bind("cmd+d", "pane.split", { direction = "right" })
 
 
 rex.bind("cmd+shift+p", "client.palette.toggle")
-rex.bind("cmd+p", "client.")
 
 rex.bind("cmd+g", "lazygit_float")
 rex.bind("cmd+s", "floating_term")
