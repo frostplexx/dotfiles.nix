@@ -50,6 +50,10 @@ _: {
         ".pi/agent/zentui.json" = {
           source = ./pi_settings/zentui.json;
         };
+
+        ".pi/agent/extensions/sandbox-attention.ts" = {
+          source = ./pi_settings/extensions/sandbox-attention.ts;
+        };
       };
     };
 

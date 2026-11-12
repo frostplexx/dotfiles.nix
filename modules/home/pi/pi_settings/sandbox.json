@@ -53,7 +53,8 @@
     ],
     "allowWrite": [
       ".",
-      "/tmp"
+      "/tmp",
+      "~/Documents/Memex/2 Resources/Homelab"
     ],
     "denyWrite": [
       ".env",
