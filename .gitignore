@@ -8,3 +8,4 @@ old/
 tmp/
 functions_only.sh
 test_functions.sh
+.direnv/

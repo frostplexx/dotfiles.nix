@@ -29,12 +29,12 @@ _: {
           jq
           yq-go
         ];
-        shellHook = ''
-          echo "dotfiles.nix development shell"
-          echo "Available commands:"
-          echo "  alejandra .     - Format nix files"
-          echo "  deadnix .       - Find dead code"
-          echo "  statix check .  - Lint nix files"
+        shellHook = /* bash */ ''
+          # if session is not called "dotfiles.nix", rename it to that
+          if [ $(rex session inspect |grep label) != "label: dotfiles.nix" ]; then
+            echo "Renaming session to dotfiles.nix"
+            rex session rename dotfiles.nix
+          fi
         '';
       };
 
