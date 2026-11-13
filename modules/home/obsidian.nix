@@ -5,7 +5,7 @@ _: {
     inputs,
     ...
   }: let
-    skillsDir = "${inputs.obsidian-skills}/skills";
+    skillsDir = "${inputs.obsidian-skills}/plugins/obsidian/skills";
   in {
     programs.obsidian = {
       enable = true;

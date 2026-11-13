@@ -100,7 +100,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     # ==== Homebrew Taps ====
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
