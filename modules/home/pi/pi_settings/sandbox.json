@@ -54,7 +54,8 @@
     "allowWrite": [
       ".",
       "/tmp",
-      "~/Documents/Memex/2 Resources/Homelab"
+      "~/Documents/Memex/2 Resources/Homelab",
+      "/Users/daniel/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
     ],
     "denyWrite": [
       ".env",

@@ -522,45 +522,6 @@
         "type": "github"
       }
     },
-    "millennium": {
-      "inputs": {
-        "millennium-src": "millennium-src",
-        "nixpkgs": "nixpkgs_3",
-        "nixpkgs-bun": "nixpkgs-bun"
-      },
-      "locked": {
-        "dir": "packages/nix",
-        "lastModified": 1794417982,
-        "narHash": "sha256-3Awg1ebfAywMKK429nxrtNWHYtM2V97GsX03qr8FuyQ=",
-        "owner": "SteamClientHomebrew",
-        "repo": "Millennium",
-        "rev": "6d5379ec502896465c74dcc2462b94082c8caca2",
-        "type": "github"
-      },
-      "original": {
-        "dir": "packages/nix",
-        "owner": "SteamClientHomebrew",
-        "repo": "Millennium",
-        "type": "github"
-      }
-    },
-    "millennium-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1792710296,
-        "narHash": "sha256-e79vMkWWeK7Rk3OjbK82yC+EgVgCCtG9wRMxO1ZP+vE=",
-        "owner": "SteamClientHomebrew",
-        "repo": "Millennium",
-        "rev": "3858d60a2081f612739f07386ceac9b79f68274b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SteamClientHomebrew",
-        "repo": "Millennium",
-        "rev": "3858d60a2081f612739f07386ceac9b79f68274b",
-        "type": "github"
-      }
-    },
     "mnw": {
       "locked": {
         "lastModified": 1784154424,
@@ -997,7 +958,6 @@
         "homebrew-core": "homebrew-core",
         "import-tree": "import-tree",
         "lazykeys": "lazykeys",
-        "millennium": "millennium",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixcord": "nixcord",

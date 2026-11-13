@@ -9,7 +9,6 @@
 
   overlays = [
     inputs.vicinae.overlays.default
-    inputs.millennium.overlays.default
   ];
 in {
   flake = {

@@ -54,6 +54,7 @@ _: {
           tree = "eza --icons --git --header --tree";
           vimdiff = "nvim -d";
           cd = "z";
+          s = "cdh";
           nurl = "nix run nixpkgs#nurl --";
           compress = "tar -cf";
           untar = "tar -xf";

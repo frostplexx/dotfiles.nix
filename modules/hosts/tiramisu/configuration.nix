@@ -189,7 +189,6 @@ _: {
       steam = {
         enable = true;
         extest.enable = true;
-        package = pkgs.millennium-steam;
       };
       _1password.enable = true;
       _1password-gui = {
