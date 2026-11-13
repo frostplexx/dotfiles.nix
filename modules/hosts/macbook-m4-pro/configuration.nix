@@ -364,6 +364,7 @@
         "Goodnotes" = 1444383602;
         "Numbers" = 361304891;
         "Keynote" = 361285480;
+        "Whatsapp Messenger" = 310633997;
       };
 
       taps = builtins.attrNames config.nix-homebrew.taps;

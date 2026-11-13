@@ -68,8 +68,8 @@ _: {
         enableInstallTelemetry = false;
         enableAnalytics = false;
         warnings.anthropicExtraUsage = false;
-        defaultProvider = "zen";
-        defaultModel = "deepseek-v4.1-flash";
+        defaultProvider = "mistral";
+        defaultModel = "deepseek-v4-1-flash-1017";
         packages = [
           "npm:pi-web-access"
           "pi-skills"
