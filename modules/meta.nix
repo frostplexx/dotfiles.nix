@@ -12,36 +12,6 @@ _: {
 
     # Development shells
     devShells = {
-      # Default shell for working on this flake
-      default = pkgs.mkShell {
-        name = "dotfiles";
-        packages = with pkgs; [
-          # Nix tools
-          alejandra
-          deadnix
-          statix
-          nil
-          nix-tree
-          nix-diff
-          nvd
-
-          # General utilities
-          jq
-          yq-go
-        ];
-        shellHook =
-          /*
-          bash
-          */
-          ''
-            # if session is not called "dotfiles.nix", rename it to that
-            if [ $(rex session inspect |grep label) != "label: dotfiles.nix" ]; then
-              echo "Renaming session to dotfiles.nix"
-              rex session rename dotfiles.nix
-            fi
-          '';
-      };
-
       # Shell for CI/validation
       ci = pkgs.mkShell {
         name = "dotfiles-ci";
