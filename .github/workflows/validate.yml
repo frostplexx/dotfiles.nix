@@ -174,8 +174,12 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
-          nix run nixpkgs#nh -- ${{ matrix.cmd }} build --no-nom -H ${{ matrix.name }} . 2>&1 | tee build-output.txt
-          exit ${PIPESTATUS[0]}
+          if [ "${{ matrix.cmd }}" = "darwin" ]; then
+            nix run nixpkgs#nh -- darwin build --no-nom .#${{ matrix.name }} 2>&1 | tee build-output.txt
+          else
+            nix run nixpkgs#nh -- os build --no-nom -H ${{ matrix.name }} . 2>&1 | tee build-output.txt
+          fi
+          exit "${PIPESTATUS[0]}"
 
       - name: Post build result
         if: always() && github.event_name == 'pull_request'
