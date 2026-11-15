@@ -459,7 +459,10 @@
       "inputs": {
         "flake-parts": "flake-parts_5",
         "neovim-src": "neovim-src",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": [
+          "nvim",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1794700962,
@@ -783,22 +786,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1794495034,
-        "narHash": "sha256-E0hYoioqUtM2XmPPvYYpJgdADF5AW9oOoPSEiM9dTHQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2074cc672349f14240fb7ea90d509e0b643e9dd4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "numen": {
       "inputs": {
         "nixpkgs": [
@@ -844,11 +831,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1794742098,
-        "narHash": "sha256-ZcgeDah/NAyK3YGO+sc1Moc6kgcfPsyK5uLMuuF/Xwg=",
+        "lastModified": 1794742975,
+        "narHash": "sha256-Mh2YrvAZ6fcaWeCSpBcMfwZqLHbd4xoVvYZyW8pWvho=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "845b227ce4f01f8f0e37b01b2f77382f2d6d0efa",
+        "rev": "13cab18af9407ea22b2f67ed17e002545c8b68da",
         "type": "github"
       },
       "original": {
