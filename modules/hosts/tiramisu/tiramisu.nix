@@ -43,7 +43,6 @@ in {
               };
               sharedModules =
                 [
-                  inputs.nvf.homeModules.default
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
                   inputs.zen-browser.homeModules.beta

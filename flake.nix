@@ -85,13 +85,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fff-nvim = {
-      url = "github:dmtrKovalenko/fff.nvim";
+    nvim = {
+      url = "github:frostplexx/nvim.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
