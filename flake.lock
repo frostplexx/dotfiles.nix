@@ -815,13 +815,13 @@
           "nixpkgs"
         ],
         "plugins-catppuccin": "plugins-catppuccin",
-        "plugins-copilot": "plugins-copilot",
         "plugins-cord": "plugins-cord",
         "plugins-friendly-snippets": "plugins-friendly-snippets",
         "plugins-fzf-lua": "plugins-fzf-lua",
         "plugins-lspconfig": "plugins-lspconfig",
         "plugins-lzn": "plugins-lzn",
         "plugins-mini": "plugins-mini",
+        "plugins-minuet": "plugins-minuet",
         "plugins-nvim-lint": "plugins-nvim-lint",
         "plugins-plenary": "plugins-plenary",
         "plugins-render-markdown": "plugins-render-markdown",
@@ -831,11 +831,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1794742975,
-        "narHash": "sha256-Mh2YrvAZ6fcaWeCSpBcMfwZqLHbd4xoVvYZyW8pWvho=",
+        "lastModified": 1794823539,
+        "narHash": "sha256-FcZvwJNn3Y6RxKPxfKoz8mKVjwX9HmzXO8IcvNoCWBA=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "13cab18af9407ea22b2f67ed17e002545c8b68da",
+        "rev": "9bf7c7fdad43b94c40fb77631a6177b53a86a8db",
         "type": "github"
       },
       "original": {
@@ -896,22 +896,6 @@
       "original": {
         "owner": "catppuccin",
         "repo": "nvim",
-        "type": "github"
-      }
-    },
-    "plugins-copilot": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794490455,
-        "narHash": "sha256-GIX1mOzsGWsSWLoUBFsTcaQv3zEM1BRhEfBYFq9YsoE=",
-        "owner": "zbirenbaum",
-        "repo": "copilot.lua",
-        "rev": "3547efbff9adeecbd9d431c0a2a8707b7f6a4131",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zbirenbaum",
-        "repo": "copilot.lua",
         "type": "github"
       }
     },
@@ -1008,6 +992,22 @@
       "original": {
         "owner": "echasnovski",
         "repo": "mini.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-minuet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791403386,
+        "narHash": "sha256-sS1xMiehg2CeANWGwIdgWlO1zTT2fylVHYMHSdduZF4=",
+        "owner": "milanglacier",
+        "repo": "minuet-ai.nvim",
+        "rev": "50bf63b031c0391e926fdf0b3d044d37846e6e34",
+        "type": "github"
+      },
+      "original": {
+        "owner": "milanglacier",
+        "repo": "minuet-ai.nvim",
         "type": "github"
       }
     },
