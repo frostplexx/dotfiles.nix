@@ -3,21 +3,21 @@
     "url": "https://github.com/raycast/extensions.git",
     "extensions": {
       "audio-device": {
-        "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-5Ph5L01cmVpILGBQobEQl3vK20DPRFRrjiwTpjsLn28=",
+        "rev": "97c2fa8a860cc6006f24dcfbc263de6fd6eb004b",
+        "hash": "sha256-XEEyR3aaZqmdo5/GUV29OFalnXhMTW1VbgjO6b+uN5c=",
         "darwinOnly": true
       },
       "deepcast": {
-        "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-lQ2wKSTxaJzuug/LKX9IOc9XEThpcfzIfatLJkdFmpA="
+        "rev": "97c2fa8a860cc6006f24dcfbc263de6fd6eb004b",
+        "hash": "sha256-3PlAYIY7MoHu0muXvL9JmensOm+RJpv2+3y2AHsWapw="
       },
       "homeassistant": {
-        "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-5KRv63RisBJxleZ2xxyqhbYmrnEpr0K33tfKUj4HIks="
+        "rev": "97c2fa8a860cc6006f24dcfbc263de6fd6eb004b",
+        "hash": "sha256-TZvTQ0sVXxOHf1v0BH7dQcZcrky+yC7yUL4r0rOuVVc="
       },
       "obsidian": {
-        "rev": "3062caa45157616006ae726677156594200cc90a",
-        "hash": "sha256-7HZ2UEVZxRrkVYNux3+RM4xgXZdbRxEFGL7tkE/L8uc=",
+        "rev": "97c2fa8a860cc6006f24dcfbc263de6fd6eb004b",
+        "hash": "sha256-nIsfGXLDLdu3DfVkOOUOtYo5ELz8ntpvbbtY81nWpIk=",
         "darwinOnly": true
       },
       "toothpick": {
@@ -32,19 +32,19 @@
     "url": "https://github.com/vicinaehq/extensions.git",
     "extensions": {
       "coffee": {
-        "rev": "ee117bc64f341ed71b4a27e311f343b12a75f43d",
+        "rev": "181904331f5289b53ee3443f98cfa5441d399f35",
         "hash": "sha256-qK5It2WpEjAu3wEFFTSA0A8Ca2S5zaqgrTd31XBRRec="
       },
       "github": {
-        "rev": "ee117bc64f341ed71b4a27e311f343b12a75f43d",
+        "rev": "181904331f5289b53ee3443f98cfa5441d399f35",
         "hash": "sha256-9163X86rG07ItAh0FczfRw0gISwD/cRUGx6pRBJqElM="
       },
       "nix": {
-        "rev": "ee117bc64f341ed71b4a27e311f343b12a75f43d",
+        "rev": "181904331f5289b53ee3443f98cfa5441d399f35",
         "hash": "sha256-OPxgKOoUBw9GVshdSF27QJFFaR8fVLGqDljIj8mZHow="
       },
       "process-manager": {
-        "rev": "ee117bc64f341ed71b4a27e311f343b12a75f43d",
+        "rev": "181904331f5289b53ee3443f98cfa5441d399f35",
         "hash": "sha256-Ev5GN0Bss6n91PG64wnSJg3gNcCozpywb0WYOhw9/ZI="
       }
     }
