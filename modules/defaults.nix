@@ -78,7 +78,7 @@
 
       wallpaper = "/Users/daniel/Library/Mobile\ Documents/com\~apple\~CloudDocs/Images/Wallpaper/POKX9v.png";
 
-      accent_color = "cba6f7";
+      accent_color = "89b4fa";
       transparent_terminal = true;
       # Disable window manager in CI environments
       window_manager = false;

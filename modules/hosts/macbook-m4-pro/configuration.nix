@@ -44,7 +44,10 @@
     determinateNix.customSettings =
       defaults.nixSettings
       // {
-        extra-trusted-users = ["root" user];
+        extra-trusted-users = [
+          "root"
+          user
+        ];
         # Build x86_64-linux closures on sorbet; this Mac is arm64.
         #FIXME: Not idea if this still works
         builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
@@ -127,8 +130,9 @@
       startup.chime = false;
 
       activationScripts = {
-        postActivation = let
-          script =
+        postActivation = {
+          enable = true;
+          text =
             /*
             bash
             */
@@ -164,27 +168,21 @@
               # The per-app values live in CustomUserPreferences below.
               sudo -u ${user} defaults delete -g ApplePressAndHoldEnabled 2>/dev/null || true
 
+
+              # Un-Enshittify macOS
+              # Sources:
+                # - https://www.reddit.com/r/MacOSBeta/comments/1xy8ni9/heres_how_to_disable_all_new_full_disk_access/
+                # - https://www.reddit.com/r/MacOSBeta/comments/1vzvb9q/heres_how_to_disable_siris_new_floating_button/
+              sudo mkdir -p /Library/Preferences/FeatureFlags/Domain # needs special feautre flags folder
+              # Disable the indicator in the Menu Bar whenever an app is using another:
+              sudo defaults write /Library/Preferences/FeatureFlags/Domain/TCC AX_TRANSPARENCY_INDICATOR -dict Enabled -bool false
+              # Disable floating writing tools UI
+              sudo defaults write /Library/Preferences/FeatureFlags/Domain/WritingTools LightweightUI_macOS -dict Enabled -bool false
+
+
               # Restarts the Dock itself when the resolved bindings change.
               sudo -u ${user} ${pkgs.python3}/bin/python3 ${./space-bindings.py} ${lib.escapeShellArg (builtins.toJSON spaceBindings)} || true
             '';
-
-          # Only restart Finder/Dock when the settings they read actually changed,
-          # instead of on every switch.
-          settingsHash = builtins.hashString "sha256" (script
-            + builtins.toJSON {
-              inherit (config.system.defaults) finder CustomUserPreferences;
-              dock = builtins.removeAttrs config.system.defaults.dock ["expose-group-by-app"];
-            });
-          stamp = "/var/db/nix-darwin-defaults.hash";
-        in {
-          enable = true;
-          text = ''
-            ${script}
-            if [ "$(cat ${stamp} 2>/dev/null)" != "${settingsHash}" ]; then
-              killall Finder Dock 2>/dev/null || true
-              echo "${settingsHash}" > ${stamp}
-            fi
-          '';
         };
       };
 
@@ -295,6 +293,7 @@
             WebKitDeveloperExtras = true;
             "com.apple.mouse.linear" = true;
             SLSMenuBarUseBlurredAppearance = false;
+            AppleAccentColor = 4;
             AppleIconAppearanceTintColor = "Other";
             AppleIconAppearanceTheme = "RegularDark";
             AppleIconAppearanceCustomTintColor = appleHighlightColor;
@@ -358,7 +357,7 @@
         cleanup = "zap";
       };
       masApps = {
-        # "Xcode" = 497799835;
+        "Xcode" = 497799835;
         "Things" = 904280696;
         "eduVPN" = 1317704208;
         "Goodnotes" = 1444383602;

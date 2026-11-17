@@ -5,6 +5,14 @@ _: {
     pkgs,
     ...
   }: let
+    # TODO:
+    # Change any setting without opening Settings. Almost every control in Settings now has an action for
+    # you and your agent. You can run it from the command palette, bind it to a key under Settings =>
+    # Shortcuts or with rex.bind in init.lua, or call it with rex do, for example rex do
+    # client.setting.interface.panes.density value=compact. Switches toggle and lists step to the next
+    # choice when you give no value, and number settings take value, increase, decrease or reset. Setting
+    # rows in the command palette now show the key bound to them, and Developer Mode, its experiments and
+    # the SSH agent now have rows too.
     # Rex imported themes live under Workspace.customThemes as JSON data, in the
     # shape Rex writes when it imports a Ghostty theme. The palettes are built
     # from the pinned Catppuccin theme files; Rex's generated 16-255 palette is
