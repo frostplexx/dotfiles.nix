@@ -52,7 +52,7 @@ in {
                 ]
                 ++ collectModules (
                   lib.filterAttrs
-                  (n: _: !(builtins.elem n ["agate" "obsidian" "skhd" "rex"]))
+                  (n: _: !(builtins.elem n ["aerospace" "obsidian" "skhd" "rex"]))
                   self.homeManagerModules
                 );
             };
