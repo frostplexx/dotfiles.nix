@@ -129,6 +129,11 @@ _: {
 
           ctrl-alt-cmd-space = "fullscreen";
 
+          # Toggle the widgets/notifications panel (clicks the menu bar clock).
+          ctrl-alt-cmd-n = ''
+            exec-and-forget osascript -e 'tell application "System Events" to tell process "ControlCenter" to click menu bar item "Clock" of menu bar 1'
+          '';
+
           # Move the focused window to an adjacent slot.
           ctrl-alt-cmd-shift-h = "move left";
           ctrl-alt-cmd-shift-j = "move down";
@@ -141,6 +146,9 @@ _: {
           ctrl-alt-cmd-e = "layout horizontal vertical";
           ctrl-alt-cmd-s = "layout v_accordion";
           ctrl-alt-cmd-shift-s = "layout h_accordion";
+
+          # Toggle floating/tiling for the focused window.
+          ctrl-alt-cmd-f = "layout floating tiling";
 
           # Combine the focused window with its right neighbour.
           ctrl-alt-cmd-g = "join-with right";
