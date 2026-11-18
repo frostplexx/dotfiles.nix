@@ -9,17 +9,30 @@ _: {
       ".hushlogin".text = "";
     };
 
-    programs = {
-      # Starship prompt
-      starship = {
-        enable = true;
-        enableFishIntegration = true;
-        enableTransience = true;
-        settings = {
-          command_timeout = 2000;
-        };
-      };
+    home.activation.configureTide =
+      lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"]
+      /*
+      bash
+      */
+      ''
+        if [[ -v DRY_RUN ]]; then
+          echo "Would run tide configure --auto"
+        else
+          # tide exits 0 even for an invalid option, so check its output as well
+          tide_status=0
+          tide_output=$(SKIP_FF=1 ${pkgs.fish}/bin/fish -c "tide configure --auto --style=Lean \
+          --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' \
+          --prompt_connection=Disconnected --prompt_spacing=Compact --icons='Many icons' --transient=Yes" </dev/null 2>&1) || tide_status=$?
+          if [ "$tide_status" -ne 0 ] || printf '%s' "$tide_output" | grep -q 'Invalid'; then
+            echo "There was an issue with Tide configuration:"
+            printf '%s\n' "$tide_output"
+            exit 1
+          fi
+          echo "Tide configuration complete."
+        fi
+      '';
 
+    programs = {
       man.package = pkgs.man;
 
       # Fish shell
@@ -44,6 +57,20 @@ _: {
             mode = "insert";
           };
         };
+
+        plugins = with pkgs.fishPlugins;
+          (lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+            {
+              name = "macos";
+              inherit (macos) src;
+            }
+          ])
+          ++ [
+            {
+              name = "tide";
+              inherit (tide) src;
+            }
+          ];
 
         shellAliases = {
           v = "nvim";
@@ -164,12 +191,14 @@ _: {
         else
           lib.fileset.toSource {
             root = ./scripts;
-            fileset = lib.fileset.difference ./scripts (lib.fileset.unions [
-              ./scripts/tm_exclude_node_modules.fish
-              ./scripts/compress_mov_to_mp4.fish
-              ./scripts/compress_to_webp.fish
-              ./scripts/connect_ollama.fish
-            ]);
+            fileset = lib.fileset.difference ./scripts (
+              lib.fileset.unions [
+                ./scripts/tm_exclude_node_modules.fish
+                ./scripts/compress_mov_to_mp4.fish
+                ./scripts/compress_to_webp.fish
+                ./scripts/connect_ollama.fish
+              ]
+            );
           };
     };
   };

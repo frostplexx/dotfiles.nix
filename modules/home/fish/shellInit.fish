@@ -11,6 +11,10 @@ set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_replace_one underscore
 
+
+# Tide config
+set -g tide_left_prompt_items "pwd" "git" "newline" "character" 
+
 # Source rex bin dir
 if set -q REX_BIN_DIR
     fish_add_path --path --prepend --move $REX_BIN_DIR
