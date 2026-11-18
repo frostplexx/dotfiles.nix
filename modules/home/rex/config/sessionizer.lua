@@ -1,5 +1,4 @@
 ---@diagnostics disable: undefined-global, unused-local, unused-function
-require "utils/picker"
 
 
 -- Set project dir to be HOME/Projects
@@ -40,6 +39,20 @@ local function app_client_id()
 end
 
 
+local function project_items()
+    local items = {}
+    for _, project in ipairs(enumerate_projects()) do
+        table.insert(items, {
+            id = project,
+            title = project:gsub("^[^/]*%.[^/]*/", ""),
+            subtitle = "~/Projects/" .. project,
+            icon = "folder",
+        })
+    end
+    return items
+end
+
+
 print("Enumerating projects in " .. project_dir)
 
 rex.action({
@@ -48,54 +61,54 @@ rex.action({
     description = "Create a new session for a project",
     keywords = "project session",
     run = function()
-        picker({
-            prompt = "Jump to...",
-            items = enumerate_projects(),
-            on_select = function(item)
-                local project_path = project_dir .. "/" .. item
-                print("Selected project: " .. project_path)
-                -- create a new session with the selected project as the cwd
-                local created, err = rex.call("session.create", {
-                    label = " " .. item:gsub("^[^/]*%.[^/]*/", ""),
-                    initial_windows = {
-                        {
-                            layout = rex.layout.block({
-                                flavor = "com.superlogical.terminal.shell",
-                                options = { cwd = project_path },
-                            }),
-                        },
-                    },
-                })
-                if err then
-                    error(err)
-                end
-
-                -- Shows the new session. Needs Remote Control turned on in Rex Settings;
-                -- the session exists either way.
-                local app_client = app_client_id()
-                local select_err
-                if app_client then
-                    _, select_err = rex.call("client.perform", {
-                        client_id = app_client,
-                        action = "session.select",
-                        args = { session_id = created.session_id },
-                    })
-                end
-                if select_err then
-                    -- The picker's callback runs as a CLI connection, so ask the app
-                    -- directly. When Rex.app dispatched the action itself, queueing it
-                    -- back is enough.
-                    local queued, queue_err = pcall(rex.client.queue, "session.select", { session_id = created.session_id })
-                    if not queued or queue_err then
-                        rex.log("warn", "sessionizer: created session but could not show it: " .. tostring(queue_err))
-                    end
-                end
-            end,
-            label = "Project Picker",
-            position = "bottom",
-            width = 0.5,
-            padding = 0.01,
+        local project, why, detail = rex.ui.pick({
+            title = "Jump to...",
+            placeholder = "Filter projects",
+            items = project_items(),
         })
+        if project == nil then
+            if why ~= "cancelled" then
+                rex.log("warn", "sessionizer: " .. why .. " " .. (detail or ""))
+            end
+            return
+        end
+
+        local project_path = project_dir .. "/" .. project
+        print("Selected project: " .. project_path)
+        -- create a new session with the selected project as the cwd
+        local created, err = rex.call("session.create", {
+            label = " " .. project:gsub("^[^/]*%.[^/]*/", ""),
+            initial_windows = {
+                {
+                    layout = rex.layout.block({
+                        flavor = "com.superlogical.terminal.shell",
+                        options = { cwd = project_path },
+                    }),
+                },
+            },
+        })
+        if err then
+            error(err)
+        end
+
+        -- Shows the new session. Needs Remote Control turned on in Rex Settings;
+        -- the session exists either way.
+        local app_client = app_client_id()
+        local select_err
+        if app_client then
+            _, select_err = rex.call("client.perform", {
+                client_id = app_client,
+                action = "session.select",
+                args = { session_id = created.session_id },
+            })
+        end
+        if select_err then
+            -- When Rex.app dispatched the action itself, queueing it back is enough.
+            local queued, queue_err = pcall(rex.client.queue, "session.select", { session_id = created.session_id })
+            if not queued or queue_err then
+                rex.log("warn", "sessionizer: created session but could not show it: " .. tostring(queue_err))
+            end
+        end
     end,
 })
 
