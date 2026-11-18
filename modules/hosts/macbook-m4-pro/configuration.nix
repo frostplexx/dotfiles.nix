@@ -405,7 +405,6 @@
       mas
 
       # GUI apps
-      feishin
       moonlight-qt
       zoom-us
       ghidra

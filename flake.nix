@@ -95,6 +95,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sonora = {
+      url = "github:sonorahq/sonora";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # ==== Homebrew Taps ====
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
