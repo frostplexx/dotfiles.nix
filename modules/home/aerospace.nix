@@ -73,6 +73,9 @@ _: {
       settings = {
         accordion-padding = 20;
 
+        # Mouse follows focus when the focused monitor changes.
+        on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
+
         gaps = {
           inner = {
             horizontal = 4;
