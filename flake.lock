@@ -1149,7 +1149,6 @@
         "skeuocord": "skeuocord",
         "sonora": "sonora",
         "sops-nix": "sops-nix",
-        "tidaluna": "tidaluna",
         "vicinae": "vicinae",
         "yazi-flavors": "yazi-flavors",
         "zen-browser": "zen-browser"
@@ -1268,27 +1267,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "tidaluna": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787729396,
-        "narHash": "sha256-kYHl/b0bWWWSA0waymqbmQYYQW2WkMp+Mh7Y4yLr4fM=",
-        "owner": "frostplexx",
-        "repo": "TidaLuna",
-        "rev": "017e6a7c756e7e133622acbb4d347c7ff65cf827",
-        "type": "github"
-      },
-      "original": {
-        "owner": "frostplexx",
-        "ref": "flake",
-        "repo": "TidaLuna",
         "type": "github"
       }
     },

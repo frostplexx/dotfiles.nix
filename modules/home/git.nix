@@ -4,18 +4,50 @@ _: {
     lib,
     defaults,
     ...
-  }: let
-    gitCredential1Password = pkgs.writeShellScript "git-credential-1password" ''
-      [ "$1" = get ] || exit 0
-      password=$(op read op://Personal/GitHub/token) || exit 1
-      printf 'username=frostplexx\npassword=%s\n' "$password"
-    '';
-  in {
+  }: {
     home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
       rm -f ~/.gitconfig
     '';
 
     programs = {
+      lazygit = {
+        enable = true;
+        enableFishIntegration = true;
+        settings = {
+          notARepository = "quit";
+          git.overrideGpg = true;
+          os.editPreset = "nvim";
+          gui = {
+            border = "rounded";
+            nerdFontsVersion = 3;
+            promptToReturnFromSubprocess = false;
+            theme = {
+              activeBorderColor = [
+                "#a6e3a1"
+                "bold"
+              ];
+              inactiveBorderColor = ["#6c7086"];
+              searchingActiveBorderColor = [
+                "#f5c2e7"
+                "bold"
+              ];
+              optionsTextColor = ["#89b4fa"];
+              selectedLineBgColor = ["#585b70"];
+              inactiveViewSelectedLineBgColor = [
+                "#45475a"
+                "bold"
+              ];
+              cherryPickedCommitFgColor = ["#1e1e2e"];
+              cherryPickedCommitBgColor = ["#f5c2e7"];
+              markedBaseCommitFgColor = ["#89b4fa"];
+              markedBaseCommitBgColor = ["#fab387"];
+              unstagedChangesColor = ["#f38ba8"];
+              defaultFgColor = ["#cdd6f4"];
+            };
+          };
+        };
+      };
+
       git = {
         enable = true;
         lfs.enable = true;
@@ -25,7 +57,17 @@ _: {
           ".vscode"
           "node_modules"
           "vendor"
+          ".direnv"
         ];
+        signing = {
+          signByDefault = true;
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICC6vBvnnlbxJXg9lUqFD0mil+60y4BZr/UAcX1Y4scV";
+          format = "ssh";
+          signer =
+            if pkgs.stdenv.hostPlatform.isDarwin
+            then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+            else "${pkgs._1password-gui}/bin/op-ssh-sign";
+        };
         settings = {
           user = {
             inherit (defaults.personalInfo) name;
@@ -34,36 +76,24 @@ _: {
           };
           init.defaultBranch = "main";
           push.autoSetupRemote = true;
+          credential.helper = "!gh auth git-credential";
           pull.rebase = true;
           diff = {
             tool = "nvim";
             guitool = "nvim";
           };
-          # Commits are only signed on macOS, through 1Password's SSH agent.
-          gpg = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-            format = "ssh";
-            ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-          };
-          commit.gpgsign = pkgs.stdenv.hostPlatform.isDarwin;
-          # gitFull ships the libsecret helper and is in the binary cache;
-          # overriding pkgs.git with withLibsecret rebuilt git from source.
-          credential.helper =
-            if pkgs.stdenv.hostPlatform.isDarwin
-            then "osxkeychain"
-            else "${pkgs.gitFull}/bin/git-credential-libsecret";
-          # GitHub credentials come from 1Password. The empty helper resets the
-          # list, otherwise the keychain/libsecret helper above is tried first
-          # and wins with a stale token.
-          "credential.https://github.com".helper = ["" "${gitCredential1Password}"];
+
           difftool = {
             prompt = false;
             trustExitCode = true;
-            nvim.cmd = ''
-              nvim -d -c "DiffviewOpen "$LOCAL" "$MERGED" "$REMOTE""
-            '';
+            nvim.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
           };
-          merge.tool = "nvim";
-          mergetool.nvim.cmd = "nvim +DiffviewOpen '$LOCAL' '$MERGED' '$REMOTE'";
+
+          "ghq \"https://github.com/\"" = {
+            vcs = "git";
+            root = "~/Projects";
+          };
+
           alias = {
             update =
               /*
@@ -97,16 +127,9 @@ _: {
               bash
               */
               "!f() { git worktree add -b $1 $(git rev-parse --show-toplevel)/../$(basename $(git rev-parse --show-toplevel))-$1;}; f";
-            br = "branch";
-            co = "checkout";
-            st = "status";
             ls = "log --graph --oneline --decorate";
             ll = "log -p --stat";
-            cm = "commit -m";
-            ca = "commit -am";
-            dc = "diff --cached";
             amend = "commit --amend -m";
-            foreach = "submodule foreach";
             rc = "rebase --continue";
             ra = "rebase --abort";
           };
