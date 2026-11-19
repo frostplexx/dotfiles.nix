@@ -73,13 +73,6 @@
       url = "github:frostplexx/lazykeys";
     };
 
-    tidaluna = {
-      url = "github:frostplexx/TidaLuna/flake";
-      # url = "github:Inrixia/TidaLuna";
-      # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/TidaLuna";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
