@@ -4,55 +4,68 @@ _: {
     lib,
     ...
   }: let
+    # Rename a space here only. The keys are stable identifiers, the values are
+    # the AeroSpace workspace names. All names are 5 characters.
+    spaces = {
+      web = "webui";
+      term = "shell";
+      notes = "notes";
+      comms = "comms";
+      music = "music";
+      tasks = "tasks";
+      mail = "email";
+      dev = "build";
+    };
+
     # Windows of these apps tile and are sent to their workspace; every other
     # window floats but still follows its workspace rule.
     tilingApps = [
       {
         id = "app.zen-browser.zen";
-        space = "web";
+        space = spaces.web;
       }
       {
         id = "com.superlogical.rex";
-        space = "term";
+        space = spaces.term;
       }
       {
         id = "md.obsidian";
-        space = "notes";
+        space = spaces.notes;
       }
       {
         id = "dev.vencord.vesktop";
-        space = "comms";
+        space = spaces.comms;
       }
       {
         id = "com.hnc.DiscordPTB";
-        space = "comms";
+        space = spaces.comms;
       }
       {
         id = "com.culturedcode.ThingsMac";
-        space = "tasks";
+        space = spaces.tasks;
       }
       {
         id = "com.apple.mail";
-        space = "mail";
+        space = spaces.mail;
       }
       {
         id = "com.tidal.desktop";
-        space = "music";
+        space = spaces.music;
       }
       {
         id = "dev.nolight.sonora";
-        space = "music";
+        space = spaces.music;
       }
       {
         id = "com.apple.dt.Xcode";
-        space = "dev";
+        space = spaces.dev;
       }
     ];
 
     floatingApps = [
       {
         id = "us.zoom.xos";
-        space = "comms";
+        space = spaces.comms;
       }
     ];
 
@@ -71,6 +84,11 @@ _: {
         dontFixup = true;
       });
       settings = {
+        config-version = 2;
+
+        # config-version 2 has no implicit persistent workspaces anymore.
+        persistent-workspaces = lib.attrValues spaces;
+
         accordion-padding = 20;
 
         # Mouse follows focus when the focused monitor changes.
@@ -92,23 +110,23 @@ _: {
         # The "big" screen is the external display when docked (it is the main
         # display), else the laptop. The built-in panel hosts tasks/mail/comms/music.
         workspace-to-monitor-force-assignment = {
-          web = "main";
-          term = "main";
-          notes = "main";
-          dev = "main";
-          tasks = [
+          ${spaces.web} = "main";
+          ${spaces.term} = "main";
+          ${spaces.notes} = "main";
+          ${spaces.dev} = "main";
+          ${spaces.tasks} = [
             "built-in"
             "main"
           ];
-          mail = [
+          ${spaces.mail} = [
             "built-in"
             "main"
           ];
-          comms = [
+          ${spaces.comms} = [
             "built-in"
             "main"
           ];
-          music = [
+          ${spaces.music} = [
             "built-in"
             "main"
           ];
@@ -160,23 +178,23 @@ _: {
 
           # Named workspaces: hyper+1 web (Zen), 2 term (rex), 3 notes
           # (Obsidian), 4 comms, 5 music, 6 tasks (Things), 7 mail, 8 dev.
-          ctrl-alt-cmd-1 = "workspace web";
-          ctrl-alt-cmd-2 = "workspace term";
-          ctrl-alt-cmd-3 = "workspace notes";
-          ctrl-alt-cmd-4 = "workspace comms";
-          ctrl-alt-cmd-5 = "workspace music";
-          ctrl-alt-cmd-6 = "workspace tasks";
-          ctrl-alt-cmd-7 = "workspace mail";
-          ctrl-alt-cmd-8 = "workspace dev";
+          ctrl-alt-cmd-1 = "workspace ${spaces.web}";
+          ctrl-alt-cmd-2 = "workspace ${spaces.term}";
+          ctrl-alt-cmd-3 = "workspace ${spaces.notes}";
+          ctrl-alt-cmd-4 = "workspace ${spaces.comms}";
+          ctrl-alt-cmd-5 = "workspace ${spaces.music}";
+          ctrl-alt-cmd-6 = "workspace ${spaces.tasks}";
+          ctrl-alt-cmd-7 = "workspace ${spaces.mail}";
+          ctrl-alt-cmd-8 = "workspace ${spaces.dev}";
 
-          ctrl-alt-cmd-shift-1 = "move-node-to-workspace web; workspace web";
-          ctrl-alt-cmd-shift-2 = "move-node-to-workspace term; workspace term";
-          ctrl-alt-cmd-shift-3 = "move-node-to-workspace notes; workspace notes";
-          ctrl-alt-cmd-shift-4 = "move-node-to-workspace comms; workspace comms";
-          ctrl-alt-cmd-shift-5 = "move-node-to-workspace music; workspace music";
-          ctrl-alt-cmd-shift-6 = "move-node-to-workspace tasks; workspace tasks";
-          ctrl-alt-cmd-shift-7 = "move-node-to-workspace mail; workspace mail";
-          ctrl-alt-cmd-shift-8 = "move-node-to-workspace dev; workspace dev";
+          ctrl-alt-cmd-shift-1 = "move-node-to-workspace ${spaces.web}; workspace ${spaces.web}";
+          ctrl-alt-cmd-shift-2 = "move-node-to-workspace ${spaces.term}; workspace ${spaces.term}";
+          ctrl-alt-cmd-shift-3 = "move-node-to-workspace ${spaces.notes}; workspace ${spaces.notes}";
+          ctrl-alt-cmd-shift-4 = "move-node-to-workspace ${spaces.comms}; workspace ${spaces.comms}";
+          ctrl-alt-cmd-shift-5 = "move-node-to-workspace ${spaces.music}; workspace ${spaces.music}";
+          ctrl-alt-cmd-shift-6 = "move-node-to-workspace ${spaces.tasks}; workspace ${spaces.tasks}";
+          ctrl-alt-cmd-shift-7 = "move-node-to-workspace ${spaces.mail}; workspace ${spaces.mail}";
+          ctrl-alt-cmd-shift-8 = "move-node-to-workspace ${spaces.dev}; workspace ${spaces.dev}";
         };
 
         on-window-detected =
