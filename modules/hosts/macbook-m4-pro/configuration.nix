@@ -261,7 +261,8 @@
             "/Applications/Rex Beta.app"
             # "/Applications/tidalunar.app"
             # "/Applications/Nix Apps/Feishin.app"
-            "/Applications/TIDAL.app/"
+            # "/Applications/TIDAL.app/"
+            "/Applications/Sonora.app/"
           ];
         };
         trackpad = {
