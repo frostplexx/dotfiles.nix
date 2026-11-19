@@ -40,7 +40,7 @@ _: {
         space = "music";
       }
       {
-        id = "org.jeffvli.feishin";
+        id = "dev.nolight.sonora";
         space = "music";
       }
       {

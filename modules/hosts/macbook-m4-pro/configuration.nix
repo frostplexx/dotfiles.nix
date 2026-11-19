@@ -275,7 +275,11 @@
           HideDesktop = true;
           StageManagerHideWidgets = true;
         };
-        spaces.spans-displays = false;
+        spaces = {
+          # This needs to be true. Disabling this will lead to performance issues.
+          # See: https://nikitabobko.github.io/AeroSpace/guide#emulation-of-virtual-workspaces
+          spans-displays = true;
+        };
         ActivityMonitor.IconType = 6;
         loginwindow = {
           GuestEnabled = false;

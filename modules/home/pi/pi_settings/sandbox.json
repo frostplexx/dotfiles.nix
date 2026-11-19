@@ -9,7 +9,14 @@
     "allowAllUnixSockets": true,
     "allowUnauthenticatedSocksProxy": true,
     "disabled": true,
+    "sshProxy": false,
     "allowSSHAgentSocket": true,
+    "allowUnixSockets": [
+      "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    ],
+    "allowMachLookup": [
+      "2BUA8C4S2C.com.1password.browser-helper"
+    ],
     "allowedDomains": [
       "github.com",
       "*.github.com",
@@ -31,7 +38,8 @@
   },
   "filesystem": {
     "allowRead": [
-      "/"
+      "/",
+      "~/.ssh"
     ],
     "denyRead": [
       "/etc/ssh",
@@ -48,12 +56,12 @@
       "/usr/local/etc/openssl/certs/ca-certificates.crt",
       "~/Music",
       "~/Pictures",
-      "~/Videos",
-      "~/.ssh"
+      "~/Videos"
     ],
     "allowWrite": [
       ".",
       "/tmp",
+      "~/.ssh/known_hosts*",
       "~/Documents/Memex/2 Resources/Homelab",
       "/Users/daniel/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex",
       "/Users/daniel/.cache/nix"
