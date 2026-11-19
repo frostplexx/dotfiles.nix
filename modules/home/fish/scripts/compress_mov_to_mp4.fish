@@ -33,6 +33,8 @@ function compress_mov_to_mp4
     echo (set_color yellow)"Duration:"(set_color normal) $duration (set_color yellow)"seconds"(set_color normal)
     echo (set_color yellow)"Target video bitrate:"(set_color normal) $video_bitrate_k (set_color yellow)"kbps"(set_color normal)
 
+    printf '\e]7501;state=working:app=ffmpeg:msg=%s\e\\' (printf '%s' "Compressing "(path basename $input_file) | base64 | tr -d '\n')
+
     # Two-pass encoding for better quality at target bitrate
     echo (set_color green)"Pass 1/2: Analyzing video..."(set_color normal)
     ffmpeg -y -loglevel quiet -i $input_file \
@@ -45,6 +47,11 @@ function compress_mov_to_mp4
         -pass 1 \
         -an \
         -f null /dev/null
+
+    if test $status -ne 0
+        printf '\e]7501;state=error:app=ffmpeg:msg=%s\e\\' (printf '%s' "Pass 1 failed" | base64 | tr -d '\n')
+        return 1
+    end
 
     echo (set_color green)"Pass 2/2: Encoding final video..."(set_color normal)
     ffmpeg -hide_banner -v quiet -stats -i $input_file \
@@ -61,10 +68,15 @@ function compress_mov_to_mp4
         -fflags +bitexact \
         "Compressed-$output_file"
 
+    if test $status -ne 0
+        printf '\e]7501;state=error:app=ffmpeg:msg=%s\e\\' (printf '%s' "Pass 2 failed" | base64 | tr -d '\n')
+        return 1
+    end
+
     # Clean up pass files
     rm -f ffmpeg2pass-0.log ffmpeg2pass-0.log.mbtree
 
-    # Check final file size (macOS compatible)
+    # Check final file size
     set final_size (wc -c <"Compressed-$output_file" | string trim)
     set final_size_mb (math "$final_size / 1024 / 1024")
 
@@ -74,6 +86,6 @@ function compress_mov_to_mp4
     echo (set_color green)"Final file size:"(set_color normal) $final_size_mb (set_color green)"MB"(set_color normal)
     echo (set_color green)"Time taken:"(set_color normal) $duration_time (set_color green)"seconds"(set_color normal)
 
-    tput bel
+    printf '\e]7501;state=done:app=ffmpeg:msg=%s\e\\' (printf '%s' "Compressed Compressed-$output_file" | base64 | tr -d '\n')
 
 end
