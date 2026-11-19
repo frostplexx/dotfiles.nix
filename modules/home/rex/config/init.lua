@@ -3,5 +3,6 @@ require "scratchspace"
 require "keybindings"
 require "sessionizer"
 require "smart_splits"
+require "worktree"
 
 

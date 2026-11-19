@@ -1,0 +1,7 @@
+{
+  "network": {
+    "allowedDomains": [
+      "www.superlogical.com"
+    ]
+  }
+}
