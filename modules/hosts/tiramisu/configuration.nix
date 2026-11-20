@@ -168,6 +168,7 @@ _: {
       steam = {
         enable = true;
         extest.enable = true;
+        protontricks.enable = true;
       };
       _1password.enable = true;
       _1password-gui = {
@@ -293,7 +294,6 @@ _: {
           unrar # game archives
           tidal-hifi
           wl-clipboard
-          protontricks
         ];
       };
       programs.home-manager.enable = true;

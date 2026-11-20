@@ -19,10 +19,9 @@ _: {
       plasma = {
         enable = true;
 
-        # workspace.cursor = {
-        #   theme = "aero-drop";
-        #   size = 30;
-        # };
+        workspace.cursor = {
+          size = 24;
+        };
 
         shortcuts = {
           ActivityManager.switch-to-activity-c8fdbd68-9043-4ff9-aa47-6e03e576a621 = [];
