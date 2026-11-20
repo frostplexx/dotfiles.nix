@@ -21,26 +21,6 @@
         "type": "github"
       }
     },
-    "agate": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1794735210,
-        "narHash": "sha256-VTQlYSaoHHg5xOWgxys5lVS6C989DPsr6RRUdIC1ZxA=",
-        "owner": "frostplexx",
-        "repo": "agate-wm",
-        "rev": "a34f24a3c025d54ddd50d5246d5a0e06a0146149",
-        "type": "github"
-      },
-      "original": {
-        "owner": "frostplexx",
-        "repo": "agate-wm",
-        "type": "github"
-      }
-    },
     "bdwgc": {
       "flake": false,
       "locked": {
@@ -1125,7 +1105,6 @@
     "root": {
       "inputs": {
         "aerothemeplasma-nix": "aerothemeplasma-nix",
-        "agate": "agate",
         "catppuccin-bat": "catppuccin-bat",
         "catppuccin-btop": "catppuccin-btop",
         "catppuccin-discord": "catppuccin-discord",

@@ -129,7 +129,6 @@ _: {
       # The AeroThemePlasma shell requires SDDM for its login theme
       displayManager = {
         sddm.enable = true;
-        defaultSession = "aerothemeplasma";
         # Boot straight into the desktop (gaming PC, also reached via Sunshine)
         autoLogin = {
           enable = true;
@@ -148,14 +147,6 @@ _: {
         lucida.enable = false;
       };
       polkit.enable = true;
-      aerothemeplasma = {
-        enable = true;
-        sddm.enable = true;
-        plymouth.enable = true;
-        plymouth.settings = {
-          BootSlowdown = 0;
-        };
-      };
     };
 
     boot.plymouth.enable = true;
