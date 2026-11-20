@@ -137,18 +137,6 @@ _: {
       };
     };
 
-    # AeroThemePlasma: Windows 7 themed Plasma shell
-    programs.aeroshell = {
-      enable = true;
-      fonts = {
-        segoe.enable = true;
-        # atn's lucida-console package requires a store file with a hash that
-        # differs from the URL below, so we install the font directly instead.
-        lucida.enable = false;
-      };
-      polkit.enable = true;
-    };
-
     boot.plymouth.enable = true;
 
     systemd.user.services.steam = {
