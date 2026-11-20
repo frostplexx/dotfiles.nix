@@ -5,11 +5,10 @@ _: {
     defaults,
     inputs,
     ...
-  } @ _: let
+  }: let
     useVesktop = true;
     themeFile = "catppuccin-mocha.theme.css";
     catppuccinTheme = "${inputs.catppuccin-discord}/themes/mocha.theme.css";
-    skeuoCordTheme = "${inputs.skeuocord}/SkeuoCord.theme.css";
 
     vekstopPath =
       if pkgs.stdenv.hostPlatform.isDarwin
