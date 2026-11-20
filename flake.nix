@@ -83,11 +83,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agate = {
-      url = "github:frostplexx/agate-wm";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sonora = {
       url = "github:sonorahq/sonora";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -314,6 +314,7 @@ _: {
           unrar # game archives
           tidal-hifi
           wl-clipboard
+          protontricks
         ];
       };
       programs.home-manager.enable = true;
