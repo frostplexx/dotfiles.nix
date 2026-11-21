@@ -239,7 +239,7 @@
             "/Applications/Obsidian.app"
             "/Applications/Rex.app"
             # "/Applications/TIDAL.app/"
-            "/Applications/Sonora.app/"
+            "/Users/daniel/Applications/Home Manager Apps/Sonora.app"
           ];
         };
         trackpad = {

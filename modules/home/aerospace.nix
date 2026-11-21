@@ -63,10 +63,10 @@ _: {
     ];
 
     floatingApps = [
-      {
-        id = "us.zoom.xos";
-        space = spaces.comms;
-      }
+      # {
+      #   id = "us.zoom.xos";
+      #   space = spaces.comms;
+      # }
     ];
 
     moveRule = app: {
