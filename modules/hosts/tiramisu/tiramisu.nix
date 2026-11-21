@@ -44,6 +44,7 @@ in {
                   inputs.nixkit.homeModules.default
                   inputs.sonora.homeManagerModules.default
                   inputs.zen-browser.homeModules.beta
+                  inputs.tidaluna.homeManagerModules.default
                   inputs.sops-nix.homeManagerModules.sops
                   inputs.plasma-manager.homeModules.plasma-manager
                 ]

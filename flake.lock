@@ -1161,6 +1161,7 @@
         "skeuocord": "skeuocord",
         "sonora": "sonora",
         "sops-nix": "sops-nix",
+        "tidaluna": "tidaluna",
         "vicinae": "vicinae",
         "yazi-flavors": "yazi-flavors",
         "zen-browser": "zen-browser"
@@ -1332,6 +1333,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tidaluna": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795267762,
+        "narHash": "sha256-bZ1mAW86vr/ET7O4sgrmsGHK5RLd4DRU1KoacViIuIw=",
+        "owner": "Solomag",
+        "repo": "TidaLuna",
+        "rev": "3f601141f4b1e7050e74651e1ad09aa059a5aa3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Solomag",
+        "ref": "feat/home-manager-module",
+        "repo": "TidaLuna",
         "type": "github"
       }
     },
