@@ -838,11 +838,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1795206411,
-        "narHash": "sha256-8pYHwn7qWWFd4bLJ5Dl307EG5yMmwwibk8NbCIn9bH4=",
+        "lastModified": 1795259312,
+        "narHash": "sha256-fLhj9NCu2KO0z2CEzER7erphMs8EU/mOTlgDjMaqro8=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "d1400c900ff5559f9c53f848a4e88fbaae0517f8",
+        "rev": "af3e975720f254042f558a486404fb1e0062d27c",
         "type": "github"
       },
       "original": {
