@@ -1,7 +1,7 @@
 _: {
-  flake.homeManagerModules.sonora = {pkgs, ...}: {
+  flake.homeManagerModules.sonora = {
     programs.sonora = {
-      enable = pkgs.stdenv.hostPlatform.isLinux; # TODO: Wait until you don't have to download fucking XCode to get this running on darwin
+      enable = true;
       settings = {
         appearance = {
           theme = "dark";

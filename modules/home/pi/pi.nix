@@ -108,6 +108,7 @@ _: {
         compaction = {
           enabled = true;
         };
+        defaultTools = ["+codemode"];
         hideThinkingBlock = true;
         quietStartup = true;
         enableInstallTelemetry = false;
