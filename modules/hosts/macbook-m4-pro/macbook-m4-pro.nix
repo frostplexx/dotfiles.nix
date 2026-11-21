@@ -39,7 +39,6 @@ in {
               backupFileExtension = "backup";
               sharedModules =
                 [
-                  inputs.agate.homeManagerModules.default
                   inputs.sonora.homeManagerModules.default
                   inputs.nixcord.homeModules.nixcord
                   inputs.nixkit.homeModules.default
