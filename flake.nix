@@ -25,11 +25,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    aerothemeplasma-nix = {
-      url = "github:nyakase/aerothemeplasma-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -80,11 +75,6 @@
 
     nvim = {
       url = "github:frostplexx/nvim.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agate = {
-      url = "github:frostplexx/agate-wm";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

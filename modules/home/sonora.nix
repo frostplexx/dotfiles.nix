@@ -1,5 +1,5 @@
 _: {
-  flake.homeManagerModules.sonora = {
+  flake.homeManagerModules.sonora = {pkgs, ...}: {
     programs.sonora = {
       enable = true;
       settings = {

@@ -22,8 +22,6 @@ in {
           inputs.determinate.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           inputs.disko.nixosModules.disko
-          inputs.aerothemeplasma-nix.nixosModules.aerothemeplasma-nix
-
           # Nixpkgs configuration
           {
             nixpkgs.config = nixpkgsConfig;
@@ -39,7 +37,6 @@ in {
               extraSpecialArgs = {
                 inherit inputs;
                 inherit (config.flake) defaults;
-                aeroTheme = true;
               };
               sharedModules =
                 [

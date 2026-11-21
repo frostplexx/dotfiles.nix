@@ -19,13 +19,8 @@ _: {
       plasma = {
         enable = true;
 
-        # AeroThemePlasma's Windows cursor. Must be set here: plasma-manager
-        # rewrites kcminputrc on every activation, so a cursor picked in
-        # System Settings is reset at the next deploy.
-        # Size 30 matches what AeroThemePlasma's SDDM login theme uses.
         workspace.cursor = {
-          theme = "aero-drop";
-          size = 30;
+          size = 24;
         };
 
         shortcuts = {

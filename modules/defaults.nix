@@ -34,6 +34,10 @@
       allowUnfree = true;
       allowBroken = false;
       allowUnsupportedSystem = false;
+
+      permittedInsecurePackages = [
+        "python3.14-python-jose-3.5.0"
+      ];
     };
   };
 

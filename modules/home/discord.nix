@@ -5,16 +5,10 @@ _: {
     defaults,
     inputs,
     ...
-  } @ args: let
-    aeroTheme = args.aeroTheme or false;
+  }: let
     useVesktop = true;
-    skeuoCordFile = "SkeuoCord.theme.css";
-    themeFile =
-      if aeroTheme
-      then skeuoCordFile
-      else "catppuccin-mocha.theme.css";
+    themeFile = "catppuccin-mocha.theme.css";
     catppuccinTheme = "${inputs.catppuccin-discord}/themes/mocha.theme.css";
-    skeuoCordTheme = "${inputs.skeuocord}/SkeuoCord.theme.css";
 
     vekstopPath =
       if pkgs.stdenv.hostPlatform.isDarwin
@@ -102,10 +96,7 @@ _: {
 
     home.file = {
       ${themePath} = {
-        source =
-          if aeroTheme
-          then skeuoCordTheme
-          else catppuccinTheme;
+        source = catppuccinTheme;
 
         force = true;
       };
