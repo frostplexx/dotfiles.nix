@@ -59,12 +59,18 @@ _: {
         limine = {
           enable = true;
           maxGenerations = 4;
+          extraConfig = ''
+            term_palette: 1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4
+            term_palette_bright: 585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4
+            term_background: 1e1e2e
+            term_foreground: cdd6f4
+            term_background_bright: 585b70
+            term_foreground_bright: cdd6f4
+            interface_branding_color: 89b4fa
+            interface_help_color: 89b4fa
+            interface_help_color_bright: 89b4fa
+          '';
           style.wallpapers = [
-            (builtins.fetchurl {
-              name = "windows7-wallpaper.jpg";
-              url = "https://static.wikitide.net/windowswallpaperwiki/5/50/Img0_%28Windows_7%29.jpg";
-              sha256 = "18h6y8mmf99g5l24gwbpsfmyg1ib47xkdz1wbcd53aknii3giabf";
-            })
           ];
         };
         efi.canTouchEfiVariables = true;
@@ -255,6 +261,10 @@ _: {
         plasma-browser-integration
         elisa
         qrca
+        kontact
+        kmail
+        merkuro
+        ktnef
       ];
     };
 
