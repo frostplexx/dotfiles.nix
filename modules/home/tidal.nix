@@ -5,6 +5,7 @@ _: {
       stores = [
         "https://github.com/meowarex/TidalLuna-Plugins/releases/download/latest/store.json"
         "https://github.com/Inrixia/luna-plugins/releases/download/dev/store.json"
+        "https://release.radiant-lyrics.org/store.json"
       ];
 
       #To list settingsNames and settings:  const idb = await luna.core.ReactiveStore.getStore("@luna/pluginStorage").dump(); console.log(JSON.stringify(idb, null, 2));

@@ -70,7 +70,6 @@
 
     tidaluna = {
       url = "github:Solomag/TidaLuna/feat/home-manager-module";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {

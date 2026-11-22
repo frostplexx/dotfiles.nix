@@ -20,11 +20,11 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1795111454,
-        "narHash": "sha256-sywAZ/HnmNZcq4qKqwdaxjikviEhCFyjljHTZ6XLZDY=",
+        "lastModified": 1795280662,
+        "narHash": "sha256-1KzFempyMVS7UrIKkcmmyP0XKo8101bK510r4IXsQu0=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "b39ed2c1958182c9fc90fa87366d4510021ecf75",
+        "rev": "62a9ad2642e0cf2fe1104d955069c78b7d990cd2",
         "type": "github"
       },
       "original": {
@@ -792,6 +792,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1791487292,
+        "narHash": "sha256-tqM7xDEsaeK1p6VvRygeZ9LkQRpUUkbRT02BHv6hnTM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8edc0c72e3a38faf5434e40d1f19431125fe4b30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "numen": {
       "inputs": {
         "nixpkgs": [
@@ -1338,16 +1354,14 @@
     },
     "tidaluna": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1795267762,
-        "narHash": "sha256-bZ1mAW86vr/ET7O4sgrmsGHK5RLd4DRU1KoacViIuIw=",
+        "lastModified": 1795301396,
+        "narHash": "sha256-dpQ2wi89SX6dtpGc1a2MFRpdV3pm3jYox4oFPVGqfbc=",
         "owner": "Solomag",
         "repo": "TidaLuna",
-        "rev": "3f601141f4b1e7050e74651e1ad09aa059a5aa3d",
+        "rev": "067b7323d3c8493d0c0818fd0e47761db6f9f9f9",
         "type": "github"
       },
       "original": {
