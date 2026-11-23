@@ -36,19 +36,6 @@
         builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
       };
 
-    nix-homebrew = {
-      enable = true;
-      enableRosetta = false;
-      inherit user;
-      mutableTaps = false;
-      autoMigrate = true;
-      taps = with inputs; {
-        "homebrew/homebrew-core" = homebrew-core;
-        "homebrew/homebrew-cask" = homebrew-cask;
-        "homebrew-1337raspberry/homebrew-tap" = homebrew-1337raspberry;
-      };
-    };
-
     programs = {
       opsops.enable = true;
       _1password.enable = true;
@@ -328,6 +315,18 @@
       mode = "hyperkey"; # or "escape" or "custom"
     };
 
+    nix-homebrew = {
+      enable = true;
+      enableRosetta = false;
+      inherit user;
+      mutableTaps = false;
+      autoMigrate = true;
+      taps = with inputs; {
+        "homebrew/homebrew-core" = homebrew-core;
+        "homebrew/homebrew-cask" = homebrew-cask;
+      };
+    };
+
     # Homebrew
     homebrew = {
       enable = true;
@@ -352,7 +351,6 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = [
         "displayplacer"
-        "pulsr"
       ];
       casks = [
         "pangolin"

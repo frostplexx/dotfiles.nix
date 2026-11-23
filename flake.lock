@@ -398,22 +398,6 @@
         "type": "github"
       }
     },
-    "homebrew-1337raspberry": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1795313201,
-        "narHash": "sha256-Dsxbhu9g8a2CAw39YmCMTg+u902ZYpgJttcodEvVI8E=",
-        "owner": "1337raspberry",
-        "repo": "homebrew-tap",
-        "rev": "52ec5442b51d242c347d168ec4ce85922ccbc85f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "1337raspberry",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "homebrew-cask": {
       "flake": false,
       "locked": {
@@ -1178,7 +1162,6 @@
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
-        "homebrew-1337raspberry": "homebrew-1337raspberry",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "import-tree": "import-tree",
