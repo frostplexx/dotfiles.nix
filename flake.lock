@@ -1251,11 +1251,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1795468684,
-        "narHash": "sha256-IeXQoEUqCdpFUXXhqOpDvjdtZAqqLTwvHGfFTcV8jP4=",
+        "lastModified": 1795470982,
+        "narHash": "sha256-u1B9hMjVQK6tIURxq9v8EAAuY1anIgO2VzA5QkNTeao=",
         "owner": "sonorahq",
         "repo": "sonora",
-        "rev": "d0fa0036a731dfd180a8d16f5c4da94bb2ef49e5",
+        "rev": "fba8fa8abf28d55b442628ed15e4f82d1839d76b",
         "type": "github"
       },
       "original": {
