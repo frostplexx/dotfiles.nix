@@ -302,7 +302,6 @@ _: {
           lutris-unwrapped
           prismlauncher
           unrar # game archives
-          tidal-hifi
           wl-clipboard
         ];
       };

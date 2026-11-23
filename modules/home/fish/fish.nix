@@ -87,6 +87,7 @@ _: {
           untar = "tar -xf";
           ".." = "echo 'cd ..'; cd ..";
           wattage = "system_profiler SPPowerDataType | grep Wattage";
+          audio = "pulsr -full -theme catppuccin-mocha -mode octant -fps 60";
         };
 
         shellAbbrs = {

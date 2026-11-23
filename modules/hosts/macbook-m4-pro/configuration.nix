@@ -45,6 +45,7 @@
       taps = with inputs; {
         "homebrew/homebrew-core" = homebrew-core;
         "homebrew/homebrew-cask" = homebrew-cask;
+        "homebrew-1337raspberry/homebrew-tap" = homebrew-1337raspberry;
       };
     };
 
@@ -351,6 +352,7 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
       brews = [
         "displayplacer"
+        "pulsr"
       ];
       casks = [
         "pangolin"

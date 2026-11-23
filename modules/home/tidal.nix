@@ -1,19 +1,43 @@
 _: {
-  flake.homeManagerModules.tidal = _: {
+  flake.homeManagerModules.tidal = {
+    inputs,
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.tidaluna = {
       enable = true;
+
+      # Upstream PR 255 signs the app with codesign, but codesign is not in the build sandbox.
+      package = let
+        upstream = inputs.tidaluna.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      in
+        if pkgs.stdenv.hostPlatform.isDarwin
+        then
+          upstream.overrideAttrs (old: {
+            postInstall =
+              lib.replaceStrings
+              [''codesign --force --deep --sign - "$out/Applications/TIDAL.app"'']
+              [''echo "tidaluna: skipped codesign, no codesign tool in the build sandbox"'']
+              (old.postInstall or "");
+          })
+        else upstream;
       stores = [
         "https://github.com/meowarex/TidalLuna-Plugins/releases/download/latest/store.json"
         "https://github.com/Inrixia/luna-plugins/releases/download/dev/store.json"
         "https://release.radiant-lyrics.org/store.json"
       ];
 
-      #To list settingsNames and settings:  const idb = await luna.core.ReactiveStore.getStore("@luna/pluginStorage").dump(); console.log(JSON.stringify(idb, null, 2));
       plugins = [
-        {
-          name = "meowarex.radiant-lyrics";
-          settingsName = "RadiantLyrics";
-          settings = {
+        "meowarex.radiant-lyrics"
+        "Song Downloader"
+        "NoBuffer"
+      ];
+
+      # To list store names and keys: const idb = await luna.core.ReactiveStore.getStore("@luna/pluginStorage").dump(); console.log(JSON.stringify(idb, null, 2));
+      storage = {
+        "@luna/pluginStorage" = {
+          "RadiantLyrics" = {
             "lyricsGlowEnabled" = true;
             "textGlow" = 20;
             "lyricsStyle" = 2;
@@ -54,20 +78,13 @@ _: {
             "backdropScale" = 100;
             "backdropDarken" = 8;
           };
-        }
-        {
-          name = "Song Downloader";
-          settingsName = "SongDownloader";
-          settings = {
+          "SongDownloader" = {
             "downloadQuality" = "HI_RES_LOSSLESS";
             "pathFormat" = "{artist} - {album} - {title}";
             "useRealMAX" = true;
           };
-        }
-        {
-          name = "NoBuffer";
-        }
-      ];
+        };
+      };
     };
   };
 }

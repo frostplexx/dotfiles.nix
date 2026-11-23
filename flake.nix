@@ -97,6 +97,11 @@
       flake = false;
     };
 
+    homebrew-1337raspberry = {
+      url = "github:1337raspberry/homebrew-tap";
+      flake = false;
+    };
+
     # ==== Pinned sources ====
     yazi-flavors = {
       url = "github:yazi-rs/flavors";

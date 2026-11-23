@@ -19,6 +19,11 @@ _: {
           else "~/.1password/agent.sock"
         }"
 
+        # Lab VMs are reached through a websocket tunnel. Keys come from the
+        # 1Password agent, so no IdentityFile here.
+        Host *.vms
+          ProxyCommand ${pkgs.wstunnel}/bin/wstunnel client --log-lvl=off --tls-verify-certificate -L stdio://%h:%p wss://t2-tunnel.jhofer.org
+
         Match exec "echo %h | grep -qE '^10\.162\.233\.'"
           ProxyJump sorbet
       '';
