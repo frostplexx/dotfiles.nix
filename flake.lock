@@ -417,11 +417,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1795329510,
-        "narHash": "sha256-DtIboVMSFySORqxqgWZ0iItUhpvOueHKnQpv/qQR2s4=",
+        "lastModified": 1795414582,
+        "narHash": "sha256-Or7A3htIdIgnDiSczkTj3Hwp1bZkQJeYdfJ+r/R7Y9o=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "2d3765199df9cdb6dc16746c6923a8efbf2f497b",
+        "rev": "98bb3f51c9765e8bde50ea3272b1963b497539ad",
         "type": "github"
       },
       "original": {
