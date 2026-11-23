@@ -854,11 +854,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1795422385,
-        "narHash": "sha256-lRbcr4lcH2MFxJ9pssly6Lawc9qqoX4Lip0exPqh6eg=",
+        "lastModified": 1795465487,
+        "narHash": "sha256-P7DfpJXxsJ6olJbq8YdA3IWMqGKlVkno3MBya9Vxn2c=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "568f33ee7d99596993f47996e506be81bfc5f820",
+        "rev": "df28b7cbe919ea2d6ff0e64410a2100e75a76698",
         "type": "github"
       },
       "original": {
@@ -979,11 +979,11 @@
     "plugins-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1795001595,
-        "narHash": "sha256-FywWiEGEuauWQzOONBLwxzc5cPfrMT/v2b6CTcYj7Nw=",
+        "lastModified": 1795439293,
+        "narHash": "sha256-Fnfn6cTettFkTZvoH3FU+UW73u3gn/cmoCYG74AFNXQ=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "4648fd8ba5c678d7e2db75ae44ffac269bb589d8",
+        "rev": "7d22e678970d95d8d18494ec389c52b07111c53a",
         "type": "github"
       },
       "original": {
@@ -1139,11 +1139,11 @@
     "plugins-yazi": {
       "flake": false,
       "locked": {
-        "lastModified": 1795411699,
-        "narHash": "sha256-ETpqKy2zB+TIkKNXFY2C2TfQTpxT02Ts+MPrN5yttWQ=",
+        "lastModified": 1795435314,
+        "narHash": "sha256-cIJaGJtRr6FUlY5DyCrtAVDvkZcP12tLq4FV1bKY8XY=",
         "owner": "mikavilpas",
         "repo": "yazi.nvim",
-        "rev": "4791a1d4f53bb34e20e3b4207b8ba239d8e8ee36",
+        "rev": "299f3e4ea2855613b18b9b3495b93b96a1abd9b7",
         "type": "github"
       },
       "original": {
