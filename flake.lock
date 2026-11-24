@@ -850,16 +850,15 @@
         "plugins-render-markdown": "plugins-render-markdown",
         "plugins-smart-splits": "plugins-smart-splits",
         "plugins-smart-splits-backend-rex": "plugins-smart-splits-backend-rex",
-        "plugins-vectorcode": "plugins-vectorcode",
         "plugins-yazi": "plugins-yazi",
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1795514508,
-        "narHash": "sha256-VQ1wsRomrkFOoZNjimCtnAYxBOeoV8NozS/l4Y5xUzo=",
+        "lastModified": 1795515104,
+        "narHash": "sha256-IchVZ8mmdFoBfKxZMx5FDVGGtKbFvJ6i+CF8S6wqjFQ=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "d63e6bd616cb7745d472c954d21679afa96530d9",
+        "rev": "02c201120595029974f61ed121a8dfcbe094d00a",
         "type": "github"
       },
       "original": {
@@ -1134,22 +1133,6 @@
       "original": {
         "owner": "rawnly",
         "repo": "smart-splits-backend-rex",
-        "type": "github"
-      }
-    },
-    "plugins-vectorcode": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766743807,
-        "narHash": "sha256-/nxadVYrtW3vBxGFAHkbKUj0F6PTED4PoRtx9Cjf4No=",
-        "owner": "Davidyz",
-        "repo": "VectorCode",
-        "rev": "3eacce5ad1c8e439e7dbeab3a8d6bdb6b8aa1cab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Davidyz",
-        "repo": "VectorCode",
         "type": "github"
       }
     },
