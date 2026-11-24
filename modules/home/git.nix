@@ -95,6 +95,38 @@ _: {
           };
 
           alias = {
+            merge-prs =
+              /*
+              bash
+              */
+              ''
+                !f() { \
+                pull_requests=$(gh pr list --state open --json number,title,headRefName,baseRefName \
+                                      | jq -r '.[] | "\(.number)\t\(.title)\t\(.headRefName) → \(.baseRefName)"'); \
+                selected=$(printf '%s\n' "$pull_requests" \
+                  | fzf \
+                    --multi \
+                    --delimiter='\t' \
+                    --with-nth='1,2' \
+                    --preview='echo -e "PR #{1}\nBranch: {3}"' \
+                    --preview-window='down:3:wrap' \
+                    --header='↑↓ navigate  TAB multi-select  ENTER confirm' \
+                    --prompt='PRs › ' \
+                    --pointer='▶' \
+                    --marker='✓' \
+                    --color='header:italic,prompt:bold' \
+                    --height=40% \
+                    --border=rounded \
+                    --info=inline); \
+
+                pr_numbers=$(printf '%s\n' "$selected" | awk -F'\t' '{print $1}'); \
+                if [[ -z "$pr_numbers" ]]; then exit 0; fi; \
+                for pr_number in $pr_numbers; do \
+                    echo "Merging PR #$pr_number"; \
+                    gh pr merge "$pr_number" --squash --admin; \
+                done \
+                }; f
+              '';
             update =
               /*
               bash
