@@ -52,6 +52,12 @@ _: {
         ))
       ];
   in {
+    # Vicinae registers its own native messaging host at runtime. Force the
+    # Home Manager link so activation replaces that foreign symlink.
+    home.file = lib.optionalAttrs (!pkgs.stdenv.hostPlatform.isDarwin) {
+      ".mozilla/native-messaging-hosts".force = true;
+    };
+
     programs.vicinae =
       {
         enable = true;
