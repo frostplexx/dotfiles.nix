@@ -69,8 +69,8 @@ _: {
         enableInstallTelemetry = false;
         enableAnalytics = false;
         warnings.anthropicExtraUsage = false;
-        defaultProvider = "mistral";
-        defaultModel = "deepseek-v4-1-flash-1017";
+        defaultProvider = "opencode-go";
+        defaultModel = "deepseek-v4.1-flash";
         fullscreenCopyOnSelect = false;
         tuiMode = "regular";
         packages = [
@@ -78,6 +78,7 @@ _: {
           "pi-skills"
           "npm:pi-sandbox"
           "npm:pi-zentui"
+          "npm:pi-caveman"
         ];
         retry = {
           enabled = true;

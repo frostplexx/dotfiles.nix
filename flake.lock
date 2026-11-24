@@ -1357,16 +1357,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1795346899,
-        "narHash": "sha256-3i9+mvusXwYTLUx95QIN4QQ5Ghgoo8CvHUvBmQCUPmk=",
-        "owner": "Solomag",
+        "lastModified": 1795441558,
+        "narHash": "sha256-ctkKLxvMA+Bo0FXk0VZFOFInqG00sxY2mZaei9JdOqs=",
+        "owner": "Inrixia",
         "repo": "TidaLuna",
-        "rev": "b53373db6ac5804bc2053cebeac220b74df16d3a",
+        "rev": "4f71537b6f0caa856c49cddfc1c3492eea8afdeb",
         "type": "github"
       },
       "original": {
-        "owner": "Solomag",
-        "ref": "feat/home-manager-module",
+        "owner": "Inrixia",
         "repo": "TidaLuna",
         "type": "github"
       }

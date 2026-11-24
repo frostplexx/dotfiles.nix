@@ -24,6 +24,7 @@ rex.bind("cmd+shift+p", "client.palette.toggle")
 rex.bind("cmd+g", "lazygit_float")
 rex.bind("cmd+s", "floating_term")
 rex.bind("cmd+y", "yazi_float")
+rex.bind("cmd+;", "pi_float")
 
 -- Unbind some default keybindings
 rex.unbind("cmd+shift+g") -- the go to directory function kinda sucks so unbind it 

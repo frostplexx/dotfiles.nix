@@ -69,7 +69,7 @@
     };
 
     tidaluna = {
-      url = "github:Solomag/TidaLuna/feat/home-manager-module";
+      url = "github:Inrixia/TidaLuna";
     };
 
     sops-nix = {

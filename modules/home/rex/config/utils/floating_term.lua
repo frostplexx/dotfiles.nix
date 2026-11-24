@@ -3,15 +3,14 @@ local terminal = "com.superlogical.terminal"
 local bounds = { 0.05, 0.05, 0.9, 0.9 }
 
 local function focused_cwd(ctx)
-
     -- The shell reports its cwd as file://<cwd>, so we need to strip the file:// prefix
-    local pwd = rex.block.call(terminal, "pwd", {block_id = ctx.block_id})
+    local pwd = rex.block.call(terminal, "pwd", { block_id = ctx.block_id })
     if pwd and pwd.pwd then
         return (pwd.pwd:gsub("^file://[^/]*", ""))
     end
 
     -- If the pwd call fails, try to get the cwd from the foreground process
-    local proc = rex.block.call(terminal, "process", {block_id = ctx.block_id})
+    local proc = rex.block.call(terminal, "process", { block_id = ctx.block_id })
     return proc and proc.foreground and proc.foreground.cwd or nil
 end
 
@@ -107,7 +106,7 @@ rex.action({
     keywords = "lazygit git float",
     run = function(ctx)
         if not close_float("lazygit_float") then
-            open_float(ctx, {"lazygit"}, "lazygit_float")
+            open_float(ctx, { "lazygit" }, "lazygit_float")
         end
     end
 })
@@ -119,9 +118,18 @@ rex.action({
     keywords = "yazi file manager float",
     run = function(ctx)
         if not close_float("yazi_float") then
-            open_float(ctx, {"yazi"}, "yazi_float")
+            open_float(ctx, { "yazi" }, "yazi_float")
         end
     end
 })
 
 
+
+rex.action({
+    name = "pi_float",
+    title = "Pi Coding Agent",
+    keywords = "pi coding agent float",
+    run = function(ctx)
+        toggle_float(ctx, {"pi", "--tui-mode", "fullscreen"}, "pi_float")
+    end
+})
