@@ -147,11 +147,6 @@ _: {
 
           ctrl-alt-cmd-space = "fullscreen";
 
-          # Toggle the widgets/notifications panel (clicks the menu bar clock).
-          ctrl-alt-cmd-n = ''
-            exec-and-forget osascript -e 'tell application "System Events" to tell process "ControlCenter" to click menu bar item "Clock" of menu bar 1'
-          '';
-
           # Move the focused window to an adjacent slot.
           ctrl-alt-cmd-shift-h = "move left";
           ctrl-alt-cmd-shift-j = "move down";
