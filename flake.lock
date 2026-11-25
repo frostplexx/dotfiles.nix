@@ -20,11 +20,11 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1795472553,
-        "narHash": "sha256-Uki6tJ6Ap9gOVKtmBc8Te3+hoyuYXzJ0WAvkZgHHYsk=",
+        "lastModified": 1795519153,
+        "narHash": "sha256-PSM3NuBruMrdDaEhiLVFbQIpSzXXGMqEZv2SeRG5i5o=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "84ace426c2fe028183ce1092f1d673d91cb29938",
+        "rev": "0b931e4079090183696806ef1ef8227b81956806",
         "type": "github"
       },
       "original": {
@@ -401,11 +401,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1795585809,
-        "narHash": "sha256-/1nE8MidDuskGLrGCe4y9O5ENvW3N0iEkwZzAXuTMs0=",
+        "lastModified": 1795526160,
+        "narHash": "sha256-Ji26gn4KNmJv4nUOFnuTxPt53GcliJ6dmPiK+feZ/z4=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "f79250d93baa037d20d72d671fdadf358cd4e6cb",
+        "rev": "1b398855c7453ce6eee1f9d5da3303f5f7df68b3",
         "type": "github"
       },
       "original": {
@@ -417,11 +417,19 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1795549806,
         "narHash": "sha256-0WvHJv4nAnzPkOBV8wbTTc2gwmjT+WjxQRs8OC0wOKM=",
         "owner": "homebrew",
         "repo": "homebrew-core",
         "rev": "29803e7eb1feb7057b1dd284fded3fdd1567ba88",
+=======
+        "lastModified": 1795526399,
+        "narHash": "sha256-vZClvNDTpM60Ky22DfTnNERZ+RI1pZIDdgStRYDMQis=",
+        "owner": "homebrew",
+        "repo": "homebrew-core",
+        "rev": "99ce4f13f3c6d5d979c38024f24dcaa4248bd194",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -1174,7 +1182,6 @@
         "nvim": "nvim",
         "obsidian-skills": "obsidian-skills",
         "plasma-manager": "plasma-manager",
-        "skeuocord": "skeuocord",
         "sonora": "sonora",
         "sops-nix": "sops-nix",
         "tidaluna": "tidaluna",
@@ -1226,22 +1233,6 @@
         "type": "github"
       }
     },
-    "skeuocord": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794002338,
-        "narHash": "sha256-pzZOW2XWbQEpXNxaTAtb7qw5c3f3yUVyEATtkMhaSr8=",
-        "owner": "marda33",
-        "repo": "SkeuoCord",
-        "rev": "6c526b15f673e99d70f944ce7279df657bb13d4d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "marda33",
-        "repo": "SkeuoCord",
-        "type": "github"
-      }
-    },
     "sonora": {
       "inputs": {
         "crane": "crane_2",
@@ -1251,11 +1242,19 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1795565731,
         "narHash": "sha256-11hGFbgQP+mkpncYcpxLrDF3bAF0DmnOV4Tu6MXtRrE=",
         "owner": "sonorahq",
         "repo": "sonora",
         "rev": "e7e2f1edd6d5041cd59b0d4c94fb18e12f8ccdcc",
+=======
+        "lastModified": 1795524099,
+        "narHash": "sha256-9kfqEqx74MQi/dz9BpHxDZfuYdjzF25nmRH3VV5Onzw=",
+        "owner": "sonorahq",
+        "repo": "sonora",
+        "rev": "a78157527c8fe68d4d6e1e8fb63fa400da2d1ce1",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -1357,11 +1356,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1795503348,
-        "narHash": "sha256-Ykd4Sm4MIQCWu8XxKKjLBkbN0nV9XvGX1UO+MS4QfWY=",
+        "lastModified": 1795526760,
+        "narHash": "sha256-jcWbI/Mjfmpp3/QTXrZptOFSQmo1tL3iytjaIWjCVfQ=",
         "owner": "Inrixia",
         "repo": "TidaLuna",
-        "rev": "5b03c1f99e036c10d18689adf64e560f4dd2f251",
+        "rev": "112ed51f18641f53a68f1d1ee73553d484cbd218",
         "type": "github"
       },
       "original": {
