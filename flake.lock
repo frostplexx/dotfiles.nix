@@ -401,11 +401,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1795700008,
-        "narHash": "sha256-a/KmbvSCEuxXaG/1FGy1WkhOSdGBMXwPI75xMW/aRYc=",
+        "lastModified": 1795709545,
+        "narHash": "sha256-xEhEt5TpSG/fsvjgFhjEKbOzxiZlUww+Jp2PsqMbL8I=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "9019e178649ffee5255c8a2417eda37c91fcc14e",
+        "rev": "c7cb3e33c7856342db66ad09880ece5cc76d3b09",
         "type": "github"
       },
       "original": {
