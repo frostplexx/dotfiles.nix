@@ -836,7 +836,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "plugins-blink-copilot": "plugins-blink-copilot",
         "plugins-catppuccin": "plugins-catppuccin",
+        "plugins-copilot": "plugins-copilot",
         "plugins-cord": "plugins-cord",
         "plugins-fff": "plugins-fff",
         "plugins-friendly-snippets": "plugins-friendly-snippets",
@@ -844,7 +846,6 @@
         "plugins-lzn": "plugins-lzn",
         "plugins-mini": "plugins-mini",
         "plugins-mini-extra": "plugins-mini-extra",
-        "plugins-minuet": "plugins-minuet",
         "plugins-nvim-lint": "plugins-nvim-lint",
         "plugins-plenary": "plugins-plenary",
         "plugins-render-markdown": "plugins-render-markdown",
@@ -854,11 +855,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1795592810,
-        "narHash": "sha256-A3lzUBtJ0qsiOuSo6TIZ5OXfCTveu75SXD+B4vn0CvU=",
+        "lastModified": 1795679527,
+        "narHash": "sha256-6wmRvnixjSa8A9GNpWzb0pLj8YZ2fYlEp/eeQkpa/V8=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "f99695d391039d3232fc90e684c60f1cbfa801c3",
+        "rev": "543cfb391634e02762abc94c4c6aa302c12004e7",
         "type": "github"
       },
       "original": {
@@ -906,6 +907,22 @@
         "type": "github"
       }
     },
+    "plugins-blink-copilot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761710825,
+        "narHash": "sha256-cDvbUmnFZbPmU/HPISNV8zJV8WsH3COl3nGqgT5CbVQ=",
+        "owner": "fang2hou",
+        "repo": "blink-copilot",
+        "rev": "7ad8209b2f880a2840c94cdcd80ab4dc511d4f39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fang2hou",
+        "repo": "blink-copilot",
+        "type": "github"
+      }
+    },
     "plugins-catppuccin": {
       "flake": false,
       "locked": {
@@ -919,6 +936,22 @@
       "original": {
         "owner": "catppuccin",
         "repo": "nvim",
+        "type": "github"
+      }
+    },
+    "plugins-copilot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795359614,
+        "narHash": "sha256-yw3KrsbRPtdoaCZ6SUEjaKR5uo3f8gvDv22lqNmPCSs=",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "d1570ddc00fc4fc4caf7422803805ee22cca14ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
         "type": "github"
       }
     },
@@ -1037,22 +1070,6 @@
       "original": {
         "owner": "echasnovski",
         "repo": "mini.extra",
-        "type": "github"
-      }
-    },
-    "plugins-minuet": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1795410645,
-        "narHash": "sha256-8y7YhX4I3O+CwiFc/FYZMJ70x/FBNQzZD4jiPrvGDps=",
-        "owner": "milanglacier",
-        "repo": "minuet-ai.nvim",
-        "rev": "fcda648efd20f7495403de5f572165502a861731",
-        "type": "github"
-      },
-      "original": {
-        "owner": "milanglacier",
-        "repo": "minuet-ai.nvim",
         "type": "github"
       }
     },
