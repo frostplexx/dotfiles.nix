@@ -855,11 +855,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1795679527,
-        "narHash": "sha256-6wmRvnixjSa8A9GNpWzb0pLj8YZ2fYlEp/eeQkpa/V8=",
+        "lastModified": 1795680945,
+        "narHash": "sha256-7i5SMrWXExsNY2BkLSMk02VDyBzeZ5I4ruz2HUt3Mi8=",
         "owner": "frostplexx",
         "repo": "nvim.nix",
-        "rev": "543cfb391634e02762abc94c4c6aa302c12004e7",
+        "rev": "a372de59b7c3905c7f0a72cf8d779b0bf2375226",
         "type": "github"
       },
       "original": {
