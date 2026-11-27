@@ -177,9 +177,10 @@
     "type": "github",
     "owner": "frostplexx",
     "repo": "nvim.nix",
-    "rev": "a372de59b7c3905c7f0a72cf8d779b0bf2375226",
-    "narHash": "sha256-7i5SMrWXExsNY2BkLSMk02VDyBzeZ5I4ruz2HUt3Mi8=",
-    "lastModified": 1795680945
+    "rev": "5475e427e4e95b6012d1f00dd0cbf7170b11040a",
+    "narHash": "sha256-9CrelR7qQCjsohipR4BbdEnWH3jS9lUwKozOTWmq3c8=",
+    "lastModified": 1795782316,
+    "public": true
   },
   "obsidian-skills": {
     "type": "github",
