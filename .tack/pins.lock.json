@@ -153,9 +153,10 @@
     "type": "github",
     "owner": "kaylorben",
     "repo": "nixcord",
-    "rev": "d3c7a751bd6cf41067ae111550232e38f9bf10ed",
-    "narHash": "sha256-rdacTscfXt2XCgPYTPuqrJMvvyO8dTvauyd0tNNAMa4=",
-    "lastModified": 1795751163
+    "rev": "1a78753f3f2c343d22125dcfae22e401261b4949",
+    "narHash": "sha256-R46UOm6Rk5+8tLkc2mRzqm4o3/6fw2fukMh0NUG51Os=",
+    "lastModified": 1795786858,
+    "public": true
   },
   "nixkit": {
     "type": "github",
