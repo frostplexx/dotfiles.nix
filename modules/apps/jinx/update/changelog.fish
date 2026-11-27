@@ -5,7 +5,7 @@ function report_status --argument-names state msg
     $STATUS_SCRIPT $state $msg
 end
 
-function flake-diff --description "Compare flake.lock between commits and show GitHub commits" --argument-names flake_dir
+function flake-diff --description "Compare pins.lock.json between commits and show GitHub commits" --argument-names flake_dir
 
     # Set default directory to current if not provided
     if test -z "$flake_dir"
@@ -26,9 +26,9 @@ function flake-diff --description "Compare flake.lock between commits and show G
         return 1
     end
 
-    # Check if flake.lock exists
-    if not test -f flake.lock
-        echo "Error: flake.lock not found in '$flake_dir'" >&2
+    # Check if pins.lock.json exists
+    if not test -f .tack/pins.lock.json
+        echo "Error: .tack/pins.lock.json not found in '$flake_dir'" >&2
         cd "$original_dir"
         return 1
     end
@@ -46,49 +46,49 @@ function flake-diff --description "Compare flake.lock between commits and show G
         return 1
     end
 
-    # Get the previous commit's flake.lock
-    report_status working "Comparing flake.lock"
+    # Get the previous commit's pins.lock.json
+    report_status working "Comparing pins.lock.json"
     set prev_commit (git rev-parse HEAD~1)
     set current_commit (git rev-parse HEAD)
     set temp_dir (mktemp -d)
-    set prev_flake_lock "$temp_dir/flake.lock.prev"
-    set current_flake_lock "$temp_dir/flake.lock.current"
+    set prev_flake_lock "$temp_dir/pins.lock.json.prev"
+    set current_flake_lock "$temp_dir/pins.lock.json.current"
 
-    # Check if working tree is clean (no uncommitted changes to flake.lock)
-    if git diff --quiet flake.lock 2>/dev/null
+    # Check if working tree is clean (no uncommitted changes to pins.lock.json)
+    if git diff --quiet .tack/pins.lock.json 2>/dev/null
         # Working tree is clean, compare HEAD vs HEAD~1
-        if not git show "$prev_commit:flake.lock" >"$prev_flake_lock" 2>/dev/null
-            echo "Error: Could not find flake.lock in previous commit" >&2
+        if not git show "$prev_commit:.tack/pins.lock.json" >"$prev_flake_lock" 2>/dev/null
+            echo "Error: Could not find pins.lock.json in previous commit" >&2
             rm -rf "$temp_dir"
             cd "$original_dir"
             return 1
         end
-        if not git show "$current_commit:flake.lock" >"$current_flake_lock" 2>/dev/null
-            echo "Error: Could not find flake.lock in current commit" >&2
+        if not git show "$current_commit:.tack/pins.lock.json" >"$current_flake_lock" 2>/dev/null
+            echo "Error: Could not find pins.lock.json in current commit" >&2
             rm -rf "$temp_dir"
             cd "$original_dir"
             return 1
         end
-        echo "Comparing flake.lock in '$flake_dir' between $prev_commit and $current_commit..."
+        echo "Comparing pins.lock.json in '$flake_dir' between $prev_commit and $current_commit..."
     else
         # Working tree has changes, compare HEAD vs working tree
-        if not git show "$prev_commit:flake.lock" >"$prev_flake_lock" 2>/dev/null
-            echo "Error: Could not find flake.lock in previous commit" >&2
+        if not git show "$prev_commit:.tack/pins.lock.json" >"$prev_flake_lock" 2>/dev/null
+            echo "Error: Could not find pins.lock.json in previous commit" >&2
             rm -rf "$temp_dir"
             cd "$original_dir"
             return 1
         end
-        cp flake.lock "$current_flake_lock"
-        echo "Comparing flake.lock in '$flake_dir' between $prev_commit and current working tree..."
+        cp .tack/pins.lock.json "$current_flake_lock"
+        echo "Comparing pins.lock.json in '$flake_dir' between $prev_commit and current working tree..."
     end
     echo
 
-    # Parse both flake.lock files and compare (only GitHub repos that are actual flakes)
-    set current_inputs (jq -r '.nodes | to_entries[] | select(.value.locked != null and .value.locked.type == "github" and (.value.flake != false)) | "\(.key):\(.value.locked.owner // ""):\(.value.locked.repo // ""):\(.value.locked.rev // "")"' flake.lock 2>/dev/null)
-    set prev_inputs (jq -r '.nodes | to_entries[] | select(.value.locked != null and .value.locked.type == "github" and (.value.flake != false)) | "\(.key):\(.value.locked.owner // ""):\(.value.locked.repo // ""):\(.value.locked.rev // "")"' "$prev_flake_lock" 2>/dev/null)
+    # Parse both lock files and compare (only GitHub repos)
+    set current_inputs (jq -r 'to_entries[] | select(.value.type == "github") | "\(.key):\(.value.owner // ""):\(.value.repo // ""):\(.value.rev // "")"' .tack/pins.lock.json 2>/dev/null)
+    set prev_inputs (jq -r 'to_entries[] | select(.value.type == "github") | "\(.key):\(.value.owner // ""):\(.value.repo // ""):\(.value.rev // "")"' "$prev_flake_lock" 2>/dev/null)
 
     if test $status -ne 0
-        echo "Error: Failed to parse flake.lock files" >&2
+        echo "Error: Failed to parse pins.lock.json files" >&2
         rm -rf "$temp_dir"
         cd "$original_dir"
         return 1

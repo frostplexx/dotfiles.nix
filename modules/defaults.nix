@@ -53,11 +53,14 @@
         "https://frostplexx.cachix.org"
         "https://nix-community.cachix.org"
         "https://cache.nixos.org"
+        # Prebuilt tack from the manic-systems repo pin.
+        "https://cache.manic.systems"
       ];
       trusted-public-keys = [
         "frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "cache.manic.systems-1:s6OZanN8Us8vRi0jVivP3qlMn0cYHBjBALKrNe5nH8s="
       ];
       eval-cores = 0;
       auto-optimise-store = true;

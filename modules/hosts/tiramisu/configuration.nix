@@ -38,7 +38,6 @@ _: {
       };
     };
 
-    time.timeZone = defaults.system.timeZone;
     i18n.defaultLocale = defaults.system.locale;
 
     boot = {
@@ -170,15 +169,12 @@ _: {
     };
 
     programs = {
-      fish.enable = true;
       steam = {
         enable = true;
         extest.enable = true;
         protontricks.enable = true;
       };
-      _1password.enable = true;
       _1password-gui = {
-        enable = true;
         # Certain features, including CLI integration and system authentication support,
         # require enabling PolKit integration on some desktop environments (e.g. Plasma).
         polkitPolicyOwners = [user];
@@ -254,9 +250,6 @@ _: {
       '';
     };
     environment = {
-      pathsToLink = ["/share/fish"];
-      shells = [pkgs.fish];
-
       plasma6.excludePackages = with pkgs.kdePackages; [
         plasma-browser-integration
         elisa
@@ -269,7 +262,6 @@ _: {
     };
 
     fonts.packages = with pkgs; [
-      maple-mono.NF
       (stdenvNoCC.mkDerivation {
         pname = "lucida-console";
         version = "1.60";
@@ -292,9 +284,7 @@ _: {
     home-manager.users.${user} = _: {
       home = {
         stateVersion = defaults.system.nixosVersion;
-        username = user;
         homeDirectory = "/home/${user}";
-        sessionVariables.EDITOR = "nvim";
 
         packages = with pkgs; [
           # Games
@@ -305,7 +295,6 @@ _: {
           wl-clipboard
         ];
       };
-      programs.home-manager.enable = true;
     };
   };
 }

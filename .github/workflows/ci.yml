@@ -1,0 +1,393 @@
+name: CI
+
+# One pipeline: validate pull requests, build every configuration into the
+# frostplexx Cachix cache, and bump the pins on a schedule. A pin PR is pushed
+# as a branch, which fires the pull_request trigger, so it gets the same
+# validation and cache warm-up as any other change.
+
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - "README.md"
+  pull_request:
+    branches:
+      - "main"
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  security-check:
+    name: GitGuardian Security Scan
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: GitGuardian scan
+        uses: GitGuardian/ggshield/actions/secret@v1.57.0
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+
+  lint:
+    name: Statix Lint
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
+      - name: Run statix linter
+        run: |
+          echo "Linting Flake..."
+          # .tack/default.nix is the tack-managed resolver; tack owns its style.
+          nix run nixpkgs#statix -- check -i '.tack/**' .
+          nix run nixpkgs#deadnix -- -eq --exclude .tack .
+
+  detect-configs:
+    name: Detect Configurations
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
+      - name: Generate Configuration Matrix
+        id: set-matrix
+        shell: bash
+        run: |
+          echo "Detecting NixOS configurations..."
+          NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
+
+          echo "Detecting Darwin configurations..."
+          DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
+
+          echo "Detected NixOS configs: $NIXOS_CONFIGS"
+          echo "Detected Darwin configs: $DARWIN_CONFIGS"
+
+          MATRIX_JSON='{"include":['
+
+          NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
+          if [ "$NIXOS_ARRAY" != "[]" ]; then
+            for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"ubuntu-latest\","
+              MATRIX_JSON+="\"type\":\"nixos\","
+              MATRIX_JSON+="\"cmd\":\"os\","
+              MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
+              MATRIX_JSON+="},"
+            done
+          fi
+
+          DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
+          if [ "$DARWIN_ARRAY" != "[]" ]; then
+            for config in $(echo "$DARWIN_CONFIGS" | jq -r '.[]'); do
+              MATRIX_JSON+="{"
+              MATRIX_JSON+="\"name\":\"$config\","
+              MATRIX_JSON+="\"os\":\"macos-latest\","
+              MATRIX_JSON+="\"type\":\"darwin\","
+              MATRIX_JSON+="\"cmd\":\"darwin\","
+              MATRIX_JSON+="\"config\":\"darwinConfigurations.$config.system\""
+              MATRIX_JSON+="},"
+            done
+          fi
+
+          MATRIX_JSON=${MATRIX_JSON%,}
+          MATRIX_JSON+="]}"
+
+          echo "Matrix JSON: $MATRIX_JSON"
+          echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
+
+  # The only flake check is the formatting check, which is platform independent,
+  # so one (cheap) Linux runner covers it.
+  flake-check:
+    name: Flake Check
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    needs: [security-check, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      # No flake-checker: the flake has no inputs any more, and it rejects the
+      # input-less root node that nix writes into flake.lock.
+      - run: nix flake check
+
+  test-configurations:
+    name: Test Nix Configurations (matrix)
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    needs: [security-check, lint, detect-configs]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.detect-configs.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          sops-age-key: ${{ secrets.SOPS_AGE_KEY }}
+
+      - name: Build Configuration
+        id: build
+        run: |
+          if [ "${{ matrix.cmd }}" = "darwin" ]; then
+            nix run nixpkgs#nh -- darwin build --no-nom .#${{ matrix.name }} 2>&1 | tee build-output.txt
+          else
+            nix run nixpkgs#nh -- os build --no-nom -H ${{ matrix.name }} . 2>&1 | tee build-output.txt
+          fi
+          exit "${PIPESTATUS[0]}"
+
+      - name: Post build result
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const outcome = '${{ steps.build.outcome }}';
+            const name = '${{ matrix.name }}';
+            const type = '${{ matrix.type }}';
+            const output = fs.existsSync('build-output.txt')
+              ? fs.readFileSync('build-output.txt', 'utf8').trim()
+              : '(no output)';
+            const icon = outcome === 'success' ? '✅' : '❌';
+            const fingerprint = `<!-- build: ${name} (${type}) -->`;
+            const body = [
+              fingerprint,
+              `## ${icon} Build \`${name}\` (${type}) — ${outcome}`,
+              '',
+              '<details>',
+              outcome === 'success'
+                ? '<summary>Build succeeded</summary>'
+                : '<summary>Build errors — click to expand</summary>',
+              '',
+              '```',
+              output.slice(0, 65000),
+              '```',
+              '</details>',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body?.includes(fingerprint));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Fail if build failed
+        if: always() && steps.build.outcome == 'failure'
+        run: exit 1
+
+  # test-configurations has a matrix strategy, so GitHub reports each leg
+  # under a name like "Test Nix Configurations (macbook-m4-pro, ...)" — never
+  # the bare "Test Nix Configurations". This job has a fixed name and gates on
+  # every leg, so branch rules can require *it* instead.
+  test-configurations-status:
+    name: Test Nix Configurations
+    needs: [test-configurations]
+    if: always() && (github.event_name == 'push' || github.event_name == 'pull_request')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check matrix result
+        run: |
+          if [ "${{ needs.test-configurations.result }}" != "success" ]; then
+            echo "One or more configurations failed: ${{ needs.test-configurations.result }}"
+            exit 1
+          fi
+
+  update-tack:
+    name: Update tack pins
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Bump every pin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp .tack/pins.lock.json /tmp/old.json
+          nix run .#tack -- update
+          cp .tack/pins.lock.json /tmp/new.json
+          # Undo the batch update; each pin gets its own branch and PR below.
+          git checkout -- .tack/pins.lock.json
+          jq -r --slurpfile new /tmp/new.json '
+            to_entries[]
+            | select(.key | startswith("$") | not)
+            | .key as $pin
+            | select((.value.rev // "") != ($new[0][$pin].rev // ""))
+            | $pin
+          ' /tmp/old.json > /tmp/changed.txt
+          echo "changed pins:"
+          cat /tmp/changed.txt
+
+      - name: Open one PR per changed pin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          lock_field() { # file pin field
+            jq -r --arg p "$2" --arg f "$3" '.[$p][$f] // ""' "/tmp/$1.json"
+          }
+          lock_date() { # file pin
+            local ts
+            ts=$(lock_field "$1" "$2" lastModified)
+            if [[ -n "$ts" && "$ts" != "0" ]]; then
+              date -u -d "@$ts" +%Y-%m-%d
+            else
+              echo "?"
+            fi
+          }
+
+          while read -r pin; do
+            test -n "$pin" || continue
+
+            branch="tack-update/$(echo "$pin" | tr '/' '-')"
+            old_rev=$(lock_field old "$pin" rev)
+            new_rev=$(lock_field new "$pin" rev)
+            slug=$(jq -r --arg p "$pin" '
+              .[$p] | if .owner and .repo then "\(.owner)/\(.repo)" else .url // "" end
+            ' /tmp/new.json)
+
+            git checkout -B "$branch" origin/main
+            jq --arg p "$pin" --slurpfile new /tmp/new.json \
+              '.[$p] = $new[0][$p]' /tmp/old.json > .tack/pins.lock.json
+            git add .tack/pins.lock.json
+            git commit -m "chore(tack): update $pin"
+            git push --force origin "$branch"
+
+            {
+              echo "\`tack update $pin\` on $(date -u +%Y-%m-%d)."
+              echo
+              echo '| | old | new |'
+              echo '|---|---|---|'
+              echo "| rev | \`${old_rev:-new}\` | \`${new_rev:-gone}\` |"
+              echo "| date | $(lock_date old "$pin") | $(lock_date new "$pin") |"
+              echo
+              echo "Source: https://github.com/${slug}"
+              if [[ -n "$old_rev" && -n "$new_rev" ]]; then
+                echo
+                echo "Compare: https://github.com/${slug}/compare/${old_rev}...${new_rev}"
+              fi
+              echo
+              echo '<details><summary>pins.lock.json</summary>'
+              echo
+              echo '```diff'
+              diff -u \
+                <(jq --arg p "$pin" '.[$p]' /tmp/old.json || true) \
+                <(jq --arg p "$pin" '.[$p]' /tmp/new.json || true) || true
+              echo '```'
+              echo '</details>'
+            } > /tmp/body.md
+
+            number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
+            if [[ -n "$number" ]]; then
+              gh pr comment "$number" --body-file /tmp/body.md
+            else
+              gh pr create --base main --head "$branch" \
+                --title "chore(tack): update $pin" \
+                --body-file /tmp/body.md
+            fi
+          done < /tmp/changed.txt
+
+  update-vicinae-extensions:
+    name: Update vicinae extension pins
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
+
+      - name: Bump extension pins
+        id: update
+        run: |
+          nix shell nixpkgs#jq nixpkgs#git --command \
+            ./scripts/vicinae-extensions.sh update | tee summary.txt
+          {
+            echo 'summary<<EOF'
+            cat summary.txt
+            echo EOF
+          } >>"$GITHUB_OUTPUT"
+          rm summary.txt
+
+      - name: Check the config still evaluates
+        run: |
+          nix eval --raw --impure --expr \
+            'builtins.toJSON (builtins.fromJSON (builtins.readFile ./modules/home/vicinae/vicinae-extensions.json))' \
+            >/dev/null
+          nix flake check --no-build
+
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/vicinae-extensions
+          title: "chore(deps): update vicinae extension pins"
+          commit-message: "chore(deps): update vicinae extension pins"
+          body: |
+            Regenerated `modules/home/vicinae/vicinae-extensions.json` via
+            `./scripts/vicinae-extensions.sh update`.
+
+            ```
+            ${{ steps.update.outputs.summary }}
+            ```
+          delete-branch: true

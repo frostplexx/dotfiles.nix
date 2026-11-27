@@ -1,0 +1,149 @@
+# tack pins
+# edit by hand or with tack add / rm / alias
+# nix reads pins.lock.json
+# this file drives tack update
+
+[tack]
+recomposable = true
+
+# shorturl schemes
+# scheme rest expands rest into {path}
+[shorturls]
+gh = "github:{path}"
+frostplexx = "github:frostplexx/{path}"
+
+# every input with one of these names, at any depth, follows our pin.
+# systems/crane/rust-overlay have no consumer of their own to follow, so the
+# pin below is the one copy every pin uses.
+[all_follow]
+nixpkgs = ["nixpkgs", "nixpkgs-unstable", "nixpkgs-stable"]
+home-manager = "home-manager"
+nix-darwin = "nix-darwin"
+systems = "systems"
+crane = "crane"
+rust-overlay = "rust-overlay"
+
+# Group tables. `tack look` and `tack dedup` want every group named here.
+[groups.core]
+
+[groups.platform]
+
+[groups.desktop]
+
+[groups.apps]
+
+# Theme and asset pins are raw trees, never flakes.
+[groups.themes]
+type = "fetch"
+
+[groups.data]
+type = "fetch"
+
+# ==== core ====
+[inputs.core.nixpkgs]
+url = "gh:nixos/nixpkgs/nixpkgs-unstable"
+
+[inputs.core.flake-parts]
+url = "gh:hercules-ci/flake-parts"
+
+[inputs.core.import-tree]
+url = "gh:denful/import-tree"
+
+[inputs.core.systems]
+url = "gh:nix-systems/default"
+
+# Repo build of tack: the nixpkgs release lags and its resolver cannot read
+# groups, omit_inputs or frozen. Only the package is used; the
+# programs.tack module comes from nixpkgs.
+[inputs.core.tack]
+url = "gh:manic-systems/tack"
+
+# ==== platform ====
+# The nixpkgs follow for every pin below comes from [all_follow].
+[inputs.platform.nix-darwin]
+url = "gh:nix-darwin/nix-darwin/master"
+
+[inputs.platform.home-manager]
+url = "gh:nix-community/home-manager/master"
+
+[inputs.platform.disko]
+url = "gh:nix-community/disko"
+
+[inputs.platform.sops-nix]
+url = "gh:Mic92/sops-nix"
+
+[inputs.platform.determinate]
+url = "https://flakehub.com/f/DeterminateSystems/determinate/*.tar.gz"
+# Leaves two nixpkgs copies in place on purpose. Its `nix` input builds Nix
+# against nixpkgs-23-11, and its tests use nixpkgs-regression. Forcing either to
+# our nixpkgs breaks that build.
+
+[inputs.platform.nix-homebrew]
+url = "gh:zhaofengli-wip/nix-homebrew"
+# brew-src is deliberately not a pin: nix-homebrew evaluates `brew-src // {…}`,
+# and a tack fetch pin resolves to a plain store path, not a source attrset.
+# nix-homebrew's own lock supplies brew, on the tag its brew DSL is tested with.
+
+# ==== desktop ====
+[inputs.desktop.plasma-manager]
+url = "gh:nix-community/plasma-manager"
+
+[inputs.desktop.zen-browser]
+url = "gh:0xc000022070/zen-browser-flake"
+
+[inputs.desktop.vicinae]
+url = "gh:vicinaehq/vicinae"
+# tack dedup suggests following vicinae's nixpkgs-libxml2 too. Leave it: vicinae
+# pins nixos-24.11 there on purpose, to build against that libxml2.
+
+[inputs.desktop.lazykeys]
+url = "frostplexx:lazykeys"
+
+# ==== apps ====
+[inputs.apps.nixkit]
+url = "frostplexx:nixkit"
+
+[inputs.apps.nvim]
+url = "frostplexx:nvim.nix"
+
+[inputs.apps.nixcord]
+url = "gh:kaylorben/nixcord"
+
+[inputs.apps.sonora]
+url = "gh:sonorahq/sonora"
+
+[inputs.apps.tidaluna]
+url = "gh:Inrixia/TidaLuna"
+
+# Pulled in by nvim and sonora; one pin each so both use the same copy.
+[inputs.apps.crane]
+url = "gh:ipetkov/crane"
+
+[inputs.apps.rust-overlay]
+url = "gh:oxalica/rust-overlay"
+
+# ==== themes ====
+[inputs.themes.catppuccin-bat]
+url = "gh:catppuccin/bat"
+
+[inputs.themes.catppuccin-fish]
+url = "gh:catppuccin/fish"
+
+[inputs.themes.catppuccin-btop]
+url = "gh:catppuccin/btop"
+
+[inputs.themes.catppuccin-discord]
+url = "gh:catppuccin/discord"
+
+# ==== data ====
+[inputs.data.homebrew-core]
+url = "gh:homebrew/homebrew-core"
+
+[inputs.data.homebrew-cask]
+url = "gh:homebrew/homebrew-cask"
+
+[inputs.data.yazi-flavors]
+url = "gh:yazi-rs/flavors"
+
+[inputs.data.obsidian-skills]
+url = "gh:obsidianmd/obsidian-skills"

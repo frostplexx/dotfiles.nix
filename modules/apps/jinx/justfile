@@ -28,7 +28,8 @@ import "./misc/misc.just"
 
 [private]
 lint:
-    @alejandra -q {{DOTFILES_FOLDER}}
-    @statix check {{DOTFILES_FOLDER}}
-    @deadnix -eq {{DOTFILES_FOLDER}}
+    # .tack/default.nix is tack-managed; tack owns its style, so skip it here.
+    @find {{DOTFILES_FOLDER}} -name '*.nix' -not -path '*/.tack/*' -print0 | xargs -0 alejandra -q
+    @statix check -i '.tack/**' {{DOTFILES_FOLDER}}
+    @deadnix -eq --exclude .tack {{DOTFILES_FOLDER}}
 
