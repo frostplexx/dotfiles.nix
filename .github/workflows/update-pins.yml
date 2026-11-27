@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 concurrency:
   group: update-pins
@@ -24,6 +25,10 @@ jobs:
       - uses: actions/checkout@v7
 
       - uses: DeterminateSystems/nix-installer-action@v23
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+        with:
+          use-flakehub: "false"
 
       - name: Bump extension pins
         id: update

@@ -20,6 +20,10 @@
         "hash": "sha256-3aAWo8wpG/FT9LU/9ad/iQ1VKhbGmn6rl54tE2gUGlg=",
         "darwinOnly": true
       },
+      "port-manager": {
+        "rev": "87a6d3d0ff3a30d28f1dd6effc1074a49868d6e6",
+        "hash": "sha256-4FmZtoeJprNYcbeP24YqO+IqDp6/xsT9iYMM3Rg7W6k="
+      },
       "toothpick": {
         "rev": "a79448785b1bb8c6ccfa0e53e957b5812efab026",
         "hash": "sha256-A09ZaPJRdi1wECsKPfGFXGFpj1hDGgfzK63pgRraKwY=",

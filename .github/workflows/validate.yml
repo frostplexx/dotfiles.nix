@@ -30,10 +30,16 @@ jobs:
   lint:
     name: Statix Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v7
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v23
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+        with:
+          use-flakehub: "false"
       - name: Run statix linter
         run: |
           echo "Linting Flake..."
@@ -43,12 +49,18 @@ jobs:
   detect-configs:
     name: Detect Configurations
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v7
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v23
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+        with:
+          use-flakehub: "false"
       - name: Generate Configuration Matrix
         id: set-matrix
         shell: bash
@@ -103,6 +115,9 @@ jobs:
     name: Flake Check
     needs: [security-check, lint]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v7
 
@@ -131,6 +146,9 @@ jobs:
           chmod 600 "$HOME/.config/sops/age/keys.txt"
           echo "✓ SOPS age key written from secret"
 
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+        with:
+          use-flakehub: "false"
       - uses: DeterminateSystems/flake-checker-action@v14
       - run: nix flake check
 
@@ -138,6 +156,9 @@ jobs:
     name: Test Nix Configurations (matrix)
     needs: [security-check, lint, detect-configs]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
@@ -168,6 +189,10 @@ jobs:
           echo "$SOPS_AGE_KEY" > "$HOME/.config/sops/age/keys.txt"
           chmod 600 "$HOME/.config/sops/age/keys.txt"
           echo "✓ SOPS age key written from secret"
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+        with:
+          use-flakehub: "false"
 
       - name: Build Configuration
         id: build
