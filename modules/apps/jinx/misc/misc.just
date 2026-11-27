@@ -35,35 +35,38 @@ flush-dns:
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
 
-[group('󰋖 help')]
-[doc('Show help for jinx or one command')]
-help command="":
-    #!/usr/bin/env bash
-    if [ -n "{{command}}" ]; then
-
-        DATA=$(just --dump-format json --dump |jq '.recipes."{{command}}"')
-
-        if [ "$DATA" == "null" ]; then
-            printf "\n\033[0;31mCommand {{command}} doesn't exist!\033[0m\n"
-            printf "Run \033[0;34mjinx help\033[0m to get a list of available commands"
-            exit 0;
-        fi
-
-        printf "\n\033[0;32m$(echo $DATA|jq -r ".doc")\033[0m\n\n"
-        PARAMS=$(echo $DATA | jq -r '.parameters')
-        PARAMS_TEXT=""
-        if [ "$PARAMS" != "null" ] && [ "$PARAMS" != "[]" ]; then
-            PARAMS_TEXT=" [PARAMS]"
-        fi
-        printf "\033[0;33mUsage: \033[0;32mjinx $(echo $DATA|jq -r ".name") \033[0;36m[OPTIONS] <COMMAND>$PARAMS_TEXT\033[0m\n\n"
-        if [ "$PARAMS" != "null" ] && [ "$PARAMS" != "[]" ]; then
-            printf "\033[0;33mParameters:\033[0m\n"
-            echo $DATA | jq -r '.parameters[] | "  \u001b[36m\(.name)\u001b[0m - \(if .default then "\u001b[32mdefault: \u001b[35m\(.default)\u001b[0m" else "\u001b[31mrequired\u001b[0m" end)"'
-            printf "\n"
-        fi
-        printf "\033[0;33mOptions:\033[0m run \033[0;34mjust --help\033[0m to see available options\n\n"
-    else
-        printf "\033[0;33mUsage: \033[0;32mjinx \033[0;36m[OPTIONS] <COMMAND>\033[0m\n\n"
-        printf "\033[0;33mOptions:\033[0m run \033[0;34mjust --help\033[0m to see available options\n\n"
-        just --list --list-heading $'\033[0;33mCommands:\n'
-    fi
+[group('󱄅 system')]
+[doc('Search nixpkgs; Enter copies the selected attribute names')]
+search package:
+    #!/usr/bin/env fish
+    set -l copy pbcopy
+    command -q pbcopy; or set copy wl-copy
+    {{STATUS}} blocked question "Select packages"
+    fzf \
+        --phony \
+        --multi \
+        --query="{{package}}" \
+        --style minimal \
+        --layout=reverse \
+        --delimiter='\t' \
+        --prompt=" nix search: " \
+        --bind 'start,change:reload:
+          if test -n {q}
+            set DATA (nh search {q} --json 2>/dev/null)
+            echo $DATA | jq -c \'.results[] | "\(.package_attr_name)\t\(tojson)"\' -r 2>/dev/null
+          end
+        ' \
+        --with-nth=1 \
+        --preview='
+          echo {2} | jq -r -C "
+            . as \$pkg |
+            \"\u001b[0;34m \(.package_pname) \u001b[0;0m(\u001b[0;32m\(.package_pversion)\u001b[0;0m)\n\n\(.package_description)\n\n\u001b[0;33m󰖟 Homepage:\u001b[0;0m \(.package_homepage[0])\n\u001b[0;33m󱄅 Defined at:\u001b[0;0m \(.package_position)\u001b[0;33m\n Supported Platforms:\u001b[0;0m\n  \" +
+            (\$pkg.package_platforms
+              | map(select(. == \"aarch64-linux\" or . == \"x86_64-linux\" or . == \"aarch64-darwin\" or . == \"x86_64-darwin\"))
+              | join(\", \"))
+          "
+        ' \
+        --preview-window=wrap \
+        --bind "enter:execute-silent(echo {+1} | tr ' ' '\n' | $copy)+abort" \
+        --ansi \
+        < /dev/null
