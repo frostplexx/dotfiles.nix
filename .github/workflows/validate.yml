@@ -86,10 +86,10 @@ jobs:
         run: |
           MATRIX_JSON='{"include":['
           for config in $(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames | jq -r '.[]'); do
-            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"cmd\":\"os\"},"
+            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\"},"
           done
           for config in $(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null | jq -r '.[]'); do
-            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"cmd\":\"darwin\"},"
+            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\"},"
           done
           MATRIX_JSON=${MATRIX_JSON%,}
           MATRIX_JSON+="]}"
@@ -135,11 +135,15 @@ jobs:
       - name: Build Configuration
         id: build
         run: |
-          if [ "${{ matrix.cmd }}" = "darwin" ]; then
-            nix run nixpkgs#nh -- darwin build --no-nom .#${{ matrix.name }} 2>&1 | tee build-output.txt
-          else
-            nix run nixpkgs#nh -- os build --no-nom -H ${{ matrix.name }} . 2>&1 | tee build-output.txt
-          fi
+          # Cachix pushes the final paths through its post-build hook. The
+          # intermediate-derivation push lives in the push-cache job, so pull
+          # requests stay fast.
+          nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs --command \
+            nix-fast-build \
+              --flake .#ciTargets \
+              --no-nom \
+              --skip-cached \
+              2>&1 | tee build-output.txt
           exit "${PIPESTATUS[0]}"
 
       - name: Post build result
@@ -198,6 +202,39 @@ jobs:
       - name: Fail if build failed
         if: always() && steps.build.outcome == 'failure'
         run: exit 1
+
+  # Runs after every merge, so Cachix holds main's paths even when the pull
+  # request had no cache token (forks) or its run was cancelled. --skip-cached
+  # keeps this to the misses when the pull request already pushed everything.
+  push-cache:
+    name: Update Cachix cache
+    if: github.event_name == 'push'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
+        with:
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          sops-age-key: ${{ secrets.SOPS_AGE_KEY }}
+      - name: Build and push what the cache is missing
+        run: |
+          nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs --command \
+            nix-fast-build \
+              --flake .#ciTargets \
+              --no-nom \
+              --skip-cached \
+              --cachix-cache frostplexx \
+              --push-build-closure
 
   # test-configurations has a matrix strategy, so GitHub reports each leg under
   # a name like "Test Nix Configurations (macbook-m4-pro, ...)" — never the bare
