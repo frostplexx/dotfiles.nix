@@ -9,8 +9,8 @@ set -g STATUS_SCRIPT "$HOME/dotfiles.nix/modules/apps/jinx/lib/status.sh"
 # Check prerequisites
 function check_prerequisites
     set -l flake_dir $argv[1]
-    if not test -f "$flake_dir/flake.lock"
-        echo "$(set_color red) Error: flake.lock not found in $flake_dir$(set_color normal)"
+    if not test -f "$flake_dir/.tack/pins.lock.json"
+        echo "$(set_color red) Error: .tack/pins.lock.json not found in $flake_dir$(set_color normal)"
         exit 1
     end
 
@@ -27,7 +27,7 @@ function check_prerequisites
     end
 end
 
-# Get commits that modified flake.lock
+# Get commits that modified .tack/pins.lock.json
 function get_flake_lock_commits
     set -l flake_dir $argv[1]
     set -l limit $argv[2]
@@ -36,20 +36,20 @@ function get_flake_lock_commits
         set limit 50
     end
     
-    # Get commits that touched flake.lock with a nice format for fzf
-    git -C "$flake_dir" log --oneline --format="%h %C(yellow)%ad%C(reset) %C(cyan)%an%C(reset) %s" --date=short -n $limit -- flake.lock 2>/dev/null
+    # Get commits that touched .tack/pins.lock.json with a nice format for fzf
+    git -C "$flake_dir" log --oneline --format="%h %C(yellow)%ad%C(reset) %C(cyan)%an%C(reset) %s" --date=short -n $limit -- .tack/pins.lock.json 2>/dev/null
 end
 
 # Interactive commit picker
 function pick_commit
     set -l flake_dir $argv[1]
     
-    echo "$(set_color cyan)󰜘  Fetching commits that modified flake.lock...$(set_color normal)" >&2
+    echo "$(set_color cyan)󰜘  Fetching commits that modified .tack/pins.lock.json...$(set_color normal)" >&2
     
     set -l commits (get_flake_lock_commits $flake_dir 100)
     
     if test (count $commits) -eq 0
-        echo "$(set_color red) Error: No commits found that modified flake.lock$(set_color normal)" >&2
+        echo "$(set_color red) Error: No commits found that modified .tack/pins.lock.json$(set_color normal)" >&2
         return 1
     end
     
@@ -58,7 +58,7 @@ function pick_commit
     set -l selected (printf '%s\n' $commits | fzf --ansi \
         --header="󰜘  Select a commit to rollback to (current state will be compared against this)" \
         --prompt="󰜘  Commit: " \
-        --preview="git -C '$flake_dir' show {1}:flake.lock 2>/dev/null | jq -r '.nodes.root.inputs | keys[]' 2>/dev/null | head -20" \
+        --preview="git -C '$flake_dir' show {1}:.tack/pins.lock.json 2>/dev/null | jq -r 'keys[]' 2>/dev/null | head -20" \
         --preview-label="Inputs in selected commit")
     
     if test -z "$selected"
@@ -69,14 +69,14 @@ function pick_commit
     echo $selected | awk '{print $1}'
 end
 
-# Get flake.lock from a specific commit
+# Get .tack/pins.lock.json from a specific commit
 function get_lock_from_commit
     set -l flake_dir $argv[1]
     set -l commit $argv[2]
     set target_lock (mktemp)
     
-    if not git -C "$flake_dir" show "$commit:flake.lock" >$target_lock 2>/dev/null
-        echo "$(set_color red) Error: Could not get flake.lock from commit $commit$(set_color normal)" >&2
+    if not git -C "$flake_dir" show "$commit:.tack/pins.lock.json" >$target_lock 2>/dev/null
+        echo "$(set_color red) Error: Could not get .tack/pins.lock.json from commit $commit$(set_color normal)" >&2
         rm -f $target_lock
         return 1
     end
@@ -84,20 +84,20 @@ function get_lock_from_commit
     echo $target_lock
 end
 
-# Get previous flake.lock from git (legacy function for backward compatibility)
+# Get previous .tack/pins.lock.json from git (legacy function for backward compatibility)
 function get_previous_lock
     set -l flake_dir $argv[1]
     set prev_lock (mktemp)
-    # Try to get flake.lock from previous commit (HEAD^), fallback to HEAD if not available
+    # Try to get .tack/pins.lock.json from previous commit (HEAD^), fallback to HEAD if not available
     if git -C "$flake_dir" rev-parse HEAD^ >/dev/null 2>&1
-        if not git -C "$flake_dir" show HEAD^:flake.lock >$prev_lock 2>/dev/null
-            echo "$(set_color red) Error: Could not get flake.lock from previous commit (HEAD^)$(set_color normal)"
+        if not git -C "$flake_dir" show HEAD^:.tack/pins.lock.json >$prev_lock 2>/dev/null
+            echo "$(set_color red) Error: Could not get .tack/pins.lock.json from previous commit (HEAD^)$(set_color normal)"
             rm -f $prev_lock
             exit 1
         end
     else
-        if not git -C "$flake_dir" show HEAD:flake.lock >$prev_lock 2>/dev/null
-            echo "$(set_color red) Error: Could not get previous version of flake.lock from git$(set_color normal)"
+        if not git -C "$flake_dir" show HEAD:.tack/pins.lock.json >$prev_lock 2>/dev/null
+            echo "$(set_color red) Error: Could not get previous version of .tack/pins.lock.json from git$(set_color normal)"
             rm -f $prev_lock
             exit 1
         end
@@ -110,8 +110,8 @@ function get_input_nodes
     set -l lock_file $argv[1]
     set -l input_name $argv[2]
 
-    # Get nodes for this input (can be string or array)
-    set -l nodes_json (jq -c --arg input "$input_name" '.nodes.root.inputs[$input]' $lock_file 2>/dev/null)
+    # A pin is its own node in the flat lock: name in, name out
+    set -l nodes_json (jq -c --arg input "$input_name" 'if has($input) then $input else null end' $lock_file 2>/dev/null)
 
     if test "$nodes_json" = null -o -z "$nodes_json"
         return 1
@@ -132,7 +132,7 @@ function get_node_revision
     set -l lock_file $argv[1]
     set -l node_name $argv[2]
 
-    jq -r --arg node "$node_name" '.nodes[$node].locked.rev // empty' $lock_file 2>/dev/null
+    jq -r --arg node "$node_name" '.[$node].rev // empty' $lock_file 2>/dev/null
 end
 
 # Get URL for a node (for better identification)
@@ -140,7 +140,7 @@ function get_node_url
     set -l lock_file $argv[1]
     set -l node_name $argv[2]
 
-    jq -r --arg node "$node_name" '.nodes[$node].locked.url // .nodes[$node].original.url // empty' $lock_file 2>/dev/null
+    jq -r --arg node "$node_name" '.[$node] | (.url // (if .owner != null and .repo != null then "github:" + .owner + "/" + .repo else "" end))' $lock_file 2>/dev/null
 end
 
 # Format change entry with better duplicate handling
@@ -185,7 +185,7 @@ end
 function get_changed_inputs
     set -l flake_dir $argv[1]
     set -l target_lock $argv[2]
-    set -l current_lock "$flake_dir/flake.lock"
+    set -l current_lock "$flake_dir/.tack/pins.lock.json"
     set -l changed_entries
     
     # If no target lock provided, get from previous commit
@@ -195,7 +195,7 @@ function get_changed_inputs
     end
 
     # Get all input names from current lock
-    set -l inputs (jq -r '.nodes.root.inputs | keys[]' $current_lock)
+    set -l inputs (jq -r 'keys[]' $current_lock)
 
     for input in $inputs
         if test -z "$input"
@@ -294,7 +294,7 @@ function revert_inputs
     end
     
     set -l new_lock (mktemp)
-    cp "$flake_dir/flake.lock" $new_lock
+    cp "$flake_dir/.tack/pins.lock.json" $new_lock
 
     set -l reverted_count 0
 
@@ -306,7 +306,7 @@ function revert_inputs
         echo "Reverting $input_name [$node_name]..."
 
         # Get node data from target lock
-        set -l node_data (jq --arg node "$node_name" '.nodes[$node]' $target_lock)
+        set -l node_data (jq --arg node "$node_name" '.[$node]' $target_lock)
 
         if test "$node_data" = null
             echo "$(set_color yellow) Warning: Could not find node $input_name in previous lock file$(set_color normal)"
@@ -314,7 +314,7 @@ function revert_inputs
         end
 
         # Update the new lock file
-        if jq --arg node "$node_name" --argjson data "$node_data" '.nodes[$node] = $data' $new_lock >$new_lock.tmp
+        if jq --arg node "$node_name" --argjson data "$node_data" '.[$node] = $data' $new_lock >$new_lock.tmp
             mv $new_lock.tmp $new_lock
             set reverted_count (math $reverted_count + 1)
         else
@@ -322,9 +322,9 @@ function revert_inputs
         end
     end
 
-    # Replace the current flake.lock with the updated one
+    # Replace the current .tack/pins.lock.json with the updated one
     if test $reverted_count -gt 0
-        cp $new_lock "$flake_dir/flake.lock"
+        cp $new_lock "$flake_dir/.tack/pins.lock.json"
         echo "$(set_color green) Successfully reverted $reverted_count input(s)$(set_color normal)"
     else
         echo "$(set_color yellow) No inputs were reverted$(set_color normal)"
@@ -371,7 +371,7 @@ function main
         echo "$(set_color cyan)󰜘  Quick mode: comparing against previous commit (HEAD^)$(set_color normal)"
         set target_lock (get_previous_lock $flake_dir)
         set target_commit "HEAD^"
-        $STATUS_SCRIPT working "Comparing flake.lock"
+        $STATUS_SCRIPT working "Comparing .tack/pins.lock.json"
     else
         # Interactive mode: let user pick a commit
         set target_commit (pick_commit $flake_dir)
@@ -382,8 +382,8 @@ function main
         end
         
         echo ""
-        echo "$(set_color cyan)󰜘  Comparing current flake.lock against commit: $(set_color yellow)$target_commit$(set_color normal)"
-        $STATUS_SCRIPT working "Comparing flake.lock"
+        echo "$(set_color cyan)󰜘  Comparing current .tack/pins.lock.json against commit: $(set_color yellow)$target_commit$(set_color normal)"
+        $STATUS_SCRIPT working "Comparing .tack/pins.lock.json"
         
         set target_lock (get_lock_from_commit $flake_dir $target_commit)
         if test $status -ne 0
@@ -397,7 +397,7 @@ function main
 
     if test $get_inputs_status -ne 0
         echo ""
-        echo "$(set_color cyan) No changes detected between current flake.lock and $target_commit$(set_color normal)"
+        echo "$(set_color cyan) No changes detected between current .tack/pins.lock.json and $target_commit$(set_color normal)"
         rm -f $target_lock
         return 0
     end

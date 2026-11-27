@@ -9,24 +9,24 @@ update: lint
     @if command -v pi-update-extensions >/dev/null; then pi-update-extensions; fi
 
 [group('󰚰 update')]
-[doc('Update all flake inputs locally')]
+[doc('Update all pins')]
 update-inputs: lint
-    @{{STATUS}} working "Updating all flake inputs"
-    @nix flake update --flake {{DOTFILES_FOLDER}} --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
+    @{{STATUS}} working "Updating all pins"
+    @cd {{DOTFILES_FOLDER}} && GH_TOKEN=$(op read op://Personal/NixOS_PAT/token) tack update
 
 [group('󰚰 update')]
-[doc('Update a single flake input')]
+[doc('Update a single pin')]
 update-input name: lint
-    @{{STATUS}} working "Updating flake input {{name}}"
-    @nix flake update {{name}} --flake {{DOTFILES_FOLDER}} --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
+    @{{STATUS}} working "Updating pin {{name}}"
+    @cd {{DOTFILES_FOLDER}} && GH_TOKEN=$(op read op://Personal/NixOS_PAT/token) tack update {{name}}
 
 [group('󰚰 update')]
-[doc('Show upstream commits for the last flake.lock change')]
+[doc('Show upstream commits for the last pins.lock.json change')]
 changelog:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/changelog.fish" {{DOTFILES_FOLDER}}
 
 [group('󰚰 update')]
-[doc('Roll selected flake inputs back to an earlier commit')]
+[doc('Roll selected pins back to an earlier commit')]
 rollback-inputs:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/rollback_inputs.fish" "{{DOTFILES_FOLDER}}"
 

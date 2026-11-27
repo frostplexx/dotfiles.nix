@@ -148,25 +148,25 @@ else
 end
 
 # Check diff against pre-pull state
-report_status working "Checking flake.lock" 30
-spin_start "Checking for changes in flake.lock..."
+report_status working "Checking pins.lock.json" 30
+spin_start "Checking for changes in .tack/pins.lock.json..."
 sleep 0.3
-if git diff $pre_pull_ref --quiet -- flake.lock 2>/dev/null
-    spin_stop "" "$GREEN" "No changes in flake.lock — nothing to do"
+if git diff $pre_pull_ref --quiet -- .tack/pins.lock.json 2>/dev/null
+    spin_stop "" "$GREEN" "No changes in pins.lock.json — nothing to do"
     spin_done
     exit 0
 end
-spin_stop "" "$BLUE" "Changes detected in flake.lock"
+spin_stop "" "$BLUE" "Changes detected in pins.lock.json"
 
 # Compute diff with jq
-report_status working "Comparing flake inputs" 45
-spin_start "Comparing flake inputs..."
+report_status working "Comparing pins" 45
+spin_start "Comparing pins..."
 
 set -l diff_output (jq -n \
-    --slurpfile old (git show "$pre_pull_ref":flake.lock 2>/dev/null | psub) \
-    --slurpfile new (cat flake.lock | psub) '
-    ($old[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $old_revs |
-    ($new[0].nodes | to_entries | map(select(.key != "root" and .value.locked.rev)) | map({key: .key, value: .value.locked.rev}) | from_entries) as $new_revs |
+    --slurpfile old (git show "$pre_pull_ref":.tack/pins.lock.json 2>/dev/null | psub) \
+    --slurpfile new (cat .tack/pins.lock.json | psub) '
+    ($old[0] | to_entries | map(select(.value.rev)) | map({key: .key, value: .value.rev}) | from_entries) as $old_revs |
+    ($new[0] | to_entries | map(select(.value.rev)) | map({key: .key, value: .value.rev}) | from_entries) as $new_revs |
     ($new_revs | keys[]) as $input |
     $old_revs[$input] as $old_rev |
     $new_revs[$input] as $new_rev |
