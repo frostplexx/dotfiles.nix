@@ -1,0 +1,277 @@
+{
+  "$declared": {
+    "catppuccin-bat": "github:catppuccin/bat",
+    "catppuccin-btop": "github:catppuccin/btop",
+    "catppuccin-discord": "github:catppuccin/discord",
+    "catppuccin-fish": "github:catppuccin/fish",
+    "crane": "github:ipetkov/crane",
+    "determinate": "https://flakehub.com/f/DeterminateSystems/determinate/*.tar.gz",
+    "disko": "github:nix-community/disko",
+    "flake-parts": "github:hercules-ci/flake-parts",
+    "home-manager": "github:nix-community/home-manager/master",
+    "homebrew-cask": "github:homebrew/homebrew-cask",
+    "homebrew-core": "github:homebrew/homebrew-core",
+    "import-tree": "github:denful/import-tree",
+    "lazykeys": "github:frostplexx/lazykeys",
+    "nix-darwin": "github:nix-darwin/nix-darwin/master",
+    "nix-homebrew": "github:zhaofengli-wip/nix-homebrew",
+    "nixcord": "github:kaylorben/nixcord",
+    "nixkit": "github:frostplexx/nixkit",
+    "nixpkgs": "github:nixos/nixpkgs/nixpkgs-unstable",
+    "nvim": "github:frostplexx/nvim.nix",
+    "obsidian-skills": "github:obsidianmd/obsidian-skills",
+    "plasma-manager": "github:nix-community/plasma-manager",
+    "rust-overlay": "github:oxalica/rust-overlay",
+    "sonora": "github:sonorahq/sonora",
+    "sops-nix": "github:Mic92/sops-nix",
+    "systems": "github:nix-systems/default",
+    "tack": "github:manic-systems/tack",
+    "tidaluna": "github:Inrixia/TidaLuna",
+    "vicinae": "github:vicinaehq/vicinae",
+    "yazi-flavors": "github:yazi-rs/flavors",
+    "zen-browser": "github:0xc000022070/zen-browser-flake"
+  },
+  "catppuccin-bat": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "bat",
+    "rev": "6810349b28055dce54076712fc05fc68da4b8ec0",
+    "narHash": "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=",
+    "lastModified": 1751237777
+  },
+  "catppuccin-btop": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "btop",
+    "rev": "f437574b600f1c6d932627050b15ff5153b58fa3",
+    "narHash": "sha256-mEGZwScVPWGu+Vbtddc/sJ+mNdD2kKienGZVUcTSl+c=",
+    "lastModified": 1727050041
+  },
+  "catppuccin-discord": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "discord",
+    "rev": "b9b5547f0b32296d2389716ef606de87b3c1e7c7",
+    "narHash": "sha256-rxvHIifq5CYIBPwFA2SpOrWT+sG/z0ItXT3sx2wbEqg=",
+    "lastModified": 1770426312
+  },
+  "catppuccin-fish": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "fish",
+    "rev": "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3",
+    "narHash": "sha256-3KNWYXfOMzZovdjwjBpjSH8cVlD4CO2QmQcCyQE4Dac=",
+    "lastModified": 1773410042
+  },
+  "crane": {
+    "type": "github",
+    "owner": "ipetkov",
+    "repo": "crane",
+    "rev": "95e62def851e9d650f0eab63cb4f59a3306e20bd",
+    "narHash": "sha256-zrweT2tXbcWiJMACOhOr2eYFJKVa6g59ouRaZ3BS5Do=",
+    "lastModified": 1794962885
+  },
+  "determinate": {
+    "type": "tarball",
+    "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/determinate/3.24.3/01a1f12b-29f0-7623-8ebb-9b32a98f9538/source.tar.gz?rev=49968eb8f0f1a3c9c8790e9ead7ce7b5196f6c0f&revCount=458",
+    "narHash": "sha256-cIFgw0dKxzQULB8OSVLsXSrKfPfWzfzJA17rss9dqCg=",
+    "lastModified": 1795047501
+  },
+  "disko": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "disko",
+    "rev": "44761d4f745b95e037458a0e57133c5700c8e320",
+    "narHash": "sha256-D35n2Q2v1KrlF9LS/pFl8Z3EBMJW6qvPw5q4HMbXXLg=",
+    "lastModified": 1795168368
+  },
+  "flake-parts": {
+    "type": "github",
+    "owner": "hercules-ci",
+    "repo": "flake-parts",
+    "rev": "ea2630b7470978622c7689a1ff75d2b389175399",
+    "narHash": "sha256-V1h85lUaJBQoHFrB2vpXZOE0Ju1MYSnIpsehoVZYlDo=",
+    "lastModified": 1793576659
+  },
+  "home-manager": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "home-manager",
+    "rev": "54f903fdaaf5d5720ed36706fe75332af69eb793",
+    "narHash": "sha256-J1iQ1QMnkFwZFXnlPt2t3Qx7TsGjw08/0L3QMqNt+Wg=",
+    "lastModified": 1795748630
+  },
+  "homebrew-cask": {
+    "type": "github",
+    "owner": "homebrew",
+    "repo": "homebrew-cask",
+    "rev": "edce137f98ebb5d5a0c8397317dea5f5c7a72d64",
+    "narHash": "sha256-bLsK28m1JtFzL2Q/amepceo6GeqNkvDbaiFxRb9xuL8=",
+    "lastModified": 1795767177
+  },
+  "homebrew-core": {
+    "type": "github",
+    "owner": "homebrew",
+    "repo": "homebrew-core",
+    "rev": "82bb394d3250aa2a2d865714a633207ec9858bb4",
+    "narHash": "sha256-6eJncQ/W+lr4MfY3ZehSeaHd5InHfRwfxF6CYVcoK1U=",
+    "lastModified": 1795767115
+  },
+  "import-tree": {
+    "type": "github",
+    "owner": "denful",
+    "repo": "import-tree",
+    "rev": "eb1b52eaecc57f7c136d07ae8a93e724dfecac46",
+    "narHash": "sha256-ljEMTXP/rH0tOvDzc9gzwww6KcHRPRnEHzd9lK48V7s=",
+    "lastModified": 1788467110
+  },
+  "lazykeys": {
+    "type": "github",
+    "owner": "frostplexx",
+    "repo": "lazykeys",
+    "rev": "840f7ab30c157d6b513d98b744e7af300c3bd482",
+    "narHash": "sha256-jBMjPKTJFNyzUwSf6OpBVXW3gVNyJnP69bQsgCfq460=",
+    "lastModified": 1782977897
+  },
+  "nix-darwin": {
+    "type": "github",
+    "owner": "nix-darwin",
+    "repo": "nix-darwin",
+    "rev": "594c680c429be020d7130cc2b17d43c4760d17c7",
+    "narHash": "sha256-VTPsIOYem/zQCO1QF3cpa4pLg2EoexjX5R1u3fs3L4k=",
+    "lastModified": 1795747999
+  },
+  "nix-homebrew": {
+    "type": "github",
+    "owner": "zhaofengli-wip",
+    "repo": "nix-homebrew",
+    "rev": "b279e781fbfede43b2b20e7278cf3c5312ca3301",
+    "narHash": "sha256-qpfNQ5tFivEE9t7CsQcir3FTCr6zYji53YS9pm3AzyA=",
+    "lastModified": 1795755327
+  },
+  "nixcord": {
+    "type": "github",
+    "owner": "kaylorben",
+    "repo": "nixcord",
+    "rev": "d3c7a751bd6cf41067ae111550232e38f9bf10ed",
+    "narHash": "sha256-rdacTscfXt2XCgPYTPuqrJMvvyO8dTvauyd0tNNAMa4=",
+    "lastModified": 1795751163
+  },
+  "nixkit": {
+    "type": "github",
+    "owner": "frostplexx",
+    "repo": "nixkit",
+    "rev": "fba0c8bd5d72f7d8f19b0e88990987ec2f152ad0",
+    "narHash": "sha256-AJ3MI2EYZ65mUky32PvzuiAfhvQ0waxjz9ZxaudWyhM=",
+    "lastModified": 1795690125
+  },
+  "nixpkgs": {
+    "type": "github",
+    "owner": "nixos",
+    "repo": "nixpkgs",
+    "rev": "619c39f6eac5d1ed6b8f073a9414baf7034b2356",
+    "narHash": "sha256-oa2P5WZer1A4wuhatl92JyHHEjrrOdIyuvTuI5LUi9Q=",
+    "lastModified": 1795371335
+  },
+  "nvim": {
+    "type": "github",
+    "owner": "frostplexx",
+    "repo": "nvim.nix",
+    "rev": "a372de59b7c3905c7f0a72cf8d779b0bf2375226",
+    "narHash": "sha256-7i5SMrWXExsNY2BkLSMk02VDyBzeZ5I4ruz2HUt3Mi8=",
+    "lastModified": 1795680945
+  },
+  "obsidian-skills": {
+    "type": "github",
+    "owner": "obsidianmd",
+    "repo": "obsidian-skills",
+    "rev": "9c9560a870fd490b0e1a847f2c8401a50e2d931d",
+    "narHash": "sha256-OBqGXILvtpMiwe7ErNVeY71j2FCO2mSwNomu0T+4ngU=",
+    "lastModified": 1795714998,
+    "archive": {
+      "hash": "sha256-UAhDYMVJzcTXHC3N6kRvHiTGYBS3lcwg1Nc4+5WUnYE=",
+      "outHash": "sha256-sEPZPaeJ1gr7/gb7VGxHpyBlXukmS5OI+SeVTgpiP5I="
+    },
+    "public": true
+  },
+  "plasma-manager": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "plasma-manager",
+    "rev": "a19a2a029fa180911bd89c554dca1616e10f4c1d",
+    "narHash": "sha256-jZhZkzAwc7f3exzcTDJWP2WCAchCv0iNC3UF/QsahdQ=",
+    "lastModified": 1785762349
+  },
+  "rust-overlay": {
+    "type": "github",
+    "owner": "oxalica",
+    "repo": "rust-overlay",
+    "rev": "8771c4aba509d6efb8bf376fd8cb657cce52b013",
+    "narHash": "sha256-gvke5rg5P9S2TAXdOASCqEPc/OdvPKaHIGoMlbYLJ/E=",
+    "lastModified": 1795689650
+  },
+  "sonora": {
+    "type": "github",
+    "owner": "sonorahq",
+    "repo": "sonora",
+    "rev": "ec2aba5717fdfc58d640fb4f08d4aecfa8944d05",
+    "narHash": "sha256-eVmbJWp3noiKo0yt2zf82VuQX8zMqcRgtus3xbLt8eI=",
+    "lastModified": 1795744949
+  },
+  "sops-nix": {
+    "type": "github",
+    "owner": "Mic92",
+    "repo": "sops-nix",
+    "rev": "d5abe5e53200ad48254e8e6bd95e6cef94e66577",
+    "narHash": "sha256-2p8/wnENYHU2Z79Ir/rpq+V1sMI9mSD6xGAlvlbVBUY=",
+    "lastModified": 1795471345
+  },
+  "systems": {
+    "type": "github",
+    "owner": "nix-systems",
+    "repo": "default",
+    "rev": "d36eeed142f88b5a636f2e3856a53c61654cf29b",
+    "narHash": "sha256-uuanbkFk8a313Zfrxdcz8Us/yQtaxNnKJtX8v0ZPpd8=",
+    "lastModified": 1791244623
+  },
+  "tack": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "tack",
+    "rev": "673997981720feebb3870645932b6cfe6657db9f",
+    "narHash": "sha256-iRVnAKvQh5vC76QppovlxTklJf98EA+GYEY91loasy4=",
+    "lastModified": 1795748364
+  },
+  "tidaluna": {
+    "type": "github",
+    "owner": "Inrixia",
+    "repo": "TidaLuna",
+    "rev": "da1cabd51fe036aab3c08080e70a009c3cd3b9e8",
+    "narHash": "sha256-3otDyGqTcpmi2kpUB4N5exilE3vG0Z9uoYVG5Ej/XEo=",
+    "lastModified": 1795561790
+  },
+  "vicinae": {
+    "type": "github",
+    "owner": "vicinaehq",
+    "repo": "vicinae",
+    "rev": "39797b4694d8f0f1b3b427477ba5c302b6977f1d",
+    "narHash": "sha256-ccdlrcU8R/W2UkVTeH5lzI7q7Oy/tAyyq4v+0stsWdY=",
+    "lastModified": 1795767107
+  },
+  "yazi-flavors": {
+    "type": "github",
+    "owner": "yazi-rs",
+    "repo": "flavors",
+    "rev": "38c08d8eb9ea0d28c8c911a249a08f27ba2151ac",
+    "narHash": "sha256-lITDt1QvL54u6gbJiGixPyP6lk72f3rkiNPDrUg6G8I=",
+    "lastModified": 1794244702
+  },
+  "zen-browser": {
+    "type": "github",
+    "owner": "0xc000022070",
+    "repo": "zen-browser-flake",
+    "rev": "8fff5095fe8dcf614c2a4bec4ca346a800910e11",
+    "narHash": "sha256-tQ5YNz44fWJ7VWWia5ivfr5ZTlPR6GAxJkna4Z8j2bY=",
+    "lastModified": 1795762905
+  }
+}

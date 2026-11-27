@@ -1,127 +1,15 @@
 {
   description = "MacBook Pro M4 Configuration";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/master";
-    # nixpkgs.url = "git+file:///Users/daniel/Developer/github.com/frostplexx/nixpkgs";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:denful/import-tree";
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      # Track latest Homebrew so the tap (bumped via flake.lock) never runs
-      # ahead of the brew DSL. Pinned taps remain read-only via mutableTaps.
-      inputs.brew-src.url = "github:Homebrew/brew";
-    };
-
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixkit = {
-      url = "github:frostplexx/nixkit";
-      # url = "git+file:///Users/daniel/Projects/github.com/frostplexx/nixkit";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lazykeys = {
-      url = "github:frostplexx/lazykeys";
-    };
-
-    tidaluna = {
-      url = "github:Inrixia/TidaLuna";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nvim = {
-      url = "github:frostplexx/nvim.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    sonora = {
-      url = "github:sonorahq/sonora";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # ==== Homebrew Taps ====
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-
-    # ==== Pinned sources ====
-    yazi-flavors = {
-      url = "github:yazi-rs/flavors";
-      flake = false;
-    };
-    catppuccin-bat = {
-      url = "github:catppuccin/bat";
-      flake = false;
-    };
-    catppuccin-fish = {
-      url = "github:catppuccin/fish";
-      flake = false;
-    };
-    catppuccin-btop = {
-      url = "github:catppuccin/btop";
-      flake = false;
-    };
-    catppuccin-discord = {
-      url = "github:catppuccin/discord";
-      flake = false;
-    };
-    obsidian-skills = {
-      url = "github:kepano/obsidian-skills";
-      flake = false;
-    };
-  };
-
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  # Inputs live in .tack/pins.toml and are pinned by .tack/pins.lock.json.
+  # Bump them with `tack update`.
+  outputs = {self, ...} @ args: let
+    inputs = (import ./.tack) {overrides = args.tackOverrides or {};};
+  in
+    inputs.flake-parts.lib.mkFlake {
+      # flake-parts reads per-system inputs from `self.inputs`. This flake has no
+      # inputs of its own, so it needs the tack pins there.
+      self = self // {inherit inputs;};
+      inherit inputs;
+    } (inputs.import-tree ./modules);
 }
