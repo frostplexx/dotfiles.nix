@@ -36,13 +36,7 @@
         builders = "ssh-ng://root@192.168.0.85 x86_64-linux - 4 2";
       };
 
-    programs = {
-      opsops.enable = true;
-      _1password.enable = true;
-      _1password-gui = {
-        enable = true;
-      };
-    };
+    programs.opsops.enable = true;
 
     networking = {
       hostName = "macbook-m4-pro";
@@ -58,8 +52,6 @@
       ];
     };
 
-    time.timeZone = defaults.system.timeZone;
-
     # Security settings
     security.pam.services.sudo_local = {
       touchIdAuth = true;
@@ -67,15 +59,7 @@
     };
 
     # Fish shell
-    programs.fish = {
-      enable = true;
-      useBabelfish = true;
-    };
-
-    environment = {
-      pathsToLink = ["/share/fish"];
-      shells = [pkgs.fish];
-    };
+    programs.fish.useBabelfish = true;
 
     # User configuration
     users = {
@@ -333,7 +317,7 @@
       caskArgs.no_quarantine = true;
       onActivation = {
         # Taps are pinned through nix-homebrew (mutableTaps = false) and bumped
-        # via flake.lock, so `brew update` has nothing to do.
+        # via pins.lock.json, so `brew update` has nothing to do.
         autoUpdate = false;
         upgrade = true;
         cleanup = "zap";
@@ -373,10 +357,7 @@
       info.enable = true;
     };
 
-    fonts.packages = with pkgs; [
-      monocraft
-      maple-mono.NF
-    ];
+    fonts.packages = with pkgs; [monocraft];
 
     environment.systemPackages = with pkgs; [
       inputs.determinate.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -396,9 +377,7 @@
     home-manager.users.${user} = _: {
       home = {
         stateVersion = "26.05";
-        username = user;
         homeDirectory = "/Users/${user}";
-        sessionVariables.EDITOR = "nvim";
 
         # Development and CLI tools (tiramisu is gaming-only and doesn't get these)
         packages = with pkgs; [
@@ -419,7 +398,6 @@
           wget
         ];
       };
-      programs.home-manager.enable = true;
     };
   };
 }
