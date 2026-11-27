@@ -246,9 +246,10 @@
     "type": "github",
     "owner": "Inrixia",
     "repo": "TidaLuna",
-    "rev": "da1cabd51fe036aab3c08080e70a009c3cd3b9e8",
-    "narHash": "sha256-3otDyGqTcpmi2kpUB4N5exilE3vG0Z9uoYVG5Ej/XEo=",
-    "lastModified": 1795561790
+    "rev": "40d7c4483e4466df903354d60cca2d00fc2f7d68",
+    "narHash": "sha256-yc8pxvYasX5yJRXpfj5do++PgPla6s8cIBMl5SBU0cM=",
+    "lastModified": 1795787887,
+    "public": true
   },
   "vicinae": {
     "type": "github",
