@@ -1,18 +1,35 @@
 name: "Nix Configuration Validation"
+
+# Builds run on pull requests only. A merge to main re-runs the exact tree the
+# PR run just built, and Cachix already holds those paths, so the push trigger
+# only repeats work. Lint and the formatting check still run on main.
 on:
   push:
     branches:
       - "main"
     paths-ignore:
-      - 'README.md'
+      - "**.md"
+      - ".harper-dictionary.txt"
   pull_request:
     branches:
       - "main"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to the same branch cancels the run in flight. Without this,
+# back-to-back Renovate pushes left 30-45 minute builds running in parallel.
+concurrency:
+  group: validate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   security-check:
     name: GitGuardian Security Scan
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -30,25 +47,28 @@ jobs:
   lint:
     name: Statix Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v7
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v23
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
+      - uses: ./.github/actions/nix-setup
         with:
-          use-flakehub: "false"
-      - name: Run statix linter
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
+      - name: Run statix and deadnix
         run: |
-          echo "Linting Flake..."
-          nix run nixpkgs#statix -- check .
-          nix run nixpkgs#deadnix -- -eq .
+          nix shell nixpkgs#statix nixpkgs#deadnix --command bash -c '
+            statix check .
+            deadnix -eq .
+          '
 
   detect-configs:
     name: Detect Configurations
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
       id-token: write
@@ -56,148 +76,64 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v7
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v23
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
+      - uses: ./.github/actions/nix-setup
         with:
-          use-flakehub: "false"
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
       - name: Generate Configuration Matrix
         id: set-matrix
         shell: bash
         run: |
-          echo "Detecting NixOS configurations..."
-          NIXOS_CONFIGS=$(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames)
-
-          echo "Detecting Darwin configurations..."
-          DARWIN_CONFIGS=$(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null || echo "[]")
-
-          echo "Detected NixOS configs: $NIXOS_CONFIGS"
-          echo "Detected Darwin configs: $DARWIN_CONFIGS"
-
-          echo "Building matrix JSON..."
           MATRIX_JSON='{"include":['
-
-          NIXOS_ARRAY=$(echo "$NIXOS_CONFIGS" | jq -c .)
-          if [ "$NIXOS_ARRAY" != "[]" ]; then
-            for config in $(echo "$NIXOS_CONFIGS" | jq -r '.[]'); do
-              MATRIX_JSON+="{"
-              MATRIX_JSON+="\"name\":\"$config\","
-              MATRIX_JSON+="\"os\":\"ubuntu-latest\","
-              MATRIX_JSON+="\"type\":\"nixos\","
-              MATRIX_JSON+="\"cmd\":\"os\","
-              MATRIX_JSON+="\"config\":\"nixosConfigurations.$config.config.system.build.toplevel\""
-              MATRIX_JSON+="},"
-            done
-          fi
-
-          DARWIN_ARRAY=$(echo "$DARWIN_CONFIGS" | jq -c .)
-          if [ "$DARWIN_ARRAY" != "[]" ]; then
-            for config in $(echo "$DARWIN_CONFIGS" | jq -r '.[]'); do
-              MATRIX_JSON+="{"
-              MATRIX_JSON+="\"name\":\"$config\","
-              MATRIX_JSON+="\"os\":\"macos-latest\","
-              MATRIX_JSON+="\"type\":\"darwin\","
-              MATRIX_JSON+="\"cmd\":\"darwin\","
-              MATRIX_JSON+="\"config\":\"darwinConfigurations.$config.system\""
-              MATRIX_JSON+="},"
-            done
-          fi
-
+          for config in $(nix eval --impure --json .#nixosConfigurations --apply builtins.attrNames | jq -r '.[]'); do
+            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"ubuntu-latest\",\"type\":\"nixos\",\"cmd\":\"os\"},"
+          done
+          for config in $(nix eval --impure --json .#darwinConfigurations --apply builtins.attrNames 2>/dev/null | jq -r '.[]'); do
+            MATRIX_JSON+="{\"name\":\"$config\",\"os\":\"macos-latest\",\"type\":\"darwin\",\"cmd\":\"darwin\"},"
+          done
           MATRIX_JSON=${MATRIX_JSON%,}
           MATRIX_JSON+="]}"
-
-          echo "Matrix JSON: $MATRIX_JSON"
+          echo "Matrix: $MATRIX_JSON"
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
-  # The only flake check is the alejandra formatting check, which is
-  # platform-independent, so one (cheap) Linux runner covers it.
+  # Kept as its own job so the required-check name stays stable. The only flake
+  # check is the alejandra formatting check, so this is one cheap Linux job.
   flake-check:
     name: Flake Check
-    needs: [security-check, lint]
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v7
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v23
+      - uses: ./.github/actions/nix-setup
         with:
-          extra-conf: |
-            extra-experimental-features = nix-command flakes external-builders
-            substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io
-            trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc= cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
-
-      - name: Setup Cachix Auth
-        uses: cachix/cachix-action@v17
-        with:
-          name: frostplexx
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - name: Setup SOPS age key from secret
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-        if: env.SOPS_AGE_KEY != ''
-        run: |
-          mkdir -p "$HOME/.config/sops/age"
-          echo "$SOPS_AGE_KEY" > "$HOME/.config/sops/age/keys.txt"
-          chmod 600 "$HOME/.config/sops/age/keys.txt"
-          echo "✓ SOPS age key written from secret"
-
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
-        with:
-          use-flakehub: "false"
-      - uses: DeterminateSystems/flake-checker-action@v14
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          sops-age-key: ${{ secrets.SOPS_AGE_KEY }}
       - run: nix flake check
 
   test-configurations:
     name: Test Nix Configurations (matrix)
-    needs: [security-check, lint, detect-configs]
+    if: github.event_name != 'push'
+    needs: [detect-configs]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     permissions:
       contents: read
       id-token: write
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.detect-configs.outputs.matrix)}}
+      matrix: ${{ fromJson(needs.detect-configs.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v7
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v23
+      - uses: ./.github/actions/nix-setup
         with:
-          extra-conf: |
-            extra-experimental-features = nix-command flakes external-builders
-            substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io
-            trusted-substituters = https://cache.nixos.org https://frostplexx.cachix.org https://nvf.cachix.org https://nix-community.cachix.org https://vicinae.cachix.org https://cache.thalheim.io
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= frostplexx.cachix.org-1:kjkhnGNSkUvf5Mx8OEfhzaR830CUkDRglaKduAcr3UQ= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc= cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
-
-      - name: Setup Cachix Auth
-        uses: cachix/cachix-action@v17
-        with:
-          name: frostplexx
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - name: Setup SOPS age key from secret
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-        if: env.SOPS_AGE_KEY != ''
-        run: |
-          mkdir -p "$HOME/.config/sops/age"
-          echo "$SOPS_AGE_KEY" > "$HOME/.config/sops/age/keys.txt"
-          chmod 600 "$HOME/.config/sops/age/keys.txt"
-          echo "✓ SOPS age key written from secret"
-
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
-        with:
-          use-flakehub: "false"
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          sops-age-key: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: Build Configuration
         id: build
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           if [ "${{ matrix.cmd }}" = "darwin" ]; then
             nix run nixpkgs#nh -- darwin build --no-nom .#${{ matrix.name }} 2>&1 | tee build-output.txt
@@ -263,19 +199,21 @@ jobs:
         if: always() && steps.build.outcome == 'failure'
         run: exit 1
 
-  # test-configurations has a matrix strategy, so GitHub reports each leg
-  # under a name like "Test Nix Configurations (macbook-m4-pro, ...)" —
-  # never the bare "Test Nix Configurations". This job has a fixed name and
-  # gates on every leg, so branch rules can require *it* instead.
+  # test-configurations has a matrix strategy, so GitHub reports each leg under
+  # a name like "Test Nix Configurations (macbook-m4-pro, ...)" — never the bare
+  # "Test Nix Configurations". This job has a fixed name and gates on every leg,
+  # so branch rules can require *it*. A skipped matrix (push to main) passes.
   test-configurations-status:
     name: Test Nix Configurations
     needs: [test-configurations]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Check matrix result
         run: |
-          if [ "${{ needs.test-configurations.result }}" != "success" ]; then
-            echo "One or more configurations failed: ${{ needs.test-configurations.result }}"
+          result="${{ needs.test-configurations.result }}"
+          if [ "$result" != "success" ] && [ "$result" != "skipped" ]; then
+            echo "One or more configurations failed: $result"
             exit 1
           fi
