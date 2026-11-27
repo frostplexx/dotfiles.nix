@@ -6,7 +6,14 @@ _: {
   ];
 
   # Make nixpkgs available per-system
-  perSystem = {pkgs, ...}: {
+  perSystem = {
+    pkgs,
+    inputs',
+    ...
+  }: {
+    # `nix run .#tack` gives CI the exact pinned tack build.
+    packages.tack = inputs'.tack.packages.tack;
+
     # Default formatter
     formatter = pkgs.alejandra;
 

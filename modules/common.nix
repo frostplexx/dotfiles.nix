@@ -28,14 +28,27 @@ _: let
     };
   };
 in {
-  flake.darwinModules.common = {pkgs, ...}: {
+  # Both hosts take tack from the gh:manic-systems/tack pin. The nixpkgs
+  # release lags and its resolver cannot read groups, omit_inputs or frozen.
+  flake.darwinModules.common = {
+    pkgs,
+    inputs,
+    ...
+  }: {
     imports = [common];
     # tack has no nix-darwin module; its NixOS module only adds the package.
-    environment.systemPackages = [pkgs.tack];
+    environment.systemPackages = [inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.tack];
   };
 
   flake.nixOSModules.common = {
+    pkgs,
+    inputs,
+    ...
+  }: {
     imports = [common];
-    programs.tack.enable = true;
+    programs.tack = {
+      enable = true;
+      package = inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.tack;
+    };
   };
 }
