@@ -21,9 +21,14 @@ update-input name: lint
     @nix flake update {{name}} --flake {{DOTFILES_FOLDER}} --option access-tokens github.com=$(op read op://Personal/NixOS_PAT/token)
 
 [group('󰚰 update')]
-[doc('Show upstream commits for the last flake.lock change')]
-changelog:
-    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/changelog.fish" {{DOTFILES_FOLDER}}
+[doc('List flake inputs that have upstream updates')]
+look:
+    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/look.fish" {{DOTFILES_FOLDER}}
+
+[group('󰚰 update')]
+[doc('Show each pin's locked inputs and what they follow')]
+tree:
+    @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/tree.fish" {{DOTFILES_FOLDER}}
 
 [group('󰚰 update')]
 [doc('Roll selected flake inputs back to an earlier commit')]
