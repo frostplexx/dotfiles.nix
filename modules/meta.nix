@@ -14,8 +14,22 @@ _: {
     # `nix run .#tack` gives CI the exact pinned tack build.
     packages.tack = inputs'.tack.packages.tack;
 
-    # Default formatter
-    formatter = pkgs.alejandra;
+    # Default formatter. tack writes .tack/default.nix with nixfmt, so run the
+    # same tool there. Any other formatter would rewrite it and make tack call
+    # the resolver out of date.
+    formatter = pkgs.writeShellApplication {
+      name = "fmt";
+      runtimeInputs = [pkgs.alejandra pkgs.nixfmt pkgs.findutils];
+      text = ''
+        case "''${1:-}" in
+          "" | .)
+            find . -name '*.nix' -not -path './.tack/*' -exec alejandra {} +
+            find .tack -name '*.nix' -exec nixfmt {} +
+            ;;
+          *) exec alejandra "$@" ;;
+        esac
+      '';
+    };
 
     # Development shells
     devShells = {
@@ -36,8 +50,12 @@ _: {
     # Linux; duplicating them as flake checks would just rebuild the same
     # result on every system in the check matrix.
     checks = {
+      # .tack/default.nix is tack-managed: nixfmt there, alejandra everywhere else.
       formatting = pkgs.runCommand "check-formatting" {} ''
-        ${pkgs.alejandra}/bin/alejandra --check ${../.} || exit 1
+        ${pkgs.findutils}/bin/find ${../.} -name '*.nix' -not -path '*/.tack/*' -print0 \
+          | ${pkgs.findutils}/bin/xargs -0 ${pkgs.alejandra}/bin/alejandra --check
+        ${pkgs.findutils}/bin/find ${../.}/.tack -name '*.nix' -print0 \
+          | ${pkgs.findutils}/bin/xargs -0 ${pkgs.nixfmt}/bin/nixfmt --check
         touch $out
       '';
     };
