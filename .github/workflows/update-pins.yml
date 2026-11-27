@@ -21,14 +21,14 @@ concurrency:
 jobs:
   vicinae-extensions:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
 
-      - uses: DeterminateSystems/nix-installer-action@v23
-
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
+      - uses: ./.github/actions/nix-setup
         with:
-          use-flakehub: "false"
+          cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          push: "false"
 
       - name: Bump extension pins
         id: update

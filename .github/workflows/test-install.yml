@@ -13,10 +13,15 @@ on:
       - 'scripts/install.sh'
       - '.github/workflows/test-install.yml'
 
+concurrency:
+  group: test-install-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-install-macos:
     name: Test install.sh on macOS
     runs-on: macos-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7

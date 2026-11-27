@@ -8,5 +8,13 @@
   ],
   "automerge": true,
   "automergeType": "pr",
-  "prHourlyLimit": 0
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 3,
+  "rebaseWhen": "conflicted",
+  "packageRules": [
+    {
+      "matchManagers": ["nix"],
+      "groupName": "nix flake inputs"
+    }
+  ]
 }
