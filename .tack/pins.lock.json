@@ -113,9 +113,14 @@
     "type": "github",
     "owner": "homebrew",
     "repo": "homebrew-core",
-    "rev": "82bb394d3250aa2a2d865714a633207ec9858bb4",
-    "narHash": "sha256-6eJncQ/W+lr4MfY3ZehSeaHd5InHfRwfxF6CYVcoK1U=",
-    "lastModified": 1795767115
+    "rev": "5d2a6f497b5bab5f1938ea3347cbc9377b80e49c",
+    "narHash": "sha256-TjvdCH1svbkv0y6ZRiZRjeuLIqs6KVlM9Vj68qShDjQ=",
+    "lastModified": 1795797837,
+    "archive": {
+      "hash": "sha256-UR01ufa8Pth/8UBIdQpojSCJ91VUJ8lkUqc0BfNGqFo=",
+      "outHash": "sha256-WiuoMvp4zX7d3V30MeD086lsE+VPKHGIaxcAdglhgzE="
+    },
+    "public": true
   },
   "import-tree": {
     "type": "github",
