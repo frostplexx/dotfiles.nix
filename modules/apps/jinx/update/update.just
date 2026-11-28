@@ -25,17 +25,14 @@ update-input name: lint
 look:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/look.fish" {{DOTFILES_FOLDER}}
 
-[group('󰚰 update')]
-[doc('Show each pin's locked inputs and what they follow')]
+[doc("Show each pin's locked inputs and what they follow")]
 tree:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/tree.fish" {{DOTFILES_FOLDER}}
 
-[group('󰚰 update')]
 [doc('Roll selected flake inputs back to an earlier commit')]
 rollback-inputs:
     @"{{DOTFILES_FOLDER}}/modules/apps/jinx/update/rollback_inputs.fish" "{{DOTFILES_FOLDER}}"
 
-[group('󰚰 update')]
 [doc('Squash-merge selected open PRs (admin override)')]
 merge-updates:
     @cd {{DOTFILES_FOLDER}} && \

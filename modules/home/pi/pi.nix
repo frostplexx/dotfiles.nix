@@ -78,7 +78,6 @@ _: {
           "pi-skills"
           "npm:pi-sandbox"
           "npm:pi-zentui"
-          "npm:pi-caveman"
         ];
         retry = {
           enabled = true;
