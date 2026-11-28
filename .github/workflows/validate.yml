@@ -119,9 +119,14 @@ jobs:
     needs: [detect-configs]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
+    # Post build result comments on the PR, so this job needs issues: write
+    # (GitHub routes PR comments through the issues API). Fork PRs still get a
+    # read-only token; the comment step must tolerate that.
     permissions:
       contents: read
       id-token: write
+      issues: write
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.detect-configs.outputs.matrix) }}
@@ -146,8 +151,12 @@ jobs:
               2>&1 | tee build-output.txt
           exit "${PIPESTATUS[0]}"
 
+      # Fork PRs get a read-only token, so commenting fails with 403. Skip them
+      # and let the job status carry the result.
       - name: Post build result
-        if: always() && github.event_name == 'pull_request'
+        if: >-
+          always() && github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/github-script@v9
         with:
           script: |
